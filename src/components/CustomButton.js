@@ -34,11 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(56, 125, 229, 1)',
     alignItems: 'center',
     justifyContent: 'center',
-<<<<<<< Updated upstream
     borderRadius: 18,
-=======
-    borderRadius: scale(15),
->>>>>>> Stashed changes
     flexDirection: 'row',
   },
   ButtonText: {
