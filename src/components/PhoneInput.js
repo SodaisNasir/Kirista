@@ -15,7 +15,7 @@ const PhoneInput = (props) => {
         color:Color.TextColor,
         marginLeft:'8%',
         fontSize:16,
-        marginTop:'5%'
+        marginTop:'8%'
       }}> Phone Number</Text>
     <View style={{
       height:verticalScale(45),

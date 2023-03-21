@@ -9,6 +9,7 @@ import SignUp from '../screens/auth/SignUp';
 import Countrycode from '../../Countrycode';
 import PhoneInput from '../components/PhoneInput';
 import Login from '../screens/auth/Login';
+import Password from '../components/Password';
 
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +21,7 @@ function Route() {
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Password" component={Password} />
         <Stack.Screen name="PhoneInput" component={PhoneInput} />
         <Stack.Screen name="Countrycode" component={Countrycode} />
      </Stack.Navigator>

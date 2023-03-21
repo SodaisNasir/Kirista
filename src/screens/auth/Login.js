@@ -7,6 +7,7 @@ import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Color } from '../../utils/Colors'
+import Password from '../../components/Password'
 
 const Login = ({navigation}) => {
   return (
@@ -23,7 +24,7 @@ const Login = ({navigation}) => {
      <View style={{
           alignItems:'center',
             justifyContent:'center',
-            marginTop:'5%',
+            marginTop:'10%',
            }}>
      <Text style={{
         fontFamily:Font.Poppins700,
@@ -43,8 +44,7 @@ const Login = ({navigation}) => {
     </View >
     <CustomInput  text={'Email Address'} placeholder
       ={'Email Address'}/>
-       <CustomInput  text={'Password'} placeholder
-      ={'Password'} image={require('../../assets/images/Eye.png')}/>
+      <Password/>
 
 <View style={{
         marginHorizontal:'5%',

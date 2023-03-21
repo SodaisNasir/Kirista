@@ -8,6 +8,7 @@ import { Color } from '../../utils/Colors';
 import { scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import PhoneInput from '../../components/PhoneInput';
 import Countrycode from '../../../Countrycode';
+import Password from '../../components/Password';
 const SignUp = ({navigation}) => {
   return (
     <SafeAreaView style={{
@@ -15,18 +16,17 @@ const SignUp = ({navigation}) => {
         backgroundColor:'white'
     }}>
      <View style={{
-        marginTop:'10%'
+        marginTop:'8%'
        }}>
         <Kiristalogo/>
      </View>
         <View style={{
             alignItems:'center',
             justifyContent:'center',
-            marginTop:'5%'
          }}>
      <Text style={{
         fontFamily:Font.Poppins700,
-        fontSize:32,
+        fontSize:scale(25),
         color:'black'
       }}>
      Create Account
@@ -42,8 +42,7 @@ const SignUp = ({navigation}) => {
       
        <CustomInput  text={'Email Address'} placeholder
       ={'Email Address'}/>
-      <CustomInput  text={'Password'} placeholder
-      ={'Password'} image={require('../../assets/images/Eye.png')}/>
+     <Password/>
        <View style={{
         marginHorizontal:'5%',
         marginTop:'2%'
@@ -53,11 +52,11 @@ const SignUp = ({navigation}) => {
    <View style={{
     alignItems:'center',
     justifyContent:'center',
-    marginTop:'10%'
+    marginTop:'7%'
    }}>
     <Text style={{
-      fontFamily:Font.Poppins700,
-      fontSize:16,
+      fontFamily:Font.Poppins500,
+      fontSize:scale(15),
       color:Color.TextColor
     }}>
     If you have an account, 

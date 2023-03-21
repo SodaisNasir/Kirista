@@ -9,6 +9,7 @@ import CustomButton from '../../components/CustomButton';
 import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { Color } from '../../utils/Colors';
 const OverBoard = ({navigation}) => {
     const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -126,7 +127,8 @@ const OverBoard = ({navigation}) => {
             alignSelf: 'center',
             fontFamily:Font.Poppins500,
             fontSize:14,
-            textAlign:'center'
+            textAlign:'center',
+            color:Color.TextColor
         }}>
         By continuing, you agree the 
         <TouchableOpacity>
