@@ -1,13 +1,12 @@
-import React from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+// import React from 'react'
+// import {StyleSheet, Text, View} from 'react-native'
+// import OverBoard from './src/auth/OverBoard'
 
-const App = () => {
-  return (
-    <View>
-      <Text>App</Text>
-    </View>
-  )
-}
+// const App = () => {
+//   return (
+// <OverBoard />
+//   )
+// }
 
-const styles = StyleSheet.create({})
-export default App
+// const styles = StyleSheet.create({})
+// export default App

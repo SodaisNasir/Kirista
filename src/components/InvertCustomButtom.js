@@ -4,14 +4,13 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
 import { Font } from '../assets/fonts/PoppinsFont'
 // import Color from '../Assets/Color';
 
-const CustomButton = (props) => {
+const InvertCoustomButton = ({text, onPress, stylz, BGColor, Textalig, restyle}) => {
   return (
-    <View style={[styles.ButtonContainer, props.stylz,props.ButtonContainerRestytle]}>
+    <View style={[styles.ButtonContainer, stylz]}>
       <TouchableOpacity
-        onPress={props.onPress}
-        style={[styles.ButtonStyles, props.BGColor, props.restyle]}>
-          
-        <Text style={[styles.ButtonText, props.Textalig]}>{props.text}</Text>
+        onPress={onPress}
+        style={[styles.ButtonStyles, BGColor, restyle]}>
+        <Text style={[styles.ButtonText, Textalig]}>{text}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -27,14 +26,15 @@ const styles = StyleSheet.create({
   ButtonStyles: {
     height: scale(40),
     width: '100%',
-    backgroundColor: 'rgba(56, 125, 229, 1)',
+    borderColor: 'rgba(56, 125, 229, 1)',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
     flexDirection: 'row',
+    borderWidth:2
   },
   ButtonText: {
-    color: 'white',
+    color: 'rgba(56, 125, 229, 1)',
     // textTransform: 'capitalize',
     fontSize: moderateScale(18),
     fontWeight: '900',
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CustomButton
+export default InvertCoustomButton
