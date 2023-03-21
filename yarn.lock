@@ -5839,6 +5839,11 @@ react-native-codegen@^0.70.4:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-country-codes-picker@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-country-codes-picker/-/react-native-country-codes-picker-2.3.0.tgz#5eeccf8c390292ed12b85c6060a5328c8fba1056"
+  integrity sha512-TqKpiguAcQvwj7oHJYUytZNV7enNHPKt6xF0V/q696V+OBysvrdhEy33ueNBywGQQUMLqDcbnooF/lOoTrkatw==
+
 react-native-dropdown-picker@^5.4.6:
   version "5.4.6"
   resolved "https://registry.yarnpkg.com/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.6.tgz#3736fc468de4a295e4df8d1f65ed2eadaf9b445f"

@@ -7,7 +7,8 @@ import CustomButton from '../../components/CustomButton'
 import { Color } from '../../utils/Colors';
 import { scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import PhoneInput from '../../components/PhoneInput';
-const SignUp = () => {
+import Countrycode from '../../../Countrycode';
+const SignUp = ({navigation}) => {
   return (
     <SafeAreaView style={{
         flex:1,
@@ -34,20 +35,25 @@ const SignUp = () => {
 
        <CustomInput  text={'Full Name'} placeholder
       ={'Full Name'}/>
-       <PhoneInput placeholder={'Phone Number'}/>
+      <View>
+
+      <PhoneInput/>
+      </View>
+      
        <CustomInput  text={'Email Address'} placeholder
       ={'Email Address'}/>
       <CustomInput  text={'Password'} placeholder
-      ={'Password'}/>
+      ={'Password'} image={require('../../assets/images/Eye.png')}/>
        <View style={{
         marginHorizontal:'5%',
-        marginTop:'5%'
+        marginTop:'2%'
      }}>
         <CustomButton text={'Sign up'}/>
    </View >
    <View style={{
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    marginTop:'10%'
    }}>
     <Text style={{
       fontFamily:Font.Poppins700,
@@ -55,11 +61,11 @@ const SignUp = () => {
       color:Color.TextColor
     }}>
     If you have an account, 
-    <Text  style={{
+    <Text onPress={()=>navigation.navigate('Login')} style={{
       fontFamily:Font.Poppins700,
       fontSize:16,
       color:Color.TextColor,
-      
+     
     }}> Sign in</Text>
     
     </Text>

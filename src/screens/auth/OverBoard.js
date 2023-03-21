@@ -9,7 +9,7 @@ import CustomButton from '../../components/CustomButton';
 import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-const OverBoard = () => {
+const OverBoard = ({navigation}) => {
     const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -112,13 +112,13 @@ const OverBoard = () => {
      <View style={{
         marginHorizontal:'5%'
      }}>
-        <CustomButton text={'Create an account'}/>
+        <CustomButton text={'Create an account'} onPress={()=>navigation.navigate('SignUp')}/>
    </View >
      <View style={{
         marginHorizontal:'5%',
         marginTop:'-4%'
      }}>
-     <InvertCustomButton text={'Sign In'}/>
+     <InvertCustomButton text={'Sign In'} onPress={()=>navigation.navigate('Login')}/>
      </View>
 
         <Text style={{
