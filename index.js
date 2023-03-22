@@ -4,9 +4,12 @@
 
 import {AppRegistry} from 'react-native';
 // import App from './App';
+import App from './App';
 import {name as appName} from './app.json';
-import Route from './src/navigation/Route';
+// import CustomHeader from './src/components/CustomHeader';
+// import EventScreen from './src/screens/homescreen/EventScreen';
+
 // import OverBoard from './src/screens/auth/OverBoard';
 // import SignUp from './src/screens/auth/SignUp';
 
-AppRegistry.registerComponent(appName, () =>Route);
+AppRegistry.registerComponent(appName, () => App);

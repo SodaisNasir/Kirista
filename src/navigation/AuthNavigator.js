@@ -15,11 +15,11 @@ import ResetPassword from '../screens/auth/ResetPassword';
 
 const Stack = createNativeStackNavigator();
 
-function Route() {
+function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ResetPassword"
+        initialRouteName="OverBoard"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -34,4 +34,4 @@ function Route() {
   );
 }
 
-export default Route;
+export default AuthNavigator;

@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View , SafeAreaView} from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View ,Dimensions ,SafeAreaView} from 'react-native'
 import React, { useState } from 'react'
 import Kiristalogo from '../../constant/Kiristalogo'
 import { Font } from '../../assets/fonts/PoppinsFont';
@@ -10,6 +10,12 @@ import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { Color } from '../../utils/Colors';
+
+
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
+
+
 const OverBoard = ({navigation}) => {
     const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -28,26 +34,47 @@ const OverBoard = ({navigation}) => {
             marginHorizontal:'5%'
           }}>
           <TouchableOpacity style={{
-            width:'18%',
-            height:'120%',
+            width:w >= 768 && h >= 1024 ? scale(38)  : scale(50),
+            height:w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(38),
             backgroundColor:'rgba(56, 125, 229, 1)',
-            borderRadius:30,
+            borderRadius:scale(15),
             alignItems:'center',
             justifyContent:'center',
             flexDirection:'row',
+            
            
           }}>
-                <Text style={{
+
+            <View
+            style={{flexDirection:'row',
+          
+         
+            
+          }}
+            >
+
+        
+                <Text style={[ 
+                  
+                 {fontSize : w >= 768 && h >= 1024 ? scale(10) : scale(13)
+                  ,
                   fontFamily:Font.Poppins600,
                   color:'white',
-              
-                }}>
+                  marginRight:scale(2)
+               }
+
+                  ]
+                }>
                   EN
                 </Text>
-                <AntDesign name='down' size={20} color={'white'} style={{
-                  marginTop:'-3%'
+                <AntDesign name='down' size={w >= 768 && h >= 1024 ? scale(11)  : scale(16)} color={'white'} style={{
+                   alignSelf:'center'
+                  
                 }}/>
+                    </View>
+
           </TouchableOpacity>
+
           <TouchableOpacity>
             <Text style={{
                   fontFamily:Font.Poppins700,

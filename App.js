@@ -1,12 +1,13 @@
-// import React from 'react'
-// import {StyleSheet, Text, View} from 'react-native'
-// import OverBoard from './src/auth/OverBoard'
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import AuthNavigator from './src/navigation/AuthNavigator'
 
-// const App = () => {
-//   return (
-// <OverBoard />
-//   )
-// }
+const App = () => {
+  return (
+   <AuthNavigator />
+  )
+}
 
-// const styles = StyleSheet.create({})
-// export default App
+export default App
+
+const styles = StyleSheet.create({})
