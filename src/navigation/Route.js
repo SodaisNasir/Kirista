@@ -10,7 +10,8 @@ import Countrycode from '../../Countrycode';
 import PhoneInput from '../components/PhoneInput';
 import Login from '../screens/auth/Login';
 import Password from '../components/Password';
-
+import OTP from '../screens/auth/Otp';
+import ResetPassword from '../screens/auth/ResetPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,7 @@ function Route() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="OTP"
+        initialRouteName="ResetPassword"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -26,7 +27,9 @@ function Route() {
         <Stack.Screen name="Password" component={Password} />
         <Stack.Screen name="PhoneInput" component={PhoneInput} />
         <Stack.Screen name="Countrycode" component={Countrycode} />
-     </Stack.Navigator>
+        <Stack.Screen name="OTP" component={OTP} />
+        <Stack.Screen name="ResetPassword" component={ResetPassword} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-
 import CustomButton from '../../components/CustomButton';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {
@@ -18,6 +17,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
+import AuthHeader from '../../components/AuthHeader';
 
 const CELL_COUNT = 4;
 const OTP = ({navigation}) => {
@@ -34,29 +34,25 @@ const OTP = ({navigation}) => {
     return () => clearInterval(timer);
   }, [time]);
 
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
   return (
     <SafeAreaView style={styles.Container}>
-      <View style={styles.NavigatorStyle}></View>
-      <View
-        style={{
-          height: '12%',
-          justifyContent: 'center',
-        }}>
-        <Text style={styles.WelcomeText}>Email Verification</Text>
-      </View>
+      <AuthHeader text={'Email Verification'} />
 
       <View
         style={{
-          //   backgroundColor: 'purple',
           justifyContent: 'center',
-          height: verticalScale(60),
+          marginVertical: scale(10),
         }}>
         <Text style={styles.LongText}>
           We have sent a one-time password to{' '}
           <Text
             style={{
               fontFamily: Color.Poppins700,
-              fontSize: scale(14),
+              fontSize: scale(12),
               color: Color.BoldTextColor,
             }}>
             maryjames@rccg.com
@@ -68,7 +64,6 @@ const OTP = ({navigation}) => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          //   backgroundColor: 'red',
           marginVertical: scale(5),
         }}>
         <Text style={styles.OtpText}>OTP</Text>
@@ -81,7 +76,7 @@ const OTP = ({navigation}) => {
                 alignItems: 'center',
                 borderRadius: scale(10),
               }}
-              onPress={() => setTime(40)}>
+              onPress={() => setTime(600)}>
               <Text
                 style={{
                   color: Color.Black,
@@ -99,7 +94,7 @@ const OTP = ({navigation}) => {
                 alignSelf: 'center',
                 fontFamily: Font.Poppins700,
               }}>
-              {time}
+              {timeString}
             </Text>
           )}
         </View>
@@ -138,8 +133,10 @@ const styles = StyleSheet.create({
   },
 
   NavigatorStyle: {
-    height: '12%',
-    backgroundColor: 'red',
+    height: verticalScale(64),
+    // backgroundColor: 'red',
+    justifyContent: 'center',
+    marginTop: scale(10),
   },
   WelcomeText: {
     fontSize: scale(28),
@@ -149,33 +146,34 @@ const styles = StyleSheet.create({
   },
   LongText: {
     color: Color.TextColor,
-    fontFamily: Font.Poppins500,
-    fontSize: scale(14),
+    fontFamily: Font.Poppins400,
+    fontSize: scale(12),
     marginBottom: scale(5),
   },
   OtpText: {
     color: Color.TextColor,
     fontFamily: Font.Poppins400,
-    fontSize: scale(15),
+    fontSize: scale(14),
   },
 
   codeFieldRoot: {
-    paddingHorizontal: moderateScale(25),
-    marginVertical: scale(15),
+    paddingHorizontal: moderateScale(32),
+    marginVertical: scale(10),
   },
   cell: {
     // paddingHorizontal: scale(30),
-    width: scale(55),
-    height: verticalScale(46),
+    width: scale(50),
+    height: verticalScale(40),
     fontSize: scale(24),
     // borderWidth: 2,
-    borderRadius: scale(18),
+    borderRadius: scale(16),
     // borderColor: Color.Main,
     backgroundColor: Color.OtpBoxColor,
     textAlign: 'center',
     color: Color.Black,
     fontFamily: Font.Poppins400,
     textAlignVertical: 'center',
+    elevation: 1,
   },
   ImageBox: {
     marginTop: '30%',
