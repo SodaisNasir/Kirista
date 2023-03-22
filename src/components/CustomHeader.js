@@ -1,4 +1,4 @@
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, Dimensions, View } from 'react-native'
 import React from 'react'
 import  AntDesign  from 'react-native-vector-icons/AntDesign';
 import { Font } from '../assets/fonts/PoppinsFont';
@@ -7,29 +7,34 @@ import { Color } from '../utils/Colors';
 import  FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
+
 const CustomHeader = (props) => {
   return (
   
    <View style={{
-    height: '8%',
+    height: 768 && h >= 1024 ? '10%' : '15%',
     flexDirection: 'row'
    }}>
     <View style={{
         height: '100%',
         width: '15%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom:w >= 768 && h >= 1024 ? scale(10) : scale(10),  
     }}>
-         <AntDesign name="arrowleft" size={35} color="black"/>
+         <AntDesign name="arrowleft" size={30} color="black"/>
     </View>
     <View style={{
         height: '100%',
         width: '45%',
         justifyContent: 'center',
+        
     }}>
     <Text style={{
         fontFamily:Font.Poppins500,
-        fontSize:scale(22),
+        fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),  
         color:Color.TextColor,
      }}>
        {props.text}
@@ -41,12 +46,15 @@ const CustomHeader = (props) => {
         width: '40%',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        flexDirection:'row'
+        flexDirection:'row',
+        paddingHorizontal: w >= 768 && h >= 1024 ? scale(25) : scale(8),
+        marginLeft:'5%'
+        
     }}>
         <TouchableOpacity>
         <View style={{
-        width:25,
-        height:25,
+        width:22,
+        height:22,
      }}>
         <Image resizeMode='cover' source={props.image1} style={{
             width:'100%',
@@ -56,8 +64,8 @@ const CustomHeader = (props) => {
         </TouchableOpacity>
         <TouchableOpacity  >
           <View style={{
-        width:25,
-        height:25,
+        width:22,
+        height:22,
      }}>
         <Image resizeMode='cover' source={props.image2} style={{
             width:'100%',

@@ -30,7 +30,7 @@ const OverBoard = ({navigation}) => {
           <View style={{
             flexDirection:'row',
             justifyContent:'space-between',
-            marginTop:'8%',
+            marginTop:w >= 768 && h >= 1024 ? '6%' : '10%',
             marginHorizontal:'5%'
           }}>
           <TouchableOpacity style={{
@@ -87,36 +87,59 @@ const OverBoard = ({navigation}) => {
           </View>
           
       <View style={{
-        marginTop:'15%'
+        marginTop:'10%'
        }}>
         <Kiristalogo/>
        </View>
-       <View style={{
-        alignItems:'center',
-        justifyContent:'center',
-        marginTop:'10%'
-       }}>
-        <Image source={require('../../assets/images/first.png')}/>
-       </View>
+      
 
        <View style={{
         alignItems:'center',
         justifyContent:'space-evenly',
         flexDirection:'row',
-        marginTop:'10%',
-        paddingHorizontal:15,
+        marginTop: 768 && h >= 1024 ? '10%' :'18%',
+        paddingHorizontal: 768 && h >= 1024 ? scale(50)  : scale(30),
       
        }}>
-        <Image source={require('../../assets/images/second.png')} />
-        <Image source={require('../../assets/images/third.png')}  />
-        <Image source={require('../../assets/images/fourth.png')} />
+        <View style={{
+          width:w >= 768 && h >= 1024 ? scale(90)  : scale(85),
+          height:w >= 768 && h >= 1024 ? verticalScale(80)  : verticalScale(80),
+         
+        }}>
+        <Image source={require('../../assets/images/second.png')} style={{
+          width:'100%',
+          height:'100%'
+        }} 
+        resizeMode={'contain'}
+        /></View> 
+        <View style={{
+          width:w >= 768 && h >= 1024 ? scale(45)  : scale(45),
+          height:w >= 768 && h >= 1024 ? scale(50)  : scale(60),
+        }}>
+        <Image source={require('../../assets/images/third.png')} style={{
+          width:'100%',
+          height:'100%'
+        }} 
+        resizeMode={'contain'}
+        /></View> 
+        <View style={{
+          width:w >= 768 && h >= 1024 ? scale(85)  : scale(85),
+          height:w >= 768 && h >= 1024 ? scale(55)  : scale(60),
+        }}>
+        <Image source={require('../../assets/images/fourth.png')} style={{
+          width:'100%',
+          height:'100%'
+        }}
+        resizeMode={'contain'}
+        /></View> 
+
        </View>
 
        <View style={{
-        marginTop:'5%',
+        
         flexDirection:'row',
         justifyContent:'space-evenly',
-        paddingHorizontal:'2%'
+        paddingHorizontal:w >= 768 && h >= 1024 ? scale(50)  : scale(40),
        }}>
         <CustomSmallButton text={'#Parishes'}/>
         <CustomSmallButton text={'#Books'}/>
@@ -126,19 +149,20 @@ const OverBoard = ({navigation}) => {
          <View style={{
             alignItems:'center',
             justifyContent:'center',
-            marginTop:'15%'
+            marginTop:w >= 768 && h >= 1024 ? '23%' :'22%',
          }}>
      <Text style={{
         
         fontFamily:Font.Poppins700,
-        fontSize:24,
+        fontSize:768 && h >= 1024 ? scale(14)  : scale(23),
         color:'black'
       }}>
-      Welecome,Brethern
+      Welcome,Brethern
       </Text>
      </View>
      <View style={{
-        marginHorizontal:'5%'
+        marginHorizontal:'5%',
+        marginTop:'3%'
      }}>
         <CustomButton text={'Create an account'} onPress={()=>navigation.navigate('SignUp')}/>
    </View >
@@ -165,7 +189,7 @@ const OverBoard = ({navigation}) => {
         <TouchableOpacity 
         style={{}}
         >
-            <Text style={{top : verticalScale(2),alignSelf:'center', color:'rgba(56, 125, 229, 1)',fontFamily:Font.Poppins400,marginTop:'-2%',
+            <Text style={{top : verticalScale(2),alignSelf:'center', color:'rgba(56, 125, 229, 1)',fontFamily:Font.Poppins400,
             fontSize:14,
             textAlign:'center'}}>
             Privacy Policy

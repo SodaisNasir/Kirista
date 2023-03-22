@@ -1,9 +1,12 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Image, SafeAreaView, StyleSheet, Dimensions, Text, View } from 'react-native'
 import React from 'react'
 import CustomHeader from '../../components/CustomHeader'
 import { scale, verticalScale } from 'react-native-size-matters'
 import { Font } from '../../utils/font'
 import { Color } from '../../utils/Colors'
+
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const EventScreen = () => {
   return (
@@ -14,12 +17,12 @@ const EventScreen = () => {
         <CustomHeader text={'View Event'}image1={(require('../../assets/images/vector1.png'))}image2={(require('../../assets/images/bookmark.png'))} />
        
         <View style={{
-            width:'90%',
-            height:'20%',
+            width:w >= 768 && h >= 1024 ? '55%' : '85%', 
+            height:w >= 768 && h >= 1024 ? '20%' : '20%', 
             alignSelf:'center',
             overflow: 'hidden',
             borderRadius: 10,
-            marginTop:'6%'
+            marginTop: w >= 768 && h >= 1024 ? '5%' : '1%',  
 
         }}>
             <Image source={require('../../assets/images/EventScreenImage1.png')} style={{
@@ -35,9 +38,9 @@ const EventScreen = () => {
         }}>
         <Text  style={{
       fontFamily:Font.Poppins700,
-      fontSize:scale(20),
+      fontSize :w >= 768 && h >= 1024 ? scale(15) : scale(20),
       color:Color.TextColor,
-      marginTop:'8%',
+      marginTop:'4%',
       marginLeft:'5%'
      }}>
         Abuja Special Holy Ghost Congress
@@ -46,7 +49,8 @@ const EventScreen = () => {
       <View style={{
         flexDirection:'row',
         alignItems:'center',
-        justifyContent:'space-around'
+        marginLeft:'5%',justifyContent:'space-between',
+        marginRight:'7%'
       }}>
         <Text style={styles.textStyle}> June 22, 2023 - June 24, 2023</Text>
         <Text style={styles.textStyle}>.</Text>
@@ -55,13 +59,14 @@ const EventScreen = () => {
     <View style={{
         alignItems:'center',
         justifyContent:'center',
-        marginTop:'5%'
+        marginTop:'3%'
     }}>
        <Text style={{
          fontFamily:Font.Poppins400,
-         fontSize:scale(15),
+         fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),  
          color:Color.TextLightColor,
-         marginLeft:'2%'
+        
+         width: w >= 768 && h >= 1024 ? '90%' : '85%',  
        }}>
        The Abuja Special Holy Ghost Service is an annual gathering of the church in the FCT and environs where prayers are offered for the country and the church in particular. Ministering is Pastor E.A. Adeboye and other anointed ministers of God.
        </Text>
@@ -81,7 +86,7 @@ const EventScreen = () => {
    }}>
    <Text  style={{
       fontFamily:Font.Poppins600,
-      fontSize:scale(22),
+      fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(20),  
       color:Color.TextColor,
     }}> Location
     </Text>
@@ -91,24 +96,25 @@ const EventScreen = () => {
  }}>
  <Text  style={{
       fontFamily:Font.Poppins700,
-      fontSize:scale(15),
+      fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(16),  
       color:Color.TextLightColor,
     }}>Keffi 
     </Text>
     <Text  style={{
       fontFamily:Font.Poppins400,
-      fontSize:scale(15),
+      width: w >= 768 && h >= 1024 ?'50%': '90%',  
+      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),  
       color:Color.TextLightColor,
      }}>KM 23, Auta-Gurku Village, Abuja-Keffi Expressway, Nasarawa State, Nigeria. 
     </Text>
  </View>
  <View style={{
             width:'90%',
-            height:'8%',
+            height:w >= 768 && h >= 1024 ? '12%' : '9%', 
             alignSelf:'center',
             overflow: 'hidden',
             borderRadius: 10,
-            marginTop:'6%',
+            marginTop:'2%',
             
              }}>
             <Image source={require('../../assets/images/EventScreenImage2.png')} style={{
@@ -133,7 +139,7 @@ const styles = StyleSheet.create({
     textStyle:{
        
             fontFamily:Font.Poppins300,
-            fontSize:scale(12),
+            fontSize: w >= 768 && h >= 1024 ? scale(6) : scale(8),  
             color:Color.TextColor,
-        marginTop:'3%'}
+        }
 })
