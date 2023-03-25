@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -18,6 +19,9 @@ import {
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
+
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const CELL_COUNT = 4;
 const OTP = ({navigation}) => {
@@ -51,8 +55,8 @@ const OTP = ({navigation}) => {
           We have sent a one-time password to{' '}
           <Text
             style={{
-              fontFamily: Color.Poppins700,
-              fontSize: scale(12),
+              fontFamily: Font.Poppins700,
+              fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
               color: Color.BoldTextColor,
             }}>
             maryjames@rccg.com
@@ -80,7 +84,7 @@ const OTP = ({navigation}) => {
               <Text
                 style={{
                   color: Color.Black,
-                  fontSize: scale(15),
+                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                   fontFamily: Font.Poppins700,
                 }}>
                 Resend
@@ -90,7 +94,7 @@ const OTP = ({navigation}) => {
             <Text
               style={{
                 color: Color.Black,
-                fontSize: scale(16),
+                fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                 alignSelf: 'center',
                 fontFamily: Font.Poppins700,
               }}>
@@ -118,7 +122,10 @@ const OTP = ({navigation}) => {
         )}
       />
       <View style={{marginVertical: scale(5)}}>
-        <CustomButton text={'Continue'} />
+        <CustomButton
+          onPress={() => navigation.navigate('NewPassword')}
+          text={'Continue'}
+        />
       </View>
     </SafeAreaView>
   );
@@ -128,8 +135,8 @@ const styles = StyleSheet.create({
   Container: {
     flex: 1,
     backgroundColor: Color.White,
-    // paddingTop: moderateScale(50),
-    paddingHorizontal: moderateScale(20),
+    paddingHorizontal:
+      w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(20),
   },
 
   NavigatorStyle: {
@@ -144,16 +151,17 @@ const styles = StyleSheet.create({
     color: Color.Black,
     marginBottom: scale(5),
   },
+
   LongText: {
-    color: Color.TextColor,
+    color: Color.BoldTextColor,
     fontFamily: Font.Poppins400,
-    fontSize: scale(12),
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
     marginBottom: scale(5),
   },
   OtpText: {
     color: Color.TextColor,
     fontFamily: Font.Poppins400,
-    fontSize: scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
   },
 
   codeFieldRoot: {
@@ -162,8 +170,9 @@ const styles = StyleSheet.create({
   },
   cell: {
     // paddingHorizontal: scale(30),
-    width: scale(50),
-    height: verticalScale(40),
+
+    width: w >= 768 && h >= 1024 ? scale(51) : scale(50),
+    height: w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
     fontSize: scale(24),
     // borderWidth: 2,
     borderRadius: scale(16),

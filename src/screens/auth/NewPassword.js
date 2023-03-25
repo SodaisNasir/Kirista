@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -14,14 +15,15 @@ import AuthHeader from '../../components/AuthHeader';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
+import Password from '../../components/Password';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ResetPassword = ({navigation}) => {
+const NewPassword = ({navigation}) => {
   return (
     <SafeAreaView style={styles.Container}>
-      <AuthHeader text={'Reset Password'} />
+      <AuthHeader text={'New Password'} />
 
       <View
         style={{
@@ -29,13 +31,27 @@ const ResetPassword = ({navigation}) => {
           marginVertical: scale(10),
         }}>
         <Text style={styles.LongText}>
-          Please enter your email address, and we will send you an OTP to
-          confirm it.
+          Kindly fill your new password and confirm it.
         </Text>
       </View>
 
-      <View style={{}}>
-        <CustomInput text={'Email Address'} />
+      <View
+        style={
+          {
+            // justifyContent: 'space-between',
+            // height: w >= 768 && h >= 1024 ? '21%' : '24%',
+            // backgroundColor: 'red',
+          }
+        }>
+        <Password
+          restyleBox={{
+            marginBottom:
+              w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(25),
+          }}
+          text={'New Password'}
+        />
+
+        <Password text={'Confirm Password'} />
       </View>
 
       <View
@@ -44,13 +60,15 @@ const ResetPassword = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
         }}>
         <CustomButton
-          onPress={() => navigation.navigate('OTP')}
-          text={'Next'}
+          //   onPress={() => navigation.navigate('OTP')}
+          text={'Finish'}
         />
       </View>
     </SafeAreaView>
   );
 };
+
+export default NewPassword;
 
 const styles = StyleSheet.create({
   Container: {
@@ -108,5 +126,3 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
-
-export default ResetPassword;

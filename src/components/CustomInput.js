@@ -1,43 +1,50 @@
-import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  Dimensions,
+} from 'react-native';
 import React, {useState} from 'react';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../assets/fonts/PoppinsFont';
 import {Color} from '../utils/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
+
 const CustomInput = props => {
   return (
-    <View
-      style={
-        {
-          // marginTop:'8%'
-        }
-      }>
+    <View style={props.restyleBox}>
       <Text
         style={{
           fontFamily: Font.Poppins400,
-          color: '#071A36',
-          marginLeft: '8%',
-          fontSize: scale(12),
+          color: Color.TextColor,
+          fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
         }}>
         {props.text}
       </Text>
       <View
         style={{
-          height: verticalScale(45),
+          height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
           backgroundColor: Color.InputColor,
-          borderRadius: 23,
+          borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
           // marginHorizontal: '5%',
-          // paddingLeft: '5%',
+          paddingHorizontal: verticalScale(20),
           flexDirection: 'row',
+          marginTop: verticalScale(2),
         }}>
         <TextInput
           placeholder={props.placeholder}
-          placeholderTextColor={'UnderInputColor'}
+          placeholderTextColor={Color.BoldTextColor}
           style={{
-            fontSize: scale(16),
+            fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
             fontFamily: Font.Poppins400,
-            paddingHorizontal: scale(20),
             alignItems: 'center',
+            color: Color.TextColor,
+            // backgroundColor: 'red',
           }}
         />
       </View>
