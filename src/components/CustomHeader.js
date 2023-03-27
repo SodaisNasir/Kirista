@@ -21,8 +21,11 @@ const CustomHeader = props => {
   return (
     <View
       style={{
-        // height: 768 && h >= 1024 ? '10%' : '15%',
         flexDirection: 'row',
+        
+        backgroundColor: Color.HeaderColor,
+        height: verticalScale(90),
+        // justifyContent:'flex-end'
       }}>
       <View
         style={{
@@ -31,6 +34,7 @@ const CustomHeader = props => {
           justifyContent: 'center',
           alignItems: 'center',
           marginBottom: w >= 768 && h >= 1024 ? scale(10) : scale(10),
+          // backgroundColor:'red'
         }}>
         <AntDesign name="arrowleft" size={30} color="black" />
       </View>
@@ -39,6 +43,7 @@ const CustomHeader = props => {
           height: '100%',
           width: '45%',
           justifyContent: 'center',
+
         }}>
         <Text
           style={{

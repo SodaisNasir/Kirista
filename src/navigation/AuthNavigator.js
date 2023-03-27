@@ -16,6 +16,8 @@ import NewPassword from '../screens/auth/NewPassword';
 import EventScreen from '../screens/homescreen/EventScreen';
 import ViewEvent from '../screens/homescreen/ViewEvent';
 import PopularBooks from '../screens/homescreen/PopularBooks';
+import ViewManual from '../screens/homescreen/ViewManual';
+import ViewParish from '../screens/homescreen/ViewParish';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +25,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="PopularBooks"
+        initialRouteName="ViewParish"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -37,6 +39,8 @@ function AuthNavigator() {
         <Stack.Screen name="EventScreen" component={EventScreen} />
         <Stack.Screen name="ViewEvent" component={ViewEvent} />
         <Stack.Screen name="PopularBooks" component={PopularBooks} />
+        <Stack.Screen name="ViewManual" component={ViewManual} />
+        <Stack.Screen name="ViewParish" component={ViewParish} />
       </Stack.Navigator>
     </NavigationContainer>
   );
