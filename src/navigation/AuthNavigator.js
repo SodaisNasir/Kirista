@@ -18,6 +18,11 @@ import ViewEvent from '../screens/homescreen/ViewEvent';
 import PopularBooks from '../screens/homescreen/PopularBooks';
 import ViewManual from '../screens/homescreen/ViewManual';
 import ViewParish from '../screens/homescreen/ViewParish';
+import FeaturedParishes from '../screens/homescreen/FeaturedParishes';
+import ParishesResult from '../screens/homescreen/ParishesResult';
+import Events from '../screens/homescreen/Events';
+import ViewBanner from '../screens/homescreen/ViewBanner';
+import Searchbar from '../components/Searchbar';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +30,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ViewParish"
+        initialRouteName="Searchbar"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -41,6 +46,11 @@ function AuthNavigator() {
         <Stack.Screen name="PopularBooks" component={PopularBooks} />
         <Stack.Screen name="ViewManual" component={ViewManual} />
         <Stack.Screen name="ViewParish" component={ViewParish} />
+        <Stack.Screen name="FeaturedParishes" component={FeaturedParishes} />
+        <Stack.Screen name="ParishesResult" component={ParishesResult} />
+        <Stack.Screen name="Events" component={Events} />
+        <Stack.Screen name="ViewBanner" component={ViewBanner} />
+        <Stack.Screen name="Searchbar" component={Searchbar} />
       </Stack.Navigator>
     </NavigationContainer>
   );

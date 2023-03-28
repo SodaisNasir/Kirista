@@ -38,35 +38,29 @@ const ViewParish = () => {
             }}>
             <Text style={styles.TextStyle}>RCCG Central Parish</Text>
           </View>
-
+     
           <View
-            style={{
-              height:
-                w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(70),
-              justifyContent: 'center',
-              // marginHorizontal:verticalScale(20)
-            }}>
+            style={
+                styles.DetailsViewStyle
+            }>
             <Text style={styles.LocationText}>Country:</Text>
             <Text style={styles.LocationDetailsText}>Nigeria</Text>
           </View>
 
+          
           <View
-            style={{
-              height:
-                w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(70),
-              justifyContent: 'center',
-              // marginHorizontal:verticalScale(20)
-            }}>
+            style={
+                styles.DetailsViewStyle
+            }>
             <Text style={styles.LocationText}>Region:</Text>
             <Text style={styles.LocationDetailsText}>Region 10 Abuja</Text>
           </View>
 
+         
           <View
-            style={{
-                height:w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(70),
-              justifyContent: 'center',
-              // marginHorizontal:verticalScale(20)
-            }}>
+            style={
+                styles.DetailsViewStyle
+            }>
             <Text style={styles.LocationText}>Province: </Text>
             <Text style={styles.LocationDetailsText}>FCT 2 </Text>
           </View>
@@ -131,7 +125,7 @@ const ViewParish = () => {
         </View>
         <View style={styles.LocationImageViewStyle}>
           <MapView
-            style={{flex: 1, borderRadius: scale(10)}}
+            style={{flex: 1}}
             initialRegion={{
               latitude: 9.0765,
               longitude: 7.3986,
@@ -227,6 +221,11 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     marginBottom: verticalScale(10),
   },
+  DetailsViewStyle:{
+    height:
+    w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(70),
+  justifyContent: 'center',
+  },
   LocationText: {
     fontFamily: Font.Poppins700,
     color: Color.TextColor2,
@@ -234,7 +233,7 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
   },
   LocationDetailsText: {
-    fontFamily: Font.Poppins400,
+    fontFamily: Font.Poppins500,
     color: Color.TextColor2,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
@@ -250,5 +249,6 @@ const styles = StyleSheet.create({
     paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
     marginVertical: verticalScale(15),
     borderRadius: scale(20),
+    // backgroundColor:'red'
   },
 });

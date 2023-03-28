@@ -15,7 +15,7 @@ export default function Header(props) {
       <View
         style={{
           flexDirection: 'row',
-          //   backgroundColor: 'red',
+            // backgroundColor: 'red',
           marginBottom: verticalScale(8),
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   WelcomeText: {
-    fontSize: w >= 768 && h >= 1024 ? scale(14) : scale(18),
+    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(18),
     fontFamily: Font.Poppins500,
     color: Color.Black,
     // marginBottom: scale(5),
