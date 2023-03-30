@@ -16,6 +16,7 @@ import Header from '../../components/Header';
 import {Font} from '../../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CustomNavigator from '../../components/CustomNavigator';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -23,8 +24,9 @@ const h = Dimensions.get('window').height;
 const ViewBanner = () => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
-      <View style={{height: '90%', backgroundColor: Color.White}}>
+      <View style={{height: '100%', backgroundColor: Color.White}}>
         <Header />
+        <ScrollView>
 
         <View style={styles.Container}>
           <View style={styles.ImageViewStyle}>
@@ -57,43 +59,32 @@ const ViewBanner = () => {
               The Abuja Special Holy Ghost Service is an annual gathering of the
               church in the FCT and environs where prayers are offered for the
               country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
+              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
+              country and the church in particular. Ministering is Pastor E.A.
               Adeboye and other anointed ministers of God.
             </Text>
           </View>
         </View>
-      </View>
-      <View
-        style={{
-          justifyContent: 'space-between',
-          // backgroundColor: 'red',
-          alignItems: 'center',
-          flexDirection: 'row',
-          width: w >= 768 && h >= 1024 ? '30%' : '55%',
-          alignSelf: 'center',
-          // paddingHorizontal:verticalScale(30),
-
-          marginVertical: verticalScale(20),
-        }}>
-        <View style={styles.ArrowStyle}>
-          <Ionicons
-            name="chevron-back"
-            size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
-            color="black"
-          />
-        </View>
-        <View style={styles.LoadStyle}>
-          <AntDesign
-            name="reload1"
-            size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
-            color="black"
-          />
-        </View>
-        <View style={styles.ArrowStyle}>
-          <Ionicons
-            name="chevron-forward"
-            size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
-            color="black"
-          />
+        <View style={{height:verticalScale(85)}}/>
+        </ScrollView>
+        <View style={{position:'absolute',bottom:0,width:'100%',backgroundColor:Color.White}}>
+          <CustomNavigator />
         </View>
       </View>
     </SafeAreaView>

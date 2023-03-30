@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React,{useState} from 'react';
 import LibraryHeader from '../../components/LibraryHeader';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {scale, verticalScale,moderateScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import FilterModal from '../../components/Modals/FilterModal';

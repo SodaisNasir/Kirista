@@ -15,15 +15,16 @@ export default function Header(props) {
       <View
         style={{
           flexDirection: 'row',
-            // backgroundColor: 'red',
-          marginBottom: verticalScale(8),
+
+          marginBottom:
+            w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
         }}>
         <View style={styles.NavigatorStyle}>
           <AntDesign
             name="arrowleft"
-            size={w >= 768 && h >= 1024 ? scale(18) : scale(24)}
+            size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
             color="black"
             // onPress={() => navigation.goBack()}
           />
@@ -47,12 +48,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   WelcomeText: {
-    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(18),
+    fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),
     fontFamily: Font.Poppins500,
     color: Color.Black,
     // marginBottom: scale(5),
     // backgroundColor: 'red',
-    paddingHorizontal: verticalScale(10),
+    paddingHorizontal:
+      w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(10),
   },
   NavigatorStyle: {
     //

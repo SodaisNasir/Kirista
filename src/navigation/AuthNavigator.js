@@ -28,6 +28,8 @@ import LibraryHeader from '../components/LibraryHeader';
 import LibraryHome from '../screens/library/LibraryHome';
 import LibraryHomeTwo from '../screens/library/LibraryHomeTwo';
 import FilterModal from '../components/Modals/FilterModal';
+import Terms from '../screens/more/Terms';
+import Privacy from '../screens/more/Privacy';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +37,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="LibraryHome"
+        initialRouteName="Privacy"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -60,6 +62,8 @@ function AuthNavigator() {
         <Stack.Screen name="LibraryHome" component={LibraryHome} />
         <Stack.Screen name="LibraryHomeTwo" component={LibraryHomeTwo} />
         <Stack.Screen name="FilterModal" component={FilterModal} />
+        <Stack.Screen name="Terms" component={Terms} />
+        <Stack.Screen name="Privacy" component={Privacy} />
       </Stack.Navigator>
     </NavigationContainer>
   );
