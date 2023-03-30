@@ -23,6 +23,11 @@ import ParishesResult from '../screens/homescreen/ParishesResult';
 import Events from '../screens/homescreen/Events';
 import ViewBanner from '../screens/homescreen/ViewBanner';
 import Searchbar from '../components/Searchbar';
+import SearchBarWithArrow from '../components/SearchBarWithArrow';
+import LibraryHeader from '../components/LibraryHeader';
+import LibraryHome from '../screens/library/LibraryHome';
+import LibraryHomeTwo from '../screens/library/LibraryHomeTwo';
+import FilterModal from '../components/Modals/FilterModal';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +35,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Searchbar"
+        initialRouteName="LibraryHome"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -51,6 +56,10 @@ function AuthNavigator() {
         <Stack.Screen name="Events" component={Events} />
         <Stack.Screen name="ViewBanner" component={ViewBanner} />
         <Stack.Screen name="Searchbar" component={Searchbar} />
+        <Stack.Screen name="SearchBarWithArrow" component={SearchBarWithArrow} />
+        <Stack.Screen name="LibraryHome" component={LibraryHome} />
+        <Stack.Screen name="LibraryHomeTwo" component={LibraryHomeTwo} />
+        <Stack.Screen name="FilterModal" component={FilterModal} />
       </Stack.Navigator>
     </NavigationContainer>
   );
