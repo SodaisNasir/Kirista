@@ -78,7 +78,7 @@ const LibraryHome = () => {
       <View
         style={{
           paddingHorizontal:
-            w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(0),
         }}>
         <FlatList
           data={data}
@@ -96,11 +96,11 @@ const LibraryHome = () => {
                   marginHorizontal: verticalScale(20),
                   // marginBottom: 10,
                   // marginVertical: verticalScale(10),
-                  // paddingVertical: verticalScale(20),
+
                   // borderRadius: 12,
                   overflow: 'hidden',
                   borderBottomWidth: 1,
-                  // paddingVertical: verticalScale(15),
+              
                   borderColor: Color.BorderColor,
                 }}>
                 <View

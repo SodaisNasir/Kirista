@@ -20,7 +20,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const FilterModal = props => {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState();
   const navigation = useNavigation();
   const data = [
     {
@@ -63,7 +63,7 @@ const FilterModal = props => {
                   }}>
                   <TouchableOpacity
                     style={{marginBottom:verticalScale(10)}}
-                    onPress={() => setSelected(data.label)}>
+                    onPress={() => setSelected(item.id)}>
                     <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
                       <View style={{}}>
                         <Text style={styles.SmallTextStyle}>{item.label}</Text>
@@ -85,7 +85,7 @@ const FilterModal = props => {
                             borderWidth: scale(1.5),
                             marginBottom: verticalScale(15),
                           }}>
-                          {selected == data.label ? (
+                          {selected == item.id ? (
                             <View
                               style={{
                                 flex: 1,

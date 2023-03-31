@@ -59,8 +59,7 @@ function AuthNavigator() {
         <Stack.Screen name="ViewBanner" component={ViewBanner} />
         <Stack.Screen name="Searchbar" component={Searchbar} />
         <Stack.Screen name="SearchBarWithArrow" component={SearchBarWithArrow} />
-        <Stack.Screen name="LibraryHome" component={LibraryHome} />
-        <Stack.Screen name="LibraryHomeTwo" component={LibraryHomeTwo} />
+       
         <Stack.Screen name="FilterModal" component={FilterModal} />
         <Stack.Screen name="Terms" component={Terms} />
         <Stack.Screen name="Privacy" component={Privacy} />
