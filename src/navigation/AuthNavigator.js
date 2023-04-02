@@ -1,7 +1,7 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Settings} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import OverBoard from '../screens/auth/OverBoard';
@@ -30,14 +30,14 @@ import LibraryHomeTwo from '../screens/library/LibraryHomeTwo';
 import FilterModal from '../components/Modals/FilterModal';
 import Terms from '../screens/more/Terms';
 import Privacy from '../screens/more/Privacy';
-
+import SettingsMore from '../screens/more/SettingsMore';
 const Stack = createNativeStackNavigator();
 
 function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Privacy"
+        initialRouteName="SettingsMore"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -63,6 +63,9 @@ function AuthNavigator() {
         <Stack.Screen name="FilterModal" component={FilterModal} />
         <Stack.Screen name="Terms" component={Terms} />
         <Stack.Screen name="Privacy" component={Privacy} />
+        <Stack.Screen name="SettingsMore" component={SettingsMore} />
+
+  
       </Stack.Navigator>
     </NavigationContainer>
   );

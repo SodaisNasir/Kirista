@@ -11,5 +11,8 @@ export const Color = {
   BorderColor: '#E5E5E5',
   DarkTextColor: '#071A36',
   HeaderColor: '#F1F6FD',
-  TextColor2 : '#5C5C5C'
+  TextColor2 : '#5C5C5C',
+  BlackText: 'black',
+  ArrowBorder: '#D3D3D3',
+  DarkTheme : '#071A36'
 };
