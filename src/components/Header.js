@@ -10,6 +10,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 export default function Header(props) {
+  const navigation = useNavigation()
   return (
     <View style={styles.AuthHeaderStyle}>
       <View
@@ -26,7 +27,7 @@ export default function Header(props) {
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
             color="black"
-            // onPress={() => navigation.goBack()}
+            onPress={() => navigation.goBack()}
           />
         </View>
         <View

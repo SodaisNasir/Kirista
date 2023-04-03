@@ -14,6 +14,14 @@ import {scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../utils/font';
 import LibraryHomeTwo from '../screens/library/LibraryHomeTwo';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SettingsMore from '../screens/more/SettingsMore';
+import Terms from '../screens/more/Terms';
+import Home from '../screens/homescreen/Home';
+import PopularBooks from '../screens/homescreen/PopularBooks';
+import FeaturedParishes from '../screens/homescreen/FeaturedParishes';
+import Events from '../screens/homescreen/Events';
+import ViewManual from '../screens/homescreen/ViewManual';
+import ViewParish from '../screens/homescreen/ViewParish';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,9 +29,9 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const BottomTabNavigator = () => {
   return (
-    <NavigationContainer>
+    // <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="LibraryHome"
+        initialRouteName="Home"
         screenOptions={{
           tabBarActiveTintColor: Color.Main,
           tabBarHideOnKeyboard: true,
@@ -45,7 +53,7 @@ const BottomTabNavigator = () => {
         }}>
         <Tab.Screen
           name="Home"
-          component={SignUp}
+          component={AllHome}
           options={{
             tabBarLabel: 'Home',
             headerShown: false,
@@ -66,7 +74,7 @@ const BottomTabNavigator = () => {
         />
         <Tab.Screen
           name="LibraryHome"
-          component={LibraryHome}
+          component={LibraryStack}
           options={{
             tabBarLabel: 'Library',
             headerShown: false,
@@ -88,7 +96,7 @@ const BottomTabNavigator = () => {
 
         <Tab.Screen
           name="More"
-          component={Privacy}
+          component={AllSettings}
           options={{
             tabBarLabel: 'More',
             headerShown: false,
@@ -108,7 +116,7 @@ const BottomTabNavigator = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
+    // </NavigationContainer>
   );
 };
 
@@ -116,7 +124,22 @@ export default BottomTabNavigator;
 
 const Stack = createNativeStackNavigator();
 
-function AllLibrary() {
+function AllHome(){
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Home ">
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="FeaturedParishes" component={FeaturedParishes} />
+      <Stack.Screen name="PopularBooks" component={PopularBooks} />
+      <Stack.Screen name="Events" component={Events} />
+      <Stack.Screen name="ViewManual" component={ViewManual} />
+    </Stack.Navigator>
+    );
+  
+}
+
+function LibraryStack() {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
@@ -125,4 +148,20 @@ function AllLibrary() {
       <Stack.Screen name="LibraryHomeTwo" component={LibraryHomeTwo} />
     </Stack.Navigator>
   );
+}
+
+function AllSettings(){
+  return (
+    <Stack.Navigator
+    screenOptions={{headerShown: false}}
+    initialRouteName="SettingsMore">
+    <Stack.Screen name="SettingsMore" component={SettingsMore} />
+    <Stack.Screen name="Privacy" component={Privacy} />
+    <Stack.Screen name="Terms" component={Terms} />
+    <Stack.Screen name="ViewParish" component={ViewParish} />
+    <Stack.Screen name="ViewManual" component={ViewManual} />
+  </Stack.Navigator>
+    
+  )
+
 }

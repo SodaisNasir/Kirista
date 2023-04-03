@@ -137,6 +137,10 @@ const ViewManual = () => {
             to discover the treasures in it.
           </Text>
         </View>
+
+        <View style={{height:verticalScale(85)}}>
+
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

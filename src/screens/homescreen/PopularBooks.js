@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {Color} from '../../utils/Colors';
@@ -13,11 +14,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const PopularBooks = props => {
+  const navigation = useNavigation()
   const data = [
     {
       id: 1,
@@ -66,29 +69,30 @@ const PopularBooks = props => {
         data={data}
         renderItem={({item}) => {
           return (
+            <TouchableOpacity
+            
+            onPress={()=>{navigation.navigate('ViewManual')}}
+            
+            >
             <View
               style={{
                 height:
                   w >= 768 && h >= 1024
                     ? verticalScale(95)
                     : verticalScale(120),
-                // marginTop: verticalScale(10),
-                // backgroundColor: 'red',
+                   
                 flexDirection: 'row',
                 marginHorizontal: verticalScale(20),
-                // marginBottom: verticalScale(20),
-                // marginVertical: verticalScale(10),
-                // paddingVertical: verticalScale(20),
-                // borderRadius: 12,
+                
                 overflow: 'hidden',
                 borderBottomWidth: 1,
-                // paddingVertical: verticalScale(15),
+          
                 borderColor: Color.BorderColor,
               }}>
               <View
                 style={{
                   flex: 1,
-                  // backgroundColor: 'blue',
+                  
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
@@ -135,6 +139,7 @@ const PopularBooks = props => {
                 </View>
               </View>
             </View>
+            </TouchableOpacity>
           );
         }}
       />

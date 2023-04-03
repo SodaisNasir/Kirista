@@ -1,6 +1,8 @@
 export const Color = {
   White: '#FFFFFF',
   Main: 'rgba(56, 125, 229, 1)',
+  Red: '#E43F40',
+  HomeHeaderText: '#919498',
   InputColor: 'rgba(235, 235, 235, 1)',
   UnderInputColor: 'rgba(7, 26, 54, 1)',
   TextColor: 'rgba(7, 26, 54, 1)',

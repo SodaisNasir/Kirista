@@ -31,13 +31,17 @@ import FilterModal from '../components/Modals/FilterModal';
 import Terms from '../screens/more/Terms';
 import Privacy from '../screens/more/Privacy';
 import SettingsMore from '../screens/more/SettingsMore';
+import Home from '../screens/homescreen/Home';
+import BottomTabNavigator from './BottomTabNavigator';
+
+
 const Stack = createNativeStackNavigator();
 
 function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="SettingsMore"
+        initialRouteName="OverBoard"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -59,11 +63,11 @@ function AuthNavigator() {
         <Stack.Screen name="ViewBanner" component={ViewBanner} />
         <Stack.Screen name="Searchbar" component={Searchbar} />
         <Stack.Screen name="SearchBarWithArrow" component={SearchBarWithArrow} />
-       
         <Stack.Screen name="FilterModal" component={FilterModal} />
         <Stack.Screen name="Terms" component={Terms} />
         <Stack.Screen name="Privacy" component={Privacy} />
         <Stack.Screen name="SettingsMore" component={SettingsMore} />
+        <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
 
   
       </Stack.Navigator>

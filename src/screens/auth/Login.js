@@ -75,7 +75,10 @@ const Login = ({navigation}) => {
           marginVertical:
             w >= 768 && h >= 1024 ? verticalScale(22) : verticalScale(30),
         }}>
-        <CustomButton text={'Sign in'} />
+        <CustomButton
+        
+        onPress={()=>navigation.navigate('BottomTabNavigator')}
+        text={'Sign in'} />
       </View>
 
       <TouchableOpacity

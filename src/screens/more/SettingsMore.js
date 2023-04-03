@@ -26,24 +26,32 @@ import About from '../../assets/icons/about.svg';
 import Feedback from '../../assets/icons/feedback.svg';
 import Language from '../../assets/icons/language.svg';
 import DarkMode from '../../assets/icons/dakrmode.svg';
+import Logout from '../../assets/icons/logout.svg';
 import Notification from '../../assets/icons/notification.svg';
 import FAQ from '../../assets/icons/faq.svg';
 import Terms from '../../assets/icons/terms.svg';
 import Privacy from '../../assets/icons/privacy.svg';
 import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
+import { useNavigation } from '@react-navigation/native';
+import HomeHeader from '../../components/HomeHeader';
+import SearchBarWithArrow from '../../components/SearchBarWithArrow';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsMore = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
+         {/* <HomeHeader/> */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.HeaderStyle}>
           <View style={styles.WelcomeView}>
             <Text style={styles.WelcomeText}>Hello, Brethen</Text>
-          </View>
+          </View> 
+       
+    
         </View>
 
         <View style={styles.MainView}>
@@ -51,8 +59,9 @@ const SettingsMore = () => {
             <View style={styles.ImageAndText}>
               <View
                 style={{
-                  width: w >= 768 && h >= 1024 ? scale(25) : scale(50),
-                  height: w >= 768 && h >= 1024 ? scale(40) : scale(60),
+                  width: w >= 768 && h >= 1024 ? scale(30) : scale(50),
+                  height: w >= 768 && h >= 1024 ? scale(30) : scale(60),
+                
                 }}>
                 <Image
                   source={require('../../assets/images/krista_settings.png')}
@@ -73,7 +82,7 @@ const SettingsMore = () => {
                     style={{
                       color: Color.Black,
                       fontFamily: Font.Poppins700,
-                      fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(11),
+                      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
                     }}>
                     ID:{' '}
                   </Text>
@@ -84,12 +93,19 @@ const SettingsMore = () => {
 
             <Edit height={w >= 768 && h >= 1024 ? scale(16) : scale(22)} />
           </View>
-
+        </View>
+        <View
+          style={{
+            height: verticalScale(20),
+            backgroundColor: Color.HeaderColor,
+          }}
+        />
+        <View style={styles.MainView}>
           <TouchableOpacity
             //onPress={() => navigation.navigate('about')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <About height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}  />
+              <About height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
 
               <Text style={[styles.TextStyle]}>About</Text>
             </View>
@@ -106,7 +122,9 @@ const SettingsMore = () => {
             //onPress={() => navigation.navigate('about')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <Language height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <Language
+                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+              />
 
               <Text style={[styles.TextStyle]}>Language</Text>
             </View>
@@ -123,7 +141,9 @@ const SettingsMore = () => {
             //onPress={() => navigation.navigate('about')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <Notification height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <Notification
+                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+              />
 
               <Text style={[styles.TextStyle]}>Notifications</Text>
             </View>
@@ -135,7 +155,9 @@ const SettingsMore = () => {
             //onPress={() => navigation.navigate('about')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <DarkMode height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <DarkMode
+                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+              />
 
               <Text style={[styles.TextStyle]}>DarkMode</Text>
             </View>
@@ -148,18 +170,19 @@ const SettingsMore = () => {
               />
             </View>
           </TouchableOpacity>
-          <View
-            style={{
-              height: verticalScale(20),
-              backgroundColor: Color.HeaderColor,
-            }}
-          />
-
+        </View>
+        <View
+          style={{
+            height: verticalScale(20),
+            backgroundColor: Color.HeaderColor,
+          }}
+        />
+        <View style={styles.MainView}>
           <TouchableOpacity
             //onPress={() => navigation.navigate('about')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <FAQ height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <FAQ height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
 
               <Text style={[styles.TextStyle]}>FAQ</Text>
             </View>
@@ -173,10 +196,10 @@ const SettingsMore = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
+            onPress={() => navigation.navigate('Terms')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <Terms height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <Terms height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
 
               <Text style={[styles.TextStyle]}>Terms</Text>
             </View>
@@ -190,10 +213,10 @@ const SettingsMore = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
+            onPress={() => navigation.navigate('Privacy')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <Privacy height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <Privacy height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
 
               <Text style={[styles.TextStyle]}>Privacy</Text>
             </View>
@@ -206,18 +229,22 @@ const SettingsMore = () => {
               />
             </View>
           </TouchableOpacity>
-          <View
-            style={{
-              height: verticalScale(20),
-              backgroundColor: Color.HeaderColor,
-            }}
-          />
+        </View>
+        <View
+          style={{
+            height: verticalScale(20),
+            backgroundColor: Color.HeaderColor,
+          }}
+        />
 
+        <View style={styles.MainView}>
           <TouchableOpacity
             //onPress={() => navigation.navigate('about')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <Feedback height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <Feedback
+                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+              />
 
               <Text style={[styles.TextStyle]}>Feedback</Text>
             </View>
@@ -235,7 +262,7 @@ const SettingsMore = () => {
             //onPress={() => navigation.navigate('about')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
-              <Contact height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}/>
+              <Contact height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
 
               <Text style={[styles.TextStyle]}>Contact</Text>
             </View>
@@ -248,28 +275,65 @@ const SettingsMore = () => {
               />
             </View>
           </TouchableOpacity>
+        </View>
 
-          <View style={styles.SocialBox}>
+        <View></View>
+        <View style={styles.SocialBox}>
           <TouchableOpacity style={[styles.IconBox]}>
             <FontAwesome5
               name="facebook"
               color={Color.Main}
-              size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
+              size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.IconBox}>
-            <Entypo name="twitter" color={Color.Main} size={w >= 768 && h >= 1024 ? scale(10) : scale(18)} />
+            <Entypo
+              name="instagram"
+              color={Color.Main}
+              size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={styles.IconBox}>
-            <Entypo name="instagram" color={Color.Main} size={w >= 768 && h >= 1024 ? scale(10) : scale(18)} />
+            <Entypo
+              name="twitter-with-circle"
+              color={Color.Main}
+              size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
+            />
           </TouchableOpacity>
+          
         </View>
-        <View>
-        <Text style={[styles.TextStyle]}>Language</Text>
+        <View
+          style={{
+            alignSelf: 'center',
+            height: verticalScale(40),
+          }}>
+          <Text style={[styles.VersionText]}>Version 1.0.0</Text>
+        </View>
 
+        <View
+          style={{
+            height: verticalScale(20),
+            backgroundColor: Color.HeaderColor,
+          }}
+        />
+      <View style={styles.MainView}>
+        <TouchableOpacity
+          //onPress={() => navigation.navigate('about')}
+          style={styles.AllItems}>
+          <View style={styles.IconAndText}>
+            <Logout height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+
+            <Text style={[styles.LogoutTextStyle]}>Log out</Text>
+          </View>
+        </TouchableOpacity>
         </View>
-      
-        </View>
+        <View
+          style={{
+            height: verticalScale(20),
+            backgroundColor: Color.HeaderColor,
+          }}
+        />
+        <View style={{height: verticalScale(90)}}></View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -301,17 +365,17 @@ const styles = StyleSheet.create({
   },
   UserInfo: {
     backgroundColor: Color.White,
-    height: w >= 768 && h >= 1024 ? verticalScale(40) : verticalScale(120),
+    height: w >= 768 && h >= 1024 ? verticalScale(65) : verticalScale(100),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    //   backgroundColor: 'red',
+
   },
   AllItems: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: verticalScale(60),
+    height: verticalScale(55),
     backgroundColor: Color.White,
   },
   IconAndText: {
@@ -331,17 +395,17 @@ const styles = StyleSheet.create({
   },
   TextStyle: {
     fontFamily: Font.Poppins500,
-    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     color: Color.Black,
     paddingHorizontal: moderateScale(15),
   },
   UserInfoText: {
     fontFamily: Font.Poppins500,
-    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(11),
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
     color: Color.Black,
   },
   UserNameText: {
-    fontFamily: Font.Poppins600,
+    fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
     color: Color.Black,
   },
@@ -349,10 +413,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: verticalScale(15),
-    width:w >= 768 && h >= 1024 ? '45%' : '50%',
-    alignSelf:'center',
-    backgroundColor:'red',
-    paddingHorizontal:verticalScale(25)
+    height:w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(50),
+    width: w >= 768 && h >= 1024 ? '32%' : '45%',
+    alignSelf: 'center',
+    paddingHorizontal: verticalScale(25),
+    alignItems: 'center',
   },
   IconBox: {
     justifyContent: 'center',
@@ -361,12 +426,24 @@ const styles = StyleSheet.create({
     aspectRatio: 1 / 1,
     borderRadius: scale(100),
   },
-  FacebookIconBox:{
+  FacebookIconBox: {
     justifyContent: 'center',
     alignItems: 'center',
     height: verticalScale(50),
     aspectRatio: 1 / 1,
     borderRadius: scale(100),
+  },
+  VersionText: {
+    fontFamily: Font.Poppins500,
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
+    color: Color.TextColor2,
+    paddingHorizontal: moderateScale(15),
 
+  },
+  LogoutTextStyle:{
+    fontFamily: Font.Poppins500,
+    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+    color: Color.Red,
+    paddingHorizontal: moderateScale(15),
   }
 });

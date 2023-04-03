@@ -5,7 +5,7 @@ import BottomTabNavigator from './src/navigation/BottomTabNavigator'
 
 const App = () => {
   return (
-   <BottomTabNavigator />
+   <AuthNavigator />
   )
 }
 

@@ -13,11 +13,13 @@ import {Font} from '../assets/fonts/PoppinsFont';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CustomHeader = props => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -36,7 +38,14 @@ const CustomHeader = props => {
           marginBottom: w >= 768 && h >= 1024 ? scale(10) : scale(10),
           // backgroundColor:'red'
         }}>
-        <AntDesign name="arrowleft" size={30} color="black" />
+           <View style={styles.NavigatorStyle}>
+          <AntDesign
+            name="arrowleft"
+            size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+            color="black"
+            onPress={() => navigation.goBack()}
+          />
+        </View>
       </View>
       <View
         style={{
@@ -109,4 +118,9 @@ const CustomHeader = props => {
 
 export default CustomHeader;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({NavigatorStyle: {
+  //
+
+  justifyContent: 'center',
+  // marginTop: scale(10),
+},});
