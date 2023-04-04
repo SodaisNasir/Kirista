@@ -33,6 +33,7 @@ import Privacy from '../screens/more/Privacy';
 import SettingsMore from '../screens/more/SettingsMore';
 import Home from '../screens/homescreen/Home';
 import BottomTabNavigator from './BottomTabNavigator';
+import SelectCountry from '../components/SelectCountry';
 
 
 const Stack = createNativeStackNavigator();
@@ -41,7 +42,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="OverBoard"
+        initialRouteName="SelectCountry"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -68,6 +69,7 @@ function AuthNavigator() {
         <Stack.Screen name="Privacy" component={Privacy} />
         <Stack.Screen name="SettingsMore" component={SettingsMore} />
         <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
+        <Stack.Screen name="SelectCountry" component={SelectCountry} />
 
   
       </Stack.Navigator>

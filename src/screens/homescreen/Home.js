@@ -25,6 +25,10 @@ const Home = ({navigation}) => {
     {id: 2, image: require('../../../src/assets/images/rcg_2.png')},
     {id: 3, image: require('../../../src/assets/images/rcg_3.png')},
   ];
+  const swiper_data = [
+    {id: 1, image: require('../../../src/assets/images/swipertwo.png')},
+    {id: 2, image: require('../../../src/assets/images/swiperone.png')},
+  ];
 
   const parish_data = [
     {
@@ -82,6 +86,27 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
     },
+    {
+      id: 5,
+      title: 'Sunday School ',
+      manual: 'Teachers Manual',
+      image: require('../../../src/assets/images/book2.png'),
+      year: '2023',
+    },
+    {
+      id: 6,
+      title: 'Sunday School ',
+      manual: 'Teachers Manual',
+      image: require('../../../src/assets/images/book2.png'),
+      year: '2023',
+    },
+    {
+      id: 7,
+      title: 'Sunday School ',
+      manual: 'Teachers Manual',
+      image: require('../../../src/assets/images/book2.png'),
+      year: '2023',
+    },
   ];
   const event_data = [
     {
@@ -124,31 +149,43 @@ const Home = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Color.HeaderColor}}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <HomeHeader />
-        <View style={styles.SwiperView}>
-          <Swiper
-            style={{
-              marginTop: verticalScale(12),
-              // marginBottom: verticalScale(45),
-              height: verticalScale(150),
+        <HomeHeader
+          HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
+          HomeUnderLineStyle={{
+            width: '55%',
+            backgroundColor: Color.Main,
+            height: verticalScale(2),
+            bottom: scale(4),
+          }}
+        />
+        <View style={styles.SwiperViewOne}>
+          <FlatList
+            data={swiper_data}
+            horizontal
+            renderItem={({item}) => {
+              return (
+                <View
+                  style={{
+                    height:
+                      w >= 768 && h >= 1024
+                        ? verticalScale(95)
+                        : verticalScale(135),
+                    width: w >= 768 && h >= 1024 ? scale(160) : scale(270),
+                    // marginVertical: verticalScale(10),
+                    marginRight: verticalScale(12),
+                  }}>
+                  <Image
+                    resizeMode="stretch"
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                    }}
+                    source={item.image}
+                  />
+                </View>
+              );
             }}
-            showsPagination={false}
-            showsButtons={false}>
-            <View style={styles.slide}>
-              <Image
-                style={styles.SwiperImage}
-                resizeMode={`stretch`}
-                source={require('../../assets/images/swiperone.png')}
-              />
-            </View>
-            <View style={styles.slide}>
-              <Image
-                style={styles.SwiperImage}
-                resizeMode={`stretch`}
-                source={require('../../assets/images/swipertwo.png')}
-              />
-            </View>
-          </Swiper>
+          />
         </View>
         <View
           style={{
@@ -163,9 +200,7 @@ const Home = ({navigation}) => {
               flexDirection: 'row',
               marginTop: verticalScale(15),
             }}>
-            <View>
-              <Text style={styles.BooksText}>Popular Books</Text>
-            </View>
+            <Text style={styles.BooksText}>Popular Books</Text>
 
             <TouchableOpacity
               onPress={() => navigation.navigate('PopularBooks')}
@@ -185,35 +220,35 @@ const Home = ({navigation}) => {
             showsHorizontalScrollIndicator={false}
             directionalLockEnabled={true}
             alwaysBounceVertical={false}>
-           
-              <FlatList
-                showsHorizontalScrollIndicator={false}
-                numColumns={Math.ceil(books_data.length / 2)}
-                data={books_data}
-                renderItem={({item}) => {
-                  return (
-                    <TouchableOpacity onPress={() => navigation.navigate('ViewManual')}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              numColumns={Math.ceil(books_data.length / 2)}
+              data={books_data}
+            
+              renderItem={({item}) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('ViewManual')}>
                     <View
                       style={{
                         height:
                           w >= 768 && h >= 1024
-                            ? verticalScale(95)
-                            : verticalScale(120),
+                            ? verticalScale(80)
+                            : verticalScale(100),
+
                         flexDirection: 'row',
                         overflow: 'hidden',
-                  
                       }}>
                       <View
                         style={{
-                          flex: 1,
-                          // backgroundColor: 'blue',
                           justifyContent: 'center',
-                          alignItems: 'center',
+                          alignItems: 'flex-start',
                         }}>
                         <View
                           style={{
-                            height: w >= 768 && h >= 1024 ? '65%' : '100%',
-                            width: scale(100),
+                            height: w >= 768 && h >= 1024 ? '68%' : '100%',
+                            width:
+                              w >= 768 && h >= 1024 ? scale(60) : scale(100),
                           }}>
                           <Image
                             resizeMode="contain"
@@ -225,8 +260,7 @@ const Home = ({navigation}) => {
                           />
                         </View>
                       </View>
-                      <View
-                        style={{flex: 2.3, marginVertical: verticalScale(25)}}>
+                      <View style={{marginVertical: verticalScale(20)}}>
                         <View
                           style={{
                             // height: verticalScale(30),
@@ -234,33 +268,34 @@ const Home = ({navigation}) => {
                             // backgroundColor: 'yellow',
                             justifyContent: 'center',
                           }}>
-                          <Text style={styles.TitleStyle}>{item.title}</Text>
+                          <Text style={styles.BooksTitleStyle}>
+                            {item.title}
+                          </Text>
                           <Text
                             style={[
                               {lineHeight: verticalScale(15)},
-                              styles.TitleStyle,
+                              styles.BooksTitleStyle,
                             ]}>
                             {item.manual}
                           </Text>
                         </View>
                         <View
                           style={{
-                            // backgroundColor: 'red',
+                            // backgroundColor: 'green',
                             height:
                               w >= 768 && h >= 1024
                                 ? verticalScale(20)
-                                : scale(40),
+                                : verticalScale(40),
                             justifyContent: 'center',
                           }}>
                           <Text style={styles.YearStyle}> {item.year}</Text>
                         </View>
                       </View>
                     </View>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-           
+                  </TouchableOpacity>
+                );
+              }}
+            />
           </ScrollView>
         </View>
         <View style={styles.SwiperViewTwo}>
@@ -271,9 +306,20 @@ const Home = ({navigation}) => {
               return (
                 <View
                   style={{
-                    height: verticalScale(120),
-                    width: scale(190),
-                    marginTop: verticalScale(5),
+                    // height: verticalScale(120),
+                    // width: scale(190),
+                    // marginTop: verticalScale(5),
+                    height:
+                      w >= 768 && h >= 1024
+                        ? verticalScale(90)
+                        : verticalScale(120),
+                    width: w >= 768 && h >= 1024 ? scale(100) : scale(190),
+                    // marginVertical: verticalScale(18),
+                    marginRight:
+                      w >= 768 && h >= 1024
+                        ? verticalScale(8)
+                        : verticalScale(0),
+                    alignSelf: 'center',
                   }}>
                   <Image
                     resizeMode="contain"
@@ -289,12 +335,12 @@ const Home = ({navigation}) => {
           />
         </View>
 
-        <View
+        {/* <View
           style={{
             height: verticalScale(20),
             backgroundColor: Color.HeaderColor,
           }}
-        />
+        /> */}
 
         <View
           style={{
@@ -331,12 +377,13 @@ const Home = ({navigation}) => {
               </View>
             </TouchableOpacity>
           </View>
-          
-            <FlatList
-              data={parish_data}
-              renderItem={({item}) => {
-                return (
-                  <TouchableOpacity onPress={() => navigation.navigate('ViewParish')}>
+
+          <FlatList
+            data={parish_data}
+            renderItem={({item}) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ViewParish')}>
                   <View
                     style={{
                       height:
@@ -385,8 +432,11 @@ const Home = ({navigation}) => {
                           // backgroundColor: 'yellow',
                           justifyContent: 'center',
                         }}>
-                        <Text style={styles.TitleStyle}>{item.title}</Text>
-                        <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
+                        <Text style={styles.ParishTitleStyle}>
+                          {item.title}
+                        </Text>
+                        <Text
+                          style={[{bottom: scale(3)}, styles.ParishTitleStyle]}>
                           {item.manual}
                         </Text>
                       </View>
@@ -403,11 +453,10 @@ const Home = ({navigation}) => {
                       </View>
                     </View>
                   </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
-         
+                </TouchableOpacity>
+              );
+            }}
+          />
         </View>
 
         <View
@@ -430,7 +479,7 @@ const Home = ({navigation}) => {
               marginTop: verticalScale(15),
             }}>
             <View>
-              <Text style={styles.BooksText}>Upcoming Events</Text>
+              <Text style={styles.UpcomingText}>Upcoming Events</Text>
             </View>
 
             <TouchableOpacity
@@ -438,7 +487,7 @@ const Home = ({navigation}) => {
                 navigation.navigate('Events');
               }}
               style={{flexDirection: 'row'}}>
-              <Text style={styles.MoreText}>More</Text>
+              <Text style={styles.MoreText}>See All</Text>
               <View style={{}}>
                 <Ionicons
                   name="chevron-forward"
@@ -458,7 +507,8 @@ const Home = ({navigation}) => {
                       w >= 768 && h >= 1024
                         ? verticalScale(95)
                         : verticalScale(120),
-
+                    
+                    // paddingRight:moderateScale(40),
                     flexDirection: 'row',
 
                     overflow: 'hidden',
@@ -468,10 +518,13 @@ const Home = ({navigation}) => {
                       flex: w >= 768 && h >= 1024 ? 0.9 : 1,
                       justifyContent: 'center',
                       alignItems: 'center',
+                      // backgroundColor:'yellow',
+                      // height:150
+                      
                     }}>
                     <View
                       style={{
-                        height: w >= 768 && h >= 1024 ? '60%' : '100%',
+                        height: w >= 768 && h >= 1024 ? '55%' : '100%',
                         width: scale(90),
                       }}>
                       <Image
@@ -497,8 +550,9 @@ const Home = ({navigation}) => {
                       style={{
                         justifyContent: 'center',
                       }}>
-                      <Text style={styles.TitleStyle}>{item.title}</Text>
-                      <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
+                      <Text style={styles.EventTtitleStyle}>{item.title}</Text>
+                      <Text
+                        style={[{bottom: scale(3)}, styles.EventTtitleStyle]}>
                         {item.manual}
                       </Text>
                     </View>
@@ -553,13 +607,18 @@ const styles = StyleSheet.create({
   },
   BooksText: {
     color: Color.DarkTextColor,
+    fontFamily: Font.Poppins700,
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
+  },
+  UpcomingText: {
+    color: Color.DarkTextColor,
     fontFamily: Font.Poppins600,
-    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
   },
   MoreText: {
     color: Color.Main,
-    fontFamily: Font.Poppins500,
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
+    fontFamily: Font.Poppins600,
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
   },
   ImageView: {
     // backgroundColor: 'red',
@@ -568,7 +627,7 @@ const styles = StyleSheet.create({
   YearStyle: {
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins400,
-    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
   TitleStyle: {
     color: Color.DarkTextColor,
@@ -597,21 +656,29 @@ const styles = StyleSheet.create({
     backgroundColor: Color.HeaderColor,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: moderateScale(20),
+    // paddingHorizontal: moderateScale(20),
     // height:w >= 768 && h >= 1024 ? verticalScale(120) : verticalScale(120),
+  },
+  SwiperViewOne: {
+    backgroundColor: Color.HeaderColor,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: moderateScale(20),
+    height: w >= 768 && h >= 1024 ? verticalScale(110) : verticalScale(150),
+    // width:'100%'
   },
   SwiperViewTwo: {
     backgroundColor: Color.HeaderColor,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: moderateScale(20),
-    height: w >= 768 && h >= 1024 ? verticalScale(120) : verticalScale(140),
+    height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(140),
   },
   DateStyle: {
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins600,
 
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+    fontSize: w >= 768 && h >= 1024 ? scale(6) : scale(10),
   },
   TitleStyle: {
     color: Color.DarkTextColor,
@@ -633,5 +700,23 @@ const styles = StyleSheet.create({
     // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
 
     // paddingHorizontal: verticalScale(50),
+  },
+  BooksTitleStyle: {
+    color: Color.DarkTextColor,
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
+    fontFamily: Font.Poppins600,
+  },
+  EventTtitleStyle: {
+    color: Color.DarkTextColor,
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
+    fontFamily: Font.Poppins700,
+    // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
+
+    // paddingHorizontal: verticalScale(50),
+  },
+  ParishTitleStyle: {
+    color: Color.DarkTextColor,
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+    fontFamily: Font.Poppins700,
   },
 });

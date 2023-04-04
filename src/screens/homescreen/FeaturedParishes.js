@@ -178,9 +178,7 @@ import {
       color: Color.DarkTextColor,
       fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
       fontFamily: Font.Poppins700,
-      // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
-  
-      // paddingHorizontal: verticalScale(50),
+
     },
   });
   

@@ -59,24 +59,6 @@ const ViewBanner = () => {
               The Abuja Special Holy Ghost Service is an annual gathering of the
               church in the FCT and environs where prayers are offered for the
               country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed minthe FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
               Adeboye and other anointed ministers of God.
             </Text>
           </View>

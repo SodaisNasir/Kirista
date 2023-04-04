@@ -16,5 +16,7 @@ export const Color = {
   TextColor2 : '#5C5C5C',
   BlackText: 'black',
   ArrowBorder: '#D3D3D3',
-  DarkTheme : '#071A36'
+  DarkTheme : '#071A36',
+  DropDownText: '#BDC1C7',
+  ContinentText: '#838C9B'
 };
