@@ -20,7 +20,6 @@ import ViewManual from '../screens/homescreen/ViewManual';
 import ViewParish from '../screens/homescreen/ViewParish';
 import FeaturedParishes from '../screens/homescreen/FeaturedParishes';
 import ParishesResult from '../screens/homescreen/ParishesResult';
-import Events from '../screens/homescreen/Events';
 import ViewBanner from '../screens/homescreen/ViewBanner';
 import Searchbar from '../components/Searchbar';
 import SearchBarWithArrow from '../components/SearchBarWithArrow';
@@ -42,7 +41,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="SelectCountry"
+        initialRouteName="OverBoard"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -60,7 +59,6 @@ function AuthNavigator() {
         <Stack.Screen name="ViewParish" component={ViewParish} />
         <Stack.Screen name="FeaturedParishes" component={FeaturedParishes} />
         <Stack.Screen name="ParishesResult" component={ParishesResult} />
-        <Stack.Screen name="Events" component={Events} />
         <Stack.Screen name="ViewBanner" component={ViewBanner} />
         <Stack.Screen name="Searchbar" component={Searchbar} />
         <Stack.Screen name="SearchBarWithArrow" component={SearchBarWithArrow} />

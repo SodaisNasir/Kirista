@@ -501,7 +501,8 @@ const Home = ({navigation}) => {
             data={event_data}
             renderItem={({item}) => {
               return (
-                <View
+                <TouchableOpacity
+                onPress={()=>navigation.navigate('Events')}
                   style={{
                     height:
                       w >= 768 && h >= 1024
@@ -583,7 +584,7 @@ const Home = ({navigation}) => {
                       </Text>
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               );
             }}
           />

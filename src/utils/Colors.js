@@ -18,5 +18,7 @@ export const Color = {
   ArrowBorder: '#D3D3D3',
   DarkTheme : '#071A36',
   DropDownText: '#BDC1C7',
-  ContinentText: '#838C9B'
+  ContinentText: '#838C9B',
+  GreyText: '#D1D2D4'
+  
 };

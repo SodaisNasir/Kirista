@@ -68,7 +68,12 @@ const HomeHeader = (props) => {
         <View style={props.ParishUnderLineStyle} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+        
+        onPress={()=>{
+          navigation.navigate('Events')
+        }}
+        >
         <Text style={[styles.TextStyle,props.EventRestyle]}>Events</Text>
         <View style={props.EventUnderLineStyle} />
         </TouchableOpacity>

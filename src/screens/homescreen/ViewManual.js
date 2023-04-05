@@ -21,7 +21,7 @@ const ViewManual = () => {
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomHeader image2={require('../../assets/images/bookmark.png')} />
+        <CustomHeader shareicon = {true} saveicon ={true} timeicon = {true}/>
         {/* <View style={{height:verticalScale(100),backgroundColor:'purple'}}> */}
 
         {/* </View> */}
@@ -52,7 +52,7 @@ const ViewManual = () => {
         <View
           style={{
             backgroundColor: Color.HeaderColor,
-            height: verticalScale(25),
+            height: verticalScale(18),
           }}></View>
 
         <View
@@ -105,7 +105,7 @@ const ViewManual = () => {
         <View
           style={{
             backgroundColor: Color.HeaderColor,
-            height: verticalScale(25),
+            height: verticalScale(18),
           }}></View>
 
         <View
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),
 
-    marginTop: w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
+    marginTop: w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(5),
   },
   TextStyle: {
@@ -167,13 +167,13 @@ const styles = StyleSheet.create({
   },
   DetailTextStyle: {
     fontFamily: Font.Poppins400,
-    color: Color.TextColor,
+    color: Color.GreyText,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
     textAlign: 'center',
   },
   BoldDetailTextStyle: {
     fontFamily: Font.Poppins700,
-    color: Color.TextColor,
+    color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     lineHeight: verticalScale(30),
     // backgroundColor:'green',
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   AboutText: {
     fontFamily: Font.Poppins400,
-    color: Color.BoldTextColor,
+    color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
     marginTop: verticalScale(5),
   },

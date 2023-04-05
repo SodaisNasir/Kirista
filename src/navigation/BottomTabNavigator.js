@@ -19,10 +19,10 @@ import Terms from '../screens/more/Terms';
 import Home from '../screens/homescreen/Home';
 import PopularBooks from '../screens/homescreen/PopularBooks';
 import FeaturedParishes from '../screens/homescreen/FeaturedParishes';
-import Events from '../screens/homescreen/Events';
+import Events from '../screens/homescreen/Events/Events';
 import ViewManual from '../screens/homescreen/ViewManual';
 import ViewParish from '../screens/homescreen/ViewParish';
-import ParishFinder from '../screens/homescreen/parish finder/ParishFinder';
+import ParishFinder from '../screens/homescreen/Parish Finder/ParishFinder'
 
 const Tab = createBottomTabNavigator();
 
@@ -136,6 +136,7 @@ function AllHome(){
       <Stack.Screen name="Events" component={Events} />
       <Stack.Screen name="ViewManual" component={ViewManual} />
       <Stack.Screen name="ParishFinder" component={ParishFinder} />
+     
     </Stack.Navigator>
     );
   
@@ -162,6 +163,7 @@ function AllSettings(){
     <Stack.Screen name="Terms" component={Terms} />
     <Stack.Screen name="ViewParish" component={ViewParish} />
     <Stack.Screen name="ViewManual" component={ViewManual} />
+    
    
   </Stack.Navigator>
     

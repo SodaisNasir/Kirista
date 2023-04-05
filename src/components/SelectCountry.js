@@ -240,7 +240,7 @@ const SelectCountry = ({navigation}) => {
             scrollEnabled={false}
             data={DATA}
             renderItem={({item}) => (
-              <TouchableOpacity
+              <View
                 style={[
                   {marginTop: verticalScale(5)},
                   Theme === 'dark'
@@ -279,10 +279,12 @@ const SelectCountry = ({navigation}) => {
                   }}
                   data={item.countries}
                   renderItem={({item}) => (
+                    <TouchableOpacity>
                     <View
                       style={{
                         justifyContent: 'space-between',
                         flexDirection: 'row',
+                        
                       }}>
                       <View style={{marginVertical: verticalScale(5)}}>
                         <Text
@@ -332,12 +334,13 @@ const SelectCountry = ({navigation}) => {
                         </View>
                       </View>
                     </View>
+                    </TouchableOpacity>
                   )}
                   keyExtractor={item => item.id}
                 />
                 {/* <View style={{height: verticalScale(10),borderBottomColor: Color.BorderColor,
                         borderBottomWidth: 1,}} /> */}
-              </TouchableOpacity>
+              </View>
             )}
             keyExtractor={item => item.id}
           />

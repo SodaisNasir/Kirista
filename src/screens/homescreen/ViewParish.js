@@ -22,7 +22,7 @@ const ViewParish = () => {
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomHeader text={'View Parish'} image2={require('../../assets/images/bookmark.png')} />
+        <CustomHeader text={'View Parish'} shareicon = {true} saveicon = {true} />
         <View style={{paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)}}>
           <View style={styles.ImageViewStyle}>
             <Image

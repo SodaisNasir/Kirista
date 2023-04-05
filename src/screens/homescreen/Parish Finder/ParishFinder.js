@@ -16,7 +16,7 @@ import SelectDropdown from '../../../components/SelectDropdown';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-const ParishFinder = () => {
+const ParishFinder = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -31,7 +31,9 @@ const ParishFinder = () => {
         />
         <View style={styles.ViewStyling}>
           <View style={styles.ViewStyling}>
-            <SelectDropdown text={'Country'} title={'Select Country'} />
+            <SelectDropdown 
+            onPress = {()=>navigation.navigate('SelectCountry')}
+            text={'Country'} title={'Select Country'} />
           </View>
           <View style={styles.ViewStyling}>
             <SelectDropdown text={'Region'} title={'Select Region'} />
