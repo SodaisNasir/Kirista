@@ -179,7 +179,7 @@ const SettingsMore = () => {
         />
         <View style={styles.MainView}>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
+            onPress={() => navigation.navigate('faq')}
             style={styles.AllItems}>
             <View style={styles.IconAndText}>
               <FAQ height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />

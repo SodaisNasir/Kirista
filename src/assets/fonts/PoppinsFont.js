@@ -7,5 +7,7 @@ export const Font = {
     Poppins800: 'Poppins-ExtraBold',
     Poppins900: 'Poppins-Black',
     Libre700: 'LibreBaskerville-Bold',
-    Libre400 : 'LibreBaskerville-Regular'
+    Libre400 : 'LibreBaskerville-Regular',
+    Inter700 : 'Inter-Bold',
+    Inter500 : 'Inter-Medium'
   };

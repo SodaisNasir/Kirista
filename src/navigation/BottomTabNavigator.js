@@ -9,7 +9,6 @@ import SignUp from '../screens/auth/SignUp';
 import {NavigationContainer} from '@react-navigation/native';
 import Privacy from '../screens/more/Privacy';
 import {Color} from '../utils/Colors';
-import Svg, {G, Path} from 'react-native-svg';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../utils/font';
 import LibraryHomeTwo from '../screens/library/LibraryHomeTwo';
@@ -23,6 +22,8 @@ import Events from '../screens/homescreen/Events/Events';
 import ViewManual from '../screens/homescreen/ViewManual';
 import ViewParish from '../screens/homescreen/ViewParish';
 import ParishFinder from '../screens/homescreen/Parish Finder/ParishFinder'
+import Faq from '../screens/more/Faq';
+import Language from '../screens/more/Language';
 
 const Tab = createBottomTabNavigator();
 
@@ -157,12 +158,14 @@ function AllSettings(){
   return (
     <Stack.Navigator
     screenOptions={{headerShown: false}}
-    initialRouteName="SettingsMore">
+    initialRouteName="Language">
     <Stack.Screen name="SettingsMore" component={SettingsMore} />
     <Stack.Screen name="Privacy" component={Privacy} />
     <Stack.Screen name="Terms" component={Terms} />
     <Stack.Screen name="ViewParish" component={ViewParish} />
     <Stack.Screen name="ViewManual" component={ViewManual} />
+    <Stack.Screen name="Faq" component={Faq}/>
+    <Stack.Screen name="Language" component={Language}/>
     
    
   </Stack.Navigator>
