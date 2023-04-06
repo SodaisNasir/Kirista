@@ -19,6 +19,7 @@ export const Color = {
   DarkTheme : '#071A36',
   DropDownText: '#BDC1C7',
   ContinentText: '#838C9B',
-  GreyText: '#D1D2D4'
+  GreyText: '#D1D2D4',
+  FontOptionInput: '#F0F4F9'
   
 };

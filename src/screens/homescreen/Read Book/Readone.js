@@ -7,18 +7,22 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import React, {useFocusEffect, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
 import {Color} from '../../../utils/Colors';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import ReadNavigator from '../../../components/ReadNavigator';
 import {useNavigation} from '@react-navigation/native';
+import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Readone = () => {
+
+    
+    
   const navigation = useNavigation();
   useEffect(() => {
     navigation
@@ -99,6 +103,9 @@ const Readone = () => {
             <Text style={styles.ChapterPageText}>1 / 11</Text>
           </View>
         </View>
+
+      
+        
       </View>
     </SafeAreaView>
   );

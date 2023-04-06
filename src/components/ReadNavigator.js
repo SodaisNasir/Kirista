@@ -11,7 +11,11 @@ const ReadNavigator = props => {
   return (
     <View style={[styles.container, props.reStyle]}>
         <View style={styles.BoxStyle}>
-        <TouchableOpacity style={styles.tabButton}>
+        <TouchableOpacity 
+        
+        onPress={props.onPress}
+        
+        style={styles.tabButton}>
           <FontAwesome5 name="list-ul" size={24} color="#8E8E93" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabButton}>

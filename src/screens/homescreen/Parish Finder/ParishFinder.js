@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import React from 'react';
 import HomeHeader from '../../../components/HomeHeader';
@@ -14,9 +14,9 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import CustomInput from '../../../components/CustomInput';
 import SelectDropdown from '../../../components/SelectDropdown';
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
 const ParishFinder = ({navigation}) => {
+  const w = useWindowDimensions();
+  const h = useWindowDimensions();
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -29,16 +29,35 @@ const ParishFinder = ({navigation}) => {
             bottom: scale(4),
           }}
         />
-        <View style={styles.ViewStyling}>
-          <View style={styles.ViewStyling}>
-            <SelectDropdown 
-            onPress = {()=>navigation.navigate('SelectCountry')}
-            text={'Country'} title={'Select Country'} />
+        <View
+          style={{
+            marginVertical:
+              w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
+              paddingHorizontal: w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+          }}>
+          <View
+            style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
+            }}>
+            <SelectDropdown
+              onPress={() => navigation.navigate('SelectCountry')}
+              text={'Country'}
+              title={'Select Country'}
+            />
           </View>
-          <View style={styles.ViewStyling}>
+          <View
+            style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
+            }}>
             <SelectDropdown text={'Region'} title={'Select Region'} />
           </View>
-          <View style={styles.ViewStyling}>
+          <View
+            style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
+            }}>
             <SelectDropdown text={'Province'} title={'Select Province'} />
           </View>
         </View>
@@ -50,8 +69,5 @@ const ParishFinder = ({navigation}) => {
 export default ParishFinder;
 
 const styles = StyleSheet.create({
-  ViewStyling: {
-    marginVertical: w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
-
-  },
+  ViewStyling: {},
 });

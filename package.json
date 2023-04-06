@@ -10,7 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@adrianso/react-native-device-brightness": "^1.2.7",
     "@idiosync/horizontal-flatlist": "^1.0.18",
+    "@react-native-community/slider": "^4.4.2",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",

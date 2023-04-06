@@ -7,6 +7,7 @@ import {
   Image,
   useColorcheme,
   Dimensions,
+  useWindowDimensions
 } from 'react-native';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -26,7 +27,7 @@ const SelectDropdown = props => {
           fontFamily: Font.Poppins400,
           color: '#838C9B',
           fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-          paddingHorizontal:w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)
+         
         }}>
         {props.text}
       </Text>
@@ -35,7 +36,7 @@ const SelectDropdown = props => {
         onPress={props.onPress}
         style={[
           styles.SelectBox,
-          props.SelectBox,
+          props.RestyleSelectBox,
           // Theme === 'dark'
           //   ? {
           //       backgroundColor: Color.inputBackColorDark,
@@ -53,7 +54,7 @@ const SelectDropdown = props => {
           <Text
             style={[
               styles.GeneralText,
-              props.GeneralText,
+              props.RestyleGeneralText,
               // Theme === 'dark' ? {color: Color.White} : {color: Color.Grey},
             ]}>
             {props.title}
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
     backgroundColor: Color.InputColor,
     borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(16),
-    marginHorizontal: '5%',
+    // marginHorizontal: '5%',
     paddingHorizontal: verticalScale(20),
     flexDirection: 'row',
     marginTop: verticalScale(2),

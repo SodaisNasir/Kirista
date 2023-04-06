@@ -132,7 +132,7 @@ function AllHome(){
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Readone">
+      initialRouteName="Readtwo">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="FeaturedParishes" component={FeaturedParishes} />
       <Stack.Screen name="PopularBooks" component={PopularBooks} />
@@ -162,7 +162,7 @@ function AllSettings(){
   return (
     <Stack.Navigator
     screenOptions={{headerShown: false}}
-    initialRouteName="Language">
+    initialRouteName="SettingsMore">
     <Stack.Screen name="SettingsMore" component={SettingsMore} />
     <Stack.Screen name="Privacy" component={Privacy} />
     <Stack.Screen name="Terms" component={Terms} />

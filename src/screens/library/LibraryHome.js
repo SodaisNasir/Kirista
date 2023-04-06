@@ -172,19 +172,6 @@ const LibraryHome = () => {
         />
       {showModal == false ? (
           <FilterModal
-           
-            BigText="Bravo!"
-            TextTwo="Your trip details have been saved. Alert mode activated!"
-            TreavelSafeTrue={true}
-            title="Done"
-            BoostLongTextRestyle={{
-              paddingHorizontal: moderateScale(20),
-            }}
-            BoostLongTexttwoRestyle={{
-              paddingHorizontal: moderateScale(20),
-              fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
-              fontFamily: Font.PoppinsRegular,
-            }}
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}
             swipeDirection="down"
