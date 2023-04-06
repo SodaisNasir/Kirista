@@ -30,6 +30,7 @@ const Password = props => {
           // marginHorizontal: '5%',
           paddingHorizontal: verticalScale(20),
           flexDirection: 'row',
+          justifyContent:'space-between'
         }}>
         <TextInput
           placeholder={'Password'}

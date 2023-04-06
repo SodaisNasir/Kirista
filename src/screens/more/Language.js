@@ -20,6 +20,7 @@ import {
 import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
+import ReadNavigator from '../../components/ReadNavigator';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -65,8 +66,8 @@ const Language = ({navigation}) => {
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
-        //   backgroundColor:'red',
-          bottom:scale(4)
+          //   backgroundColor:'red',
+          bottom: scale(4),
         }}>
         <View
           style={{
@@ -138,7 +139,7 @@ const Language = ({navigation}) => {
           keyExtractor={item => item.id}
           style={{marginTop: verticalScale(20)}}
         />
-
+   
         <View style={{height: verticalScale(10)}} />
       </ScrollView>
     </SafeAreaView>
@@ -153,7 +154,8 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    paddingHorizontal: w >= 768 && h >= 1024 ? moderateScale(28) : moderateScale(20),
+    paddingHorizontal:
+      w >= 768 && h >= 1024 ? moderateScale(28) : moderateScale(20),
     paddingVertical: moderateVerticalScale(15),
     // height:verticalScale(70)
   },
@@ -167,7 +169,6 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins600,
   },
 
- 
   Short: {
     color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),

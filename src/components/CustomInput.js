@@ -33,7 +33,7 @@ const CustomInput = props => {
           borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
           // marginHorizontal: '5%',
           paddingHorizontal: verticalScale(20),
-          flexDirection: 'row',
+          // flexDirection: 'row',
           marginTop: verticalScale(2),
         }}>
         <TextInput
@@ -43,8 +43,10 @@ const CustomInput = props => {
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
             fontFamily: Font.Poppins400,
             alignItems: 'center',
+            justifyContent:'center',
             color: Color.TextColor,
             // backgroundColor: 'red',
+            flex:1
           }}
         />
       </View>

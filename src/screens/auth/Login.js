@@ -65,7 +65,7 @@ const Login = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(25),
         }}
         text={'Email Address'}
-        placeholder={'Email Address '}
+        placeholder={'Email Address'}
       />
       <Password text={'Password'} />
 

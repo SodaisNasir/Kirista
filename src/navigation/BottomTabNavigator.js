@@ -24,6 +24,8 @@ import ViewParish from '../screens/homescreen/ViewParish';
 import ParishFinder from '../screens/homescreen/Parish Finder/ParishFinder'
 import Faq from '../screens/more/Faq';
 import Language from '../screens/more/Language';
+import Readone from '../screens/homescreen/Read Book/Readone';
+import Readtwo from '../screens/homescreen/Read Book/Readtwo';
 
 const Tab = createBottomTabNavigator();
 
@@ -130,13 +132,15 @@ function AllHome(){
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Home ">
+      initialRouteName="Readone">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="FeaturedParishes" component={FeaturedParishes} />
       <Stack.Screen name="PopularBooks" component={PopularBooks} />
       <Stack.Screen name="Events" component={Events} />
       <Stack.Screen name="ViewManual" component={ViewManual} />
       <Stack.Screen name="ParishFinder" component={ParishFinder} />
+      <Stack.Screen name="Readone" component={Readone} />
+      <Stack.Screen name="Readtwo" component={Readtwo} />
      
     </Stack.Navigator>
     );
