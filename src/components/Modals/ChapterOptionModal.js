@@ -20,10 +20,27 @@ import {useNavigation} from '@react-navigation/native';
 import SelectDropdown from '../SelectDropdown';
 import LeftRight from '../../assets/icons/left-right.svg';
 import UpDown from '../../assets/icons/up-down.svg';
+import ReadNavigator from '../ReadNavigator';
+import FontModal from './FontModal';
 
 const ChapterOptionModal = props => {
-  const w = useWindowDimensions();
-  const h = useWindowDimensions();
+  const [showModal, setShowModal] = useState(false);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const [count, setCount] = useState(0);
+
+  const incrementCount = () => {
+    setCount(count + 1);
+  };
+  const decrementCount = () => {
+    setCount(count - 1);
+  };
+
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
   const [selected, setSelected] = useState();
   const navigation = useNavigation();
 
@@ -33,6 +50,7 @@ const ChapterOptionModal = props => {
         testID={'modal'}
         style={styles.modalStyling}
         backdropOpacity={0.7}
+        onRequestClose={props.onRequestClose}
         onBackdropPress={props.onBackdropPress}
         isVisible={props.isVisible}
         swipeDirection="down"
@@ -62,7 +80,7 @@ const ChapterOptionModal = props => {
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(26)
-                      : verticalScale(50),
+                      : verticalScale(45),
                   borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(15),
                   backgroundColor: '#F5F5F5',
                 },
@@ -75,7 +93,7 @@ const ChapterOptionModal = props => {
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(26)
-                      : verticalScale(50),
+                      : verticalScale(45),
                   borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(15),
                   backgroundColor: '#F5EDD8',
                 },
@@ -88,7 +106,7 @@ const ChapterOptionModal = props => {
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(26)
-                      : verticalScale(50),
+                      : verticalScale(45),
                   borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(15),
                   backgroundColor: '#E5F1FD',
                 },
@@ -101,7 +119,7 @@ const ChapterOptionModal = props => {
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(26)
-                      : verticalScale(50),
+                      : verticalScale(45),
                   borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(15),
                   backgroundColor: '#DBE7E3',
                 },
@@ -110,6 +128,7 @@ const ChapterOptionModal = props => {
 
           <View>
             <SelectDropdown
+              
               RestyleSelectBox={{
                 backgroundColor: Color.FontOptionInput,
               }}
@@ -119,22 +138,25 @@ const ChapterOptionModal = props => {
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
               }}
               title={'Arial'}
+              onPress={() => {
+                setShowModal(toggleModal(true))}}
             />
           </View>
-
+          
+        
           <View
             style={{
-              justifyContent: 'space-between',
+              justifyContent:w >= 768 && h >= 1024 ? 'space-around'  : 'space-between',
               flexDirection: 'row',
               borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-              backgroundColor: '#EBF2FC',
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(18),
               height:
-                w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(60),
+                w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(60),
               alignItems: 'center',
-              paddingHorizontal:moderateScale(10),
-              
+              paddingHorizontal: moderateScale(10),
+              width:  w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
             }}>
             <View
               style={{
@@ -142,20 +164,22 @@ const ChapterOptionModal = props => {
                 backgroundColor: '#F5F5F5',
                 flexDirection: 'row',
                 height:
-                w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
-                alignItems:'center',
-                width:w >= 768 && h >= 1024 ? '40%' : '45%'
-                
+                  w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
+                alignItems: 'center',
+                width: w >= 768 && h >= 1024 ? '45%' : '45%',
+               
               }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
-                  fontFamily: Font.Poppins600,
-                  color: Color.DarkTextColor,
-                  paddingHorizontal: moderateScale(10),
-                }}>
-                A⁻ 
-              </Text>
+              <TouchableOpacity onPress={decrementCount}>
+                <Text
+                  style={{
+                    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
+                    fontFamily: Font.Poppins600,
+                    color: Color.DarkTextColor,
+                    paddingHorizontal: moderateScale(10),
+                  }}>
+                  A⁻
+                </Text>
+              </TouchableOpacity>
               <View
                 style={{
                   backgroundColor: '#E2E9F3',
@@ -170,50 +194,53 @@ const ChapterOptionModal = props => {
 
                     textAlignVertical: 'center',
                   }}>
-                  16
+                  {count}
                 </Text>
               </View>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
-                  fontFamily: Font.Poppins600,
-                  color: Color.DarkTextColor,
-                  paddingHorizontal: moderateScale(10),
-                }}>
-                A⁺
-              </Text>
+              <TouchableOpacity onPress={incrementCount}>
+                <Text
+                  style={{
+                    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
+                    fontFamily: Font.Poppins600,
+                    color: Color.DarkTextColor,
+                    paddingHorizontal: moderateScale(10),
+                  }}>
+                  A⁺
+                </Text>
+              </TouchableOpacity>
             </View>
 
             <View
               style={{
-               
                 flexDirection: 'row',
-                height: 
-                w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
-                alignItems:'center',
+                height:
+                  w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
+                alignItems: 'center',
                 justifyContent: 'space-evenly',
                 flexDirection: 'row',
                 borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
                 backgroundColor: '#F5F5F5',
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(18),
-                //   height:
-                //     w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(65),
-                width:w >= 768 && h >= 1024 ? '40%' : '45%'
-                
+                  // height:
+                  //   w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(65),
+                width: w >= 768 && h >= 1024 ? '45%' : '45%',
               }}>
               <View
                 style={{
                   paddingHorizontal: moderateScale(10),
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderRightColor:Color.BorderColor,
-                  borderRightWidth:1,
-                  marginVertical:verticalScale(5)
-                  
+                  borderRightColor: Color.BorderColor,
+                  borderRightWidth: 1,
+                  marginVertical: verticalScale(5),
                 }}>
                 <LeftRight
-                  height={w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30)}
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(25)
+                      : verticalScale(30)
+                  }
                   width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
                 />
               </View>
@@ -223,15 +250,28 @@ const ChapterOptionModal = props => {
                   paddingHorizontal: moderateScale(10),
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginVertical:5
+                  marginVertical: 5,
                 }}>
-                <UpDown  height={w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30)}
-                  width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}/>
+                <UpDown
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(25)
+                      : verticalScale(30)
+                  }
+                  width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
+                />
               </View>
             </View>
           </View>
         </View>
+       
+        <ReadNavigator
+          onPress={() => setModalVisible(false)}/>
+      
+   
       </Modal>
+
+      
     </View>
   );
 };

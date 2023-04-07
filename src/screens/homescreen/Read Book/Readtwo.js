@@ -14,16 +14,31 @@ import {Font} from '../../../utils/font';
 import ReadNavigator from '../../../components/ReadNavigator';
 import {useNavigation} from '@react-navigation/native';
 import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
+import FontModal from '../../../components/Modals/FontModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Readtwo = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showSecondModal, setShowSecondModal] = useState(false);
+
+  const [backgroundColor, setBackgroundColor] = useState('#fff');
+
+  const handlePress = () => {
+    setBackgroundColor('#F5EDD8');
+  };
 
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isSecondModalVisible, setSecondModalVisible] = useState(false);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  
+  const toggleModalTwo = () => {
+    setSecondModalVisible(!isSecondModalVisible);
   };
 
   const navigation = useNavigation();
@@ -38,7 +53,7 @@ const Readtwo = () => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
+    <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ReadHeader />
         <View style={styles.Container}>
@@ -79,9 +94,23 @@ const Readtwo = () => {
             onBackdropPress={() => setModalVisible(false)}
             swipeDirection="down"
             onSwipeComplete={() => setModalVisible(false)}
+            onRequestClose={() => setModalVisible(false)}
           />
         ) : (
           setShowModal(false)
+        )}
+
+        {showSecondModal == false ? (
+          <FontModal
+            isVisible={isSecondModalVisible}
+            onBackdropPress={() => setSecondModalVisible(false)}
+            swipeDirection="down"
+            onSwipeComplete={() => setSecondModalVisible(false)}
+            onRequestClose={() => setSecondModalVisible(false)}
+            OptionSelect={() => setSecondModalVisible(false)}
+          />
+        ) : (
+          setShowSecondModal(false)
         )}
       </ScrollView>
       <View
@@ -107,6 +136,7 @@ const Readtwo = () => {
 export default Readtwo;
 
 const styles = StyleSheet.create({
+  MainContainer: {flex: 1},
   Container: {
     paddingHorizontal:
       w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
