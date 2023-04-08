@@ -4,7 +4,7 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import React, {useFocusEffect, useCallback, useEffect, useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -15,31 +15,44 @@ import ReadNavigator from '../../../components/ReadNavigator';
 import {useNavigation} from '@react-navigation/native';
 import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
 import FontModal from '../../../components/Modals/FontModal';
-
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+import DrawerScreen from '../../../components/DrawerScreen';
 
 const Readtwo = () => {
+
   const [showModal, setShowModal] = useState(false);
-  const [showSecondModal, setShowSecondModal] = useState(false);
-
-  const [backgroundColor, setBackgroundColor] = useState('#fff');
-
-  const handlePress = () => {
-    setBackgroundColor('#F5EDD8');
-  };
-
   const [isModalVisible, setModalVisible] = useState(false);
-  const [isSecondModalVisible, setSecondModalVisible] = useState(false);
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
   
+  const [showSecondModal, setShowSecondModal] = useState(false);
+  const [isSecondModalVisible, setSecondModalVisible] = useState(false);
   const toggleModalTwo = () => {
     setSecondModalVisible(!isSecondModalVisible);
   };
+
+  const [showThirdModal, setshowThirdModal] = useState(false);
+  const [isModalThreeVisible, setModalThreeVisible] = useState(false);
+  const toggleModalThree = () => {
+    setModalThreeVisible(!isModalThreeVisible);
+  };
+
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+
+  
+ 
+  
+
+  const [backgroundColor, setBackgroundColor] = useState('#fff');
+
+ 
+  
+
+  
+
+
+
 
   const navigation = useNavigation();
   useEffect(() => {
@@ -56,25 +69,47 @@ const Readtwo = () => {
     <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ReadHeader />
-        <View style={styles.Container}>
+        <View
+          style={{
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+          }}>
           <View style={{marginVertical: verticalScale(20)}}>
-            <Text style={styles.Title}>Chapter 1</Text>
+            <Text
+              style={[
+                {fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20)},
+                styles.Title,
+              ]}>
+              Chapter 1
+            </Text>
           </View>
           <View style={{marginVertical: verticalScale(15)}}>
-            <Text style={styles.TextStyle}>
+            <Text
+              style={[
+                {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
+                styles.TextStyle,
+              ]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
               papyrus, parchment, vellum, or paper) bound together and protected
               by a cover.
             </Text>
-            <Text style={styles.TextStyle}>
+            <Text
+              style={[
+                {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
+                styles.TextStyle,
+              ]}>
               The technical term for this physical arrangement is codex (plural,
               codices). In the history of hand-held physical supports for
               extended written compositions or records, the codex replaces its
               predecessor, the scroll. A single sheet in a codex is a leaf and
               each side of a leaf is a page.
             </Text>
-            <Text style={styles.TextStyle}>
+            <Text
+              style={[
+                {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
+                styles.TextStyle,
+              ]}>
               As an intellectual object, a book is prototypically a composition
               of such great length that it takes a considerable investment of
               time to compose and still considered as an investment of time to
@@ -95,6 +130,13 @@ const Readtwo = () => {
             swipeDirection="down"
             onSwipeComplete={() => setModalVisible(false)}
             onRequestClose={() => setModalVisible(false)}
+            HandlePressOne={() => setBackgroundColor('#F5F5F5')}
+            HandlePressTwo={() => setBackgroundColor('#F5EDD8')}
+            HandlePressThree={() => setBackgroundColor('#E5F1FD')}
+            HandlePressFour={() => setBackgroundColor('#DBE7E3')}
+            toggleModalTwo={() => {
+              setShowSecondModal(toggleModalTwo(true));
+            }}
           />
         ) : (
           setShowModal(false)
@@ -112,6 +154,20 @@ const Readtwo = () => {
         ) : (
           setShowSecondModal(false)
         )}
+
+        {showThirdModal == false ? (
+          <DrawerScreen
+            isVisible={isModalThreeVisible}
+            onBackdropPress={() => setModalThreeVisible(false)}
+            swipeDirection="left"
+            onSwipeComplete={() => setModalThreeVisible(false)}
+            onRequestClose={() => setModalThreeVisible(false)}
+            OptionSelect={() => setModalThreeVisible(false)}
+
+          />
+        ) : (
+          setshowThirdModal(false)
+        )}
       </ScrollView>
       <View
         style={{
@@ -124,7 +180,10 @@ const Readtwo = () => {
           width: '100%',
         }}>
         <ReadNavigator
-          onPress={() => {
+          onPressTab={() => {
+            setshowThirdModal(toggleModalThree(true));
+          }}
+          onPressModal={() => {
             setShowModal(toggleModal(true));
           }}
         />
@@ -137,19 +196,14 @@ export default Readtwo;
 
 const styles = StyleSheet.create({
   MainContainer: {flex: 1},
-  Container: {
-    paddingHorizontal:
-      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-  },
+
   Title: {
     color: Color.Black,
     fontFamily: Font.Libre400,
-    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
   },
   TextStyle: {
     color: Color.TextColor2,
     fontFamily: Font.Libre400,
-    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
     marginBottom: verticalScale(20),
   },
 });

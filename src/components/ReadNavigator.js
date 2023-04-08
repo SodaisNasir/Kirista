@@ -3,6 +3,7 @@ import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import { Color } from '../utils/Colors';
@@ -13,7 +14,7 @@ const ReadNavigator = props => {
         <View style={styles.BoxStyle}>
         <TouchableOpacity 
         
-        onPress={props.onPress}
+        onPress={props.onPressTab}
         
         style={styles.tabButton}>
           <FontAwesome5 name="list-ul" size={24} color="#8E8E93" />
@@ -21,8 +22,11 @@ const ReadNavigator = props => {
         <TouchableOpacity style={styles.tabButton}>
           <Feather name="moon" size={24} color="#374957" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabButton}>
-          <FontAwesome5 name="list-ul" size={24} color="#8E8E93" />
+        <TouchableOpacity 
+        
+        onPress={props.onPressModal}
+        style={styles.tabButton}>
+          <MaterialCommunityIcons name="nut" size={scale(24)} color="black" />
         </TouchableOpacity>
         </View>
     </View>

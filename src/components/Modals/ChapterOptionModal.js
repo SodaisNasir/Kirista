@@ -24,12 +24,7 @@ import ReadNavigator from '../ReadNavigator';
 import FontModal from './FontModal';
 
 const ChapterOptionModal = props => {
-  const [showModal, setShowModal] = useState(false);
-
-  const [isModalVisible, setModalVisible] = useState(false);
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+ 
   const [count, setCount] = useState(0);
 
   const incrementCount = () => {
@@ -74,6 +69,7 @@ const ChapterOptionModal = props => {
               styles.ColorsView,
             ]}>
             <TouchableOpacity
+            onPress={props.HandlePressOne}
               style={[
                 {
                   width: w >= 768 && h >= 1024 ? scale(65) : scale(60),
@@ -87,6 +83,7 @@ const ChapterOptionModal = props => {
               ]}></TouchableOpacity>
 
             <TouchableOpacity
+             onPress={props.HandlePressTwo}
               style={[
                 {
                   width: w >= 768 && h >= 1024 ? scale(65) : scale(60),
@@ -100,6 +97,7 @@ const ChapterOptionModal = props => {
               ]}></TouchableOpacity>
 
             <TouchableOpacity
+             onPress={props.HandlePressThree}
               style={[
                 {
                   width: w >= 768 && h >= 1024 ? scale(65) : scale(60),
@@ -113,6 +111,7 @@ const ChapterOptionModal = props => {
               ]}></TouchableOpacity>
 
             <TouchableOpacity
+             onPress={props.HandlePressFour}
               style={[
                 {
                   width: w >= 768 && h >= 1024 ? scale(65) : scale(60),
@@ -138,8 +137,7 @@ const ChapterOptionModal = props => {
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
               }}
               title={'Arial'}
-              onPress={() => {
-                setShowModal(toggleModal(true))}}
+              onPress={props.toggleModalTwo}
             />
           </View>
           

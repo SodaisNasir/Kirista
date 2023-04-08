@@ -15,13 +15,14 @@ import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import ImageModal from '../../components/Modals/ImageModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const EventScreen = () => {
+  
   const [showModal, setShowModal] = useState(false);
-
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -144,6 +145,21 @@ const EventScreen = () => {
               longitudeDelta: 0.0421,
             }}></MapView>
         </View>
+        {showModal == false ? (
+          <ImageModal
+            isVisible={isModalVisible}
+            onBackdropPress={() => setModalVisible(false)}
+            swipeDirection="left"
+            onSwipeComplete={() => setModalVisible(false)}
+            onRequestClose={() => setModalVisible(false)}
+            OptionSelect={() => setModalVisible(false)}
+            onPress={() => setModalVisible(false)}
+
+          />
+        ) : (
+          setShowModal(false)
+        )}
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -221,11 +237,13 @@ const styles = StyleSheet.create({
   },
   LocationImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
-    paddingHorizontal:
-      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+    // paddingHorizontal:
+    //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
     marginVertical: verticalScale(15),
-    borderRadius: scale(20),
+    borderRadius: scale(14),
     marginBottom: verticalScale(20),
+    overflow:'hidden',
+    marginHorizontal: w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)
   },
   DateText: {
     fontFamily: Font.Poppins500,

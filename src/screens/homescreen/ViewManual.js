@@ -17,7 +17,7 @@ import CustomButton from '../../components/CustomButton';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ViewManual = () => {
+const ViewManual = ({navigation}) => {
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -44,7 +44,11 @@ const ViewManual = () => {
             justifyContent: 'center',
             paddingHorizontal: verticalScale(20),
           }}>
-          <CustomButton text={'Read'} />
+          <CustomButton
+          
+          onPress = {()=>navigation.navigate('Readone')}
+          
+          text={'Read'} />
         </View>
 
         <View></View>

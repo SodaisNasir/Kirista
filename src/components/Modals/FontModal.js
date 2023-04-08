@@ -48,7 +48,7 @@ const FontModal = props => {
     },
     {
       id: '6',
-      label: 'Times New Romans',
+      label: 'Times New Roman',
     },
   ];
 
@@ -78,7 +78,12 @@ const FontModal = props => {
           ]}>
           <View
             style={{
-              marginVertical: verticalScale(20),
+              // marginVertical: verticalScale(20),
+              // marginVertical:verticalScale(10)
+              paddingVertical:verticalScale(10),
+              // backgroundColor:'red',
+              borderBottomWidth:0.5,
+              borderBottomColor:Color.BorderColor
             }}>
             <Text
               style={[
@@ -96,28 +101,29 @@ const FontModal = props => {
               return (
                 <View style={{}}>
                   <TouchableOpacity
-                    style={{marginBottom: verticalScale(20)}}
+                    style={{marginTop:verticalScale(12)}}
                     onPress={props.OptionSelect}>
                     <View
                       style={{
-                        // flexDirection: 'row',
+                        flexDirection: 'row',
                         justifyContent: 'space-between',
                         borderBottomColor:Color.BorderColor,
                         borderBottomWidth:0.5,
+                        // backgroundColor:'red'
                        
                       }}>
-                      <View style={{  }}>
-                        <Text
-                          style={[
-                            {
-                              fontSize:
-                                w >= 768 && h >= 1024 ? scale(8) : scale(16)
-                            },
-                            styles.SmallTextStyle,
-                          ]}>
-                          {item.label}
-                        </Text>
-                      </View>
+                        <View style={{marginBottom:verticalScale(12)}}>
+                          <Text
+                            style={[
+                              {
+                                fontSize:
+                                  w >= 768 && h >= 1024 ? scale(8) : scale(16)
+                              },
+                              styles.SmallTextStyle,
+                            ]}>
+                            {item.label}
+                          </Text>
+                        </View>
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -154,8 +160,8 @@ const styles = StyleSheet.create({
   },
   SmallTextStyle: {
     color: Color.DarkTextColor,
-    fontFamily: Font.Poppins400,
-    textAlign: 'left',
+    fontFamily: Font.Poppins500,
+  
   },
 });
 

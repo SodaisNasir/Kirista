@@ -26,6 +26,9 @@ import Faq from '../screens/more/Faq';
 import Language from '../screens/more/Language';
 import Readone from '../screens/homescreen/Read Book/Readone';
 import Readtwo from '../screens/homescreen/Read Book/Readtwo';
+import DrawerScreen from '../components/DrawerScreen';
+import ImageModal from '../components/Modals/ImageModal';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -132,7 +135,7 @@ function AllHome(){
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Readtwo">
+      initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="FeaturedParishes" component={FeaturedParishes} />
       <Stack.Screen name="PopularBooks" component={PopularBooks} />
@@ -141,6 +144,8 @@ function AllHome(){
       <Stack.Screen name="ParishFinder" component={ParishFinder} />
       <Stack.Screen name="Readone" component={Readone} />
       <Stack.Screen name="Readtwo" component={Readtwo} />
+      <Stack.Screen name="DrawerScreen" component={DrawerScreen} />
+      <Stack.Screen name="ImageModal" component={ImageModal} />
      
     </Stack.Navigator>
     );
