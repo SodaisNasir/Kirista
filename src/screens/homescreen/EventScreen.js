@@ -29,6 +29,7 @@ const EventScreen = () => {
   };
   return (
     <SafeAreaView style={styles.Container}>
+      
       <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader text={'View Parish'} shareicon={true} saveicon={true} timeicon = {true} />
         <View

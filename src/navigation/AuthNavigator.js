@@ -33,6 +33,8 @@ import SettingsMore from '../screens/more/SettingsMore';
 import Home from '../screens/homescreen/Home';
 import BottomTabNavigator from './BottomTabNavigator';
 import SelectCountry from '../components/SelectCountry';
+import HomeHeader from '../components/HomeHeader';
+import SearchResult from '../components/SearchResult';
 
 
 const Stack = createNativeStackNavigator();
@@ -41,7 +43,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="OverBoard"
+        initialRouteName="HomeHeader"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -68,6 +70,8 @@ function AuthNavigator() {
         <Stack.Screen name="SettingsMore" component={SettingsMore} />
         <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
         <Stack.Screen name="SelectCountry" component={SelectCountry} />
+        <Stack.Screen name="HomeHeader" component={HomeHeader} />
+        <Stack.Screen name="SearchResult" component={SearchResult} />
 
   
       </Stack.Navigator>
