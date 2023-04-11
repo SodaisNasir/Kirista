@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Searchbar from './Searchbar';
+import SearchNormal from '../assets/icons/search-normal'
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -56,19 +57,32 @@ const HomeHeader = props => {
             }}>
             <TouchableOpacity
               style={{
-                // paddingHorizontal: moderateScale(),
+                
                 borderRadius: scale(5),
                 backgroundColor: Theme ? '#0A2E61' : '#fff',
                 justifyContent: 'center',
-                // width:scale(35)
+                alignItems:'center',
+                height:verticalScale(22),
+                width:
+                  w >= 768 && h >= 1024
+                    ? scale(20)
+                    : scale(25)
+                
+
               }}
-              onPress={()=>navigation.navigate('SearchBarScreen')}
-              >
+              onPress={() => navigation.navigate('Searchbar')}>
               <View>
-                <MaterialIcons
-                  name="search"
-                  size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
-                  color="#387DE5"
+                <SearchNormal
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(20)
+                      : verticalScale(16)
+                  }
+                  width={
+                    w >= 768 && h >= 1024
+                      ? scale(12)
+                      : scale(14)
+                  }
                 />
               </View>
             </TouchableOpacity>

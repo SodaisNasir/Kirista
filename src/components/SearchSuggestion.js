@@ -24,53 +24,53 @@ const SearchSuggestion = () => {
     
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{paddingHorizontal:w >= 768 && h >= 1024 ? moderateScale(10) : moderateScale(0)}}>
       <ScrollView>
         <View style={{marginTop:verticalScale(10)}}>
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <BookSvg height={22} width={25} />
+            <BookSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(20)} width={(25)} />
 
-            <View style={{paddingHorizontal:moderateScale(5)}}>
+            <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Sunday Student Manual</Text>
             </View>
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <BookSvg height={22} width={25} />
+            <BookSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(20)} width={25} />
 
-            <View style={{paddingHorizontal:moderateScale(5)}}>
+            <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Sunday Student Manual</Text>
             </View>
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <HouseSvg height={18} width={25} />
+            <HouseSvg height={w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(18)} width={25} />
 
-            <View style={{paddingHorizontal:moderateScale(5)}}>
+            <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>School of Disciple</Text>
             </View>
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <PersonSvg height={18} width={25} />
+            <PersonSvg height={w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(18)} width={25} />
 
-            <View style={{paddingHorizontal:moderateScale(5)}}>
+            <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>RCCG Central Parish </Text>
             </View>
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <PersonSvg height={18} width={25} />
+            <PersonSvg height={w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(18)} width={25} />
 
-            <View style={{paddingHorizontal:moderateScale(5)}}>
+            <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Pastor E.A. Adeboye</Text>
             </View>
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <CalendarSvg height={16} width={25} />
+            <CalendarSvg height={w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(18)} width={25} />
 
-            <View style={{paddingHorizontal:moderateScale(5)}}>
+            <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Sunday Student Manual</Text>
             </View>
           </View>
@@ -86,8 +86,8 @@ export default SearchSuggestion;
 const styles = StyleSheet.create({
 
     TextStyle:{
-        fontFamily:Font.Poppins400,
-        fontSize:  w >= 768 && h >= 1024 ? scale(9) : scale(13),
+        fontFamily:Font.Poppins500,
+        fontSize:  w >= 768 && h >= 1024 ? scale(8) : scale(13),
         color:Color.DarkTextColor
     }
 });

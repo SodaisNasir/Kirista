@@ -21,6 +21,7 @@ export const Color = {
   ContinentText: '#838C9B',
   GreyText: '#D1D2D4',
   FontOptionInput: '#F0F4F9',
-  DarkThemeGreyText:'#838C9A'
+  DarkThemeGreyText:'#838C9A',
+  SearchBarColor: '#C7C7C7'
   
 };

@@ -35,6 +35,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import SelectCountry from '../components/SelectCountry';
 import HomeHeader from '../components/HomeHeader';
 import SearchResult from '../components/SearchResult';
+import SearchBarScreen from '../components/SearchBarScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -72,6 +73,7 @@ function AuthNavigator() {
         <Stack.Screen name="SelectCountry" component={SelectCountry} />
         <Stack.Screen name="HomeHeader" component={HomeHeader} />
         <Stack.Screen name="SearchResult" component={SearchResult} />
+        <Stack.Screen name="SearchBarScreen" component={SearchBarScreen} />
 
   
       </Stack.Navigator>
