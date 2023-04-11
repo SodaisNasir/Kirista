@@ -24,11 +24,11 @@ const SearchSuggestion = () => {
     
 
   return (
-    <SafeAreaView style={{paddingHorizontal:w >= 768 && h >= 1024 ? moderateScale(10) : moderateScale(0)}}>
+    <SafeAreaView style={{paddingHorizontal:w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(0)}}>
       <ScrollView>
-        <View style={{marginTop:verticalScale(10)}}>
+        <View style={{marginTop:w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10)}}>
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <BookSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(20)} width={(25)} />
+            <BookSvg height={w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)} width={(25)} />
 
             <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Sunday Student Manual</Text>
@@ -36,7 +36,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <BookSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(20)} width={25} />
+            <BookSvg height={w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)} width={25} />
 
             <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Sunday Student Manual</Text>
@@ -44,7 +44,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <HouseSvg height={w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(18)} width={25} />
+            <HouseSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)} width={25} />
 
             <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>School of Disciple</Text>
@@ -52,7 +52,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <PersonSvg height={w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(18)} width={25} />
+            <PersonSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)} width={25} />
 
             <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>RCCG Central Parish </Text>
@@ -60,7 +60,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <PersonSvg height={w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(18)} width={25} />
+            <PersonSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)} width={25} />
 
             <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Pastor E.A. Adeboye</Text>
@@ -68,7 +68,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View style={{marginVertical:moderateScale(5),flexDirection: 'row'}}>
-            <CalendarSvg height={w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(18)} width={25} />
+            <CalendarSvg height={w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)} width={25} />
 
             <View style={{paddingHorizontal:moderateScale(10)}}>
               <Text style={styles.TextStyle}>Sunday Student Manual</Text>

@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   useColorScheme,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import {
   moderateScale,
@@ -17,10 +18,12 @@ import {
   scale,
   verticalScale,
 } from 'react-native-size-matters';
-import { Font } from './src/assets/fonts/PoppinsFont';
+import {Color} from '../utils/Colors';
+import {Font} from '../utils/font';
+import Header from './Header';
 // import BackWithName from '../../../../components/BackWithName';
 // import CustomSearch from '../../../../components/CustomSearch';
-// import {Colors} from '../Kirista/src/assets/colours';
+// import {Color} from '../Kirista/src/assets/colours';
 // import {Font} from '../../../../utils/font';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -63,7 +66,7 @@ const Countrycode = ({navigation}) => {
     },
     {
       id: '5',
-      title: 'Bosnia and Harzegovina',
+      title: 'Bosnia',
       flag: 'https://img.icons8.com/color/256/bosnia-and-herzegovina.png',
       countrycode: '+387',
     },
@@ -109,50 +112,40 @@ const Countrycode = ({navigation}) => {
       flag: 'https://img.icons8.com/color/256/bahamas.png',
       countrycode: '+1242',
     },
+   
   ];
   return (
     <SafeAreaView
       style={[
         styles.Container,
-        // Theme === 'dark'
-        //   ? {backgroundColor: Colors.ThemeBlack}
-        //   : {backgroundColor: Colors.White},
+        Theme === 'dark'
+          ? {backgroundColor: Color.DarkTheme}
+          : {backgroundColor: Color.White},
       ]}>
+      <Header text={'Select Country Code'} />
+      <ScrollView showsVerticalScrollIndicator={false}>
       <View
         style={[
-        //   Theme === 'dark'
-        //     ? {borderColor: Colors.AcitivityBorderColorBlack}
-        //     : {borderColor: Colors.AcitivityBorderColorWhie},
-          styles.backBox,
+          {marginVertical: w >= 768 && h >= 1024 ? scale(20) : scale(30),
+           
+          },
+          styles.MainBox,
         ]}>
-        {/* <BackWithName
-          title="Select Country"
-          ContainerRestyle={{
-            width: '100%',
-            paddingHorizontal:
-              w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(20),
-          }}
-        /> */}
-        {/* <CustomSearch placeholder="Search" SearchBoxrestyle={{marginTop: 0}} /> */}
-      </View>
-      <View style={styles.MainBox}>
+
         <FlatList
           // scrollEnabled={true}
           showsVerticalScrollIndicator={false}
           data={DATA}
           renderItem={({item}) => (
             <TouchableOpacity
-            onPress={()=>navigation.navigate('SignUp')
-            }
+              onPress={() => navigation.navigate('SignUp')}
               style={[
                 styles.item,
                 {
-                  borderBottomWidth:
-                    item.type === 'Nigeria' ? scale(1.5) : scale(0.5),
+                  // borderBottomWidth:
+                  //   item.type === 'Nigeria' ? scale(1.5) : scale(0.5),
                   borderBottomColor:
-                    item.type === 'Nigeria'
-                    //   ? Colors.Homeborder
-                    //   : Colors.Homeborder,
+                    Theme === 'dark' ? Color.Black : Color.BorderColor,
                 },
               ]}>
               <View
@@ -165,8 +158,8 @@ const Countrycode = ({navigation}) => {
                   style={[
                     styles.title,
                     Theme === 'dark'
-                    //   ? {color: Colors.TextDark}
-                    //   : {color: Colors.Black},
+                      ? {color: Color.White}
+                      : {color: Color.DarkTextColor},
                   ]}>
                   {item.title}
                 </Text>
@@ -214,8 +207,8 @@ const Countrycode = ({navigation}) => {
                     style={[
                       styles.title1,
                       Theme === 'dark'
-                        // ? {color: Colors.TextDark}
-                        // : {color: Colors.Black},
+                        ? {color: Color.TextDark}
+                        : {color: Color.Black},
                     ]}>
                     {item.countrycode}
                   </Text>
@@ -226,7 +219,10 @@ const Countrycode = ({navigation}) => {
           keyExtractor={item => item.id}
         />
         <View style={{height: verticalScale(10)}} />
+      
       </View>
+
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -236,15 +232,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  backBox: {
-    borderWidth: scale(1.5),
-    borderBottomRightRadius: scale(12),
-    borderBottomLeftRadius: scale(12),
-    borderTopWidth: 0,
-    paddingTop: moderateVerticalScale(5),
-    paddingBottom: moderateVerticalScale(15),
-    marginBottom: verticalScale(10),
-  },
   item: {
     paddingHorizontal: moderateScale(10),
     flexDirection: 'row',
@@ -257,13 +244,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
     textTransform: 'capitalize',
-    fontFamily:Font.Poppins500,
+    fontFamily: Font.Poppins500,
   },
 
   title1: {
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
     textTransform: 'capitalize',
-    fontFamily:Font.Poppins600,
+    fontFamily: Font.Poppins600,
   },
   MainBox: {
     width: w >= 768 && h >= 1024 ? '90%' : '85%',

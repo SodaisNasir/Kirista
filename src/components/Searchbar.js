@@ -21,53 +21,14 @@ import SearchSuggestion from './SearchSuggestion';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import Search from '../assets/icons/search.svg';
+import SearchContent from './SearchContent';
+
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const Searchbar = props => {
-
-
-  const data = [
-    {
-      id: 1,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book1.png'),
-      detail: '2023',
-    },
-
-    {
-      id: 2,
-      title: 'RCCG',
-      manual: 'Central Parish',
-      image: require('../../../src/assets/images/parishsmall_1.png'),
-      detail: 'Ghana',
-    },
-
-    {
-      id: 3,
-      title: 'West Coast 3 Regional',
-      manual: 'Convention',
-      image: require('../../../src/assets/images/event_4.png'),
-      detail: 'July 7, 2023.   .   4PM',
-    },
-    {
-      id: 4,
-      title: 'RCCG His Grace Assembly',
-      manual: '',
-      image: require('../../../src/assets/images/rcg_centralparish.png'),
-      detail: 'Banjul',
-    },
-    {
-      id: 5,
-      title: 'Sunday School',
-      manual: 'Teachers Man..',
-      image: require('../../../src/assets/images/book2.png'),
-      detail: '2023',
-    },
-  ];
-
   const navigation = useNavigation();
-  const w = Dimensions.get('window').width;
-  const h = Dimensions.get('window').height;
+
   const Theme = useColorScheme() === 'dark';
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
   const [searchInputValue, setSearchInputValue] = useState('');
@@ -99,71 +60,103 @@ const Searchbar = props => {
         },
       ]}>
       {!isSearchBarVisible ? (
-        <View
-          style={{
-            height: verticalScale(90),
-            backgroundColor: Color.HeaderColor,
-            justifyContent: 'flex-end',
-            paddingHorizontal:
-              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-          }}>
+        <>
           <View
             style={{
-              flexDirection: 'row',
+              height: verticalScale(90),
+              backgroundColor: Color.HeaderColor,
+              justifyContent: 'flex-end',
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
               marginBottom:
                 w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
             }}>
-            <View style={styles.NavigatorStyle}>
-              <AntDesign
-                name="arrowleft"
-                size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                color="black"
-                onPress={() => navigation.goBack()}
-              />
-            </View>
-
-            <TouchableOpacity
-              onPress={slideInSearchBar}
-              style={[
-                styles.searchContainer,
-                {backgroundColor: Theme ? '#2B3642' : '#f0f0f0'},
-              ]}>
-              <View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    paddingHorizontal: moderateScale(10),
-                  }}>
-                  <Search
-                    height={
-                      w >= 768 && h >= 1024
-                        ? verticalScale(16)
-                        : verticalScale(18)
-                    }
-                    width={
-                      w >= 768 && h >= 1024
-                        ? verticalScale(16)
-                        : verticalScale(24)
-                    }
-                  />
-                  <TextInput
-                    style={[
-                      styles.searchInput,
-                      {color: Theme ? '#fff' : '#000'},
-                    ]}
-                    placeholder="Search"
-                    placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
-                    onSubmitEditing={() => console.log(searchInputValue)}
-                    onChangeText={text => setSearchQuery(text)}
-                    // onChange={ setIsSearchBarVisible(true)}
-                    value={searchQuery}
-                  />
-                </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
+              }}>
+              <View style={styles.NavigatorStyle}>
+                <AntDesign
+                  name="arrowleft"
+                  size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                  color="black"
+                  onPress={() => navigation.goBack()}
+                />
               </View>
-            </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={slideInSearchBar}
+                style={[
+                  styles.searchContainer,
+                  {backgroundColor: Theme ? '#2B3642' : Color.White},
+                ]}>
+                <View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingHorizontal: moderateScale(10),
+                    }}>
+                    <Search
+                      height={
+                        w >= 768 && h >= 1024
+                          ? verticalScale(14)
+                          : verticalScale(18)
+                      }
+                      width={
+                        w >= 768 && h >= 1024
+                          ? verticalScale(16)
+                          : verticalScale(24)
+                      }
+                    />
+                    <TextInput
+                      style={[
+                        styles.searchInput,
+                        {
+                          color: Theme ? '#fff' : '#000',
+                          fontSize:
+                            w >= 768 && h >= 1024 ? scale(8) : scale(14)
+                        },
+                      ]}
+                      placeholder="Search"
+                      placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
+                      onSubmitEditing={() => console.log(searchInputValue)}
+                      onChangeText={text => setSearchQuery(text)}
+                      // onChange={ setIsSearchBarVisible(true)}
+                      value={searchQuery}
+                    />
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+          <View style={{flex: 1, backgroundColor: Color.White}}>
+            <View
+              style={{
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(25),
+                paddingVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(20) : moderateScale(15),
+              }}>
+              <Text
+                style={{
+                  color: Color.DarkTextColor,
+                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                  fontFamily: Font.Poppins500,
+                }}>
+                Popular Searches
+              </Text>
+            </View>
+            <SearchContent />
+            <View
+              style={{
+                height: verticalScale(30),
+                backgroundColor: Color.White,
+              }}></View>
+          </View>
+        </>
       ) : (
         <>
           <View
@@ -175,6 +168,8 @@ const Searchbar = props => {
               justifyContent: 'flex-end',
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+              marginBottom:
+                w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
             }}>
             <View
               style={{
@@ -188,7 +183,7 @@ const Searchbar = props => {
                 onPress={() => navigation.navigate('SearchResult')}
                 style={[
                   styles.searchContainerAfter,
-                  {backgroundColor: Theme ? '#2B3642' : '#f0f0f0'},
+                  {backgroundColor: Theme ? '#2B3642' : Color.White},
                 ]}>
                 <View
                   style={{
@@ -211,7 +206,10 @@ const Searchbar = props => {
                   <TextInput
                     style={[
                       styles.searchInput,
-                      {color: Theme ? '#fff' : '#000'},
+                      {
+                        color: Theme ? '#fff' : '#000',
+                        fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                      },
                     ]}
                     placeholder="Search"
                     placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
@@ -221,7 +219,7 @@ const Searchbar = props => {
                   />
                 </View>
 
-                <View>
+                <View style={{marginRight: scale(5)}}>
                   {searchQuery.length > 0 && (
                     <TouchableOpacity onPress={() => setSearchQuery('')}>
                       <Ionicons
@@ -276,7 +274,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-
     justifyContent: 'space-between',
     borderRadius: 20,
     // paddingRight: 10,
@@ -286,7 +283,7 @@ const styles = StyleSheet.create({
   searchContainerAfter: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     borderRadius: 20,
     // paddingRight: 10,
     marginHorizontal: verticalScale(10),
@@ -295,7 +292,6 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     height: '100%',
-    fontSize: 16,
     width: '85%',
   },
   closeButton: {
@@ -303,8 +299,9 @@ const styles = StyleSheet.create({
   },
 
   closeButtonText: {
-    // fontFamily:Font.Poppins700,
-    // fontSize:50
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+    fontFamily: Font.Poppins500,
+    color: '#4D5C72',
   },
   X: {
     backgroundColor: '#B4B5B7',

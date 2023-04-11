@@ -1,73 +1,106 @@
-import { Image, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
-import { Font } from '../assets/fonts/PoppinsFont'
-import { Color } from '../utils/Colors'
-import { scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import { useNavigation } from '@react-navigation/native';
-const PhoneInput = (props) => {
-  const navigation = useNavigation()
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+  useColorScheme
+} from 'react-native';
+import React from 'react';
+import {Font} from '../assets/fonts/PoppinsFont';
+import {Color} from '../utils/Colors';
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useNavigation} from '@react-navigation/native';
+
+const PhoneInput = props => {
+  const Theme = useColorScheme();
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const navigation = useNavigation();
   return (
- 
-       <View>
-      <Text style={{
-        fontFamily:Font.Poppins400,
-        color:Color.TextColor,
-        marginLeft:'8%',
-        fontSize:16,
-        marginTop:'8%'
-      }}> Phone Number</Text>
-    <View style={{
-      height:verticalScale(45),
-      backgroundColor:Color.InputColor,
-      borderRadius:20,
-      marginHorizontal:'5%',
-    
-      paddingLeft:'5%',
-      flexDirection:'row',
-    }}>
-      <View style={{
-        flexDirection:'row',
-        alignItems:'center'
-      }}>
-        <View style={{
+    <View>
+      <Text
+        style={{
+          fontFamily: Font.Poppins400,
+          color: Color.TextColor,
+          fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+        }}>
+        {props.text}
+      </Text>
+      <View
+        style={{
+          height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
+          backgroundColor:  Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
+          borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+          paddingHorizontal: verticalScale(20),
+          marginTop: verticalScale(2),
+          flexDirection: 'row',
+        }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Countrycode')}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              width: w >= 768 && h >= 1024 ? scale(15) : scale(25),
+              height:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              flexDirection: 'row',
+              marginTop: '-3%',
+            }}>
+            <Image
+              source={require('../assets/images/nig.png')}
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </View>
+          <View style={{paddingHorizontal: moderateScale(5)}}>
+            <Text
+              style={{
+                color: Theme?  Color.White : Color.TextColor,
+                fontFamily: Font.Poppins400,
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
+              }}>
+              {' '}
+              +234
+            </Text>
+          </View>
+          <AntDesign
+            name="down"
+            size={w >= 768 && h >= 1024 ? scale(11) : scale(18)}
+            color={Theme?  Color.White : Color.Black}
+            style={{
+             
+            }}
+          />
+        </TouchableOpacity>
+
+        <TextInput
+          placeholder={props.placeholder}
+          keyboardType='numeric'
+          placeholderTextColor={'UnderInputColor'}
+          style={{
+            fontSize:w >= 768 && h >= 1024 ? scale(9) : scale(15),
+            fontFamily: Font.Poppins400,
+            paddingLeft:moderateScale(5),
+            // width: '80%',
+
+            flex:1
             
-            width:25,
-            height:15,
-            flexDirection:'row',
-            marginTop:'-3%'
-       
-             }}>
-        <Image source={require('../assets/images/flg.png')} style={{
-            width:'100%',
-            height:'100%'
-        }} />
-        </View>
-        <Text style={{
-          color:Color.TextColor,
-        fontFamily:Font.Poppins400,
-        fontSize:scale(15),
-       }}> +234</Text>
-         <AntDesign name='down' size={20} color={'black'} onPress={()=>navigation.navigate('Countrycode')} style={{
-          marginLeft:'5%'
-         }}/>
-        </View>
-      
-    <TextInput
-    placeholder={props.placeholder}
-    placeholderTextColor={'UnderInputColor'}
-    style={{
-      fontSize:16,
-      fontFamily:Font.Poppins400,
-      width:'80%'
-    }}
-    />
+          }}
+        />
+      </View>
     </View>
-    </View>
- 
-  )
-}
+  );
+};
 
-export default PhoneInput
+export default PhoneInput;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

@@ -40,6 +40,8 @@ const SearchResult = props => {
           justifyContent:'flex-end',
           paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+          marginBottom:
+          w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
         }}>
         <View
           style={{

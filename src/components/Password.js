@@ -1,14 +1,16 @@
-import {StyleSheet, Text, TextInput, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, TextInput, View, useWindowDimensions,useColorScheme} from 'react-native';
 import React, {useState} from 'react';
 import {Font} from '../utils/font';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+
 
 const Password = props => {
+  const Theme = useColorScheme();
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
   const [isVisible, setVisible] = useState(false);
   return (
     <View style={props.restyleBox}>
@@ -16,7 +18,7 @@ const Password = props => {
         style={[
           {
             fontFamily: Font.Poppins400,
-            color: Color.TextLightColor,
+            color: Theme?  Color.DarkThemeGreyText : Color.TextColor,
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
           },
         ]}>
@@ -25,8 +27,8 @@ const Password = props => {
       <View
         style={{
           height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
-          backgroundColor: Color.InputColor,
-          borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+          backgroundColor: Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
+          borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(12),
           // marginHorizontal: '5%',
           paddingHorizontal: verticalScale(20),
           flexDirection: 'row',
@@ -34,13 +36,13 @@ const Password = props => {
         }}>
         <TextInput
           placeholder={'Password'}
-          placeholderTextColor={Color.BoldTextColor}
+          placeholderTextColor={Theme? Color.DarkThemeGreyText : Color.TextColor}
           secureTextEntry={isVisible}
           style={{
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
             fontFamily: Font.Poppins400,
             width: '80%',
-            color: Color.TextColor,
+            color: Theme?  Color.DarkThemeGreyText : Color.TextColor,
           }}
         />
 

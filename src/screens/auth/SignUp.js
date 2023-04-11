@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   TextComponent,
   TouchableOpacity,
+  
 } from 'react-native';
 import React from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -14,7 +15,7 @@ import CustomButton from '../../components/CustomButton';
 import {Color} from '../../utils/Colors';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import PhoneInput from '../../components/PhoneInput';
-import Countrycode from '../../../Countrycode';
+import Countrycode from '../../components/Countrycode';
 import Password from '../../components/Password';
 const SignUp = ({navigation}) => {
   return (

@@ -62,11 +62,15 @@ const HomeHeader = props => {
                 backgroundColor: Theme ? '#0A2E61' : '#fff',
                 justifyContent: 'center',
                 alignItems:'center',
-                height:verticalScale(22),
+                height:
+                  w >= 768 && h >= 1024
+                    ? verticalScale(20)
+                    : verticalScale(30)
+                ,
                 width:
                   w >= 768 && h >= 1024
                     ? scale(20)
-                    : scale(25)
+                    : scale(32)
                 
 
               }}
@@ -76,12 +80,12 @@ const HomeHeader = props => {
                   height={
                     w >= 768 && h >= 1024
                       ? verticalScale(20)
-                      : verticalScale(16)
+                      : verticalScale(24)
                   }
                   width={
                     w >= 768 && h >= 1024
                       ? scale(12)
-                      : scale(14)
+                      : scale(16)
                   }
                 />
               </View>

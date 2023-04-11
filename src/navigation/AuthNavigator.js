@@ -6,7 +6,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import OverBoard from '../screens/auth/OverBoard';
 import SignUp from '../screens/auth/SignUp';
-import Countrycode from '../../Countrycode';
 import PhoneInput from '../components/PhoneInput';
 import Login from '../screens/auth/Login';
 import Password from '../components/Password';
@@ -36,6 +35,9 @@ import SelectCountry from '../components/SelectCountry';
 import HomeHeader from '../components/HomeHeader';
 import SearchResult from '../components/SearchResult';
 import SearchBarScreen from '../components/SearchBarScreen';
+import Countrycode from '../components/Countrycode';
+import Contact from '../screens/more/Contact';
+import EditProfile from '../screens/more/EditProfile';
 
 
 const Stack = createNativeStackNavigator();
@@ -44,7 +46,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="HomeHeader"
+        initialRouteName="EditProfile"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -74,7 +76,9 @@ function AuthNavigator() {
         <Stack.Screen name="HomeHeader" component={HomeHeader} />
         <Stack.Screen name="SearchResult" component={SearchResult} />
         <Stack.Screen name="SearchBarScreen" component={SearchBarScreen} />
-
+        <Stack.Screen name="Contact" component={Contact} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+      
   
       </Stack.Navigator>
     </NavigationContainer>

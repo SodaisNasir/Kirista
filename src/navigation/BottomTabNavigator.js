@@ -28,6 +28,8 @@ import Readone from '../screens/homescreen/Read Book/Readone';
 import Readtwo from '../screens/homescreen/Read Book/Readtwo';
 import DrawerScreen from '../components/DrawerScreen';
 import ImageModal from '../components/Modals/ImageModal';
+import Contact from '../screens/more/Contact';
+import EditProfile from '../screens/more/EditProfile';
 
 
 const Tab = createBottomTabNavigator();
@@ -175,6 +177,8 @@ function AllSettings(){
     <Stack.Screen name="ViewManual" component={ViewManual} />
     <Stack.Screen name="Faq" component={Faq}/>
     <Stack.Screen name="Language" component={Language}/>
+    <Stack.Screen name="Contact" component={Contact}/>
+    <Stack.Screen name="EditProfile" component={EditProfile}/>
     
    
   </Stack.Navigator>
