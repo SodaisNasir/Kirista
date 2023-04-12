@@ -14,6 +14,7 @@ import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
 import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
+import CustomNavigator from '../../../components/CustomNavigator';
 
 const Rccg = () => {
   const Theme = useColorScheme() === 'dark';
@@ -27,7 +28,7 @@ const Rccg = () => {
           flex: 1,
         },
       ]}>
-    <Header  text = {'RCCG'}/>
+      <Header text={'RCCG'} />
       <ScrollView>
         <View
           style={{
@@ -59,7 +60,7 @@ const Rccg = () => {
             }}>
             <Text
               style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
                 fontFamily: Font.Poppins700,
                 color: Theme ? Color.White : Color.DarkTextColor,
               }}>
@@ -341,45 +342,72 @@ const Rccg = () => {
                 more.
               </Text>
             </View>
+
             <View
+            style={{
+              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderWidth: 1,
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              marginVertical: verticalScale(15),
+              paddingVertical:
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
+            }}>
+            <Text
               style={{
-                borderBottomColor: Theme ? Color.Black : Color.BorderColor,
-                borderBottomWidth: 0.5,
-                borderTopColor: Theme ? Color.Black : Color.BorderColor,
-                borderTopWidth: 0.5,
-                width: '100%',
-                alignItems: 'center',
-                marginVertical: verticalScale(15),
-                paddingVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                fontFamily: Font.Poppins500,
+                color: Theme ? Color.White : Color.DarkTextColor,
               }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Pastor E.A. Adeboye
-              </Text>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                General Overseer, RCCG World Wide
-              </Text>
-            </View>
+              Pastor E.A. Adeboye
+            </Text>
+            <Text
+              style={{
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                fontFamily: Font.Poppins700,
+                color: Theme ? Color.White : Color.DarkTextColor,
+              }}>
+              General Overseer, RCCG World Wide
+            </Text>
+          </View>
+
+          <View
+            style={{
+              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderWidth: 1,
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
             <View
               style={{
                 marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
+                  w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
               }}>
-              <CustomButton text={'Read More'} />
+              <CustomButton restyle={{width: '95%'}} text={'Read More'} />
             </View>
           </View>
         </View>
+        <View
+          style={{
+            height: verticalScale(95),
+          }}
+        />
       </ScrollView>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          backgroundColor: Color.White,
+        }}>
+        <CustomNavigator />
+      </View>
     </SafeAreaView>
   );
 };

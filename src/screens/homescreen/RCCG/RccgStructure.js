@@ -12,6 +12,9 @@ import React from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
+import CustomButton from '../../../components/CustomButton';
+import Header from '../../../components/Header';
+import CustomNavigator from '../../../components/CustomNavigator';
 
 const RccgStructure = () => {
   const Theme = useColorScheme() === 'dark';
@@ -25,6 +28,7 @@ const RccgStructure = () => {
           flex: 1,
         },
       ]}>
+      <Header text={'RCCG Structure'} />
       <ScrollView>
         <View
           style={{
@@ -117,7 +121,9 @@ const RccgStructure = () => {
 
           <View
             style={{
-              marginVertical:
+              paddingVertical:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
+                marginBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
               alignItems: 'center',
             }}>
@@ -165,12 +171,15 @@ const RccgStructure = () => {
 
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
-              borderTopColor: Theme ? Color.White : Color.Black,
-              borderTopWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
               paddingVertical:
@@ -313,16 +322,20 @@ const RccgStructure = () => {
               </Text>
             </View>
           </View>
-
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -370,66 +383,18 @@ const RccgStructure = () => {
 
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 3
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Lagos, Southwest Nigeria, Middle East Region 1 & 2
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor E.A. Odeyemi
-                </Text>
-              </Text>
-            </View>
-          </View>
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
-              borderStyle: 'dashed',
-              width: '100%',
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -474,15 +439,21 @@ const RccgStructure = () => {
               </Text>
             </View>
           </View>
+
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -546,15 +517,21 @@ const RccgStructure = () => {
               </Text>
             </View>
           </View>
+
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -573,7 +550,8 @@ const RccgStructure = () => {
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
-             North America (USA, Canada), South America (Brazil), Central America (Honduras), Caribbean
+              North America (USA, Canada), South America (Brazil), Central
+              America (Honduras), Caribbean
             </Text>
             <View
               style={{
@@ -616,15 +594,21 @@ const RccgStructure = () => {
               </Text>
             </View>
           </View>
+
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -686,15 +670,21 @@ const RccgStructure = () => {
               </Text>
             </View>
           </View>
+
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -743,7 +733,7 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
                 Deputy Continental Overseer {''}
                 <Text
@@ -757,15 +747,21 @@ const RccgStructure = () => {
               </Text>
             </View>
           </View>
+
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -784,7 +780,8 @@ const RccgStructure = () => {
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
-              Europe 1 (Netherlands), Europe 2 (Spain), Europe 3 (Sweden), UK & Ireland
+              Europe 1 (Netherlands), Europe 2 (Spain), Europe 3 (Sweden), UK &
+              Ireland
             </Text>
             <View
               style={{
@@ -814,7 +811,7 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
                 Deputy Continental Overseer {''}
                 <Text
@@ -831,13 +828,18 @@ const RccgStructure = () => {
 
           <View
             style={{
-              borderBottomColor: Theme ? Color.White : Color.Black,
-              borderBottomWidth: 1,
+              borderColor: Theme ? Color.White : Color.Black,
+              borderWidth: 1,
               borderStyle: 'dashed',
-              width: '100%',
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
               alignItems: 'center',
               marginVertical: verticalScale(15),
-              paddingBottom:
+              paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
@@ -859,16 +861,16 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                Intercontinental Evangelist  {''}
+                Intercontinental Evangelist {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
                     color: Theme ? Color.White : Color.DarkTextColor,
                   }}>
-                  -  Pastor J.T Kalejaiye
+                  - Pastor J.T Kalejaiye
                 </Text>
               </Text>
 
@@ -877,9 +879,9 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                Intercontinental Youth Pastor  {''}
+                Intercontinental Youth Pastor {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
@@ -895,9 +897,9 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                Intercontinental Prayer Coordinator   {''}
+                Intercontinental Prayer Coordinator {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
@@ -913,35 +915,16 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                Intercontinental Music Director   {''}
+                Intercontinental Music Director {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
                     color: Theme ? Color.White : Color.DarkTextColor,
                   }}>
-                  -  Pastor Kunle Ajayi
-                </Text>
-              </Text>
-              
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
-                }}>
-                Intercontinental Financial Controller   {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  -   Pastor Joseph Adeyokunnu
+                  - Pastor Kunle Ajayi
                 </Text>
               </Text>
 
@@ -950,9 +933,27 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                Intercontinental CSR Coordinator   {''}
+                Intercontinental Financial Controller {''}
+                <Text
+                  style={{
+                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
+                    fontFamily: Font.Poppins500,
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                  }}>
+                  - Pastor Joseph Adeyokunnu
+                </Text>
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
+                  fontFamily: Font.Poppins700,
+                  color: Theme ? Color.White : Color.DarkTextColor,
+                  textAlign: 'center',
+                }}>
+                Intercontinental CSR Coordinator {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
@@ -968,9 +969,9 @@ const RccgStructure = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
                   color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                Intercontinental Security Director   {''}
+                Intercontinental Security Director {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
@@ -982,8 +983,69 @@ const RccgStructure = () => {
               </Text>
             </View>
           </View>
+
+          <View
+            style={{
+              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderWidth: 1,
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              marginVertical: verticalScale(15),
+              paddingVertical:
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
+            }}>
+            <Text
+              style={{
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                fontFamily: Font.Poppins500,
+                color: Theme ? Color.White : Color.DarkTextColor,
+              }}>
+              Pastor E.A. Adeboye
+            </Text>
+            <Text
+              style={{
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                fontFamily: Font.Poppins700,
+                color: Theme ? Color.White : Color.DarkTextColor,
+              }}>
+              General Overseer, RCCG World Wide
+            </Text>
+          </View>
+
+          <View
+            style={{
+              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderWidth: 1,
+              width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              alignSelf: 'center',
+            }}
+          />
+          <View
+            style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
+            }}>
+            <CustomButton restyle={{width: '95%'}} text={'Read More'} />
+          </View>
         </View>
+        <View
+        style={{height:verticalScale(95)}}
+        />
       </ScrollView>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+            width:'100%',
+          backgroundColor: Color.White,
+        }}>
+        <CustomNavigator />
+      </View>
     </SafeAreaView>
   );
 };
