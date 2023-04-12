@@ -6,42 +6,41 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import ReadHeader from '../../../components/ReadHeader';
-import {Color} from '../../../utils/Colors';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import {Font} from '../../../utils/font';
-import ReadNavigator from '../../../components/ReadNavigator';
-import {useNavigation} from '@react-navigation/native';
-import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
+} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import ReadHeader from '../../../components/ReadHeader'
+import {Color} from '../../../utils/Colors'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import {Font} from '../../../utils/font'
+import ReadNavigator from '../../../components/ReadNavigator'
+import {useNavigation} from '@react-navigation/native'
+import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const Readone = () => {
-
-    
-    
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   useEffect(() => {
     navigation
       .getParent()
-      ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false});
+      ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false})
     return () =>
       navigation
         .getParent()
-        ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined});
-  }, [navigation]);
+        ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined})
+  }, [navigation])
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ReadHeader />
         <TouchableOpacity
-        activeOpacity={0.7}
-        onPress={()=>{navigation.navigate('Readtwo')}}
-        style={styles.Container}>
+          activeOpacity={0.7}
+          onPress={() => {
+            navigation.navigate('Readtwo')
+          }}
+          style={styles.Container}>
           <View style={{marginVertical: verticalScale(20)}}>
             <Text style={styles.Title}>Chapter 1</Text>
           </View>
@@ -83,7 +82,7 @@ const Readone = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        <View style={{height:verticalScale(80)}} />
+        <View style={{height: verticalScale(80)}} />
       </ScrollView>
       <View
         style={{
@@ -103,15 +102,12 @@ const Readone = () => {
             <Text style={styles.ChapterPageText}>1 / 11</Text>
           </View>
         </View>
-
-      
-        
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Readone;
+export default Readone
 
 const styles = StyleSheet.create({
   Container: {
@@ -149,4 +145,4 @@ const styles = StyleSheet.create({
     marginVertical:
       w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
   },
-});
+})

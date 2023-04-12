@@ -5,23 +5,23 @@ import {
   View,
   Image,
   Dimensions,
-} from 'react-native';
-import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomHeader from '../../components/CustomHeader';
-import {Color} from '../../utils/Colors';
-import {verticalScale, scale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import CustomButton from '../../components/CustomButton';
+} from 'react-native'
+import React from 'react'
+import {SafeAreaView} from 'react-native-safe-area-context'
+import CustomHeader from '../../components/CustomHeader'
+import {Color} from '../../utils/Colors'
+import {verticalScale, scale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import CustomButton from '../../components/CustomButton'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const ViewManual = ({navigation}) => {
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomHeader shareicon = {true} saveicon ={true} timeicon = {true}/>
+        <CustomHeader shareicon={true} saveicon={true} timeicon={true} />
         {/* <View style={{height:verticalScale(100),backgroundColor:'purple'}}> */}
 
         {/* </View> */}
@@ -45,10 +45,9 @@ const ViewManual = ({navigation}) => {
             paddingHorizontal: verticalScale(20),
           }}>
           <CustomButton
-          
-          onPress = {()=>navigation.navigate('Readone')}
-          
-          text={'Read'} />
+            onPress={() => navigation.navigate('Readone')}
+            text={'Read'}
+          />
         </View>
 
         <View></View>
@@ -69,7 +68,8 @@ const ViewManual = ({navigation}) => {
               w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(120),
             backgroundColor: Color.White,
             height: verticalScale(80),
-            paddingHorizontal:w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
           }}>
           <View
             style={{
@@ -114,12 +114,11 @@ const ViewManual = ({navigation}) => {
 
         <View
           style={{
-          
             height: verticalScale(70),
             justifyContent: 'center',
             borderBottomColor: Color.HeaderColor,
             borderBottomWidth: 1,
-            marginHorizontal:verticalScale(20)
+            marginHorizontal: verticalScale(20),
             // marginHorizontal:verticalScale(20)
           }}>
           <Text style={styles.AuthorText}>Author</Text>
@@ -130,7 +129,6 @@ const ViewManual = ({navigation}) => {
           style={{
             paddingHorizontal: verticalScale(20),
             marginVertical: verticalScale(15),
-         
           }}>
           <Text style={styles.About}>About</Text>
 
@@ -142,15 +140,13 @@ const ViewManual = ({navigation}) => {
           </Text>
         </View>
 
-        <View style={{height:verticalScale(85)}}>
-
-        </View>
+        <View style={{height: verticalScale(85)}}></View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default ViewManual;
+export default ViewManual
 
 const styles = StyleSheet.create({
   Container: {
@@ -208,4 +204,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
     marginTop: verticalScale(5),
   },
-});
+})

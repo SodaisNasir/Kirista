@@ -5,65 +5,52 @@ import {
   SafeAreaView,
   ScrollView,
   useWindowDimensions,
-} from 'react-native';
-import React, {useFocusEffect, useCallback, useEffect, useState} from 'react';
-import ReadHeader from '../../../components/ReadHeader';
-import {Color} from '../../../utils/Colors';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import {Font} from '../../../utils/font';
-import ReadNavigator from '../../../components/ReadNavigator';
-import {useNavigation} from '@react-navigation/native';
-import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
-import FontModal from '../../../components/Modals/FontModal';
-import DrawerScreen from '../../../components/DrawerScreen';
+} from 'react-native'
+import React, {useFocusEffect, useCallback, useEffect, useState} from 'react'
+import ReadHeader from '../../../components/ReadHeader'
+import {Color} from '../../../utils/Colors'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import {Font} from '../../../utils/font'
+import ReadNavigator from '../../../components/ReadNavigator'
+import {useNavigation} from '@react-navigation/native'
+import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal'
+import FontModal from '../../../components/Modals/FontModal'
+import DrawerScreen from '../../../components/DrawerScreen'
 
 const Readtwo = () => {
-
-  const [showModal, setShowModal] = useState(false);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+  const [isModalVisible, setModalVisible] = useState(false)
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  
-  const [showSecondModal, setShowSecondModal] = useState(false);
-  const [isSecondModalVisible, setSecondModalVisible] = useState(false);
+    setModalVisible(!isModalVisible)
+  }
+
+  const [showSecondModal, setShowSecondModal] = useState(false)
+  const [isSecondModalVisible, setSecondModalVisible] = useState(false)
   const toggleModalTwo = () => {
-    setSecondModalVisible(!isSecondModalVisible);
-  };
+    setSecondModalVisible(!isSecondModalVisible)
+  }
 
-  const [showThirdModal, setshowThirdModal] = useState(false);
-  const [isModalThreeVisible, setModalThreeVisible] = useState(false);
+  const [showThirdModal, setshowThirdModal] = useState(false)
+  const [isModalThreeVisible, setModalThreeVisible] = useState(false)
   const toggleModalThree = () => {
-    setModalThreeVisible(!isModalThreeVisible);
-  };
+    setModalThreeVisible(!isModalThreeVisible)
+  }
 
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
 
-  
- 
-  
+  const [backgroundColor, setBackgroundColor] = useState('#fff')
 
-  const [backgroundColor, setBackgroundColor] = useState('#fff');
-
- 
-  
-
-  
-
-
-
-
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   useEffect(() => {
     navigation
       .getParent()
-      ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false});
+      ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false})
     return () =>
       navigation
         .getParent()
-        ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined});
-  }, [navigation]);
+        ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined})
+  }, [navigation])
 
   return (
     <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
@@ -135,7 +122,7 @@ const Readtwo = () => {
             HandlePressThree={() => setBackgroundColor('#E5F1FD')}
             HandlePressFour={() => setBackgroundColor('#DBE7E3')}
             toggleModalTwo={() => {
-              setShowSecondModal(toggleModalTwo(true));
+              setShowSecondModal(toggleModalTwo(true))
             }}
           />
         ) : (
@@ -146,7 +133,7 @@ const Readtwo = () => {
           <FontModal
             isVisible={isSecondModalVisible}
             onBackdropPress={() => setSecondModalVisible(false)}
-            swipeDirection="down"
+            // swipeDirection="down"
             onSwipeComplete={() => setSecondModalVisible(false)}
             onRequestClose={() => setSecondModalVisible(false)}
             OptionSelect={() => setSecondModalVisible(false)}
@@ -159,11 +146,11 @@ const Readtwo = () => {
           <DrawerScreen
             isVisible={isModalThreeVisible}
             onBackdropPress={() => setModalThreeVisible(false)}
-            swipeDirection="left"
+            // swipeDirection="slideInLeft"
+
             onSwipeComplete={() => setModalThreeVisible(false)}
             onRequestClose={() => setModalThreeVisible(false)}
             OptionSelect={() => setModalThreeVisible(false)}
-
           />
         ) : (
           setshowThirdModal(false)
@@ -181,18 +168,18 @@ const Readtwo = () => {
         }}>
         <ReadNavigator
           onPressTab={() => {
-            setshowThirdModal(toggleModalThree(true));
+            setshowThirdModal(toggleModalThree(true))
           }}
           onPressModal={() => {
-            setShowModal(toggleModal(true));
+            setShowModal(toggleModal(true))
           }}
         />
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Readtwo;
+export default Readtwo
 
 const styles = StyleSheet.create({
   MainContainer: {flex: 1},
@@ -206,4 +193,4 @@ const styles = StyleSheet.create({
     fontFamily: Font.Libre400,
     marginBottom: verticalScale(20),
   },
-});
+})

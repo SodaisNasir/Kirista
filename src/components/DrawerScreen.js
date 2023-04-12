@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
   StyleSheet,
   Text,
@@ -8,42 +8,42 @@ import {
   Image,
   TouchableOpacity,
   useWindowDimensions,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import ChapterScreen from './ChapterScreen';
-import BookmarkScreen from './BookmarkScreen';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import {Color} from '../utils/Colors';
-import {Font} from '../utils/font';
+} from 'react-native'
+import Modal from 'react-native-modal'
+import ChapterScreen from './ChapterScreen'
+import BookmarkScreen from './BookmarkScreen'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import {Color} from '../utils/Colors'
+import {Font} from '../utils/font'
 
 const DrawerScreen = (props) => {
-  const Theme = useColorScheme() === 'dark';
-  const color_condition = Theme ? Color.DarkThemeGreyText : Color.Black;
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  const Theme = useColorScheme() === 'dark'
+  const color_condition = Theme ? Color.DarkThemeGreyText : Color.Black
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
 
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false)
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  const [chapter, setChapter] = useState(true);
-  const [bookmark, setBookmark] = useState(false);
+    setModalVisible(!isModalVisible)
+  }
+  const [chapter, setChapter] = useState(true)
+  const [bookmark, setBookmark] = useState(false)
 
-  const [chapterColor, setChapterColor] = useState(Color.Main);
-  const [bookmarkColor, setBookmarkColor] = useState(color_condition);
+  const [chapterColor, setChapterColor] = useState(Color.Main)
+  const [bookmarkColor, setBookmarkColor] = useState(color_condition)
   const HandleChapter = () => {
-    setChapter(true);
-    setBookmark(false);
-    setChapterColor(Color.Main);
-    setBookmarkColor(color_condition);
-  };
+    setChapter(true)
+    setBookmark(false)
+    setChapterColor(Color.Main)
+    setBookmarkColor(color_condition)
+  }
   const HandleBookmark = () => {
-    setBookmark(true);
-    setChapter(false);
-    setChapterColor(color_condition);
-    setBookmarkColor(Color.Main);
-  };
+    setBookmark(true)
+    setChapter(false)
+    setChapterColor(color_condition)
+    setBookmarkColor(Color.Main)
+  }
 
   return (
     <View style={{flex: 1, width: '100%'}}>
@@ -57,8 +57,7 @@ const DrawerScreen = (props) => {
         onBackdropPress={props.onBackdropPress}
         isVisible={props.isVisible}
         animationIn={'slideInLeft'}
-        animationOut={'slideInRight'}
-        >
+        animationOut={'slideInLeft'}>
         <View
           style={[
             styles.modalView,
@@ -155,8 +154,8 @@ const DrawerScreen = (props) => {
         </View>
       </Modal>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   modalStyling: {margin: 0},
@@ -174,6 +173,6 @@ const styles = StyleSheet.create({
     color: Color.Main,
     fontFamily: Font.Poppins600,
   },
-});
+})
 
-export default DrawerScreen;
+export default DrawerScreen

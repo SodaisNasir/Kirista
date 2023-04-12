@@ -8,28 +8,55 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
-} from 'react-native';
-import React from 'react';
-import {Color} from '../../utils/Colors';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import HomeHeader from '../../components/HomeHeader';
-import {Font} from '../../utils/font';
-import Swiper from 'react-native-swiper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {HorizontalFlatList} from '@idiosync/horizontal-flatlist';
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+} from 'react-native'
+import React from 'react'
+import {Color} from '../../utils/Colors'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import HomeHeader from '../../components/HomeHeader'
+import {Font} from '../../utils/font'
+import Swiper from 'react-native-swiper'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import {HorizontalFlatList} from '@idiosync/horizontal-flatlist'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 const Home = ({navigation}) => {
   const image_data = [
-    {id: 1, image: require('../../../src/assets/images/rcg_1.png')},
-    {id: 2, image: require('../../../src/assets/images/rcg_2.png')},
-    {id: 3, image: require('../../../src/assets/images/rcg_3.png')},
-  ];
+    {
+      id: 1,
+      image: require('../../assets/images/list.jpg'),
+      image2: require('../../assets/images/redeemImgradiant.png'),
+      image3: require('../../assets/images/rcg_centralparish.png'),
+      text: 'the redeemed christian church of god.',
+      text2: 'Read More  ',
+      color: '#28166f',
+    },
+    {
+      id: 2,
+      image: require('../../assets/images/list2.jpg'),
+      image2: require('../../assets/images/redeemImgradiant.png'),
+      image3: require('../../assets/images/rcg_centralparish.png'),
+      text: 'rccg        structure.',
+      text2: 'Read More  ',
+      color: '#00923f',
+      type: 'ye',
+    },
+    {
+      id: 3,
+      image: require('../../assets/images/list3.jpg'),
+      image2: require('../../assets/images/redeemImgradiant.png'),
+      image3: require('../../assets/images/rcg_centralparish.png'),
+      text: 'rccg        continent 2',
+      text2: 'Read More  ',
+      color: '#e43f40',
+      type: 'ye',
+    },
+  ]
   const swiper_data = [
     {id: 1, image: require('../../../src/assets/images/swipertwo.png')},
     {id: 2, image: require('../../../src/assets/images/swiperone.png')},
-  ];
-
+  ]
   const parish_data = [
     {
       id: 1,
@@ -54,7 +81,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/parishsmall_3.png'),
       country: 'Togo',
     },
-  ];
+  ]
   const books_data = [
     {
       id: 1,
@@ -107,7 +134,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
     },
-  ];
+  ]
   const event_data = [
     {
       id: 1,
@@ -144,7 +171,7 @@ const Home = ({navigation}) => {
       date: 'November 09, 2023',
       time: '4PM',
     },
-  ];
+  ]
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Color.HeaderColor}}>
@@ -183,7 +210,7 @@ const Home = ({navigation}) => {
                     source={item.image}
                   />
                 </View>
-              );
+              )
             }}
           />
         </View>
@@ -224,7 +251,6 @@ const Home = ({navigation}) => {
               showsHorizontalScrollIndicator={false}
               numColumns={Math.ceil(books_data.length / 2)}
               data={books_data}
-            
               renderItem={({item}) => {
                 return (
                   <TouchableOpacity
@@ -293,7 +319,7 @@ const Home = ({navigation}) => {
                       </View>
                     </View>
                   </TouchableOpacity>
-                );
+                )
               }}
             />
           </ScrollView>
@@ -313,24 +339,134 @@ const Home = ({navigation}) => {
                       w >= 768 && h >= 1024
                         ? verticalScale(90)
                         : verticalScale(120),
-                    width: w >= 768 && h >= 1024 ? scale(100) : scale(190),
+                    width: w >= 768 && h >= 1024 ? scale(100) : scale(220),
                     // marginVertical: verticalScale(18),
                     marginRight:
                       w >= 768 && h >= 1024
                         ? verticalScale(8)
                         : verticalScale(0),
                     alignSelf: 'center',
+                    overflow: 'hidden',
+                    margin: 5,
                   }}>
                   <Image
-                    resizeMode="contain"
+                    resizeMode="cover"
                     style={{
                       height: '100%',
                       width: '100%',
+                      position: 'absolute',
                     }}
                     source={item.image}
                   />
+                  <Image
+                    resizeMode="cover"
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                      position: 'absolute',
+                    }}
+                    source={item.image2}
+                  />
+                  <View
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                      position: 'absolute',
+                      // backgroundColor: 'red',
+                    }}>
+                    <View
+                      style={{
+                        height: '6%',
+                        width: '100%',
+                        backgroundColor: item.color,
+                      }}></View>
+                    <View
+                      style={{
+                        height: '90%',
+                        width: '100%',
+                        flexDirection: 'row',
+                      }}>
+                      <View
+                        style={{
+                          height: '100%',
+                          width: '40%',
+                          // justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <View
+                          style={{
+                            height: scale(60),
+                            width: scale(60),
+                            borderRadius: 100,
+                            top: 20,
+                            overflow: 'hidden',
+                          }}>
+                          <Image
+                            resizeMode="cover"
+                            style={{
+                              height: '100%',
+                              width: '100%',
+                            }}
+                            source={item.image3}
+                          />
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          height: '100%',
+                          width: '60%',
+                        }}>
+                        <View
+                          style={{
+                            height: '70%',
+                            width: '100%',
+                          }}>
+                          <Text
+                            style={{
+                              fontFamily: Font.Poppins700,
+                              color: Color.White,
+                              textTransform: 'uppercase',
+                              maxWidth: '90%',
+                              top: item.type == 'ye' ? 25 : 12,
+                              textAlignVertical: 'center',
+                              // fontSize: scale(16),
+                              elevation: 5,
+                            }}>
+                            {item.text}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            height: '30%',
+                            width: '100%',
+                          }}>
+                          <TouchableOpacity
+                            style={{
+                              flexDirection: 'row',
+                            }}>
+                            <Text
+                              style={{
+                                fontFamily: Font.Poppins500,
+                                color: Color.White,
+                                textTransform: 'uppercase',
+                                fontSize: scale(13),
+                                elevation: 5,
+                              }}>
+                              {item.text2}
+                            </Text>
+                            <MaterialIcons
+                              name="keyboard-arrow-right"
+                              size={18}
+                              color={'white'}
+                              style={{bottom: 1}}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
                 </View>
-              );
+              )
             }}
           />
         </View>
@@ -362,7 +498,7 @@ const Home = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('FeaturedParishes');
+                navigation.navigate('FeaturedParishes')
               }}
               style={{
                 flexDirection: 'row',
@@ -454,7 +590,7 @@ const Home = ({navigation}) => {
                     </View>
                   </View>
                 </TouchableOpacity>
-              );
+              )
             }}
           />
         </View>
@@ -484,7 +620,7 @@ const Home = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Events');
+                navigation.navigate('Events')
               }}
               style={{flexDirection: 'row'}}>
               <Text style={styles.MoreText}>See All</Text>
@@ -502,13 +638,13 @@ const Home = ({navigation}) => {
             renderItem={({item}) => {
               return (
                 <TouchableOpacity
-                onPress={()=>navigation.navigate('Events')}
+                  onPress={() => navigation.navigate('Events')}
                   style={{
                     height:
                       w >= 768 && h >= 1024
                         ? verticalScale(95)
                         : verticalScale(120),
-                    
+
                     // paddingRight:moderateScale(40),
                     flexDirection: 'row',
 
@@ -521,7 +657,6 @@ const Home = ({navigation}) => {
                       alignItems: 'center',
                       // backgroundColor:'yellow',
                       // height:150
-                      
                     }}>
                     <View
                       style={{
@@ -585,7 +720,7 @@ const Home = ({navigation}) => {
                     </View>
                   </View>
                 </TouchableOpacity>
-              );
+              )
             }}
           />
         </View>
@@ -597,10 +732,10 @@ const Home = ({navigation}) => {
         />
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
 
 const styles = StyleSheet.create({
   MainView: {
@@ -720,4 +855,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins700,
   },
-});
+})

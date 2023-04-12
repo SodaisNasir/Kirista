@@ -7,25 +7,20 @@ import {
   useColorScheme,
   View,
   Image,
-} from 'react-native';
-import React from 'react';
-import Header from '../../components/Header';
-import {
-  moderateScale,
-  s,
-  scale,
-  verticalScale,
-} from 'react-native-size-matters';
-import {Color} from '../../utils/Colors';
-import {Font} from '../../utils/font';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import CustomNavigator from '../../components/CustomNavigator';
+} from 'react-native'
+import React from 'react'
+import Header from '../../components/Header'
+import {moderateScale, s, scale, verticalScale} from 'react-native-size-matters'
+import {Color} from '../../utils/Colors'
+import {Font} from '../../utils/font'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import CustomNavigator from '../../components/CustomNavigator'
 
 const About = () => {
-  const Theme = useColorScheme() === 'dark';
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
- 
+  const Theme = useColorScheme() === 'dark'
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
+
   return (
     <SafeAreaView
       style={[
@@ -45,13 +40,13 @@ const About = () => {
             style={{
               height:
                 w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(150),
-              width: w >= 768 && h >= 1024 ? scale(90) : scale(130),
-              //   backgroundColor:'red',
+              width: w >= 768 && h >= 1024 ? scale(90) : '100%',
               alignSelf: 'center',
             }}>
             <Image
+              resizeMode="center"
               source={require('../../assets/images/krista_about.png')}
-              styles={{height: '100%', width: '100%'}}
+              style={{height: '100%', width: '100%'}}
             />
           </View>
 
@@ -212,14 +207,13 @@ const About = () => {
           </View>
 
           <View>
-            <View style={{alignSelf: 'center',}}>
+            <View style={{alignSelf: 'center'}}>
               <Text
                 style={{
                   fontFamily: Font.Poppins600,
                   color: Theme ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-            
                 }}>
                 {' '}
                 Developed By
@@ -258,7 +252,7 @@ const About = () => {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
-         
+
                 height:
                   w >= 768 && h >= 1024
                     ? verticalScale(60)
@@ -271,7 +265,6 @@ const About = () => {
                   {
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
                     color: Theme ? Color.White : Color.DarkTextColor,
-                  
                   },
                   styles.NaijaText,
                 ]}>
@@ -281,7 +274,7 @@ const About = () => {
                 name="heart"
                 size={w >= 768 && h >= 1024 ? scale(16) : scale(22)}
                 color={'#4BCE32'}
-                style={{left:scale(1)}}
+                style={{left: scale(1)}}
               />
             </View>
           </View>
@@ -298,10 +291,10 @@ const About = () => {
         <CustomNavigator />
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default About;
+export default About
 
 const styles = StyleSheet.create({
   TextViewStyle: {
@@ -314,4 +307,4 @@ const styles = StyleSheet.create({
   NaijaText: {
     fontFamily: Font.Poppins600,
   },
-});
+})

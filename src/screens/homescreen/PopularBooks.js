@@ -7,19 +7,19 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
-import React from 'react';
-import {Color} from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import Header from '../../components/Header';
-import { useNavigation } from '@react-navigation/native';
+} from 'react-native'
+import React from 'react'
+import {Color} from '../../utils/Colors'
+import {SafeAreaView} from 'react-native-safe-area-context'
+import {scale, verticalScale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import Header from '../../components/Header'
+import {useNavigation} from '@react-navigation/native'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
-const PopularBooks = props => {
+const PopularBooks = (props) => {
   const navigation = useNavigation()
   const data = [
     {
@@ -60,7 +60,7 @@ const PopularBooks = props => {
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
     },
-  ];
+  ]
 
   return (
     <SafeAreaView style={styles.Container}>
@@ -70,84 +70,83 @@ const PopularBooks = props => {
         renderItem={({item}) => {
           return (
             <TouchableOpacity
-            
-            onPress={()=>{navigation.navigate('ViewManual')}}
-            
-            >
-            <View
-              style={{
-                height:
-                  w >= 768 && h >= 1024
-                    ? verticalScale(95)
-                    : verticalScale(120),
-                   
-                flexDirection: 'row',
-                marginHorizontal: verticalScale(20),
-                
-                overflow: 'hidden',
-                borderBottomWidth: 1,
-          
-                borderColor: Color.BorderColor,
+              onPress={() => {
+                navigation.navigate('ViewManual')
               }}>
               <View
                 style={{
-                  flex: 1,
-                  
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  height:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(95)
+                      : verticalScale(120),
+
+                  flexDirection: 'row',
+                  marginHorizontal: verticalScale(20),
+
+                  overflow: 'hidden',
+                  borderBottomWidth: 1,
+
+                  borderColor: Color.BorderColor,
                 }}>
                 <View
                   style={{
-                    height: w >= 768 && h >= 1024 ? '65%' : '100%',
-                    width: scale(100),
-                  }}>
-                  <Image
-                    resizeMode="contain"
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                    }}
-                    source={item.image}
-                  />
-                </View>
-              </View>
-              <View style={{flex: 2.3, marginVertical: verticalScale(25)}}>
-                <View
-                  style={{
-                    // height: verticalScale(30),
+                    flex: 1,
 
-                    // backgroundColor: 'yellow',
                     justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
-                  <Text style={styles.TitleStyle}>{item.title}</Text>
-                  <Text
-                    style={[
-                      {lineHeight: verticalScale(15)},
-                      styles.TitleStyle,
-                    ]}>
-                    {item.manual}
-                  </Text>
+                  <View
+                    style={{
+                      height: w >= 768 && h >= 1024 ? '65%' : '100%',
+                      width: scale(100),
+                    }}>
+                    <Image
+                      resizeMode="contain"
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                      }}
+                      source={item.image}
+                    />
+                  </View>
                 </View>
-                <View
-                  style={{
-                    // backgroundColor: 'red',
-                    height:
-                      w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
-                    justifyContent: 'center',
-                  }}>
-                  <Text style={styles.YearStyle}> {item.year}</Text>
+                <View style={{flex: 2.3, marginVertical: verticalScale(25)}}>
+                  <View
+                    style={{
+                      // height: verticalScale(30),
+
+                      // backgroundColor: 'yellow',
+                      justifyContent: 'center',
+                    }}>
+                    <Text style={styles.TitleStyle}>{item.title}</Text>
+                    <Text
+                      style={[
+                        {lineHeight: verticalScale(15)},
+                        styles.TitleStyle,
+                      ]}>
+                      {item.manual}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      // backgroundColor: 'red',
+                      height:
+                        w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
+                      justifyContent: 'center',
+                    }}>
+                    <Text style={styles.YearStyle}> {item.year}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
             </TouchableOpacity>
-          );
+          )
         }}
       />
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default PopularBooks;
+export default PopularBooks
 
 const styles = StyleSheet.create({
   Container: {
@@ -178,4 +177,4 @@ const styles = StyleSheet.create({
 
     // paddingHorizontal: verticalScale(50),
   },
-});
+})
