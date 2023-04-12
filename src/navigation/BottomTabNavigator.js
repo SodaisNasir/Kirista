@@ -30,6 +30,8 @@ import DrawerScreen from '../components/DrawerScreen';
 import ImageModal from '../components/Modals/ImageModal';
 import Contact from '../screens/more/Contact';
 import EditProfile from '../screens/more/EditProfile';
+import About from '../screens/more/About';
+import DarkMode from '../screens/more/DarkMode';
 
 
 const Tab = createBottomTabNavigator();
@@ -179,7 +181,8 @@ function AllSettings(){
     <Stack.Screen name="Language" component={Language}/>
     <Stack.Screen name="Contact" component={Contact}/>
     <Stack.Screen name="EditProfile" component={EditProfile}/>
-    
+    <Stack.Screen name="About" component={About}/>
+    <Stack.Screen name="DarkMode" component={DarkMode}/>
    
   </Stack.Navigator>
     

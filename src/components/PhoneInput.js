@@ -16,7 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 
 const PhoneInput = props => {
-  const Theme = useColorScheme();
+  const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const navigation = useNavigation();
@@ -34,7 +34,7 @@ const PhoneInput = props => {
         style={{
           height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
           backgroundColor:  Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
-          borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+          borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(12),
           paddingHorizontal: verticalScale(20),
           marginTop: verticalScale(2),
           flexDirection: 'row',
@@ -66,7 +66,7 @@ const PhoneInput = props => {
               style={{
                 color: Theme?  Color.White : Color.TextColor,
                 fontFamily: Font.Poppins400,
-                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
+                fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
               }}>
               {' '}
               +234
@@ -74,7 +74,7 @@ const PhoneInput = props => {
           </View>
           <AntDesign
             name="down"
-            size={w >= 768 && h >= 1024 ? scale(11) : scale(18)}
+            size={w >= 768 && h >= 1024 ? scale(11) : scale(16)}
             color={Theme?  Color.White : Color.Black}
             style={{
              
@@ -83,14 +83,16 @@ const PhoneInput = props => {
         </TouchableOpacity>
 
         <TextInput
-          placeholder={props.placeholder}
+          placeholder={'Phone Number'}
+          
           keyboardType='numeric'
-          placeholderTextColor={'UnderInputColor'}
+          // placeholderTextColor={Theme? Color.DarkThemeGreyText : Color.TextColor}
+          placeholderTextColor={Color.BoldTextColor}
           style={{
-            fontSize:w >= 768 && h >= 1024 ? scale(9) : scale(15),
+            fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
             fontFamily: Font.Poppins400,
             paddingLeft:moderateScale(5),
-            // width: '80%',
+            color: Theme ?  Color.DarkThemeInputText : Color.TextColor,
 
             flex:1
             

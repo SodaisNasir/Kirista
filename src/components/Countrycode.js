@@ -29,7 +29,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Countrycode = ({navigation}) => {
-  const Theme = useColorScheme();
+  const Theme = useColorScheme() === 'dark';
   useEffect(() => {}, [Theme]);
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({

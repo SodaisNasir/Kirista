@@ -24,7 +24,7 @@ import Tag from '../../assets/icons/tag.svg';
 const EditProfile = () => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useColorScheme();
+  const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
@@ -35,18 +35,19 @@ const EditProfile = () => {
             flexDirection: 'row',
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-              marginTop: w >= 768 && h >= 1024 ? moderateScale(20) : moderateScale(20)
+            marginTop:
+              w >= 768 && h >= 1024 ? moderateScale(20) : moderateScale(20),
           }}>
           <View style={{}}>
             <ChangeImage
               width={w >= 768 && h >= 1024 ? scale(80) : scale(130)}
-         
             />
           </View>
           <TouchableOpacity
             style={{
               justifyContent: 'center',
-              paddingHorizontal: w >= 768 && h >= 1024 ? moderateScale(10) : moderateScale(15)
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? moderateScale(10) : moderateScale(15),
             }}>
             <Tag
               // height={40}
@@ -74,7 +75,7 @@ const EditProfile = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
-            <CustomInput text={'Email Address'} placeholder={'Email'} />
+            <PhoneInput text={'Phone Number'} />
           </View>
 
           <View
@@ -82,7 +83,7 @@ const EditProfile = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
-            <PhoneInput text={'Phone Number'} />
+            <CustomInput text={'Email Address'} placeholder={'Email'} />
           </View>
 
           <View

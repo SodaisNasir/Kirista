@@ -38,6 +38,11 @@ import SearchBarScreen from '../components/SearchBarScreen';
 import Countrycode from '../components/Countrycode';
 import Contact from '../screens/more/Contact';
 import EditProfile from '../screens/more/EditProfile';
+import About from '../screens/more/About';
+import DarkMode from '../screens/more/DarkMode';
+import Language from '../screens/more/Language';
+import Rccg from '../screens/homescreen/RCCG/Rccg';
+import RccgStructure from '../screens/homescreen/RCCG/RccgStructure';
 
 
 const Stack = createNativeStackNavigator();
@@ -46,7 +51,7 @@ function AuthNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="EditProfile"
+        initialRouteName="RccgStructure"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="OverBoard" component={OverBoard} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -78,6 +83,11 @@ function AuthNavigator() {
         <Stack.Screen name="SearchBarScreen" component={SearchBarScreen} />
         <Stack.Screen name="Contact" component={Contact} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="About" component={About} />
+        <Stack.Screen name="DarkMode" component={DarkMode} />
+        <Stack.Screen name="Language" component={Language} />
+        <Stack.Screen name="Rccg" component={Rccg} />
+        <Stack.Screen name="RccgStructure" component={RccgStructure} />
       
   
       </Stack.Navigator>

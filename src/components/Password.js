@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 const Password = props => {
-  const Theme = useColorScheme();
+  const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [isVisible, setVisible] = useState(false);
@@ -62,7 +62,7 @@ const Password = props => {
         {isVisible ? (
           <MaterialCommunityIcons
             name={'eye-outline'}
-            size={w >= 768 && h >= 1024 ? scale(20) : scale(26)}
+            size={w >= 768 && h >= 1024 ? scale(14) : scale(26)}
             color={Color.Main}
             onPress={() => setVisible(!isVisible)}
             style={{
@@ -73,7 +73,7 @@ const Password = props => {
         ) : (
           <MaterialCommunityIcons
             name={'eye-off-outline'}
-            size={w >= 768 && h >= 1024 ? scale(20) : scale(26)}
+            size={w >= 768 && h >= 1024 ? scale(14) : scale(26)}
             color={Color.Main}
             onPress={() => setVisible(!isVisible)}
             style={{

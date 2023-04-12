@@ -25,7 +25,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SelectCountry = ({navigation}) => {
-  const Theme = useColorScheme();
+  const Theme = useColorScheme() === 'dark';
   useEffect(() => {}, [Theme]);
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({

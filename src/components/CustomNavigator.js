@@ -1,7 +1,13 @@
-import {StyleSheet, View, SafeAreaView, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Dimensions,
+  useColorScheme,
+} from 'react-native';
 import React from 'react';
 import {Color} from '../utils/Colors';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -9,8 +15,14 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CustomNavigator = props => {
+  const Theme = useColorScheme() === 'dark';
   return (
-    <View style={{height:verticalScale(80),justifyContent:'center'}}>
+    <View
+      style={{
+        height: verticalScale(90),
+        backgroundColor: Theme ? Color.DarkThemeCustomNavigator : Color.White,
+        justifyContent: 'center',
+      }}>
       <View
         style={{
           justifyContent: 'space-between',
@@ -19,9 +31,8 @@ const CustomNavigator = props => {
           width: w >= 768 && h >= 1024 ? '30%' : '55%',
           alignSelf: 'center',
 
-
           // paddingHorizontal:verticalScale(30),
-
+          paddingBottom:verticalScale(5),
           marginVertical: verticalScale(20),
         }}>
         <View style={styles.ArrowStyle}>

@@ -19,7 +19,7 @@ import { Color } from '../../utils/Colors';
 const Contact = () => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useColorScheme();
+  const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView style={{flex: 1,
         backgroundColor : Theme ? Color.DarkTheme : Color.White

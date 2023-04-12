@@ -21,41 +21,25 @@ import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
 
-const Language = ({navigation}) => {
-
-  const handleSubmit = () => {
-      navigation.goBack()
-  };
+const DarkMode = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
+
   const [selected, setSelected] = useState();
 
   let DATA = [
     {
       id: '1',
-      title: 'English',
-      Short: '(EN)',
+      title: 'On',
     },
     {
       id: '2',
-      title: 'Hausa',
-      Short: '(HA)',
+      title: 'Off',
     },
     {
       id: '3',
-      title: 'Français',
-      Short: '(FR)',
-    },
-    {
-      id: '4',
-      title: 'Português',
-      Short: '(PO)',
-    },
-    {
-      id: '5',
-      title: 'Pidgin',
-      Short: '(PN)',
+      title: 'Device Settings',
     },
   ];
 
@@ -70,9 +54,7 @@ const Language = ({navigation}) => {
         },
         styles.item,
       ]}
-      onPress={() => setSelected(data.title)}
-      
-      >
+      onPress={() => setSelected(data.title)}>
       <View
         style={{
           flexDirection: 'row',
@@ -95,17 +77,6 @@ const Language = ({navigation}) => {
                 styles.title,
               ]}>
               {data.title}
-              <Text
-                style={[
-                  {
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  },
-                  styles.Short,
-                ]}>
-                {' '}
-                {data.Short}
-              </Text>
             </Text>
           </View>
         </View>
@@ -115,7 +86,7 @@ const Language = ({navigation}) => {
             style={{
               height: w >= 768 && h >= 1024 ? scale(12) : scale(16),
               width: w >= 768 && h >= 1024 ? scale(12) : scale(16),
-              backgroundColor: Color.White,
+             
               borderRadius: scale(50),
               borderColor: Color.Main,
               borderWidth: scale(1.5),
@@ -143,7 +114,10 @@ const Language = ({navigation}) => {
         </View>
       </View>
       <View
-        style={[{borderBottomColor: Theme ? Color.Black: Color.BorderColor}, styles.BorderBottom]}
+        style={[
+          {borderBottomColor: Theme ? Color.Black : Color.BorderColor},
+          styles.BorderBottom,
+        ]}
       />
     </TouchableOpacity>
   );
@@ -154,7 +128,7 @@ const Language = ({navigation}) => {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header text={'Language'} />
+        <Header text={'Dark Mode'} />
         <FlatList
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
@@ -170,7 +144,7 @@ const Language = ({navigation}) => {
   );
 };
 
-export default Language;
+export default DarkMode;
 
 const styles = StyleSheet.create({
   Container: {
@@ -178,17 +152,12 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    paddingVertical: moderateVerticalScale(15),
-    // height:verticalScale(70)
+    paddingVertical: moderateVerticalScale(10),
   },
   BorderBottom: {
     borderBottomWidth: scale(1),
   },
   title: {
-    fontFamily: Font.Poppins600,
-  },
-
-  Short: {
-    fontFamily: Font.Poppins400,
+    fontFamily: Font.Poppins500,
   },
 });

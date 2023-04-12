@@ -4,7 +4,7 @@ import { Color } from '../utils/Colors';
 import { scale } from 'react-native-size-matters';
 
 const CustomSwitch = props => {
-  const Theme = useColorScheme();
+  const Theme = useColorScheme() === 'dark';
   useEffect(() => {
     console.log(Theme);
   }, [Theme]);

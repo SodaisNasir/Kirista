@@ -25,6 +25,7 @@ export const Color = {
   DarkThemeGreyText:'#2B3642',
   SearchBarColor: '#C7C7C7',
   DarkThemeInputText : '#959AA0',
-  DarkThemeInputBox: '#2B3642'
+  DarkThemeInputBox: '#2B3642',
+  DarkThemeCustomNavigator: '#0A2142'
   
 };
