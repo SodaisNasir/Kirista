@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions,useWindowDimensions,useColorScheme} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -33,12 +33,23 @@ import EditProfile from '../screens/more/EditProfile';
 import About from '../screens/more/About';
 import DarkMode from '../screens/more/DarkMode';
 
+import HomeSvg from '../assets/icons/home.svg'
+import HomeSvgActive from '../assets/icons/home_active.svg'
+
+
+import LibrarySvg from '../assets/icons/library.svg'
+import LibrarySvgActive from '../assets/icons/library_active.svg'
+
+import MoreSvg from '../assets/icons/more.svg'
+import MoreSvgActive from '../assets/icons/more_active.svg'
 
 const Tab = createBottomTabNavigator();
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const BottomTabNavigator = () => {
+  const {width, height} = useWindowDimensions();
+  const Theme = useColorScheme() === 'dark';
   return (
     // <NavigationContainer>
       <Tab.Navigator
@@ -51,11 +62,13 @@ const BottomTabNavigator = () => {
             bottom: 0,
             height: verticalScale(80),
             justifyContent:'space-around',
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        
             
           },
           tabBarLabelStyle: {
             fontFamily: Font.Poppins600,
-            fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+            fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
             marginBottom:
               w >= 768 && h >= 1024 ? scale(-15) : verticalScale(15),
             
@@ -63,69 +76,214 @@ const BottomTabNavigator = () => {
           },
         }}>
         <Tab.Screen
-          name="Home"
-          component={AllHome}
-          options={{
-            tabBarLabel: 'Home',
-            headerShown: false,
-            tabBarIcon: ({color, size}) => (
-              <Feather
-                name="home"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(25)}
-                color={color}
-                style={{
-                  marginTop:
-                    w >= 768 && h >= 1024 ? scale(-10) : verticalScale(10),
-                  
-                  left: w >= 768 && h >= 1024 ? scale(18) : scale(0),
-                }}
+        name="Home"
+        component={AllHome}
+        options={{
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <HomeSvgActive
+              style={{marginTop:verticalScale(15)}}
+                width={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+                height={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+              />
+            ) : (
+              <HomeSvg
+              style={{marginTop:verticalScale(15)}}
+                width={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+                height={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
               />
             ),
-          }}
-        />
-        <Tab.Screen
-          name="LibraryHome"
-          component={LibraryStack}
-          options={{
-            tabBarLabel: 'Library',
-            headerShown: false,
-            tabBarIcon: ({color, size}) => (
-              <Ionicons
-                name="md-book"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(25)}
-                color={color}
-                style={{
-                    marginTop:
-                      w >= 768 && h >= 1024 ? scale(-10) : verticalScale(10),
-                    
-                    left: w >= 768 && h >= 1024 ? scale(18) : scale(0),
-                  }}
+        }}
+      />
+         <Tab.Screen
+        name="Library"
+        component={LibraryHome}
+        options={{
+          
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <LibrarySvgActive
+              style={{marginTop:verticalScale(15)}}
+                width={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+                height={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+              />
+            ) : (
+              <LibrarySvg
+              style={{marginTop:verticalScale(15)}}
+                width={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+                height={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
               />
             ),
-          }}
-        />
+        }}
+      />
 
-        <Tab.Screen
-          name="More"
-          component={AllSettings}
-          options={{
-            tabBarLabel: 'More',
-            headerShown: false,
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons
-                name="menu"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(26)}
-                color={color}
-                style={{
-                    marginTop:
-                      w >= 768 && h >= 1024 ? scale(-10) : verticalScale(10),
-                    
-                    left: w >= 768 && h >= 1024 ? scale(18) : scale(0),
-                  }}
+<Tab.Screen
+        name="More"
+        component={AllSettings}
+        options={{
+          
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <MoreSvgActive
+              style={{marginTop:verticalScale(15)}}
+                width={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+                height={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+              />
+            ) : (
+              <MoreSvg
+              style={{marginTop:verticalScale(15)}}
+                width={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
+                height={
+                  width >= 768 && height >= 1024
+                    ? 40
+                    : width <= 350 && height <= 600
+                    ? 18
+                    : width >= 900 && height >= 600
+                    ? 40
+                    : width >= 600 && height >= 900
+                    ? 20
+                    : width <= 600 && height <= 350
+                    ? 18
+                    : 25
+                }
               />
             ),
-          }}
-        />
+        }}
+      />
+    
+
       </Tab.Navigator>
     // </NavigationContainer>
   );

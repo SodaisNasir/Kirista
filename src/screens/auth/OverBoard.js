@@ -209,7 +209,7 @@ const OverBoard = ({navigation}) => {
             }}>
             <InvertCustomButton
               text={'Sign In'}
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => navigation.navigate('Advertisement')}
             />
           </View>
         </View>

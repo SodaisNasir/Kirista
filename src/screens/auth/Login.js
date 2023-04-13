@@ -77,7 +77,7 @@ const Login = ({navigation}) => {
         }}>
         <CustomButton
         
-        onPress={()=>navigation.navigate('BottomTabNavigator')}
+        onPress={()=>navigation.navigate('Advertisement')}
         text={'Sign in'} />
       </View>
 

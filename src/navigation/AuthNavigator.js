@@ -44,6 +44,9 @@ import Language from '../screens/more/Language';
 import Rccg from '../screens/homescreen/RCCG/Rccg';
 import RccgStructure from '../screens/homescreen/RCCG/RccgStructure';
 import RccgContinent from '../screens/homescreen/RCCG/RccgContinent';
+import Feedback from '../screens/more/Feedback';
+import Ad from '../components/Advertisement';
+import Advertisement from '../components/Advertisement';
 
 const Stack = createNativeStackNavigator();
 
@@ -90,6 +93,8 @@ function AuthNavigator() {
         <Stack.Screen name="Rccg" component={Rccg} />
         <Stack.Screen name="RccgStructure" component={RccgStructure} />
         <Stack.Screen name="RccgContinent" component={RccgContinent} />
+        <Stack.Screen name="Feedback" component={Feedback} />
+        <Stack.Screen name="Advertisement" component={Advertisement} />
       </Stack.Navigator>
     </NavigationContainer>
   );

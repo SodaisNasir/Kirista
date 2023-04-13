@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(56, 125, 229, 1)',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+    borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
     flexDirection: 'row',
     borderWidth: 2,
   },
