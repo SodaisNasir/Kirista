@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions,useColorScheme} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -10,9 +10,10 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 export default function Header(props) {
+  const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation()
   return (
-    <View style={styles.AuthHeaderStyle}>
+    <View style={[{backgroundColor: Theme? Color.DarkTheme : Color.White},styles.AuthHeaderStyle]}>
       <View
         style={{
           flexDirection: 'row',
@@ -35,7 +36,7 @@ export default function Header(props) {
             // height: '12%',
             justifyContent: 'center',
           }}>
-          <Text style={styles.WelcomeText}>{props.text}</Text>
+             <Text style={[{color: Theme ? Color.White : Color.Black},styles.WelcomeText]}>{props.text}</Text>
         </View>
       </View>
     </View>

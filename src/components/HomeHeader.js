@@ -30,7 +30,7 @@ const HomeHeader = props => {
       style={{
         paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(25),
-          backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor
       }}>
       <View style={{}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

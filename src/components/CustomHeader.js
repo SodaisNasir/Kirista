@@ -103,7 +103,7 @@ export default CustomHeader;
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
     backgroundColor: Color.HeaderColor,
-    height: verticalScale(90),
+    height: verticalScale(80),
     justifyContent: 'flex-end',
     // alignItems: 'flex-end',
   },

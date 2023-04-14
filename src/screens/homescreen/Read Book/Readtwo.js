@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
   useWindowDimensions,
+  useColorScheme
 } from 'react-native'
 import React, {useFocusEffect, useCallback, useEffect, useState} from 'react'
 import ReadHeader from '../../../components/ReadHeader'
@@ -18,6 +19,7 @@ import FontModal from '../../../components/Modals/FontModal'
 import DrawerScreen from '../../../components/DrawerScreen'
 
 const Readtwo = () => {
+  const Theme = useColorScheme() === 'dark';
   const [showModal, setShowModal] = useState(false)
   const [isModalVisible, setModalVisible] = useState(false)
   const toggleModal = () => {
@@ -39,7 +41,8 @@ const Readtwo = () => {
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
 
-  const [backgroundColor, setBackgroundColor] = useState('#fff')
+  const color_dark = Theme ? Color.DarkTheme : Color.White
+  const [backgroundColor, setBackgroundColor] = useState(color_dark)
 
   const navigation = useNavigation()
   useEffect(() => {
@@ -55,7 +58,7 @@ const Readtwo = () => {
   return (
     <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ReadHeader />
+        <ReadHeader  bookmark = {true} backicon = {true} />
         <View
           style={{
             paddingHorizontal:
@@ -64,7 +67,10 @@ const Readtwo = () => {
           <View style={{marginVertical: verticalScale(20)}}>
             <Text
               style={[
-                {fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20)},
+                {fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
+                  color: Theme ? Color.White : Color.Black
+                },
+                
                 styles.Title,
               ]}>
               Chapter 1

@@ -9,6 +9,8 @@ export const Font = {
   Libre700: 'LibreBaskerville-Bold',
   Libre400 : 'LibreBaskerville-Regular',
   Inter700 : 'Inter-Bold',
-  Inter500 : 'Inter-Medium'
+  Inter500 : 'Inter-Medium',
+  GoBold400 : 'Gobold-Regular',
+  GoBold300 : 'Gobold-Light'
 
 };

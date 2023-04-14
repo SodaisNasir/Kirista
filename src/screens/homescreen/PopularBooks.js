@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  useColorScheme
 } from 'react-native'
 import React from 'react'
 import {Color} from '../../utils/Colors'
@@ -20,6 +21,7 @@ const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 const PopularBooks = (props) => {
+  const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation()
   const data = [
     {
@@ -63,7 +65,7 @@ const PopularBooks = (props) => {
   ]
 
   return (
-    <SafeAreaView style={styles.Container}>
+    <SafeAreaView style={[{backgroundColor: Theme? Color.DarkTheme : Color.White},styles.Container]}>
       <Header text={'Popular Books'} />
       <FlatList
         data={data}
@@ -84,7 +86,7 @@ const PopularBooks = (props) => {
                   marginHorizontal: verticalScale(20),
 
                   overflow: 'hidden',
-                  borderBottomWidth: 1,
+                  borderBottomWidth: 0.5,
 
                   borderColor: Color.BorderColor,
                 }}>
@@ -118,7 +120,7 @@ const PopularBooks = (props) => {
                       // backgroundColor: 'yellow',
                       justifyContent: 'center',
                     }}>
-                    <Text style={styles.TitleStyle}>{item.title}</Text>
+                    <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.TitleStyle]}>{item.title}</Text>
                     <Text
                       style={[
                         {lineHeight: verticalScale(15)},
@@ -151,12 +153,12 @@ export default PopularBooks
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: Color.White,
+   
   },
   border: {
     borderBottomWidth: scale(3),
     marginTop: verticalScale(20),
-    borderColor: Color.BorderColor,
+    // borderColor: Color.BorderColor,
     borderBottomColor: Color.BorderColor,
   },
 
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
   },
   TitleStyle: {
-    color: Color.DarkTextColor,
+    // color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins600,
     // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
