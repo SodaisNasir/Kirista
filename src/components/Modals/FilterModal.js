@@ -72,7 +72,7 @@ const FilterModal = props => {
                       <View
                         style={{
                           justifyContent: 'center',
-                          // backgroundColor: 'yellow',
+                          backgroundColor: 'yellow',
                       
                         }}>
                         <View

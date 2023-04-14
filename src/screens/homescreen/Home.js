@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
+  useColorScheme
 } from 'react-native'
 import React from 'react'
 import {Color} from '../../utils/Colors'
@@ -22,6 +23,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 const Home = ({navigation}) => {
+  const Theme = useColorScheme() === 'dark';
   const image_data = [
     {
       id: 1,
@@ -174,7 +176,7 @@ const Home = ({navigation}) => {
   ]
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.HeaderColor}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeader
           HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
@@ -218,7 +220,7 @@ const Home = ({navigation}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-            backgroundColor: Color.White,
+         
           }}>
           <View
             style={{
@@ -291,7 +293,6 @@ const Home = ({navigation}) => {
                           style={{
                             // height: verticalScale(30),
 
-                            // backgroundColor: 'yellow',
                             justifyContent: 'center',
                           }}>
                           <Text style={styles.BooksTitleStyle}>
@@ -307,7 +308,7 @@ const Home = ({navigation}) => {
                         </View>
                         <View
                           style={{
-                            // backgroundColor: 'green',
+
                             height:
                               w >= 768 && h >= 1024
                                 ? verticalScale(20)
@@ -339,7 +340,7 @@ const Home = ({navigation}) => {
                       w >= 768 && h >= 1024
                         ? verticalScale(90)
                         : verticalScale(120),
-                    width: w >= 768 && h >= 1024 ? scale(100) : scale(220),
+                    width: w >= 768 && h >= 1024 ? scale(120) : scale(220),
                     // marginVertical: verticalScale(18),
                     marginRight:
                       w >= 768 && h >= 1024
@@ -372,7 +373,7 @@ const Home = ({navigation}) => {
                       height: '100%',
                       width: '100%',
                       position: 'absolute',
-                      // backgroundColor: 'red',
+             
                     }}>
                     <View
                       style={{
@@ -482,7 +483,7 @@ const Home = ({navigation}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-            backgroundColor: Color.White,
+              // backgroundColor: Theme ? Color.DarkTheme : Color.White,
           }}>
           <View
             style={{
@@ -490,7 +491,7 @@ const Home = ({navigation}) => {
               width: '100%',
               flexDirection: 'row',
               marginTop: verticalScale(15),
-              // backgroundColor:'red'
+         
             }}>
             <View style={{}}>
               <Text style={styles.BooksText}>Featured Parishes</Text>
@@ -565,7 +566,7 @@ const Home = ({navigation}) => {
                         style={{
                           // height: verticalScale(30),
 
-                          // backgroundColor: 'yellow',
+                 
                           justifyContent: 'center',
                         }}>
                         <Text style={styles.ParishTitleStyle}>
@@ -605,7 +606,7 @@ const Home = ({navigation}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-            backgroundColor: Color.White,
+            // backgroundColor: Color.White,
           }}>
           <View
             style={{
@@ -757,7 +758,7 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
   },
   ImageView: {
-    // backgroundColor: 'red',
+ 
     alignItems: 'center',
   },
   YearStyle: {

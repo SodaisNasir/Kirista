@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
-  useColorScheme
+  useColorScheme,
 } from 'react-native';
 import React from 'react';
 import {Font} from '../assets/fonts/PoppinsFont';
@@ -19,22 +19,32 @@ const PhoneInput = props => {
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const navigation = useNavigation();
+  const tabPotrait = w >= 768 && h >= 1024;
+  const standardLandscape = w >= 684 && h >= 360;
+  const tabLandscape = w >= 768 && h >= 1024;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const fourInchLandscape = w <= 350 && h <= 600;
   return (
     <View>
       <Text
         style={{
-          fontFamily: Font.Poppins400,
-          color: Color.TextColor,
-          fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+          fontFamily: Font.Poppins500,
+          color: Theme ? Color.DarkThemeGreyText : Color.BoldTextColor,
+          fontSize: tabPotrait? scale(9) : scale(14),
         }}>
         {props.text}
       </Text>
       <View
         style={{
-          height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
-          backgroundColor:  Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
-          borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(12),
+          height: tabPotrait
+            ? verticalScale(35)
+            : fourInchPotrait
+            ? verticalScale(52)
+            : verticalScale(45),
+          backgroundColor: Theme
+            ? Color.DarkThemeInputBox
+            : Color.InputBoxColor,
+          borderRadius: tabPotrait? scale(12) : scale(12),
           paddingHorizontal: verticalScale(20),
           marginTop: verticalScale(2),
           flexDirection: 'row',
@@ -47,9 +57,9 @@ const PhoneInput = props => {
           }}>
           <View
             style={{
-              width: w >= 768 && h >= 1024 ? scale(15) : scale(25),
+              width: tabPotrait? scale(15) : scale(25),
               height:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                tabPotrait? verticalScale(10) : verticalScale(15),
               flexDirection: 'row',
               marginTop: '-3%',
             }}>
@@ -64,9 +74,9 @@ const PhoneInput = props => {
           <View style={{paddingHorizontal: moderateScale(5)}}>
             <Text
               style={{
-                color: Theme?  Color.White : Color.TextColor,
+                color: Theme ? Color.White : Color.TextColor,
                 fontFamily: Font.Poppins400,
-                fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                fontSize: tabPotrait? scale(9) : scale(14),
               }}>
               {' '}
               +234
@@ -74,28 +84,24 @@ const PhoneInput = props => {
           </View>
           <AntDesign
             name="down"
-            size={w >= 768 && h >= 1024 ? scale(11) : scale(16)}
-            color={Theme?  Color.White : Color.Black}
-            style={{
-             
-            }}
+            size={tabPotrait? scale(11) : scale(16)}
+            color={Theme ? Color.White : Color.Black}
+            style={{}}
           />
         </TouchableOpacity>
 
         <TextInput
           placeholder={'Phone Number'}
-          
-          keyboardType='numeric'
+          keyboardType="numeric"
           // placeholderTextColor={Theme? Color.DarkThemeGreyText : Color.TextColor}
           placeholderTextColor={Color.BoldTextColor}
           style={{
-            fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+            fontSize: tabPotrait? scale(9) : scale(14),
             fontFamily: Font.Poppins400,
-            paddingLeft:moderateScale(5),
-            color: Theme ?  Color.DarkThemeInputText : Color.TextColor,
+            paddingLeft: moderateScale(5),
+            color: Theme ? Color.DarkThemeInputText : Color.TextColor,
 
-            flex:1
-            
+            flex: 1,
           }}
         />
       </View>

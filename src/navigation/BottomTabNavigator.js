@@ -42,6 +42,7 @@ import LibrarySvgActive from '../assets/icons/library_active.svg'
 
 import MoreSvg from '../assets/icons/more.svg'
 import MoreSvgActive from '../assets/icons/more_active.svg'
+import SettingsGuest from '../screens/more/SettingsGuest';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,9 +55,12 @@ const BottomTabNavigator = () => {
     // <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
+        
         screenOptions={{
+          
           tabBarActiveTintColor: Color.Main,
           tabBarHideOnKeyboard: true,
+          headerShown:false,
           tabBarStyle: {
             position: 'absolute',
             bottom: 0,
@@ -341,6 +345,7 @@ function AllSettings(){
     <Stack.Screen name="EditProfile" component={EditProfile}/>
     <Stack.Screen name="About" component={About}/>
     <Stack.Screen name="DarkMode" component={DarkMode}/>
+    <Stack.Screen name="SettingsGuest" component={SettingsGuest}/>
    
   </Stack.Navigator>
     

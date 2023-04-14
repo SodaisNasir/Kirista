@@ -3,7 +3,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Dimensions,
+  useWindowDimensions,
+  useColorScheme,
 } from 'react-native';
 import React from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -15,15 +16,22 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Color} from '../../utils/Colors';
 import Password from '../../components/Password';
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
 
 const Login = ({navigation}) => {
+
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const tabPotrait = w >= 768 && h >= 1024;
+  const standardLandscape = w >= 684 && h >= 360;
+  const tabLandscape = w >= 768 && h >= 1024;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const fourInchLandscape = w <= 350 && h <= 600;
+  const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: Theme ? Color.DarkTheme : Color.White,
         paddingHorizontal:
           w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
       }}>
@@ -44,7 +52,7 @@ const Login = ({navigation}) => {
           style={{
             fontFamily: Font.Poppins700,
             fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
-            color: 'black',
+            color: Theme ? Color.White : Color.Black,
           }}>
           Welcome Back,
         </Text>
@@ -52,21 +60,24 @@ const Login = ({navigation}) => {
           style={{
             fontFamily: Font.Poppins700,
             fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
-            color: Color.Black,
+            color: Theme ? Color.White : Color.Black,
             alignSelf: 'center',
           }}>
           {' '}
           Brethren.
         </Text>
       </View>
-      <CustomInput
-        restyleBox={{
-          marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(25),
-        }}
-        text={'Email Address'}
-        placeholder={'Email Address'}
-      />
+      <View style={{marginVertical:verticalScale(15)}}>
+        <CustomInput
+          restyleBox={{
+            marginBottom:
+              w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
+          }}
+          text={'Email Address'}
+          placeholder={'Email Address'}
+        />
+      </View>
+
       <Password text={'Password'} />
 
       <View
@@ -76,9 +87,9 @@ const Login = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(22) : verticalScale(30),
         }}>
         <CustomButton
-        
-        onPress={()=>navigation.navigate('Advertisement')}
-        text={'Sign in'} />
+          onPress={() => navigation.navigate('Advertisement')}
+          text={'Sign in'}
+        />
       </View>
 
       <TouchableOpacity
@@ -89,8 +100,8 @@ const Login = ({navigation}) => {
         <Text
           style={{
             fontFamily: Font.Poppins700,
-            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
-            color: Color.TextColor,
+            fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(15),
+            color: Theme ? Color.White : Color.TextColor,
           }}>
           Forgot Password?
         </Text>
@@ -99,13 +110,15 @@ const Login = ({navigation}) => {
         style={{
           alignItems: 'center',
           justifyContent: 'center',
-          marginTop: '35%',
+          marginTop: '32%',
+      
+        
         }}>
         <Text
           style={{
-            fontFamily: Font.Poppins500,
-            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
-            color: Color.TextColor,
+            fontFamily: Font.Poppins400,
+            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+            color: Theme ? Color.White : Color.TextColor,
           }}>
           Don’t have an account?
           <Text
@@ -113,7 +126,7 @@ const Login = ({navigation}) => {
             style={{
               fontFamily: Font.Poppins700,
               fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
-              color: Color.TextColor,
+              color: Theme ? Color.White : Color.TextColor,
             }}>
             {' '}
             Sign up

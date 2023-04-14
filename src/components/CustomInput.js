@@ -16,32 +16,38 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const CustomInput = props => {
   const Theme = useColorScheme() === 'dark';
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+  const tabPotrait = width >= 768 && height >= 1024;
+  const standardLandscape = width >= 684 && height >= 360;
+  const tabLandscape = width >= 768 && height >= 1024;
+  const fourInchPotrait = width <= 350 && height <= 600;
+  const fourInchLandscape = width <= 350 && height <= 600;
+
   return (
     <View style={props.restyleBox}>
       <Text
         style={{
-          fontFamily: Font.Poppins400,
-          color: Theme?  Color.DarkThemeGreyText : Color.TextColor,
-          fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+          fontFamily: Font.Poppins500,
+          color: Theme?  Color.DarkThemeGreyText : Color.BoldTextColor,
+          fontSize: tabPotrait ? scale(9) : scale(14),
         }}>
         {props.text}
       </Text>
       <View
         style={
-        [ { height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
+        [ { height: tabPotrait ? verticalScale(35) : fourInchPotrait ? verticalScale(52) : verticalScale(45),
           backgroundColor: Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
-          borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(12),
+          borderRadius: tabPotrait ? scale(12) : scale(12),
           paddingHorizontal: verticalScale(20),
-          
+        
           marginTop: verticalScale(2)},props.RestyleHeight]
         }>
         <TextInput
           placeholder={props.placeholder}
           placeholderTextColor={Color.BoldTextColor}
           style={
-           [props.TextRestyle,{ fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+           [props.TextRestyle,{ fontSize: tabPotrait ? scale(9) : scale(14),
             fontFamily: Font.Poppins400,
             alignItems: 'center',
             justifyContent:'center',

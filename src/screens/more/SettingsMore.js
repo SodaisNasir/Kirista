@@ -90,8 +90,9 @@ const SettingsMore = () => {
                 </Text>
               </View>
             </View>
-
+            <TouchableOpacity onPress={()=>navigation.navigate('EditProfile')}>
             <Edit height={w >= 768 && h >= 1024 ? scale(16) : scale(22)} />
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -344,7 +345,7 @@ export default SettingsMore;
 const styles = StyleSheet.create({
   HeaderStyle: {
     backgroundColor: Color.HeaderColor,
-    height: verticalScale(90),
+    height: verticalScale(80),
     justifyContent: 'flex-end',
   },
   WelcomeView: {
