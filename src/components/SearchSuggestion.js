@@ -38,9 +38,10 @@ const SearchSuggestion = () => {
           style={{
             marginTop:
               w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(15),
+              
           }}>
           <View
-            style={{marginVertical: moderateScale(5), flexDirection: 'row'}}>
+            style={{marginVertical:  w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8), flexDirection: 'row'}}>
             {Theme ? (
               <BookDark
                 height={
@@ -69,7 +70,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View
-            style={{marginVertical: moderateScale(5), flexDirection: 'row'}}>
+            style={{marginVertical:  w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8), flexDirection: 'row'}}>
             {Theme ? (
               <BookDark
                 height={
@@ -98,7 +99,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View
-            style={{marginVertical: moderateScale(5), flexDirection: 'row'}}>
+            style={{marginVertical:  w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8), flexDirection: 'row'}}>
             {Theme ? (
               <HouseDark
                 height={
@@ -128,7 +129,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View
-            style={{marginVertical: moderateScale(5), flexDirection: 'row'}}>
+            style={{marginVertical:  w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8), flexDirection: 'row'}}>
             {Theme ? (
               <HouseDark
                 height={
@@ -157,7 +158,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View
-            style={{marginVertical: moderateScale(5), flexDirection: 'row'}}>
+            style={{marginVertical:  w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8), flexDirection: 'row'}}>
             {Theme ? (
               <PersonDark
                 height={
@@ -186,7 +187,7 @@ const SearchSuggestion = () => {
           </View>
 
           <View
-            style={{marginVertical: moderateScale(5), flexDirection: 'row'}}>
+            style={{marginVertical:  w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8), flexDirection: 'row'}}>
             {Theme ? (
               <CalendarDark
                 height={

@@ -185,7 +185,7 @@ const Searchbar = props => {
                 onPress={() => navigation.navigate('SearchResult')}
                 style={[
                   styles.searchContainerAfter,
-                  {backgroundColor: Theme ? '#2B3642' : Color.White},
+                  {backgroundColor: Theme ? Color.DarkThemeInputBox : Color.White},
                 ]}>
                 <View
                   style={{
@@ -252,6 +252,8 @@ const Searchbar = props => {
             style={{
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                flex:1
             }}>
             <SearchSuggestion />
           </View>
