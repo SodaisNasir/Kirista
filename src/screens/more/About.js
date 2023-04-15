@@ -45,7 +45,11 @@ const About = () => {
             }}>
             <Image
               resizeMode="center"
-              source={require('../../assets/images/krista_about.png')}
+              source={
+                Theme
+                  ? require('../../assets/images/krista_about_dark.png')
+                  : require('../../assets/images/krista_about.png')
+              }
               style={{height: '100%', width: '100%'}}
             />
           </View>
@@ -227,12 +231,20 @@ const About = () => {
                   //   width: w >= 768 && h >= 1024 ? scale(90) : scale(5500),
                   //   alignSelf: 'center',
                   // justifyContent:'center',
+                  width: w >= 768 && h >= 1024 ? scale(90) : '100%',
                   alignSelf: 'center',
                 }}>
                 <Image
                   resizeMode="contain"
-                  source={require('../../assets/images/idc.png')}
-                  styles={{height: '100%', width: '100%'}}
+                  source={
+                    Theme
+                      ? require('../../assets/images/idc_platforms_dark.png')
+                      : require('../../assets/images/idc.png')
+                  }
+                  styles={{
+                    height: '100%',
+                    width: '100%',
+                  }}
                 />
               </View>
 

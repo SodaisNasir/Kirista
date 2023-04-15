@@ -6,25 +6,23 @@ import {
   useColorScheme,
   useWindowDimensions,
   View,
-} from 'react-native';
-import React from 'react';
-import CustomInput from '../../components/CustomInput';
-import PhoneInput from '../../components/PhoneInput';
-import CustomButton from '../../components/CustomButton';
-import {version} from 'react/cjs/react.production.min';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import Header from '../../components/Header';
-import { Color } from '../../utils/Colors';
+} from 'react-native'
+import React from 'react'
+import CustomInput from '../../components/CustomInput'
+import PhoneInput from '../../components/PhoneInput'
+import CustomButton from '../../components/CustomButton'
+import {version} from 'react/cjs/react.production.min'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import Header from '../../components/Header'
+import {Color} from '../../utils/Colors'
 
 const Contact = () => {
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
-  const Theme = useColorScheme() === 'dark';
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
+  const Theme = useColorScheme() === 'dark'
   return (
-    <SafeAreaView style={{flex: 1,
-        backgroundColor : Theme ? Color.DarkTheme : Color.White
-    
-    }}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <Header text={'Contact'} />
       <ScrollView>
         <View
@@ -66,10 +64,12 @@ const Contact = () => {
             <CustomInput
               RestyleHeight={{
                 height:
-                  w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(130),
-                  paddingHorizontal:moderateScale(10)
+                  w >= 768 && h >= 1024
+                    ? verticalScale(80)
+                    : verticalScale(130),
+                paddingHorizontal: moderateScale(10),
               }}
-              TextRestyle={{   textAlignVertical:'top'}}
+              TextRestyle={{textAlignVertical: 'top'}}
               text={'Subject'}
               placeholder={'Type here'}
             />
@@ -83,10 +83,12 @@ const Contact = () => {
             <CustomInput
               RestyleHeight={{
                 height:
-                  w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(130),
-                  paddingHorizontal:moderateScale(10)
+                  w >= 768 && h >= 1024
+                    ? verticalScale(80)
+                    : verticalScale(130),
+                paddingHorizontal: moderateScale(10),
               }}
-              TextRestyle={{   textAlignVertical:'top',}}
+              TextRestyle={{textAlignVertical: 'top'}}
               text={'Message'}
               placeholder={'Type here'}
             />
@@ -102,9 +104,9 @@ const Contact = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Contact;
+export default Contact
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})

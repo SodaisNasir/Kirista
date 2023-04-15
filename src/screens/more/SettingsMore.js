@@ -8,60 +8,83 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-} from 'react-native';
-import React from 'react';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import {Color} from '../../utils/Colors';
-import {Font} from '../../utils/font';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Entypo from 'react-native-vector-icons/Entypo';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Foundation from 'react-native-vector-icons/Foundation';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import Edit from '../../assets/icons/edit.svg';
-import About from '../../assets/icons/about.svg';
-import Feedback from '../../assets/icons/feedback.svg';
-import Language from '../../assets/icons/language.svg';
-import DarkMode from '../../assets/icons/dakrmode.svg';
-import Logout from '../../assets/icons/logout.svg';
-import Notification from '../../assets/icons/notification.svg';
-import FAQ from '../../assets/icons/faq.svg';
-import Terms from '../../assets/icons/terms.svg';
-import Privacy from '../../assets/icons/privacy.svg';
-import Contact from '../../assets/icons/contact.svg';
-import CustomSwitch from '../../components/CustomSwitch';
-import { useNavigation } from '@react-navigation/native';
-import HomeHeader from '../../components/HomeHeader';
-import SearchBarWithArrow from '../../components/SearchBarWithArrow';
+} from 'react-native'
+import React from 'react'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import {Color} from '../../utils/Colors'
+import {Font} from '../../utils/font'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Edit from '../../assets/icons/edit.svg'
+import About from '../../assets/icons/about.svg'
+import AboutDark from '../../assets/icons/about_dark.svg'
+import LanguageDark from '../../assets/icons/language_dark.svg'
+import Feedback from '../../assets/icons/feedback.svg'
+import Feedback_dark from '../../assets/icons/feedback_dark.svg'
+import Language from '../../assets/icons/language.svg'
+import DarkMode from '../../assets/icons/dakrmode.svg'
+import Dark_dark from '../../assets/icons/dark_dark.svg'
+import Call_dark from '../../assets/icons/call_dark.svg'
+import Logout from '../../assets/icons/logout.svg'
+import Notification from '../../assets/icons/notification.svg'
+import Notification_dark from '../../assets/icons/notification_dark.svg'
+import FAQ from '../../assets/icons/faq.svg'
+import Faq_dark from '../../assets/icons/faq_dark.svg'
+import Terms from '../../assets/icons/terms.svg'
+import Terms_dark from '../../assets/icons/terms_dark.svg'
+import Privacy from '../../assets/icons/privacy.svg'
+import Privacy_dark from '../../assets/icons/privacy_dark.svg'
+import Contact from '../../assets/icons/contact.svg'
+import CustomSwitch from '../../components/CustomSwitch'
+import {useNavigation} from '@react-navigation/native'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const SettingsMore = () => {
-  const navigation = useNavigation();
+  const Theme = useColorScheme() === 'dark'
+  const navigation = useNavigation()
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
-         {/* <HomeHeader/> */}
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      {/* <HomeHeader/> */}
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.HeaderStyle}>
+        <View
+          style={[
+            styles.HeaderStyle,
+            {
+              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            },
+          ]}>
           <View style={styles.WelcomeView}>
-            <Text style={styles.WelcomeText}>Hello, Brethen</Text>
-          </View> 
-       
-    
+            <Text
+              style={[
+                styles.WelcomeText,
+                {
+                  color: Theme ? Color.White : Color.DarkTheme,
+                },
+              ]}>
+              Hello, Brethen
+            </Text>
+          </View>
         </View>
 
-        <View style={styles.MainView}>
-          <View style={styles.UserInfo}>
+        <View style={[styles.MainView]}>
+          <View
+            style={[
+              styles.UserInfo,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.ImageAndText}>
               <View
                 style={{
                   width: w >= 768 && h >= 1024 ? scale(30) : scale(50),
                   height: w >= 768 && h >= 1024 ? scale(30) : scale(60),
-                
                 }}>
                 <Image
                   source={require('../../assets/images/krista_settings.png')}
@@ -76,11 +99,25 @@ const SettingsMore = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Text style={styles.UserNameText}>Mary David</Text>
-                <Text style={styles.UserInfoText}>
+                <Text
+                  style={[
+                    styles.UserNameText,
+                    {
+                      color: Theme ? Color.White : Color.DarkTheme,
+                    },
+                  ]}>
+                  Mary David
+                </Text>
+                <Text
+                  style={[
+                    styles.UserInfoText,
+                    {
+                      color: Theme ? Color.White : Color.DarkTheme,
+                    },
+                  ]}>
                   <Text
                     style={{
-                      color: Color.Black,
+                      color: Theme ? Color.White : Color.DarkTheme,
                       fontFamily: Font.Poppins700,
                       fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
                     }}>
@@ -90,25 +127,45 @@ const SettingsMore = () => {
                 </Text>
               </View>
             </View>
-            <TouchableOpacity onPress={()=>navigation.navigate('EditProfile')}>
-            <Edit height={w >= 768 && h >= 1024 ? scale(16) : scale(22)} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('EditProfile')}>
+              <Edit height={w >= 768 && h >= 1024 ? scale(16) : scale(22)} />
             </TouchableOpacity>
           </View>
         </View>
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Color.HeaderColor,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
           }}
         />
         <View style={styles.MainView}>
           <TouchableOpacity
             onPress={() => navigation.navigate('About')}
-            style={styles.AllItems}>
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.IconAndText}>
-              <About height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              {Theme ? (
+                <AboutDark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <About height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              )}
 
-              <Text style={[styles.TextStyle]}>About</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                About
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -120,14 +177,39 @@ const SettingsMore = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
-            style={styles.AllItems}>
-            <View style={styles.IconAndText}>
-              <Language
-                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-              />
+            onPress={() => navigation.navigate('Language')}
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
+            <View
+              style={[
+                styles.IconAndText,
+                {
+                  color: Theme ? Color.White : Color.DarkTextColor,
+                },
+              ]}>
+              {Theme ? (
+                <LanguageDark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <Language
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              )}
 
-              <Text style={[styles.TextStyle]}>Language</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                  },
+                ]}>
+                Language
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -139,28 +221,64 @@ const SettingsMore = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
-            style={styles.AllItems}>
-            <View style={styles.IconAndText}>
-              <Notification
-                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-              />
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
+            <View style={[styles.IconAndText]}>
+              {Theme ? (
+                <Notification_dark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <Notification
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              )}
 
-              <Text style={[styles.TextStyle]}>Notifications</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                Notifications
+              </Text>
             </View>
 
             <View></View>
             <CustomSwitch />
           </TouchableOpacity>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
-            style={styles.AllItems}>
+            onPress={() => navigation.navigate('DarkMode')}
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.IconAndText}>
-              <DarkMode
-                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-              />
-
-              <Text style={[styles.TextStyle]}>DarkMode</Text>
+              {Theme ? (
+                <Dark_dark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <DarkMode
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              )}
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                DarkMode
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -175,17 +293,36 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Color.HeaderColor,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
           }}
         />
-        <View style={styles.MainView}>
+        <View style={[styles.MainView]}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('faq')}
-            style={styles.AllItems}>
+            onPress={() => navigation.navigate('Faq')}
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.IconAndText}>
-              <FAQ height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              {Theme ? (
+                <Faq_dark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <FAQ height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              )}
 
-              <Text style={[styles.TextStyle]}>FAQ</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                FAQ
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -198,11 +335,30 @@ const SettingsMore = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('Terms')}
-            style={styles.AllItems}>
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.IconAndText}>
-              <Terms height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              {Theme ? (
+                <Terms_dark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <Terms height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              )}
 
-              <Text style={[styles.TextStyle]}>Terms</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                Terms
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -215,11 +371,32 @@ const SettingsMore = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('Privacy')}
-            style={styles.AllItems}>
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.IconAndText}>
-              <Privacy height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              {Theme ? (
+                <Privacy_dark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <Privacy
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              )}
 
-              <Text style={[styles.TextStyle]}>Privacy</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                Privacy
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -234,20 +411,39 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Color.HeaderColor,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
           }}
         />
 
         <View style={styles.MainView}>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
-            style={styles.AllItems}>
+            onPress={() => navigation.navigate('Feedback')}
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.IconAndText}>
-              <Feedback
-                height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-              />
+              {Theme ? (
+                <Feedback_dark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <Feedback
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              )}
 
-              <Text style={[styles.TextStyle]}>Feedback</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                Feedback
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -260,12 +456,33 @@ const SettingsMore = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
-            style={styles.AllItems}>
+            onPress={() => navigation.navigate('Contact')}
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
             <View style={styles.IconAndText}>
-              <Contact height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+              {Theme ? (
+                <Call_dark
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              ) : (
+                <Contact
+                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                />
+              )}
 
-              <Text style={[styles.TextStyle]}>Contact</Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.DarkTheme,
+                  },
+                ]}>
+                Contact
+              </Text>
             </View>
 
             <View style={styles.ArrowStyle}>
@@ -301,7 +518,6 @@ const SettingsMore = () => {
               size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
             />
           </TouchableOpacity>
-          
         </View>
         <View
           style={{
@@ -314,33 +530,44 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Color.HeaderColor,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
           }}
         />
-      <View style={styles.MainView}>
-        <TouchableOpacity
-          //onPress={() => navigation.navigate('about')}
-          style={styles.AllItems}>
-          <View style={styles.IconAndText}>
-            <Logout height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+        <View
+          style={[
+            styles.MainView,
+            {
+              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            },
+          ]}>
+          <TouchableOpacity
+            //onPress={() => navigation.navigate('about')}
+            style={[
+              styles.AllItems,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
+            <View style={styles.IconAndText}>
+              <Logout height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
 
-            <Text style={[styles.LogoutTextStyle]}>Log out</Text>
-          </View>
-        </TouchableOpacity>
+              <Text style={[styles.LogoutTextStyle]}>Log out</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Color.HeaderColor,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
           }}
         />
         <View style={{height: verticalScale(90)}}></View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default SettingsMore;
+export default SettingsMore
 
 const styles = StyleSheet.create({
   HeaderStyle: {
@@ -370,7 +597,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-
   },
   AllItems: {
     flexDirection: 'row',
@@ -414,7 +640,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: verticalScale(15),
-    height:w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(50),
+    height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(50),
     width: w >= 768 && h >= 1024 ? '32%' : '45%',
     alignSelf: 'center',
     paddingHorizontal: verticalScale(25),
@@ -439,12 +665,11 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
     color: Color.TextColor2,
     paddingHorizontal: moderateScale(15),
-
   },
-  LogoutTextStyle:{
+  LogoutTextStyle: {
     fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
     color: Color.Red,
     paddingHorizontal: moderateScale(15),
-  }
-});
+  },
+})

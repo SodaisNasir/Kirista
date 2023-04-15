@@ -5,29 +5,42 @@ import {
   Text,
   View,
   Dimensions,
-} from 'react-native';
-import React from 'react';
-import {Color} from '../../utils/Colors';
-import {verticalScale,scale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import Header from '../../components/Header';
-import CustomNavigator from '../../components/CustomNavigator';
+  useColorScheme,
+} from 'react-native'
+import React from 'react'
+import {Color} from '../../utils/Colors'
+import {verticalScale, scale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import Header from '../../components/Header'
+import CustomNavigator from '../../components/CustomNavigator'
 
-
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const Terms = () => {
- 
+  const Theme = useColorScheme() === 'dark'
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header text={'Terms'} />
-        <View style={styles.Container}>
+        <View
+          style={[
+            styles.Container,
+            {
+              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            },
+          ]}>
           <View style={{marginVertical: verticalScale(12)}}>
             <Text style={styles.TextStyle}>Terms of Use</Text>
           </View>
-          <Text style={styles.TextStyle}>
+          <Text
+            style={[
+              styles.TextStyle,
+              {
+                color: Theme ? Color.White : Color.Black,
+              },
+            ]}>
             This platform is powered by RCCG Africa Continent 2 and developed by
             IDC Platforms Limited ("we", "us" or "our"). The use, content and
             information available on this Mobile App shall be subject to
@@ -38,23 +51,35 @@ const Terms = () => {
             with and be bound by these Terms of Use is deemed to occur upon your
             first use of the Mobile App.
           </Text>
-          <Text style={styles.TextStyle}>
+          <Text
+            style={[
+              styles.TextStyle,
+              {
+                color: Theme ? Color.White : Color.Black,
+              },
+            ]}>
             If you do not agree to these Terms of Use, you should not review
             information from this Mobile App. We have the total right to edit or
             delete any content in this Mobile Platform, including this
             Agreement, without notifying you.
           </Text>
         </View>
-        <View style={{height:verticalScale(85)}}/>
+        <View style={{height: verticalScale(85)}} />
       </ScrollView>
-      <View style={{position:'absolute',bottom:0,width:'100%',backgroundColor:Color.White}}>
-          <CustomNavigator />
-        </View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          backgroundColor: Color.White,
+        }}>
+        <CustomNavigator />
+      </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Terms;
+export default Terms
 
 const styles = StyleSheet.create({
   Container: {
@@ -66,4 +91,4 @@ const styles = StyleSheet.create({
     fontFamily: Font.Libre400,
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
   },
-});
+})

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,27 +9,26 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   useColorScheme,
-} from 'react-native';
+} from 'react-native'
 import {
   moderateScale,
   moderateVerticalScale,
   scale,
   verticalScale,
-} from 'react-native-size-matters';
-import Header from '../../components/Header';
-import {Color} from '../../utils/Colors';
-import {Font} from '../../utils/font';
-import ReadNavigator from '../../components/ReadNavigator';
+} from 'react-native-size-matters'
+import Header from '../../components/Header'
+import {Color} from '../../utils/Colors'
+import {Font} from '../../utils/font'
+import ReadNavigator from '../../components/ReadNavigator'
 
 const Language = ({navigation}) => {
-
   const handleSubmit = () => {
-      navigation.goBack()
-  };
-  const Theme = useColorScheme() === 'dark';
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
-  const [selected, setSelected] = useState();
+    navigation.goBack()
+  }
+  const Theme = useColorScheme() === 'dark'
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
+  const [selected, setSelected] = useState()
 
   let DATA = [
     {
@@ -57,9 +56,9 @@ const Language = ({navigation}) => {
       title: 'Pidgin',
       Short: '(PN)',
     },
-  ];
+  ]
 
-  const [option, setOption] = useState(null);
+  const [option, setOption] = useState(null)
 
   const Item = ({data}) => (
     <TouchableOpacity
@@ -70,9 +69,7 @@ const Language = ({navigation}) => {
         },
         styles.item,
       ]}
-      onPress={() => setSelected(data.title)}
-      
-      >
+      onPress={() => setSelected(data.title)}>
       <View
         style={{
           flexDirection: 'row',
@@ -143,10 +140,13 @@ const Language = ({navigation}) => {
         </View>
       </View>
       <View
-        style={[{borderBottomColor: Theme ? Color.Black: Color.BorderColor}, styles.BorderBottom]}
+        style={[
+          {borderBottomColor: Theme ? Color.Black : Color.BorderColor},
+          styles.BorderBottom,
+        ]}
       />
     </TouchableOpacity>
-  );
+  )
   return (
     <SafeAreaView
       style={[
@@ -160,17 +160,17 @@ const Language = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           data={DATA}
           renderItem={({item}) => <Item data={item} />}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           style={{marginTop: verticalScale(20)}}
         />
 
         <View style={{height: verticalScale(10)}} />
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Language;
+export default Language
 
 const styles = StyleSheet.create({
   Container: {
@@ -191,4 +191,4 @@ const styles = StyleSheet.create({
   Short: {
     fontFamily: Font.Poppins400,
   },
-});
+})

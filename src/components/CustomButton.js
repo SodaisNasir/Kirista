@@ -1,18 +1,19 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-} from 'react-native';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import {Font} from '../assets/fonts/PoppinsFont';
+} from 'react-native'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import {Font} from '../assets/fonts/PoppinsFont'
+import {Color} from '../utils/Colors'
 // import Color from '../Assets/Color';
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
-const CustomButton = props => {
+const CustomButton = (props) => {
   return (
     <View
       style={[
@@ -22,12 +23,19 @@ const CustomButton = props => {
       ]}>
       <TouchableOpacity
         onPress={props.onPress}
-        style={[styles.ButtonStyles, props.BGColor, props.restyle]}>
+        style={[
+          styles.ButtonStyles,
+          props.BGColor,
+          props.restyle,
+          {
+            backgroundColor: Color.Main,
+          },
+        ]}>
         <Text style={[styles.ButtonText, props.Textalig]}>{props.text}</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   ButtonContainer: {
@@ -51,6 +59,6 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
     fontFamily: Font.Poppins600,
   },
-});
+})
 
-export default CustomButton;
+export default CustomButton
