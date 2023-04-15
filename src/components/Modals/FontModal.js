@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, {useState, useEffect} from 'react'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import {
   StyleSheet,
   Text,
@@ -7,24 +7,24 @@ import {
   useWindowDimensions,
   FlatList,
   TouchableOpacity,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import {Color} from '../../utils/Colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import CustomButton from '../CustomButton';
-import {useNavigation} from '@react-navigation/native';
+  useColorScheme,
+} from 'react-native'
+import Modal from 'react-native-modal'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import {Color} from '../../utils/Colors'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import CustomButton from '../CustomButton'
+import {useNavigation} from '@react-navigation/native'
 
-const FontModal = props => {
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
-  const [selected, setSelected] = useState();
-  const navigation = useNavigation();
+const FontModal = (props) => {
+  // const toggleModal = () => {
+  //   setModalVisible(!isModalVisible)
+  // }
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
+  const [selected, setSelected] = useState()
+  const navigation = useNavigation()
   const data = [
     {
       id: '1',
@@ -50,7 +50,9 @@ const FontModal = props => {
       id: '6',
       label: 'Times New Roman',
     },
-  ];
+  ]
+
+  const Theme = useColorScheme() === 'dark'
 
   return (
     <View style={{flex: 1, width: '100%'}}>
@@ -60,7 +62,7 @@ const FontModal = props => {
         backdropOpacity={0.7}
         onBackdropPress={props.onBackdropPress}
         onRequestClose={props.onRequestClose}
-        onPress={() => setModalVisible(false)}
+        // onPress={() => setModalVisible(false)}
         isVisible={props.isVisible}
         swipeDirection="down"
         onSwipeComplete={props.onSwipeComplete}>
@@ -73,6 +75,7 @@ const FontModal = props => {
                 w >= 768 && h >= 1024 ? scale(20) : scale(22),
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
             },
             styles.modalView,
           ]}>
@@ -80,15 +83,17 @@ const FontModal = props => {
             style={{
               // marginVertical: verticalScale(20),
               // marginVertical:verticalScale(10)
-              paddingVertical:verticalScale(10),
+              paddingVertical: verticalScale(10),
               // backgroundColor:'red',
-              borderBottomWidth:0.5,
-              borderBottomColor:Color.BorderColor
+              borderBottomWidth: 0.5,
+              borderBottomColor: Color.BorderColor,
             }}>
             <Text
               style={[
-                ,
-                {fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18)},
+                {
+                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
+                  color: Theme ? Color.White : Color.DarkTextColor,
+                },
                 styles.BigTextStyle,
               ]}>
               Font Type
@@ -101,46 +106,45 @@ const FontModal = props => {
               return (
                 <View style={{}}>
                   <TouchableOpacity
-                    style={{marginTop:verticalScale(12)}}
+                    style={{marginTop: verticalScale(12)}}
                     onPress={props.OptionSelect}>
                     <View
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        borderBottomColor:Color.BorderColor,
-                        borderBottomWidth:0.5,
+                        borderBottomColor: Color.BorderColor,
+                        borderBottomWidth: 0.5,
                         // backgroundColor:'red'
-                       
                       }}>
-                        <View style={{marginBottom:verticalScale(12)}}>
-                          <Text
-                            style={[
-                              {
-                                fontSize:
-                                  w >= 768 && h >= 1024 ? scale(8) : scale(16)
-                              },
-                              styles.SmallTextStyle,
-                            ]}>
-                            {item.label}
-                          </Text>
-                        </View>
+                      <View style={{marginBottom: verticalScale(12)}}>
+                        <Text
+                          style={[
+                            {
+                              fontSize:
+                                w >= 768 && h >= 1024 ? scale(8) : scale(16),
+                              color: Theme ? Color.White : Color.DarkTextColor,
+                            },
+                            styles.SmallTextStyle,
+                          ]}>
+                          {item.label}
+                        </Text>
+                      </View>
                     </View>
                   </TouchableOpacity>
                 </View>
-              );
+              )
             }}
           />
         </View>
       </Modal>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   modalStyling: {
     justifyContent: 'flex-end',
     margin: 0,
-  
   },
 
   modalView: {
@@ -148,21 +152,15 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     paddingVertical: moderateScale(20),
     width: '100%',
-   
-    backgroundColor: Color.White,
-
     height: '65%',
   },
   BigTextStyle: {
-    color: Color.DarkTextColor,
     fontFamily: Font.Poppins700,
     textAlign: 'left',
   },
   SmallTextStyle: {
-    color: Color.DarkTextColor,
     fontFamily: Font.Poppins500,
-  
   },
-});
+})
 
-export default FontModal;
+export default FontModal

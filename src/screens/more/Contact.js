@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native'
-import React from 'react'
+import React, {useLayoutEffect} from 'react'
 import CustomInput from '../../components/CustomInput'
 import PhoneInput from '../../components/PhoneInput'
 import CustomButton from '../../components/CustomButton'
@@ -16,10 +16,19 @@ import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
 import Header from '../../components/Header'
 import {Color} from '../../utils/Colors'
 
-const Contact = () => {
+const Contact = ({navigation}) => {
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
   const Theme = useColorScheme() === 'dark'
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
+
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>

@@ -5,7 +5,7 @@ import {
   View,
   Image,
   Dimensions,
-  useColorScheme
+  useColorScheme,
 } from 'react-native'
 import React from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
@@ -19,9 +19,13 @@ const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 const ViewManual = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useColorScheme() === 'dark'
   return (
-    <SafeAreaView style={[{backgroundColor: Theme? Color.DarkTheme : Color.White},styles.Container]}>
+    <SafeAreaView
+      style={[
+        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        styles.Container,
+      ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader shareicon={true} saveicon={true} />
         {/* <View style={{height:verticalScale(100),backgroundColor:'purple'}}> */}
@@ -34,9 +38,21 @@ const ViewManual = ({navigation}) => {
             style={{height: '100%', width: '100%'}}
           />
         </View>
-        <View style={{marginBottom:verticalScale(5)}}>
-          <Text style={[{color : Theme? Color.White : Color.DarkTextColor},styles.TextStyle]}>Sunday School Student</Text>
-          <Text style={[{color : Theme? Color.White : Color.DarkTextColor},styles.TextStyle]}>Manual</Text>
+        <View style={{marginBottom: verticalScale(5)}}>
+          <Text
+            style={[
+              {color: Theme ? Color.White : Color.DarkTextColor},
+              styles.TextStyle,
+            ]}>
+            Sunday School Student
+          </Text>
+          <Text
+            style={[
+              {color: Theme ? Color.White : Color.DarkTextColor},
+              styles.TextStyle,
+            ]}>
+            Manual
+          </Text>
         </View>
 
         <View
@@ -57,7 +73,7 @@ const ViewManual = ({navigation}) => {
         <View
           style={{
             height: verticalScale(18),
-            backgroundColor: Theme? Color.ExtraViewDark : Color.HeaderColor
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -69,7 +85,7 @@ const ViewManual = ({navigation}) => {
             alignSelf: 'center',
             height:
               w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(120),
-              backgroundColor: Theme? Color.DarkTheme : Color.White,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
             height: verticalScale(80),
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
@@ -84,7 +100,13 @@ const ViewManual = ({navigation}) => {
               flex: 1,
             }}>
             <Text style={styles.DetailTextStyle}>Language</Text>
-            <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.BoldDetailTextStyle]}>English</Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.DarkTextColor},
+                styles.BoldDetailTextStyle,
+              ]}>
+              English
+            </Text>
           </View>
           <View
             style={{
@@ -96,7 +118,13 @@ const ViewManual = ({navigation}) => {
               flex: 1,
             }}>
             <Text style={styles.DetailTextStyle}>Category</Text>
-            <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.BoldDetailTextStyle]}>Manual</Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.DarkTextColor},
+                styles.BoldDetailTextStyle,
+              ]}>
+              Manual
+            </Text>
           </View>
           <View
             style={{
@@ -106,13 +134,19 @@ const ViewManual = ({navigation}) => {
               flex: 1,
             }}>
             <Text style={styles.DetailTextStyle}>Released</Text>
-            <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.BoldDetailTextStyle]}>2023</Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.DarkTextColor},
+                styles.BoldDetailTextStyle,
+              ]}>
+              2023
+            </Text>
           </View>
         </View>
         <View
           style={{
             height: verticalScale(18),
-            backgroundColor: Theme? Color.ExtraViewDark : Color.HeaderColor
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -120,13 +154,27 @@ const ViewManual = ({navigation}) => {
           style={{
             height: verticalScale(70),
             justifyContent: 'center',
-            borderBottomColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+            borderBottomColor: Theme
+              ? Color.DarkBorderColor
+              : Color.BorderColor,
             borderBottomWidth: 1,
             marginHorizontal: verticalScale(20),
             // marginHorizontal:verticalScale(20)
           }}>
-          <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.AuthorText]}>Author</Text>
-          <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.AuthorNameText]}>Pastor E.A. Adeboye</Text>
+          <Text
+            style={[
+              {color: Theme ? Color.White : Color.DarkTextColor},
+              styles.AuthorText,
+            ]}>
+            Author
+          </Text>
+          <Text
+            style={[
+              {color: Theme ? Color.White : Color.DarkTextColor},
+              styles.AuthorNameText,
+            ]}>
+            Pastor E.A. Adeboye
+          </Text>
         </View>
 
         <View
@@ -155,7 +203,6 @@ export default ViewManual
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    
   },
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),
@@ -183,26 +230,26 @@ const styles = StyleSheet.create({
   },
   AuthorText: {
     fontFamily: Font.Poppins600,
-    
+
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
   },
   About: {
     fontFamily: Font.Poppins600,
-    
+
     textAlign: w >= 768 && h >= 1024 ? 'center' : 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
   },
   AuthorNameText: {
     fontFamily: Font.Poppins400,
-    
+
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     lineHeight: verticalScale(30),
     textAlign: 'left',
   },
   AboutText: {
     fontFamily: Font.Poppins400,
-    
+
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
     marginTop: verticalScale(5),
   },

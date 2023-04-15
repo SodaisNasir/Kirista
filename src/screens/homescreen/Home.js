@@ -8,9 +8,9 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
-  useColorScheme
+  useColorScheme,
 } from 'react-native'
-import React from 'react'
+import React, {useLayoutEffect} from 'react'
 import {Color} from '../../utils/Colors'
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
 import HomeHeader from '../../components/HomeHeader'
@@ -23,7 +23,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 const Home = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useColorScheme() === 'dark'
+
   const image_data = [
     {
       id: 1,
@@ -176,7 +177,8 @@ const Home = ({navigation}) => {
   ]
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeader
           HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
@@ -187,7 +189,11 @@ const Home = ({navigation}) => {
             bottom: scale(4),
           }}
         />
-        <View style={[{backgroundColor: Theme? Color.ExtraViewDark : Color.HeaderColor},styles.SwiperViewOne]}>
+        <View
+          style={[
+            {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
+            styles.SwiperViewOne,
+          ]}>
           <FlatList
             showsHorizontalScrollIndicator={false}
             data={swiper_data}
@@ -221,7 +227,6 @@ const Home = ({navigation}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-         
           }}>
           <View
             style={{
@@ -230,7 +235,13 @@ const Home = ({navigation}) => {
               flexDirection: 'row',
               marginTop: verticalScale(15),
             }}>
-            <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.BooksText]}>Popular Books</Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.DarkTextColor},
+                styles.BooksText,
+              ]}>
+              Popular Books
+            </Text>
 
             <TouchableOpacity
               onPress={() => navigation.navigate('PopularBooks')}
@@ -296,7 +307,15 @@ const Home = ({navigation}) => {
 
                             justifyContent: 'center',
                           }}>
-                          <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.BooksTitleStyle]}>
+                          <Text
+                            style={[
+                              {
+                                color: Theme
+                                  ? Color.White
+                                  : Color.DarkTextColor,
+                              },
+                              styles.BooksTitleStyle,
+                            ]}>
                             {item.title}
                           </Text>
                           <Text
@@ -309,7 +328,6 @@ const Home = ({navigation}) => {
                         </View>
                         <View
                           style={{
-
                             height:
                               w >= 768 && h >= 1024
                                 ? verticalScale(20)
@@ -326,7 +344,11 @@ const Home = ({navigation}) => {
             />
           </ScrollView>
         </View>
-        <View style={[{backgroundColor: Theme? Color.ExtraViewDark : Color.White},styles.SwiperViewTwo]}>
+        <View
+          style={[
+            {backgroundColor: Theme ? Color.ExtraViewDark : Color.White},
+            styles.SwiperViewTwo,
+          ]}>
           <FlatList
             data={image_data}
             showsHorizontalScrollIndicator={false}
@@ -335,10 +357,9 @@ const Home = ({navigation}) => {
               return (
                 <View
                   style={{
-                    
                     // height: verticalScale(120),
                     // width: scale(190),
-                    justifyContent:'center',
+                    justifyContent: 'center',
                     paddingVertical: verticalScale(10),
                     height:
                       w >= 768 && h >= 1024
@@ -377,7 +398,6 @@ const Home = ({navigation}) => {
                       height: '100%',
                       width: '100%',
                       position: 'absolute',
-             
                     }}>
                     <View
                       style={{
@@ -434,7 +454,8 @@ const Home = ({navigation}) => {
                               maxWidth: '90%',
                               top: item.type == 'ye' ? scale(25) : scale(15),
                               textAlignVertical: 'center',
-                              fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
+                              fontSize:
+                                w >= 768 && h >= 1024 ? scale(9) : scale(16),
                               elevation: 5,
                             }}>
                             {item.text}
@@ -445,12 +466,10 @@ const Home = ({navigation}) => {
                             height: '25%',
                             width: '100%',
                             // backgroundColor:'red',
-                            marginVertical:verticalScale(2)
-                            
+                            marginVertical: verticalScale(2),
                           }}>
                           <TouchableOpacity
-                          onPress={()=> navigation.navigate('Rccg')
-                          }
+                            onPress={() => navigation.navigate('Rccg')}
                             style={{
                               flexDirection: 'row',
                               // backgroundColor:'yellow'
@@ -460,7 +479,8 @@ const Home = ({navigation}) => {
                                 fontFamily: Font.Poppins400,
                                 color: Color.White,
                                 // textTransform: 'uppercase',
-                                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(10),
+                                fontSize:
+                                  w >= 768 && h >= 1024 ? scale(9) : scale(10),
                                 elevation: 5,
                               }}>
                               {item.text2}
@@ -469,7 +489,7 @@ const Home = ({navigation}) => {
                               name="keyboard-arrow-right"
                               size={scale(18)}
                               color={'white'}
-                              style={{bottom: 2,right:3}}
+                              style={{bottom: 2, right: 3}}
                             />
                           </TouchableOpacity>
                         </View>
@@ -493,7 +513,7 @@ const Home = ({navigation}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-              // backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            // backgroundColor: Theme ? Color.DarkTheme : Color.White,
           }}>
           <View
             style={{
@@ -501,7 +521,6 @@ const Home = ({navigation}) => {
               width: '100%',
               flexDirection: 'row',
               marginTop: verticalScale(15),
-         
             }}>
             <View style={{}}>
               <Text style={styles.BooksText}>Featured Parishes</Text>
@@ -576,14 +595,21 @@ const Home = ({navigation}) => {
                         style={{
                           // height: verticalScale(30),
 
-                 
                           justifyContent: 'center',
                         }}>
-                        <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.ParishTitleStyle]}>
+                        <Text
+                          style={[
+                            {color: Theme ? Color.White : Color.DarkTextColor},
+                            styles.ParishTitleStyle,
+                          ]}>
                           {item.title}
                         </Text>
                         <Text
-                          style={[{bottom: scale(3)},{color: Theme? Color.White : Color.DarkTextColor}, styles.ParishTitleStyle]}>
+                          style={[
+                            {bottom: scale(3)},
+                            {color: Theme ? Color.White : Color.DarkTextColor},
+                            styles.ParishTitleStyle,
+                          ]}>
                           {item.manual}
                         </Text>
                       </View>
@@ -609,7 +635,7 @@ const Home = ({navigation}) => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme? Color.ExtraViewDark : Color.HeaderColor
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View
@@ -624,11 +650,15 @@ const Home = ({navigation}) => {
               width: '100%',
               flexDirection: 'row',
               marginTop: verticalScale(15),
-             
-
             }}>
             <View>
-              <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.UpcomingText]}>Upcoming Events</Text>
+              <Text
+                style={[
+                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  styles.UpcomingText,
+                ]}>
+                Upcoming Events
+              </Text>
             </View>
 
             <TouchableOpacity
@@ -699,9 +729,19 @@ const Home = ({navigation}) => {
                       style={{
                         justifyContent: 'center',
                       }}>
-                      <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.EventTtitleStyle]}>{item.title}</Text>
                       <Text
-                        style={[{bottom: scale(3)},{color: Theme? Color.White : Color.DarkTextColor}, styles.EventTtitleStyle]}>
+                        style={[
+                          {color: Theme ? Color.White : Color.DarkTextColor},
+                          styles.EventTtitleStyle,
+                        ]}>
+                        {item.title}
+                      </Text>
+                      <Text
+                        style={[
+                          {bottom: scale(3)},
+                          {color: Theme ? Color.White : Color.DarkTextColor},
+                          styles.EventTtitleStyle,
+                        ]}>
                         {item.manual}
                       </Text>
                     </View>
@@ -770,7 +810,6 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
   },
   ImageView: {
- 
     alignItems: 'center',
   },
   YearStyle: {
@@ -817,7 +856,6 @@ const styles = StyleSheet.create({
     // width:'100%'
   },
   SwiperViewTwo: {
-    
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: moderateScale(20),

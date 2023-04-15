@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useLayoutEffect} from 'react'
 import {
   StyleSheet,
   Text,
@@ -29,6 +29,13 @@ const Language = ({navigation}) => {
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
   const [selected, setSelected] = useState()
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
 
   let DATA = [
     {

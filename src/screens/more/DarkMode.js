@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,24 +9,31 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   useColorScheme,
-} from 'react-native';
+} from 'react-native'
 import {
   moderateScale,
   moderateVerticalScale,
   scale,
   verticalScale,
-} from 'react-native-size-matters';
-import Header from '../../components/Header';
-import {Color} from '../../utils/Colors';
-import {Font} from '../../utils/font';
-import ReadNavigator from '../../components/ReadNavigator';
+} from 'react-native-size-matters'
+import Header from '../../components/Header'
+import {Color} from '../../utils/Colors'
+import {Font} from '../../utils/font'
+import ReadNavigator from '../../components/ReadNavigator'
 
 const DarkMode = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  const Theme = useColorScheme() === 'dark'
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
 
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState()
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
 
   let DATA = [
     {
@@ -41,9 +48,9 @@ const DarkMode = ({navigation}) => {
       id: '3',
       title: 'Device Settings',
     },
-  ];
+  ]
 
-  const [option, setOption] = useState(null);
+  const [option, setOption] = useState(null)
 
   const Item = ({data}) => (
     <TouchableOpacity
@@ -86,7 +93,7 @@ const DarkMode = ({navigation}) => {
             style={{
               height: w >= 768 && h >= 1024 ? scale(12) : scale(16),
               width: w >= 768 && h >= 1024 ? scale(12) : scale(16),
-             
+
               borderRadius: scale(50),
               borderColor: Color.Main,
               borderWidth: scale(1.5),
@@ -120,7 +127,7 @@ const DarkMode = ({navigation}) => {
         ]}
       />
     </TouchableOpacity>
-  );
+  )
   return (
     <SafeAreaView
       style={[
@@ -134,17 +141,17 @@ const DarkMode = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           data={DATA}
           renderItem={({item}) => <Item data={item} />}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           style={{marginTop: verticalScale(20)}}
         />
 
         <View style={{height: verticalScale(10)}} />
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default DarkMode;
+export default DarkMode
 
 const styles = StyleSheet.create({
   Container: {
@@ -160,4 +167,4 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: Font.Poppins500,
   },
-});
+})

@@ -6,26 +6,28 @@ import {
   FlatList,
   Dimensions,
   Image,
-} from 'react-native';
-import React,{useState} from 'react';
-import LibraryHeader from '../../components/LibraryHeader';
-import {scale, verticalScale,moderateScale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import {Color} from '../../utils/Colors';
-import FilterModal from '../../components/Modals/FilterModal';
+  useColorScheme,
+  TouchableOpacity,
+} from 'react-native'
+import React, {useState} from 'react'
+import LibraryHeader from '../../components/LibraryHeader'
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import {Color} from '../../utils/Colors'
+import FilterModal from '../../components/Modals/FilterModal'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
-const LibraryHome = () => {
+const LibraryHome = ({navigation}) => {
   // for modal
-  const [showModal, setShowModal] = useState(false);
-
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+  const Theme = useColorScheme() === 'dark'
+  const [isModalVisible, setModalVisible] = useState(false)
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  
+    setModalVisible(!isModalVisible)
+  }
+
   const data = [
     {
       id: 1,
@@ -33,6 +35,7 @@ const LibraryHome = () => {
       manual: 'Manual',
       image: require('../../../src/assets/images/book1.png'),
       detail: '2023',
+      path: 'PopularBooks',
     },
 
     {
@@ -41,6 +44,7 @@ const LibraryHome = () => {
       manual: 'Central Parish',
       image: require('../../../src/assets/images/parishsmall_1.png'),
       detail: 'Ghana',
+      path: 'FeaturedParishes',
     },
 
     {
@@ -49,6 +53,7 @@ const LibraryHome = () => {
       manual: 'Convention',
       image: require('../../../src/assets/images/event_4.png'),
       detail: 'July 7, 2023.   .   4PM',
+      path: 'EventScreen',
     },
     {
       id: 4,
@@ -56,6 +61,7 @@ const LibraryHome = () => {
       manual: '',
       image: require('../../../src/assets/images/rcg_centralparish.png'),
       detail: 'Banjul',
+      path: 'FeaturedParishes',
     },
     {
       id: 5,
@@ -63,16 +69,17 @@ const LibraryHome = () => {
       manual: 'Teachers Man..',
       image: require('../../../src/assets/images/book2.png'),
       detail: '2023',
+      path: 'PopularBooks',
     },
-  ];
+  ]
 
   return (
-    
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <LibraryHeader
-        onPress ={()=>{
-          setShowModal(toggleModal(true))}}
-
+        onPress={() => {
+          setShowModal(toggleModal(true))
+        }}
       />
 
       <View
@@ -84,23 +91,18 @@ const LibraryHome = () => {
           data={data}
           renderItem={({item}) => {
             return (
-              <View
+              <TouchableOpacity
+                onPress={() => navigation.navigate(item.path)}
                 style={{
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(95)
                       : verticalScale(120),
-                  // marginTop: verticalScale(10),
-
                   flexDirection: 'row',
                   marginHorizontal: verticalScale(20),
-                  // marginBottom: 10,
-                  // marginVertical: verticalScale(10),
-
-                  // borderRadius: 12,
                   overflow: 'hidden',
-                  borderBottomWidth: 1,
-              
+                  borderBottomWidth: 0.3,
+
                   borderColor: Color.BorderColor,
                 }}>
                 <View
@@ -108,7 +110,7 @@ const LibraryHome = () => {
                     flex: w >= 768 && h >= 1024 ? 0.9 : 1.2,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    // backgroundColor:'red'
+                    // backgroundColor: 'red',
                   }}>
                   <View
                     style={{
@@ -142,8 +144,23 @@ const LibraryHome = () => {
                       // backgroundColor: 'yellow',
                       justifyContent: 'center',
                     }}>
-                    <Text style={styles.TitleStyle}>{item.title}</Text>
-                    <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
+                    <Text
+                      style={[
+                        styles.TitleStyle,
+                        {
+                          color: Theme ? Color.White : Color.DarkTextColor,
+                        },
+                      ]}>
+                      {item.title}
+                    </Text>
+                    <Text
+                      style={[
+                        {
+                          bottom: scale(3),
+                          color: Theme ? Color.White : Color.DarkTextColor,
+                        },
+                        styles.TitleStyle,
+                      ]}>
                       {item.manual}
                     </Text>
                   </View>
@@ -163,31 +180,24 @@ const LibraryHome = () => {
                       {item.time}{' '}
                     </Text>
                   </View>
-               
                 </View>
-                
-              </View>
-            );
+              </TouchableOpacity>
+            )
           }}
         />
-      {showModal == false ? (
-          <FilterModal
-            isVisible={isModalVisible}
-            onBackdropPress={() => setModalVisible(false)}
-            swipeDirection="down"
-            onSwipeComplete={() => setModalVisible(false)}
-          />
-        ) : (
-          setShowModal(false)
-        )}
-        
-      </View>
-      
-    </SafeAreaView>
-  );
-};
 
-export default LibraryHome;
+        <FilterModal
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
+          swipeDirection="down"
+          onSwipeComplete={() => setModalVisible(false)}
+        />
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export default LibraryHome
 
 const styles = StyleSheet.create({
   border: {
@@ -208,11 +218,11 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
   TitleStyle: {
-    color: Color.DarkTextColor,
+    // color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins700,
     // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
 
     // paddingHorizontal: verticalScale(50),
   },
-});
+})

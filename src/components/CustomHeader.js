@@ -6,29 +6,36 @@ import {
   TouchableOpacity,
   Dimensions,
   View,
-} from 'react-native';
-import React from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {Font} from '../assets/fonts/PoppinsFont';
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import {Color} from '../utils/Colors';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {useNavigation} from '@react-navigation/native';
-import Time from '../assets/icons/time.svg';
-import Share from '../assets/icons/share.svg';
+  useColorScheme,
+} from 'react-native'
+import React from 'react'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import {Font} from '../assets/fonts/PoppinsFont'
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
+import {Color} from '../utils/Colors'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import {useNavigation} from '@react-navigation/native'
+import Time from '../assets/icons/time.svg'
+import Share from '../assets/icons/share.svg'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
-const CustomHeader = props => {
-  const navigation = useNavigation();
+const CustomHeader = (props) => {
+  const navigation = useNavigation()
+  const Theme = useColorScheme() === 'dark'
+
   return (
-    <View style={styles.AuthHeaderStyle}>
+    <View
+      style={[
+        styles.AuthHeaderStyle,
+        {
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        },
+      ]}>
       <View
         style={{
-    
-
           justifyContent: 'space-between',
           flexDirection: 'row',
 
@@ -41,7 +48,7 @@ const CustomHeader = props => {
           <AntDesign
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-            color="black"
+            color={Theme ? Color.White : Color.Black}
             onPress={() => navigation.goBack()}
           />
           <View
@@ -49,7 +56,15 @@ const CustomHeader = props => {
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(10),
             }}>
-            <Text style={styles.WelcomeText}>{props.text}</Text>
+            <Text
+              style={[
+                styles.WelcomeText,
+                {
+                  color: Theme ? Color.White : Color.DarkTextColor,
+                },
+              ]}>
+              {props.text}
+            </Text>
           </View>
         </View>
 
@@ -74,10 +89,9 @@ const CustomHeader = props => {
           <View style={styles.IconStyle}>
             {props.saveicon ? (
               <MaterialIcons
-              name = 'bookmarks'
-              size = {w >= 768 && h >= 1024 ? scale(14) : scale(20)}
-              color ={Color.Main}
-               
+                name="bookmarks"
+                size={w >= 768 && h >= 1024 ? scale(14) : scale(20)}
+                color={Color.Main}
               />
             ) : null}
           </View>
@@ -95,10 +109,10 @@ const CustomHeader = props => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default CustomHeader;
+export default CustomHeader
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
@@ -125,6 +139,5 @@ const styles = StyleSheet.create({
     color: Color.Black,
     // marginBottom: scale(5),
     // // backgroundColor: 'red',
-
   },
-});
+})

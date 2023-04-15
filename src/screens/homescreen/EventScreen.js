@@ -6,44 +6,55 @@ import {
   Image,
   Dimensions,
   Modal,
-  TouchableOpacity
-} from 'react-native';
-import React,{useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomHeader from '../../components/CustomHeader';
-import {Color} from '../../utils/Colors';
-import {verticalScale, scale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import ImageModal from '../../components/Modals/ImageModal';
+  TouchableOpacity,
+  useColorScheme,
+} from 'react-native'
+import React, {useState} from 'react'
+import {SafeAreaView} from 'react-native-safe-area-context'
+import CustomHeader from '../../components/CustomHeader'
+import {Color} from '../../utils/Colors'
+import {verticalScale, scale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
+import ImageModal from '../../components/Modals/ImageModal'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const EventScreen = () => {
-  
-  const [showModal, setShowModal] = useState(false);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+  const [isModalVisible, setModalVisible] = useState(false)
+  const Theme = useColorScheme() === 'dark'
+
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+    setModalVisible(!isModalVisible)
+  }
   return (
-    <SafeAreaView style={styles.Container}>
-      
+    <SafeAreaView
+      style={[
+        styles.Container,
+        {
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        },
+      ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true} timeicon = {true} />
+        <CustomHeader
+          text={'View Parish'}
+          shareicon={true}
+          saveicon={true}
+          timeicon={true}
+        />
         <View
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
-          <TouchableOpacity 
-          
-          onPress ={()=>{
-            setShowModal(toggleModal(true))}}
-          style={styles.ImageViewStyle}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowModal(toggleModal(true))
+            }}
+            style={styles.ImageViewStyle}>
             <Image
-            
               resizeMode="contain"
               source={require('../../assets/images/EventScreenImage1.png')}
               style={{height: '100%', width: '100%'}}
@@ -54,7 +65,13 @@ const EventScreen = () => {
               marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(5),
             }}>
-            <Text style={styles.TextStyle}>
+            <Text
+              style={[
+                styles.TextStyle,
+                {
+                  color: Theme ? Color.White : Color.DarkTextColor,
+                },
+              ]}>
               Abuja Special Holy Ghost Congress
             </Text>
           </View>
@@ -87,8 +104,8 @@ const EventScreen = () => {
         </View>
         <View
           style={{
-            backgroundColor: Color.HeaderColor,
             height: verticalScale(25),
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}></View>
 
         <View
@@ -101,6 +118,7 @@ const EventScreen = () => {
           <Text
             style={[
               {
+                color: Theme ? Color.White : Color.Black,
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               },
@@ -155,18 +173,16 @@ const EventScreen = () => {
             onRequestClose={() => setModalVisible(false)}
             OptionSelect={() => setModalVisible(false)}
             onPress={() => setModalVisible(false)}
-
           />
         ) : (
           setShowModal(false)
         )}
-
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default EventScreen;
+export default EventScreen
 
 const styles = StyleSheet.create({
   Container: {
@@ -180,7 +196,6 @@ const styles = StyleSheet.create({
   },
   TextStyle: {
     fontFamily: Font.Poppins700,
-    color: Color.DarkTextColor,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
   },
@@ -232,7 +247,6 @@ const styles = StyleSheet.create({
   },
   LocationBigText: {
     fontFamily: Font.Poppins600,
-    color: Color.DarkTextColor,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(17),
   },
@@ -243,8 +257,9 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(15),
     borderRadius: scale(14),
     marginBottom: verticalScale(20),
-    overflow:'hidden',
-    marginHorizontal: w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)
+    overflow: 'hidden',
+    marginHorizontal:
+      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
   },
   DateText: {
     fontFamily: Font.Poppins500,
@@ -252,4 +267,4 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
-});
+})

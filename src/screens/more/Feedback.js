@@ -8,7 +8,7 @@ import {
   useColorScheme,
   useWindowDimensions,
 } from 'react-native'
-import React from 'react'
+import React, {useLayoutEffect} from 'react'
 import Header from '../../components/Header'
 import {Color} from '../../utils/Colors'
 import {Font} from '../../utils/font'
@@ -22,6 +22,14 @@ const Feedback = ({navigation}) => {
   const Theme = useColorScheme() === 'dark'
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
   return (
     <SafeAreaView
       style={[

@@ -4,18 +4,18 @@ import {
   SafeAreaView,
   Dimensions,
   useColorScheme,
-} from 'react-native';
-import React from 'react';
-import {Color} from '../utils/Colors';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+} from 'react-native'
+import React from 'react'
+import {Color} from '../utils/Colors'
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
-const CustomNavigator = props => {
-  const Theme = useColorScheme() === 'dark';
+const CustomNavigator = (props) => {
+  const Theme = useColorScheme() === 'dark'
   return (
     <View
       style={{
@@ -32,41 +32,58 @@ const CustomNavigator = props => {
           alignSelf: 'center',
 
           // paddingHorizontal:verticalScale(30),
-          paddingBottom:verticalScale(5),
+          paddingBottom: verticalScale(5),
           marginVertical: verticalScale(20),
         }}>
-        <View style={styles.ArrowStyle}>
+        <View
+          style={[
+            styles.ArrowStyle,
+            {
+              borderColor: Theme ? Color.White : Color.Black,
+            },
+          ]}>
           <Ionicons
             name="chevron-back"
             size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
-            color="black"
+            color={Theme ? Color.White : Color.Black}
           />
         </View>
-        <View style={styles.LoadStyle}>
+        <View
+          style={[
+            styles.LoadStyle,
+            {
+              borderColor: Theme ? Color.White : Color.Black,
+            },
+          ]}>
           <AntDesign
             name="reload1"
             size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
-            color="black"
+            color={Theme ? Color.White : Color.Black}
           />
         </View>
-        <View style={styles.ArrowStyle}>
+        <View
+          style={[
+            styles.ArrowStyle,
+            {
+              borderColor: Theme ? Color.White : Color.Black,
+            },
+          ]}>
           <Ionicons
             name="chevron-forward"
             size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
-            color="black"
+            color={Theme ? Color.White : Color.Black}
           />
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default CustomNavigator;
+export default CustomNavigator
 
 const styles = StyleSheet.create({
   LoadStyle: {
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(10),
-    borderColor: Color.Black,
     borderWidth: 2,
     height: w >= 768 && h >= 1024 ? verticalScale(19) : verticalScale(35),
     width: w >= 768 && h >= 1024 ? verticalScale(19) : verticalScale(35),
@@ -75,11 +92,11 @@ const styles = StyleSheet.create({
   },
   ArrowStyle: {
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(10),
-    borderColor: Color.Black,
+    // borderColor: Color.Black,
     borderWidth: 2,
     height: w >= 768 && h >= 1024 ? verticalScale(17) : verticalScale(30),
     width: w >= 768 && h >= 1024 ? verticalScale(17) : verticalScale(30),
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+})

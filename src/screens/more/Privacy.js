@@ -7,7 +7,7 @@ import {
   Dimensions,
   useColorScheme,
 } from 'react-native'
-import React from 'react'
+import React, {useLayoutEffect} from 'react'
 import {Color} from '../../utils/Colors'
 import {verticalScale, scale} from 'react-native-size-matters'
 import {Font} from '../../utils/font'
@@ -17,10 +17,18 @@ import CustomNavigator from '../../components/CustomNavigator'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
-const Privacy = () => {
+const Privacy = ({navigation}) => {
   const Theme = useColorScheme() === 'dark'
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <Header text={'Privacy'} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View

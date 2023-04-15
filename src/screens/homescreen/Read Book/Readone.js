@@ -7,31 +7,31 @@ import {
   Dimensions,
   TouchableOpacity,
   useColorScheme,
-} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import ReadHeader from '../../../components/ReadHeader';
-import {Color} from '../../../utils/Colors';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import {Font} from '../../../utils/font';
-import ReadNavigator from '../../../components/ReadNavigator';
-import {useNavigation} from '@react-navigation/native';
-import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
+} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import ReadHeader from '../../../components/ReadHeader'
+import {Color} from '../../../utils/Colors'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import {Font} from '../../../utils/font'
+import ReadNavigator from '../../../components/ReadNavigator'
+import {useNavigation} from '@react-navigation/native'
+import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const Readone = () => {
-  const Theme = useColorScheme() === 'dark';
-  const navigation = useNavigation();
+  const Theme = useColorScheme() === 'dark'
+  const navigation = useNavigation()
   useEffect(() => {
     navigation
       .getParent()
-      ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false});
+      ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false})
     return () =>
       navigation
         .getParent()
-        ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined});
-  }, [navigation]);
+        ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined})
+  }, [navigation])
 
   return (
     <SafeAreaView
@@ -41,7 +41,7 @@ const Readone = () => {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-            navigation.navigate('Readtwo');
+            navigation.navigate('Readtwo')
           }}
           style={styles.Container}>
           <View style={{marginVertical: verticalScale(20)}}>
@@ -106,17 +106,25 @@ const Readone = () => {
           bottom: 0,
           width: '100%',
         }}>
-        <View style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.ChapterPageStyle]}>
-          <View style={[{color: Theme ? Color.ExtraViewDark : Color.White},styles.BoxStyle]}>
+        <View
+          style={[
+            {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+            styles.ChapterPageStyle,
+          ]}>
+          <View
+            style={[
+              {color: Theme ? Color.ExtraViewDark : Color.White},
+              styles.BoxStyle,
+            ]}>
             <Text style={styles.ChapterPageText}>1 / 11</Text>
           </View>
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Readone;
+export default Readone
 
 const styles = StyleSheet.create({
   Container: {
@@ -134,9 +142,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(20),
   },
   ChapterPageStyle: {
-    
     height: verticalScale(85),
-
   },
   BoxStyle: {
     flexDirection: 'row',
@@ -145,8 +151,6 @@ const styles = StyleSheet.create({
     // paddingVertical: verticalScale(),
     paddingHorizontal: moderateScale(10),
     marginTop: verticalScale(10),
- 
-
   },
   ChapterPageText: {
     color: Color.Black,
@@ -155,4 +159,4 @@ const styles = StyleSheet.create({
     marginVertical:
       w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
   },
-});
+})

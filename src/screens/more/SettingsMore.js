@@ -9,7 +9,7 @@ import {
   Image,
   useColorScheme,
 } from 'react-native'
-import React from 'react'
+import React, {useCallback} from 'react'
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
 import {Color} from '../../utils/Colors'
 import {Font} from '../../utils/font'
@@ -39,7 +39,7 @@ import Privacy from '../../assets/icons/privacy.svg'
 import Privacy_dark from '../../assets/icons/privacy_dark.svg'
 import Contact from '../../assets/icons/contact.svg'
 import CustomSwitch from '../../components/CustomSwitch'
-import {useNavigation} from '@react-navigation/native'
+import {useFocusEffect, useNavigation} from '@react-navigation/native'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -47,6 +47,21 @@ const h = Dimensions.get('window').height
 const SettingsMore = () => {
   const Theme = useColorScheme() === 'dark'
   const navigation = useNavigation()
+
+  useFocusEffect(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: 0,
+          height: verticalScale(80),
+          justifyContent: 'space-around',
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        },
+      })
+    }),
+  )
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>

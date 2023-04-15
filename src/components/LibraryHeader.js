@@ -5,28 +5,42 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  useColorScheme,
+} from 'react-native'
+import React, {useState} from 'react'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
+import {Font} from './../utils/font'
+import {Color} from './../utils/Colors'
+import {useNavigation} from '@react-navigation/native'
+import FilterList from '../assets/icons/filter_list.svg'
+import FilterModal from './Modals/FilterModal'
 
-} from 'react-native';
-import React,{useState} from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {scale, verticalScale,moderateScale} from 'react-native-size-matters';
-import {Font} from './../utils/font';
-import {Color} from './../utils/Colors';
-import {useNavigation} from '@react-navigation/native';
-import FilterList from '../assets/icons/filter_list.svg';
-import FilterModal from './Modals/FilterModal';
-
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
-
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const LibraryHeader = (props) => {
-  const navigation = useNavigation();
-  
+  const navigation = useNavigation()
+  const Theme = useColorScheme() === 'dark'
+
   return (
-    <View style={styles.AuthHeaderStyle}>
+    <View
+      style={[
+        styles.AuthHeaderStyle,
+        {
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+        },
+      ]}>
       <View style={styles.NavigatorStyle}>
-        <Text style={styles.WelcomeText}>Library</Text>
+        <Text
+          style={[
+            styles.WelcomeText,
+            {
+              color: Theme ? Color.White : Color.DarkTheme,
+            },
+          ]}>
+          Library
+        </Text>
 
         <View
           style={{
@@ -36,23 +50,20 @@ const LibraryHeader = (props) => {
               w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(25),
             alignSelf: 'center',
           }}>
-          <TouchableOpacity
-          onPress={props.onPress}>
+          <TouchableOpacity onPress={props.onPress}>
             <FilterList width={'100%'} height={'100%'} />
           </TouchableOpacity>
         </View>
-         
       </View>
-     
     </View>
-  );
-};
+  )
+}
 
-export default LibraryHeader;
+export default LibraryHeader
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    backgroundColor: Color.HeaderColor,
+    // backgroundColor: Color.HeaderColor,
     height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(90),
     justifyContent: 'flex-end',
   },
@@ -74,4 +85,4 @@ const styles = StyleSheet.create({
 
     // marginTop: scale(10),
   },
-});
+})

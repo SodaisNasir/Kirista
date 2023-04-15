@@ -8,23 +8,31 @@ import {
   View,
   Image,
   TouchableOpacity,
-} from 'react-native';
-import React from 'react';
-import CustomInput from '../../components/CustomInput';
-import PhoneInput from '../../components/PhoneInput';
-import CustomButton from '../../components/CustomButton';
-import {version} from 'react/cjs/react.production.min';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import Header from '../../components/Header';
-import {Color} from '../../utils/Colors';
-import Password from '../../components/Password';
-import ChangeImage from '../../assets/icons/changeimage.svg';
-import Tag from '../../assets/icons/tag.svg';
+} from 'react-native'
+import React, {useLayoutEffect} from 'react'
+import CustomInput from '../../components/CustomInput'
+import PhoneInput from '../../components/PhoneInput'
+import CustomButton from '../../components/CustomButton'
+import {version} from 'react/cjs/react.production.min'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import Header from '../../components/Header'
+import {Color} from '../../utils/Colors'
+import Password from '../../components/Password'
+import ChangeImage from '../../assets/icons/changeimage.svg'
+import Tag from '../../assets/icons/tag.svg'
 
-const EditProfile = () => {
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
-  const Theme = useColorScheme() === 'dark';
+const EditProfile = ({navigation}) => {
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
+  const Theme = useColorScheme() === 'dark'
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
@@ -112,9 +120,9 @@ const EditProfile = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default EditProfile;
+export default EditProfile
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})

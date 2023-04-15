@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import {
   View,
   Text,
@@ -18,13 +18,21 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
-const Faq = () => {
+const Faq = ({navigation}) => {
   const Theme = useColorScheme() === 'dark'
   const [expanded1, setExpanded1] = useState(false)
   const [expanded2, setExpanded2] = useState(false)
   const [expanded3, setExpanded3] = useState(false)
   const [expanded4, setExpanded4] = useState(false)
   const [expanded5, setExpanded5] = useState(false)
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
 
   const handlePress1 = () => {
     setExpanded1(!expanded1)

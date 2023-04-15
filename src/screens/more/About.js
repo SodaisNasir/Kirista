@@ -8,7 +8,7 @@ import {
   View,
   Image,
 } from 'react-native'
-import React from 'react'
+import React, {useLayoutEffect} from 'react'
 import Header from '../../components/Header'
 import {moderateScale, s, scale, verticalScale} from 'react-native-size-matters'
 import {Color} from '../../utils/Colors'
@@ -16,10 +16,18 @@ import {Font} from '../../utils/font'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CustomNavigator from '../../components/CustomNavigator'
 
-const About = () => {
+const About = ({navigation}) => {
   const Theme = useColorScheme() === 'dark'
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
 
   return (
     <SafeAreaView
