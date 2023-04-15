@@ -876,26 +876,11 @@ const styles = StyleSheet.create({
 
     fontSize: w >= 768 && h >= 1024 ? scale(6) : scale(10),
   },
-  TitleStyle: {
-    // color: Color.DarkTextColor,
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-    fontFamily: Font.Poppins700,
-    // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
 
-    // paddingHorizontal: verticalScale(50),
-  },
   CountryStyle: {
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins400,
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
-  },
-  TitleStyle: {
-    color: Color.DarkTextColor,
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-    fontFamily: Font.Poppins700,
-    // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
-
-    // paddingHorizontal: verticalScale(50),
   },
   BooksTitleStyle: {
     // color: Color.DarkTextColor,
