@@ -74,9 +74,9 @@ const Login = ({navigation}) => {
           text={'Email Address'}
           placeholder={'Email Address'}
         />
-      </View>
 
-      <Password text={'Password'} />
+        <Password text={'Password'} />
+      </View>
 
       <View
         style={{

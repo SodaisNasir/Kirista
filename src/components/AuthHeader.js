@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions,useColorScheme} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -10,6 +10,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const AuthHeader = props => {
+  const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
   return (
     <View style={styles.AuthHeaderStyle}>
@@ -17,7 +18,7 @@ const AuthHeader = props => {
         <AntDesign
           name="arrowleft"
           size={w >= 768 && h >= 1024 ? scale(18) : scale(24)}
-          color="black"
+          color={  Theme ? Color.White : Color.Black}
           onPress={() => navigation.goBack()}
         />
       </View>
@@ -26,7 +27,7 @@ const AuthHeader = props => {
           //   height: '12%',
           justifyContent: 'center',
         }}>
-        <Text style={styles.WelcomeText}>{props.text}</Text>
+        <Text style={[{color: Theme? Color.White:Color.Black},styles.WelcomeText]}>{props.text}</Text>
       </View>
     </View>
   );
@@ -41,7 +42,6 @@ const styles = StyleSheet.create({
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(16) : scale(26),
     fontFamily: Font.Poppins700,
-    color: Color.Black,
     marginBottom: scale(5),
   },
   NavigatorStyle: {

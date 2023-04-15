@@ -5,6 +5,7 @@ import {
   Text,
   View,
   useWindowDimensions,
+  useColorScheme
 } from 'react-native';
 import React from 'react';
 import HomeHeader from '../../../components/HomeHeader';
@@ -15,10 +16,11 @@ import CustomInput from '../../../components/CustomInput';
 import SelectDropdown from '../../../components/SelectDropdown';
 
 const ParishFinder = ({navigation}) => {
+  const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions();
   const h = useWindowDimensions();
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
+    <SafeAreaView style={{flex: 1,  backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeader
           ParishRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
@@ -51,14 +53,18 @@ const ParishFinder = ({navigation}) => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
             }}>
-            <SelectDropdown text={'Region'} title={'Select Region'} />
+            <SelectDropdown
+            onPress={() => navigation.navigate('SelectCountry')}
+            text={'Region'} title={'Select Region'} />
           </View>
           <View
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
             }}>
-            <SelectDropdown text={'Province'} title={'Select Province'} />
+            <SelectDropdown 
+            onPress={() => navigation.navigate('SelectCountry')}
+            text={'Province'} title={'Select Province'} />
           </View>
         </View>
       </ScrollView>

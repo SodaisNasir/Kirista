@@ -23,24 +23,26 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const SearchResult = props => {
 
+
   const navigation = useNavigation()
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const Theme = useColorScheme() === 'dark';
   return (
-    <SafeAreaView style={{flex: 1}}>
+
+    <SafeAreaView style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <View
         style={{
         
           height: verticalScale(90),
           
-          backgroundColor: Color.HeaderColor,
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           
           justifyContent:'flex-end',
           paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-          marginBottom:
+          paddingBottom:
           w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
         }}>
         <View
@@ -55,7 +57,7 @@ const SearchResult = props => {
           <View
             style={[
               styles.searchContainerAfter,
-              {backgroundColor: Theme ? '#2B3642' : '#f0f0f0'},
+              {backgroundColor: Theme ? Color.DarkThemeInputBox : Color.White},
             ]}>
             <View
               style={{
@@ -113,9 +115,9 @@ const SearchResult = props => {
           flexDirection: 'row',
           justifyContent: 'space-around',
           // paddingHorizontal: moderateScale(35),
-          marginBottom:verticalScale(10),
-          backgroundColor:Color.HeaderColor,
-          paddingTop:verticalScale(10)
+          // marginBottom:verticalScale(10),
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          paddingTop:verticalScale(10),
         }}>
         <TouchableOpacity
           style={{}}
@@ -148,9 +150,11 @@ const SearchResult = props => {
         </TouchableOpacity>
       </View>
       <View
-      style={{backgroundColor: Color.Main,
-        height: verticalScale(2),
-        bottom: scale(4),
+      style={{borderBottomColor: Color.Main,
+        borderBottomWidth:1.5,
+        backgroundColor: Theme ? Color.Red : Color.HeaderColor,
+        // height: verticalScale(2),
+        // bottom: scale(4),
         width:'33%'
       }}
       />

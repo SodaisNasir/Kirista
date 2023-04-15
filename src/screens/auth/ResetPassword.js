@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  useColorScheme
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -19,29 +20,31 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
+  const Theme = useColorScheme() === 'dark';
   return (
-    <SafeAreaView style={styles.Container}>
+    <SafeAreaView style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.Container]}>
       <AuthHeader text={'Reset Password'} />
 
       <View
         style={{
           justifyContent: 'center',
-          marginVertical: scale(10),
+          marginVertical: scale(20),
         }}>
-        <Text style={styles.LongText}>
+        <Text style={[{color: Theme ? Color.DarkThemText2 : Color.TextColor},styles.LongText]}>
           Please enter your email address, and we will send you an OTP to
           confirm it.
         </Text>
       </View>
 
-      <View style={{}}>
+      <View style={{marginBottom:
+            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20)}}>
         <CustomInput text={'Email Address'} />
       </View>
 
       <View
         style={{
-          marginTop:
-            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
+          paddingTop:
+            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
         }}>
         <CustomButton
           onPress={() => navigation.navigate('OTP')}
@@ -55,7 +58,6 @@ const ResetPassword = ({navigation}) => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: Color.White,
     // paddingTop: moderateScale(50),
     paddingHorizontal:
       w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(20),
@@ -74,8 +76,7 @@ const styles = StyleSheet.create({
     marginBottom: scale(5),
   },
   LongText: {
-    color: Color.TextColor,
-    fontFamily: Font.Poppins400,
+    fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
     marginBottom: scale(5),
   },

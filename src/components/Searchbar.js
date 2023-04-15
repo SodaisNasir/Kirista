@@ -16,7 +16,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {useNavigation} from '@react-navigation/native';
+import {DarkTheme, useNavigation} from '@react-navigation/native';
 import SearchSuggestion from './SearchSuggestion';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
@@ -56,7 +56,7 @@ const Searchbar = props => {
       style={[
         styles.container,
         {
-          backgroundColor: Theme ? '#F1F6FD' : Color.White,
+          backgroundColor: Theme ? DarkTheme : Color.White,
         },
       ]}>
       {!isSearchBarVisible ? (
@@ -64,16 +64,17 @@ const Searchbar = props => {
           <View
             style={{
               height: verticalScale(90),
-              backgroundColor: Color.HeaderColor,
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
               justifyContent: 'flex-end',
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-              marginBottom:
+              paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
             }}>
             <View
               style={{
                 flexDirection: 'row',
+              
                 marginBottom:
                   w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
               }}>
@@ -81,7 +82,7 @@ const Searchbar = props => {
                 <AntDesign
                   name="arrowleft"
                   size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                  color="black"
+                  color={Theme ? Color.White : Color.Black}
                   onPress={() => navigation.goBack()}
                 />
               </View>
@@ -90,7 +91,7 @@ const Searchbar = props => {
                 onPress={slideInSearchBar}
                 style={[
                   styles.searchContainer,
-                  {backgroundColor: Theme ? '#2B3642' : Color.White},
+                  {backgroundColor: Theme ? Color.DarkThemeInputBox : Color.White},
                 ]}>
                 <View>
                   <View
@@ -98,6 +99,7 @@ const Searchbar = props => {
                       flexDirection: 'row',
                       alignItems: 'center',
                       paddingHorizontal: moderateScale(10),
+                     
                     }}>
                     <Search
                       height={
@@ -132,7 +134,7 @@ const Searchbar = props => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{flex: 1, backgroundColor: Color.White}}>
+          <View style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
             <View
               style={{
                 paddingHorizontal:
@@ -142,7 +144,7 @@ const Searchbar = props => {
               }}>
               <Text
                 style={{
-                  color: Color.DarkTextColor,
+                  color: Theme ? Color.White : Color.DarkTextColor,
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                   fontFamily: Font.Poppins500,
                 }}>
@@ -163,12 +165,12 @@ const Searchbar = props => {
             style={{
               height: verticalScale(90),
 
-              backgroundColor: Color.HeaderColor,
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
 
               justifyContent: 'flex-end',
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-              marginBottom:
+                paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
             }}>
             <View
@@ -183,7 +185,7 @@ const Searchbar = props => {
                 onPress={() => navigation.navigate('SearchResult')}
                 style={[
                   styles.searchContainerAfter,
-                  {backgroundColor: Theme ? '#2B3642' : Color.White},
+                  {backgroundColor: Theme ? Color.DarkThemeInputBox : Color.White},
                 ]}>
                 <View
                   style={{
@@ -250,6 +252,8 @@ const Searchbar = props => {
             style={{
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                flex:1
             }}>
             <SearchSuggestion />
           </View>
