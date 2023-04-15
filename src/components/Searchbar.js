@@ -155,7 +155,7 @@ const Searchbar = props => {
             <View
               style={{
                 height: verticalScale(30),
-                backgroundColor: Color.White,
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
               }}></View>
           </View>
         </>

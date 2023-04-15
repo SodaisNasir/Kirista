@@ -42,7 +42,8 @@ import DarkMode from '../screens/more/DarkMode'
 
 import HomeSvg from '../assets/icons/home.svg'
 import HomeSvgActive from '../assets/icons/home_active.svg'
-import Test2 from '../assets/icons/Test2.svg'
+import Test2 from '../assets/icons/Group.svg'
+import Test3 from '../assets/icons/pop.svg'
 
 import LibrarySvg from '../assets/icons/library.svg'
 import LibrarySvgActive from '../assets/icons/library_active.svg'
@@ -116,7 +117,7 @@ const BottomTabNavigator = () => {
                 }
               />
             ) : (
-              <Test2
+              <Test3
                 style={{marginTop: verticalScale(15)}}
                 width={
                   width >= 768 && height >= 1024
