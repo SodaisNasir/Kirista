@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   Image,
-  useColorcheme,
+  useColorScheme,
   Dimensions,
   useWindowDimensions
 } from 'react-native';
@@ -18,6 +18,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SelectDropdown = props => {
+  const Theme = useColorScheme() === 'dark';
   //   const Theme = useColorcheme();
   //   useEffect(() => {}, [Theme]);
   return (
@@ -35,6 +36,7 @@ const SelectDropdown = props => {
       <TouchableOpacity
         onPress={props.onPress}
         style={[
+          { backgroundColor: Theme ? Color.DarkThemeInputBox : Color.InputBoxColor},
           styles.SelectBox,
           props.RestyleSelectBox,
           // Theme === 'dark'
@@ -63,7 +65,7 @@ const SelectDropdown = props => {
         <Entypo
           name="chevron-down"
           size={w >= 768 && h >= 1024 ? scale(17) : scale(24)}
-          color={Color.Black}
+          color={Theme ? Color.White : Color.Black}
         />
       </TouchableOpacity>
     </View>
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   },
   SelectBox: {
     height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
-    backgroundColor: Color.InputColor,
+
     borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(16),
     // marginHorizontal: '5%',
     paddingHorizontal: verticalScale(20),

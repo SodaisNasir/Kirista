@@ -6,6 +6,7 @@ import {
   FlatList,
   Dimensions,
   Image,
+  useColorScheme
 } from 'react-native';
 import React, {useState} from 'react';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
@@ -18,6 +19,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 export default function SearchContent() {
+  const Theme = useColorScheme() === 'dark';
   const data = [
     {
       id: 1,
@@ -58,7 +60,8 @@ export default function SearchContent() {
     },
   ];
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White
+    }}>
       <View
         style={{
           paddingHorizontal:
@@ -85,7 +88,7 @@ export default function SearchContent() {
                   overflow: 'hidden',
                   borderBottomWidth: 1,
 
-                  borderColor: Color.BorderColor,
+                  borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
                 }}>
                 <View
                   style={{
@@ -127,7 +130,7 @@ export default function SearchContent() {
                       justifyContent: 'center',
                     }}>
                     <Text style={styles.TitleStyle}>{item.title}</Text>
-                    <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
+                    <Text style={[{bottom: scale(3), color:  Theme ? Color.White :Color.DarkTextColor}, styles.TitleStyle]}>
                       {item.manual}
                     </Text>
                   </View>
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
       fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
     },
     TitleStyle: {
-      color: Color.DarkTextColor,
+      
       fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
       fontFamily: Font.Poppins700,
       // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',

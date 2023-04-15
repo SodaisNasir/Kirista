@@ -7,6 +7,7 @@ import {
     ScrollView,
     Dimensions,
     TouchableOpacity,
+    useColorScheme
   } from 'react-native';
   import React from 'react';
  import { Color } from '../../../utils/Colors';
@@ -21,6 +22,7 @@ import { useNavigation } from '@react-navigation/native';
   const h = Dimensions.get('window').height;
   
   const Events = props => {
+    const Theme = useColorScheme() === 'dark';
     const navigation =  useNavigation();
     const data = [
       {
@@ -69,7 +71,7 @@ import { useNavigation } from '@react-navigation/native';
     ];
   
     return (
-      <SafeAreaView style={styles.Container}>
+      <SafeAreaView style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.Container]}>
         <HomeHeader
           EventRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
           EventUnderLineStyle={{
@@ -136,7 +138,7 @@ import { useNavigation } from '@react-navigation/native';
                       // backgroundColor: 'yellow',
                       justifyContent: 'center',
                     }}>
-                    <Text style={styles.TitleStyle}>{item.title}</Text>
+                    <Text style={[{color: Theme ? Color.White : Color.DarkTextColor},styles.TitleStyle]}>{item.title}</Text>
                     <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
                       {item.manual}
                     </Text>
@@ -169,6 +171,7 @@ import { useNavigation } from '@react-navigation/native';
             );
           }}
         />
+        <View style={{height:verticalScale(75)}}/>
       </SafeAreaView>
     );
   };
@@ -178,7 +181,7 @@ import { useNavigation } from '@react-navigation/native';
   const styles = StyleSheet.create({
     Container: {
       flex: 1,
-      backgroundColor: Color.White,
+
     },
     border: {
       borderBottomWidth: scale(3),
@@ -198,7 +201,7 @@ import { useNavigation } from '@react-navigation/native';
       fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
     },
     TitleStyle: {
-      color: Color.DarkTextColor,
+
       fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
       fontFamily: Font.Poppins700,
       // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',

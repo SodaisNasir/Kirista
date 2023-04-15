@@ -29,7 +29,7 @@ const CustomInput = props => {
       <Text
         style={{
           fontFamily: Font.Poppins500,
-          color: Theme?  Color.DarkThemeGreyText : Color.BoldTextColor,
+          color: Theme?  Color.DarkThemText2 : Color.BoldTextColor,
           fontSize: tabPotrait ? scale(9) : scale(14),
         }}>
         {props.text}
@@ -38,7 +38,7 @@ const CustomInput = props => {
         style={
         [ { height: tabPotrait ? verticalScale(35) : fourInchPotrait ? verticalScale(52) : verticalScale(45),
           backgroundColor: Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
-          borderRadius: tabPotrait ? scale(12) : scale(12),
+          borderRadius: tabPotrait ? scale(12) : scale(18),
           paddingHorizontal: verticalScale(20),
         
           marginTop: verticalScale(2)},props.RestyleHeight]
@@ -51,7 +51,7 @@ const CustomInput = props => {
             fontFamily: Font.Poppins400,
             alignItems: 'center',
             justifyContent:'center',
-            color: Theme ?  Color.DarkThemeInputText : Color.TextColor,
+            color: Theme?  Color.White : Color.TextColor,
             flex:1}]
           }
         />

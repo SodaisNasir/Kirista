@@ -29,6 +29,7 @@ export const Color = {
   DarkThemeCustomNavigator: '#0A2142',
   DarkBorderColor: '#061731',
   HomeHeaderTextDark : '#B5BCC6',
-  ExtraViewDark : '#0A2142'
+  ExtraViewDark : '#0A2142',
+  DarkThemText2 : '#838C9A'
   
 };

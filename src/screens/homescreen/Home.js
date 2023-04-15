@@ -29,30 +29,33 @@ const Home = ({navigation}) => {
       id: 1,
       image: require('../../assets/images/list.jpg'),
       image2: require('../../assets/images/redeemImgradiant.png'),
-      image3: require('../../assets/images/rcg_centralparish.png'),
+      image3: require('../../assets/images/rccg_logo.png'),
       text: 'the redeemed christian church of god.',
       text2: 'Read More  ',
       color: '#28166f',
+      screen_name : 'Rccg'
     },
     {
       id: 2,
       image: require('../../assets/images/list2.jpg'),
       image2: require('../../assets/images/redeemImgradiant.png'),
-      image3: require('../../assets/images/rcg_centralparish.png'),
+      image3: require('../../assets/images/rccg_logo.png'),
       text: 'rccg        structure.',
       text2: 'Read More  ',
       color: '#00923f',
       type: 'ye',
+      screen_name : 'RccgStructure'
     },
     {
       id: 3,
       image: require('../../assets/images/list3.jpg'),
       image2: require('../../assets/images/redeemImgradiant.png'),
-      image3: require('../../assets/images/rcg_centralparish.png'),
+      image3: require('../../assets/images/rccg_logo.png'),
       text: 'rccg        continent 2',
       text2: 'Read More  ',
       color: '#e43f40',
       type: 'ye',
+      screen_name : 'RccgContinent'
     },
   ]
   const swiper_data = [
@@ -342,9 +345,9 @@ const Home = ({navigation}) => {
                     paddingVertical: verticalScale(10),
                     height:
                       w >= 768 && h >= 1024
-                        ? verticalScale(90)
+                        ? verticalScale(100)
                         : verticalScale(140),
-                    width: w >= 768 && h >= 1024 ? scale(120) : scale(195),
+                    width: w >= 768 && h >= 1024 ? scale(100) : scale(195),
                     // marginVertical: verticalScale(18),
                     marginRight:
                       w >= 768 && h >= 1024
@@ -390,6 +393,7 @@ const Home = ({navigation}) => {
                         // height: '90%',
                         width: '100%',
                         flexDirection: 'row',
+                        
                       }}>
                       <View
                         style={{
@@ -397,17 +401,19 @@ const Home = ({navigation}) => {
                           width: '40%',
                           // justifyContent: 'center',
                           alignItems: 'center',
+                        
                         }}>
                         <View
                           style={{
-                            height: verticalScale(60),
-                            width: scale(60),
+                            height: w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(65),
+                            width: w >= 768 && h >= 1024 ? scale(30) : scale(65),
                             borderRadius: 100,
-                            top: scale(20),
+                            top:  w >= 768 && h >= 1024 ? scale(15) : scale(20),
                             overflow: 'hidden',
+                          
                           }}>
                           <Image
-                            resizeMode="cover"
+                            resizeMode="contain"
                             style={{
                               height: '100%',
                               width: '100%',
@@ -420,11 +426,15 @@ const Home = ({navigation}) => {
                         style={{
                           height: '100%',
                           width: '60%',
+                         
+                        
                         }}>
                         <View
                           style={{
                             height: '70%',
                             width: '100%',
+                           
+                            
                           }}>
                           <Text
                             style={{
@@ -432,9 +442,9 @@ const Home = ({navigation}) => {
                               color: Color.White,
                               textTransform: 'uppercase',
                               maxWidth: '90%',
-                              top: item.type == 'ye' ? scale(25) : scale(15),
+                              top: item.type == 'ye' ? scale(15) : scale(10),
                               textAlignVertical: 'center',
-                              fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
+                              fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(16),
                               elevation: 5,
                             }}>
                             {item.text}
@@ -449,7 +459,7 @@ const Home = ({navigation}) => {
                             
                           }}>
                           <TouchableOpacity
-                          onPress={()=> navigation.navigate('Rccg')
+                          onPress={()=> navigation.navigate(item.screen_name)
                           }
                             style={{
                               flexDirection: 'row',
@@ -460,16 +470,16 @@ const Home = ({navigation}) => {
                                 fontFamily: Font.Poppins400,
                                 color: Color.White,
                                 // textTransform: 'uppercase',
-                                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(10),
+                                fontSize: w >= 768 && h >= 1024 ? scale(6) : scale(10),
                                 elevation: 5,
                               }}>
                               {item.text2}
                             </Text>
                             <MaterialIcons
                               name="keyboard-arrow-right"
-                              size={scale(18)}
+                              size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                               color={'white'}
-                              style={{bottom: 2,right:3}}
+                              style={{bottom: scale(2),right:scale(3)}}
                             />
                           </TouchableOpacity>
                         </View>

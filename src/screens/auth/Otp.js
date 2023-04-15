@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  useColorScheme,
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -25,6 +26,7 @@ const h = Dimensions.get('window').height;
 
 const CELL_COUNT = 4;
 const OTP = ({navigation}) => {
+  const Theme = useColorScheme() === 'dark';
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -43,7 +45,11 @@ const OTP = ({navigation}) => {
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
   return (
-    <SafeAreaView style={styles.Container}>
+    <SafeAreaView
+      style={[
+        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        styles.Container,
+      ]}>
       <AuthHeader text={'Email Verification'} />
 
       <View
@@ -51,13 +57,17 @@ const OTP = ({navigation}) => {
           justifyContent: 'center',
           marginVertical: scale(10),
         }}>
-        <Text style={styles.LongText}>
+        <Text
+          style={[
+            {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+            styles.LongText,
+          ]}>
           We have sent a one-time password to{' '}
           <Text
             style={{
               fontFamily: Font.Poppins700,
               fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
-              color: Color.BoldTextColor,
+              color: Theme ? Color.DarkThemText2 : Color.TextColor,
             }}>
             maryjames@rccg.com
           </Text>
@@ -68,9 +78,16 @@ const OTP = ({navigation}) => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginVertical: scale(5),
+          marginVertical:
+          w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10)
         }}>
-        <Text style={styles.OtpText}>OTP</Text>
+        <Text
+          style={[
+            {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+            styles.OtpText,
+          ]}>
+          OTP
+        </Text>
         <View>
           {time == 0 ? (
             <TouchableOpacity
@@ -83,7 +100,7 @@ const OTP = ({navigation}) => {
               onPress={() => setTime(600)}>
               <Text
                 style={{
-                  color: Color.Black,
+                  color: Theme ? Color.White : Color.Black,
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                   fontFamily: Font.Poppins700,
                 }}>
@@ -93,7 +110,7 @@ const OTP = ({navigation}) => {
           ) : (
             <Text
               style={{
-                color: Color.Black,
+                color: Theme ? Color.White : Color.Black,
                 fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                 alignSelf: 'center',
                 fontFamily: Font.Poppins700,
@@ -115,13 +132,17 @@ const OTP = ({navigation}) => {
         renderCell={({index, symbol, isFocused}) => (
           <Text
             key={index}
-            style={[styles.cell, isFocused && styles.focusCell]}
+            style={[{backgroundColor: Theme ? Color.DarkThemeInputBox : Color.OtpBoxColor},styles.cell, isFocused && styles.focusCell]}
             onLayout={getCellOnLayoutHandler(index)}>
             {symbol || (isFocused ? <Cursor /> : null)}
           </Text>
         )}
       />
-      <View style={{marginVertical: scale(5)}}>
+      <View
+        style={{
+          marginVertical:
+            w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
+        }}>
         <CustomButton
           onPress={() => navigation.navigate('NewPassword')}
           text={'Continue'}
@@ -134,7 +155,7 @@ const OTP = ({navigation}) => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: Color.White,
+    // backgroundColor: Color.White,
     paddingHorizontal:
       w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(20),
   },
@@ -153,13 +174,12 @@ const styles = StyleSheet.create({
   },
 
   LongText: {
-    color: Color.BoldTextColor,
+    // color: Color.BoldTextColor,
     fontFamily: Font.Poppins400,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
     marginBottom: scale(5),
   },
   OtpText: {
-    color: Color.TextColor,
     fontFamily: Font.Poppins400,
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
   },
@@ -171,13 +191,12 @@ const styles = StyleSheet.create({
   cell: {
     // paddingHorizontal: scale(30),
 
-    width: w >= 768 && h >= 1024 ? scale(51) : scale(50),
-    height: w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
+    width: w >= 768 && h >= 1024 ? scale(45) : scale(50),
+    height: w >= 768 && h >= 1024 ? verticalScale(28) : verticalScale(40),
     fontSize: scale(24),
     // borderWidth: 2,
     borderRadius: scale(16),
     // borderColor: Color.Main,
-    backgroundColor: Color.OtpBoxColor,
     textAlign: 'center',
     color: Color.Black,
     fontFamily: Font.Poppins400,

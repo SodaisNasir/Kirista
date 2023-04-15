@@ -5,6 +5,7 @@ import {
   View,
   useWindowDimensions,
   useColorScheme,
+<<<<<<< Updated upstream
 } from 'react-native'
 import React from 'react'
 import Kiristalogo from '../../constant/Kiristalogo'
@@ -25,6 +26,28 @@ const Login = ({navigation}) => {
   const fourInchPotrait = w <= 350 && h <= 600
   const fourInchLandscape = w <= 350 && h <= 600
   const Theme = useColorScheme() === 'dark'
+=======
+} from 'react-native';
+import React from 'react';
+import Kiristalogo from '../../constant/Kiristalogo';
+import {Font} from '../../assets/fonts/PoppinsFont';
+import {scale, verticalScale} from 'react-native-size-matters';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Color} from '../../utils/Colors';
+import Password from '../../components/Password';
+
+const Login = ({navigation}) => {
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const tabPotrait = w >= 768 && h >= 1024;
+  const standardLandscape = w >= 684 && h >= 360;
+  const tabLandscape = w >= 768 && h >= 1024;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const fourInchLandscape = w <= 350 && h <= 600;
+  const Theme = useColorScheme() === 'dark';
+>>>>>>> Stashed changes
   return (
     <SafeAreaView
       style={{
@@ -74,9 +97,9 @@ const Login = ({navigation}) => {
           text={'Email Address'}
           placeholder={'Email Address'}
         />
-      </View>
 
-      <Password text={'Password'} />
+        <Password text={'Password'} />
+      </View>
 
       <View
         style={{
