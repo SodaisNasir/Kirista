@@ -113,7 +113,7 @@ const Login = ({navigation}) => {
         <Text
           style={{
             fontFamily: Font.Poppins400,
-            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
             color: Theme ? Color.White : Color.TextColor,
           }}>
           Don’t have an account?
@@ -121,7 +121,7 @@ const Login = ({navigation}) => {
             onPress={() => navigation.navigate('SignUp')}
             style={{
               fontFamily: Font.Poppins700,
-              fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+              fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(13),
               color: Theme ? Color.White : Color.TextColor,
             }}>
             {' '}

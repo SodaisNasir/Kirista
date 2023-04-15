@@ -29,7 +29,6 @@ import Events from '../screens/homescreen/Events/Events'
 import ViewManual from '../screens/homescreen/ViewManual'
 import ViewParish from '../screens/homescreen/ViewParish'
 import ParishFinder from '../screens/homescreen/Parish Finder/ParishFinder'
-import Faq from '../screens/more/Faq'
 import Language from '../screens/more/Language'
 import Readone from '../screens/homescreen/Read Book/Readone'
 import Readtwo from '../screens/homescreen/Read Book/Readtwo'
@@ -52,6 +51,8 @@ import MoreSvg from '../assets/icons/more.svg'
 import MoreSvgActive from '../assets/icons/more_active.svg'
 import SettingsGuest from '../screens/more/SettingsGuest'
 import Feedback from '../screens/more/Feedback'
+import Faq from '../screens/more/Faq'
+import Advertisement from '../components/Advertisement'
 
 const Tab = createBottomTabNavigator()
 
@@ -310,6 +311,7 @@ function AllHome() {
       <Stack.Screen name="Readtwo" component={Readtwo} />
       <Stack.Screen name="DrawerScreen" component={DrawerScreen} />
       <Stack.Screen name="ImageModal" component={ImageModal} />
+      <Stack.Screen name="Advertisement" component={Advertisement} />
     </Stack.Navigator>
   )
 }
@@ -333,7 +335,6 @@ function AllSettings() {
       <Stack.Screen name="Terms" component={Terms} />
       <Stack.Screen name="ViewParish" component={ViewParish} />
       <Stack.Screen name="ViewManual" component={ViewManual} />
-      <Stack.Screen name="Faq" component={Faq} />
       <Stack.Screen name="Language" component={Language} />
       <Stack.Screen name="Contact" component={Contact} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
@@ -341,6 +342,10 @@ function AllSettings() {
       <Stack.Screen name="DarkMode" component={DarkMode} />
       <Stack.Screen name="SettingsGuest" component={SettingsGuest} />
       <Stack.Screen name="Feedback" component={Feedback} />
+      <Stack.Screen name="Faq" component={Faq} />
+      <Stack.Screen name="Advertisement" component={Advertisement} />
+     
+      
     </Stack.Navigator>
   )
 }

@@ -16,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 
 const PhoneInput = props => {
+  navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -50,7 +51,7 @@ const PhoneInput = props => {
           flexDirection: 'row',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Countrycode')}
+          onPress={() => navigation.navigate('SelectCountry')}
           style={{
             flexDirection: 'row',
             alignItems: 'center',

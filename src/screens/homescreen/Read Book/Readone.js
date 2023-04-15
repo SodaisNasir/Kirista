@@ -23,15 +23,7 @@ const h = Dimensions.get('window').height
 const Readone = () => {
   const Theme = useColorScheme() === 'dark'
   const navigation = useNavigation()
-  useEffect(() => {
-    navigation
-      .getParent()
-      ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false})
-    return () =>
-      navigation
-        .getParent()
-        ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined})
-  }, [navigation])
+
 
   return (
     <SafeAreaView

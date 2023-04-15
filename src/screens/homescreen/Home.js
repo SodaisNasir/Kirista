@@ -203,7 +203,8 @@ const Home = ({navigation}) => {
             horizontal
             renderItem={({item}) => {
               return (
-                <View
+                <TouchableOpacity
+                onPress={()=>navigation.navigate('ViewBanner')}
                   style={{
                     height:
                       w >= 768 && h >= 1024
@@ -221,7 +222,7 @@ const Home = ({navigation}) => {
                     }}
                     source={item.image}
                   />
-                </View>
+                </TouchableOpacity>
               )
             }}
           />

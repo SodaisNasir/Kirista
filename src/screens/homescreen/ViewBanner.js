@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  useColorScheme
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -22,9 +23,10 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewBanner = () => {
+  const Theme = useColorScheme() === 'dark';
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Color.White}}>
-      <View style={{height: '100%', backgroundColor: Color.White}}>
+    <SafeAreaView style={[{backgroundColor: Theme? Color.DarkTheme : Color.White,flex:1}]}>
+      <View style={{height: '100%', backgroundColor: Theme? Color.DarkTheme : Color.White}}>
         <Header />
         <ScrollView>
 
@@ -48,14 +50,14 @@ const ViewBanner = () => {
             </TouchableOpacity>
           </View>
 
-          <View style={{marginVertical: verticalScale(15)}}>
-            <Text style={styles.BoldText}>
+          <View style={{marginBottom: verticalScale(15)}}>
+            <Text style={[{color: Theme ? Color.White : Color.DarkTextColor,},styles.BoldText]}>
               Abuja Special Holy Ghost Congress
             </Text>
           </View>
 
           <View style={{marginVertical: verticalScale(0)}}>
-            <Text style={styles.LightText}>
+            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.LightText]}>
               The Abuja Special Holy Ghost Service is an annual gathering of the
               church in the FCT and environs where prayers are offered for the
               country and the church in particular. Ministering is Pastor E.A.
@@ -79,28 +81,28 @@ const styles = StyleSheet.create({
   Container: {
     paddingHorizontal:
       w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-    backgroundColor: Color.White,
+    // backgroundColor: Color.White,
   },
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),
     marginTop: w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
-    marginBottom: w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(5),
+
   },
 
   BoldText: {
-    color: Color.DarkTextColor,
+    
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(19),
     fontFamily: Font.Poppins700,
   },
   LightText: {
-    color: Color.TextColor2,
+    // color: Color.TextColor2,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-    fontFamily: Font.Poppins400,
+    fontFamily: Font.Poppins300,
   },
   centerImageContainer: {
     position: 'absolute',
     marginTop: w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(65),
-    width: w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(70),
+    width: w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(65),
     height: w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(70),
     //   marginLeft: w >= 768 && h >= 1024 ? verticalScale(-50) : verticalScale(-35),
     //   marginTop: w >= 768 && h >= 1024 ? verticalScale(-50) : verticalScale(-35),
@@ -108,6 +110,7 @@ const styles = StyleSheet.create({
     // backgroundColor:'red',
     justifyContent: 'center',
     alignContent: 'center',
+    
   },
   LoadStyle: {
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(10),

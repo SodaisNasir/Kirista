@@ -60,13 +60,7 @@ const Readtwo = () => {
   //       .getParent()
   //       ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined})
   // }, [navigation])
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    })
-  }, [])
+ 
 
   return (
     <SafeAreaView

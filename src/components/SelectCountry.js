@@ -221,9 +221,8 @@ const SelectCountry = ({navigation}) => {
     <SafeAreaView
       style={[
         styles.Container,
-        Theme === 'dark'
-          ? {backgroundColor: Color.DarkTheme}
-          : {backgroundColor: Color.White},
+        
+        {backgroundColor : Theme ? Color.DarkTheme : Color.White}
       ]}>
       <View
         style={[
@@ -235,22 +234,26 @@ const SelectCountry = ({navigation}) => {
         <Header text={'Select Country'} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.MainBox}>
+        <View style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.MainBox]}>
           <FlatList
             scrollEnabled={false}
             data={DATA}
             renderItem={({item}) => (
               <View
                 style={[
-                  {marginTop: verticalScale(5)},
-                  Theme === 'dark'
-                    ? {borderBottomColor: Color.Black}
-                    : {borderBottomColor: Color.Main},
+                  {
+                    marginTop: verticalScale(5),
+                    borderBottomColor: Theme
+                      ? Color.DarkBorderColor
+                      : Color.BorderColor,
+                  },
                 ]}>
                 <View
                   style={{
                     marginVertical: verticalScale(10),
-                    borderBottomColor: Color.BorderColor,
+                    borderBottomColor: Theme
+                      ? Color.DarkBorderColor
+                      : Color.BorderColor,
                     borderBottomWidth: 1,
                     // borderTopColor:Color.BorderColor,
                     // borderTopWidth:1,
@@ -263,9 +266,8 @@ const SelectCountry = ({navigation}) => {
                   <Text
                     style={[
                       styles.title,
-                      Theme === 'dark'
-                        ? {color: Color.TextDark}
-                        : {color: Color.Black},
+                      
+                       {color: Theme ? Color.DarkThemText2 : Color.DarkTextColor},
                     ]}>
                     {item.continent}
                   </Text>
@@ -274,66 +276,63 @@ const SelectCountry = ({navigation}) => {
                 <FlatList
                   style={{
                     // paddingHorizontal: moderateScale(10),
-                    borderBottomColor: Color.BorderColor,
+                    borderBottomColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
                     borderBottomWidth: 1,
                   }}
                   data={item.countries}
                   renderItem={({item}) => (
                     <TouchableOpacity>
-                    <View
-                      style={{
-                        justifyContent: 'space-between',
-                        flexDirection: 'row',
-                        
-                      }}>
-                      <View style={{marginVertical: verticalScale(5)}}>
-                        <Text
-                          style={[
-                            Theme === 'dark'
-                              ? {color: Color.White}
-                              : {color: Color.DarkTextColor},
-
-                            ,
-                            styles.CountryStyle,
-                          ]}>
-                          {item.country}
-                        </Text>
-                      </View>
-
                       <View
                         style={{
+                          justifyContent: 'space-between',
                           flexDirection: 'row',
-                          marginVertical: verticalScale(5),
                         }}>
-                        <View
-                          style={{
-                            width:
-                              w >= 768 && h >= 1024 ? scale(20) : scale(30),
-                            height:
-                              w >= 768 && h >= 1024
-                                ? verticalScale(15)
-                                : verticalScale(20),
-                            marginHorizontal:
-                              w >= 768 && h >= 1024 ? scale(5) : scale(10),
-                          }}>
-                          <Image source={item.flag} style={styles.ImageUri} />
-                        </View>
-
-                        <View>
+                        <View style={{marginVertical: verticalScale(5)}}>
                           <Text
                             style={[
-                              Theme === 'dark'
-                                ? {color: Color.White}
-                                : {color: Color.DarkTextColor},
+                             
+                              {color : Theme ? Color.White : Color.Black}
 
                               ,
-                              styles.CodeStyle,
+                              styles.CountryStyle,
                             ]}>
-                            {item.code}
+                            {item.country}
                           </Text>
                         </View>
+
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            marginVertical: verticalScale(5),
+                          }}>
+                          <View
+                            style={{
+                              width:
+                                w >= 768 && h >= 1024 ? scale(20) : scale(30),
+                              height:
+                                w >= 768 && h >= 1024
+                                  ? verticalScale(15)
+                                  : verticalScale(20),
+                              marginHorizontal:
+                                w >= 768 && h >= 1024 ? scale(5) : scale(10),
+                            }}>
+                            <Image source={item.flag} style={styles.ImageUri} />
+                          </View>
+
+                          <View>
+                            <Text
+                              style={[
+                                
+                                {color : Theme ? Color.White : Color.DarkTextColor}
+
+                                ,
+                                styles.CodeStyle,
+                              ]}>
+                              {item.code}
+                            </Text>
+                          </View>
+                        </View>
                       </View>
-                    </View>
                     </TouchableOpacity>
                   )}
                   keyExtractor={item => item.id}
@@ -345,7 +344,7 @@ const SelectCountry = ({navigation}) => {
             keyExtractor={item => item.id}
           />
         </View>
-        <View style={{height: verticalScale(40)}}></View>
+        <View style={{height: verticalScale(40), backgroundColor : Theme? Color.DarkTheme : Color.White}}></View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -357,11 +356,12 @@ const styles = StyleSheet.create({
   },
   MainBox: {
     paddingHorizontal: moderateScale(20),
+   
   },
   title: {
     fontFamily: Font.Poppins300,
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
-    color: Color.DarkTextColor,
+    // color: Color.DarkTextColor,
     // backgroundColor:'red'
   },
   CountryStyle: {

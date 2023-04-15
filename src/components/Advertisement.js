@@ -109,6 +109,7 @@ const Advertisement = ({navigation}) => {
           </Text>
 
           <TouchableOpacity
+          onPress={()=>navigation.navigate('ViewManual')}
             style={[
               {
                 height:

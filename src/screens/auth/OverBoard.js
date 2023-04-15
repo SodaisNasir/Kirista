@@ -122,7 +122,7 @@ const OverBoard = ({navigation}) => {
 
             <View
               style={{
-                marginTop: tabPotrait? '10%' : fourInchPotrait? '10%' : '16%',
+                marginTop: tabPotrait? '10%' : fourInchPotrait? '10%' : '13%',
             
               }}>
               <Kiristalogo />
@@ -133,7 +133,7 @@ const OverBoard = ({navigation}) => {
                 alignItems: 'center',
                 justifyContent: 'space-evenly',
                 flexDirection: 'row',
-                marginTop: tabPotrait ? '10%' : standardLandscape ? '10%' : '20%',
+                marginTop: tabPotrait ? '10%' : standardLandscape ? '10%' : '18%',
 
                 alignSelf: 'center',
                 width: tabPotrait ? '78%' : standardLandscape? '100%' : '90%',
@@ -204,7 +204,7 @@ const OverBoard = ({navigation}) => {
               style={{
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                height: tabPotrait ? verticalScale(130) : verticalScale(170),
+                height: tabPotrait ? verticalScale(130) : verticalScale(110),
                 // backgroundColor: 'red',
                 // paddingHorizontal:1
               }}>

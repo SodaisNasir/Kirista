@@ -71,7 +71,7 @@ const SettingsMore = () => {
           style={[
             styles.HeaderStyle,
             {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor,
             },
           ]}>
           <View style={styles.WelcomeView}>
@@ -79,7 +79,7 @@ const SettingsMore = () => {
               style={[
                 styles.WelcomeText,
                 {
-                  color: Theme ? Color.White : Color.DarkTheme,
+                  color: Theme ? Color.White : Color.Black,
                 },
               ]}>
               Hello, Brethen
@@ -118,7 +118,7 @@ const SettingsMore = () => {
                   style={[
                     styles.UserNameText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme ? Color.White : Color.DarkTextColor,
                     },
                   ]}>
                   Mary David
@@ -127,12 +127,12 @@ const SettingsMore = () => {
                   style={[
                     styles.UserInfoText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme ? Color.White : Color.Black,
                     },
                   ]}>
                   <Text
                     style={{
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme ? Color.White : Color.Black,
                       fontFamily: Font.Poppins700,
                       fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
                     }}>
@@ -151,7 +151,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
           }}
         />
         <View style={styles.MainView}>
@@ -176,7 +176,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 About
@@ -257,7 +257,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 Notifications
@@ -289,7 +289,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 DarkMode
@@ -308,7 +308,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
           }}
         />
         <View style={[styles.MainView]}>
@@ -333,7 +333,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 FAQ
@@ -369,7 +369,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 Terms
@@ -407,7 +407,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 Privacy
@@ -426,7 +426,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
           }}
         />
 
@@ -454,7 +454,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 Feedback
@@ -493,7 +493,7 @@ const SettingsMore = () => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.DarkTheme,
+                    color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
                 Contact
@@ -545,7 +545,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
           }}
         />
         <View
@@ -556,7 +556,7 @@ const SettingsMore = () => {
             },
           ]}>
           <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
+            onPress={() => navigation.navigate('Login')}
             style={[
               styles.AllItems,
               {
@@ -573,7 +573,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
           }}
         />
         <View style={{height: verticalScale(90)}}></View>
@@ -644,7 +644,7 @@ const styles = StyleSheet.create({
   UserInfoText: {
     fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
-    color: Color.Black,
+    // color: Color.Black,
   },
   UserNameText: {
     fontFamily: Font.Poppins500,

@@ -48,6 +48,8 @@ import Feedback from '../screens/more/Feedback';
 import Ad from '../components/Advertisement';
 import Advertisement from '../components/Advertisement';
 import SettingsGuest from '../screens/more/SettingsGuest';
+import Readone from '../screens/homescreen/Read Book/Readone';
+import Readtwo from '../screens/homescreen/Read Book/Readtwo';
 
 const Stack = createNativeStackNavigator();
 
@@ -97,6 +99,8 @@ function AuthNavigator() {
         <Stack.Screen name="Feedback" component={Feedback} />
         <Stack.Screen name="Advertisement" component={Advertisement} />
         <Stack.Screen name="SettingsGuest" component={SettingsGuest} />
+        <Stack.Screen name="Readone" component={Readone} />
+        <Stack.Screen name="Readtwo" component={Readtwo} />
       </Stack.Navigator>
     </NavigationContainer>
   );
