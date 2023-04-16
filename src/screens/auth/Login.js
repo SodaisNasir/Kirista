@@ -5,26 +5,51 @@ import {
   View,
   useWindowDimensions,
   useColorScheme,
-} from 'react-native'
-import React from 'react'
-import Kiristalogo from '../../constant/Kiristalogo'
-import {Font} from '../../assets/fonts/PoppinsFont'
-import {scale, verticalScale} from 'react-native-size-matters'
-import CustomInput from '../../components/CustomInput'
-import CustomButton from '../../components/CustomButton'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import {Color} from '../../utils/Colors'
-import Password from '../../components/Password'
+} from 'react-native';
+import React from 'react';
+import Kiristalogo from '../../constant/Kiristalogo';
+import {Font} from '../../assets/fonts/PoppinsFont';
+import {scale, verticalScale} from 'react-native-size-matters';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Color} from '../../utils/Colors';
+import Password from '../../components/Password';
+import * as Animatable from 'react-native-animatable';
+
+const fadeIn = {
+  from: {
+    opacity: 0,
+  },
+  to: {
+    opacity: 1,
+  },
+};
+
+const zoomIn = {
+  0: {
+    opacity: 0,
+    scale: 0,
+  },
+  0.5: {
+    opacity: 1,
+    scale: 0.3,
+  },
+  1: {
+    opacity: 1,
+    scale: 1,
+  },
+};
 
 const Login = ({navigation}) => {
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
-  const tabPotrait = w >= 768 && h >= 1024
-  const standardLandscape = w >= 684 && h >= 360
-  const tabLandscape = w >= 768 && h >= 1024
-  const fourInchPotrait = w <= 350 && h <= 600
-  const fourInchLandscape = w <= 350 && h <= 600
-  const Theme = useColorScheme() === 'dark'
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const tabPotrait = w >= 768 && h >= 1024;
+  const standardLandscape = w >= 684 && h >= 360;
+  const tabLandscape = w >= 768 && h >= 1024;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const fourInchLandscape = w <= 350 && h <= 600;
+  const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
       style={{
@@ -40,7 +65,10 @@ const Login = ({navigation}) => {
         <Kiristalogo />
       </View>
 
-      <View
+      <Animatable.View
+        iterationDelay={1000}
+        duration={300}
+        animation={zoomIn}
         style={{
           alignItems: 'center',
           justifyContent: 'center',
@@ -64,8 +92,13 @@ const Login = ({navigation}) => {
           {' '}
           Brethren.
         </Text>
-      </View>
-      <View style={{marginVertical: verticalScale(15)}}>
+      </Animatable.View>
+
+      <Animatable.View
+        iterationDelay={1300}
+        duration={300}
+        animation={zoomIn}
+        style={{marginVertical: verticalScale(15)}}>
         <CustomInput
           restyleBox={{
             marginBottom:
@@ -76,9 +109,12 @@ const Login = ({navigation}) => {
         />
 
         <Password text={'Password'} />
-      </View>
+      </Animatable.View>
 
-      <View
+      <Animatable.View
+        iterationDelay={1600}
+        duration={300}
+        animation={zoomIn}
         style={{
           // marginHorizontal: '5%',
           marginVertical:
@@ -88,51 +124,58 @@ const Login = ({navigation}) => {
           onPress={() => navigation.navigate('Advertisement')}
           text={'Sign in'}
         />
-      </View>
+      </Animatable.View>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate('ResetPassword')}
-        style={{
-          alignItems: 'center',
-        }}>
-        <Text
+      <Animatable.View
+      
+      iterationDelay={1900}
+      duration={300}
+      animation={zoomIn}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ResetPassword')}
           style={{
-            fontFamily: Font.Poppins700,
-            fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(15),
-            color: Theme ? Color.White : Color.TextColor,
+            alignItems: 'center',
           }}>
-          Forgot Password?
-        </Text>
-      </TouchableOpacity>
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: '32%',
-        }}>
-        <Text
-          style={{
-            fontFamily: Font.Poppins400,
-            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
-            color: Theme ? Color.White : Color.TextColor,
-          }}>
-          Don’t have an account?
           <Text
-            onPress={() => navigation.navigate('SignUp')}
             style={{
               fontFamily: Font.Poppins700,
-              fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(13),
+              fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(15),
               color: Theme ? Color.White : Color.TextColor,
             }}>
-            {' '}
-            Sign up
+            Forgot Password?
           </Text>
-        </Text>
-      </View>
+        </TouchableOpacity>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '32%',
+          }}>
+          <Text
+            style={{
+              fontFamily: Font.Poppins400,
+              fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
+              color: Theme ? Color.White : Color.TextColor,
+            }}>
+            Don’t have an account?
+            <Text
+              onPress={() => navigation.navigate('SignUp')}
+              style={{
+                fontFamily: Font.Poppins700,
+                fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(13),
+                color: Theme ? Color.White : Color.TextColor,
+              }}>
+              {' '}
+              Sign up
+            </Text>
+          </Text>
+        </View>
+      </Animatable.View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

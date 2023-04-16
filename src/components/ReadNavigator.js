@@ -1,21 +1,28 @@
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   View,
   TouchableOpacity,
   Text,
   useColorScheme,
-} from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Feather from 'react-native-vector-icons/Feather'
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
-import {Color} from '../utils/Colors'
+  Dimensions,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {Color} from '../utils/Colors';
+import SettingsDark from '../assets/icons/settings.svg';
+import Settings from '../assets/icons/settings_dark.svg';
+import SettingsPress from '../assets/icons/settings_press.svg';
 
-const ReadNavigator = (props) => {
-  const Theme = useColorScheme() === 'dark'
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
+
+const ReadNavigator = props => {
+  const Theme = useColorScheme() === 'dark';
 
   return (
     <View
@@ -34,12 +41,26 @@ const ReadNavigator = (props) => {
           <Feather name="moon" size={24} color="#374957" />
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPressModal} style={styles.tabButton}>
-          <MaterialCommunityIcons name="nut" size={scale(24)} color="black" />
+          {Theme ? (
+            <SettingsDark
+              height={
+                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
+              }
+              width={scale(24)}
+            />
+          ) : (
+            <Settings
+              height={
+                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
+              }
+              width={scale(24)}
+            />
+          )}
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -48,10 +69,11 @@ const styles = StyleSheet.create({
   BoxStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'baseline',
+    // alignItems: 'baseline',
     paddingVertical: verticalScale(8),
     paddingHorizontal: moderateScale(40),
     marginTop: verticalScale(10),
+    // backgroundColor:'red'
   },
   tabButton: {
     alignItems: 'center',
@@ -61,6 +83,6 @@ const styles = StyleSheet.create({
     color: '#8E8E93',
     marginTop: 4,
   },
-})
+});
 
-export default ReadNavigator
+export default ReadNavigator;

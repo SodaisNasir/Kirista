@@ -20,6 +20,7 @@ import {
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
+import * as Animatable from 'react-native-animatable';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -33,6 +34,31 @@ const OTP = ({navigation}) => {
     value,
     setValue,
   });
+  
+const fadeIn = {
+  from: {
+    opacity: 0,
+  },
+  to: {
+    opacity: 1,
+  },
+};
+
+const zoomIn = {
+  0: {
+    opacity: 0,
+    scale: 0,
+  },
+  0.5: {
+    opacity: 1,
+    scale: 0.3,
+  },
+  1: {
+    opacity: 1,
+    scale: 1,
+  },
+};
+
 
   const [time, setTime] = useState(600);
   useEffect(() => {
@@ -52,7 +78,10 @@ const OTP = ({navigation}) => {
       ]}>
       <AuthHeader text={'Email Verification'} />
 
-      <View
+      <Animatable.View
+        iterationDelay={1000}
+        duration={300}
+        animation={fadeIn}
         style={{
           justifyContent: 'center',
           marginVertical: scale(10),
@@ -72,23 +101,30 @@ const OTP = ({navigation}) => {
             maryjames@rccg.com
           </Text>
         </Text>
-      </View>
+      </Animatable.View>
 
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           marginVertical:
-          w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10)
+            w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
         }}>
-        <Text
+        <Animatable.Text
+          iterationDelay={1300}
+          duration={300}
+          animation={fadeIn}
           style={[
             {color: Theme ? Color.DarkThemText2 : Color.TextColor},
             styles.OtpText,
           ]}>
           OTP
-        </Text>
-        <View>
+        </Animatable.Text>
+
+        <Animatable.View
+          iterationDelay={1500}
+          duration={300}
+          animation={fadeIn}>
           {time == 0 ? (
             <TouchableOpacity
               style={{
@@ -118,7 +154,7 @@ const OTP = ({navigation}) => {
               {timeString}
             </Text>
           )}
-        </View>
+        </Animatable.View>
       </View>
 
       <CodeField
@@ -130,15 +166,30 @@ const OTP = ({navigation}) => {
         keyboardType="number-pad"
         textContentType="oneTimeCode"
         renderCell={({index, symbol, isFocused}) => (
-          <Text
+          <Animatable.Text
+          iterationDelay={1800}
+          duration={300}
+          animation={fadeIn}
             key={index}
-            style={[{backgroundColor: Theme ? Color.DarkThemeInputBox : Color.OtpBoxColor},styles.cell, isFocused && styles.focusCell]}
+            style={[
+              {
+                backgroundColor: Theme
+                  ? Color.DarkThemeInputBox
+                  : Color.OtpBoxColor,
+              },
+              styles.cell,
+              isFocused && styles.focusCell,
+            ]}
             onLayout={getCellOnLayoutHandler(index)}>
             {symbol || (isFocused ? <Cursor /> : null)}
-          </Text>
+          </Animatable.Text>
         )}
       />
-      <View
+      <Animatable.View
+       iterationDelay={2000}
+       duration={300}
+       animation={zoomIn}
+
         style={{
           marginVertical:
             w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
@@ -147,7 +198,7 @@ const OTP = ({navigation}) => {
           onPress={() => navigation.navigate('NewPassword')}
           text={'Continue'}
         />
-      </View>
+      </Animatable.View>
     </SafeAreaView>
   );
 };

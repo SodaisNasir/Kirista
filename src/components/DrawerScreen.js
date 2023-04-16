@@ -68,8 +68,8 @@ const DrawerScreen = (props) => {
           <View
             style={{
               flexDirection: 'row',
-
-              //   paddingVertical: verticalScale(10),
+                marginTop: verticalScale(5),
+    
             }}>
             <View
               style={{
@@ -103,7 +103,8 @@ const DrawerScreen = (props) => {
                 style={[
                   styles.topText,
                   {fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14)},
-                  {color: Theme ? Color.White : Color.DarkTheme},
+                  {color: Theme ? Color.White : Color.DarkTheme,lineHeight : verticalScale(18)},
+                  
                 ]}>
                 Student Manual
               </Text>

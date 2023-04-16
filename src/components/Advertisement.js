@@ -14,8 +14,18 @@ import React, {useState, useEffect} from 'react';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import * as Animatable from 'react-native-animatable';
 
 const Advertisement = ({navigation}) => {
+  const fadeIn = {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
+
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -46,7 +56,10 @@ const Advertisement = ({navigation}) => {
         // resizeMode="stretch"
         style={styles.ImageBackground}>
         <View style={styles.container}>
-          <View
+          <Animatable.View
+            iterationDelay={1000}
+            duration={300}
+            animation={fadeIn}
             style={{
               justifyContent: 'flex-end',
               // backgroundColor: 'red',
@@ -78,14 +91,19 @@ const Advertisement = ({navigation}) => {
                 {seconds} Skip
               </Text>
             </TouchableOpacity>
-          </View>
+          </Animatable.View>
+
+
           <View
             style={{
               height: w >= 768 && h >= 1024 ? scale(130) : verticalScale(240),
               width: w >= 768 && h >= 1024 ? scale(130) : verticalScale(240),
               // backgroundColor:'red'
             }}>
-            <Image
+            <Animatable.Image
+                iterationDelay={1500}
+                duration={500}
+                animation={fadeIn}
               resizeMode="contain"
               style={{
                 height: '100%',
@@ -97,7 +115,10 @@ const Advertisement = ({navigation}) => {
             />
           </View>
 
-          <Text
+          <Animatable.Text
+            iterationDelay={1800}
+            duration={300}
+            animation={fadeIn}
             style={{
               fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
               textAlign: 'center',
@@ -106,8 +127,9 @@ const Advertisement = ({navigation}) => {
               marginTop: verticalScale(15),
             }}>
             Sunday School {`\n`} Student’s Manual
-          </Text>
-
+          </Animatable.Text>
+          
+          
           <TouchableOpacity
           onPress={()=>navigation.navigate('ViewManual')}
             style={[
@@ -118,7 +140,10 @@ const Advertisement = ({navigation}) => {
               },
               styles.Btn,
             ]}>
-            <Text
+            <Animatable.Text
+            iterationDelay={2100}
+            duration={300}
+            animation={fadeIn}
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                 textAlign: 'center',
@@ -126,14 +151,19 @@ const Advertisement = ({navigation}) => {
                 fontFamily: Font.Poppins600,
               }}>
               View
-            </Text>
-            <View style={{marginLeft: scale(5)}}>
+            </Animatable.Text>
+            <Animatable.View 
+            
+            iterationDelay={2300}
+            duration={300}
+            animation={fadeIn}
+            style={{marginLeft: scale(5)}}>
               <AntDesign
                 name="arrowright"
                 size={w >= 768 && h >= 1024 ? scale(9) : scale(16)}
                 color={Color.Main}
               />
-            </View>
+            </Animatable.View >
           </TouchableOpacity>
         </View>
       </ImageBackground>

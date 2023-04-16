@@ -75,6 +75,7 @@ const BottomTabNavigator = () => {
           height: verticalScale(80),
           justifyContent: 'space-around',
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          borderColor : Theme ? Color.DarkTheme : Color.White,
         },
         tabBarLabelStyle: {
           fontFamily: Font.Poppins600,

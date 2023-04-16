@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  useColorScheme
+  useColorScheme,
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -15,33 +15,77 @@ import AuthHeader from '../../components/AuthHeader';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
+import * as Animatable from 'react-native-animatable';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
+  const zoomIn = {
+    0: {
+      opacity: 0,
+      scale: 0,
+    },
+    0.5: {
+      opacity: 1,
+      scale: 0.3,
+    },
+    1: {
+      opacity: 1,
+      scale: 1,
+    },
+  };
+
+  const fadeIn = {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
   const Theme = useColorScheme() === 'dark';
   return (
-    <SafeAreaView style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.Container]}>
+    <SafeAreaView
+      style={[
+        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        styles.Container,
+      ]}>
       <AuthHeader text={'Reset Password'} />
 
-      <View
+      <Animatable.View
+        iterationDelay={700}
+        duration={300}
+        animation={fadeIn}
         style={{
           justifyContent: 'center',
           marginVertical: scale(20),
         }}>
-        <Text style={[{color: Theme ? Color.DarkThemText2 : Color.TextColor},styles.LongText]}>
+        <Text
+          style={[
+            {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+            styles.LongText,
+          ]}>
           Please enter your email address, and we will send you an OTP to
           confirm it.
         </Text>
-      </View>
+      </Animatable.View>
 
-      <View style={{marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20)}}>
-        <CustomInput text={'Email Address'} />
-      </View>
+      <Animatable.View
+        iterationDelay={1300}
+        duration={300}
+        animation={fadeIn}
+        style={{
+          marginBottom:
+            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
+        }}>
+        <CustomInput placeholder = {'maryjames@rccg.com'} text={'Email Address'} />
+      </Animatable.View>
 
-      <View
+      <Animatable.View
+        iterationDelay={1400}
+        duration={300}
+        animation={zoomIn}
         style={{
           paddingTop:
             w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
@@ -50,7 +94,7 @@ const ResetPassword = ({navigation}) => {
           onPress={() => navigation.navigate('OTP')}
           text={'Next'}
         />
-      </View>
+      </Animatable.View>
     </SafeAreaView>
   );
 };

@@ -69,6 +69,7 @@ const Language = ({navigation}) => {
 
   const Item = ({data}) => (
     <TouchableOpacity
+   
       style={[
         {
           paddingHorizontal:
@@ -76,7 +77,7 @@ const Language = ({navigation}) => {
         },
         styles.item,
       ]}
-      onPress={() => setSelected(data.title)}>
+      onPress={() =>[ setSelected(data.title), navigation.goBack()]}>
       <View
         style={{
           flexDirection: 'row',
@@ -148,7 +149,7 @@ const Language = ({navigation}) => {
       </View>
       <View
         style={[
-          {borderBottomColor: Theme ? Color.Black : Color.BorderColor},
+          {borderBottomColor: Theme ? Color.DarkBorderColor : Color.BorderColor},
           styles.BorderBottom,
         ]}
       />

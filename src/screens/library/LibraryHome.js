@@ -8,6 +8,7 @@ import {
   Image,
   useColorScheme,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native'
 import React, {useState} from 'react'
 import LibraryHeader from '../../components/LibraryHeader'
@@ -81,7 +82,7 @@ const LibraryHome = ({navigation}) => {
           setShowModal(toggleModal(true))
         }}
       />
-
+      <ScrollView showsVerticalScrollIndicator={false}>
       <View
         style={{
           paddingHorizontal:
@@ -185,6 +186,7 @@ const LibraryHome = ({navigation}) => {
             )
           }}
         />
+    
 
         <FilterModal
           isVisible={isModalVisible}
@@ -193,6 +195,8 @@ const LibraryHome = ({navigation}) => {
           onSwipeComplete={() => setModalVisible(false)}
         />
       </View>
+      </ScrollView>
+      <View  style={{height:verticalScale(75)}}/>
     </SafeAreaView>
   )
 }

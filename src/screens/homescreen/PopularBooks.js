@@ -140,10 +140,13 @@ const PopularBooks = (props) => {
                   </View>
                 </View>
               </View>
+             
             </TouchableOpacity>
+          
           )
         }}
       />
+       <View style ={{height:verticalScale(75)}}/>
     </SafeAreaView>
   )
 }

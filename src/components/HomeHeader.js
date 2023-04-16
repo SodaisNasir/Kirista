@@ -17,7 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Searchbar from './Searchbar';
-import SearchNormal from '../assets/icons/search-normal'
+import SearchNormal from '../assets/icons/search-normal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -30,7 +30,7 @@ const HomeHeader = props => {
       style={{
         paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(25),
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor
+        backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
       }}>
       <View style={{}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -43,7 +43,11 @@ const HomeHeader = props => {
               marginTop: verticalScale(15),
             }}>
             <Image
-              source={require('../assets/images/logo.png')}
+              source={
+                Theme
+                  ? require('../assets/images/krista_main_dark.png')
+                  : require('../assets/images/krista_main.png')
+              }
               resizeMode="contain"
               style={{height: '100%', width: '100%'}}
             />
@@ -57,22 +61,13 @@ const HomeHeader = props => {
             }}>
             <TouchableOpacity
               style={{
-                
                 borderRadius: scale(5),
                 backgroundColor: Theme ? '#0A2E61' : '#fff',
                 justifyContent: 'center',
-                alignItems:'center',
+                alignItems: 'center',
                 height:
-                  w >= 768 && h >= 1024
-                    ? verticalScale(20)
-                    : verticalScale(30)
-                ,
-                width:
-                  w >= 768 && h >= 1024
-                    ? scale(20)
-                    : scale(32)
-                
-
+                  w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30),
+                width: w >= 768 && h >= 1024 ? scale(20) : scale(32),
               }}
               onPress={() => navigation.navigate('Searchbar')}>
               <View>
@@ -82,11 +77,7 @@ const HomeHeader = props => {
                       ? verticalScale(20)
                       : verticalScale(24)
                   }
-                  width={
-                    w >= 768 && h >= 1024
-                      ? scale(12)
-                      : scale(16)
-                  }
+                  width={w >= 768 && h >= 1024 ? scale(12) : scale(16)}
                 />
               </View>
             </TouchableOpacity>

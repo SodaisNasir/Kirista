@@ -39,7 +39,7 @@ const EventScreen = () => {
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader
-          text={'View Parish'}
+          text={'View Event'}
           shareicon={true}
           saveicon={true}
           timeicon={true}

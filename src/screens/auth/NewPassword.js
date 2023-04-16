@@ -17,11 +17,35 @@ import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
 import Password from '../../components/Password';
+import * as Animatable from 'react-native-animatable';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const NewPassword = ({navigation}) => {
+  const fadeIn = {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
+
+  const zoomIn = {
+    0: {
+      opacity: 0,
+      scale: 0,
+    },
+    0.5: {
+      opacity: 1,
+      scale: 0.3,
+    },
+    1: {
+      opacity: 1,
+      scale: 1,
+    },
+  };
   const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
@@ -31,7 +55,10 @@ const NewPassword = ({navigation}) => {
       ]}>
       <AuthHeader text={'New Password'} />
 
-      <View
+      <Animatable.View
+        iterationDelay={700}
+        duration={300}
+        animation={fadeIn}
         style={{
           justifyContent: 'center',
           marginVertical: scale(10),
@@ -43,9 +70,12 @@ const NewPassword = ({navigation}) => {
           ]}>
           Kindly fill your new password and confirm it.
         </Text>
-      </View>
+      </Animatable.View>
 
-      <View
+      <Animatable.View
+        iterationDelay={1000}
+        duration={500}
+        animation={fadeIn}
         style={{
           // justifyContent: 'space-between',
           // height: w >= 768 && h >= 1024 ? '21%' : '24%',
@@ -62,18 +92,21 @@ const NewPassword = ({navigation}) => {
         />
 
         <Password text={'Confirm Password'} />
-      </View>
+      </Animatable.View>
 
-      <View
+      <Animatable.View
+        iterationDelay={1500}
+        duration={300}
+        animation={zoomIn}
         style={{
           paddingTop:
             w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
         }}>
         <CustomButton
-            onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate('Login')}
           text={'Finish'}
         />
-      </View>
+      </Animatable.View>
     </SafeAreaView>
   );
 };

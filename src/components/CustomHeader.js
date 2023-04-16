@@ -7,24 +7,27 @@ import {
   Dimensions,
   View,
   useColorScheme,
-} from 'react-native'
-import React from 'react'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import {Font} from '../assets/fonts/PoppinsFont'
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
-import {Color} from '../utils/Colors'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import {useNavigation} from '@react-navigation/native'
-import Time from '../assets/icons/time.svg'
-import Share from '../assets/icons/share.svg'
+} from 'react-native';
+import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {Font} from '../assets/fonts/PoppinsFont';
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import {Color} from '../utils/Colors';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
+import Time from '../assets/icons/time.svg';
+import Share from '../assets/icons/share.svg';
+import ShareDark from '../assets/icons/share_dark.svg';
+import Save from '../assets/icons/save.svg';
+import SaveDark from '../assets/icons/save_dark.svg';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
-const CustomHeader = (props) => {
-  const navigation = useNavigation()
-  const Theme = useColorScheme() === 'dark'
+const CustomHeader = props => {
+  const navigation = useNavigation();
+  const Theme = useColorScheme() === 'dark';
 
   return (
     <View
@@ -88,31 +91,58 @@ const CustomHeader = (props) => {
 
           <View style={styles.IconStyle}>
             {props.saveicon ? (
-              <MaterialIcons
-                name="bookmarks"
-                size={w >= 768 && h >= 1024 ? scale(14) : scale(20)}
-                color={Color.Main}
+            Theme ? (
+              <SaveDark
+                height={
+                  w >= 768 && h >= 1024
+                    ? verticalScale(14)
+                    : verticalScale(20)
+                }
+                width={scale(24)}
               />
+            ) : (
+              <Save
+                height={
+                  w >= 768 && h >= 1024
+                    ? verticalScale(14)
+                    : verticalScale(20)
+                }
+                width={scale(24)}
+              />
+            )
             ) : null}
           </View>
 
           <View>
             {props.shareicon ? (
-              <Share
-                height={
-                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
-                }
-                width={scale(24)}
-              />
+              Theme ? (
+                <ShareDark
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(14)
+                      : verticalScale(22)
+                  }
+                  width={scale(24)}
+                />
+              ) : (
+                <Share
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(14)
+                      : verticalScale(22)
+                  }
+                  width={scale(24)}
+                />
+              )
             ) : null}
           </View>
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default CustomHeader
+export default CustomHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
@@ -140,4 +170,4 @@ const styles = StyleSheet.create({
     // marginBottom: scale(5),
     // // backgroundColor: 'red',
   },
-})
+});

@@ -23,6 +23,7 @@ import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
 import { TabActions } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 
 const OverBoard = ({navigation}) => {
   const width = useWindowDimensions().width;
@@ -34,6 +35,31 @@ const OverBoard = ({navigation}) => {
   const fourInchLandscape = width <= 350 && height <= 600;
 
 
+
+  
+const fadeIn = {
+  from: {
+    opacity: 0,
+  },
+  to: {
+    opacity: 1,
+  },
+};
+  const zoomIn = {
+    0: {
+      opacity: 0,
+      scale: 0,
+    },
+    0.5: {
+      opacity: 1,
+      scale: 0.3,
+    },
+    1: {
+      opacity: 1,
+      scale: 1,
+    },
+  };
+  
   console.log(width,height);
   const Theme = useColorScheme() === 'dark';
   const [open, setOpen] = useState(false);
@@ -63,7 +89,10 @@ const OverBoard = ({navigation}) => {
               alignSelf: 'center',
               justifyContent: 'center',
             }}>
-            <View
+            <Animatable.View
+              iterationDelay={500}
+              duration={300}
+              animation={zoomIn}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -118,7 +147,7 @@ const OverBoard = ({navigation}) => {
                   Skip
                 </Text>
               </TouchableOpacity>
-            </View>
+            </Animatable.View>
 
             <View
               style={{
@@ -128,7 +157,10 @@ const OverBoard = ({navigation}) => {
               <Kiristalogo />
             </View>
 
-            <View
+            <Animatable.View
+             iterationDelay={1000}
+             duration={300}
+             animation={zoomIn}
               style={{
                 alignItems: 'center',
                 justifyContent: 'space-evenly',
@@ -184,9 +216,12 @@ const OverBoard = ({navigation}) => {
                   resizeMode={'contain'}
                 />
               </View>
-            </View>
+            </Animatable.View>
 
-            <View
+            <Animatable.View
+             iterationDelay={1300}
+             duration={300}
+             animation={zoomIn}
               style={{
                 // backgroundColor: 'purple',
                 flexDirection: 'row',
@@ -198,7 +233,7 @@ const OverBoard = ({navigation}) => {
               <CustomSmallButton text={'#Books'} />
               <CustomSmallButton text={'#Event'} />
               <CustomSmallButton text={'#More'} />
-            </View>
+            </Animatable.View>
 
             <View
               style={{
@@ -208,27 +243,35 @@ const OverBoard = ({navigation}) => {
                 // backgroundColor: 'red',
                 // paddingHorizontal:1
               }}>
-              <Text
+              <Animatable.Text
+              iterationDelay={1600}
+              duration={300}
+              animation={zoomIn}
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: tabPotrait ? scale(15) : scale(20),
                   color: Theme ? Color.White : Color.Black,
                 }}>
                 Welcome, Brethern.
-              </Text>
+              </Animatable.Text>
             </View>
-            <View
+            <Animatable.View
+             iterationDelay={1900}
+             duration={300}
+             animation={zoomIn}
               style={{
                 height: tabPotrait ? verticalScale(100) : verticalScale(140),
                 marginTop: tabPotrait ? verticalScale(0) : verticalScale(15),
                 justifyContent: 'space-between',
               }}>
-              <View style={{marginTop: verticalScale(10)}}>
+              <View 
+              
+              style={{marginTop: verticalScale(10)}}>
                 <CustomButton
                   text={'Create an account'}
                   onPress={() => navigation.navigate('SignUp')}
                 />
-              </View>
+              </View >
 
               <View
                 style={{
@@ -242,9 +285,12 @@ const OverBoard = ({navigation}) => {
                   onPress={() => navigation.navigate('Login')}
                 />
               </View>
-            </View>
+            </Animatable.View>
 
-            <View
+            <Animatable.View
+             iterationDelay={2300}
+             duration={300}
+             animation={zoomIn}
               style={[
                 styles.dialouge,
                 {
@@ -290,7 +336,7 @@ const OverBoard = ({navigation}) => {
                   Privacy Policy
                 </Text>
               </Text>
-            </View>
+            </Animatable.View>
           </View>
         </ScrollView>
       </ImageBackground>

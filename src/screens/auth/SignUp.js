@@ -19,7 +19,35 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import PhoneInput from '../../components/PhoneInput';
 import Countrycode from '../../components/Countrycode';
 import Password from '../../components/Password';
+import * as Animatable from 'react-native-animatable';
+
+
+
 const SignUp = ({navigation}) => {
+
+  const fadeIn = {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
+  const zoomIn = {
+    0: {
+      opacity: 0,
+      scale: 0,
+    },
+    0.5: {
+      opacity: 1,
+      scale: 0.3,
+    },
+    1: {
+      opacity: 1,
+      scale: 1,
+    },
+  };
+  
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark';
@@ -40,7 +68,12 @@ const SignUp = ({navigation}) => {
           <View style={{}}>
             <Kiristalogo />
           </View>
-          <View
+
+          <Animatable.View
+             iterationDelay={1000}
+             duration={300}
+             animation={zoomIn}
+
             style={{
               alignItems: 'center',
               justifyContent: 'center',
@@ -56,9 +89,13 @@ const SignUp = ({navigation}) => {
               }}>
               Create Account
             </Text>
-          </View>
+          </Animatable.View>
 
-          <View
+          
+          <Animatable.View
+             iterationDelay={1500}
+             duration={300}
+             animation={zoomIn}
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(5) : moderateScale(10),
@@ -115,7 +152,11 @@ const SignUp = ({navigation}) => {
               
                 alignItems: 'center',
               }}>
-              <Text
+              <Animatable.Text
+                 iterationDelay={1800}
+                 duration={300}
+                 animation={fadeIn}
+    
                 style={{
                   color: Theme ? Color.White : Color.DarkTextColor,
                   fontFamily: Font.Poppins500,
@@ -132,9 +173,9 @@ const SignUp = ({navigation}) => {
                   }}>
                   Sign in
                 </Text>
-              </Text>
+              </Animatable.Text>
             </View>
-          </View>
+          </Animatable.View>
         </View>
       </ScrollView>
     </SafeAreaView>

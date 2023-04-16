@@ -5,6 +5,7 @@ import {
   View,
   Image,
   Dimensions,
+  useColorScheme
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -19,8 +20,9 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewParish = () => {
+  const Theme = useColorScheme() === 'dark'
   return (
-    <SafeAreaView style={styles.Container}>
+    <SafeAreaView style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.Container]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader text={'View Parish'} shareicon = {true} saveicon = {true} />
         <View style={{paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)}}>
@@ -36,15 +38,15 @@ const ViewParish = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
             }}>
-            <Text style={styles.TextStyle}>RCCG Central Parish</Text>
+            <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.TextStyle]}>RCCG Central Parish</Text>
           </View>
      
           <View
             style={
                 styles.DetailsViewStyle
             }>
-            <Text style={styles.LocationText}>Country:</Text>
-            <Text style={styles.LocationDetailsText}>Nigeria</Text>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationText]}>Country:</Text>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationDetailsText]}>Nigeria</Text>
           </View>
 
           
@@ -52,8 +54,8 @@ const ViewParish = () => {
             style={
                 styles.DetailsViewStyle
             }>
-            <Text style={styles.LocationText}>Region:</Text>
-            <Text style={styles.LocationDetailsText}>Region 10 Abuja</Text>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationText]}>Region:</Text>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationDetailsText]}>Region 10 Abuja</Text>
           </View>
 
          
@@ -61,15 +63,15 @@ const ViewParish = () => {
             style={
                 styles.DetailsViewStyle
             }>
-            <Text style={styles.LocationText}>Province: </Text>
-            <Text style={styles.LocationDetailsText}>FCT 2 </Text>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationText]}>Province: </Text>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationDetailsText]}>FCT 2 </Text>
           </View>
 
           <View
             style={{
               marginBottom: verticalScale(20),
             }}>
-            <Text style={styles.AboutText}>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.AboutText]}>
               The Redeemed Christian Church of God, Central Parish, is the
               Continental Headquarters of RCCG Continent 2. It is a big
               fellowship of families fitly knitted together in true love.
@@ -83,7 +85,7 @@ const ViewParish = () => {
         </View>
         <View
           style={{
-            backgroundColor: Color.HeaderColor,
+            backgroundColor: Theme ? Color.ExtraViewDark :  Color.HeaderColor,
             height: verticalScale(25),
           }}></View>
 
@@ -98,6 +100,7 @@ const ViewParish = () => {
             style={[
               {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
               styles.LocationBigText,
+              {color : Theme ? Color.White : Color.DarkTextColor}
             ]}>
             Location
           </Text>
@@ -111,6 +114,7 @@ const ViewParish = () => {
             style={[
               {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
               styles.LocationText,
+              {color : Theme ? Color.White : Color.TextColor2}
             ]}>
             Abuja
           </Text>
@@ -118,6 +122,7 @@ const ViewParish = () => {
             style={[
               {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
               styles.LocationDetailsText,
+              {color : Theme ? Color.White : Color.TextColor2}
             ]}>
             1249 Aminu Kano Cres, Wuse 904101, Abuja, Federal Capital Territory,
             Nigeria.
@@ -135,7 +140,7 @@ const ViewParish = () => {
         </View>
         <View
           style={{
-            backgroundColor: Color.HeaderColor,
+            backgroundColor: Theme ? Color.ExtraViewDark :  Color.HeaderColor,
             height: verticalScale(25),
           }}></View>
 
@@ -150,6 +155,7 @@ const ViewParish = () => {
               style={[
                 {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
                 styles.LocationBigText,
+                {color : Theme ? Color.White : Color.DarkTextColor}
               ]}>
               Contact
             </Text>
@@ -161,11 +167,11 @@ const ViewParish = () => {
               justifyContent: 'center',
               paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            <Text style={styles.LocationDetailsText}>+234 705 469 4807</Text>
-            <Text style={styles.LocationDetailsText}>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2} ,styles.LocationDetailsText]}>+234 705 469 4807</Text>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2} ,styles.LocationDetailsText]}>
               info@rccgcentralparish.org
             </Text>
-            <Text style={styles.LocationDetailsText}>
+            <Text style={[{color : Theme ? Color.White : Color.TextColor2} ,styles.LocationDetailsText]}>
               www.rccgcentralparish.org
             </Text>
           </View>
@@ -180,7 +186,7 @@ export default ViewParish;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: Color.White,
+    // backgroundColor: Color.White,
   },
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),
@@ -189,7 +195,7 @@ const styles = StyleSheet.create({
   },
   TextStyle: {
     fontFamily: Font.Poppins700,
-    color: Color.DarkTextColor,
+    // color: Color.DarkTextColor,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
   },
@@ -216,7 +222,6 @@ const styles = StyleSheet.create({
   },
   AboutText: {
     fontFamily: Font.Poppins400,
-    color: Color.TextColor2,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
     marginTop: verticalScale(5),
     marginBottom: verticalScale(10),
@@ -228,27 +233,28 @@ const styles = StyleSheet.create({
   },
   LocationText: {
     fontFamily: Font.Poppins700,
-    color: Color.TextColor2,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
   },
   LocationDetailsText: {
     fontFamily: Font.Poppins500,
-    color: Color.TextColor2,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
   },
   LocationBigText: {
     fontFamily: Font.Poppins600,
-    color: Color.DarkTextColor,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(17),
   },
   LocationImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
-    paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+    // paddingHorizontal:
+    //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
     marginVertical: verticalScale(15),
-    borderRadius: scale(20),
-    // backgroundColor:'red'
+    borderRadius: scale(14),
+    marginBottom: verticalScale(20),
+    overflow: 'hidden',
+    marginHorizontal:
+      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
   },
 });
