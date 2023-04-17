@@ -122,11 +122,6 @@ function AuthNavigator() {
           options={{animation: 'flip'}}
         />
         <Stack.Screen
-          name="BottomTabNavigator"
-          component={BottomTabNavigator}
-          options={{animation: 'flip'}}
-        />
-        <Stack.Screen
           name="SelectCountry"
           component={SelectCountry}
           options={{animation: 'flip'}}
@@ -167,28 +162,6 @@ function AuthNavigator() {
           component={Faq}
           options={{animation: 'flip'}}
         />
-
-        {/* <Stack.Screen name="HomeHeader" component={HomeHeader} /> */}
-        {/* <Stack.Screen name="SearchResult" component={SearchResult} /> */}
-        {/* <Stack.Screen name="SearchBarScreen" component={SearchBarScreen} /> */}
-        {/* <Stack.Screen name="EditProfile" component={EditProfile} /> */}
-        {/* <Stack.Screen name="Rccg" component={Rccg} /> */}
-        {/* <Stack.Screen name="RccgStructure" component={RccgStructure} />
-        <Stack.Screen name="RccgContinent" component={RccgContinent} /> */}
-        {/* <Stack.Screen name="Readone" component={Readone} />
-        <Stack.Screen name="Readtwo" component={Readtwo} /> */}
-
-        {/* <Stack.Screen name="EventScreen" component={EventScreen} />
-        <Stack.Screen name="ViewEvent" component={ViewEvent} /> */}
-        {/* <Stack.Screen name="PopularBooks" component={PopularBooks} />
-        <Stack.Screen name="ViewManual" component={ViewManual} /> */}
-        {/* <Stack.Screen name="ViewParish" component={ViewParish} />
-        <Stack.Screen name="FeaturedParishes" component={FeaturedParishes} />
-        <Stack.Screen name="ParishesResult" component={ParishesResult} /> */}
-        {/* <Stack.Screen name="ViewBanner" component={ViewBanner} />
-        <Stack.Screen name="Searchbar" component={Searchbar} />
-        */}
-        {/* <Stack.Screen name="FilterModal" component={FilterModal} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

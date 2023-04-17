@@ -11,14 +11,12 @@ import {
   useColorScheme,
   useWindowDimensions
 } from 'react-native'
-import React, {useLayoutEffect,useCallback} from 'react'
+import React, {useCallback} from 'react'
 import {Color} from '../../utils/Colors'
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
 import HomeHeader from '../../components/HomeHeader'
 import {Font} from '../../utils/font'
-import Swiper from 'react-native-swiper'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import {HorizontalFlatList} from '@idiosync/horizontal-flatlist'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import {useFocusEffect} from '@react-navigation/native'
 
@@ -35,34 +33,13 @@ const Home = ({navigation}) => {
           height: verticalScale(80),
           justifyContent: 'space-around',
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          paddingLeft:  w >= 768 && h >= 1024 && scale(20),
+          paddingLeft:  w >= 768 && h >= 1024 ? scale(20) : 0,
         },
       })
     }),
   )
   
-  // useFocusEffect(
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   useCallback(() => {
-  //     navigation.getParent()?.setOptions({
-  //         tabBarStyle: {
-  //           position: 'absolute',
-  //           bottom: 0,
-  //           height: verticalScale(80),
-  //           justifyContent: 'space-around',
-  //           backgroundColor: Theme ? Color.DarkTheme : Color.White,
-  //           borderColor: Theme ? Color.DarkTheme : Color.White,
-  //         },
-  //         tabBarLabelStyle: {
-  //           fontFamily: Font.Poppins600,
-  //           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-  //           marginBottom:
-  //             w >= 768 && h >= 1024 ? scale(-15) : verticalScale(15),
-  //         },
-        
-  //     })
-  //   }),
-  // )
+
 
 
 
