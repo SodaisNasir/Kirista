@@ -86,7 +86,7 @@ const ViewManual = ({navigation}) => {
             height:
               w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(120),
             backgroundColor: Theme ? Color.DarkTheme : Color.White,
-            height: verticalScale(80),
+            // height: verticalScale(80),
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
           }}>

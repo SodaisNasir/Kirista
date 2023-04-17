@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, {useState, useEffect} from 'react'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import {
   StyleSheet,
   Text,
@@ -9,38 +9,41 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import {Color} from '../../utils/Colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
-import CustomButton from '../CustomButton';
-import {useNavigation} from '@react-navigation/native';
-import SelectDropdown from '../SelectDropdown';
-import LeftRight from '../../assets/icons/left-right.svg';
-import LeftRightDark from '../../assets/icons/leftright_dark.svg';
-import UpDown from '../../assets/icons/up-down.svg';
-import UpDownDark from '../../assets/icons/upright_dark.svg';
-import ReadNavigator from '../ReadNavigator';
-import FontModal from './FontModal';
+} from 'react-native'
+import Modal from 'react-native-modal'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import {Color} from '../../utils/Colors'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Entypo from 'react-native-vector-icons/Entypo'
+import CustomButton from '../CustomButton'
+import {useNavigation} from '@react-navigation/native'
+import SelectDropdown from '../SelectDropdown'
+import LeftRight from '../../assets/icons/left-right.svg'
+import LeftRightDark from '../../assets/icons/leftright_dark.svg'
+import UpDown from '../../assets/icons/up-down.svg'
+import UpDownDark from '../../assets/icons/upright_dark.svg'
+import ReadNavigator from '../ReadNavigator'
+import FontModal from './FontModal'
+import Sun from '../../assets/icons/sun.svg'
+import Sun_light from '../../assets/icons/sun_light.svg'
+import Lalit from './Lalit'
 
-const ChapterOptionModal = props => {
-  const [count, setCount] = useState(0);
-  const Theme = useColorScheme() === 'dark';
-  const [selected, setSelected] = useState();
-  const navigation = useNavigation();
+const ChapterOptionModal = (props) => {
+  const [count, setCount] = useState(0)
+  const Theme = useColorScheme() === 'dark'
+  const [selected, setSelected] = useState()
+  const navigation = useNavigation()
 
   const incrementCount = () => {
-    setCount(count + 1);
-  };
+    setCount(count + 1)
+  }
   const decrementCount = () => {
-    setCount(count - 1);
-  };
+    setCount(count - 1)
+  }
 
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
 
   return (
     <View style={{flex: 1, width: '100%'}}>
@@ -62,7 +65,46 @@ const ChapterOptionModal = props => {
             },
             styles.modalView,
           ]}>
-          <View style={styles.BrightnessView}></View>
+          <View style={styles.BrightnessView}>
+            {Theme ? (
+              <Sun
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
+                }
+                width={scale(24)}
+              />
+            ) : (
+              <Sun_light
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
+                }
+                width={scale(24)}
+              />
+            )}
+            <View
+              style={{
+                height: '100%',
+                width: '70%',
+                justifyContent: 'center',
+              }}>
+              <Lalit />
+            </View>
+            {Theme ? (
+              <Sun
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
+                }
+                width={scale(24)}
+              />
+            ) : (
+              <Sun_light
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
+                }
+                width={scale(24)}
+              />
+            )}
+          </View>
 
           <View
             style={[
@@ -158,7 +200,9 @@ const ChapterOptionModal = props => {
               paddingHorizontal: moderateScale(10),
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
-              backgroundColor:Theme? Color.FontBoxColorDark : Color.FontBoxColor
+              backgroundColor: Theme
+                ? Color.FontBoxColorDark
+                : Color.FontBoxColor,
             }}>
             <View
               style={{
@@ -296,8 +340,8 @@ const ChapterOptionModal = props => {
         />
       </Modal>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   modalStyling: {
@@ -315,7 +359,9 @@ const styles = StyleSheet.create({
   },
   BrightnessView: {
     height: verticalScale(60),
-    // backgroundColor: 'red',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   ColorsView: {
@@ -325,6 +371,6 @@ const styles = StyleSheet.create({
   },
 
   ColorsStyle: {},
-});
+})
 
-export default ChapterOptionModal;
+export default ChapterOptionModal

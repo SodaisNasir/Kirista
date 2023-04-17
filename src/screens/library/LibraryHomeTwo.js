@@ -5,17 +5,17 @@ import {
   SafeAreaView,
   Dimensions,
   Image,
-} from 'react-native';
-import React from 'react';
-import LibraryHeader from '../../components/LibraryHeader';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import {Color} from '../../utils/Colors';
-import CustomButton from '../../components/CustomButton';
-import Empty from '../../assets/icons/empty.svg';
+} from 'react-native'
+import React from 'react'
+import LibraryHeader from '../../components/LibraryHeader'
+import {scale, verticalScale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import {Color} from '../../utils/Colors'
+import CustomButton from '../../components/CustomButton'
+import Empty from '../../assets/icons/empty.svg'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const LibraryHomeTwo = () => {
   return (
@@ -65,10 +65,10 @@ const LibraryHomeTwo = () => {
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default LibraryHomeTwo;
+export default LibraryHomeTwo
 
 const styles = StyleSheet.create({
   TextStyle: {
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins400,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
   },
-});
+})
