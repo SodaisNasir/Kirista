@@ -152,7 +152,7 @@ const SearchResult = props => {
       <View
       style={{borderBottomColor: Color.Main,
         borderBottomWidth:1.5,
-        backgroundColor: Theme ? Color.Red : Color.HeaderColor,
+        backgroundColor: Theme ? Color.Main : Color.HeaderColor,
         // height: verticalScale(2),
         // bottom: scale(4),
         width:'33%'

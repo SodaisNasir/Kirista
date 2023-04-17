@@ -166,6 +166,7 @@ const EventScreen = () => {
         </View>
         {showModal == false ? (
           <ImageModal
+          blurRadius={14}
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}
             swipeDirection="left"

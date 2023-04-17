@@ -17,13 +17,14 @@ const ImageModal = props => {
   return (
     <View style={{flex: 1}}>
       <Modal
+        blurRadius={14}
         isVisible={props.isVisible}
         backdropOpacity={0.8}
         //    onPress={() => setModalVisible(false)}
       >
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <TouchableOpacity style={styles.Btn} onPress={props.onPress}>
-            <Fontisto name="close-a" size={20} color={'#fff'} />
+            <Fontisto name="close-a" size={ w >= 768 && h >= 1024 ? scale(14) : scale(18)} color={'#fff'} />
           </TouchableOpacity>
         
           <Image
