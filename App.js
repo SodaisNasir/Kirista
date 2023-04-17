@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import AuthNavigator from './src/navigation/AuthNavigator'
-import BottomTabNavigator from './src/navigation/BottomTabNavigator'
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import AuthNavigator from './src/navigation/AuthNavigator';
+import {useSelector} from 'react-redux';
+import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 
 const App = () => {
-  return (
-   <AuthNavigator />
-  )
-}
+  const userData = useSelector(state => state.userEmail);
+  console.log("userData ==>", userData);
 
-export default App
+  return userData != null ? <BottomTabNavigator /> : <AuthNavigator />;
+};
 
-const styles = StyleSheet.create({})
+export default App;
+
+

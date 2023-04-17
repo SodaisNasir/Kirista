@@ -140,7 +140,10 @@ const FilterModal = (props) => {
             }}
           />
           <View style={{marginVertical: verticalScale(15)}}>
-            <CustomButton text={'Apply'} />
+            <CustomButton 
+            
+            onPress = {()=> navigation.goBack()}
+            text={'Apply'} />
           </View>
         </View>
       </Modal>

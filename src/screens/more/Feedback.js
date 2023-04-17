@@ -7,6 +7,7 @@ import {
   TextInput,
   useColorScheme,
   useWindowDimensions,
+  TouchableOpacity
 } from 'react-native'
 import React, {useLayoutEffect} from 'react'
 import Header from '../../components/Header'

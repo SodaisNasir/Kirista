@@ -8,7 +8,7 @@ import {
   useWindowDimensions,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useState,useLayoutEffect} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
@@ -16,7 +16,15 @@ import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
 
-const RccgStructure = () => {
+const RccgStructure = ({navigation}) => {
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;

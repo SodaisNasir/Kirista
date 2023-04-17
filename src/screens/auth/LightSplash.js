@@ -5,11 +5,15 @@ import {
   View,
   SafeAreaView,
   useColorScheme,
+  Dimensions,
   Image,
 } from 'react-native'
 import {Color} from '../../utils/Colors'
 import {Font} from '../../assets/fonts/PoppinsFont'
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const LightSplash = ({navigation}) => {
   const Theme = useColorScheme() === 'dark'
@@ -33,7 +37,7 @@ const LightSplash = ({navigation}) => {
         }}>
         <View
           style={{
-            height: '40%',
+            height: w >= 768 && h >= 1024 ? '25%' : '40%',
             width: '70%',
           }}>
           {Theme ? (
@@ -72,11 +76,11 @@ const LightSplash = ({navigation}) => {
           <Text
             style={{
               fontFamily: Font.Poppins500,
-              fontSize: scale(16),
+              fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
               color: Theme ? Color.White : Color.Black,
               position: 'absolute',
-              left: scale(115),
-              top: scale(7),
+              left: w >= 768 && h >= 1024 ? scale(130) : scale(115) ,
+              top: w >= 768 && h >= 1024 ? scale(0) : scale(3)  
             }}>
             Powered by
           </Text>
@@ -94,7 +98,8 @@ const LightSplash = ({navigation}) => {
               resizeMode="cover"
               style={{
                 height: '100%',
-                width: '100%',
+                width: w >= 768 && h >= 1024 ? '70%' : '100%',
+                alignSelf:'center'
               }}
               source={require('../../assets/images/continent2_logo.png')}
             />

@@ -46,7 +46,7 @@ const CustomInput = props => {
         <TextInput
           placeholder={props.placeholder}
           placeholderTextColor={Color.BoldTextColor}
-        
+          onChangeText={props.onChangeText}
           style={
            [props.TextRestyle,{ fontSize: tabPotrait ? scale(9):  scale(14),
             top : fourInchPotrait? scale(2) : 0,

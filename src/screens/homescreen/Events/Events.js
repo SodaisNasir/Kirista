@@ -9,21 +9,40 @@ import {
     TouchableOpacity,
     useColorScheme
   } from 'react-native';
-  import React from 'react';
+  import React,{useCallback} from 'react';
  import { Color } from '../../../utils/Colors';
   import {SafeAreaView} from 'react-native-safe-area-context';
   import {scale, verticalScale} from 'react-native-size-matters';
   import {Font} from '../../../utils/font';
   import HomeHeader from '../../../components/HomeHeader';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useFocusEffect} from '@react-navigation/native';
  
+
+
   
   const w = Dimensions.get('window').width;
   const h = Dimensions.get('window').height;
   
   const Events = props => {
-    const Theme = useColorScheme() === 'dark';
+
     const navigation =  useNavigation();
+    useFocusEffect(
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      useCallback(() => {
+        navigation.getParent()?.setOptions({
+          tabBarStyle: {
+            position: 'absolute',
+            bottom: 0,
+            height: verticalScale(80),
+            justifyContent: 'space-around',
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          },
+        })
+      }),
+    )
+    
+    const Theme = useColorScheme() === 'dark';
+   
     const data = [
       {
         id: 1,
@@ -99,7 +118,7 @@ import { useNavigation } from '@react-navigation/native';
                   marginHorizontal: verticalScale(20),
                   overflow: 'hidden',
                   borderBottomWidth: 1,
-                  borderColor: Color.BorderColor,
+                  borderColor: Theme ? '#515F72' : Color.BorderColor,
                 }}>
                 <View
                   style={{

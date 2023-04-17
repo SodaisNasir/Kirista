@@ -5,8 +5,9 @@ import {
   View,
   useWindowDimensions,
   useColorScheme,
+  
 } from 'react-native';
-import React from 'react';
+import React,{useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -16,7 +17,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Color} from '../../utils/Colors';
 import Password from '../../components/Password';
 import * as Animatable from 'react-native-animatable';
-
+import {useDispatch} from 'react-redux'
+import { LOGIN } from '../../redux/reducer';
 const fadeIn = {
   from: {
     opacity: 0,
@@ -49,6 +51,8 @@ const Login = ({navigation}) => {
   const tabLandscape = w >= 768 && h >= 1024;
   const fourInchPotrait = w <= 350 && h <= 600;
   const fourInchLandscape = w <= 350 && h <= 600;
+  const [email, setEmail]= useState(null)
+  const Dispatch =  useDispatch()
   const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
@@ -100,6 +104,9 @@ const Login = ({navigation}) => {
         animation={zoomIn}
         style={{marginVertical: verticalScale(15)}}>
         <CustomInput
+       onChangeText={(txt)=> {
+          console.log("text ==>", email);
+          setEmail(txt)}}
           restyleBox={{
             marginBottom:
               w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
@@ -121,7 +128,7 @@ const Login = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(22) : verticalScale(30),
         }}>
         <CustomButton
-          onPress={() => navigation.navigate('Advertisement')}
+          onPress={() => email != null ?  Dispatch({type : LOGIN, payload : email}) : alert("Complete the form")}
           text={'Sign in'}
         />
       </Animatable.View>

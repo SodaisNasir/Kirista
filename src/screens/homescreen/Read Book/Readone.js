@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   useColorScheme,
 } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useLayoutEffect} from 'react'
 import ReadHeader from '../../../components/ReadHeader'
 import {Color} from '../../../utils/Colors'
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
@@ -21,6 +21,15 @@ const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 const Readone = () => {
+
+  
+useLayoutEffect(() => {
+  navigation.getParent()?.setOptions({
+    tabBarStyle: {
+      display: 'none',
+    },
+  })
+}, [])
   const Theme = useColorScheme() === 'dark'
   const navigation = useNavigation()
 

@@ -30,7 +30,7 @@ const PhoneInput = props => {
       <Text
         style={{
           fontFamily: Font.Poppins500,
-          color: Theme ? Color.DarkThemeGreyText : Color.BoldTextColor,
+          color: Theme?  Color.DarkThemText2 : Color.BoldTextColor,
           fontSize: tabPotrait ? scale(9) : scale(14),
         }}>
         {props.text}
@@ -74,7 +74,7 @@ const PhoneInput = props => {
           <View style={{paddingHorizontal: moderateScale(5)}}>
             <Text
               style={{
-                color: Theme ? Color.White : Color.TextColor,
+                color: Theme?  Color.White : Color.TextColor,
                 fontFamily: Font.Poppins400,
                 fontSize: tabPotrait ? scale(9) : scale(14),
               }}>

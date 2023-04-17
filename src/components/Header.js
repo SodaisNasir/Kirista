@@ -23,7 +23,7 @@ export default function Header(props) {
           flexDirection: 'row',
 
           marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
+            w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(10),
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
         }}>

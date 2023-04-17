@@ -163,6 +163,7 @@ const zoomIn = {
         onChangeText={setValue}
         cellCount={CELL_COUNT}
         rootStyle={styles.codeFieldRoot}
+        
         keyboardType="number-pad"
         textContentType="oneTimeCode"
         renderCell={({index, symbol, isFocused}) => (
@@ -176,7 +177,9 @@ const zoomIn = {
                 backgroundColor: Theme
                   ? Color.DarkThemeInputBox
                   : Color.OtpBoxColor,
+
               },
+              {},
               styles.cell,
               isFocused && styles.focusCell,
             ]}
@@ -241,18 +244,20 @@ const styles = StyleSheet.create({
   },
   cell: {
     // paddingHorizontal: scale(30),
-
+    paddingTop:moderateScale(5),
     width: w >= 768 && h >= 1024 ? scale(45) : scale(50),
     height: w >= 768 && h >= 1024 ? verticalScale(28) : verticalScale(40),
-    fontSize: scale(24),
+    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(18),
     // borderWidth: 2,
     borderRadius: scale(16),
     // borderColor: Color.Main,
     textAlign: 'center',
+    textAlignVertical:'center',
     color: Color.Black,
     fontFamily: Font.Poppins400,
     textAlignVertical: 'center',
     elevation: 1,
+    
   },
   ImageBox: {
     marginTop: '30%',

@@ -52,7 +52,7 @@ const SettingsGuest = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor,
+        backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
       {/* <HomeHeader/> */}
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -536,34 +536,7 @@ const SettingsGuest = () => {
             backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
           }}
         />
-        <View
-          style={[
-            styles.MainView,
-            {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
-            },
-          ]}>
-          <TouchableOpacity
-            //onPress={() => navigation.navigate('about')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              <Logout height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
-
-              <Text style={[styles.LogoutTextStyle]}>Log out</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
-          }}
-        />
+      
         <View style={{height: verticalScale(90)}}></View>
       </ScrollView>
     </SafeAreaView>

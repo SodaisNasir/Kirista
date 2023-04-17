@@ -122,7 +122,7 @@ const DarkMode = ({navigation}) => {
       </View>
       <View
         style={[
-          {borderBottomColor: Theme ? Color.Black : Color.BorderColor},
+          {borderBottomColor: Theme ? Color.DarkBorderColor : Color.BorderColor},
           styles.BorderBottom,
         ]}
       />

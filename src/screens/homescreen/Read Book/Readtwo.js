@@ -55,13 +55,15 @@ const Readtwo = () => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const text_color = Theme ? Color.White : Color.Black;
-  const color_dark = Theme ? Color.DarkTheme : Color.White;
-  const [backgroundColor, setBackgroundColor] = useState(color_dark);
+
+
+  const [backgroundColor, setBackgroundColor] = useState(Theme ? Color.DarkTheme : Color.White);
+  
   const [textColor, setTextColor] = useState(text_color);
 
   const handlepressone = () => {
     setBackgroundColor('#F5F5F5');
-    setTextColor(Color.Main);
+    setTextColor(Color.Black);
   };
   const handlepresstwo = () => {
     setBackgroundColor('#F5EDD8');
@@ -93,7 +95,7 @@ const Readtwo = () => {
     <SafeAreaView
       style={[
         styles.MainContainer,
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor},
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ReadHeader bookmark={true} backicon={true} />
@@ -107,10 +109,11 @@ const Readtwo = () => {
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
-                  color: Theme ? Color.White : Color.Black,
+                  
                 },
 
                 styles.Title,
+                {color: textColor}
               ]}>
               Chapter 1
             </Text>
@@ -120,7 +123,7 @@ const Readtwo = () => {
               style={[
                 {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
                 styles.TextStyle,
-                {textColor},
+                {color : textColor},
               ]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
@@ -130,7 +133,7 @@ const Readtwo = () => {
             <Text
               style={[
                 {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                {textColor},
+                {color : textColor},
                 styles.TextStyle,
               ]}>
               The technical term for this physical arrangement is codex (plural,
@@ -143,7 +146,7 @@ const Readtwo = () => {
               style={[
                 {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
                 styles.TextStyle,
-                {textColor},
+                {color : textColor},
               ]}>
               As an intellectual object, a book is prototypically a composition
               of such great length that it takes a considerable investment of
@@ -158,6 +161,7 @@ const Readtwo = () => {
             </Text>
           </View>
         </View>
+        <View style={{height:verticalScale(75)}}/>
 
         <ChapterOptionModal
           isVisible={isModalVisible}
@@ -165,10 +169,10 @@ const Readtwo = () => {
           swipeDirection="down"
           onSwipeComplete={() => setModalVisible(false)}
           onRequestClose={() => setModalVisible(false)}
-          // HandlePressOne={handlepressone}
-          // HandlePressTwo={handlepresstwo}
-          // HandlePressThree={handlepressthree}
-          // HandlePressFour={handlepressfour}
+          HandlePressOne={handlepressone}
+          HandlePressTwo={handlepresstwo}
+          HandlePressThree={handlepressthree}
+          HandlePressFour={handlepressfour}
           toggleModalTwo={() => {
             setShowSecondModal(toggleModalTwo(true));
           }}

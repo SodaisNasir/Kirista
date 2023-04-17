@@ -9,7 +9,7 @@ import {
   Image,
   useColorScheme,
 } from 'react-native'
-import React, {useCallback} from 'react'
+import React, {useState,useLayoutEffect} from 'react';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
 import {Color} from '../../utils/Colors'
 import {Font} from '../../utils/font'
@@ -48,20 +48,15 @@ const SettingsMore = () => {
   const Theme = useColorScheme() === 'dark'
   const navigation = useNavigation()
 
-  useFocusEffect(
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useCallback(() => {
-      navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          position: 'absolute',
-          bottom: 0,
-          height: verticalScale(80),
-          justifyContent: 'space-around',
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-        },
-      })
-    }),
-  )
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
+
+
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
@@ -144,14 +139,14 @@ const SettingsMore = () => {
             </View>
             <TouchableOpacity
               onPress={() => navigation.navigate('EditProfile')}>
-              <Edit height={w >= 768 && h >= 1024 ? scale(16) : scale(22)} />
+              <Edit height={w >= 768 && h >= 1024 ? scale(18) : scale(22)} />
             </TouchableOpacity>
           </View>
         </View>
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View style={styles.MainView}>
@@ -308,7 +303,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View style={[styles.MainView]}>
@@ -426,7 +421,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -573,7 +568,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View style={{height: verticalScale(90)}}></View>

@@ -10,13 +10,22 @@ import {
   useColorScheme,
 } from 'react-native';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useLayoutEffect} from 'react';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as Animatable from 'react-native-animatable';
 
 const Advertisement = ({navigation}) => {
+
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
   const fadeIn = {
     from: {
       opacity: 0,
@@ -71,12 +80,13 @@ const Advertisement = ({navigation}) => {
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
               paddingVertical: moderateScale(25),
               marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(0),
               height:
                 w >= 768 && h >= 1024 ? verticalScale(100) : verticalScale(100),
             }}>
             <TouchableOpacity
-             onPress={()=>navigation.navigate('BottomTabNavigator')}
+            opacity={0.7}
+             onPress={()=>navigation.navigate('Home')}
               style={[
                 {borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18)},
                 styles.Skip,
@@ -85,7 +95,7 @@ const Advertisement = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                   // textAlign: 'center',
-                  color: Color.DarkTextColor,
+                  color: Color.White,
                   fontFamily: Font.Poppins500,
                 }}>
                 {seconds} Skip
@@ -141,7 +151,7 @@ const Advertisement = ({navigation}) => {
               styles.Btn,
             ]}>
             <Animatable.Text
-            iterationDelay={2100}
+            iterationDelay={700}
             duration={300}
             animation={fadeIn}
               style={{
@@ -154,7 +164,7 @@ const Advertisement = ({navigation}) => {
             </Animatable.Text>
             <Animatable.View 
             
-            iterationDelay={2300}
+            iterationDelay={700}
             duration={300}
             animation={fadeIn}
             style={{marginLeft: scale(5)}}>
@@ -193,12 +203,13 @@ const styles = StyleSheet.create({
   Skip: {
     paddingVertical: moderateScale(5),
     paddingHorizontal: moderateScale(15),
-    backgroundColor: 'rgba(255,255,255,6)',
+    backgroundColor: 'white',
+opacity: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
     // position: 'absolute',
-    // backgroundColor:'red',
+  
   },
   Btn: {
     width: '85%',

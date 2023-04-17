@@ -19,7 +19,7 @@ const ImageModal = props => {
       <Modal
         blurRadius={14}
         isVisible={props.isVisible}
-        backdropOpacity={0.8}
+        backdropOpacity={0.9}
         //    onPress={() => setModalVisible(false)}
       >
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

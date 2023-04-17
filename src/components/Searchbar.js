@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useLayoutEffect} from 'react';
 import {
   View,
   TextInput,
@@ -28,6 +28,14 @@ const h = Dimensions.get('window').height;
 
 const Searchbar = props => {
   const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
 
   const Theme = useColorScheme() === 'dark';
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);

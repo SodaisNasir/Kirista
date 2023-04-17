@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   useColorScheme,
 } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState,useLayoutEffect} from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import CustomHeader from '../../components/CustomHeader'
 import {Color} from '../../utils/Colors'
@@ -17,14 +17,24 @@ import {verticalScale, scale} from 'react-native-size-matters'
 import {Font} from '../../utils/font'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import ImageModal from '../../components/Modals/ImageModal'
+import {useFocusEffect} from '@react-navigation/native'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
-const EventScreen = () => {
+const EventScreen = ({navigation}) => {
   const [showModal, setShowModal] = useState(false)
   const [isModalVisible, setModalVisible] = useState(false)
   const Theme = useColorScheme() === 'dark'
+
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+  }, [])
+
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible)
@@ -164,6 +174,8 @@ const EventScreen = () => {
               longitudeDelta: 0.0421,
             }}></MapView>
         </View>
+
+        <View style={{height:verticalScale(40)}}/>
         {showModal == false ? (
           <ImageModal
           blurRadius={14}

@@ -98,7 +98,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                  borderRadius: 12,
+                    borderRadius: scale(16),
                   paddingHorizontal: 5,
                   top: 3,
                 }}>
@@ -153,7 +153,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                  borderRadius: 12,
+                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   top: 3,
                 }}>
@@ -208,7 +208,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                  borderRadius: 12,
+                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   top: 3,
                 }}>
@@ -217,6 +217,7 @@ const Faq = ({navigation}) => {
                     styles.ExpandedText,
                     {
                       color: Theme ? Color.White : Color.DarkTheme,
+
                     },
                   ]}>
                   Kirista is a mobile application that provides brethren with
@@ -263,7 +264,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                  borderRadius: 12,
+                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   top: 3,
                 }}>
@@ -318,7 +319,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                  borderRadius: 12,
+                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   top: 3,
                 }}>
@@ -367,6 +368,7 @@ const styles = StyleSheet.create({
   },
   ExpandedText: {
     marginVertical: verticalScale(15),
+    paddingHorizontal:moderateScale(10),
     fontFamily: Font.Inter500,
     color: Color.Black,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),

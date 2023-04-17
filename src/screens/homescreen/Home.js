@@ -11,7 +11,7 @@ import {
   useColorScheme,
   useWindowDimensions
 } from 'react-native'
-import React, {useLayoutEffect} from 'react'
+import React, {useLayoutEffect,useCallback} from 'react'
 import {Color} from '../../utils/Colors'
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
 import HomeHeader from '../../components/HomeHeader'
@@ -20,10 +20,51 @@ import Swiper from 'react-native-swiper'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {HorizontalFlatList} from '@idiosync/horizontal-flatlist'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import {useFocusEffect} from '@react-navigation/native'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 const Home = ({navigation}) => {
+  useFocusEffect(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: 0,
+          height: verticalScale(80),
+          justifyContent: 'space-around',
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          paddingLeft:  w >= 768 && h >= 1024 && scale(20),
+        },
+      })
+    }),
+  )
+  
+  // useFocusEffect(
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   useCallback(() => {
+  //     navigation.getParent()?.setOptions({
+  //         tabBarStyle: {
+  //           position: 'absolute',
+  //           bottom: 0,
+  //           height: verticalScale(80),
+  //           justifyContent: 'space-around',
+  //           backgroundColor: Theme ? Color.DarkTheme : Color.White,
+  //           borderColor: Theme ? Color.DarkTheme : Color.White,
+  //         },
+  //         tabBarLabelStyle: {
+  //           fontFamily: Font.Poppins600,
+  //           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+  //           marginBottom:
+  //             w >= 768 && h >= 1024 ? scale(-15) : verticalScale(15),
+  //         },
+        
+  //     })
+  //   }),
+  // )
+
+
 
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
@@ -225,7 +266,7 @@ const Home = ({navigation}) => {
                       height: '100%',
                       width: '100%',
                     }}
-                    source={item.image}
+                    source={item?.image}
                   />
                 </TouchableOpacity>
               )
@@ -272,7 +313,7 @@ const Home = ({navigation}) => {
             alwaysBounceVertical={false}>
             <FlatList
               showsHorizontalScrollIndicator={false}
-              numColumns={Math.ceil(books_data.length / 2)}
+              numColumns={Math.ceil(books_data?.length / 2)}
               data={books_data}
               renderItem={({item}) => {
                 return (
@@ -305,7 +346,7 @@ const Home = ({navigation}) => {
                               height: '100%',
                               width: '100%',
                             }}
-                            source={item.image}
+                            source={item?.image}
                           />
                         </View>
                       </View>
@@ -325,7 +366,7 @@ const Home = ({navigation}) => {
                               },
                               styles.BooksTitleStyle,
                             ]}>
-                            {item.title}
+                            {item?.title}
                           </Text>
                           <Text
                             style={[
@@ -348,7 +389,7 @@ const Home = ({navigation}) => {
                                 : verticalScale(40),
                             justifyContent: 'center',
                           }}>
-                          <Text style={styles.YearStyle}> {item.year}</Text>
+                          <Text style={styles.YearStyle}> {item?.year}</Text>
                         </View>
                       </View>
                     </View>
@@ -473,7 +514,7 @@ const Home = ({navigation}) => {
                               top: item.type == 'ye' ? scale(15) : scale(10),
                               textAlignVertical: 'center',
                               fontSize:
-                                w >= 768 && h >= 1024 ? scale(9) : scale(16),
+                                w >= 768 && h >= 1024 ? scale(8) : scale(16),
                               elevation: 5,
                             }}>
                             {item.text}
@@ -498,7 +539,7 @@ const Home = ({navigation}) => {
                                 color: Color.White,
                                 // textTransform: 'uppercase',
                                 fontSize:
-                                  w >= 768 && h >= 1024 ? scale(9) : scale(10),
+                                  w >= 768 && h >= 1024 ? scale(7) : scale(10),
                                 elevation: 5,
                               }}>
                               {item.text2}

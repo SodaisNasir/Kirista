@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -15,9 +15,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import SettingsDark from '../assets/icons/settings.svg';
-import Settings from '../assets/icons/settings_dark.svg';
+import Settings from '../assets/icons/settings_light.svg';
 import SettingsPress from '../assets/icons/settings_press.svg';
-import Sun from '../assets/icons/sun.svg'
+import Sun from '../assets/icons/sun.svg';
+import SunBlack from '../assets/icons/sun_black.svg';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -25,15 +26,12 @@ const h = Dimensions.get('window').height;
 const ReadNavigator = props => {
   const Theme = useColorScheme() === 'dark';
 
+  const [showSvg, setShowSvg] = useState(false);
 
- 
-    const [showSvg, setShowSvg] = useState(false);
+  const toggleIcon = () => {
+    setShowSvg(!showSvg);
+  };
 
-    const toggleIcon  =() =>{
-      setShowSvg(!showSvg)
-    }
-  
-  
   return (
     <View
       style={[
@@ -48,22 +46,29 @@ const ReadNavigator = props => {
           <FontAwesome5 name="list-ul" size={24} color="#8E8E93" />
         </TouchableOpacity>
         <TouchableOpacity onPress={toggleIcon} style={styles.tabButton}>
-          { showSvg ? (
-
-            <Sun height={
-              w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
-            }
-            width={scale(24)} />
-          )
-
-          : 
-
-          (<Feather name="moon" size={24} color="#374957" />)
-
-
-          }
-
-          
+          {showSvg ? (
+            Theme ? (
+              <Sun
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(26)
+                }
+                width={scale(24)}
+              />
+            ) : (
+              <SunBlack
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
+                }
+                width={scale(24)}
+              />
+            )
+          ) : (
+            <Feather
+              name="moon"
+              size={w >= 768 && h >= 1024 ? scale(12) : scale(24)}
+              color="#374957"
+            />
+          )}
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPressModal} style={styles.tabButton}>
           {Theme ? (
@@ -76,7 +81,7 @@ const ReadNavigator = props => {
           ) : (
             <Settings
               height={
-                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
+                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
               }
               width={scale(24)}
             />

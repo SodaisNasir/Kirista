@@ -176,6 +176,7 @@ const ViewParish = () => {
             </Text>
           </View>
         </View>
+        <View style={{height:verticalScale(75)}}/>
       </ScrollView>
     </SafeAreaView>
   );

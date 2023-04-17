@@ -5,6 +5,7 @@ import {
   View,
   useWindowDimensions,
   useColorScheme,
+  TouchableOpacity
 } from 'react-native';
 import React, {useState} from 'react';
 import {Font} from '../utils/font';
@@ -72,11 +73,11 @@ const AttachButton = props => {
             color: Color.TextColor,
           }}
         /> */}
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center'}}>
           <AttachCircle
             height={w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30)}
           />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
