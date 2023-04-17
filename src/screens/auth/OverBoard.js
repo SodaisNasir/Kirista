@@ -141,7 +141,7 @@ const fadeIn = {
                     fontFamily: Font.Poppins600,
                     color: 'rgba(56, 125, 229, 1)',
                     textDecorationLine: 'underline',
-                    fontSize: tabPotrait ? scale(11) : scale(15),
+                    fontSize: tabPotrait ? scale(9) : scale(15),
                     top: tabPotrait ? scale(0) : scale(5),
                   }}>
                   Skip
@@ -172,7 +172,7 @@ const fadeIn = {
               }}>
               <View
                 style={{
-                  width: tabPotrait ? scale(90) : scale(85),
+                  width: tabPotrait ? scale(80) : scale(85),
                   height: tabPotrait ? verticalScale(80) : verticalScale(85),
                 }}>
                 <Image
@@ -190,7 +190,7 @@ const fadeIn = {
               </View>
               <View
                 style={{
-                  width: tabPotrait ? scale(45) : scale(45),
+                  width: tabPotrait ? scale(40) : scale(45),
                   height: tabPotrait ? scale(50) : scale(60),
                 }}>
                 <Image
@@ -204,7 +204,7 @@ const fadeIn = {
               </View>
               <View
                 style={{
-                  width: tabPotrait ? scale(85) : scale(85),
+                  width: tabPotrait ? scale(75) : scale(85),
                   height: tabPotrait ? scale(80) : scale(60),
                 }}>
                 <Image
@@ -226,12 +226,12 @@ const fadeIn = {
                 // backgroundColor: 'purple',
                 flexDirection: 'row',
                 justifyContent: 'space-evenly',
-                width: tabPotrait ? '78%' : '81%',
+                width: tabPotrait ? '70%' : '81%',
                 alignSelf: 'center',
               }}>
               <CustomSmallButton text={'#Parishes'} />
               <CustomSmallButton text={'#Books'} />
-              <CustomSmallButton text={'#Event'} />
+              <CustomSmallButton text={'#Events'} />
               <CustomSmallButton text={'#More'} />
             </Animatable.View>
 

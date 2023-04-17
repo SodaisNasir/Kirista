@@ -182,7 +182,9 @@ const LibraryHome = ({navigation}) => {
                     </Text>
                   </View>
                 </View>
+                
               </TouchableOpacity>
+              
             )
           }}
         />

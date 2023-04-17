@@ -74,15 +74,15 @@ const Login = ({navigation}) => {
           justifyContent: 'center',
           marginTop: '10%',
         }}>
-        <Text
+        <Animatable.Text
           style={{
             fontFamily: Font.Poppins700,
             fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
             color: Theme ? Color.White : Color.Black,
           }}>
           Welcome Back,
-        </Text>
-        <Text
+        </Animatable.Text>
+        <Animatable.Text
           style={{
             fontFamily: Font.Poppins700,
             fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
@@ -91,7 +91,7 @@ const Login = ({navigation}) => {
           }}>
           {' '}
           Brethren.
-        </Text>
+        </Animatable.Text>
       </Animatable.View>
 
       <Animatable.View

@@ -9,12 +9,14 @@ const h = Dimensions.get('window').height;
 const CoustomSmallButton = (props) => {
   return (
     <View style={{
-      paddingHorizontal:768 && h >= 1024 ? '-30%' : scale(5),
+      paddingHorizontal:768 && h >= 1024 ? moderateScale(20) : moderateScale(5),
+      // backgroundColor:'red'
       // justifyContent:'space-around' 
     }}>
      <TouchableOpacity style={{
-        width: w >= 768 && h >= 1024 ? scale (50) :scale(50) ,
-        height:verticalScale(30),
+      
+        width: w >= 768 && h >= 1024 ? scale (40) :scale(50) ,
+        height:w >= 768 && h >= 1024 ? verticalScale (24) :verticalScale(30),
         backgroundColor:"rgba(56, 125, 229, 0.1)",
         borderRadius:w >= 768 && h >= 1024 ? scale (50) :scale(20),
         alignItems:'center',
@@ -23,7 +25,7 @@ const CoustomSmallButton = (props) => {
       <Text style={{
         
         fontFamily:Font.Poppins600,
-         fontSize : w >= 768 && h >= 1024 ? scale(7) : scale(8),
+         fontSize : w >= 768 && h >= 1024 ? scale(6) : scale(8),
         color:'#387DE5'
       }}>
       {props.text}
