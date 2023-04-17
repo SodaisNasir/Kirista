@@ -18,6 +18,7 @@ import { Color } from '../utils/Colors';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const CustomPhoneinput = props => {
+  const fourInchPotrait = w <= 350 && h <= 600;
     const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
   useEffect(() => {}, [Theme]);
@@ -58,6 +59,7 @@ const CustomPhoneinput = props => {
         style={[
           styles.TextInput,
           Theme === 'dark' ? {color: Color.TextDark} : {color: Color.Black},
+          
         ]}
         placeholder="Phone Number"
         keyboardType={'numeric'}

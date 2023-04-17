@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -17,6 +17,7 @@ import {Color} from '../utils/Colors';
 import SettingsDark from '../assets/icons/settings.svg';
 import Settings from '../assets/icons/settings_dark.svg';
 import SettingsPress from '../assets/icons/settings_press.svg';
+import Sun from '../assets/icons/sun.svg'
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -24,6 +25,15 @@ const h = Dimensions.get('window').height;
 const ReadNavigator = props => {
   const Theme = useColorScheme() === 'dark';
 
+
+ 
+    const [showSvg, setShowSvg] = useState(false);
+
+    const toggleIcon  =() =>{
+      setShowSvg(!showSvg)
+    }
+  
+  
   return (
     <View
       style={[
@@ -37,8 +47,23 @@ const ReadNavigator = props => {
         <TouchableOpacity onPress={props.onPressTab} style={styles.tabButton}>
           <FontAwesome5 name="list-ul" size={24} color="#8E8E93" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabButton}>
-          <Feather name="moon" size={24} color="#374957" />
+        <TouchableOpacity onPress={toggleIcon} style={styles.tabButton}>
+          { showSvg ? (
+
+            <Sun height={
+              w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
+            }
+            width={scale(24)} />
+          )
+
+          : 
+
+          (<Feather name="moon" size={24} color="#374957" />)
+
+
+          }
+
+          
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPressModal} style={styles.tabButton}>
           {Theme ? (

@@ -50,20 +50,20 @@ const Readone = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
             }}>
-            <Text style={styles.TextStyle}>
+            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
               papyrus, parchment, vellum, or paper) bound together and protected
               by a cover.
             </Text>
-            <Text style={styles.TextStyle}>
+            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
               The technical term for this physical arrangement is codex (plural,
               codices). In the history of hand-held physical supports for
               extended written compositions or records, the codex replaces its
               predecessor, the scroll. A single sheet in a codex is a leaf and
               each side of a leaf is a page.
             </Text>
-            <Text style={styles.TextStyle}>
+            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
               As an intellectual object, a book is prototypically a composition
               of such great length that it takes a considerable investment of
               time to compose and still considered as an investment of time to
@@ -75,7 +75,7 @@ const Readone = () => {
               sense, a book is the compositional whole of which such sections,
               whether called books or chapters or parts, are parts.
             </Text>
-            <Text style={styles.TextStyle}>
+            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
               papyrus, parchment, vellum, or paper) bound together and protected
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
   },
   TextStyle: {
-    color: Color.TextColor2,
+    // color: Color.TextColor2,
     fontFamily: Font.Libre400,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
     marginBottom: verticalScale(20),

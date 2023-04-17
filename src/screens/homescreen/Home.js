@@ -9,6 +9,7 @@ import {
   FlatList,
   Dimensions,
   useColorScheme,
+  useWindowDimensions
 } from 'react-native'
 import React, {useLayoutEffect} from 'react'
 import {Color} from '../../utils/Colors'
@@ -23,6 +24,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 const Home = ({navigation}) => {
+
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+  const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useColorScheme() === 'dark'
 
   const image_data = [
@@ -324,8 +329,13 @@ const Home = ({navigation}) => {
                           </Text>
                           <Text
                             style={[
-                              {lineHeight: verticalScale(15)},
+                              {lineHeight: fourInchPotrait ? verticalScale(18) : verticalScale(15)},
                               styles.BooksTitleStyle,
+                              {
+                                color: Theme
+                                  ? Color.White
+                                  : Color.DarkTextColor,
+                              },
                             ]}>
                             {item.manual}
                           </Text>

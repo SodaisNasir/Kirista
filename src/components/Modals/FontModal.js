@@ -86,7 +86,7 @@ const FontModal = (props) => {
               paddingVertical: verticalScale(10),
               // backgroundColor:'red',
               borderBottomWidth: 0.5,
-              borderBottomColor: Color.BorderColor,
+              borderBottomColor: '#404F64',
             }}>
             <Text
               style={[
@@ -112,7 +112,7 @@ const FontModal = (props) => {
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        borderBottomColor: Color.BorderColor,
+                        borderBottomColor: '#404F64',
                         borderBottomWidth: 0.5,
                         // backgroundColor:'red'
                       }}>

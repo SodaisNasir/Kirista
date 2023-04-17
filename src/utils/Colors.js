@@ -30,6 +30,8 @@ export const Color = {
   DarkBorderColor: '#061731',
   HomeHeaderTextDark : '#B5BCC6',
   ExtraViewDark : '#0A2142',
-  DarkThemText2 : '#838C9A'
+  DarkThemText2 : '#838C9A',
+  FontBoxColorDark : '#0C2447',
+  FontBoxColor : '#EBF2FC'
   
 };

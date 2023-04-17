@@ -78,7 +78,7 @@ const CustomHeader = props => {
             alignItems: 'center',
             // paddingHorizontal: moderateScale(10),
           }}>
-          <View style={styles.IconStyle}>
+          <TouchableOpacity style={styles.IconStyle}>
             {props.timeicon ? (
               <Time
                 height={
@@ -87,9 +87,9 @@ const CustomHeader = props => {
                 width={scale(24)}
               />
             ) : null}
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.IconStyle}>
+          <TouchableOpacity style={styles.IconStyle}>
             {props.saveicon ? (
             Theme ? (
               <SaveDark
@@ -111,9 +111,9 @@ const CustomHeader = props => {
               />
             )
             ) : null}
-          </View>
+          </TouchableOpacity>
 
-          <View>
+          <TouchableOpacity>
             {props.shareicon ? (
               Theme ? (
                 <ShareDark
@@ -135,7 +135,7 @@ const CustomHeader = props => {
                 />
               )
             ) : null}
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

@@ -31,7 +31,7 @@ const PhoneInput = props => {
         style={{
           fontFamily: Font.Poppins500,
           color: Theme ? Color.DarkThemeGreyText : Color.BoldTextColor,
-          fontSize: tabPotrait? scale(9) : scale(14),
+          fontSize: tabPotrait ? scale(9) : scale(14),
         }}>
         {props.text}
       </Text>
@@ -45,7 +45,7 @@ const PhoneInput = props => {
           backgroundColor: Theme
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
-          borderRadius: tabPotrait? scale(12) : scale(12),
+          borderRadius: tabPotrait ? scale(12) : scale(12),
           paddingHorizontal: verticalScale(20),
           marginTop: verticalScale(2),
           flexDirection: 'row',
@@ -58,9 +58,8 @@ const PhoneInput = props => {
           }}>
           <View
             style={{
-              width: tabPotrait? scale(15) : scale(25),
-              height:
-                tabPotrait? verticalScale(10) : verticalScale(15),
+              width: tabPotrait ? scale(15) : scale(25),
+              height: tabPotrait ? verticalScale(10) : verticalScale(15),
               flexDirection: 'row',
               marginTop: '-3%',
             }}>
@@ -77,7 +76,7 @@ const PhoneInput = props => {
               style={{
                 color: Theme ? Color.White : Color.TextColor,
                 fontFamily: Font.Poppins400,
-                fontSize: tabPotrait? scale(9) : scale(14),
+                fontSize: tabPotrait ? scale(9) : scale(14),
               }}>
               {' '}
               +234
@@ -85,7 +84,7 @@ const PhoneInput = props => {
           </View>
           <AntDesign
             name="down"
-            size={tabPotrait? scale(11) : scale(16)}
+            size={tabPotrait ? scale(11) : scale(16)}
             color={Theme ? Color.White : Color.Black}
             style={{}}
           />
@@ -97,11 +96,11 @@ const PhoneInput = props => {
           // placeholderTextColor={Theme? Color.DarkThemeGreyText : Color.TextColor}
           placeholderTextColor={Color.BoldTextColor}
           style={{
-            fontSize: tabPotrait? scale(9) : scale(14),
+            fontSize: tabPotrait ? scale(9) : scale(14),
             fontFamily: Font.Poppins400,
             paddingLeft: moderateScale(5),
             color: Theme ? Color.DarkThemeInputText : Color.TextColor,
-
+            top: fourInchPotrait ? scale(1) : 0,
             flex: 1,
           }}
         />

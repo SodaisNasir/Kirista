@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   useColorScheme,
+  useWindowDimensions
 } from 'react-native'
 import Modal from 'react-native-modal'
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
@@ -21,6 +22,8 @@ const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 const FilterModal = (props) => {
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
   const [selected, setSelected] = useState()
   const navigation = useNavigation()
   const Theme = useColorScheme() === 'dark'
@@ -36,7 +39,7 @@ const FilterModal = (props) => {
   ]
 
   return (
-    <View style={{flex: 1, width: '100%'}}>
+    <View style={{flex: 1, }}>
       <Modal
         testID={'modal'}
         style={styles.modalStyling}
@@ -50,7 +53,10 @@ const FilterModal = (props) => {
             styles.modalView,
             {
               backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              paddingHorizontal : width >= 768 && height >= 1024 ? scale(25) : scale(20),
+            
             },
+            
           ]}>
           <View
             style={{
@@ -146,6 +152,7 @@ const styles = StyleSheet.create({
   modalStyling: {
     justifyContent: 'flex-end',
     margin: 0,
+    
   },
 
   modalView: {
@@ -156,8 +163,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: w >= 768 && h >= 1024 ? scale(20) : scale(22),
     borderTopLeftRadius: w >= 768 && h >= 1024 ? scale(20) : scale(22),
     backgroundColor: Color.White,
-    paddingHorizontal:
-      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+  
+   
   },
   BigTextStyle: {
     color: Color.DarkTextColor,

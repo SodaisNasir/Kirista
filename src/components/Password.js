@@ -15,7 +15,7 @@ const Password = props => {
   const standardLandscape = w >= 684 && h >= 360;
   const tabLandscape = w >= 768 && h >= 1024;
   const fourInchPotrait = w <= 350 && h <= 600;
-  const fourInchLandscape = w <= 350 && h <= 600;
+  const fourInchLandscape = w <= 600 && h <= 350;
 
   const [isVisible, setVisible] = useState(false);
   return (
@@ -47,6 +47,7 @@ const Password = props => {
           style={{
             fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
             fontFamily: Font.Poppins400,
+            top : fourInchPotrait? scale(2) : 0,
             width: '80%',
             color: Theme?  Color.White : Color.TextColor,
           }}

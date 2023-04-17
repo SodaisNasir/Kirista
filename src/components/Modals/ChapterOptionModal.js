@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import React, {useState, useEffect} from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   StyleSheet,
   Text,
@@ -9,36 +9,38 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-} from 'react-native'
-import Modal from 'react-native-modal'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import {Color} from '../../utils/Colors'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import Entypo from 'react-native-vector-icons/Entypo'
-import CustomButton from '../CustomButton'
-import {useNavigation} from '@react-navigation/native'
-import SelectDropdown from '../SelectDropdown'
-import LeftRight from '../../assets/icons/left-right.svg'
-import UpDown from '../../assets/icons/up-down.svg'
-import ReadNavigator from '../ReadNavigator'
-import FontModal from './FontModal'
+} from 'react-native';
+import Modal from 'react-native-modal';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import {Color} from '../../utils/Colors';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
+import CustomButton from '../CustomButton';
+import {useNavigation} from '@react-navigation/native';
+import SelectDropdown from '../SelectDropdown';
+import LeftRight from '../../assets/icons/left-right.svg';
+import LeftRightDark from '../../assets/icons/leftright_dark.svg';
+import UpDown from '../../assets/icons/up-down.svg';
+import UpDownDark from '../../assets/icons/upright_dark.svg';
+import ReadNavigator from '../ReadNavigator';
+import FontModal from './FontModal';
 
-const ChapterOptionModal = (props) => {
-  const [count, setCount] = useState(0)
-  const Theme = useColorScheme() === 'dark'
-  const [selected, setSelected] = useState()
-  const navigation = useNavigation()
+const ChapterOptionModal = props => {
+  const [count, setCount] = useState(0);
+  const Theme = useColorScheme() === 'dark';
+  const [selected, setSelected] = useState();
+  const navigation = useNavigation();
 
   const incrementCount = () => {
-    setCount(count + 1)
-  }
+    setCount(count + 1);
+  };
   const decrementCount = () => {
-    setCount(count - 1)
-  }
+    setCount(count - 1);
+  };
 
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
 
   return (
     <View style={{flex: 1, width: '100%'}}>
@@ -130,10 +132,10 @@ const ChapterOptionModal = (props) => {
           <View>
             <SelectDropdown
               RestyleSelectBox={{
-                backgroundColor: Color.FontOptionInput,
+                backgroundColor: Theme ? '#748194' : Color.FontOptionInput,
               }}
               RestyleGeneralText={{
-                color: Color.DarkTextColor,
+                color: Theme ? Color.White : Color.DarkTextColor,
                 fontFamily: Font.Poppins600,
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
               }}
@@ -147,7 +149,7 @@ const ChapterOptionModal = (props) => {
               justifyContent:
                 w >= 768 && h >= 1024 ? 'space-around' : 'space-between',
               flexDirection: 'row',
-              borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+              borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(18),
               height:
@@ -156,6 +158,7 @@ const ChapterOptionModal = (props) => {
               paddingHorizontal: moderateScale(10),
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
+              backgroundColor:Theme? Color.FontBoxColorDark : Color.FontBoxColor
             }}>
             <View
               style={{
@@ -236,14 +239,25 @@ const ChapterOptionModal = (props) => {
                   borderRightWidth: 1,
                   marginVertical: verticalScale(5),
                 }}>
-                <LeftRight
-                  height={
-                    w >= 768 && h >= 1024
-                      ? verticalScale(25)
-                      : verticalScale(30)
-                  }
-                  width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
-                />
+                {Theme ? (
+                  <LeftRightDark
+                    height={
+                      w >= 768 && h >= 1024
+                        ? verticalScale(25)
+                        : verticalScale(30)
+                    }
+                    width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
+                  />
+                ) : (
+                  <LeftRight
+                    height={
+                      w >= 768 && h >= 1024
+                        ? verticalScale(25)
+                        : verticalScale(30)
+                    }
+                    width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
+                  />
+                )}
               </View>
 
               <View
@@ -253,14 +267,25 @@ const ChapterOptionModal = (props) => {
                   justifyContent: 'center',
                   marginVertical: 5,
                 }}>
-                <UpDown
-                  height={
-                    w >= 768 && h >= 1024
-                      ? verticalScale(25)
-                      : verticalScale(30)
-                  }
-                  width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
-                />
+                {Theme ? (
+                  <UpDownDark
+                    height={
+                      w >= 768 && h >= 1024
+                        ? verticalScale(25)
+                        : verticalScale(30)
+                    }
+                    width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
+                  />
+                ) : (
+                  <UpDown
+                    height={
+                      w >= 768 && h >= 1024
+                        ? verticalScale(25)
+                        : verticalScale(30)
+                    }
+                    width={w >= 768 && h >= 1024 ? scale(20) : scale(24)}
+                  />
+                )}
               </View>
             </View>
           </View>
@@ -271,8 +296,8 @@ const ChapterOptionModal = (props) => {
         />
       </Modal>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   modalStyling: {
@@ -300,6 +325,6 @@ const styles = StyleSheet.create({
   },
 
   ColorsStyle: {},
-})
+});
 
-export default ChapterOptionModal
+export default ChapterOptionModal;

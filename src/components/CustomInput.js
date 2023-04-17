@@ -48,7 +48,8 @@ const CustomInput = props => {
           placeholderTextColor={Color.BoldTextColor}
         
           style={
-           [props.TextRestyle,{ fontSize: tabPotrait ? scale(9) : scale(14),
+           [props.TextRestyle,{ fontSize: tabPotrait ? scale(9):  scale(14),
+            top : fourInchPotrait? scale(2) : 0,
             fontFamily: Font.Poppins400,
             alignItems: 'center',
             justifyContent:'center',
