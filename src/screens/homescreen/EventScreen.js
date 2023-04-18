@@ -17,7 +17,7 @@ import {verticalScale, scale} from 'react-native-size-matters'
 import {Font} from '../../utils/font'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import ImageModal from '../../components/Modals/ImageModal'
-import {useFocusEffect} from '@react-navigation/native'
+import Map from '../../components/Map'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -164,19 +164,44 @@ const EventScreen = ({navigation}) => {
             Nigeria.
           </Text>
         </View>
-        <View style={styles.LocationImageViewStyle}>
-          <MapView
+        <View
+          style={{
+            height:
+              w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
+            // paddingHorizontal:
+            //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            marginVertical: verticalScale(15),
+            borderRadius: scale(14),
+            marginBottom: verticalScale(20),
+            overflow: 'hidden',
+            marginHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+          }}>
+          <Image
+          
+          source={require('../../assets/images/maps.png')}
+          
+          style={{height: '100%', width: '100%'}} />
+
+          {/* <MapView
             style={{flex: 1}}
             initialRegion={{
               latitude: 9.0765,
               longitude: 7.3986,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
-            }}></MapView>
+            }}
+            
+            showsUserLocation={false}
+            zoomEnabled={true}
+            // zoomControlEnabled={true}
+            provider={PROVIDER_GOOGLE}
+         
+            ></MapView> */}
         </View>
 
         <View style={{height:verticalScale(40)}}/>
-        {showModal == false ? (
+  
           <ImageModal
           blurRadius={14}
             isVisible={isModalVisible}
@@ -187,9 +212,7 @@ const EventScreen = ({navigation}) => {
             OptionSelect={() => setModalVisible(false)}
             onPress={() => setModalVisible(false)}
           />
-        ) : (
-          setShowModal(false)
-        )}
+     
       </ScrollView>
     </SafeAreaView>
   )
@@ -263,17 +286,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(17),
   },
-  LocationImageViewStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
-    // paddingHorizontal:
-    //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-    marginVertical: verticalScale(15),
-    borderRadius: scale(14),
-    marginBottom: verticalScale(20),
-    overflow: 'hidden',
-    marginHorizontal:
-      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-  },
+ 
   DateText: {
     fontFamily: Font.Poppins500,
     color: Color.ContinentText,

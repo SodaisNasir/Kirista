@@ -18,7 +18,7 @@ import * as Animatable from 'react-native-animatable';
 
 const Advertisement = ({navigation}) => {
 
-
+  
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {

@@ -824,14 +824,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@idiosync/horizontal-flatlist@^1.0.18", "@idiosync/horizontal-flatlist@^1.0.6":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@idiosync/horizontal-flatlist/-/horizontal-flatlist-1.0.18.tgz#588272582c3992d2bc311702aa81ec32a7ce797a"
-  integrity sha512-NU50BzMMHcIHBextCLGfWwdI9OZLjtVKqxg3c9mODhYr7dSSVnk2AOx3S4N5j3opRrUSgOEJ7i/bZUaLE7aP0g==
-  dependencies:
-    "@idiosync/horizontal-flatlist" "^1.0.6"
-    lodash.chunk "^4.2.0"
-
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"

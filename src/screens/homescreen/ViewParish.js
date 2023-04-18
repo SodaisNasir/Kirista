@@ -5,7 +5,7 @@ import {
   View,
   Image,
   Dimensions,
-  useColorScheme
+  useColorScheme,
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -13,19 +13,26 @@ import CustomHeader from '../../components/CustomHeader';
 import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
-import CustomButton from '../../components/CustomButton';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewParish = () => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useColorScheme() === 'dark';
   return (
-    <SafeAreaView style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.Container]}>
+    <SafeAreaView
+      style={[
+        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        styles.Container,
+      ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomHeader text={'View Parish'} shareicon = {true} saveicon = {true} />
-        <View style={{paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)}}>
+        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true} />
+        <View
+          style={{
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+          }}>
           <View style={styles.ImageViewStyle}>
             <Image
               resizeMode="contain"
@@ -38,40 +45,75 @@ const ViewParish = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
             }}>
-            <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.TextStyle]}>RCCG Central Parish</Text>
-          </View>
-     
-          <View
-            style={
-                styles.DetailsViewStyle
-            }>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationText]}>Country:</Text>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationDetailsText]}>Nigeria</Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.DarkTextColor},
+                styles.TextStyle,
+              ]}>
+              RCCG Central Parish
+            </Text>
           </View>
 
-          
-          <View
-            style={
-                styles.DetailsViewStyle
-            }>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationText]}>Region:</Text>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationDetailsText]}>Region 10 Abuja</Text>
+          <View style={styles.DetailsViewStyle}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationText,
+              ]}>
+              Country:
+            </Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationDetailsText,
+              ]}>
+              Nigeria
+            </Text>
           </View>
 
-         
-          <View
-            style={
-                styles.DetailsViewStyle
-            }>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationText]}>Province: </Text>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.LocationDetailsText]}>FCT 2 </Text>
+          <View style={styles.DetailsViewStyle}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationText,
+              ]}>
+              Region:
+            </Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationDetailsText,
+              ]}>
+              Region 10 Abuja
+            </Text>
+          </View>
+
+          <View style={styles.DetailsViewStyle}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationText,
+              ]}>
+              Province:{' '}
+            </Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationDetailsText,
+              ]}>
+              FCT 2{' '}
+            </Text>
           </View>
 
           <View
             style={{
               marginBottom: verticalScale(20),
             }}>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2},styles.AboutText]}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.AboutText,
+              ]}>
               The Redeemed Christian Church of God, Central Parish, is the
               Continental Headquarters of RCCG Continent 2. It is a big
               fellowship of families fitly knitted together in true love.
@@ -85,7 +127,7 @@ const ViewParish = () => {
         </View>
         <View
           style={{
-            backgroundColor: Theme ? Color.ExtraViewDark :  Color.HeaderColor,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
             height: verticalScale(25),
           }}></View>
 
@@ -98,9 +140,12 @@ const ViewParish = () => {
           }}>
           <Text
             style={[
-              {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
+              {
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              },
               styles.LocationBigText,
-              {color : Theme ? Color.White : Color.DarkTextColor}
+              {color: Theme ? Color.White : Color.DarkTextColor},
             ]}>
             Location
           </Text>
@@ -112,35 +157,66 @@ const ViewParish = () => {
           }}>
           <Text
             style={[
-              {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
+              {
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              },
               styles.LocationText,
-              {color : Theme ? Color.White : Color.TextColor2}
+              {color: Theme ? Color.White : Color.TextColor2},
             ]}>
             Abuja
           </Text>
           <Text
             style={[
-              {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
+              {
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              },
               styles.LocationDetailsText,
-              {color : Theme ? Color.White : Color.TextColor2}
+              {color: Theme ? Color.White : Color.TextColor2},
             ]}>
             1249 Aminu Kano Cres, Wuse 904101, Abuja, Federal Capital Territory,
             Nigeria.
           </Text>
         </View>
-        <View style={styles.LocationImageViewStyle}>
-          <MapView
+        <View
+          style={{
+            height:
+              w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
+            // paddingHorizontal:
+            //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            marginVertical: verticalScale(15),
+            borderRadius: scale(14),
+            marginBottom: verticalScale(20),
+            overflow: 'hidden',
+            marginHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+          }}>
+          <Image
+          
+          source={require('../../assets/images/maps.png')}
+          
+          style={{height: '100%', width: '100%'}} />
+
+          {/* <MapView
             style={{flex: 1}}
             initialRegion={{
               latitude: 9.0765,
               longitude: 7.3986,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
-            }}></MapView>
+            }}
+            
+            showsUserLocation={false}
+            zoomEnabled={true}
+            // zoomControlEnabled={true}
+            provider={PROVIDER_GOOGLE}
+         
+            ></MapView> */}
         </View>
         <View
           style={{
-            backgroundColor: Theme ? Color.ExtraViewDark :  Color.HeaderColor,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
             height: verticalScale(25),
           }}></View>
 
@@ -153,9 +229,14 @@ const ViewParish = () => {
             }}>
             <Text
               style={[
-                {paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20)},
+                {
+                  paddingHorizontal:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(25)
+                      : verticalScale(20),
+                },
                 styles.LocationBigText,
-                {color : Theme ? Color.White : Color.DarkTextColor}
+                {color: Theme ? Color.White : Color.DarkTextColor},
               ]}>
               Contact
             </Text>
@@ -165,18 +246,33 @@ const ViewParish = () => {
             style={{
               // height: verticalScale(80),
               justifyContent: 'center',
-              paddingHorizontal:  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2} ,styles.LocationDetailsText]}>+234 705 469 4807</Text>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2} ,styles.LocationDetailsText]}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationDetailsText,
+              ]}>
+              +234 705 469 4807
+            </Text>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationDetailsText,
+              ]}>
               info@rccgcentralparish.org
             </Text>
-            <Text style={[{color : Theme ? Color.White : Color.TextColor2} ,styles.LocationDetailsText]}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.TextColor2},
+                styles.LocationDetailsText,
+              ]}>
               www.rccgcentralparish.org
             </Text>
           </View>
         </View>
-        <View style={{height:verticalScale(75)}}/>
+        <View style={{height: verticalScale(75)}} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -227,10 +323,9 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     marginBottom: verticalScale(10),
   },
-  DetailsViewStyle:{
-    height:
-    w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(70),
-  justifyContent: 'center',
+  DetailsViewStyle: {
+    height: w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(70),
+    justifyContent: 'center',
   },
   LocationText: {
     fontFamily: Font.Poppins700,
@@ -246,16 +341,5 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins600,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(17),
-  },
-  LocationImageViewStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
-    // paddingHorizontal:
-    //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-    marginVertical: verticalScale(15),
-    borderRadius: scale(14),
-    marginBottom: verticalScale(20),
-    overflow: 'hidden',
-    marginHorizontal:
-      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
   },
 });
