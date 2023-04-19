@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   StyleSheet,
   Text,
@@ -6,20 +6,20 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   useColorScheme,
-} from 'react-native';
-import {SwipeListView} from 'react-native-swipe-list-view';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import {Color} from '../utils/Colors';
-import {Font} from '../utils/font';
+} from 'react-native'
+import {SwipeListView} from 'react-native-swipe-list-view'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import {Color} from '../utils/Colors'
+import {Font} from '../utils/font'
 const BookmarkScreen = () => {
-  const Theme = useColorScheme() === 'dark';
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  const Theme = useColorScheme() === 'dark'
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
   const DATA = [
     {Number: '5', Date: 'Feb 16th , 2023.'},
     {Number: '6', Date: 'Feb 16th , 2023.'},
-  ];
+  ]
   const Item = ({Number, Date}) => (
     <View
       style={[
@@ -27,7 +27,7 @@ const BookmarkScreen = () => {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           marginLeft:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            paddingVertical:
+          paddingVertical:
             w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(10),
         },
 
@@ -41,13 +41,16 @@ const BookmarkScreen = () => {
         }}>
         {Number}
       </Text>
-      <Text  style={{
+      <Text
+        style={{
           fontFamily: Font.Poppins500,
           color: Theme ? Color.GreyText : Color.Black,
           fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-        }} >{Date}</Text>
+        }}>
+        {Date}
+      </Text>
     </View>
-  );
+  )
   return (
     <SwipeListView
       data={DATA}
@@ -60,10 +63,9 @@ const BookmarkScreen = () => {
           <TouchableOpacity style={[styles.IconBox]}>
             <MaterialCommunityIcons
               name="delete"
-              size={w >= 768 && h >= 1024 ? scale(18) : scale(38)}
+              size={w >= 768 && h >= 1024 ? scale(20) : scale(28)}
               color={'#F5F5F5'}
-            //   style={{left:scale(10)}}
-             
+              //   style={{left:scale(10)}}
             />
           </TouchableOpacity>
         </View>
@@ -71,10 +73,10 @@ const BookmarkScreen = () => {
       swipeDirection={'right'}
       disableRightSwipe={true}
       leftOpenValue={0}
-      rightOpenValue={-70}
+      rightOpenValue={scale(-60)}
     />
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   Main: {
@@ -84,18 +86,16 @@ const styles = StyleSheet.create({
   },
   rowBack: {
     alignItems: 'flex-end',
-
   },
   IconBox: {
-    width: scale(90),
+    width: scale(60),
     backgroundColor: '#FF4242',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     borderTopWidth: 1,
     borderColor: '#F1F2F2',
-
   },
-});
+})
 
-export default BookmarkScreen;
+export default BookmarkScreen

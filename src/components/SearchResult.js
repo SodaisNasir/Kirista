@@ -7,43 +7,63 @@ import {
   useColorScheme,
   Dimensions,
   SafeAreaView,
-} from 'react-native';
-import React, {useState} from 'react';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import {Color} from '../utils/Colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {Font} from '../utils/font';
-import { useNavigation } from '@react-navigation/native';
+} from 'react-native'
+import React, {useState} from 'react'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import {Color} from '../utils/Colors'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import {Font} from '../utils/font'
+import {useNavigation} from '@react-navigation/native'
 import Search from '../assets/icons/search.svg'
-import NoResult from './NoResult';
+import NoResult from './NoResult'
 
-
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
-const SearchResult = props => {
-
-
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
+const SearchResult = (props) => {
   const navigation = useNavigation()
-  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
-  const [searchInputValue, setSearchInputValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const Theme = useColorScheme() === 'dark';
-  return (
 
-    <SafeAreaView style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+  const [Book, setBook] = useState(true)
+  const [Parishes, setParishes] = useState(false)
+  const [Event, setEvent] = useState(false)
+
+  const HandelBook = () => {
+    setBook(true)
+    setParishes(false)
+    setEvent(false)
+  }
+
+  const HandelParishes = () => {
+    setBook(false)
+    setParishes(true)
+    setEvent(false)
+  }
+  const HandelEvent = () => {
+    setBook(false)
+    setParishes(false)
+    setEvent(true)
+  }
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
+  const [searchInputValue, setSearchInputValue] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  const Theme = useColorScheme() === 'dark'
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+      }}>
       <View
         style={{
-        
           height: verticalScale(90),
-          
+
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          
-          justifyContent:'flex-end',
+
+          justifyContent: 'flex-end',
           paddingHorizontal:
-          w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+            w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
           paddingBottom:
-          w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
+            w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
         }}>
         <View
           style={{
@@ -51,8 +71,7 @@ const SearchResult = props => {
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
-            
+              w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
           }}>
           <View
             style={[
@@ -65,9 +84,12 @@ const SearchResult = props => {
                 alignItems: 'center',
               }}>
               <Search
-                
-                height={ w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)}
-                width = { w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)}
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)
+                }
+                width={
+                  w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(18)
+                }
               />
 
               <TextInput
@@ -93,10 +115,7 @@ const SearchResult = props => {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={()=> navigation.navigate('Searchbar')}
-                
-          >
+          <TouchableOpacity onPress={() => navigation.navigate('Searchbar')}>
             <View style={styles.closeButton}>
               <Text
                 style={[
@@ -109,22 +128,14 @@ const SearchResult = props => {
           </TouchableOpacity>
         </View>
       </View>
-
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
-          // paddingHorizontal: moderateScale(35),
-          // marginBottom:verticalScale(10),
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          paddingTop:verticalScale(10),
+          paddingTop: verticalScale(10),
         }}>
-        <TouchableOpacity
-          style={{}}
-          // onPress={() => {
-          //   navigation.navigate('Home');
-          // }}
-        >
+        <TouchableOpacity style={{}} onPress={HandelBook}>
           <Text
             style={[styles.TextStyle, props.BooksRestyle, styles.BooksStyle]}>
             Books
@@ -132,42 +143,60 @@ const SearchResult = props => {
         </TouchableOpacity>
 
         <TouchableOpacity
-        // onPress={() => {
-        //   navigation.navigate('ParishFinder');
-        // }}
-        >
+          // style={{backgroundColor: 'red'}}
+          onPress={HandelParishes}>
           <Text style={[styles.TextStyle, props.ParishRestyle]}>Parishes</Text>
           <View style={props.ParishUnderLineStyle} />
         </TouchableOpacity>
 
-        <TouchableOpacity
-        // onPress={() => {
-        //   navigation.navigate('Events');
-        // }}
-        >
+        <TouchableOpacity onPress={HandelEvent}>
           <Text style={[styles.TextStyle, props.EventRestyle]}>Events</Text>
           <View style={props.EventUnderLineStyle} />
         </TouchableOpacity>
       </View>
-      <View
-      style={{borderBottomColor: Color.Main,
-        borderBottomWidth:1.5,
-        backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-        // height: verticalScale(2),
-        // bottom: scale(4),
-        width:'33%'
-      }}
-      />
-
-      <View style={{flex:1,justifyContent:'center'}}>
-
-        <NoResult/>
+      <View style={{flexDirection: 'row'}}>
+        {Book && (
+          <View
+            style={{
+              borderBottomColor: Color.Main,
+              borderBottomWidth: 1.5,
+              backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+              width: '33%',
+              // marginLeft: '33%',
+            }}
+          />
+        )}
+        {Parishes && (
+          <View
+            style={{
+              borderBottomColor: Color.Main,
+              borderBottomWidth: 1.5,
+              backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+              width: '33%',
+              marginLeft: '33%',
+            }}
+          />
+        )}
+        {Event && (
+          <View
+            style={{
+              borderBottomColor: Color.Main,
+              borderBottomWidth: 1.5,
+              backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+              width: '33%',
+              marginLeft: '66%',
+            }}
+          />
+        )}
+      </View>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        {Book && <NoResult />}
+        {Parishes && <NoResult />}
+        {Event && <NoResult />}
       </View>
     </SafeAreaView>
-  );
-};
-
-export default SearchResult;
+  )
+}
 
 const styles = StyleSheet.create({
   searchContainerAfter: {
@@ -186,23 +215,5 @@ const styles = StyleSheet.create({
     width: '85%',
     paddingHorizontal: moderateScale(10),
   },
-  BooksUnderlineStyle: {
-    // width: '100%',
-    backgroundColor: Color.Main,
-    height: verticalScale(2),
-    bottom: scale(4),
-  },
-  TextStyle: {
-    fontFamily: Font.Poppins500,
-    color: Color.HomeHeaderText,
-    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
-  },
-  closeButton: {
-    paddingHorizontal: moderateScale(10),
-  },
-  closeButtonText: {
-    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-    fontFamily: Font.Poppins500,
-    color:'#4D5C72'
-  },
-});
+})
+export default SearchResult

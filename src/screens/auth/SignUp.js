@@ -8,23 +8,20 @@ import {
   useColorScheme,
   useWindowDimensions,
   ScrollView,
-} from 'react-native';
-import React from 'react';
-import Kiristalogo from '../../constant/Kiristalogo';
-import {Font} from '../../assets/fonts/PoppinsFont';
-import CustomInput from '../../components/CustomInput';
-import CustomButton from '../../components/CustomButton';
-import {Color} from '../../utils/Colors';
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import PhoneInput from '../../components/PhoneInput';
-import Countrycode from '../../components/Countrycode';
-import Password from '../../components/Password';
-import * as Animatable from 'react-native-animatable';
-
-
+} from 'react-native'
+import React from 'react'
+import Kiristalogo from '../../constant/Kiristalogo'
+import {Font} from '../../assets/fonts/PoppinsFont'
+import CustomInput from '../../components/CustomInput'
+import CustomButton from '../../components/CustomButton'
+import {Color} from '../../utils/Colors'
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
+import PhoneInput from '../../components/PhoneInput'
+import Countrycode from '../../components/Countrycode'
+import Password from '../../components/Password'
+import * as Animatable from 'react-native-animatable'
 
 const SignUp = ({navigation}) => {
-
   const fadeIn = {
     from: {
       opacity: 0,
@@ -32,7 +29,7 @@ const SignUp = ({navigation}) => {
     to: {
       opacity: 1,
     },
-  };
+  }
   const zoomIn = {
     0: {
       opacity: 0,
@@ -46,11 +43,11 @@ const SignUp = ({navigation}) => {
       opacity: 1,
       scale: 1,
     },
-  };
-  
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
-  const Theme = useColorScheme() === 'dark';
+  }
+
+  const w = useWindowDimensions().width
+  const h = useWindowDimensions().height
+  const Theme = useColorScheme() === 'dark'
   return (
     <SafeAreaView
       style={{
@@ -70,10 +67,9 @@ const SignUp = ({navigation}) => {
           </View>
 
           <Animatable.View
-             iterationDelay={1000}
-             duration={300}
-             animation={zoomIn}
-
+            iterationDelay={1000}
+            duration={300}
+            animation={zoomIn}
             style={{
               alignItems: 'center',
               justifyContent: 'center',
@@ -91,11 +87,10 @@ const SignUp = ({navigation}) => {
             </Text>
           </Animatable.View>
 
-          
           <Animatable.View
-             iterationDelay={1500}
-             duration={300}
-             animation={zoomIn}
+            iterationDelay={1500}
+            duration={300}
+            animation={zoomIn}
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(5) : moderateScale(10),
@@ -137,10 +132,10 @@ const SignUp = ({navigation}) => {
                 paddingVertical:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
-              <CustomButton 
-              
-              onPress = { ()=> navigation.navigate('Login')}
-              text={'Sign Up'} />
+              <CustomButton
+                onPress={() => navigation.navigate('Login')}
+                text={'Sign Up'}
+              />
             </View>
 
             <View
@@ -149,19 +144,17 @@ const SignUp = ({navigation}) => {
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
-              
+
                 alignItems: 'center',
               }}>
               <Animatable.Text
-                 iterationDelay={1800}
-                 duration={300}
-                 animation={fadeIn}
-    
+                iterationDelay={1800}
+                duration={300}
+                animation={fadeIn}
                 style={{
                   color: Theme ? Color.White : Color.DarkTextColor,
                   fontFamily: Font.Poppins500,
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
-                  
                 }}>
                 If you have an account,{' '}
                 <Text
@@ -169,7 +162,6 @@ const SignUp = ({navigation}) => {
                     color: Theme ? Color.White : Color.DarkTextColor,
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                     fontFamily: Font.Poppins700,
-                   
                   }}>
                   Sign in
                 </Text>
@@ -179,7 +171,7 @@ const SignUp = ({navigation}) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp
