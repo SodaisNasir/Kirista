@@ -50,7 +50,6 @@ import MoreSvgActive from '../assets/icons/more_active.svg';
 import SettingsGuest from '../screens/more/SettingsGuest';
 import Feedback from '../screens/more/Feedback';
 import Faq from '../screens/more/Faq';
-import Advertisement from '../components/Advertisement';
 import ViewBanner from '../screens/homescreen/ViewBanner';
 import SelectCountry from '../components/SelectCountry';
 import EventScreen from '../screens/homescreen/EventScreen';
@@ -349,9 +348,9 @@ function AllHome() {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Advertisement">
+      initialRouteName="Dashboard">
       <Stack.Screen
-        name="Home"
+        name="Dashboard"
         component={Home}
         options={{animation: 'fade_from_bottom'}}
       />
@@ -400,11 +399,7 @@ function AllHome() {
         component={ImageModal}
         options={{animation: 'fade_from_bottom'}}
       />
-      <Stack.Screen
-        name="Advertisement"
-        component={Advertisement}
-        options={{animation: 'fade_from_bottom'}}
-      />
+
       <Stack.Screen
         name="ViewBanner"
         component={ViewBanner}
@@ -537,11 +532,7 @@ function AllSettings() {
         component={Faq}
         options={{animation: 'fade_from_bottom'}}
       />
-      {/* <Stack.Screen
-        name="Advertisement"
-        component={Advertisement}
-        options={{animation: 'fade_from_bottom'}}
-      /> */}
+
       <Stack.Screen
         name="Login"
         component={Login}

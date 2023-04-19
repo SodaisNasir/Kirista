@@ -123,7 +123,7 @@ const PopularBooks = (props) => {
                     <Text style={[{color: Theme? Color.White : Color.DarkTextColor},styles.TitleStyle]}>{item.title}</Text>
                     <Text
                       style={[
-                        {lineHeight: verticalScale(15)},
+                        {lineHeight: scale(15)},
                         styles.TitleStyle,
                       ]}>
                       {item.manual}

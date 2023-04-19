@@ -19,10 +19,17 @@ import {Font} from '../../utils/font'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import {useFocusEffect} from '@react-navigation/native'
+import AdvertisementModal from '../../components/Modals/AdvertisementModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { HIDE_ADVERTISEMENT } from '../../redux/reducer'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 const Home = ({navigation}) => {
+
+  const show = useSelector(state => state.showAdvertisement);
+  const Dispatch = useDispatch() 
+  console.log(show);
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useCallback(() => {
@@ -35,6 +42,7 @@ const Home = ({navigation}) => {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           paddingLeft:  w >= 768 && h >= 1024 ? scale(20) : 0,
         },
+       
       })
     }),
   )
@@ -821,6 +829,13 @@ const Home = ({navigation}) => {
             height: verticalScale(85),
           }}
         />
+         <AdvertisementModal
+          isVisible={show}
+          onBackdropPress={() => Dispatch({type:HIDE_ADVERTISEMENT,payload:false})}
+          swipeDirection="down"
+          onSwipeComplete={() => Dispatch({type:HIDE_ADVERTISEMENT,payload:false})}
+          Skip = {() => Dispatch({type:HIDE_ADVERTISEMENT,payload:false})}
+        />
       </ScrollView>
     </SafeAreaView>
   )
@@ -926,7 +941,7 @@ const styles = StyleSheet.create({
   },
   ParishTitleStyle: {
     // color: Color.DarkTextColor,
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
     fontFamily: Font.Poppins700,
   },
 })

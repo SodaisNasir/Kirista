@@ -5,6 +5,7 @@ import {
   View,
   useWindowDimensions,
   useColorScheme,
+  ScrollView,
   
 } from 'react-native';
 import React,{useState} from 'react';
@@ -19,6 +20,7 @@ import Password from '../../components/Password';
 import * as Animatable from 'react-native-animatable';
 import {useDispatch} from 'react-redux'
 import { LOGIN } from '../../redux/reducer';
+
 const fadeIn = {
   from: {
     opacity: 0,
@@ -44,6 +46,8 @@ const zoomIn = {
 };
 
 const Login = ({navigation}) => {
+
+
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const tabPotrait = w >= 768 && h >= 1024;
@@ -62,6 +66,8 @@ const Login = ({navigation}) => {
         paddingHorizontal:
           w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
       }}>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
       <View
         style={{
           marginTop: '10%',
@@ -128,7 +134,8 @@ const Login = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(22) : verticalScale(30),
         }}>
         <CustomButton
-          onPress={() => email != null ?  Dispatch({type : LOGIN, payload : email}) : alert("Complete the form")}
+        
+          onPress={() => [email != null ?  Dispatch({type : LOGIN, payload : email}) : alert("Complete the form")]}
           text={'Sign in'}
         />
       </Animatable.View>
@@ -179,6 +186,11 @@ const Login = ({navigation}) => {
           </Text>
         </View>
       </Animatable.View>
+
+     
+      </ScrollView>
+
+    
     </SafeAreaView>
   );
 };
