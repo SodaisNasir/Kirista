@@ -5,17 +5,18 @@ import {
   View,
   SafeAreaView,
   useColorScheme,
-  Dimensions,
+  useWindowDimensions,
   Image,
 } from 'react-native'
 import {Color} from '../../utils/Colors'
 import {Font} from '../../assets/fonts/PoppinsFont'
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+
 
 const LightSplash = ({navigation}) => {
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark'
 
   setTimeout(() => {

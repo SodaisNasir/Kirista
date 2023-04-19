@@ -222,12 +222,14 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins600,
 
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+    left : w >= 768 && h >= 1024 ? scale(5) : scale(0)
   },
   TitleStyle: {
     // color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins700,
     // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
+    left : w >= 768 && h >= 1024 ? scale(5) : scale(0)
 
     // paddingHorizontal: verticalScale(50),
   },

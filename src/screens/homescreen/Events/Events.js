@@ -36,11 +36,12 @@ import { useNavigation ,useFocusEffect} from '@react-navigation/native';
             height: verticalScale(80),
             justifyContent: 'space-around',
             backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            paddingLeft:  w >= 768 && h >= 1024 ? scale(20) : 0,
           },
+        
         })
       }),
     )
-    
     const Theme = useColorScheme() === 'dark';
    
     const data = [

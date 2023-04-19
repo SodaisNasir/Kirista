@@ -54,7 +54,7 @@ const NewPassword = ({navigation}) => {
         styles.Container,
       ]}>
       <AuthHeader text={'New Password'} />
-
+      <ScrollView showsVerticalScrollIndicator={false}>
       <Animatable.View
         iterationDelay={700}
         duration={300}
@@ -107,6 +107,7 @@ const NewPassword = ({navigation}) => {
           text={'Finish'}
         />
       </Animatable.View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
