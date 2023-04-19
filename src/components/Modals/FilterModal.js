@@ -105,8 +105,8 @@ const FilterModal = (props) => {
                         }}>
                         <View
                           style={{
-                            height: scale(20),
-                            width: scale(20),
+                            height:width >= 768 && height >= 1024 ? verticalScale(15) : verticalScale(20),
+                            width:width >= 768 && height >= 1024 ? verticalScale(15) : verticalScale(20),
                             backgroundColor: Color.White,
                             borderRadius: scale(50),
                             borderColor: Color.Black,
@@ -123,8 +123,8 @@ const FilterModal = (props) => {
                               }}>
                               <View
                                 style={{
-                                  height: scale(10),
-                                  width: scale(10),
+                                  height:width >= 768 && height >= 1024 ? verticalScale(7) : verticalScale(10),
+                                  width:width >= 768 && height >= 1024 ? verticalScale(7) : verticalScale(10),
                                   backgroundColor: Color.Black,
                                   borderRadius: scale(50),
                                 }}

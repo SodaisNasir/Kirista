@@ -16,7 +16,7 @@ import SignUp from '../screens/auth/SignUp';
 import {NavigationContainer} from '@react-navigation/native';
 import Privacy from '../screens/more/Privacy';
 import {Color} from '../utils/Colors';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../utils/font';
 import LibraryHomeTwo from '../screens/library/LibraryHomeTwo';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -63,9 +63,18 @@ import Login from '../screens/auth/Login';
 
 const Tab = createBottomTabNavigator();
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+
 const BottomTabNavigator = () => {
+
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const tabPotrait = w >= 768 && h >= 1024;
+  const standardLandscape = w >= 684 && h >= 360;
+  const tabLandscape = w >= 1024 && h >= 768;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const fourInchLandscape = w <= 600 && h <= 350;
+
+
   const {width, height} = useWindowDimensions();
   const Theme = useColorScheme() === 'dark';
   return (
@@ -81,17 +90,18 @@ const BottomTabNavigator = () => {
             bottom: 0,
             height: verticalScale(80),
             justifyContent: 'space-around',
-            // paddingLeft:50,
+            // left:50,
+            paddingLeft:  tabPotrait ? moderateScale(30) : fourInchLandscape ? moderateScale(20): 0,
             backgroundColor: Theme ? Color.DarkTheme : Color.White,
             borderColor: Theme ? Color.DarkTheme : Color.White,
          
           },
           tabBarLabelStyle: {
             fontFamily: Font.Poppins600,
-            fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+            fontSize: tabPotrait ? scale(6) : scale(11),
             marginBottom:
-              w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-            right :  w >= 768 && h >= 1024 ? scale(18) : scale(0),
+              tabPotrait ? verticalScale(-15) : verticalScale(15),
+            right :  tabPotrait ?  scale(18) : scale(0),
         
           },
         }}>
@@ -101,10 +111,10 @@ const BottomTabNavigator = () => {
           options={{
             tabBarLabelStyle: {
               fontFamily: Font.Poppins600,
-              fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+              fontSize: tabPotrait ? scale(7) : scale(11),
               marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-              right :  w >= 768 && h >= 1024 ? scale(19) : scale(0)
+                tabPotrait ? verticalScale(-15)  :verticalScale(15),
+              right :  tabPotrait ? scale(19) : scale(0)
           
             },
             tabBarIcon: ({focused}) =>
@@ -112,7 +122,7 @@ const BottomTabNavigator = () => {
                 <HomeSvgActive
                   style={{
                     marginTop:
-                      w >= 768 && h >= 1024 ? verticalScale(-30) : verticalScale(15),
+                      tabPotrait ? verticalScale(-30)  : verticalScale(15),
                   }}
                   width={
                     width >= 768 && height >= 1024
@@ -129,7 +139,7 @@ const BottomTabNavigator = () => {
                   }
                   height={
                     width >= 768 && height >= 1024
-                      ? 40
+                      ? 30
                       : width <= 350 && height <= 600
                       ? 18
                       : width >= 900 && height >= 600
@@ -144,7 +154,7 @@ const BottomTabNavigator = () => {
               ) : (
                 <HomeSvg
                   style={{marginTop:
-                    w >= 768 && h >= 1024 ? verticalScale(-30) : verticalScale(15),}}
+                    tabPotrait ? verticalScale(-30) : verticalScale(15),}}
                   width={
                     width >= 768 && height >= 1024
                       ? 40
@@ -160,7 +170,7 @@ const BottomTabNavigator = () => {
                   }
                   height={
                     width >= 768 && height >= 1024
-                      ? 40
+                      ? 30
                       : width <= 350 && height <= 600
                       ? 18
                       : width >= 900 && height >= 600
@@ -182,17 +192,17 @@ const BottomTabNavigator = () => {
 
             tabBarLabelStyle: {
               fontFamily: Font.Poppins600,
-              fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+              fontSize: tabPotrait ? scale(7) : scale(11),
               marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-              right :  w >= 768 && h >= 1024 ? scale(19) : scale(0),
+                tabPotrait ? verticalScale(-15) : verticalScale(15),
+              right :  tabPotrait ? scale(19) : scale(0),
         
             },
             tabBarIcon: ({focused}) =>
               focused ? (
                 <LibrarySvgActive
                   style={{marginTop:
-                    w >= 768 && h >= 1024 ? verticalScale(-30) : verticalScale(15)}}
+                    tabPotrait ? verticalScale(-30) : verticalScale(15)}}
                   width={
                     width >= 768 && height >= 1024
                       ? 40
@@ -208,7 +218,7 @@ const BottomTabNavigator = () => {
                   }
                   height={
                     width >= 768 && height >= 1024
-                      ? 40
+                      ? 30
                       : width <= 350 && height <= 600
                       ? 18
                       : width >= 900 && height >= 600
@@ -223,7 +233,7 @@ const BottomTabNavigator = () => {
               ) : (
                 <LibrarySvg
                   style={{marginTop:
-                    w >= 768 && h >= 1024 ? verticalScale(-30) : verticalScale(15)}}
+                    tabPotrait ? verticalScale(-30) : verticalScale(15)}}
                   width={
                     width >= 768 && height >= 1024
                       ? 40
@@ -239,7 +249,7 @@ const BottomTabNavigator = () => {
                   }
                   height={
                     width >= 768 && height >= 1024
-                      ? 40
+                      ? 30
                       : width <= 350 && height <= 600
                       ? 18
                       : width >= 900 && height >= 600
@@ -261,11 +271,11 @@ const BottomTabNavigator = () => {
           options={{
             tabBarLabelStyle: {
               fontFamily: Font.Poppins600,
-              fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+              fontSize: tabPotrait ? scale(7) : scale(11),
               marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-              right :  w >= 768 && h >= 1024 ? scale(16.5) : scale(0),
-              bottom :  w >= 768 && h >= 1024 ? scale(0) : scale(0),
+                tabPotrait ? verticalScale(-15) : verticalScale(15),
+              right :  tabPotrait ? scale(16.5) : scale(0),
+              bottom :  tabPotrait ? scale(0) : scale(0),
           
             },
 
@@ -274,7 +284,7 @@ const BottomTabNavigator = () => {
               focused ? (
                 <MoreSvgActive
                   style={{marginTop:
-                    w >= 768 && h >= 1024 ? verticalScale(-30) : verticalScale(15)}}
+                    tabPotrait ? verticalScale(-30) : verticalScale(15)}}
                   width={
                     width >= 768 && height >= 1024
                       ? 38
@@ -290,7 +300,7 @@ const BottomTabNavigator = () => {
                   }
                   height={
                     width >= 768 && height >= 1024
-                      ? 38
+                      ? 28
                       : width <= 350 && height <= 600
                       ? 18
                       : width >= 900 && height >= 600
@@ -305,7 +315,7 @@ const BottomTabNavigator = () => {
               ) : (
                 <MoreSvg
                   style={{marginTop:
-                    w >= 768 && h >= 1024 ? verticalScale(-30) : verticalScale(15)}}
+                    tabPotrait ? verticalScale(-30) : verticalScale(15)}}
                   width={
                     width >= 768 && height >= 1024
                       ? 38
@@ -321,7 +331,7 @@ const BottomTabNavigator = () => {
                   }
                   height={
                     width >= 768 && height >= 1024
-                      ? 38
+                      ? 28
                       : width <= 350 && height <= 600
                       ? 18
                       : width >= 900 && height >= 600

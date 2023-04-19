@@ -250,7 +250,7 @@ const SelectCountry = ({navigation}) => {
                 ]}>
                 <View
                   style={{
-                    marginVertical: verticalScale(10),
+                    marginTop: verticalScale(10),
                     borderBottomColor: Theme
                       ? Color.DarkBorderColor
                       : Color.BorderColor,
@@ -260,7 +260,7 @@ const SelectCountry = ({navigation}) => {
                     // backgroundColor:'red',
                     height:
                       w >= 768 && h >= 1024
-                        ? verticalScale(30)
+                        ? verticalScale(25)
                         : verticalScale(40),
                   }}>
                   <Text

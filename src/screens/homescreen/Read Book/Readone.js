@@ -59,20 +59,20 @@ useLayoutEffect(() => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
             }}>
-            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
+            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
               papyrus, parchment, vellum, or paper) bound together and protected
               by a cover.
             </Text>
-            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
+            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
               The technical term for this physical arrangement is codex (plural,
               codices). In the history of hand-held physical supports for
               extended written compositions or records, the codex replaces its
               predecessor, the scroll. A single sheet in a codex is a leaf and
               each side of a leaf is a page.
             </Text>
-            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
+            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
               As an intellectual object, a book is prototypically a composition
               of such great length that it takes a considerable investment of
               time to compose and still considered as an investment of time to
@@ -84,7 +84,7 @@ useLayoutEffect(() => {
               sense, a book is the compositional whole of which such sections,
               whether called books or chapters or parts, are parts.
             </Text>
-            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.TextStyle]}>
+            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
               papyrus, parchment, vellum, or paper) bound together and protected

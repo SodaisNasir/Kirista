@@ -22,7 +22,7 @@ import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
-import { TabActions } from '@react-navigation/native';
+import {TabActions} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 
 const OverBoard = ({navigation}) => {
@@ -34,17 +34,14 @@ const OverBoard = ({navigation}) => {
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 350 && height <= 600;
 
-
-
-  
-const fadeIn = {
-  from: {
-    opacity: 0,
-  },
-  to: {
-    opacity: 1,
-  },
-};
+  const fadeIn = {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
   const zoomIn = {
     0: {
       opacity: 0,
@@ -59,8 +56,8 @@ const fadeIn = {
       scale: 1,
     },
   };
-  
-  console.log(width,height);
+
+  console.log(width, height);
   const Theme = useColorScheme() === 'dark';
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -74,18 +71,21 @@ const fadeIn = {
       style={{
         flex: 1,
       }}>
-      <ImageBackground
-        source={
-          Theme
-            ? require('../../assets/images/overboard_dark.png')
-            : require('../../assets/images/overboard.png')
-        }
-        // resizeMode="stretch"
-        style={styles.ImageBackground}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+     
+        <ImageBackground
+          source={
+            Theme
+              ? require('../../assets/images/overboard_dark.png')
+              : width >= 768 && height >= 1024
+              ? require('../../assets/images/Overboard_tab.png')
+              : require('../../assets/images/overboard.png')
+          }
+          resizeMode="stretch"
+          style={styles.ImageBackground}>
+             <ScrollView>
           <View
             style={{
-              width: tabPotrait ? '85%'  : '90%',
+              width: tabPotrait ? '85%' : '90%',
               alignSelf: 'center',
               justifyContent: 'center',
             }}>
@@ -100,11 +100,16 @@ const fadeIn = {
                 // paddingHorizontal: verticalScale(15),
               }}>
               <TouchableOpacity
-
-              onPress={()=>{navigation.navigate('Language')}}
+                onPress={() => {
+                  navigation.navigate('Language');
+                }}
                 style={{
                   width: tabPotrait ? scale(36) : scale(55),
-                  height: tabPotrait ? verticalScale(25) :fourInchPotrait? verticalScale(35) : verticalScale(42),
+                  height: tabPotrait
+                    ? verticalScale(25)
+                    : fourInchPotrait
+                    ? verticalScale(35)
+                    : verticalScale(42),
                   backgroundColor: 'rgba(56, 125, 229, 1)',
                   borderRadius: tabPotrait ? scale(11) : scale(16),
                   alignItems: 'center',
@@ -151,24 +156,27 @@ const fadeIn = {
 
             <View
               style={{
-                marginTop: tabPotrait? '10%' : fourInchPotrait? '10%' : '13%',
-            
+                marginTop: tabPotrait ? '9%' : fourInchPotrait ? '10%' : '13%',
               }}>
               <Kiristalogo />
             </View>
 
             <Animatable.View
-             iterationDelay={1000}
-             duration={300}
-             animation={zoomIn}
+              iterationDelay={1000}
+              duration={300}
+              animation={zoomIn}
               style={{
                 alignItems: 'center',
                 justifyContent: 'space-evenly',
                 flexDirection: 'row',
-                marginTop: tabPotrait ? '10%' : standardLandscape ? '10%' : '18%',
+                marginTop: tabPotrait
+                  ? '10%'
+                  : standardLandscape
+                  ? '10%'
+                  : '18%',
 
                 alignSelf: 'center',
-                width: tabPotrait ? '78%' : standardLandscape? '100%' : '90%',
+                width: tabPotrait ? '78%' : standardLandscape ? '100%' : '90%',
               }}>
               <View
                 style={{
@@ -219,9 +227,9 @@ const fadeIn = {
             </Animatable.View>
 
             <Animatable.View
-             iterationDelay={1300}
-             duration={300}
-             animation={zoomIn}
+              iterationDelay={1300}
+              duration={300}
+              animation={zoomIn}
               style={{
                 // backgroundColor: 'purple',
                 flexDirection: 'row',
@@ -244,9 +252,9 @@ const fadeIn = {
                 // paddingHorizontal:1
               }}>
               <Animatable.Text
-              iterationDelay={1600}
-              duration={300}
-              animation={zoomIn}
+                iterationDelay={1600}
+                duration={300}
+                animation={zoomIn}
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: tabPotrait ? scale(15) : scale(20),
@@ -256,22 +264,20 @@ const fadeIn = {
               </Animatable.Text>
             </View>
             <Animatable.View
-             iterationDelay={1900}
-             duration={300}
-             animation={zoomIn}
+              iterationDelay={1900}
+              duration={300}
+              animation={zoomIn}
               style={{
                 height: tabPotrait ? verticalScale(100) : verticalScale(140),
                 marginTop: tabPotrait ? verticalScale(0) : verticalScale(15),
                 justifyContent: 'space-between',
               }}>
-              <View 
-              
-              style={{marginTop: verticalScale(10)}}>
+              <View style={{marginTop: verticalScale(10)}}>
                 <CustomButton
                   text={'Create an account'}
                   onPress={() => navigation.navigate('SignUp')}
                 />
-              </View >
+              </View>
 
               <View
                 style={{
@@ -288,9 +294,9 @@ const fadeIn = {
             </Animatable.View>
 
             <Animatable.View
-             iterationDelay={2300}
-             duration={300}
-             animation={zoomIn}
+              iterationDelay={2300}
+              duration={300}
+              animation={zoomIn}
               style={[
                 styles.dialouge,
                 {
@@ -338,8 +344,9 @@ const fadeIn = {
               </Text>
             </Animatable.View>
           </View>
-        </ScrollView>
-      </ImageBackground>
+          </ScrollView>
+        </ImageBackground>
+      
     </SafeAreaView>
   );
 };

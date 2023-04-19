@@ -25,7 +25,7 @@ const Password = props => {
           {
             fontFamily: Font.Poppins500,
             color: Theme?  Color.DarkThemText2 : Color.BoldTextColor,
-            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+            fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14)
           },
         ]}>
         {props.text}
@@ -36,7 +36,7 @@ const Password = props => {
           backgroundColor: Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
           borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
           // marginHorizontal: '5%',
-          paddingHorizontal: verticalScale(20),
+          paddingHorizontal: verticalScale(10),
           flexDirection: 'row',
           justifyContent:'space-between'
         }}>
@@ -45,11 +45,12 @@ const Password = props => {
           placeholderTextColor={Color.BoldTextColor}
           secureTextEntry={isVisible}
           style={{
-            fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+            fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14),
             fontFamily: Font.Poppins400,
-            top : fourInchPotrait? scale(2) : 0,
+            top : fourInchPotrait? scale(2) : fourInchLandscape? scale(3) :  0,
             width: '80%',
             color: Theme?  Color.White : Color.TextColor,
+
           }}
         />
 

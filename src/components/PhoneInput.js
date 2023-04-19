@@ -16,7 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 
 const PhoneInput = props => {
-  navigation = useNavigation();
+  const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -24,14 +24,14 @@ const PhoneInput = props => {
   const standardLandscape = w >= 684 && h >= 360;
   const tabLandscape = w >= 768 && h >= 1024;
   const fourInchPotrait = w <= 350 && h <= 600;
-  const fourInchLandscape = w <= 350 && h <= 600;
+  const fourInchLandscape = w <= 600 && h <= 350;
   return (
     <View>
       <Text
         style={{
           fontFamily: Font.Poppins500,
           color: Theme?  Color.DarkThemText2 : Color.BoldTextColor,
-          fontSize: tabPotrait ? scale(9) : scale(14),
+          fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14)
         }}>
         {props.text}
       </Text>
@@ -46,7 +46,7 @@ const PhoneInput = props => {
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
           borderRadius: tabPotrait ? scale(12) : scale(12),
-          paddingHorizontal: verticalScale(20),
+          paddingHorizontal: verticalScale(10),
           marginTop: verticalScale(2),
           flexDirection: 'row',
         }}>
@@ -76,7 +76,7 @@ const PhoneInput = props => {
               style={{
                 color: Theme?  Color.White : Color.TextColor,
                 fontFamily: Font.Poppins400,
-                fontSize: tabPotrait ? scale(9) : scale(14),
+                fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14)
               }}>
               {' '}
               +234
@@ -96,11 +96,11 @@ const PhoneInput = props => {
           // placeholderTextColor={Theme? Color.DarkThemeGreyText : Color.TextColor}
           placeholderTextColor={Color.BoldTextColor}
           style={{
-            fontSize: tabPotrait ? scale(9) : scale(14),
+            fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14),
             fontFamily: Font.Poppins400,
             paddingLeft: moderateScale(5),
             color: Theme ? Color.DarkThemeInputText : Color.TextColor,
-            top: fourInchPotrait ? scale(1) : 0,
+            top : fourInchPotrait? scale(2) : fourInchLandscape? scale(2) :  0,
             flex: 1,
           }}
         />

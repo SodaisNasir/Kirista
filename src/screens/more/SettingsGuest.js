@@ -296,7 +296,7 @@ const SettingsGuest = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View style={[styles.MainView]}>
@@ -414,7 +414,7 @@ const SettingsGuest = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -533,7 +533,7 @@ const SettingsGuest = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
       
@@ -638,8 +638,8 @@ const styles = StyleSheet.create({
   },
   VersionText: {
     fontFamily: Font.Poppins500,
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
-    color: Color.TextColor2,
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+    color:'#D1D2D4',
     paddingHorizontal: moderateScale(15),
   },
   LogoutTextStyle: {

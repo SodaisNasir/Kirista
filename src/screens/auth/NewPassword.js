@@ -53,6 +53,7 @@ const NewPassword = ({navigation}) => {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
+        <ScrollView showsVerticalScrollIndicator={false}>
       <AuthHeader text={'New Password'} />
 
       <Animatable.View
@@ -107,6 +108,7 @@ const NewPassword = ({navigation}) => {
           text={'Finish'}
         />
       </Animatable.View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

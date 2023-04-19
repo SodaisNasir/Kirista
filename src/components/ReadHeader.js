@@ -33,7 +33,7 @@ const ReadHeader = props => {
   return (
     <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor},
         styles.AuthHeaderStyle,
       ]}>
       <View
@@ -53,7 +53,7 @@ const ReadHeader = props => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.Black},
+                {color: Theme ? Color.White : '#797B7F'},
                 styles.WelcomeText,
               ]}>
               {props.text}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   WelcomeText: {
-    fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(14),
-    fontFamily: Font.Poppins500,
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+    fontFamily: Font.Poppins400,
   },
 });

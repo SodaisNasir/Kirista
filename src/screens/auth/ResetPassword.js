@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   useColorScheme,
+  ScrollView,
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -51,6 +52,7 @@ const ResetPassword = ({navigation}) => {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
+        <ScrollView showsVerticalScrollIndicator={false}>
       <AuthHeader text={'Reset Password'} />
 
       <Animatable.View
@@ -95,6 +97,7 @@ const ResetPassword = ({navigation}) => {
           text={'Next'}
         />
       </Animatable.View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -7,6 +7,7 @@ import {
   useColorScheme,
   Dimensions,
   Image,
+  ScrollView,
 } from 'react-native'
 import {Color} from '../../utils/Colors'
 import {Font} from '../../assets/fonts/PoppinsFont'
@@ -28,6 +29,7 @@ const LightSplash = ({navigation}) => {
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
       <View
         style={{
           height: '40%',
@@ -106,6 +108,7 @@ const LightSplash = ({navigation}) => {
           )}
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }

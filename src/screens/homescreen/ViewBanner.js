@@ -50,7 +50,7 @@ const ViewBanner = () => {
             </TouchableOpacity>
           </View>
 
-          <View style={{marginBottom: verticalScale(15)}}>
+          <View style={{marginVertical: verticalScale(15)}}>
             <Text style={[{color: Theme ? Color.White : Color.DarkTextColor,},styles.BoldText]}>
               Abuja Special Holy Ghost Congress
             </Text>

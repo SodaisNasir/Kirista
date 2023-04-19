@@ -34,7 +34,7 @@ const CustomHeader = props => {
       style={[
         styles.AuthHeaderStyle,
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor,
         },
       ]}>
       <View
@@ -119,8 +119,8 @@ const CustomHeader = props => {
                 <ShareDark
                   height={
                     w >= 768 && h >= 1024
-                      ? verticalScale(14)
-                      : verticalScale(22)
+                      ? verticalScale(15)
+                      : verticalScale(23)
                   }
                   width={scale(24)}
                 />
@@ -128,8 +128,8 @@ const CustomHeader = props => {
                 <Share
                   height={
                     w >= 768 && h >= 1024
-                      ? verticalScale(14)
-                      : verticalScale(22)
+                      ? verticalScale(15)
+                      : verticalScale(23)
                   }
                   width={scale(24)}
                 />

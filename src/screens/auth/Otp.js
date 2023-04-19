@@ -76,6 +76,7 @@ const zoomIn = {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
+        <ScrollView>
       <AuthHeader text={'Email Verification'} />
 
       <Animatable.View
@@ -202,6 +203,7 @@ const zoomIn = {
           text={'Continue'}
         />
       </Animatable.View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

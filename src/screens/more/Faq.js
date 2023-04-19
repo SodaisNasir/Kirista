@@ -100,7 +100,7 @@ const Faq = ({navigation}) => {
                     : Color.HeaderColor,
                     borderRadius: scale(16),
                   paddingHorizontal: 5,
-                  top: 3,
+                  marginTop: verticalScale(10),
                 }}>
                 <Text
                   style={[
@@ -155,7 +155,7 @@ const Faq = ({navigation}) => {
                     : Color.HeaderColor,
                    borderRadius: scale(16),
                   paddingHorizontal: 5,
-                  top: 3,
+                  marginTop: verticalScale(10),
                 }}>
                 <Text
                   style={[
@@ -210,7 +210,7 @@ const Faq = ({navigation}) => {
                     : Color.HeaderColor,
                    borderRadius: scale(16),
                   paddingHorizontal: 5,
-                  top: 3,
+                  marginTop: verticalScale(10),
                 }}>
                 <Text
                   style={[
@@ -266,7 +266,7 @@ const Faq = ({navigation}) => {
                     : Color.HeaderColor,
                    borderRadius: scale(16),
                   paddingHorizontal: 5,
-                  top: 3,
+                  marginTop: verticalScale(10),
                 }}>
                 <Text
                   style={[
@@ -321,7 +321,7 @@ const Faq = ({navigation}) => {
                     : Color.HeaderColor,
                    borderRadius: scale(16),
                   paddingHorizontal: 5,
-                  top: 3,
+                  marginTop: verticalScale(10),
                 }}>
                 <Text
                   style={[

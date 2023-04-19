@@ -8,7 +8,7 @@ import {
   useColorScheme
 } from 'react-native';
 import React, {useState} from 'react';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../assets/fonts/PoppinsFont';
 import {Color} from '../utils/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,7 +22,7 @@ const CustomInput = props => {
   const standardLandscape = width >= 684 && height >= 360;
   const tabLandscape = width >= 768 && height >= 1024;
   const fourInchPotrait = width <= 350 && height <= 600;
-  const fourInchLandscape = width <= 350 && height <= 600;
+  const fourInchLandscape = width <= 600 && height <= 350;
 
   return (
     <View style={props.restyleBox}>
@@ -30,7 +30,7 @@ const CustomInput = props => {
         style={{
           fontFamily: Font.Poppins500,
           color: Theme?  Color.DarkThemText2 : Color.BoldTextColor,
-          fontSize: tabPotrait ? scale(9) : scale(14),
+          fontSize: tabPotrait ? verticalScale(11) : fourInchLandscape? scale(12) :  scale(14),
         }}>
         {props.text}
       </Text>
@@ -39,7 +39,7 @@ const CustomInput = props => {
         [ { height: tabPotrait ? verticalScale(35) : fourInchPotrait ? verticalScale(52) : verticalScale(45),
           backgroundColor: Theme?  Color.DarkThemeInputBox : Color.InputBoxColor,
           borderRadius: tabPotrait ? scale(12) : scale(18),
-          paddingHorizontal: verticalScale(20),
+          paddingHorizontal: verticalScale(10),
         
           marginTop: verticalScale(2)},props.RestyleHeight]
         }>
@@ -48,8 +48,8 @@ const CustomInput = props => {
           placeholderTextColor={Color.BoldTextColor}
           onChangeText={props.onChangeText}
           style={
-           [props.TextRestyle,{ fontSize: tabPotrait ? scale(9):  scale(14),
-            top : fourInchPotrait? scale(2) : 0,
+           [props.TextRestyle,{ fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14),
+            top : fourInchPotrait? scale(2) : fourInchLandscape? scale(2) :  0,
             fontFamily: Font.Poppins400,
             alignItems: 'center',
             justifyContent:'center',

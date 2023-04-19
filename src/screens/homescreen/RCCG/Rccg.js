@@ -353,8 +353,8 @@ useLayoutEffect(() => {
 
             <View
             style={{
-              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
-              borderWidth: 1,
+              borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
+              borderWidth: 0.5,
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
             }}
@@ -386,8 +386,8 @@ useLayoutEffect(() => {
 
           <View
             style={{
-              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
-              borderWidth: 1,
+              borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
+              borderWidth: 0.5,
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
             }}

@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
   TextStyle: {
     color: Color.DarkTextColor,
     fontFamily: Font.Libre400,
-    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
   },
 })
