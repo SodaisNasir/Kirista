@@ -19,6 +19,8 @@ import {Font} from '../../utils/font'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import {useFocusEffect} from '@react-navigation/native'
+import DetailsCard from '../../components/Card/DetailsCard'
+
 // import AdvertisementModal from '../../components/Modals/AdvertisementModal'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { HIDE_ADVERTISEMENT } from '../../redux/reducer'
@@ -253,29 +255,15 @@ const Home = ({navigation}) => {
                     height:
                       w >= 768 && h >= 1024
                         ? item.type === 'small'
-                          ? verticalScale(100)
-                          : verticalScale(110)
+                          ? verticalScale(95)
+                          : verticalScale(100)
                         : item.type === 'small'
                         ? verticalScale(130)
                         : verticalScale(135),
 
-                    width: w >= 768 && h >= 1024 ? scale(180) : scale(270),
+                    width: w >= 768 && h >= 1024 ? scale(160) : scale(270),
                     // marginVertical: verticalScale(10),
                     marginRight: verticalScale(12),
-                    paddingBottom:moderateScale(12),
-                    
-
-                    top:
-                    w >= 768 && h >= 1024
-                      ? item.type === 'small'
-                        ? scale(4)
-                        : 0
-
-                      : item.type === 'small'
-                      ? scale(4)
-                      : scale(0)
-                      
-
                   }}>
                   <Image
                     resizeMode="stretch"
@@ -760,113 +748,57 @@ const Home = ({navigation}) => {
               </View>
             </TouchableOpacity>
           </View>
-          <FlatList
-
-            ItemSeparatorComponent={() => <View style={{height: -40}} />}
-            data={event_data}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Events')}
-                  style={{
-                    height:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(90)
-                        : verticalScale(93),
-                        backgroundColor:'red',
-           
-                    // paddingRight:moderateScale(40),
-                    flexDirection: 'row',
-                    overflow: 'hidden',
-                  }}>
-                  <View
-                    style={{
-                      flex: w >= 768 && h >= 1024 ? 1 : 1.1,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor:'yellow'
-                     
-                      // height:1
-                    }}>
-                    <View
-                      style={{
-                        height: w >= 768 && h >= 1024 ? '65%' : '100%',
-                        width: '92%',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{
-                          height: '100%',
-                          width: '100%',
-                        }}
-                        source={item.image}
-                      />
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      flex: w >= 768 && h >= 1024 ? 3 : 2.1,
-                      paddingHorizontal:
-                        w >= 768 && h >= 1024
-                          ? verticalScale(0)
-                          : verticalScale(15),
-                      marginVertical:  w >= 768 && h >= 1024
-                      ? verticalScale(25)
-                      : verticalScale(13),
-                    
-                    }}>
-                    <View
-                      style={{
-                        justifyContent: 'center',
-                      }}>
-                      <Text
-                        style={[
-                          {color: Theme ? Color.White : Color.DarkTextColor},
-                          styles.EventTtitleStyle,
-                        ]}>
-                        {item.title}
-                      </Text>
-                      <Text
-                        style={[
-                          {bottom: scale(3)},
-                          {color: Theme ? Color.White : Color.DarkTextColor},
-                          styles.EventTtitleStyle,
-                        ]}>
-                        {item.manual}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        // height:
-                        //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
-                        justifyContent: 'space-around',
-                        right: scale(2),
-                        //   flexDirection:'row',
-                        bottom:scale(5)
-                      }}>
-                      <Text style={[styles.DateStyle]}>
-                        {' '}
-                        {item.date}
-                        {'   '}
-                        <Text
-                          style={{
-                            color: Color.BoldTextColor,
-                            fontFamily: Font.Poppins700,
-
-                            fontSize:
-                              w >= 768 && h >= 1024 ? scale(10) : scale(14),
-                          }}>
-                          .
-                        </Text>
-                        {'   '}
-                        {item.time}{' '}
-                      </Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              )
-            }}
-          />
+        <View>
+        <DetailsCard
+        source={require('../../assets/images/event_1.png')}
+        title="RCCBA"
+        manual="CENTERAL PERTIAN"
+        resize = {'cover'}
+        PlaceTrue={true}
+        Place="Abuja"
+        MainBoxRestyle={{
+          // paddingBottom: verticalScale(10),
+          marginTop: verticalScale(10),
+          // backgroundColor:'red'
+        }}
+      />
+      <DetailsCard
+        source={require('../../assets/images/event_2.png')}
+        title="RCCBA"
+        resize = {'cover'}
+        manual="CENTERAL PERTIAN"
+        PlaceTrue={true}
+        Place="Abuja"
+        MainBoxRestyle={{
+          paddingBottom: 0,
+          marginTop: verticalScale(10),
+        }}
+      />
+      <DetailsCard
+        source={require('../../assets/images/event_3.png')}
+        title="RCCBA"
+        resize = {'cover'}
+        manual="CENTERAL PERTIAN"
+        PlaceTrue={true}
+        Place="Abuja"
+        MainBoxRestyle={{
+          paddingBottom: 0,
+          marginTop: verticalScale(10),
+        }}
+      />
+      <DetailsCard
+        source={require('../../assets/images/manual.png')}
+        title="RCCBA"
+        manual="CENTERAL PERTIAN"
+        PlaceTrue={true}
+        Place="Abuja"
+        resize = {'contain'}
+        MainBoxRestyle={{
+          paddingBottom: 0,
+          marginTop: verticalScale(10),
+        }}
+      />
+        </View>
         </View>
 
         <View

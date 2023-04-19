@@ -17,11 +17,11 @@ import {
 import {Color} from '../../utils/Colors'
 import {Font} from '../../utils/font'
 
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 const DetailsCard = (props, {data}) => {
   const Theme = useColorScheme() === 'dark'
 
-  const w = Dimensions.get('window').width
-  const h = Dimensions.get('window').height
 
   const navigation = useNavigation()
   return (
@@ -31,11 +31,11 @@ const DetailsCard = (props, {data}) => {
         props.MainBoxRestyle,
         {
           flexDirection: 'row',
-          marginHorizontal: verticalScale(20),
-          marginTop: verticalScale(15),
-          borderBottomWidth: 2,
-          paddingBottom: verticalScale(15),
-          borderBottomColor: '#fff',
+          // marginHorizontal: verticalScale(20),
+          // marginTop: verticalScale(15),
+          // paddingBottom: verticalScale(15),
+          
+
         },
       ]}>
       {/* <View
@@ -46,13 +46,13 @@ const DetailsCard = (props, {data}) => {
         }}> */}
       <View
         style={{
-          height: w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(80),
-          width: scale(100),
+          height: w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(85),
+          width: w >= 768 && h >= 1024 ? scale(60) :  scale(90),
           borderRadius: scale(10),
           //
         }}>
         <Image
-          resizeMode="cover"
+          resizeMode= {props.resize}
           style={{
             height: '100%',
             width: '100%',
@@ -67,7 +67,7 @@ const DetailsCard = (props, {data}) => {
         style={{
           flex: w >= 768 && h >= 1024 ? 3 : 2.1,
           paddingHorizontal:
-            w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(15),
+            w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
           //   marginVertical: verticalScale(25),
         }}>
         <View
@@ -106,7 +106,7 @@ const DetailsCard = (props, {data}) => {
                   color: Color.BoldTextColor,
                   fontFamily: Font.Poppins700,
 
-                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                  fontSize: w >= 768 && h >= 1024 ? scale(100) : scale(14),
                 }}>
                 .
               </Text>
@@ -123,6 +123,17 @@ const DetailsCard = (props, {data}) => {
   )
 }
 
+const styles = StyleSheet.create({
+  TitleStyle: {
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+    fontFamily: Font.Poppins700,
+  },
+  DateStyle: {
+    color: Color.BoldTextColor,
+    fontFamily: Font.Poppins600,
+
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+  },
+})
 export default DetailsCard
 
-const styles = StyleSheet.create({})
