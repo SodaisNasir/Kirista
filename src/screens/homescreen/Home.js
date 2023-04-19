@@ -253,15 +253,29 @@ const Home = ({navigation}) => {
                     height:
                       w >= 768 && h >= 1024
                         ? item.type === 'small'
-                          ? verticalScale(95)
-                          : verticalScale(100)
+                          ? verticalScale(100)
+                          : verticalScale(110)
                         : item.type === 'small'
                         ? verticalScale(130)
                         : verticalScale(135),
 
-                    width: w >= 768 && h >= 1024 ? scale(160) : scale(270),
+                    width: w >= 768 && h >= 1024 ? scale(180) : scale(270),
                     // marginVertical: verticalScale(10),
                     marginRight: verticalScale(12),
+                    paddingBottom:moderateScale(12),
+                    
+
+                    top:
+                    w >= 768 && h >= 1024
+                      ? item.type === 'small'
+                        ? scale(4)
+                        : 0
+
+                      : item.type === 'small'
+                      ? scale(4)
+                      : scale(0)
+                      
+
                   }}>
                   <Image
                     resizeMode="stretch"
@@ -747,6 +761,8 @@ const Home = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <FlatList
+
+            ItemSeparatorComponent={() => <View style={{height: -40}} />}
             data={event_data}
             renderItem={({item}) => {
               return (
@@ -755,26 +771,27 @@ const Home = ({navigation}) => {
                   style={{
                     height:
                       w >= 768 && h >= 1024
-                        ? verticalScale(95)
-                        : verticalScale(120),
-
+                        ? verticalScale(90)
+                        : verticalScale(93),
+                        backgroundColor:'red',
+           
                     // paddingRight:moderateScale(40),
                     flexDirection: 'row',
-
                     overflow: 'hidden',
                   }}>
                   <View
                     style={{
-                      flex: w >= 768 && h >= 1024 ? 0.9 : 1,
+                      flex: w >= 768 && h >= 1024 ? 1 : 1.1,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      // backgroundColor:'yellow',
-                      // height:150
+                      backgroundColor:'yellow'
+                     
+                      // height:1
                     }}>
                     <View
                       style={{
-                        height: w >= 768 && h >= 1024 ? '55%' : '100%',
-                        width: scale(90),
+                        height: w >= 768 && h >= 1024 ? '65%' : '100%',
+                        width: '92%',
                       }}>
                       <Image
                         resizeMode="contain"
@@ -793,7 +810,10 @@ const Home = ({navigation}) => {
                         w >= 768 && h >= 1024
                           ? verticalScale(0)
                           : verticalScale(15),
-                      marginVertical: verticalScale(25),
+                      marginVertical:  w >= 768 && h >= 1024
+                      ? verticalScale(25)
+                      : verticalScale(13),
+                    
                     }}>
                     <View
                       style={{
@@ -822,6 +842,7 @@ const Home = ({navigation}) => {
                         justifyContent: 'space-around',
                         right: scale(2),
                         //   flexDirection:'row',
+                        bottom:scale(5)
                       }}>
                       <Text style={[styles.DateStyle]}>
                         {' '}
