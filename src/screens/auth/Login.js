@@ -5,6 +5,7 @@ import {
   View,
   useWindowDimensions,
   useColorScheme,
+  ScrollView,
   
 } from 'react-native';
 import React,{useState} from 'react';
@@ -62,6 +63,8 @@ const Login = ({navigation}) => {
         paddingHorizontal:
           w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
       }}>
+
+        <ScrollView showsHorizontalScrollIndicator={false}>
       <View
         style={{
           marginTop: '10%',
@@ -179,6 +182,7 @@ const Login = ({navigation}) => {
           </Text>
         </View>
       </Animatable.View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -8,24 +8,27 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   useColorScheme,
+  ScrollView,
 } from 'react-native';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import React, {useState, useEffect,useLayoutEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as Animatable from 'react-native-animatable';
+import { useNavigation } from '@react-navigation/native';
+import Modal from 'react-native-modal'
 
-const Advertisement = ({navigation}) => {
+const Advertisement = (props) => {
 
-  
+    const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
   const fadeIn = {
     from: {
       opacity: 0,
@@ -58,126 +61,155 @@ const Advertisement = ({navigation}) => {
     return () => clearTimeout(timerId);
   }, [seconds]);
   return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground
-        blurRadius={14}
-        source={require('../assets/images/ad_book_tablet.png')}
-        // resizeMode="stretch"
-        style={styles.ImageBackground}>
-        <View style={styles.container}>
-          <Animatable.View
-            iterationDelay={1000}
-            duration={300}
-            animation={fadeIn}
-            style={{
-              justifyContent: 'flex-end',
-              // backgroundColor: 'red',
-              position: 'absolute',
-              top: 0,
-              width: '100%',
-              alignSelf: 'flex-end',
-              paddingHorizontal:
-                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-              paddingVertical: moderateScale(25),
-              marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(0),
-              height:
-                w >= 768 && h >= 1024 ? verticalScale(100) : verticalScale(100),
-            }}>
-            <TouchableOpacity
-            opacity={0.7}
-             onPress={()=>navigation.navigate('Home')}
-              style={[
-                {borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18)},
-                styles.Skip,
-              ]}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                  // textAlign: 'center',
-                  color: Color.White,
-                  fontFamily: Font.Poppins500,
-                }}>
-                {seconds} Skip
-              </Text>
-            </TouchableOpacity>
-          </Animatable.View>
-
-
+   
+      <View
+    
+      style={styles.modalStyling}
+      
+      >
+        <ImageBackground
+          blurRadius={14}
+          source={require('../assets/images/ad_book_tablet.png')}
+          // resizeMode="stretch"
+          style={styles.ImageBackground}>
           <View
-            style={{
-              height: w >= 768 && h >= 1024 ? scale(130) : verticalScale(240),
-              width: w >= 768 && h >= 1024 ? scale(130) : verticalScale(240),
-              // backgroundColor:'red'
-            }}>
-            <Animatable.Image
-                iterationDelay={1500}
-                duration={500}
-                animation={fadeIn}
-              resizeMode="contain"
-              style={{
-                height: '100%',
-                width: '100%',
-
-                // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
-              }}
-              source={require('../assets/images/ad_book.png')}
-            />
-          </View>
-
-          <Animatable.Text
-            iterationDelay={1800}
-            duration={300}
-            animation={fadeIn}
-            style={{
-              fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
-              textAlign: 'center',
-              color: Color.White,
-              fontFamily: Font.Poppins600,
-              marginTop: verticalScale(15),
-            }}>
-            Sunday School {`\n`} Student’s Manual
-          </Animatable.Text>
-          
-          
-          <TouchableOpacity
-          onPress={()=>navigation.navigate('ViewManual')}
             style={[
               {
-                height:
-                  w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
-                borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               },
-              styles.Btn,
+              styles.container,
             ]}>
-            <Animatable.Text
-            iterationDelay={700}
-            duration={300}
-            animation={fadeIn}
+            <View
               style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                textAlign: 'center',
-                color: Color.Main,
-                fontFamily: Font.Poppins600,
-              }}>
-              View
-            </Animatable.Text>
-            <Animatable.View 
+                // marginTop: verticalScale(20),
             
-            iterationDelay={700}
-            duration={300}
-            animation={fadeIn}
-            style={{marginLeft: scale(5)}}>
-              <AntDesign
-                name="arrowright"
-                size={w >= 768 && h >= 1024 ? scale(9) : scale(16)}
-                color={Color.Main}
-              />
-            </Animatable.View >
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
+                flex: w >= 768 && h >= 1024 ?  0.7: 0.5 ,
+                justifyContent: 'flex-end',
+                width: '100%',
+             
+              }}>
+              <TouchableOpacity
+                // opacity={0.1}
+                onPress={()=> navigation.navigate('HomeScreen')}
+                style={[
+                  {
+                    borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
+                    backgroundColor: 'white',
+                    alignSelf: 'flex-end',
+                    opacity:0.7,
+                    paddingVertical: w >= 768 && h >= 1024 ? verticalScale(2) : verticalScale(5),
+    paddingHorizontal:  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
+                  },
+                ]}>
+                <Text
+                  style={{
+                    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                    // textAlign: 'center',
+                    color: Color.DarkTextColor,
+                    fontFamily: Font.Poppins500,
+                  }}>
+                  {seconds} Skip
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={{
+                // marginTop: verticalScale(20),
+              
+                flex: 3,
+                justifyContent: 'center',
+                width: '100%',
+              }}>
+              <View
+                style={{
+                  height: w >= 768 && h >= 1024 ? scale(130) : '50%',
+                  //   width:
+                  //     w >= 768 && h >= 1024 ? scale(130) : verticalScale(240),
+           
+                  //   marginBottom: verticalScale(15),
+                }}>
+                <Animatable.Image
+                  iterationDelay={1500}
+                  duration={500}
+                  animation={fadeIn}
+                  resizeMode="contain"
+                  style={{
+                    height: '100%',
+                    width: '100%',
+
+                    // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
+                  }}
+                  source={require('../assets/images/ad_book.png')}
+                />
+              </View>
+              <View style={{marginTop:verticalScale(20)}}>
+                <Animatable.Text
+                  iterationDelay={1800}
+                  duration={300}
+                  animation={fadeIn}
+                  style={{
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
+                    textAlign: 'center',
+                    color: Color.White,
+                    fontFamily: Font.Poppins600,
+                  }}>
+                  Sunday School {`\n`} Student’s Manual
+                </Animatable.Text>
+              </View>
+            </View>
+
+            <View
+              style={{
+                
+                flex: 0.5,
+                justifyContent: 'center',
+                width: '100%',
+                // justifyContent:'center'
+                // marginBottom: verticalScale(15),
+                // backgroundColor:'red',
+                marginBottom : w >= 768 && h >= 1024 ? '16%' : scale(10)
+              }}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ViewManual')}
+                style={[
+                  {
+                    height: w >= 768 && h >= 1024 ? verticalScale(30) : '55%',
+                    borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
+                    
+                  },
+                  styles.Btn,
+                ]}>
+                <Animatable.Text
+                  iterationDelay={700}
+                  duration={300}
+                  animation={fadeIn}
+                  style={{
+                    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                    textAlign: 'center',
+                    color: Color.Main,
+                    fontFamily: Font.Poppins600,
+                  }}>
+                  View
+                </Animatable.Text>
+                <Animatable.View
+                  iterationDelay={700}
+                  duration={300}
+                  animation={fadeIn}
+                  style={{marginLeft: scale(5)}}>
+                  <AntDesign
+                    name="arrowright"
+                    size={w >= 768 && h >= 1024 ? scale(9) : scale(16)}
+                    color={Color.Main}
+                  />
+                </Animatable.View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+
   );
 };
 
@@ -185,8 +217,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgba(2, 136, 50, 0.5)',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
+    
+    width:'100%'
+  },
+  modalStyling: {
+    flex: 1,
+    height:'100%'
+   
   },
   ImageBackground: {
     flex: 1,
@@ -200,19 +239,9 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     marginTop: 20,
   },
-  Skip: {
-    paddingVertical: moderateScale(5),
-    paddingHorizontal: moderateScale(15),
-    backgroundColor: 'white',
-opacity: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    // position: 'absolute',
   
-  },
   Btn: {
-    width: '85%',
+    width: '100%',
     backgroundColor: Color.White,
     alignSelf: 'center',
     position: 'absolute',

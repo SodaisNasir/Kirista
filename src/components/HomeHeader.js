@@ -95,7 +95,7 @@ const HomeHeader = props => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Home');
+              navigation.navigate('HomeScreen');
             }}>
             <Text style={[styles.TextStyle, props.HomeRestyle]}>Home</Text>
             <View style={props.HomeUnderLineStyle} />

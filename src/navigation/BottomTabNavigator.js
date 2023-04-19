@@ -71,7 +71,7 @@ const BottomTabNavigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="HomeScreen"
         screenOptions={{
           tabBarActiveTintColor: Color.Main,
           tabBarHideOnKeyboard: true,
@@ -351,7 +351,7 @@ function AllHome() {
       screenOptions={{headerShown: false}}
       initialRouteName="Advertisement">
       <Stack.Screen
-        name="Home"
+        name="HomeScreen"
         component={Home}
         options={{animation: 'fade_from_bottom'}}
       />
