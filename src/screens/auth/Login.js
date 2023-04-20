@@ -64,7 +64,7 @@ const Login = ({navigation}) => {
           w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
       }}>
 
-        <ScrollView showsHorizontalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}>
       <View
         style={{
           marginTop: '10%',

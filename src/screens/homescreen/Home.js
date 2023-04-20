@@ -195,19 +195,19 @@ const Home = ({navigation}) => {
                     height:
                       w >= 768 && h >= 1024
                         ? item.type === 'small'
-                          ? verticalScale(95)
+                          ? verticalScale(87)
                           : verticalScale(100)
                         : item.type === 'small'
-                        ? verticalScale(130)
+                        ? verticalScale(122)
                         : verticalScale(135),
 
                         top:
                         w >= 768 && h >= 1024
                           ? item.type === 'small'
-                            ? scale(2)
+                            ? scale(5)
                             : scale(0)
                           : item.type === 'small'
-                          ? scale(2)
+                          ? scale(6)
                           : scale(0),
                     width: w >= 768 && h >= 1024 ? scale(160) : scale(270),
                     // marginVertical: verticalScale(10),
@@ -572,6 +572,9 @@ const Home = ({navigation}) => {
 
           <View>
             <DetailsCard
+                 onPress={() => {
+                  navigation.navigate('ViewParish');
+                }}
               source={require('../../assets/images/parishsmall_1.png')}
               title="RCCG "
               manual="Central Parish"
@@ -585,6 +588,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
+            onPress={() => {
+              navigation.navigate('ViewParish');
+            }}
               source={require('../../assets/images/parishsmall_3.png')}
               title="RCCG"
               manual="Salvation Center"
@@ -598,6 +604,9 @@ const Home = ({navigation}) => {
             />
 
             <DetailsCard
+            onPress={() => {
+              navigation.navigate('ViewParish');
+            }}
               source={require('../../assets/images/parishsmall_2.png')}
               title="RCCG"
               manual="Precious Ambassadors "
@@ -660,6 +669,9 @@ const Home = ({navigation}) => {
           </View>
           <View>
             <DetailsCard
+             onPress={() => {
+              navigation.navigate('Events');
+            }}
               source={require('../../assets/images/event_1.png')}
               title="West Coast 2 Regional"
               manual="Convention"
@@ -674,6 +686,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
+             onPress={() => {
+              navigation.navigate('Events');
+            }}
               source={require('../../assets/images/event_2.png')}
               title="West Coast 3 Regional"
               resize={'cover'}
@@ -687,6 +702,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
+             onPress={() => {
+              navigation.navigate('Events');
+            }}
               source={require('../../assets/images/event_3.png')}
               title="West Coast 3 Regional"
               resize={'cover'}
@@ -701,6 +719,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
+             onPress={() => {
+              navigation.navigate('Events');
+            }}
               source={require('../../assets/images/EventScreenImage1.png')}
               title="Abuja Special Holy Ghost"
               resize={'cover'}
@@ -720,7 +741,7 @@ const Home = ({navigation}) => {
 
         <View
           style={{
-            height: verticalScale(85),
+            height: verticalScale(120),
           }}
         />
         {/* <AdvertisementModal

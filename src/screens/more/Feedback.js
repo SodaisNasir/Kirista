@@ -50,25 +50,27 @@ const Feedback = ({navigation}) => {
           paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
         }}>
-        <View style={{height: '60%'}}>
+        <View style={{height: '60%',width:'100%'}}>
           <View
             style={{
               flex: 1,
+              width:'100%',
               paddingTop: moderateVerticalScale(10),
               paddingLeft: moderateScale(10),
               paddingRight: moderateScale(30),
             }}>
             <TextInput
+            multiline={true}
               placeholder={`Briefly explain what isn't working or what happened`}
               placeholderTextColor={
-                Theme ? Color.DarkThemeGreyText : Color.TextColor
+                Theme ? '#404F64' : '#C6CAD1'
               }
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                   fontFamily: Font.Poppins400,
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  // alignItems: 'center',
+                  // justifyContent: 'center',
                   color: Theme ? Color.DarkThemeInputText : Color.TextColor,
                   flex: 1,
                   textAlignVertical: 'top',

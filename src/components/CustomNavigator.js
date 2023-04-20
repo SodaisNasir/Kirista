@@ -22,6 +22,8 @@ const CustomNavigator = (props) => {
         height: verticalScale(90),
         backgroundColor: Theme ? Color.DarkThemeCustomNavigator : Color.White,
         justifyContent: 'center',
+        borderColor: Theme ? '#091E3B'  : Color.BorderColor,
+        borderTopWidth:1
       }}>
       <View
         style={{
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     width: w >= 768 && h >= 1024 ? verticalScale(19) : verticalScale(35),
     justifyContent: 'center',
     alignItems: 'center',
+
   },
   ArrowStyle: {
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(10),

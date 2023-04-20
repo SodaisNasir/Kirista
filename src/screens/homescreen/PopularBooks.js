@@ -17,6 +17,7 @@ import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import DetailsCard from '../../components/Card/DetailsCard';
+import PopularBooksCard from '../../components/Card/PopularBooksCard';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -44,14 +45,14 @@ const PopularBooks = ({navigation}) => {
           paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
         }}>
-        <DetailsCard
+        <PopularBooksCard
           onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/manual.png')}
-          title="RCCBA"
-          manual="CENTERAL PERTIAN"
+          title="Sunday Student"
+          manual="Manual"
           resize={'contain'}
           PlaceTrue={true}
-          Place="Abuja"
+          Place="2023"
           MainBoxRestyle={{
             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
@@ -59,14 +60,14 @@ const PopularBooks = ({navigation}) => {
             paddingBottom: verticalScale(15),
           }}
         />
-        <DetailsCard
+        <PopularBooksCard
           onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/sunday_manual2.png')}
-          title="RCCBA"
-          manual="CENTERAL PERTIAN"
+          title="Sunday Student"
+          manual="Manual"
           resize={'contain'}
           PlaceTrue={true}
-          Place="Abuja"
+          Place="2023"
           MainBoxRestyle={{
             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
@@ -74,14 +75,14 @@ const PopularBooks = ({navigation}) => {
             paddingBottom: verticalScale(15),
           }}
         />
-        <DetailsCard
+        <PopularBooksCard
           onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/manual.png')}
-          title="RCCBA"
-          manual="CENTERAL PERTIAN"
+          title="Sunday School Teachers"
+          manual="Manual"
           resize={'contain'}
           PlaceTrue={true}
-          Place="Abuja"
+          Place="2023"
           MainBoxRestyle={{
             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
@@ -89,14 +90,14 @@ const PopularBooks = ({navigation}) => {
             paddingBottom: verticalScale(15),
           }}
         />
-        <DetailsCard
+        <PopularBooksCard
           onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/sunday_manual2.png')}
-          title="RCCBA"
-          manual="CENTERAL PERTIAN"
+          title="Sunday School Teachers"
+          manual="Manual"
           resize={'contain'}
           PlaceTrue={true}
-          Place="Abuja"
+          Place="2023"
           MainBoxRestyle={{
             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
@@ -104,14 +105,14 @@ const PopularBooks = ({navigation}) => {
             paddingBottom: verticalScale(15),
           }}
         />
-        <DetailsCard
+        <PopularBooksCard
           onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/manual.png')}
-          title="RCCBA"
+          title="Sunday Student"
+          manual="Manual"
           resize={'contain'}
-          manual="CENTERAL PERTIAN"
           PlaceTrue={true}
-          Place="Abuja"
+          Place="2023"
           MainBoxRestyle={{
             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,

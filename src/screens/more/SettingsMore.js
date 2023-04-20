@@ -41,11 +41,15 @@ import Privacy_dark from '../../assets/icons/privacy_dark.svg';
 import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useDispatch } from 'react-redux';
+import {LOGIN} from '../../redux/reducer';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsMore = () => {
+  const [email, setEmail]= useState(null)
+  const Dispatch = useDispatch()
   const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
   useFocusEffect(
@@ -560,7 +564,7 @@ const SettingsMore = () => {
             },
           ]}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => Dispatch({type : LOGIN, payload:null})}
             style={[
               styles.AllItems,
               {

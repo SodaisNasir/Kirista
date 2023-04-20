@@ -5,11 +5,11 @@ import {
   View,
   useWindowDimensions,
   useColorScheme,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Font} from '../utils/font';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AttachCircle from '../assets/icons/attach-circle.svg';
@@ -25,8 +25,9 @@ const AttachButton = props => {
         style={[
           {
             fontFamily: Font.Poppins400,
-            color: Theme ? Color.DarkThemeGreyText : Color.TextColor,
+            color: Theme ? '#838C9A' : '#C6CAD1',
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+            marginBottom: 2,
           },
         ]}>
         {props.text}
@@ -40,25 +41,20 @@ const AttachButton = props => {
           borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
           // marginHorizontal: '5%',
           paddingHorizontal: verticalScale(10),
+          paddingLeft:moderateScale(12),
           flexDirection: 'row',
           justifyContent: 'space-between',
-          alignItems:'center',
-
+          alignItems: 'center',
         }}>
         <Text
-       
-           
-          
-        //   secureTextEntry={isVisible}
+          //   secureTextEntry={isVisible}
           style={{
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
             fontFamily: Font.Poppins400,
             width: '80%',
-           
-           
-          }}
-        >
-            Screenshot Upload
+            color: Theme ? Color.DarkThemeInputText : '#C6CAD1',
+          }}>
+          Screenshot Upload
         </Text>
 
         {/* }}>
@@ -73,9 +69,12 @@ const AttachButton = props => {
             color: Color.TextColor,
           }}
         /> */}
-        <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center'}}>
+        <TouchableOpacity
+          style={{alignItems: 'center', justifyContent: 'center'}}>
           <AttachCircle
-            height={w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30)}
+            height={
+              w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30)
+            }
           />
         </TouchableOpacity>
       </View>
