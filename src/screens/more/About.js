@@ -53,7 +53,7 @@ const About = ({navigation}) => {
             style={{
               height:
                 w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(150),
-              width: w >= 768 && h >= 1024 ? scale(90) : '100%',
+              width: w >= 768 && h >= 1024 ? '100%' : '100%',
               alignSelf: 'center',
             }}>
             <Image
@@ -212,7 +212,7 @@ const About = ({navigation}) => {
               </Text>
             </View>
 
-            <View
+            {/* <View
               style={{
                 borderBottomColor: Theme ? Color.Black : Color.BorderColor,
                 borderBottomWidth: 0.5,
@@ -220,10 +220,42 @@ const About = ({navigation}) => {
                 alignSelf: 'center',
                 marginVertical: verticalScale(15),
               }}
-            />
+            /> */}
+          </View>
+          <View
+            style={{
+              height: verticalScale(80),
+              borderBottomColor: Theme ? Color.Black : Color.BorderColor,
+              borderBottomWidth: 0.5,
+              borderTopWidth: 0.5,
+              borderTopColor: Theme ? Color.Black : Color.BorderColor,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
+            }}>
+            <View
+              style={{
+                height: '90%',
+                width: '50%',
+                paddingTop: 5,
+              }}>
+              <Image
+                resizeMode="contain"
+                source={
+                  Theme
+                    ? require('../../assets/images/about_dark1.png')
+                    : require('../../assets/images/splash_light.png')
+                }
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+              />
+            </View>
           </View>
 
-          <View>
+          <View style={{top: w >= 768 && h >= 1024 ? scale(10) : scale(5)}}>
             <View style={{alignSelf: 'center'}}>
               <Text
                 style={{
@@ -231,6 +263,7 @@ const About = ({navigation}) => {
                   color: Theme ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                  top: w >= 768 && h >= 1024 ? scale(5) : scale(10),
                 }}>
                 {' '}
                 Developed By
@@ -239,13 +272,13 @@ const About = ({navigation}) => {
                 style={{
                   height:
                     w >= 768 && h >= 1024
-                      ? verticalScale(80)
+                      ? verticalScale(40)
                       : verticalScale(50),
-                  //   width: w >= 768 && h >= 1024 ? scale(90) : scale(5500),
+                  width: w >= 768 && h >= 1024 ? scale(200) : scale(240),
                   //   alignSelf: 'center',
-                  // justifyContent:'center',
-                  width: w >= 768 && h >= 1024 ? scale(90) : '100%',
                   alignSelf: 'center',
+                  marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(10) : null,
                 }}>
                 <Image
                   resizeMode="contain"
@@ -254,7 +287,7 @@ const About = ({navigation}) => {
                       ? require('../../assets/images/idc_platforms_dark.png')
                       : require('../../assets/images/idc.png')
                   }
-                  styles={{
+                  style={{
                     height: '100%',
                     width: '100%',
                   }}
@@ -267,6 +300,7 @@ const About = ({navigation}) => {
                   color: Theme ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
+                  bottom: w >= 768 && h >= 1024 ? scale(10) : scale(10),
                 }}>
                 {' '}
                 www.idcplatforms.com

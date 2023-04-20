@@ -73,8 +73,12 @@ const Language = ({navigation}) => {
         {
           paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(28) : moderateScale(20),
+          paddingVertical:
+            w >= 768 && h >= 1024
+              ? moderateVerticalScale(16)
+              : moderateScale(13),
         },
-        styles.item,
+        // styles.item,
       ]}
       onPress={() => [setSelected(data.title), navigation.goBack()]}>
       <View
@@ -82,7 +86,7 @@ const Language = ({navigation}) => {
           flexDirection: 'row',
           justifyContent: 'center',
           //   backgroundColor:'red',
-          bottom: scale(4),
+          bottom: scale(5),
         }}>
         <View
           style={{
@@ -93,7 +97,7 @@ const Language = ({navigation}) => {
             <Text
               style={[
                 {
-                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                  fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
                   color: Theme ? Color.White : Color.DarkTextColor,
                 },
                 styles.title,
@@ -102,7 +106,7 @@ const Language = ({navigation}) => {
               <Text
                 style={[
                   {
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+                    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                     color: Theme ? Color.White : Color.DarkTextColor,
                   },
                   styles.Short,
@@ -187,7 +191,7 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    paddingVertical: moderateVerticalScale(15),
+    paddingVertical: moderateVerticalScale(12),
     // height:verticalScale(70)
   },
   BorderBottom: {
