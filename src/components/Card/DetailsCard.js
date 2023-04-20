@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,23 +7,22 @@ import {
   useColorScheme,
   Dimensions,
   Image,
-} from 'react-native'
-import {useNavigation, useFocusEffect} from '@react-navigation/native'
+} from 'react-native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {
   moderateVerticalScale,
   scale,
   verticalScale,
-} from 'react-native-size-matters'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../utils/font'
+} from 'react-native-size-matters';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../utils/font';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 const DetailsCard = (props, {data}) => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useColorScheme() === 'dark';
 
-
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('EventScreen')}
@@ -34,8 +33,6 @@ const DetailsCard = (props, {data}) => {
           // marginHorizontal: verticalScale(20),
           // marginTop: verticalScale(15),
           // paddingBottom: verticalScale(15),
-          
-
         },
       ]}>
       {/* <View
@@ -47,17 +44,17 @@ const DetailsCard = (props, {data}) => {
       <View
         style={{
           height: w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(85),
-          width: w >= 768 && h >= 1024 ? scale(60) :  scale(90),
+          width: w >= 768 && h >= 1024 ? scale(58) : scale(90),
           borderRadius: scale(10),
           //
         }}>
         <Image
-          resizeMode= {props.resize}
+          resizeMode={props.resize}
           style={{
             height: '100%',
             width: '100%',
-            borderRadius: scale(10),
-          }}
+            borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(10)
+          }}s
           source={props.source}
         />
         {/* </View> */}
@@ -68,14 +65,17 @@ const DetailsCard = (props, {data}) => {
           flex: w >= 768 && h >= 1024 ? 3 : 2.1,
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
-          //   marginVertical: verticalScale(25),
+          
         }}>
         <View
           style={{
             // height: verticalScale(30),
 
             // backgroundColor: 'yellow',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
+            top : scale(5)
+          
+            
           }}>
           <Text
             style={[
@@ -84,7 +84,12 @@ const DetailsCard = (props, {data}) => {
             ]}>
             {props.title}
           </Text>
-          <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
+          <Text
+            style={[
+              {bottom: scale(3)},
+              {color: Theme ? Color.White : Color.DarkTextColor},
+              styles.TitleStyle,
+            ]}>
             {props.manual}
           </Text>
         </View>
@@ -95,6 +100,8 @@ const DetailsCard = (props, {data}) => {
             justifyContent: 'space-around',
             right: scale(2),
             //   flexDirection:'row',
+          
+            
           }}>
           {props.TimeTrue ? (
             <Text style={[styles.DateStyle]}>
@@ -106,7 +113,7 @@ const DetailsCard = (props, {data}) => {
                   color: Color.BoldTextColor,
                   fontFamily: Font.Poppins700,
 
-                  fontSize: w >= 768 && h >= 1024 ? scale(100) : scale(14),
+                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                 }}>
                 .
               </Text>
@@ -120,8 +127,8 @@ const DetailsCard = (props, {data}) => {
         </View>
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   TitleStyle: {
@@ -134,6 +141,5 @@ const styles = StyleSheet.create({
 
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
-})
-export default DetailsCard
-
+});
+export default DetailsCard;

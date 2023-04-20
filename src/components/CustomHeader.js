@@ -34,7 +34,7 @@ const CustomHeader = props => {
       style={[
         styles.AuthHeaderStyle,
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor,
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         },
       ]}>
       <View

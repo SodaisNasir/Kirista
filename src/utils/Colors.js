@@ -33,4 +33,5 @@ export const Color = {
   DarkThemText2: '#838C9A',
   FontBoxColorDark: '#0C2447',
   FontBoxColor: '#EBF2FC',
+  DarkBorder : '#515F72'
 }

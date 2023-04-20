@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   useColorScheme,
+  ScrollView,
 } from 'react-native'
 import React, {useCallback} from 'react'
 import {Color} from '../../../utils/Colors'
@@ -15,6 +16,7 @@ import {scale, verticalScale} from 'react-native-size-matters'
 import {Font} from '../../../utils/font'
 import HomeHeader from '../../../components/HomeHeader'
 import {useNavigation, useFocusEffect} from '@react-navigation/native'
+import DetailsCard from '../../../components/Card/DetailsCard'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -38,51 +40,51 @@ const Events = (props) => {
 
   const Theme = useColorScheme() === 'dark'
 
-  const data = [
-    {
-      id: 1,
-      title: 'West Coast 2 Regional ',
-      manual: 'Convention',
-      image: require('../../../assets/images/event_1.png'),
-      date: 'June 22, 2023.',
-      time: '4PM',
-    },
+  // const data = [
+  //   {
+  //     id: 1,
+  //     title: 'West Coast 2 Regional ',
+  //     manual: 'Convention',
+  //     image: require('../../../assets/images/event_1.png'),
+  //     date: 'June 22, 2023.',
+  //     time: '4PM',
+  //   },
 
-    {
-      id: 2,
-      title: 'West Coast 3 Regional ',
-      manual: 'Convention',
-      image: require('../../../assets/images/event_2.png'),
-      date: 'July 7, 2023.',
-      time: '4PM',
-    },
+  //   {
+  //     id: 2,
+  //     title: 'West Coast 3 Regional ',
+  //     manual: 'Convention',
+  //     image: require('../../../assets/images/event_2.png'),
+  //     date: 'July 7, 2023.',
+  //     time: '4PM',
+  //   },
 
-    {
-      id: 3,
-      title: 'West Coast 1 Regional ',
-      manual: 'Convention',
-      image: require('../../../assets/images/event_3.png'),
-      date: 'July 21, 2023.',
-      time: '4PM',
-    },
+  //   {
+  //     id: 3,
+  //     title: 'West Coast 1 Regional ',
+  //     manual: 'Convention',
+  //     image: require('../../../assets/images/event_3.png'),
+  //     date: 'July 21, 2023.',
+  //     time: '4PM',
+  //   },
 
-    {
-      id: 4,
-      title: 'Abuja Special Holy Ghost',
-      manual: 'Congress',
-      image: require('../../../assets/images/event_4.png'),
-      date: 'November 09, 2023',
-      time: '4PM',
-    },
-    {
-      id: 5,
-      title: 'West Coast 1 Regional ',
-      manual: 'Convention',
-      image: require('../../../assets/images/event_1.png'),
-      date: 'July 21, 2023',
-      time: '4PM',
-    },
-  ]
+  //   {
+  //     id: 4,
+  //     title: 'Abuja Special Holy Ghost',
+  //     manual: 'Congress',
+  //     image: require('../../../assets/images/event_4.png'),
+  //     date: 'November 09, 2023',
+  //     time: '4PM',
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'West Coast 1 Regional ',
+  //     manual: 'Convention',
+  //     image: require('../../../assets/images/event_1.png'),
+  //     date: 'July 21, 2023',
+  //     time: '4PM',
+  //   },
+  // ]
 
   return (
     <SafeAreaView
@@ -97,106 +99,99 @@ const Events = (props) => {
           backgroundColor: Color.Main,
           height: verticalScale(2),
           bottom: scale(4),
+  
         }}
       />
-
-      <FlatList
-        data={data}
-        renderItem={({item}) => {
-          return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('EventScreen')}
-              style={{
-                height:
-                  w >= 768 && h >= 1024
-                    ? verticalScale(95)
-                    : verticalScale(120),
-
-                flexDirection: 'row',
-                marginHorizontal: verticalScale(20),
-                overflow: 'hidden',
-                borderBottomWidth: 1,
-                borderColor: Theme ? '#515F72' : Color.BorderColor,
-              }}>
-              <View
-                style={{
-                  flex: w >= 768 && h >= 1024 ? 0.9 : 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    height: w >= 768 && h >= 1024 ? '60%' : '100%',
-                    width: scale(90),
-                  }}>
-                  <Image
-                    resizeMode="contain"
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                    }}
-                    source={item.image}
-                  />
-                </View>
-              </View>
-              <View
-                style={{
-                  flex: w >= 768 && h >= 1024 ? 3 : 2.1,
-                  paddingHorizontal:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(0)
-                      : verticalScale(15),
-                  marginVertical: verticalScale(25),
-                }}>
-                <View
-                  style={{
-                    // height: verticalScale(30),
-
-                    // backgroundColor: 'yellow',
-                    justifyContent: 'center',
-                  }}>
-                  <Text
-                    style={[
-                      {color: Theme ? Color.White : Color.DarkTextColor},
-                      styles.TitleStyle,
-                    ]}>
-                    {item.title}
-                  </Text>
-                  <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
-                    {item.manual}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    // height:
-                    //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
-                    justifyContent: 'space-around',
-                    right: scale(2),
-                    //   flexDirection:'row',
-                  }}>
-                  <Text style={[styles.DateStyle]}>
-                    {' '}
-                    {item.date}
-                    {'   '}
-                    <Text
-                      style={{
-                        color: Color.BoldTextColor,
-                        fontFamily: Font.Poppins700,
-
-                        fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
-                      }}>
-                      .
-                    </Text>
-                    {'   '}
-                    {item.time}{' '}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )
-        }}
-      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{    paddingHorizontal:
+      w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),marginTop:verticalScale(10)}}>
+            <DetailsCard
+              source={require('../../../assets/images/event_1.png')}
+              title="West Coast 2 Regional"
+              manual="Convention"
+              resize={'cover'}
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth:1
+              }}
+            />
+            <DetailsCard
+              source={require('../../../assets/images/event_2.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth:1
+              }}
+            />
+            <DetailsCard
+              source={require('../../../assets/images/event_3.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              PlaceTrue={true}
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth:1
+              }}
+            />
+            <DetailsCard
+              source={require('../../../assets/images/EventScreenImage1.png')}
+              title="Abuja Special Holy Ghost"
+              resize={'cover'}
+              manual="Congress"
+              PlaceTrue={true}
+              // Place="Ghana"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth:1
+              }}
+            />
+             <DetailsCard
+              source={require('../../../assets/images/event_2.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth:1
+              }}
+            />
+          </View>
+      
       <View style={{height: verticalScale(75)}} />
+      </ScrollView>
     </SafeAreaView>
   )
 }

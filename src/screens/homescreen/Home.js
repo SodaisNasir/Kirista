@@ -10,23 +10,23 @@ import {
   Dimensions,
   useColorScheme,
   useWindowDimensions,
-} from 'react-native'
-import React, {useCallback} from 'react'
-import {Color} from '../../utils/Colors'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
-import HomeHeader from '../../components/HomeHeader'
-import {Font} from '../../utils/font'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import {useFocusEffect} from '@react-navigation/native'
-import DetailsCard from '../../components/Card/DetailsCard'
+} from 'react-native';
+import React, {useCallback} from 'react';
+import {Color} from '../../utils/Colors';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import HomeHeader from '../../components/HomeHeader';
+import {Font} from '../../utils/font';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useFocusEffect} from '@react-navigation/native';
+import DetailsCard from '../../components/Card/DetailsCard';
 
 // import AdvertisementModal from '../../components/Modals/AdvertisementModal'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { HIDE_ADVERTISEMENT } from '../../redux/reducer'
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 const Home = ({navigation}) => {
   // const show = useSelector(state => state.showAdvertisement);
   // const Dispatch = useDispatch()
@@ -53,14 +53,14 @@ const Home = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
           right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
-      })
+      });
     }),
-  )
+  );
 
-  const width = useWindowDimensions().width
-  const height = useWindowDimensions().height
-  const fourInchPotrait = w <= 350 && h <= 600
-  const Theme = useColorScheme() === 'dark'
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const Theme = useColorScheme() === 'dark';
 
   const image_data = [
     {
@@ -95,7 +95,7 @@ const Home = ({navigation}) => {
       type: 'ye',
       screen_name: 'RccgContinent',
     },
-  ]
+  ];
   const swiper_data = [
     {
       id: 1,
@@ -108,7 +108,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/swipertwo.png'),
       type: 'small',
     },
-  ]
+  ];
   const parish_data = [
     {
       id: 1,
@@ -133,7 +133,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/parishsmall_3.png'),
       country: 'Togo',
     },
-  ]
+  ];
   const books_data = [
     {
       id: 1,
@@ -186,7 +186,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
     },
-  ]
+  ];
   const event_data = [
     {
       id: 1,
@@ -223,7 +223,7 @@ const Home = ({navigation}) => {
       date: 'November 09, 2023',
       time: '4PM',
     },
-  ]
+  ];
 
   return (
     <SafeAreaView
@@ -274,7 +274,7 @@ const Home = ({navigation}) => {
                     source={item?.image}
                   />
                 </TouchableOpacity>
-              )
+              );
             }}
           />
         </View>
@@ -305,7 +305,7 @@ const Home = ({navigation}) => {
               <View style={{}}>
                 <Ionicons
                   name="chevron-forward"
-                  size={w >= 768 && h >= 1024 ? scale(12) : scale(16)}
+                  size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                   color={Color.Main}
                 />
               </View>
@@ -403,7 +403,7 @@ const Home = ({navigation}) => {
                       </View>
                     </View>
                   </TouchableOpacity>
-                )
+                );
               }}
             />
           </ScrollView>
@@ -569,7 +569,7 @@ const Home = ({navigation}) => {
                     </View>
                   </View>
                 </View>
-              )
+              );
             }}
           />
         </View>
@@ -595,12 +595,18 @@ const Home = ({navigation}) => {
               marginTop: verticalScale(15),
             }}>
             <View style={{}}>
-              <Text style={styles.BooksText}>Featured Parishes</Text>
+              <Text
+                style={[
+                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  styles.BooksText,
+                ]}>
+                Featured Parishes
+              </Text>
             </View>
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('FeaturedParishes')
+                navigation.navigate('FeaturedParishes');
               }}
               style={{
                 flexDirection: 'row',
@@ -609,99 +615,54 @@ const Home = ({navigation}) => {
               <View style={{}}>
                 <Ionicons
                   name="chevron-forward"
-                  size={w >= 768 && h >= 1024 ? scale(12) : scale(16)}
+                  size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                   color={Color.Main}
                 />
               </View>
             </TouchableOpacity>
           </View>
 
-          <FlatList
-            data={parish_data}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('ViewParish')}>
-                  <View
-                    style={{
-                      height:
-                        w >= 768 && h >= 1024
-                          ? verticalScale(95)
-                          : verticalScale(120),
+          <View>
+            <DetailsCard
+              source={require('../../assets/images/parishsmall_1.png')}
+              title="RCCG "
+              manual="Central Parish"
+              resize={'cover'}
+              PlaceTrue={true}
+              Place={'Abuja'}
+              MainBoxRestyle={{
+                // paddingBottom: verticalScale(10),
+                marginTop: verticalScale(10),
+                // backgroundColor:'red'
+              }}
+            />
+            <DetailsCard
+              source={require('../../assets/images/parishsmall_3.png')}
+              title="RCCG"
+              manual="Salvation Center"
+              PlaceTrue={true}
+              Place={'Ghana'}
+              MainBoxRestyle={{
+                marginTop: verticalScale(10),
+                // backgroundColor:'red'
+              }}
+            />
 
-                      flexDirection: 'row',
-
-                      overflow: 'hidden',
-                    }}>
-                    <View
-                      style={{
-                        flex: w >= 768 && h >= 1024 ? 0.9 : 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      <View
-                        style={{
-                          height: w >= 768 && h >= 1024 ? '60%' : '100%',
-                          width: scale(90),
-                        }}>
-                        <Image
-                          resizeMode="contain"
-                          style={{
-                            height: '100%',
-                            width: '100%',
-                          }}
-                          source={item.image}
-                        />
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        flex: w >= 768 && h >= 1024 ? 3 : 2.1,
-                        paddingHorizontal:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(15)
-                            : verticalScale(15),
-                        marginVertical: verticalScale(25),
-                      }}>
-                      <View
-                        style={{
-                          // height: verticalScale(30),
-
-                          justifyContent: 'center',
-                        }}>
-                        <Text
-                          style={[
-                            {color: Theme ? Color.White : Color.DarkTextColor},
-                            styles.ParishTitleStyle,
-                          ]}>
-                          {item.title}
-                        </Text>
-                        <Text
-                          style={[
-                            {bottom: scale(3)},
-                            {color: Theme ? Color.White : Color.DarkTextColor},
-                            styles.ParishTitleStyle,
-                          ]}>
-                          {item.manual}
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          height:
-                            w >= 768 && h >= 1024
-                              ? verticalScale(20)
-                              : scale(40),
-                          justifyContent: 'center',
-                          right: scale(2),
-                        }}>
-                        <Text style={styles.CountryStyle}> {item.country}</Text>
-                      </View>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              )
-            }}
-          />
+            <DetailsCard
+              source={require('../../assets/images/parishsmall_2.png')}
+              title="RCCG"
+              manual="Precious Ambassadors "
+              resize={'cover'}
+              PlaceTrue={true}
+              Place={'Abuja'}
+              MainBoxRestyle={{
+                // paddingBottom: verticalScale(10),
+                marginTop: verticalScale(10),
+                // backgroundColor:'red'
+                paddingBottom: verticalScale(15),
+              }}
+            />
+          </View>
         </View>
 
         <View
@@ -735,70 +696,77 @@ const Home = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Events')
+                navigation.navigate('Events');
               }}
               style={{flexDirection: 'row'}}>
               <Text style={styles.MoreText}>See All</Text>
               <View style={{}}>
                 <Ionicons
                   name="chevron-forward"
-                  size={w >= 768 && h >= 1024 ? scale(12) : scale(16)}
+                  size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
                   color={Color.Main}
                 />
               </View>
             </TouchableOpacity>
           </View>
-        <View>
-        <DetailsCard
-        source={require('../../assets/images/event_1.png')}
-        title="RCCBA"
-        manual="CENTERAL PERTIAN"
-        resize = {'cover'}
-        PlaceTrue={true}
-        Place="Abuja"
-        MainBoxRestyle={{
-          // paddingBottom: verticalScale(10),
-          marginTop: verticalScale(10),
-          // backgroundColor:'red'
-        }}
-      />
-      <DetailsCard
-        source={require('../../assets/images/event_2.png')}
-        title="RCCBA"
-        resize = {'cover'}
-        manual="CENTERAL PERTIAN"
-        PlaceTrue={true}
-        Place="Abuja"
-        MainBoxRestyle={{
-          paddingBottom: 0,
-          marginTop: verticalScale(10),
-        }}
-      />
-      <DetailsCard
-        source={require('../../assets/images/event_3.png')}
-        title="RCCBA"
-        resize = {'cover'}
-        manual="CENTERAL PERTIAN"
-        PlaceTrue={true}
-        Place="Abuja"
-        MainBoxRestyle={{
-          paddingBottom: 0,
-          marginTop: verticalScale(10),
-        }}
-      />
-      <DetailsCard
-        source={require('../../assets/images/manual.png')}
-        title="RCCBA"
-        manual="CENTERAL PERTIAN"
-        PlaceTrue={true}
-        Place="Abuja"
-        resize = {'contain'}
-        MainBoxRestyle={{
-          paddingBottom: 0,
-          marginTop: verticalScale(10),
-        }}
-      />
-        </View>
+          <View>
+            <DetailsCard
+              source={require('../../assets/images/event_1.png')}
+              title="West Coast 2 Regional"
+              manual="Convention"
+              resize={'cover'}
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                // paddingBottom: verticalScale(10),
+                marginTop: verticalScale(10),
+                // backgroundColor:'red'
+              }}
+            />
+            <DetailsCard
+              source={require('../../assets/images/event_2.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: 0,
+                marginTop: verticalScale(10),
+              }}
+            />
+            <DetailsCard
+              source={require('../../assets/images/event_3.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              PlaceTrue={true}
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: 0,
+                marginTop: verticalScale(10),
+              }}
+            />
+            <DetailsCard
+              source={require('../../assets/images/EventScreenImage1.png')}
+              title="Abuja Special Holy Ghost"
+              resize={'cover'}
+              manual="Congress"
+              PlaceTrue={true}
+              // Place="Ghana"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom: 0,
+                marginTop: verticalScale(10),
+              }}
+            />
+          </View>
         </View>
 
         <View
@@ -815,10 +783,10 @@ const Home = ({navigation}) => {
         /> */}
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 const styles = StyleSheet.create({
   MainView: {
@@ -921,4 +889,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
     fontFamily: Font.Poppins700,
   },
-})
+});
