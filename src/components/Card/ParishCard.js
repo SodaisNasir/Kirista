@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {
-  moderateScale,
   moderateVerticalScale,
   scale,
   verticalScale,
@@ -20,9 +19,7 @@ import {Font} from '../../utils/font';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-const DetailsCard = (props, {data}) => {
-
-  const fourInchPotrait = w <= 350 && h <= 600
+const ParishCard = (props, {data}) => {
   const Theme = useColorScheme() === 'dark';
 
   const navigation = useNavigation();
@@ -100,9 +97,8 @@ const DetailsCard = (props, {data}) => {
             // height:
             //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
             justifyContent: 'space-around',
-            right: w >= 768 && h >= 1024 ? scale(1) : scale(2),
+            right: scale(2),
             //   flexDirection:'row',
-            paddingTop: w >= 768 && h >= 1024  ? moderateScale(5) : fourInchPotrait ? moderateScale(0) : moderateScale(5)
           }}>
           {props.TimeTrue ? (
             <Text style={[styles.DateStyle]}>
@@ -143,4 +139,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
 });
-export default DetailsCard;
+export default ParishCard;

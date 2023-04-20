@@ -109,31 +109,7 @@ const Home = ({navigation}) => {
       type: 'small',
     },
   ];
-  const parish_data = [
-    {
-      id: 1,
-      title: 'RCCG',
-      manual: 'Central Parish',
-      image: require('../../../src/assets/images/parishsmall_1.png'),
-      country: 'Abuja',
-    },
 
-    {
-      id: 2,
-      title: 'RCCG',
-      manual: 'Precious Ambassadors',
-      image: require('../../../src/assets/images/parishsmall_2.png'),
-      country: 'Ghana',
-    },
-
-    {
-      id: 3,
-      title: 'RCCG',
-      manual: 'Salvation Centre',
-      image: require('../../../src/assets/images/parishsmall_3.png'),
-      country: 'Togo',
-    },
-  ];
   const books_data = [
     {
       id: 1,
@@ -187,43 +163,7 @@ const Home = ({navigation}) => {
       year: '2023',
     },
   ];
-  const event_data = [
-    {
-      id: 1,
-      title: 'West Coast 2 Regional ',
-      manual: 'Convention',
-      image: require('../../../src/assets/images/event_1.png'),
-      date: 'June 22, 2023.',
-      time: '4PM',
-    },
-
-    {
-      id: 2,
-      title: 'West Coast 3 Regional ',
-      manual: 'Convention',
-      image: require('../../../src/assets/images/event_2.png'),
-      date: 'July 7, 2023.',
-      time: '4PM',
-    },
-
-    {
-      id: 3,
-      title: 'West Coast 1 Regional ',
-      manual: 'Convention',
-      image: require('../../../src/assets/images/event_3.png'),
-      date: 'July 21, 2023.',
-      time: '4PM',
-    },
-
-    {
-      id: 4,
-      title: 'Abuja Special Holy Ghost',
-      manual: 'Congress',
-      image: require('../../../src/assets/images/event_4.png'),
-      date: 'November 09, 2023',
-      time: '4PM',
-    },
-  ];
+ 
 
   return (
     <SafeAreaView
@@ -627,7 +567,7 @@ const Home = ({navigation}) => {
               source={require('../../assets/images/parishsmall_1.png')}
               title="RCCG "
               manual="Central Parish"
-              resize={'cover'}
+              resize={'contain'}
               PlaceTrue={true}
               Place={'Abuja'}
               MainBoxRestyle={{
@@ -640,6 +580,7 @@ const Home = ({navigation}) => {
               source={require('../../assets/images/parishsmall_3.png')}
               title="RCCG"
               manual="Salvation Center"
+              resize={'contain'}
               PlaceTrue={true}
               Place={'Ghana'}
               MainBoxRestyle={{
@@ -652,7 +593,7 @@ const Home = ({navigation}) => {
               source={require('../../assets/images/parishsmall_2.png')}
               title="RCCG"
               manual="Precious Ambassadors "
-              resize={'cover'}
+              resize={'contain'}
               PlaceTrue={true}
               Place={'Abuja'}
               MainBoxRestyle={{
@@ -720,7 +661,7 @@ const Home = ({navigation}) => {
               time={'4PM'}
               MainBoxRestyle={{
                 // paddingBottom: verticalScale(10),
-                marginTop: verticalScale(10),
+                marginTop: verticalScale(12),
                 // backgroundColor:'red'
               }}
             />
@@ -734,7 +675,7 @@ const Home = ({navigation}) => {
               time={'4PM'}
               MainBoxRestyle={{
                 paddingBottom: 0,
-                marginTop: verticalScale(10),
+                marginTop: verticalScale(12),
               }}
             />
             <DetailsCard
@@ -748,7 +689,7 @@ const Home = ({navigation}) => {
               time={'4PM'}
               MainBoxRestyle={{
                 paddingBottom: 0,
-                marginTop: verticalScale(10),
+                marginTop: verticalScale(12),
               }}
             />
             <DetailsCard
@@ -759,11 +700,11 @@ const Home = ({navigation}) => {
               PlaceTrue={true}
               // Place="Ghana"
               TimeTrue={true}
-              date={'November 09, 2023'}
+              date={'June 22, 2023'}
               time={'4PM'}
               MainBoxRestyle={{
                 paddingBottom: 0,
-                marginTop: verticalScale(10),
+                marginTop: verticalScale(12),
               }}
             />
           </View>

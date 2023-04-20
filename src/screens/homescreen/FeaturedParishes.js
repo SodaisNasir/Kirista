@@ -16,6 +16,7 @@ import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import DetailsCard from '../../components/Card/DetailsCard';
 
+
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
@@ -90,10 +91,8 @@ const FeaturedParishes = props => {
           source={require('../../assets/images/parishsmall_1.png')}
           title="RCCG "
           manual="Central Parish"
-          resize={'cover'}
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
+          resize={'contain'}
+          PlaceTrue = {true}
           MainBoxRestyle={{
             paddingBottom:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -107,11 +106,10 @@ const FeaturedParishes = props => {
         <DetailsCard
           source={require('../../assets/images/parishsmall_2.png')}
           title="RCCG"
-          resize={'cover'}
+          resize={'contain'}
           manual="Precious Ambassadors "
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
+          PlaceTrue = {true}
+          Place={'Ghana'}
           MainBoxRestyle={{
             paddingBottom:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -126,11 +124,9 @@ const FeaturedParishes = props => {
         <DetailsCard
           source={require('../../assets/images/parishsmall_2.png')}
           title="RCCG"
-          resize={'cover'}
+          resize={'contain'}
           manual="Salvation Centre"
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
+          PlaceTrue = {true}
           MainBoxRestyle={{
             paddingBottom:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -145,11 +141,9 @@ const FeaturedParishes = props => {
 <DetailsCard
           source={require('../../assets/images/parishsmall_3.png')}
           title="RCCG"
-          resize={'cover'}
+          resize={'contain'}
           manual="Salvation Centre"
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
+          PlaceTrue = {true}
           MainBoxRestyle={{
             paddingBottom:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
