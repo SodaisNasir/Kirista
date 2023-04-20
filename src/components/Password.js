@@ -70,7 +70,7 @@ const Password = (props) => {
               ? verticalScale(2)
               : fourInchLandscape
               ? verticalScale(3)
-              : verticalScale(1.5),
+              : tabLandscape ?  verticalScale(1) : verticalScale(1.5),
             width: '80%',
             color: Theme ? Color.White : Color.TextColor,
           }}

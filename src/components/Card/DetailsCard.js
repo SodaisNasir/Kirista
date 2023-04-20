@@ -25,7 +25,7 @@ const DetailsCard = (props, {data}) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('EventScreen')}
+      onPress={props.onPress}
       style={[
         props.MainBoxRestyle,
         {
@@ -35,37 +35,38 @@ const DetailsCard = (props, {data}) => {
           // paddingBottom: verticalScale(15),
         },
       ]}>
-      {/* <View
-        style={{
-          flex: w >= 768 && h >= 1024 ? 0.9 : 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}> */}
       <View
-        style={{
-          height: w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(85),
-          width: w >= 768 && h >= 1024 ? scale(58) : scale(90),
-          borderRadius: scale(10),
+        style={
+          [
+            props.restyleImage
+            ,
+            {
+              height:
+                w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(85),
+              width: w >= 768 && h >= 1024 ? scale(58) : scale(90),
+              borderRadius: scale(10),
+              overflow: 'hidden',
+            },
+            
+          ]
           //
-        }}>
+        }>
         <Image
           resizeMode={props.resize}
           style={{
             height: '100%',
             width: '100%',
-            borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(10)
-          }}s
+            // borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(10),
+            // backgroundColor:'red'
+          }}
           source={props.source}
         />
-        {/* </View> */}
       </View>
-
       <View
         style={{
           flex: w >= 768 && h >= 1024 ? 3 : 2.1,
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
-          
         }}>
         <View
           style={{
@@ -73,9 +74,7 @@ const DetailsCard = (props, {data}) => {
 
             // backgroundColor: 'yellow',
             justifyContent: 'flex-end',
-            top : scale(5)
-          
-            
+            top: scale(5),
           }}>
           <Text
             style={[
@@ -100,8 +99,6 @@ const DetailsCard = (props, {data}) => {
             justifyContent: 'space-around',
             right: scale(2),
             //   flexDirection:'row',
-          
-            
           }}>
           {props.TimeTrue ? (
             <Text style={[styles.DateStyle]}>

@@ -22,10 +22,9 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const PopularBooks = props => {
-  const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
-  const books_data = [
+  const data = [
     {
       id: 1,
       title: 'Sunday Student',
@@ -79,88 +78,79 @@ const PopularBooks = props => {
           paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
         }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={books_data}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ViewManual')}>
-                <View
-                  style={{
-                    height:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(80)
-                        : verticalScale(100),
-
-                    flexDirection: 'row',
-                    overflow: 'hidden',
-                  }}>
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'flex-start',
-                    }}>
-                    <View
-                      style={{
-                        height: w >= 768 && h >= 1024 ? '68%' : '100%',
-                        width: w >= 768 && h >= 1024 ? scale(60) : scale(100),
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{
-                          height: '100%',
-                          width: '100%',
-                        }}
-                        source={item?.image}
-                      />
-                    </View>
-                  </View>
-                  <View style={{marginVertical: verticalScale(20)}}>
-                    <View
-                      style={{
-                        // height: verticalScale(30),
-
-                        justifyContent: 'center',
-                      }}>
-                      <Text
-                        style={[
-                          {
-                            color: Theme ? Color.White : Color.DarkTextColor,
-                          },
-                          styles.BooksTitleStyle,
-                        ]}>
-                        {item?.title}
-                      </Text>
-                      <Text
-                        style={[
-                          {
-                            lineHeight: fourInchPotrait
-                              ? verticalScale(18)
-                              : scale(16),
-                          },
-                          styles.BooksTitleStyle,
-                          {
-                            color: Theme ? Color.White : Color.DarkTextColor,
-                          },
-                        ]}>
-                        {item.manual}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        height:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(20)
-                            : verticalScale(40),
-                        justifyContent: 'center',
-                      }}>
-                      <Text style={styles.YearStyle}> {item?.year}</Text>
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
+        <DetailsCard
+        onPress = {()=>navigation.navigate('ViewManual')}
+          source={require('../../assets/images/manual.png')}
+          title="RCCBA"
+          manual="CENTERAL PERTIAN"
+          resize={'contain'}
+          PlaceTrue={true}
+          Place="Abuja"
+          MainBoxRestyle={{
+             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomWidth: 1,
+            marginTop: verticalScale(15),
+            paddingBottom: verticalScale(15),
+          }}
+        />
+        <DetailsCard
+         onPress = {()=>navigation.navigate('ViewManual')}
+          source={require('../../assets/images/sunday_manual2.png')}
+          title="RCCBA"
+          manual="CENTERAL PERTIAN"
+          resize={'contain'}
+          PlaceTrue={true}
+          Place="Abuja"
+          MainBoxRestyle={{
+             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomWidth: 1,
+            marginTop: verticalScale(15),
+            paddingBottom: verticalScale(15),
+          }}
+        />
+        <DetailsCard
+         onPress = {()=>navigation.navigate('ViewManual')}
+          source={require('../../assets/images/manual.png')}
+          title="RCCBA"
+          manual="CENTERAL PERTIAN"
+          resize={'contain'}
+          PlaceTrue={true}
+          Place="Abuja"
+          MainBoxRestyle={{
+             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomWidth: 1,
+            marginTop: verticalScale(15),
+            paddingBottom: verticalScale(15),
+          }}
+        />
+        <DetailsCard
+         onPress = {()=>navigation.navigate('ViewManual')}
+          source={require('../../assets/images/sunday_manual2.png')}
+          title="RCCBA"
+          manual="CENTERAL PERTIAN"
+          resize={'contain'}
+          PlaceTrue={true}
+          Place="Abuja"
+          MainBoxRestyle={{
+             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomWidth: 1,
+            marginTop: verticalScale(15),
+            paddingBottom: verticalScale(15),
+          }}
+        />
+        <DetailsCard
+         onPress = {()=>navigation.navigate('ViewManual')}
+          source={require('../../assets/images/manual.png')}
+          title="RCCBA"
+          resize={'contain'}
+          manual="CENTERAL PERTIAN"
+          PlaceTrue={true}
+          Place="Abuja"
+          MainBoxRestyle={{
+             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomWidth: 1,
+            marginTop: verticalScale(15),
+            paddingBottom: verticalScale(15),
           }}
         />
 
@@ -175,7 +165,6 @@ export default PopularBooks;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-   
   },
   border: {
     borderBottomWidth: scale(3),
@@ -192,11 +181,6 @@ const styles = StyleSheet.create({
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins400,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
-  },
-  BooksTitleStyle: {
-    // color: Color.DarkTextColor,
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
-    fontFamily: Font.Poppins600,
   },
   TitleStyle: {
     // color: Color.DarkTextColor,

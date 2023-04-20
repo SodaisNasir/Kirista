@@ -100,7 +100,7 @@ const PhoneInput = props => {
             fontFamily: Font.Poppins400,
             paddingLeft: moderateScale(5),
             color: Theme ? Color.DarkThemeInputText : Color.TextColor,
-            top : fourInchPotrait? scale(2) : fourInchLandscape? scale(2) :  0,
+            top : fourInchPotrait? scale(2) : fourInchLandscape? scale(2) : 1,
             flex: 1,
           }}
         />

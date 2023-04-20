@@ -143,7 +143,7 @@ const FeaturedParishes = props => {
         />
 
 <DetailsCard
-          source={require('../../assets/images/parishsmall_1.png')}
+          source={require('../../assets/images/parishsmall_3.png')}
           title="RCCG"
           resize={'cover'}
           manual="Salvation Centre"

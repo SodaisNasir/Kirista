@@ -71,7 +71,7 @@ const CustomInput = (props) => {
                 ? verticalScale(2)
                 : fourInchLandscape
                 ? verticalScale(2)
-                : verticalScale(1.5),
+                :tabPotrait ? verticalScale(1) : verticalScale(1.5),
               fontFamily: Font.Poppins400,
               alignItems: 'center',
               justifyContent: 'center',
