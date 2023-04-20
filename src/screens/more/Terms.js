@@ -6,30 +6,35 @@ import {
   View,
   Dimensions,
   useColorScheme,
-} from 'react-native'
-import React, {useLayoutEffect} from 'react'
-import {Color} from '../../utils/Colors'
-import {verticalScale, scale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import Header from '../../components/Header'
-import CustomNavigator from '../../components/CustomNavigator'
+  StatusBar,
+} from 'react-native';
+import React, {useLayoutEffect} from 'react';
+import {Color} from '../../utils/Colors';
+import {verticalScale, scale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import Header from '../../components/Header';
+import CustomNavigator from '../../components/CustomNavigator';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const Terms = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useColorScheme() === 'dark';
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header text={'Terms'} />
         <View
@@ -84,10 +89,10 @@ const Terms = ({navigation}) => {
         <CustomNavigator />
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Terms
+export default Terms;
 
 const styles = StyleSheet.create({
   Container: {
@@ -99,4 +104,4 @@ const styles = StyleSheet.create({
     fontFamily: Font.Libre400,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
   },
-})
+});

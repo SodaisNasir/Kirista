@@ -1,36 +1,37 @@
 import {
   SafeAreaView,
-  ScrollView,
   StyleSheet,
-  Text,
   View,
   TextInput,
   useColorScheme,
   useWindowDimensions,
-  TouchableOpacity
-} from 'react-native'
-import React, {useLayoutEffect} from 'react'
-import Header from '../../components/Header'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../utils/font'
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
-import CustomButton from '../../components/CustomButton'
-import CustomInput from '../../components/CustomInput'
-import AttachButton from '../../components/AttachButton'
-import CustomHeader from '../../components/CustomHeader'
+  StatusBar,
+} from 'react-native';
+import React, {useLayoutEffect} from 'react';
+import Header from '../../components/Header';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../utils/font';
+import {
+  verticalScale,
+  scale,
+  moderateScale,
+  moderateVerticalScale,
+} from 'react-native-size-matters';
+import CustomButton from '../../components/CustomButton';
+import AttachButton from '../../components/AttachButton';
 
 const Feedback = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark'
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
+  const Theme = useColorScheme() === 'dark';
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
   return (
     <SafeAreaView
       style={[
@@ -39,6 +40,10 @@ const Feedback = ({navigation}) => {
           flex: 1,
         },
       ]}>
+      <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <Header text={'Feedback'} />
       <View
         style={{
@@ -49,10 +54,12 @@ const Feedback = ({navigation}) => {
           <View
             style={{
               flex: 1,
-              paddingTop: moderateScale(10),
+              paddingTop: moderateVerticalScale(10),
+              paddingLeft: moderateScale(10),
+              paddingRight: moderateScale(30),
             }}>
             <TextInput
-              placeholder={'Briefly explain what isnt working or what happened'}
+              placeholder={`Briefly explain what isn't working or what happened`}
               placeholderTextColor={
                 Theme ? Color.DarkThemeGreyText : Color.TextColor
               }
@@ -63,7 +70,6 @@ const Feedback = ({navigation}) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: Theme ? Color.DarkThemeInputText : Color.TextColor,
-
                   flex: 1,
                   textAlignVertical: 'top',
                 },
@@ -75,7 +81,6 @@ const Feedback = ({navigation}) => {
         <View
           style={{
             height: '40%',
-            // paddingVertical: verticalScale(10),
           }}>
           <View
             style={{
@@ -95,9 +100,9 @@ const Feedback = ({navigation}) => {
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Feedback
+export default Feedback;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
