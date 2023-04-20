@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react'
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,33 +9,33 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   useColorScheme,
-} from 'react-native'
+} from 'react-native';
 import {
   moderateScale,
   moderateVerticalScale,
   scale,
   verticalScale,
-} from 'react-native-size-matters'
-import Header from '../../components/Header'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../utils/font'
-import ReadNavigator from '../../components/ReadNavigator'
+} from 'react-native-size-matters';
+import Header from '../../components/Header';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../utils/font';
+import ReadNavigator from '../../components/ReadNavigator';
 
 const Language = ({navigation}) => {
   const handleSubmit = () => {
-    navigation.goBack()
-  }
-  const Theme = useColorScheme() === 'dark'
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
-  const [selected, setSelected] = useState()
+    navigation.goBack();
+  };
+  const Theme = useColorScheme() === 'dark';
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const [selected, setSelected] = useState();
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
 
   let DATA = [
     {
@@ -63,13 +63,12 @@ const Language = ({navigation}) => {
       title: 'Pidgin',
       Short: '(PN)',
     },
-  ]
+  ];
 
-  const [option, setOption] = useState(null)
+  const [option, setOption] = useState(null);
 
   const Item = ({data}) => (
     <TouchableOpacity
-   
       style={[
         {
           paddingHorizontal:
@@ -77,7 +76,7 @@ const Language = ({navigation}) => {
         },
         styles.item,
       ]}
-      onPress={() =>[ setSelected(data.title), navigation.goBack()]}>
+      onPress={() => [setSelected(data.title), navigation.goBack()]}>
       <View
         style={{
           flexDirection: 'row',
@@ -149,36 +148,38 @@ const Language = ({navigation}) => {
       </View>
       <View
         style={[
-          {borderBottomColor: Theme ? Color.DarkBorderColor : Color.BorderColor},
+          {
+            borderBottomColor: Theme
+              ? Color.DarkBorderColor
+              : Color.BorderColor,
+          },
           styles.BorderBottom,
         ]}
       />
     </TouchableOpacity>
-  )
+  );
   return (
     <SafeAreaView
       style={[
         styles.Container,
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
       ]}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header text={'Language'} />
-        <FlatList
-          scrollEnabled={false}
-          showsVerticalScrollIndicator={false}
-          data={DATA}
-          renderItem={({item}) => <Item data={item} />}
-          keyExtractor={(item) => item.id}
-          style={{marginTop: verticalScale(20)}}
-        />
+      <Header text={'Language'} />
+      <FlatList
+        scrollEnabled={true}
+        showsVerticalScrollIndicator={false}
+        data={DATA}
+        renderItem={({item}) => <Item data={item} />}
+        keyExtractor={item => item.id}
+        style={{marginTop: verticalScale(20)}}
+      />
 
-        <View style={{height: verticalScale(10)}} />
-      </ScrollView>
+      <View style={{height: verticalScale(10)}} />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Language
+export default Language;
 
 const styles = StyleSheet.create({
   Container: {
@@ -199,4 +200,4 @@ const styles = StyleSheet.create({
   Short: {
     fontFamily: Font.Poppins400,
   },
-})
+});

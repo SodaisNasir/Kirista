@@ -7,27 +7,28 @@ import {
   useColorScheme,
   View,
   Image,
-} from 'react-native'
-import React, {useLayoutEffect} from 'react'
-import Header from '../../components/Header'
-import {moderateScale, s, scale, verticalScale} from 'react-native-size-matters'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../utils/font'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import CustomNavigator from '../../components/CustomNavigator'
+  StatusBar,
+} from 'react-native';
+import React, {useLayoutEffect} from 'react';
+import Header from '../../components/Header';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../utils/font';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import CustomNavigator from '../../components/CustomNavigator';
 
 const About = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark'
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
+  const Theme = useColorScheme() === 'dark';
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <SafeAreaView
@@ -37,6 +38,10 @@ const About = ({navigation}) => {
           flex: 1,
         },
       ]}>
+      <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <Header text={'About'} />
       <ScrollView>
         <View
@@ -311,10 +316,10 @@ const About = ({navigation}) => {
         <CustomNavigator />
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default About
+export default About;
 
 const styles = StyleSheet.create({
   TextViewStyle: {
@@ -327,4 +332,4 @@ const styles = StyleSheet.create({
   NaijaText: {
     fontFamily: Font.Poppins600,
   },
-})
+});

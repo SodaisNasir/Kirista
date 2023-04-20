@@ -80,88 +80,88 @@ const FeaturedParishes = props => {
       ]}>
       <Header text={'Featured Parishes'} />
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          paddingHorizontal:
-            w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-          marginTop: verticalScale(10),
-        }}>
-        <DetailsCard
-          source={require('../../assets/images/parishsmall_1.png')}
-          title="RCCG "
-          manual="Central Parish"
-          resize={'cover'}
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
-        <DetailsCard
-          source={require('../../assets/images/parishsmall_2.png')}
-          title="RCCG"
-          resize={'cover'}
-          manual="Precious Ambassadors "
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
+        <View
+          style={{
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            marginTop: verticalScale(10),
+          }}>
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_1.png')}
+            title="RCCG "
+            manual="Central Parish"
+            resize={'cover'}
+            TimeTrue={true}
+            date={'November 09, 2023'}
+            time={'4PM'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_2.png')}
+            title="RCCG"
+            resize={'cover'}
+            manual="Precious Ambassadors "
+            TimeTrue={true}
+            date={'November 09, 2023'}
+            time={'4PM'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-        <DetailsCard
-          source={require('../../assets/images/parishsmall_2.png')}
-          title="RCCG"
-          resize={'cover'}
-          manual="Salvation Centre"
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_2.png')}
+            title="RCCG"
+            resize={'cover'}
+            manual="Salvation Centre"
+            TimeTrue={true}
+            date={'November 09, 2023'}
+            time={'4PM'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-<DetailsCard
-          source={require('../../assets/images/parishsmall_3.png')}
-          title="RCCG"
-          resize={'cover'}
-          manual="Salvation Centre"
-          TimeTrue={true}
-          date={'November 09, 2023'}
-          time={'4PM'}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
-      </View>
-      <View style={{height: verticalScale(75)}} />
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_3.png')}
+            title="RCCG"
+            resize={'cover'}
+            manual="Salvation Centre"
+            TimeTrue={true}
+            date={'November 09, 2023'}
+            time={'4PM'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+        </View>
+        <View style={{height: verticalScale(75)}} />
       </ScrollView>
     </SafeAreaView>
   );

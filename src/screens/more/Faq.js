@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,51 +8,56 @@ import {
   ScrollView,
   Dimensions,
   useColorScheme,
-} from 'react-native'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
-import Header from '../../components/Header'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../utils/font'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+  StatusBar,
+} from 'react-native';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import Header from '../../components/Header';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../utils/font';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const Faq = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark'
-  const [expanded1, setExpanded1] = useState(false)
-  const [expanded2, setExpanded2] = useState(false)
-  const [expanded3, setExpanded3] = useState(false)
-  const [expanded4, setExpanded4] = useState(false)
-  const [expanded5, setExpanded5] = useState(false)
+  const Theme = useColorScheme() === 'dark';
+  const [expanded1, setExpanded1] = useState(false);
+  const [expanded2, setExpanded2] = useState(false);
+  const [expanded3, setExpanded3] = useState(false);
+  const [expanded4, setExpanded4] = useState(false);
+  const [expanded5, setExpanded5] = useState(false);
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
 
   const handlePress1 = () => {
-    setExpanded1(!expanded1)
-  }
+    setExpanded1(!expanded1);
+  };
   const handlePress2 = () => {
-    setExpanded2(!expanded2)
-  }
+    setExpanded2(!expanded2);
+  };
   const handlePress3 = () => {
-    setExpanded3(!expanded3)
-  }
+    setExpanded3(!expanded3);
+  };
   const handlePress4 = () => {
-    setExpanded4(!expanded4)
-  }
+    setExpanded4(!expanded4);
+  };
   const handlePress5 = () => {
-    setExpanded5(!expanded5)
-  }
+    setExpanded5(!expanded5);
+  };
 
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <ScrollView>
         <Header text={'FAQ'} />
         <View
@@ -98,7 +103,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                    borderRadius: scale(16),
+                  borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
                 }}>
@@ -153,7 +158,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                   borderRadius: scale(16),
+                  borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
                 }}>
@@ -208,7 +213,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                   borderRadius: scale(16),
+                  borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
                 }}>
@@ -217,7 +222,6 @@ const Faq = ({navigation}) => {
                     styles.ExpandedText,
                     {
                       color: Theme ? Color.White : Color.DarkTheme,
-
                     },
                   ]}>
                   Kirista is a mobile application that provides brethren with
@@ -264,7 +268,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                   borderRadius: scale(16),
+                  borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
                 }}>
@@ -319,7 +323,7 @@ const Faq = ({navigation}) => {
                   backgroundColor: Theme
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
-                   borderRadius: scale(16),
+                  borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
                 }}>
@@ -342,8 +346,8 @@ const Faq = ({navigation}) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   MainBox: {
@@ -368,11 +372,11 @@ const styles = StyleSheet.create({
   },
   ExpandedText: {
     marginVertical: verticalScale(15),
-    paddingHorizontal:moderateScale(10),
+    paddingHorizontal: moderateScale(10),
     fontFamily: Font.Inter500,
     color: Color.Black,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
   },
-})
+});
 
-export default Faq
+export default Faq;

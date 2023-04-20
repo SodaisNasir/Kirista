@@ -9,21 +9,25 @@ import {
   TouchableOpacity,
   useColorScheme,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import DetailsCard from '../../components/Card/DetailsCard';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const PopularBooks = props => {
+const PopularBooks = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
-  const navigation = useNavigation();
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   const data = [
     {
       id: 1,
@@ -79,7 +83,7 @@ const PopularBooks = props => {
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
         }}>
         <DetailsCard
-        onPress = {()=>navigation.navigate('ViewManual')}
+          onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/manual.png')}
           title="RCCBA"
           manual="CENTERAL PERTIAN"
@@ -87,14 +91,14 @@ const PopularBooks = props => {
           PlaceTrue={true}
           Place="Abuja"
           MainBoxRestyle={{
-             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
             marginTop: verticalScale(15),
             paddingBottom: verticalScale(15),
           }}
         />
         <DetailsCard
-         onPress = {()=>navigation.navigate('ViewManual')}
+          onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/sunday_manual2.png')}
           title="RCCBA"
           manual="CENTERAL PERTIAN"
@@ -102,14 +106,14 @@ const PopularBooks = props => {
           PlaceTrue={true}
           Place="Abuja"
           MainBoxRestyle={{
-             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
             marginTop: verticalScale(15),
             paddingBottom: verticalScale(15),
           }}
         />
         <DetailsCard
-         onPress = {()=>navigation.navigate('ViewManual')}
+          onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/manual.png')}
           title="RCCBA"
           manual="CENTERAL PERTIAN"
@@ -117,14 +121,14 @@ const PopularBooks = props => {
           PlaceTrue={true}
           Place="Abuja"
           MainBoxRestyle={{
-             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
             marginTop: verticalScale(15),
             paddingBottom: verticalScale(15),
           }}
         />
         <DetailsCard
-         onPress = {()=>navigation.navigate('ViewManual')}
+          onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/sunday_manual2.png')}
           title="RCCBA"
           manual="CENTERAL PERTIAN"
@@ -132,14 +136,14 @@ const PopularBooks = props => {
           PlaceTrue={true}
           Place="Abuja"
           MainBoxRestyle={{
-             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
             marginTop: verticalScale(15),
             paddingBottom: verticalScale(15),
           }}
         />
         <DetailsCard
-         onPress = {()=>navigation.navigate('ViewManual')}
+          onPress={() => navigation.navigate('ViewManual')}
           source={require('../../assets/images/manual.png')}
           title="RCCBA"
           resize={'contain'}
@@ -147,7 +151,7 @@ const PopularBooks = props => {
           PlaceTrue={true}
           Place="Abuja"
           MainBoxRestyle={{
-             borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
             marginTop: verticalScale(15),
             paddingBottom: verticalScale(15),
