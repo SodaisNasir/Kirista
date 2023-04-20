@@ -71,13 +71,7 @@ const Contact = ({navigation}) => {
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
             <CustomInput
-              RestyleHeight={{
-                height:
-                  w >= 768 && h >= 1024
-                    ? verticalScale(80)
-                    : verticalScale(130),
-                paddingHorizontal: moderateScale(10),
-              }}
+              
               TextRestyle={{textAlignVertical: 'top'}}
               text={'Subject'}
               placeholder={'Type here'}

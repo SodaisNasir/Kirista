@@ -549,7 +549,7 @@ const SettingsMore = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View

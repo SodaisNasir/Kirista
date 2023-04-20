@@ -61,13 +61,13 @@ const HomeHeader = props => {
             }}>
             <TouchableOpacity
               style={{
-                borderRadius: scale(5),
+                borderRadius: w >= 768 && h >= 1024 ? scale(5) : scale(7),
                 backgroundColor: Theme ? '#0A2E61' : '#fff',
                 justifyContent: 'center',
                 alignItems: 'center',
                 height:
                   w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30),
-                width: w >= 768 && h >= 1024 ? scale(20) : scale(32),
+                width: w >= 768 && h >= 1024 ? scale(20) : scale(30),
               }}
               onPress={() => navigation.navigate('Searchbar')}>
               <View>

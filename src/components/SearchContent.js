@@ -12,6 +12,7 @@ import React, {useState} from 'react';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import { Font } from '../utils/font';
 import { Color } from '../utils/Colors';
+import DetailsCard from './Card/DetailsCard';
 
 
 
@@ -60,104 +61,102 @@ export default function SearchContent() {
     },
   ];
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White
+    <View style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White
     }}>
-      <View
-        style={{
-          paddingHorizontal:
-            w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(0),
-        }}>
-        <FlatList
-          data={data}
-          renderItem={({item}) => {
-            return (
-              <View
-                style={{
-                  height:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(95)
-                      : verticalScale(110),
-                  // marginTop: verticalScale(10),
+        <View
+          style={{
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+          }}>
+          <DetailsCard
+            source={require('../assets/images/manual.png')}
+            title="Sunday Student"
+            resize={'contain'}
+            manual="Manual"
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+            source={require('../assets/images/parishsmall_1.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+            source={require('../assets/images/EventScreenImage1.png')}
+            title="RCCG"
+            resize={'cover'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-                  flexDirection: 'row',
-                  marginHorizontal: verticalScale(20),
-                  // marginBottom: 10,
-                  // marginVertical: verticalScale(10),
+          <DetailsCard
+            source={require('../assets/images/parishsmall_3.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-                  // borderRadius: 12,
-                  overflow: 'hidden',
-                  borderBottomWidth: 1,
-
-                  borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
-                }}>
-                <View
-                  style={{
-                    flex: w >= 768 && h >= 1024 ? 0.9 : 1.2,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    // backgroundColor:'red'
-                  }}>
-                  <View
-                    style={{
-                      height: w >= 768 && h >= 1024 ? '60%' : '100%',
-                      width: scale(90),
-                    }}>
-                    <Image
-                      resizeMode="contain"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                      }}
-                      source={item.image}
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flex: w >= 768 && h >= 1024 ? 3 : 2,
-                    paddingHorizontal:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(0)
-                        : verticalScale(15),
-                    marginVertical: verticalScale(25),
-                    // backgroundColor:'red'
-                  }}>
-                  <View
-                    style={{
-                      // height: verticalScale(30),
-
-                      // backgroundColor: 'yellow',
-                      justifyContent: 'center',
-                    }}>
-                    <Text style={styles.TitleStyle}>{item.title}</Text>
-                    <Text style={[{bottom: scale(3), color:  Theme ? Color.White :Color.DarkTextColor}, styles.TitleStyle]}>
-                      {item.manual}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      // height:
-                      //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
-                      justifyContent: 'space-around',
-                      right: scale(2),
-                      //   flexDirection:'row',
-                    }}>
-                    <Text style={[styles.DateStyle]}>
-                      {' '}
-                      {item.detail}
-                      {'   '}
-                      {'   '}
-                      {item.time}{' '}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            );
-          }}
-        />
-     
-      </View>
-    </SafeAreaView>
+          <DetailsCard
+            source={require('../assets/images/sunday_manual2.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+        </View>
+    </View>
   );
 }
 

@@ -45,7 +45,8 @@ const PhoneInput = props => {
           backgroundColor: Theme
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
-          borderRadius: tabPotrait ? scale(12) : scale(12),
+            
+          borderRadius: tabPotrait ? scale(12) : scale(18),
           paddingHorizontal: verticalScale(10),
           marginTop: verticalScale(2),
           flexDirection: 'row',

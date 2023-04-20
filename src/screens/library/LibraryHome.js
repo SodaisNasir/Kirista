@@ -9,25 +9,26 @@ import {
   useColorScheme,
   TouchableOpacity,
   ScrollView,
-} from 'react-native'
-import React, {useState} from 'react'
-import LibraryHeader from '../../components/LibraryHeader'
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import {Color} from '../../utils/Colors'
-import FilterModal from '../../components/Modals/FilterModal'
+} from 'react-native';
+import React, {useState} from 'react';
+import LibraryHeader from '../../components/LibraryHeader';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import {Color} from '../../utils/Colors';
+import FilterModal from '../../components/Modals/FilterModal';
+import DetailsCard from '../../components/Card/DetailsCard';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const LibraryHome = ({navigation}) => {
   // for modal
-  const [showModal, setShowModal] = useState(false)
-  const Theme = useColorScheme() === 'dark'
-  const [isModalVisible, setModalVisible] = useState(false)
+  const [showModal, setShowModal] = useState(false);
+  const Theme = useColorScheme() === 'dark';
+  const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
-    setModalVisible(!isModalVisible)
-  }
+    setModalVisible(!isModalVisible);
+  };
 
   const data = [
     {
@@ -72,138 +73,125 @@ const LibraryHome = ({navigation}) => {
       detail: '2023',
       path: 'PopularBooks',
     },
-  ]
+  ];
 
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <LibraryHeader
         onPress={() => {
-          setShowModal(toggleModal(true))
+          setShowModal(toggleModal(true));
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          paddingHorizontal:
-            w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(0),
-        }}>
-        <FlatList
-          data={data}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate(item.path)}
-                style={{
-                  height:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(95)
-                      : verticalScale(120),
-                  flexDirection: 'row',
-                  marginHorizontal: verticalScale(20),
-                  overflow: 'hidden',
-                  borderBottomWidth: 0.3,
+        <View
+          style={{
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+          }}>
+          <DetailsCard
+            source={require('../../assets/images/manual.png')}
+            title="Sunday Student"
+            resize={'contain'}
+            manual="Manual"
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_1.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+            source={require('../../assets/images/EventScreenImage1.png')}
+            title="RCCG"
+            resize={'cover'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-                  borderColor: Color.BorderColor,
-                }}>
-                <View
-                  style={{
-                    flex: w >= 768 && h >= 1024 ? 0.9 : 1.2,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    // backgroundColor: 'red',
-                  }}>
-                  <View
-                    style={{
-                      height: w >= 768 && h >= 1024 ? '60%' : '100%',
-                      width: scale(90),
-                    }}>
-                    <Image
-                      resizeMode="contain"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                      }}
-                      source={item.image}
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flex: w >= 768 && h >= 1024 ? 3 : 2,
-                    paddingHorizontal:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(0)
-                        : verticalScale(15),
-                    marginVertical: verticalScale(25),
-                    // backgroundColor:'red'
-                  }}>
-                  <View
-                    style={{
-                      // height: verticalScale(30),
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_3.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-                      // backgroundColor: 'yellow',
-                      justifyContent: 'center',
-                    }}>
-                    <Text
-                      style={[
-                        styles.TitleStyle,
-                        {
-                          color: Theme ? Color.White : Color.DarkTextColor,
-                        },
-                      ]}>
-                      {item.title}
-                    </Text>
-                    <Text
-                      style={[
-                        {
-                          bottom: scale(3),
-                          color: Theme ? Color.White : Color.DarkTextColor,
-                        },
-                        styles.TitleStyle,
-                      ]}>
-                      {item.manual}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      // height:
-                      //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
-                      justifyContent: 'space-around',
-                      right: scale(2),
-                      //   flexDirection:'row',
-                    }}>
-                    <Text style={[styles.DateStyle]}>
-                      {' '}
-                      {item.detail}
-                      {'   '}
-                      {'   '}
-                      {item.time}{' '}
-                    </Text>
-                  </View>
-                </View>
-                
-              </TouchableOpacity>
-              
-            )
-          }}
-        />
-    
-
-        <FilterModal
+          <DetailsCard
+            source={require('../../assets/images/sunday_manual2.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+        </View>
+      </ScrollView>
+      <View style={{height: verticalScale(75)}} />
+      <FilterModal
           isVisible={isModalVisible}
           onBackdropPress={() => setModalVisible(false)}
           swipeDirection="down"
           onSwipeComplete={() => setModalVisible(false)}
         />
-      </View>
-      </ScrollView>
-      <View  style={{height:verticalScale(75)}}/>
-    </SafeAreaView>
-  )
-}
 
-export default LibraryHome
+
+    </SafeAreaView>
+  );
+};
+
+export default LibraryHome;
 
 const styles = StyleSheet.create({
   border: {
@@ -231,4 +219,4 @@ const styles = StyleSheet.create({
 
     // paddingHorizontal: verticalScale(50),
   },
-})
+});

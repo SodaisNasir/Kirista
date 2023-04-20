@@ -21,6 +21,8 @@ import NoResult from './NoResult'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 const SearchResult = (props) => {
+  
+
   const navigation = useNavigation()
 
   const [Book, setBook] = useState(true)
@@ -135,22 +137,25 @@ const SearchResult = (props) => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           paddingTop: verticalScale(10),
         }}>
-        <TouchableOpacity style={{}} onPress={HandelBook}>
+        <TouchableOpacity style={{marginBottom:verticalScale(10)}} onPress={HandelBook}>
           <Text
-            style={[styles.TextStyle, props.BooksRestyle, styles.BooksStyle]}>
+            style={[{ color: Theme ?  '#9DA6B3' :   '#C1C5CA'},styles.TextStyle, props.BooksRestyle, styles.BooksStyle]}>
             Books
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          // style={{backgroundColor: 'red'}}
+          style={{marginBottom:verticalScale(10)}}
           onPress={HandelParishes}>
-          <Text style={[styles.TextStyle, props.ParishRestyle]}>Parishes</Text>
+          <Text style={[{ color: Theme ?  '#9DA6B3' :   '#C1C5CA'},styles.TextStyle, props.ParishRestyle]}>Parishes</Text>
           <View style={props.ParishUnderLineStyle} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={HandelEvent}>
-          <Text style={[styles.TextStyle, props.EventRestyle]}>Events</Text>
+        <TouchableOpacity onPress={HandelEvent}
+           style={{marginBottom:verticalScale(10)}}
+        >
+          
+          <Text style={[{ color: Theme ?  '#9DA6B3' :   '#C1C5CA'},styles.TextStyle, props.EventRestyle]}>Events</Text>
           <View style={props.EventUnderLineStyle} />
         </TouchableOpacity>
       </View>
@@ -215,5 +220,10 @@ const styles = StyleSheet.create({
     width: '85%',
     paddingHorizontal: moderateScale(10),
   },
+
+  TextStyle: {
+    fontFamily: Font.Poppins400,
+   
+  }
 })
 export default SearchResult

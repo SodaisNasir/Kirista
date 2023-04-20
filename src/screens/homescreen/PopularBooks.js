@@ -28,46 +28,8 @@ const PopularBooks = ({navigation}) => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
-  const data = [
-    {
-      id: 1,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book1.png'),
-      year: '2023',
-    },
+ 
 
-    {
-      id: 2,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-
-    {
-      id: 3,
-      title: 'Sunday School Teachers',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book1.png'),
-      year: '2023',
-    },
-
-    {
-      id: 4,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-    {
-      id: 5,
-      title: 'Sunday School Teachers',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-  ];
 
   return (
     <SafeAreaView

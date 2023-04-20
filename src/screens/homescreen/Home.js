@@ -201,6 +201,14 @@ const Home = ({navigation}) => {
                         ? verticalScale(130)
                         : verticalScale(135),
 
+                        top:
+                        w >= 768 && h >= 1024
+                          ? item.type === 'small'
+                            ? scale(2)
+                            : scale(0)
+                          : item.type === 'small'
+                          ? scale(2)
+                          : scale(0),
                     width: w >= 768 && h >= 1024 ? scale(160) : scale(270),
                     // marginVertical: verticalScale(10),
                     marginRight: verticalScale(12),

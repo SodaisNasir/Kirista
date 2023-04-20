@@ -10,6 +10,7 @@ import {
   Dimensions,
   Image,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -69,6 +70,7 @@ const Searchbar = props => {
       ]}>
       {!isSearchBarVisible ? (
         <>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               height: verticalScale(90),
@@ -164,8 +166,9 @@ const Searchbar = props => {
               style={{
                 height: verticalScale(30),
                 backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              }}></View>
+              }}/>
           </View>
+          </ScrollView>
         </>
       ) : (
         <>
