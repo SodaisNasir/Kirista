@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,16 +8,16 @@ import {
   Dimensions,
   Image,
   ScrollView,
-} from 'react-native'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../assets/fonts/PoppinsFont'
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+} from 'react-native';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../assets/fonts/PoppinsFont';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const LightSplash = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useColorScheme() === 'dark';
 
   setTimeout(() => {
     navigation.navigate('OverBoard')
@@ -29,90 +29,98 @@ const LightSplash = ({navigation}) => {
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-      <View
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          flex: 1,
+        }}
         style={{
-          height: '40%',
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
+          height: '100%',
+          width: '100%',
         }}>
         <View
           style={{
-            height: w >= 768 && h >= 1024 ? '25%' : '40%',
-            width: '70%',
+            height: '40%',
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            justifyContent: 'flex-end',
+            alignItems: 'center',
           }}>
-          {Theme ? (
-            <Image
-              resizeMode="center"
-              style={{
-                height: '100%',
-                width: '100%',
-              }}
-              source={require('../../assets/images/krista_about_dark.png')}
-            />
-          ) : (
-            <Image
-              resizeMode="center"
-              style={{
-                height: '100%',
-                width: '100%',
-              }}
-              source={require('../../assets/images/krista_about.png')}
-            />
-          )}
-        </View>
-      </View>
-      <View
-        style={{
-          height: '54%',
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        }}>
-        <View
-          style={{
-            height: '20%',
-            width: '85%',
-          }}>
-          <Text
+          <View
             style={{
-              fontFamily: Font.Poppins500,
-              fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
-              color: Theme ? Color.White : Color.Black,
-              position: 'absolute',
-              left: w >= 768 && h >= 1024 ? scale(130) : scale(115) ,
-              top: w >= 768 && h >= 1024 ? scale(0) : scale(3)  
+              height: w >= 768 && h >= 1024 ? '25%' : '40%',
+              width: '70%',
             }}>
-            Powered by
-          </Text>
-          {Theme ? (
-            <Image
-              resizeMode="cover"
-              style={{
-                height: '100%',
-                width: '100%',
-              }}
-              source={require('../../assets/images/continent2_logo_dark.png')}
-            />
-          ) : (
-            <Image
-              resizeMode="cover"
-              style={{
-                height: '100%',
-                width: w >= 768 && h >= 1024 ? '70%' : '100%',
-                alignSelf:'center'
-              }}
-              source={require('../../assets/images/continent2_logo.png')}
-            />
-          )}
+            {Theme ? (
+              <Image
+                resizeMode="center"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+                source={require('../../assets/images/krista_about_dark.png')}
+              />
+            ) : (
+              <Image
+                resizeMode="center"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+                source={require('../../assets/images/krista_about.png')}
+              />
+            )}
+          </View>
         </View>
-      </View>
+        <View
+          style={{
+            height: '54%',
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              height: '20%',
+              width: '85%',
+            }}>
+            <Text
+              style={{
+                fontFamily: Font.Poppins500,
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
+                color: Theme ? Color.White : Color.Black,
+                position: 'absolute',
+                left: w >= 768 && h >= 1024 ? scale(130) : scale(115),
+                top: w >= 768 && h >= 1024 ? scale(0) : scale(3),
+              }}>
+              Powered by
+            </Text>
+            {Theme ? (
+              <Image
+                resizeMode="cover"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+                source={require('../../assets/images/continent2_logo_dark.png')}
+              />
+            ) : (
+              <Image
+                resizeMode="cover"
+                style={{
+                  height: '100%',
+                  width: w >= 768 && h >= 1024 ? '70%' : '100%',
+                  alignSelf: 'center',
+                }}
+                source={require('../../assets/images/continent2_logo.png')}
+              />
+            )}
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default LightSplash
+export default LightSplash;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

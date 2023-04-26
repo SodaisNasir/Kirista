@@ -68,7 +68,7 @@ function AuthNavigator() {
         <Stack.Screen
           name="splashlight"
           component={LightSplash}
-          options={{animation: 'flip'}}
+          // options={{animation: 'flip'}}
         />
         <Stack.Screen
           name="SignUp"
