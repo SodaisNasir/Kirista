@@ -63,6 +63,16 @@ const Language = ({navigation}) => {
       title: 'Pidgin',
       Short: '(PN)',
     },
+    {
+      id: '6',
+      title: 'Fula',
+      Short: '(FU)',
+    },
+    {
+      id: '7',
+      title: 'Español',
+      Short: '(ES)',
+    },
   ];
 
   const [option, setOption] = useState(null);

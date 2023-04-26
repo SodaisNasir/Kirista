@@ -4,7 +4,7 @@ import {
   Text,
   View,
   SafeAreaView,
-  Image,
+  ScrollView,
   TouchableOpacity,
   Dimensions,
   useColorScheme,
@@ -34,31 +34,30 @@ const OTP = ({navigation}) => {
     value,
     setValue,
   });
-  
-const fadeIn = {
-  from: {
-    opacity: 0,
-  },
-  to: {
-    opacity: 1,
-  },
-};
 
-const zoomIn = {
-  0: {
-    opacity: 0,
-    scale: 0,
-  },
-  0.5: {
-    opacity: 1,
-    scale: 0.3,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
-};
+  const fadeIn = {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
 
+  const zoomIn = {
+    0: {
+      opacity: 0,
+      scale: 0,
+    },
+    0.5: {
+      opacity: 1,
+      scale: 0.3,
+    },
+    1: {
+      opacity: 1,
+      scale: 1,
+    },
+  };
 
   const [time, setTime] = useState(600);
   useEffect(() => {
@@ -76,133 +75,130 @@ const zoomIn = {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
-        <ScrollView>
-      <AuthHeader text={'Email Verification'} />
-
-      <Animatable.View
-        iterationDelay={1000}
-        duration={300}
-        animation={fadeIn}
-        style={{
-          justifyContent: 'center',
-          marginVertical: scale(10),
-        }}>
-        <Text
-          style={[
-            {color: Theme ? Color.DarkThemText2 : Color.TextColor},
-            styles.LongText,
-          ]}>
-          We have sent a one-time password to{' '}
-          <Text
-            style={{
-              fontFamily: Font.Poppins700,
-              fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
-              color: Theme ? Color.DarkThemText2 : Color.TextColor,
-            }}>
-            maryjames@rccg.com
-          </Text>
-        </Text>
-      </Animatable.View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginVertical:
-            w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
-        }}>
-        <Animatable.Text
-          iterationDelay={1300}
-          duration={300}
-          animation={fadeIn}
-          style={[
-            {color: Theme ? Color.DarkThemText2 : Color.TextColor},
-            styles.OtpText,
-          ]}>
-          OTP
-        </Animatable.Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <AuthHeader text={'Email Verification'} />
 
         <Animatable.View
-          iterationDelay={1500}
+          iterationDelay={1000}
           duration={300}
-          animation={fadeIn}>
-          {time == 0 ? (
-            <TouchableOpacity
+          animation={fadeIn}
+          style={{
+            justifyContent: 'center',
+            marginVertical: scale(10),
+          }}>
+          <Text
+            style={[
+              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+              styles.LongText,
+            ]}>
+            We have sent a one-time password to{' '}
+            <Text
               style={{
-                // padding: 7,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: scale(10),
-              }}
-              onPress={() => setTime(600)}>
+                fontFamily: Font.Poppins700,
+                fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
+                color: Theme ? Color.DarkThemText2 : Color.TextColor,
+              }}>
+              maryjames@rccg.com
+            </Text>
+          </Text>
+        </Animatable.View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginVertical:
+              w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
+          }}>
+          <Animatable.Text
+            iterationDelay={1300}
+            duration={300}
+            animation={fadeIn}
+            style={[
+              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+              styles.OtpText,
+            ]}>
+            OTP
+          </Animatable.Text>
+
+          <Animatable.View
+            iterationDelay={1500}
+            duration={300}
+            animation={fadeIn}>
+            {time == 0 ? (
+              <TouchableOpacity
+                style={{
+                  // padding: 7,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: scale(10),
+                }}
+                onPress={() => setTime(600)}>
+                <Text
+                  style={{
+                    color: Theme ? Color.White : Color.Black,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                    fontFamily: Font.Poppins700,
+                  }}>
+                  Resend
+                </Text>
+              </TouchableOpacity>
+            ) : (
               <Text
                 style={{
                   color: Theme ? Color.White : Color.Black,
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                  alignSelf: 'center',
                   fontFamily: Font.Poppins700,
                 }}>
-                Resend
+                {timeString}
               </Text>
-            </TouchableOpacity>
-          ) : (
-            <Text
-              style={{
-                color: Theme ? Color.White : Color.Black,
-                fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
-                alignSelf: 'center',
-                fontFamily: Font.Poppins700,
-              }}>
-              {timeString}
-            </Text>
+            )}
+          </Animatable.View>
+        </View>
+
+        <CodeField
+          ref={ref}
+          value={value}
+          onChangeText={setValue}
+          cellCount={CELL_COUNT}
+          rootStyle={styles.codeFieldRoot}
+          keyboardType="number-pad"
+          textContentType="oneTimeCode"
+          renderCell={({index, symbol, isFocused}) => (
+            <Animatable.Text
+              iterationDelay={1800}
+              duration={300}
+              animation={fadeIn}
+              key={index}
+              style={[
+                {
+                  backgroundColor: Theme
+                    ? Color.DarkThemeInputBox
+                    : Color.OtpBoxColor,
+                },
+                {},
+                styles.cell,
+                isFocused && styles.focusCell,
+              ]}
+              onLayout={getCellOnLayoutHandler(index)}>
+              {symbol || (isFocused ? <Cursor /> : null)}
+            </Animatable.Text>
           )}
-        </Animatable.View>
-      </View>
-
-      <CodeField
-        ref={ref}
-        value={value}
-        onChangeText={setValue}
-        cellCount={CELL_COUNT}
-        rootStyle={styles.codeFieldRoot}
-        
-        keyboardType="number-pad"
-        textContentType="oneTimeCode"
-        renderCell={({index, symbol, isFocused}) => (
-          <Animatable.Text
-          iterationDelay={1800}
-          duration={300}
-          animation={fadeIn}
-            key={index}
-            style={[
-              {
-                backgroundColor: Theme
-                  ? Color.DarkThemeInputBox
-                  : Color.OtpBoxColor,
-
-              },
-              {},
-              styles.cell,
-              isFocused && styles.focusCell,
-            ]}
-            onLayout={getCellOnLayoutHandler(index)}>
-            {symbol || (isFocused ? <Cursor /> : null)}
-          </Animatable.Text>
-        )}
-      />
-      <Animatable.View
-       iterationDelay={2000}
-       duration={300}
-       animation={zoomIn}
-
-        style={{
-          marginVertical:
-            w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
-        }}>
-        <CustomButton
-          onPress={() => navigation.navigate('NewPassword')}
-          text={'Continue'}
         />
-      </Animatable.View>
+        <Animatable.View
+          iterationDelay={2000}
+          duration={300}
+          animation={zoomIn}
+          style={{
+            marginVertical:
+              w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
+          }}>
+          <CustomButton
+            onPress={() => navigation.navigate('NewPassword')}
+            text={'Continue'}
+          />
+        </Animatable.View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -246,7 +242,7 @@ const styles = StyleSheet.create({
   },
   cell: {
     // paddingHorizontal: scale(30),
-    paddingTop:moderateScale(5),
+    paddingTop: moderateScale(5),
     width: w >= 768 && h >= 1024 ? scale(45) : scale(50),
     height: w >= 768 && h >= 1024 ? verticalScale(28) : verticalScale(40),
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(18),
@@ -254,12 +250,11 @@ const styles = StyleSheet.create({
     borderRadius: scale(16),
     // borderColor: Color.Main,
     textAlign: 'center',
-    textAlignVertical:'center',
+    textAlignVertical: 'center',
     color: Color.Black,
     fontFamily: Font.Poppins400,
     textAlignVertical: 'center',
     elevation: 1,
-    
   },
   ImageBox: {
     marginTop: '30%',

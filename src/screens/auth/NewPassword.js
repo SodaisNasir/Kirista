@@ -53,61 +53,62 @@ const NewPassword = ({navigation}) => {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-      <AuthHeader text={'New Password'} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <AuthHeader text={'New Password'} />
 
-      <Animatable.View
-        iterationDelay={700}
-        duration={300}
-        animation={fadeIn}
-        style={{
-          justifyContent: 'center',
-          marginVertical: scale(10),
-        }}>
-        <Text
-          style={[
-            {color: Theme ? Color.DarkThemText2 : Color.TextColor},
-            styles.LongText,
-          ]}>
-          Kindly fill your new password and confirm it.
-        </Text>
-      </Animatable.View>
+        <Animatable.View
+          iterationDelay={700}
+          duration={300}
+          animation={fadeIn}
+          style={{
+            justifyContent: 'center',
+            marginVertical: scale(10),
+          }}>
+          <Text
+            style={[
+              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+              styles.LongText,
+            ]}>
+            Kindly fill your new password and confirm it.
+          </Text>
+        </Animatable.View>
 
-      <Animatable.View
-        iterationDelay={1000}
-        duration={500}
-        animation={fadeIn}
-        style={{
-          // justifyContent: 'space-between',
-          // height: w >= 768 && h >= 1024 ? '21%' : '24%',
+        <Animatable.View
+          iterationDelay={1000}
+          duration={500}
+          animation={fadeIn}
+          style={{
+            // justifyContent: 'space-between',
+            // height: w >= 768 && h >= 1024 ? '21%' : '24%',
 
-          marginVertical:
-            w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20),
-        }}>
-        <Password
-          restyleBox={{
-            marginBottom:
-              w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(25),
-          }}
-          text={'New Password'}
-        />
+            marginVertical:
+              w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20),
+          }}>
+          <Password
+            restyleBox={{
+              marginBottom:
+                w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(25),
+            }}
+            text={'New Password'}
+          />
 
-        <Password text={'Confirm Password'} />
-      </Animatable.View>
+          <Password text={'Confirm Password'} />
+        </Animatable.View>
 
-      <Animatable.View
-        iterationDelay={1500}
-        duration={300}
-        animation={zoomIn}
-        style={{
-          paddingTop:
-            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-        }}>
-        <CustomButton
-          onPress={() => navigation.navigate('Login')}
-          text={'Finish'}
-        />
-      </Animatable.View>
+        <Animatable.View
+          iterationDelay={1500}
+          duration={300}
+          animation={zoomIn}
+          style={{
+            paddingTop:
+              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+            marginBottom: verticalScale(10),
+          }}>
+          <CustomButton
+            onPress={() => navigation.navigate('Login')}
+            text={'Finish'}
+          />
+        </Animatable.View>
       </ScrollView>
     </SafeAreaView>
   );

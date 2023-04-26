@@ -52,51 +52,55 @@ const ResetPassword = ({navigation}) => {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-      <AuthHeader text={'Reset Password'} />
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <AuthHeader text={'Reset Password'} />
 
-      <Animatable.View
-        iterationDelay={700}
-        duration={300}
-        animation={fadeIn}
-        style={{
-          justifyContent: 'center',
-          marginVertical: scale(20),
-        }}>
-        <Text
-          style={[
-            {color: Theme ? Color.DarkThemText2 : Color.TextColor},
-            styles.LongText,
-          ]}>
-          Please enter your email address, and we will send you an OTP to
-          confirm it.
-        </Text>
-      </Animatable.View>
+        <Animatable.View
+          iterationDelay={700}
+          duration={300}
+          animation={fadeIn}
+          style={{
+            justifyContent: 'center',
+            marginVertical: scale(20),
+          }}>
+          <Text
+            style={[
+              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+              styles.LongText,
+            ]}>
+            Please enter your email address, and we will send you an OTP to
+            confirm it.
+          </Text>
+        </Animatable.View>
 
-      <Animatable.View
-        iterationDelay={1300}
-        duration={300}
-        animation={fadeIn}
-        style={{
-          marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
-        }}>
-        <CustomInput placeholder = {'maryjames@rccg.com'} text={'Email Address'} />
-      </Animatable.View>
+        <Animatable.View
+          iterationDelay={1300}
+          duration={300}
+          animation={fadeIn}
+          style={{
+            marginBottom:
+              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
+          }}>
+          <CustomInput
+            placeholder={'maryjames@rccg.com'}
+            text={'Email Address'}
+          />
+        </Animatable.View>
 
-      <Animatable.View
-        iterationDelay={1400}
-        duration={300}
-        animation={zoomIn}
-        style={{
-          paddingTop:
-            w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-        }}>
-        <CustomButton
-          onPress={() => navigation.navigate('OTP')}
-          text={'Next'}
-        />
-      </Animatable.View>
+        <Animatable.View
+          iterationDelay={1400}
+          duration={300}
+          animation={zoomIn}
+          style={{
+            paddingTop:
+              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
+            marginBottom: verticalScale(10),
+          }}>
+          <CustomButton
+            onPress={() => navigation.navigate('OTP')}
+            text={'Next'}
+          />
+        </Animatable.View>
       </ScrollView>
     </SafeAreaView>
   );

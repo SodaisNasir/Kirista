@@ -7,48 +7,46 @@ import {
   useColorScheme,
   Dimensions,
   SafeAreaView,
-} from 'react-native'
-import React, {useState} from 'react'
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
-import {Color} from '../utils/Colors'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
-import {Font} from '../utils/font'
-import {useNavigation} from '@react-navigation/native'
-import Search from '../assets/icons/search.svg'
-import NoResult from './NoResult'
+} from 'react-native';
+import React, {useState} from 'react';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import {Color} from '../utils/Colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import {Font} from '../utils/font';
+import {useNavigation} from '@react-navigation/native';
+import Search from '../assets/icons/search.svg';
+import NoResult from './NoResult';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
-const SearchResult = (props) => {
-  
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
+const SearchResult = props => {
+  const navigation = useNavigation();
 
-  const navigation = useNavigation()
-
-  const [Book, setBook] = useState(true)
-  const [Parishes, setParishes] = useState(false)
-  const [Event, setEvent] = useState(false)
+  const [Book, setBook] = useState(true);
+  const [Parishes, setParishes] = useState(false);
+  const [Event, setEvent] = useState(false);
 
   const HandelBook = () => {
-    setBook(true)
-    setParishes(false)
-    setEvent(false)
-  }
+    setBook(true);
+    setParishes(false);
+    setEvent(false);
+  };
 
   const HandelParishes = () => {
-    setBook(false)
-    setParishes(true)
-    setEvent(false)
-  }
+    setBook(false);
+    setParishes(true);
+    setEvent(false);
+  };
   const HandelEvent = () => {
-    setBook(false)
-    setParishes(false)
-    setEvent(true)
-  }
-  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
-  const [searchInputValue, setSearchInputValue] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
-  const Theme = useColorScheme() === 'dark'
+    setBook(false);
+    setParishes(false);
+    setEvent(true);
+  };
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
       style={{
@@ -137,25 +135,45 @@ const SearchResult = (props) => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           paddingTop: verticalScale(10),
         }}>
-        <TouchableOpacity style={{marginBottom:verticalScale(10)}} onPress={HandelBook}>
+        <TouchableOpacity
+          style={{marginBottom: verticalScale(10)}}
+          onPress={HandelBook}>
           <Text
-            style={[{ color: Theme ?  '#9DA6B3' :   '#C1C5CA'},styles.TextStyle, props.BooksRestyle, styles.BooksStyle]}>
+            style={[
+              {color: Theme ? '#9DA6B3' : '#C1C5CA'},
+              styles.TextStyle,
+              props.BooksRestyle,
+              styles.BooksStyle,
+            ]}>
             Books
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={{marginBottom:verticalScale(10)}}
+          style={{marginBottom: verticalScale(10)}}
           onPress={HandelParishes}>
-          <Text style={[{ color: Theme ?  '#9DA6B3' :   '#C1C5CA'},styles.TextStyle, props.ParishRestyle]}>Parishes</Text>
+          <Text
+            style={[
+              {color: Theme ? '#9DA6B3' : '#C1C5CA'},
+              styles.TextStyle,
+              props.ParishRestyle,
+            ]}>
+            Parishes
+          </Text>
           <View style={props.ParishUnderLineStyle} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={HandelEvent}
-           style={{marginBottom:verticalScale(10)}}
-        >
-          
-          <Text style={[{ color: Theme ?  '#9DA6B3' :   '#C1C5CA'},styles.TextStyle, props.EventRestyle]}>Events</Text>
+        <TouchableOpacity
+          onPress={HandelEvent}
+          style={{marginBottom: verticalScale(10)}}>
+          <Text
+            style={[
+              {color: Theme ? '#9DA6B3' : '#C1C5CA'},
+              styles.TextStyle,
+              props.EventRestyle,
+            ]}>
+            Events
+          </Text>
           <View style={props.EventUnderLineStyle} />
         </TouchableOpacity>
       </View>
@@ -200,8 +218,8 @@ const SearchResult = (props) => {
         {Event && <NoResult />}
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   searchContainerAfter: {
@@ -223,7 +241,11 @@ const styles = StyleSheet.create({
 
   TextStyle: {
     fontFamily: Font.Poppins400,
-   
-  }
-})
-export default SearchResult
+  },
+  closeButtonText: {
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+    fontFamily: Font.Poppins500,
+    color: '#4D5C72',
+  },
+});
+export default SearchResult;

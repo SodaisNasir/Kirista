@@ -1,27 +1,27 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
-  TextComponent,
-  TouchableOpacity,
   useColorScheme,
   useWindowDimensions,
   ScrollView,
-} from 'react-native'
-import React from 'react'
-import Kiristalogo from '../../constant/Kiristalogo'
-import {Font} from '../../assets/fonts/PoppinsFont'
-import CustomInput from '../../components/CustomInput'
-import CustomButton from '../../components/CustomButton'
-import {Color} from '../../utils/Colors'
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
-import PhoneInput from '../../components/PhoneInput'
-import Countrycode from '../../components/Countrycode'
-import Password from '../../components/Password'
-import * as Animatable from 'react-native-animatable'
+} from 'react-native';
+import React, {useState} from 'react';
+import Kiristalogo from '../../constant/Kiristalogo';
+import {Font} from '../../assets/fonts/PoppinsFont';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+import {Color} from '../../utils/Colors';
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import PhoneInput from '../../components/PhoneInput';
+import Password from '../../components/Password';
+import * as Animatable from 'react-native-animatable';
+import {useDispatch} from 'react-redux';
+import {LOGIN} from '../../redux/reducer';
 
 const SignUp = ({navigation}) => {
+  const Dispatch = useDispatch();
+
   const fadeIn = {
     from: {
       opacity: 0,
@@ -29,7 +29,7 @@ const SignUp = ({navigation}) => {
     to: {
       opacity: 1,
     },
-  }
+  };
   const zoomIn = {
     0: {
       opacity: 0,
@@ -43,11 +43,13 @@ const SignUp = ({navigation}) => {
       opacity: 1,
       scale: 1,
     },
-  }
+  };
 
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
-  const Theme = useColorScheme() === 'dark'
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const Theme = useColorScheme() === 'dark';
+  const [email, setEmail] = useState(null);
+
   return (
     <SafeAreaView
       style={{
@@ -116,7 +118,14 @@ const SignUp = ({navigation}) => {
                 paddingVertical:
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
-              <CustomInput text={'Email Address'} placeholder={'Email'} />
+              <CustomInput
+                onChangeText={txt => {
+                  console.log('text ==>', email);
+                  setEmail(txt);
+                }}
+                text={'Email Address'}
+                placeholder={'Email'}
+              />
             </View>
 
             <View
@@ -133,7 +142,12 @@ const SignUp = ({navigation}) => {
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
               <CustomButton
-                onPress={() => navigation.navigate('Login')}
+                // onPress={() => navigation.navigate('Login')}
+                onPress={() =>
+                  email != null
+                    ? Dispatch({type: LOGIN, payload: email})
+                    : alert('Complete the form')
+                }
                 text={'Sign Up'}
               />
             </View>
@@ -171,7 +185,7 @@ const SignUp = ({navigation}) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

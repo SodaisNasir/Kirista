@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../assets/fonts/PoppinsFont';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import {scale} from 'react-native-size-matters';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -20,8 +20,8 @@ const LightSplash = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
 
   setTimeout(() => {
-    navigation.navigate('OverBoard')
-  }, 3000)
+    navigation.navigate('OverBoard');
+  }, 3000);
 
   return (
     <SafeAreaView
@@ -86,11 +86,12 @@ const LightSplash = ({navigation}) => {
             <Text
               style={{
                 fontFamily: Font.Poppins500,
-                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                 color: Theme ? Color.White : Color.Black,
                 position: 'absolute',
                 left: w >= 768 && h >= 1024 ? scale(130) : scale(115),
-                top: w >= 768 && h >= 1024 ? scale(0) : scale(3),
+                textAlign: 'center',
+                // top: w >= 768 && h >= 1024 ? scale(0) : scale(3),
               }}>
               Powered by
             </Text>
@@ -98,8 +99,8 @@ const LightSplash = ({navigation}) => {
               <Image
                 resizeMode="cover"
                 style={{
-                  height: '100%',
-                  width: '100%',
+                  height: '70%',
+                  width: w >= 768 && h >= 1024 ? '70%' : '80%',
                 }}
                 source={require('../../assets/images/continent2_logo_dark.png')}
               />
@@ -107,8 +108,8 @@ const LightSplash = ({navigation}) => {
               <Image
                 resizeMode="cover"
                 style={{
-                  height: '100%',
-                  width: w >= 768 && h >= 1024 ? '70%' : '100%',
+                  height: '70%',
+                  width: w >= 768 && h >= 1024 ? '70%' : '80%',
                   alignSelf: 'center',
                 }}
                 source={require('../../assets/images/continent2_logo.png')}

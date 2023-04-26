@@ -1,4 +1,4 @@
-import React, {useState,useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {
   View,
   TextInput,
@@ -8,15 +8,12 @@ import {
   Text,
   useColorScheme,
   Dimensions,
-  Image,
   SafeAreaView,
   ScrollView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {DarkTheme, useNavigation} from '@react-navigation/native';
 import SearchSuggestion from './SearchSuggestion';
 import {Color} from '../utils/Colors';
@@ -27,7 +24,7 @@ import SearchContent from './SearchContent';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const Searchbar = props => {
+const Searchbar = () => {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -35,8 +32,8 @@ const Searchbar = props => {
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
 
   const Theme = useColorScheme() === 'dark';
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
@@ -65,109 +62,125 @@ const Searchbar = props => {
       style={[
         styles.container,
         {
-          backgroundColor: Theme ? DarkTheme : Color.White,
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
         },
       ]}>
       {!isSearchBarVisible ? (
         <>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              height: verticalScale(90),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-              justifyContent: 'flex-end',
-              paddingHorizontal:
-                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
-            }}>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View
               style={{
-                flexDirection: 'row',
-              
-                marginBottom:
+                height: verticalScale(90),
+                backgroundColor: Theme
+                  ? Color.ExtraViewDark
+                  : Color.HeaderColor,
+                justifyContent: 'flex-end',
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+                paddingBottom:
                   w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
               }}>
-              <View style={styles.NavigatorStyle}>
-                <AntDesign
-                  name="arrowleft"
-                  size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                  color={Theme ? Color.White : Color.Black}
-                  onPress={() => navigation.goBack()}
-                />
-              </View>
-
-              <TouchableOpacity
-                onPress={slideInSearchBar}
-                style={[
-                  styles.searchContainer,
-                  {backgroundColor: Theme ? Color.DarkThemeInputBox : Color.White},
-                ]}>
-                <View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingHorizontal: moderateScale(10),
-                     
-                    }}>
-                    <Search
-                      height={
-                        w >= 768 && h >= 1024
-                          ? verticalScale(14)
-                          : verticalScale(18)
-                      }
-                      width={
-                        w >= 768 && h >= 1024
-                          ? verticalScale(16)
-                          : verticalScale(24)
-                      }
-                    />
-                    <TextInput
-                      style={[
-                        styles.searchInput,
-                        {
-                          color: Theme ? '#fff' : '#000',
-                          fontSize:
-                            w >= 768 && h >= 1024 ? scale(8) : scale(14)
-                        },
-                      ]}
-                      placeholder="Search"
-                      placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
-                      onSubmitEditing={() => console.log(searchInputValue)}
-                      onChangeText={text => setSearchQuery(text)}
-                      // onChange={ setIsSearchBarVisible(true)}
-                      value={searchQuery}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
-            <View
-              style={{
-                paddingHorizontal:
-                  w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(25),
-                paddingVertical:
-                  w >= 768 && h >= 1024 ? moderateScale(20) : moderateScale(15),
-              }}>
-              <Text
+              <View
                 style={{
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                  fontFamily: Font.Poppins500,
+                  flexDirection: 'row',
+
+                  marginBottom:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(12)
+                      : verticalScale(8),
                 }}>
-                Popular Searches
-              </Text>
+                <View style={styles.NavigatorStyle}>
+                  <AntDesign
+                    name="arrowleft"
+                    size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                    color={Theme ? Color.White : Color.Black}
+                    onPress={() => navigation.goBack()}
+                  />
+                </View>
+
+                <TouchableOpacity
+                  onPress={slideInSearchBar}
+                  style={[
+                    styles.searchContainer,
+                    {
+                      backgroundColor: Theme
+                        ? Color.DarkThemeInputBox
+                        : Color.White,
+                    },
+                  ]}>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingHorizontal: moderateScale(10),
+                      }}>
+                      <Search
+                        height={
+                          w >= 768 && h >= 1024
+                            ? verticalScale(14)
+                            : verticalScale(18)
+                        }
+                        width={
+                          w >= 768 && h >= 1024
+                            ? verticalScale(16)
+                            : verticalScale(24)
+                        }
+                      />
+                      <TextInput
+                        style={[
+                          styles.searchInput,
+                          {
+                            color: Theme ? '#fff' : '#000',
+                            fontSize:
+                              w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                          },
+                        ]}
+                        placeholder="Search"
+                        placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
+                        onSubmitEditing={() => console.log(searchInputValue)}
+                        onChangeText={text => setSearchQuery(text)}
+                        // onChange={ setIsSearchBarVisible(true)}
+                        value={searchQuery}
+                      />
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
-            <SearchContent />
             <View
               style={{
-                height: verticalScale(30),
+                flex: 1,
                 backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              }}/>
-          </View>
+              }}>
+              <View
+                style={{
+                  paddingHorizontal:
+                    w >= 768 && h >= 1024
+                      ? moderateScale(30)
+                      : moderateScale(25),
+                  paddingVertical:
+                    w >= 768 && h >= 1024
+                      ? moderateScale(20)
+                      : moderateScale(15),
+                }}>
+                <Text
+                  style={{
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                    fontFamily: Font.Poppins500,
+                  }}>
+                  Popular Searches
+                </Text>
+              </View>
+              <SearchContent />
+              <View
+                style={{
+                  height: verticalScale(30),
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                }}
+              />
+            </View>
           </ScrollView>
         </>
       ) : (
@@ -181,7 +194,7 @@ const Searchbar = props => {
               justifyContent: 'flex-end',
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-                paddingBottom:
+              paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
             }}>
             <View
@@ -196,7 +209,11 @@ const Searchbar = props => {
                 onPress={() => navigation.navigate('SearchResult')}
                 style={[
                   styles.searchContainerAfter,
-                  {backgroundColor: Theme ? Color.DarkThemeInputBox : Color.White},
+                  {
+                    backgroundColor: Theme
+                      ? Color.DarkThemeInputBox
+                      : Color.White,
+                  },
                 ]}>
                 <View
                   style={{
@@ -263,8 +280,8 @@ const Searchbar = props => {
             style={{
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-                flex:1
+              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              flex: 1,
             }}>
             <SearchSuggestion />
           </View>
