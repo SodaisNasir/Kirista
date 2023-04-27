@@ -9,26 +9,26 @@ import {
   useColorScheme,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
-import React, {useState} from 'react';
-import LibraryHeader from '../../components/LibraryHeader';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import {Color} from '../../utils/Colors';
-import FilterModal from '../../components/Modals/FilterModal';
-import DetailsCard from '../../components/Card/DetailsCard';
+} from 'react-native'
+import React, {useState} from 'react'
+import LibraryHeader from '../../components/LibraryHeader'
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import {Color} from '../../utils/Colors'
+import FilterModal from '../../components/Modals/FilterModal'
+import DetailsCard from '../../components/Card/DetailsCard'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const LibraryHome = ({navigation}) => {
   // for modal
-  const [showModal, setShowModal] = useState(false);
-  const Theme = useColorScheme() === 'dark';
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+  const Theme = useColorScheme() === 'dark'
+  const [isModalVisible, setModalVisible] = useState(false)
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+    setModalVisible(!isModalVisible)
+  }
 
   const data = [
     {
@@ -73,14 +73,14 @@ const LibraryHome = ({navigation}) => {
       detail: '2023',
       path: 'PopularBooks',
     },
-  ];
+  ]
 
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <LibraryHeader
         onPress={() => {
-          setShowModal(toggleModal(true));
+          setShowModal(toggleModal(true))
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -180,18 +180,17 @@ const LibraryHome = ({navigation}) => {
       </ScrollView>
       <View style={{height: verticalScale(75)}} />
       <FilterModal
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-          swipeDirection="down"
-          onSwipeComplete={() => setModalVisible(false)}
-        />
-
-
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+        swipeDirection="down"
+        onSwipeComplete={() => setModalVisible(false)}
+        onPress={() => setModalVisible(false)}
+      />
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default LibraryHome;
+export default LibraryHome
 
 const styles = StyleSheet.create({
   border: {
@@ -219,4 +218,4 @@ const styles = StyleSheet.create({
 
     // paddingHorizontal: verticalScale(50),
   },
-});
+})

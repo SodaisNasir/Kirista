@@ -8,7 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   useColorScheme,
-  useWindowDimensions
+  useWindowDimensions,
 } from 'react-native'
 import Modal from 'react-native-modal'
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
@@ -22,8 +22,8 @@ const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 const FilterModal = (props) => {
-  const width = useWindowDimensions().width;
-  const height = useWindowDimensions().height;
+  const width = useWindowDimensions().width
+  const height = useWindowDimensions().height
   const [selected, setSelected] = useState()
   const navigation = useNavigation()
   const Theme = useColorScheme() === 'dark'
@@ -39,7 +39,7 @@ const FilterModal = (props) => {
   ]
 
   return (
-    <View style={{flex: 1, }}>
+    <View style={{flex: 1}}>
       <Modal
         testID={'modal'}
         style={styles.modalStyling}
@@ -53,10 +53,9 @@ const FilterModal = (props) => {
             styles.modalView,
             {
               backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              paddingHorizontal : width >= 768 && height >= 1024 ? scale(25) : scale(20),
-            
+              paddingHorizontal:
+                width >= 768 && height >= 1024 ? scale(25) : scale(20),
             },
-            
           ]}>
           <View
             style={{
@@ -105,8 +104,14 @@ const FilterModal = (props) => {
                         }}>
                         <View
                           style={{
-                            height:width >= 768 && height >= 1024 ? verticalScale(15) : verticalScale(20),
-                            width:width >= 768 && height >= 1024 ? verticalScale(15) : verticalScale(20),
+                            height:
+                              width >= 768 && height >= 1024
+                                ? verticalScale(15)
+                                : verticalScale(20),
+                            width:
+                              width >= 768 && height >= 1024
+                                ? verticalScale(15)
+                                : verticalScale(20),
                             backgroundColor: Color.White,
                             borderRadius: scale(50),
                             borderColor: Color.Black,
@@ -123,8 +128,14 @@ const FilterModal = (props) => {
                               }}>
                               <View
                                 style={{
-                                  height:width >= 768 && height >= 1024 ? verticalScale(7) : verticalScale(10),
-                                  width:width >= 768 && height >= 1024 ? verticalScale(7) : verticalScale(10),
+                                  height:
+                                    width >= 768 && height >= 1024
+                                      ? verticalScale(7)
+                                      : verticalScale(10),
+                                  width:
+                                    width >= 768 && height >= 1024
+                                      ? verticalScale(7)
+                                      : verticalScale(10),
                                   backgroundColor: Color.Black,
                                   borderRadius: scale(50),
                                 }}
@@ -140,10 +151,7 @@ const FilterModal = (props) => {
             }}
           />
           <View style={{marginVertical: verticalScale(15)}}>
-            <CustomButton 
-            
-            onPress = {()=> navigation.goBack()}
-            text={'Apply'} />
+            <CustomButton onPress={props.onPress} text={'Apply'} />
           </View>
         </View>
       </Modal>
@@ -155,7 +163,6 @@ const styles = StyleSheet.create({
   modalStyling: {
     justifyContent: 'flex-end',
     margin: 0,
-    
   },
 
   modalView: {
@@ -166,8 +173,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: w >= 768 && h >= 1024 ? scale(20) : scale(22),
     borderTopLeftRadius: w >= 768 && h >= 1024 ? scale(20) : scale(22),
     backgroundColor: Color.White,
-  
-   
   },
   BigTextStyle: {
     color: Color.DarkTextColor,
