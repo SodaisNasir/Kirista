@@ -10,24 +10,24 @@ import {
   Dimensions,
   useColorScheme,
   useWindowDimensions,
-} from 'react-native'
-import React, {useCallback} from 'react'
-import {Color} from '../../utils/Colors'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
-import HomeHeader from '../../components/HomeHeader'
-import {Font} from '../../utils/font'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import {useFocusEffect} from '@react-navigation/native'
-import DetailsCard from '../../components/Card/DetailsCard'
-import Swiper from 'react-native-swiper'
+} from 'react-native';
+import React, {useCallback} from 'react';
+import {Color} from '../../utils/Colors';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import HomeHeader from '../../components/HomeHeader';
+import {Font} from '../../utils/font';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useFocusEffect} from '@react-navigation/native';
+import DetailsCard from '../../components/Card/DetailsCard';
+import Swiper from 'react-native-swiper';
 
 // import AdvertisementModal from '../../components/Modals/AdvertisementModal'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { HIDE_ADVERTISEMENT } from '../../redux/reducer'
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 const Home = ({navigation}) => {
   // const show = useSelector(state => state.showAdvertisement);
   // const Dispatch = useDispatch()
@@ -54,14 +54,14 @@ const Home = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
           right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
-      })
+      });
     }),
-  )
+  );
 
-  const width = useWindowDimensions().width
-  const height = useWindowDimensions().height
-  const fourInchPotrait = w <= 350 && h <= 600
-  const Theme = useColorScheme() === 'dark'
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const Theme = useColorScheme() === 'dark';
 
   const image_data = [
     {
@@ -96,7 +96,7 @@ const Home = ({navigation}) => {
       type: 'ye',
       screen_name: 'RccgContinent',
     },
-  ]
+  ];
   const swiper_data = [
     {
       id: 1,
@@ -109,7 +109,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/swipertwo.png'),
       type: 'small',
     },
-  ]
+  ];
 
   const books_data = [
     {
@@ -163,7 +163,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
     },
-  ]
+  ];
 
   return (
     <SafeAreaView
@@ -194,7 +194,7 @@ const Home = ({navigation}) => {
                   w >= 768 && h >= 1024
                     ? verticalScale(100)
                     : verticalScale(135),
-
+                alignSelf: 'center',
                 // top: w >= 768 && h >= 1024 ? scale(5) : scale(0),
 
                 width: w >= 768 && h >= 1024 ? scale(160) : scale(300),
@@ -219,7 +219,7 @@ const Home = ({navigation}) => {
                     : verticalScale(135),
 
                 // top: w >= 768 && h >= 1024 ? scale(5) : scale(0),
-
+                alignSelf: 'center',
                 width: w >= 768 && h >= 1024 ? scale(160) : scale(300),
                 // marginVertical: verticalScale(10),
                 // marginRight: verticalScale(12),
@@ -407,7 +407,7 @@ const Home = ({navigation}) => {
                       </View>
                     </View>
                   </TouchableOpacity>
-                )
+                );
               }}
             />
             {/* {books_data.map((item) => {
@@ -660,7 +660,7 @@ const Home = ({navigation}) => {
                     </View>
                   </View>
                 </View>
-              )
+              );
             }}
           />
         </View>
@@ -697,7 +697,7 @@ const Home = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('FeaturedParishes')
+                navigation.navigate('FeaturedParishes');
               }}
               style={{
                 flexDirection: 'row',
@@ -716,7 +716,7 @@ const Home = ({navigation}) => {
           <View>
             <DetailsCard
               onPress={() => {
-                navigation.navigate('ViewParish')
+                navigation.navigate('ViewParish');
               }}
               source={require('../../assets/images/parishsmall_1.png')}
               title="RCCG "
@@ -732,7 +732,7 @@ const Home = ({navigation}) => {
             />
             <DetailsCard
               onPress={() => {
-                navigation.navigate('ViewParish')
+                navigation.navigate('ViewParish');
               }}
               source={require('../../assets/images/parishsmall_3.png')}
               title="RCCG"
@@ -748,7 +748,7 @@ const Home = ({navigation}) => {
 
             <DetailsCard
               onPress={() => {
-                navigation.navigate('ViewParish')
+                navigation.navigate('ViewParish');
               }}
               source={require('../../assets/images/parishsmall_2.png')}
               title="RCCG"
@@ -797,7 +797,7 @@ const Home = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Events')
+                navigation.navigate('Events');
               }}
               style={{flexDirection: 'row'}}>
               <Text style={styles.MoreText}>See All</Text>
@@ -813,7 +813,7 @@ const Home = ({navigation}) => {
           <View>
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events')
+                navigation.navigate('Events');
               }}
               source={require('../../assets/images/event_1.png')}
               title="West Coast 2 Regional"
@@ -830,7 +830,7 @@ const Home = ({navigation}) => {
             />
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events')
+                navigation.navigate('Events');
               }}
               source={require('../../assets/images/event_2.png')}
               title="West Coast 3 Regional"
@@ -846,7 +846,7 @@ const Home = ({navigation}) => {
             />
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events')
+                navigation.navigate('Events');
               }}
               source={require('../../assets/images/event_3.png')}
               title="West Coast 3 Regional"
@@ -863,7 +863,7 @@ const Home = ({navigation}) => {
             />
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events')
+                navigation.navigate('Events');
               }}
               source={require('../../assets/images/EventScreenImage1.png')}
               title="Abuja Special Holy Ghost"
@@ -896,10 +896,10 @@ const Home = ({navigation}) => {
         /> */}
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 const styles = StyleSheet.create({
   MainView: {
@@ -1003,4 +1003,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
     fontFamily: Font.Poppins700,
   },
-})
+});

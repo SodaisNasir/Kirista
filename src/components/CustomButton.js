@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-} from 'react-native'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
-import {Font} from '../assets/fonts/PoppinsFont'
-import {Color} from '../utils/Colors'
+} from 'react-native';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import {Font} from '../assets/fonts/PoppinsFont';
+import {Color} from '../utils/Colors';
 // import Color from '../Assets/Color';
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
-const CustomButton = (props) => {
+const CustomButton = props => {
   return (
     <View
       style={[
@@ -34,8 +34,8 @@ const CustomButton = (props) => {
         <Text style={[styles.ButtonText, props.Textalig]}>{props.text}</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   ButtonContainer: {
@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
     // marginVertical: verticalScale(15),
   },
   ButtonStyles: {
-    height: w >= 768 && h >= 1024 ? verticalScale(32) : verticalScale(50),
+    height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(50),
     width: '100%',
     backgroundColor: 'rgba(56, 125, 229, 1)',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
+    borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
     flexDirection: 'row',
   },
   ButtonText: {
@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
     fontFamily: Font.Poppins600,
   },
-})
+});
 
-export default CustomButton
+export default CustomButton;

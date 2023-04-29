@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect} from 'react'
+import React, {useState, useLayoutEffect} from 'react';
 import {
   View,
   TextInput,
@@ -9,35 +9,29 @@ import {
   useColorScheme,
   Dimensions,
   SafeAreaView,
-  ScrollView,
   FlatList,
-} from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import {DarkTheme, useNavigation} from '@react-navigation/native'
-import SearchSuggestion from './SearchSuggestion'
-import {Color} from '../utils/Colors'
-import {Font} from '../utils/font'
-import Search from '../assets/icons/search.svg'
-import SearchContent from './SearchContent'
-import DetailsCard from './Card/DetailsCard'
-import BookSvg from '../assets/icons/book-1.svg'
-import BookDark from '../assets/icons/book_dark.svg'
-import HouseSvg from '../assets/icons/house-2.svg'
-import HouseDark from '../assets/icons/house_dark.svg'
-import CalendarSvg from '../assets/icons/calendar-2.svg'
-import CalendarDark from '../assets/icons/calendar_dark.svg'
-import PersonSvg from '../assets/icons/person_outline.svg'
-import PersonDark from '../assets/icons/person_dark.svg'
-import NoResult from './NoResult'
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useNavigation} from '@react-navigation/native';
+import {Color} from '../utils/Colors';
+import {Font} from '../utils/font';
+import Search from '../assets/icons/search.svg';
+import DetailsCard from './Card/DetailsCard';
+import BookSvg from '../assets/icons/book-1.svg';
+import BookDark from '../assets/icons/book_dark.svg';
+import HouseSvg from '../assets/icons/house-2.svg';
+import CalendarSvg from '../assets/icons/calendar-2.svg';
+import PersonSvg from '../assets/icons/person_outline.svg';
+import NoResult from './NoResult';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
-
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
+const tabPotrait = w >= 768 && h >= 1024;
 const Searchbar = () => {
-  const navigation = useNavigation()
-  const Theme = useColorScheme() === 'dark'
+  const navigation = useNavigation();
+  const Theme = useColorScheme() === 'dark';
   const data = [
     {
       id: 1,
@@ -76,7 +70,7 @@ const Searchbar = () => {
       image: require('../assets/images/book2.png'),
       detail: '2023',
     },
-  ]
+  ];
   const searchList = [
     {
       id: 1,
@@ -108,82 +102,88 @@ const Searchbar = () => {
       title: 'Abuja Special Holy Ghost Service',
       type: 'light6',
     },
-  ]
+  ];
 
-  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
-  const [show, setShow] = useState(false)
-  const [searchInputValue, setSearchInputValue] = useState('')
-  const [searchInputValue2, setSearchInputValue2] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchQuery2, setSearchQuery2] = useState('')
-  const [Book, setBook] = useState(true)
-  const [filteredData, setFilteredData] = useState(data)
-  const [filteredData2, setFilteredData2] = useState(searchList)
-  const [Parishes, setParishes] = useState(false)
-  const [Event, setEvent] = useState(false)
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+  const [show, setShow] = useState(false);
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [searchInputValue2, setSearchInputValue2] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery2, setSearchQuery2] = useState('');
+  const [Book, setBook] = useState(true);
+  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData2, setFilteredData2] = useState(searchList);
+  const [Parishes, setParishes] = useState(false);
+  const [Event, setEvent] = useState(false);
 
-  console.log('searchQuery.length > 0', searchQuery2)
+  console.log('searchQuery.length > 0', searchQuery2);
 
   // Slide animation for the search bar
-  const slideAnimation = new Animated.Value(0)
+  const slideAnimation = new Animated.Value(0);
   const slideInSearchBar = () => {
-    setIsSearchBarVisible(true)
+    setIsSearchBarVisible(true);
     Animated.timing(slideAnimation, {
       toValue: 1,
       duration: 300,
       useNativeDriver: true,
-    }).start()
-  }
+    }).start();
+  };
   const slideOutSearchBar = () => {
     Animated.timing(slideAnimation, {
       toValue: 0,
       duration: 300,
       useNativeDriver: true,
-    }).start(() => setIsSearchBarVisible(false))
-  }
+    }).start(() => setIsSearchBarVisible(false));
+  };
 
-  const handleSearch = (text) => {
-    const formattedQuery = text.toLowerCase()
-    const filteredData = data.filter((item) => {
-      return item.title.toLowerCase().includes(formattedQuery)
-    })
-    setFilteredData(filteredData)
-    setSearchQuery(text)
-  }
-  const handleSearch2 = (text2) => {
-    const formattedQuery = text2.toLowerCase()
-    const filteredData = searchList.filter((item) => {
-      return item.title.toLowerCase().includes(formattedQuery)
-    })
-    setFilteredData2(filteredData)
-    setSearchQuery2(text2)
-  }
+  const handleSearch = text => {
+    const formattedQuery = text.toLowerCase();
+    const filteredData = data.filter(item => {
+      return item.title.toLowerCase().includes(formattedQuery);
+    });
+    setFilteredData(filteredData);
+    setSearchQuery(text);
+  };
+  const handleSearch2 = text2 => {
+    const formattedQuery = text2.toLowerCase();
+    const filteredData = searchList.filter(item => {
+      return item.title.toLowerCase().includes(formattedQuery);
+    });
+    setFilteredData2(filteredData);
+    setSearchQuery2(text2);
+  };
   const showData = () => {
-    setShow(true)
-    setIsSearchBarVisible(true)
-  }
+    setShow(true);
+    setIsSearchBarVisible(true);
+  };
 
   const HandelBook = () => {
-    setBook(true)
-    setParishes(false)
-    setEvent(false)
-  }
+    setBook(true);
+    setParishes(false);
+    setEvent(false);
+  };
   const HandelParishes = () => {
-    setBook(false)
-    setParishes(true)
-    setEvent(false)
-  }
+    setBook(false);
+    setParishes(true);
+    setEvent(false);
+  };
   const HandelEvent = () => {
-    setBook(false)
-    setParishes(false)
-    setEvent(true)
-  }
+    setBook(false);
+    setParishes(false);
+    setEvent(true);
+  };
 
   const resetStatus = () => {
-    setShow(false)
-    setIsSearchBarVisible(false)
-  }
-
+    setShow(false);
+    setIsSearchBarVisible(false);
+  };
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    });
+  }, []);
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
@@ -200,9 +200,8 @@ const Searchbar = () => {
           <View
             style={{
               height: '100%',
-              width: '12%',
               justifyContent: 'center',
-              // alignItems: 'center',
+              marginRight: scale(5),
             }}>
             <AntDesign
               name="arrowleft"
@@ -215,23 +214,22 @@ const Searchbar = () => {
         <View
           style={{
             height: '100%',
-            width: isSearchBarVisible ? '80%' : '88%',
+            width: isSearchBarVisible ? '80%' : '90%',
             justifyContent: 'center',
-            // backgroundColor: 'pink',
           }}>
           <View
             style={{
               height: '50%',
               backgroundColor: 'white',
               borderRadius: 30,
-              elevation: 2,
+              // elevation: 2,
               overflow: 'hidden',
               flexDirection: 'row',
             }}>
             <View
               style={{
                 height: '100%',
-                width: '15%',
+                width: tabPotrait ? '10%' : '15%',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
@@ -249,8 +247,8 @@ const Searchbar = () => {
                 height: '100%',
                 width:
                   isSearchBarVisible != true && searchQuery2 == ''
-                    ? '85%'
-                    : '70%',
+                    ? '90%'
+                    : '80%',
               }}>
               <TextInput
                 onFocus={() => setIsSearchBarVisible(true)}
@@ -259,26 +257,24 @@ const Searchbar = () => {
                   width: '100%',
                   color: Theme ? '#fff' : '#000',
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                  marginHorizontal: tabPotrait ? scale(-5) : 0,
                 }}
                 placeholder="Search"
                 placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
                 onSubmitEditing={() => console.log(searchInputValue2)}
-                onChangeText={(text) => handleSearch2(text)}
+                onChangeText={text => handleSearch2(text)}
                 value={searchQuery2}
               />
             </View>
             {isSearchBarVisible ? (
               <View
                 style={{
-                  height: '100%',
-                  width: '15%',
                   justifyContent: 'center',
-                  alignItems: 'center',
                 }}>
                 <TouchableOpacity onPress={() => setSearchQuery2('')}>
                   <Ionicons
                     name="close-circle"
-                    size={24}
+                    size={tabPotrait ? scale(15) : 22}
                     color={Theme ? '#B4B5B7' : '#B4B5B7'}
                   />
                 </TouchableOpacity>
@@ -348,7 +344,7 @@ const Searchbar = () => {
                   }}
                 />
               )}
-              keyExtractor={(item) => item.id.toString()}
+              keyExtractor={item => item.id.toString()}
             />
             <View style={{height: verticalScale(55)}} />
           </View>
@@ -437,7 +433,7 @@ const Searchbar = () => {
                 {/* <SearchSuggestion /> */}
               </TouchableOpacity>
             )}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={item => item.id.toString()}
           />
         </View>
       ) : (
@@ -464,7 +460,6 @@ const Searchbar = () => {
                       : '#C1C5CA',
                   },
                   styles.TextStyle,
-                  // props.BooksRestyle,
                   styles.BooksStyle,
                 ]}>
                 Books
@@ -583,7 +578,7 @@ const Searchbar = () => {
                       }}
                     />
                   )}
-                  keyExtractor={(item) => item.id.toString()}
+                  keyExtractor={item => item.id.toString()}
                   ListEmptyComponent={() => <NoResult />}
                 />
               </View>
@@ -593,8 +588,8 @@ const Searchbar = () => {
         </View>
       )}
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   SecondView: {
@@ -622,11 +617,12 @@ const styles = StyleSheet.create({
 
   TextStyle: {
     fontFamily: Font.Poppins500,
+    fontSize: tabPotrait ? scale(8) : scale(12),
   },
   closeButtonText: {
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
     fontFamily: Font.Poppins500,
     color: '#4D5C72',
   },
-})
-export default Searchbar
+});
+export default Searchbar;

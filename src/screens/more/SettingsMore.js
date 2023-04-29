@@ -41,15 +41,15 @@ import Privacy_dark from '../../assets/icons/privacy_dark.svg';
 import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsMore = () => {
-  const [email, setEmail]= useState(null)
-  const Dispatch = useDispatch()
+  const [email, setEmail] = useState(null);
+  const Dispatch = useDispatch();
   const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
   useFocusEffect(
@@ -61,11 +61,23 @@ const SettingsMore = () => {
           bottom: 0,
           height: verticalScale(80),
           justifyContent: 'space-around',
+          // paddingLeft:50,
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          borderColor: Theme ? Color.DarkTheme : Color.White,
+          paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
+          borderTopWidth: 0,
+        },
+        tabBarLabelStyle: {
+          fontFamily: Font.Poppins600,
+          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+          marginBottom:
+            w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
       });
     }),
   );
+
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
@@ -564,7 +576,7 @@ const SettingsMore = () => {
             },
           ]}>
           <TouchableOpacity
-            onPress={() => Dispatch({type : LOGIN, payload:null})}
+            onPress={() => Dispatch({type: LOGIN, payload: null})}
             style={[
               styles.AllItems,
               {
@@ -638,7 +650,7 @@ const styles = StyleSheet.create({
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(8),
     borderColor: Color.ArrowBorder,
     borderWidth: 2,
-    height: w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24),
+    height: w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(24),
     width: w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(24),
     justifyContent: 'center',
     alignItems: 'center',

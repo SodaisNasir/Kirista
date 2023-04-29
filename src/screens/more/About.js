@@ -222,7 +222,7 @@ const About = ({navigation}) => {
               }}
             /> */}
           </View>
-          <View
+          {/* <View
             style={{
               height: verticalScale(80),
               borderBottomColor: Theme ? Color.Black : Color.BorderColor,
@@ -253,7 +253,7 @@ const About = ({navigation}) => {
                 }}
               />
             </View>
-          </View>
+          </View> */}
 
           <View style={{top: w >= 768 && h >= 1024 ? scale(10) : scale(5)}}>
             <View style={{alignSelf: 'center'}}>
@@ -340,7 +340,7 @@ const About = ({navigation}) => {
         </View>
         <View style={{height: verticalScale(85)}} />
       </ScrollView>
-      <View
+      {/* <View
         style={{
           position: 'absolute',
           bottom: 0,
@@ -348,7 +348,7 @@ const About = ({navigation}) => {
           backgroundColor: Color.White,
         }}>
         <CustomNavigator />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

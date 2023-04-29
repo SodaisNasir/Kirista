@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,20 +8,20 @@ import {
   Dimensions,
   Image,
   ScrollView,
-} from 'react-native'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../assets/fonts/PoppinsFont'
-import {scale} from 'react-native-size-matters'
+} from 'react-native';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../assets/fonts/PoppinsFont';
+import {scale} from 'react-native-size-matters';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const LightSplash = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useColorScheme() === 'dark';
 
   setTimeout(() => {
-    navigation.navigate('OverBoard')
-  }, 3000)
+    navigation.navigate('OverBoard');
+  }, 3000);
 
   return (
     <SafeAreaView
@@ -97,7 +97,7 @@ const LightSplash = ({navigation}) => {
             </Text> */}
             {Theme ? (
               <Image
-                resizeMode="cover"
+                resizeMode={w >= 768 && h >= 1024 ? 'contain' : 'cover'}
                 style={{
                   height: '70%',
                   width: w >= 768 && h >= 1024 ? '70%' : '80%',
@@ -106,7 +106,7 @@ const LightSplash = ({navigation}) => {
               />
             ) : (
               <Image
-                resizeMode="cover"
+                resizeMode={w >= 768 && h >= 1024 ? 'contain' : 'cover'}
                 style={{
                   height: '70%',
                   width: w >= 768 && h >= 1024 ? '70%' : '80%',
@@ -119,9 +119,9 @@ const LightSplash = ({navigation}) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default LightSplash
+export default LightSplash;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

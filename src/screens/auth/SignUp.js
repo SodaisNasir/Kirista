@@ -172,6 +172,7 @@ const SignUp = ({navigation}) => {
                 }}>
                 If you have an account,{' '}
                 <Text
+                  onPress={() => navigation.navigate('Login')}
                   style={{
                     color: Theme ? Color.White : Color.DarkTextColor,
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
