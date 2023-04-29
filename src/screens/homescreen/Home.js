@@ -334,6 +334,96 @@ const Home = ({navigation}) => {
 
                         flexDirection: 'row',
                         overflow: 'hidden',
+                        width: scale(200),
+                      }}>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'flex-start',
+                        }}>
+                        <View
+                          style={{
+                            height: w >= 768 && h >= 1024 ? '68%' : '100%',
+                            width:
+                              w >= 768 && h >= 1024 ? scale(60) : scale(100),
+                          }}>
+                          <Image
+                            resizeMode="contain"
+                            style={{
+                              height: '100%',
+                              width: '100%',
+                            }}
+                            source={item?.image}
+                          />
+                        </View>
+                      </View>
+                      <View style={{marginVertical: verticalScale(20)}}>
+                        <View
+                          style={{
+                            // height: verticalScale(30),
+
+                            justifyContent: 'center',
+                          }}>
+                          <Text
+                            style={[
+                              {
+                                color: Theme
+                                  ? Color.White
+                                  : Color.DarkTextColor,
+                              },
+                              styles.BooksTitleStyle,
+                            ]}>
+                            {item?.title}
+                          </Text>
+                          <Text
+                            numberOfLines={1}
+                            style={[
+                              {
+                                lineHeight: fourInchPotrait
+                                  ? verticalScale(18)
+                                  : scale(16),
+                              },
+                              styles.BooksTitleStyle,
+                              {
+                                color: Theme
+                                  ? Color.White
+                                  : Color.DarkTextColor,
+                                maxWidth: '60%',
+                              },
+                            ]}>
+                            {item.manual}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            height:
+                              w >= 768 && h >= 1024
+                                ? verticalScale(20)
+                                : verticalScale(40),
+                            justifyContent: 'center',
+                          }}>
+                          <Text style={styles.YearStyle}> {item?.year}</Text>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                )
+              }}
+            />
+            {/* {books_data.map((item) => {
+              return (
+                <>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('ViewManual')}>
+                    <View
+                      style={{
+                        height:
+                          w >= 768 && h >= 1024
+                            ? verticalScale(80)
+                            : verticalScale(100),
+
+                        flexDirection: 'row',
+                        overflow: 'hidden',
                       }}>
                       <View
                         style={{
@@ -404,9 +494,9 @@ const Home = ({navigation}) => {
                       </View>
                     </View>
                   </TouchableOpacity>
-                )
-              }}
-            />
+                </>
+              )
+            })} */}
           </ScrollView>
         </View>
         <View
@@ -897,7 +987,7 @@ const styles = StyleSheet.create({
   },
   BooksTitleStyle: {
     // color: Color.DarkTextColor,
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
     fontFamily: Font.Poppins600,
   },
   EventTtitleStyle: {
