@@ -6,20 +6,20 @@ import {
   Image,
   Dimensions,
   useColorScheme,
-} from 'react-native';
-import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomHeader from '../../components/CustomHeader';
-import {Color} from '../../utils/Colors';
-import {verticalScale, scale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+} from 'react-native'
+import React from 'react'
+import {SafeAreaView} from 'react-native-safe-area-context'
+import CustomHeader from '../../components/CustomHeader'
+import {Color} from '../../utils/Colors'
+import {verticalScale, scale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const ViewParish = () => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useColorScheme() === 'dark'
   return (
     <SafeAreaView
       style={[
@@ -193,10 +193,9 @@ const ViewParish = () => {
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
           <Image
-          
-          source={require('../../assets/images/maps.png')}
-          
-          style={{height: '100%', width: '100%'}} />
+            source={require('../../assets/images/maps.png')}
+            style={{height: '100%', width: '100%'}}
+          />
 
           {/* <MapView
             style={{flex: 1}}
@@ -275,10 +274,10 @@ const ViewParish = () => {
         <View style={{height: verticalScale(75)}} />
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default ViewParish;
+export default ViewParish
 
 const styles = StyleSheet.create({
   Container: {
@@ -342,4 +341,4 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(17),
   },
-});
+})

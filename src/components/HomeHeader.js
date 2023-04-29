@@ -8,23 +8,23 @@ import {
   useColorScheme,
   Animated,
   TextInput,
-} from 'react-native';
-import React, {useState} from 'react';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import {Color} from '../utils/Colors';
-import {Font} from '../utils/font';
-import {useNavigation} from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Searchbar from './Searchbar';
-import SearchNormal from '../assets/icons/search-normal';
+} from 'react-native'
+import React, {useState} from 'react'
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
+import {Color} from '../utils/Colors'
+import {Font} from '../utils/font'
+import {useNavigation} from '@react-navigation/native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Searchbar from './Searchbar'
+import SearchNormal from '../assets/icons/search-normal'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
-const HomeHeader = props => {
-  const Theme = useColorScheme() === 'dark';
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
+const HomeHeader = (props) => {
+  const Theme = useColorScheme() === 'dark'
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   return (
     <View
       style={{
@@ -87,7 +87,7 @@ const HomeHeader = props => {
         <View
           style={{
             flexDirection: 'row',
-            width: w >= 766 && h >= 1024 ? '49%' : '70%',
+            width: w >= 766 && h >= 1024 ? '49%' : '75%',
             justifyContent: 'space-between',
             marginBottom:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -95,7 +95,7 @@ const HomeHeader = props => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('HomeScreen');
+              navigation.navigate('HomeScreen')
             }}>
             <Text style={[styles.TextStyle, props.HomeRestyle]}>Home</Text>
             <View style={props.HomeUnderLineStyle} />
@@ -103,7 +103,7 @@ const HomeHeader = props => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ParishFinder');
+              navigation.navigate('ParishFinder')
             }}>
             <Text style={[styles.TextStyle, props.ParishRestyle]}>
               Parish Finder
@@ -113,7 +113,7 @@ const HomeHeader = props => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Events');
+              navigation.navigate('Events')
             }}>
             <Text style={[styles.TextStyle, props.EventRestyle]}>Events</Text>
             <View style={props.EventUnderLineStyle} />
@@ -121,10 +121,10 @@ const HomeHeader = props => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default HomeHeader;
+export default HomeHeader
 
 const styles = StyleSheet.create({
   TextStyle: {
@@ -174,4 +174,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+})

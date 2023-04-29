@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,25 +7,24 @@ import {
   useColorScheme,
   Dimensions,
   Image,
-} from 'react-native';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
+} from 'react-native'
+import {useNavigation, useFocusEffect} from '@react-navigation/native'
 import {
   moderateScale,
   moderateVerticalScale,
   scale,
   verticalScale,
-} from 'react-native-size-matters';
-import {Color} from '../../utils/Colors';
-import {Font} from '../../utils/font';
+} from 'react-native-size-matters'
+import {Color} from '../../utils/Colors'
+import {Font} from '../../utils/font'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 const DetailsCard = (props, {data}) => {
-
   const fourInchPotrait = w <= 350 && h <= 600
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useColorScheme() === 'dark'
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -41,8 +40,7 @@ const DetailsCard = (props, {data}) => {
       <View
         style={
           [
-            props.restyleImage
-            ,
+            props.restyleImage,
             {
               height:
                 w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(85),
@@ -50,7 +48,6 @@ const DetailsCard = (props, {data}) => {
               borderRadius: w >= 768 && h >= 1024 ? scale(7) : scale(10),
               overflow: 'hidden',
             },
-            
           ]
           //
         }>
@@ -102,7 +99,12 @@ const DetailsCard = (props, {data}) => {
             justifyContent: 'space-around',
             right: w >= 768 && h >= 1024 ? scale(1) : scale(2),
             //   flexDirection:'row',
-            paddingTop: w >= 768 && h >= 1024  ? moderateScale(5) : fourInchPotrait ? moderateScale(0) : moderateScale(5)
+            paddingTop:
+              w >= 768 && h >= 1024
+                ? moderateScale(5)
+                : fourInchPotrait
+                ? moderateScale(0)
+                : moderateScale(5),
           }}>
           {props.TimeTrue ? (
             <Text style={[styles.DateStyle]}>
@@ -128,8 +130,8 @@ const DetailsCard = (props, {data}) => {
         </View>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   TitleStyle: {
@@ -142,5 +144,5 @@ const styles = StyleSheet.create({
 
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
-});
-export default DetailsCard;
+})
+export default DetailsCard

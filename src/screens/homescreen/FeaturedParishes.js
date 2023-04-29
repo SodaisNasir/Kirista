@@ -7,21 +7,20 @@ import {
   ScrollView,
   Dimensions,
   useColorScheme,
-} from 'react-native';
-import React from 'react';
-import {Color} from '../../utils/Colors';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {Font} from '../../utils/font';
-import Header from '../../components/Header';
-import DetailsCard from '../../components/Card/DetailsCard';
+} from 'react-native'
+import React from 'react'
+import {Color} from '../../utils/Colors'
+import {SafeAreaView} from 'react-native-safe-area-context'
+import {scale, verticalScale} from 'react-native-size-matters'
+import {Font} from '../../utils/font'
+import Header from '../../components/Header'
+import DetailsCard from '../../components/Card/DetailsCard'
 
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
-
-const FeaturedParishes = props => {
-  const Theme = useColorScheme() === 'dark';
+const FeaturedParishes = (props) => {
+  const Theme = useColorScheme() === 'dark'
 
   // const data = [
   //   {
@@ -81,87 +80,87 @@ const FeaturedParishes = props => {
       ]}>
       <Header text={'Featured Parishes'} />
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          paddingHorizontal:
-            w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-          marginTop: verticalScale(10),
-        }}>
-        <DetailsCard
-          source={require('../../assets/images/parishsmall_1.png')}
-          title="RCCG "
-          manual="Central Parish"
-          resize={'contain'}
-          PlaceTrue = {true}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
-        <DetailsCard
-          source={require('../../assets/images/parishsmall_2.png')}
-          title="RCCG"
-          resize={'contain'}
-          manual="Precious Ambassadors "
-          PlaceTrue = {true}
-          Place={'Ghana'}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
+        <View
+          style={{
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            marginTop: verticalScale(10),
+          }}>
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_1.png')}
+            title="RCCG "
+            manual="Central Parish"
+            resize={'contain'}
+            PlaceTrue={true}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_2.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-        <DetailsCard
-          source={require('../../assets/images/parishsmall_2.png')}
-          title="RCCG"
-          resize={'contain'}
-          manual="Salvation Centre"
-          PlaceTrue = {true}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_2.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Salvation Centre"
+            PlaceTrue={true}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
 
-<DetailsCard
-          source={require('../../assets/images/parishsmall_3.png')}
-          title="RCCG"
-          resize={'contain'}
-          manual="Salvation Centre"
-          PlaceTrue = {true}
-          MainBoxRestyle={{
-            paddingBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            marginTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-          }}
-        />
-      </View>
-      <View style={{height: verticalScale(75)}} />
+          <DetailsCard
+            source={require('../../assets/images/parishsmall_3.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Salvation Centre"
+            PlaceTrue={true}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+        </View>
+        <View style={{height: verticalScale(75)}} />
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default FeaturedParishes;
+export default FeaturedParishes
 
 const styles = StyleSheet.create({
   Container: {
@@ -188,4 +187,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins700,
   },
-});
+})

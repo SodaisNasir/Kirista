@@ -10,23 +10,24 @@ import {
   Dimensions,
   useColorScheme,
   useWindowDimensions,
-} from 'react-native';
-import React, {useCallback} from 'react';
-import {Color} from '../../utils/Colors';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import HomeHeader from '../../components/HomeHeader';
-import {Font} from '../../utils/font';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useFocusEffect} from '@react-navigation/native';
-import DetailsCard from '../../components/Card/DetailsCard';
+} from 'react-native'
+import React, {useCallback} from 'react'
+import {Color} from '../../utils/Colors'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import HomeHeader from '../../components/HomeHeader'
+import {Font} from '../../utils/font'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import {useFocusEffect} from '@react-navigation/native'
+import DetailsCard from '../../components/Card/DetailsCard'
+import Swiper from 'react-native-swiper'
 
 // import AdvertisementModal from '../../components/Modals/AdvertisementModal'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { HIDE_ADVERTISEMENT } from '../../redux/reducer'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 const Home = ({navigation}) => {
   // const show = useSelector(state => state.showAdvertisement);
   // const Dispatch = useDispatch()
@@ -53,14 +54,14 @@ const Home = ({navigation}) => {
             w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
           right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
-      });
+      })
     }),
-  );
+  )
 
-  const width = useWindowDimensions().width;
-  const height = useWindowDimensions().height;
-  const fourInchPotrait = w <= 350 && h <= 600;
-  const Theme = useColorScheme() === 'dark';
+  const width = useWindowDimensions().width
+  const height = useWindowDimensions().height
+  const fourInchPotrait = w <= 350 && h <= 600
+  const Theme = useColorScheme() === 'dark'
 
   const image_data = [
     {
@@ -95,7 +96,7 @@ const Home = ({navigation}) => {
       type: 'ye',
       screen_name: 'RccgContinent',
     },
-  ];
+  ]
   const swiper_data = [
     {
       id: 1,
@@ -108,7 +109,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/swipertwo.png'),
       type: 'small',
     },
-  ];
+  ]
 
   const books_data = [
     {
@@ -162,8 +163,7 @@ const Home = ({navigation}) => {
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
     },
-  ];
- 
+  ]
 
   return (
     <SafeAreaView
@@ -183,7 +183,60 @@ const Home = ({navigation}) => {
             {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
             styles.SwiperViewOne,
           ]}>
-          <FlatList
+          <Swiper
+            autoplayTimeout={5}
+            autoplay={true}
+            showsButtons={false}
+            showsPagination={false}>
+            <View
+              style={{
+                height:
+                  w >= 768 && h >= 1024
+                    ? verticalScale(100)
+                    : verticalScale(135),
+
+                // top: w >= 768 && h >= 1024 ? scale(5) : scale(0),
+
+                width: w >= 768 && h >= 1024 ? scale(160) : scale(300),
+                // marginVertical: verticalScale(10),
+                // marginRight: verticalScale(12),
+                overflow: 'hidden',
+              }}>
+              <Image
+                resizeMode="stretch"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+                source={require('../../../src/assets/images/swiperone.png')}
+              />
+            </View>
+            <View
+              style={{
+                height:
+                  w >= 768 && h >= 1024
+                    ? verticalScale(100)
+                    : verticalScale(135),
+
+                // top: w >= 768 && h >= 1024 ? scale(5) : scale(0),
+
+                width: w >= 768 && h >= 1024 ? scale(160) : scale(300),
+                // marginVertical: verticalScale(10),
+                // marginRight: verticalScale(12),
+                // backgroundColor: 'red',
+                overflow: 'hidden',
+              }}>
+              <Image
+                resizeMode="stretch"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+                source={require('../../../src/assets/images/swipertwo.png')}
+              />
+            </View>
+          </Swiper>
+          {/* <FlatList
             showsHorizontalScrollIndicator={false}
             data={swiper_data}
             horizontal
@@ -198,17 +251,17 @@ const Home = ({navigation}) => {
                           ? verticalScale(87)
                           : verticalScale(100)
                         : item.type === 'small'
-                        ? verticalScale(122)
+                        ? verticalScale(135)
                         : verticalScale(135),
 
-                        top:
-                        w >= 768 && h >= 1024
-                          ? item.type === 'small'
-                            ? scale(5)
-                            : scale(0)
-                          : item.type === 'small'
-                          ? scale(6)
-                          : scale(0),
+                    top:
+                      w >= 768 && h >= 1024
+                        ? item.type === 'small'
+                          ? scale(5)
+                          : scale(0)
+                        : item.type === 'small'
+                        ? scale(0)
+                        : scale(0),
                     width: w >= 768 && h >= 1024 ? scale(160) : scale(270),
                     // marginVertical: verticalScale(10),
                     marginRight: verticalScale(12),
@@ -222,9 +275,9 @@ const Home = ({navigation}) => {
                     source={item?.image}
                   />
                 </TouchableOpacity>
-              );
+              )
             }}
-          />
+          /> */}
         </View>
         <View
           style={{
@@ -351,7 +404,7 @@ const Home = ({navigation}) => {
                       </View>
                     </View>
                   </TouchableOpacity>
-                );
+                )
               }}
             />
           </ScrollView>
@@ -517,7 +570,7 @@ const Home = ({navigation}) => {
                     </View>
                   </View>
                 </View>
-              );
+              )
             }}
           />
         </View>
@@ -554,7 +607,7 @@ const Home = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('FeaturedParishes');
+                navigation.navigate('FeaturedParishes')
               }}
               style={{
                 flexDirection: 'row',
@@ -572,9 +625,9 @@ const Home = ({navigation}) => {
 
           <View>
             <DetailsCard
-                 onPress={() => {
-                  navigation.navigate('ViewParish');
-                }}
+              onPress={() => {
+                navigation.navigate('ViewParish')
+              }}
               source={require('../../assets/images/parishsmall_1.png')}
               title="RCCG "
               manual="Central Parish"
@@ -588,9 +641,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
-            onPress={() => {
-              navigation.navigate('ViewParish');
-            }}
+              onPress={() => {
+                navigation.navigate('ViewParish')
+              }}
               source={require('../../assets/images/parishsmall_3.png')}
               title="RCCG"
               manual="Salvation Center"
@@ -604,9 +657,9 @@ const Home = ({navigation}) => {
             />
 
             <DetailsCard
-            onPress={() => {
-              navigation.navigate('ViewParish');
-            }}
+              onPress={() => {
+                navigation.navigate('ViewParish')
+              }}
               source={require('../../assets/images/parishsmall_2.png')}
               title="RCCG"
               manual="Precious Ambassadors "
@@ -654,7 +707,7 @@ const Home = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Events');
+                navigation.navigate('Events')
               }}
               style={{flexDirection: 'row'}}>
               <Text style={styles.MoreText}>See All</Text>
@@ -669,9 +722,9 @@ const Home = ({navigation}) => {
           </View>
           <View>
             <DetailsCard
-             onPress={() => {
-              navigation.navigate('Events');
-            }}
+              onPress={() => {
+                navigation.navigate('Events')
+              }}
               source={require('../../assets/images/event_1.png')}
               title="West Coast 2 Regional"
               manual="Convention"
@@ -686,9 +739,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
-             onPress={() => {
-              navigation.navigate('Events');
-            }}
+              onPress={() => {
+                navigation.navigate('Events')
+              }}
               source={require('../../assets/images/event_2.png')}
               title="West Coast 3 Regional"
               resize={'cover'}
@@ -702,9 +755,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
-             onPress={() => {
-              navigation.navigate('Events');
-            }}
+              onPress={() => {
+                navigation.navigate('Events')
+              }}
               source={require('../../assets/images/event_3.png')}
               title="West Coast 3 Regional"
               resize={'cover'}
@@ -719,9 +772,9 @@ const Home = ({navigation}) => {
               }}
             />
             <DetailsCard
-             onPress={() => {
-              navigation.navigate('Events');
-            }}
+              onPress={() => {
+                navigation.navigate('Events')
+              }}
               source={require('../../assets/images/EventScreenImage1.png')}
               title="Abuja Special Holy Ghost"
               resize={'cover'}
@@ -753,10 +806,10 @@ const Home = ({navigation}) => {
         /> */}
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
 
 const styles = StyleSheet.create({
   MainView: {
@@ -819,9 +872,10 @@ const styles = StyleSheet.create({
     // backgroundColor: Color.HeaderColor,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: moderateScale(20),
+    // paddingHorizontal: moderateScale(20),
     height: w >= 768 && h >= 1024 ? verticalScale(110) : verticalScale(150),
     // width:'100%'
+    paddingLeft: scale(24),
   },
   SwiperViewTwo: {
     alignItems: 'center',
@@ -859,4 +913,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
     fontFamily: Font.Poppins700,
   },
-});
+})

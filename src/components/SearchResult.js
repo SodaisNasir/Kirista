@@ -7,46 +7,47 @@ import {
   useColorScheme,
   Dimensions,
   SafeAreaView,
-} from 'react-native';
-import React, {useState} from 'react';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import {Color} from '../utils/Colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {Font} from '../utils/font';
-import {useNavigation} from '@react-navigation/native';
-import Search from '../assets/icons/search.svg';
-import NoResult from './NoResult';
+} from 'react-native'
+import React, {useState} from 'react'
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
+import {Color} from '../utils/Colors'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import {Font} from '../utils/font'
+import {useNavigation} from '@react-navigation/native'
+import Search from '../assets/icons/search.svg'
+import NoResult from './NoResult'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
-const SearchResult = props => {
-  const navigation = useNavigation();
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
+const SearchResult = (props) => {
+  const navigation = useNavigation()
 
-  const [Book, setBook] = useState(true);
-  const [Parishes, setParishes] = useState(false);
-  const [Event, setEvent] = useState(false);
+  const [Book, setBook] = useState(true)
+  const [Parishes, setParishes] = useState(false)
+  const [Event, setEvent] = useState(false)
 
   const HandelBook = () => {
-    setBook(true);
-    setParishes(false);
-    setEvent(false);
-  };
-
+    setBook(true)
+    setParishes(false)
+    setEvent(false)
+  }
   const HandelParishes = () => {
-    setBook(false);
-    setParishes(true);
-    setEvent(false);
-  };
+    setBook(false)
+    setParishes(true)
+    setEvent(false)
+  }
   const HandelEvent = () => {
-    setBook(false);
-    setParishes(false);
-    setEvent(true);
-  };
-  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
-  const [searchInputValue, setSearchInputValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const Theme = useColorScheme() === 'dark';
+    setBook(false)
+    setParishes(false)
+    setEvent(true)
+  }
+
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
+  const [searchInputValue, setSearchInputValue] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  const Theme = useColorScheme() === 'dark'
+
   return (
     <SafeAreaView
       style={{
@@ -218,8 +219,8 @@ const SearchResult = props => {
         {Event && <NoResult />}
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   searchContainerAfter: {
@@ -247,5 +248,5 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins500,
     color: '#4D5C72',
   },
-});
-export default SearchResult;
+})
+export default SearchResult

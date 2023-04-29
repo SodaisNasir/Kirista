@@ -10,29 +10,29 @@ import {
   useColorScheme,
   ImageBackground,
   useWindowDimensions,
-} from 'react-native';
-import React, {useState} from 'react';
-import Kiristalogo from '../../constant/Kiristalogo';
-import {Font} from '../../assets/fonts/PoppinsFont';
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import Entypo from 'react-native-vector-icons/Entypo';
-import DropDownPicker from 'react-native-dropdown-picker';
-import CustomButton from '../../components/CustomButton';
-import CustomSmallButton from '../../components/CustomSmallButton';
-import InvertCustomButton from '../../components/InvertCustomButtom';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Color} from '../../utils/Colors';
-import {TabActions} from '@react-navigation/native';
-import * as Animatable from 'react-native-animatable';
+} from 'react-native'
+import React, {useState} from 'react'
+import Kiristalogo from '../../constant/Kiristalogo'
+import {Font} from '../../assets/fonts/PoppinsFont'
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
+import Entypo from 'react-native-vector-icons/Entypo'
+import DropDownPicker from 'react-native-dropdown-picker'
+import CustomButton from '../../components/CustomButton'
+import CustomSmallButton from '../../components/CustomSmallButton'
+import InvertCustomButton from '../../components/InvertCustomButtom'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import {Color} from '../../utils/Colors'
+import {TabActions} from '@react-navigation/native'
+import * as Animatable from 'react-native-animatable'
 
 const OverBoard = ({navigation}) => {
-  const width = useWindowDimensions().width;
-  const height = useWindowDimensions().height;
-  const tabPotrait = width >= 768 && height >= 1024;
-  const standardLandscape = width >= 684 && height >= 360;
-  const tabLandscape = width >= 768 && height >= 1024;
-  const fourInchPotrait = width <= 350 && height <= 600;
-  const fourInchLandscape = width <= 350 && height <= 600;
+  const width = useWindowDimensions().width
+  const height = useWindowDimensions().height
+  const tabPotrait = width >= 768 && height >= 1024
+  const standardLandscape = width >= 684 && height >= 360
+  const tabLandscape = width >= 768 && height >= 1024
+  const fourInchPotrait = width <= 350 && height <= 600
+  const fourInchLandscape = width <= 350 && height <= 600
 
   const fadeIn = {
     from: {
@@ -41,7 +41,7 @@ const OverBoard = ({navigation}) => {
     to: {
       opacity: 1,
     },
-  };
+  }
   const zoomIn = {
     0: {
       opacity: 0,
@@ -55,34 +55,33 @@ const OverBoard = ({navigation}) => {
       opacity: 1,
       scale: 1,
     },
-  };
+  }
 
-  console.log(width, height);
-  const Theme = useColorScheme() === 'dark';
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  console.log(width, height)
+  const Theme = useColorScheme() === 'dark'
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState(null)
   const [items, setItems] = useState([
     {label: 'EN', value: 'EN'},
     {label: 'UR', value: 'UR'},
-  ]);
+  ])
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
       }}>
-     
-        <ImageBackground
-          source={
-            Theme
-              ? require('../../assets/images/overboard_dark.png')
-              : width >= 768 && height >= 1024
-              ? require('../../assets/images/Overboard_tab.png')
-              : require('../../assets/images/overboard.png')
-          }
-          resizeMode="stretch"
-          style={styles.ImageBackground}>
-             <ScrollView>
+      <ImageBackground
+        source={
+          Theme
+            ? require('../../assets/images/overboard_dark.png')
+            : width >= 768 && height >= 1024
+            ? require('../../assets/images/Overboard_tab.png')
+            : require('../../assets/images/overboard.png')
+        }
+        resizeMode="stretch"
+        style={styles.ImageBackground}>
+        <ScrollView>
           <View
             style={{
               width: tabPotrait ? '85%' : '90%',
@@ -101,7 +100,7 @@ const OverBoard = ({navigation}) => {
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('Language');
+                  navigation.navigate('Language')
                 }}
                 style={{
                   width: tabPotrait ? scale(36) : scale(55),
@@ -268,11 +267,11 @@ const OverBoard = ({navigation}) => {
               duration={300}
               animation={zoomIn}
               style={{
-                height: tabPotrait ? verticalScale(100) : verticalScale(140),
+                height: tabPotrait ? verticalScale(100) : verticalScale(120),
                 marginTop: tabPotrait ? verticalScale(0) : verticalScale(15),
                 justifyContent: 'space-between',
               }}>
-              <View style={{marginTop: verticalScale(10)}}>
+              <View style={{marginTop: verticalScale(4)}}>
                 <CustomButton
                   text={'Create an account'}
                   onPress={() => navigation.navigate('SignUp')}
@@ -284,7 +283,7 @@ const OverBoard = ({navigation}) => {
                   marginTop: verticalScale(5),
                   marginBottom: tabPotrait
                     ? verticalScale(10)
-                    : verticalScale(15),
+                    : verticalScale(10),
                 }}>
                 <InvertCustomButton
                   text={'Sign In'}
@@ -302,7 +301,7 @@ const OverBoard = ({navigation}) => {
                 {
                   marginVertical: tabPotrait
                     ? verticalScale(10)
-                    : verticalScale(20),
+                    : verticalScale(10),
                   fontSize: tabPotrait
                     ? {fontSize: scale(8)}
                     : {fontSize: scale(12)},
@@ -325,7 +324,7 @@ const OverBoard = ({navigation}) => {
                 {' '}
                 By continuing, you agree the{' '}
                 <Text
-                  // onPress={() => navigation.navigate('TermsAndCondition')}
+                  onPress={() => navigation.navigate('Terms')}
                   style={[
                     styles.term,
                     tabPotrait ? {fontSize: scale(7)} : {fontSize: scale(10)},
@@ -333,23 +332,25 @@ const OverBoard = ({navigation}) => {
                   Terms of Use
                 </Text>
                 <Text style={{color: Color.BoldTextColor}}> and </Text>
-                <Text
-                  // onPress={() => navigation.navigate('TermsAndCondition')}
-                  style={[
-                    styles.term,
-                    tabPotrait ? {fontSize: scale(7)} : {fontSize: scale(10)},
-                  ]}>
-                  Privacy Policy
-                </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Privacy')}>
+                  <Text
+                    // onPress={() => navigation.navigate('TermsAndCondition')}
+                    style={[
+                      styles.term,
+                      tabPotrait ? {fontSize: scale(7)} : {fontSize: scale(10)},
+                    ]}>
+                    Privacy Policy
+                  </Text>
+                </TouchableOpacity>
               </Text>
             </Animatable.View>
           </View>
-          </ScrollView>
-        </ImageBackground>
-      
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   ImageBackground: {
@@ -367,6 +368,6 @@ const styles = StyleSheet.create({
     // top: verticalScale(10),
     // backgroundColor: 'red',
   },
-});
+})
 
-export default OverBoard;
+export default OverBoard

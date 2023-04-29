@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native'
 import React from 'react'
 import {Color} from '../../utils/Colors'
@@ -17,7 +18,7 @@ import DetailsCard from '../../components/Card/DetailsCard'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
-const ParishesResult = (props) => {
+const ParishesResult = ({navigation}) => {
   const data = [
     {
       id: 1,
@@ -68,12 +69,14 @@ const ParishesResult = (props) => {
 
   return (
     <SafeAreaView style={styles.Container}>
-      <Header text={'Featured Parishes'} />
+      <Header text={'Result'} />
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={data}
         renderItem={({item}) => {
           return (
-            <View
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ViewParish')}
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -144,10 +147,11 @@ const ParishesResult = (props) => {
                   <Text style={styles.CountryStyle}> {item.country}</Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )
         }}
       />
+      <View style={{height: verticalScale(60)}}></View>
     </SafeAreaView>
   )
 }

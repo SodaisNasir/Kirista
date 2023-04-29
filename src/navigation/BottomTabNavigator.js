@@ -60,6 +60,7 @@ import Rccg from '../screens/homescreen/RCCG/Rccg'
 import RccgContinent from '../screens/homescreen/RCCG/RccgContinent'
 import RccgStructure from '../screens/homescreen/RCCG/RccgStructure'
 import Login from '../screens/auth/Login'
+import ParishesResult from '../screens/homescreen/ParishesResult'
 
 const Tab = createBottomTabNavigator()
 
@@ -464,6 +465,11 @@ function AllHome() {
       <Stack.Screen
         name="ViewParish"
         component={ViewParish}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="ParishesResult"
+        component={ParishesResult}
         options={{animation: 'fade_from_bottom'}}
       />
     </Stack.Navigator>

@@ -7,20 +7,20 @@ import {
   Dimensions,
   Image,
   useColorScheme,
-} from 'react-native';
-import React, {useState} from 'react';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import {Font} from '../utils/font';
-import {Color} from '../utils/Colors';
-import DetailsCard from './Card/DetailsCard';
-import {useNavigation} from '@react-navigation/native';
+} from 'react-native'
+import React, {useState} from 'react'
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
+import {Font} from '../utils/font'
+import {Color} from '../utils/Colors'
+import DetailsCard from './Card/DetailsCard'
+import {useNavigation} from '@react-navigation/native'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 export default function SearchContent() {
-  const navigation = useNavigation();
-  const Theme = useColorScheme() === 'dark';
+  const navigation = useNavigation()
+  const Theme = useColorScheme() === 'dark'
   // const data = [
   //   {
   //     id: 1,
@@ -158,7 +158,7 @@ export default function SearchContent() {
         />
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
 
     // paddingHorizontal: verticalScale(50),
   },
-});
+})

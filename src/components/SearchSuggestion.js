@@ -7,25 +7,25 @@ import {
   Image,
   Dimensions,
   useColorScheme,
-} from 'react-native';
-import React from 'react';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import BookSvg from '../assets/icons/book-1.svg';
-import BookDark from '../assets/icons/book_dark.svg';
-import HouseSvg from '../assets/icons/house-2.svg';
-import HouseDark from '../assets/icons/house_dark.svg';
-import CalendarSvg from '../assets/icons/calendar-2.svg';
-import CalendarDark from '../assets/icons/calendar_dark.svg';
-import PersonSvg from '../assets/icons/person_outline.svg';
-import PersonDark from '../assets/icons/person_dark.svg';
-import {Font} from '../utils/font';
-import {Color} from '../utils/Colors';
+} from 'react-native'
+import React from 'react'
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import BookSvg from '../assets/icons/book-1.svg'
+import BookDark from '../assets/icons/book_dark.svg'
+import HouseSvg from '../assets/icons/house-2.svg'
+import HouseDark from '../assets/icons/house_dark.svg'
+import CalendarSvg from '../assets/icons/calendar-2.svg'
+import CalendarDark from '../assets/icons/calendar_dark.svg'
+import PersonSvg from '../assets/icons/person_outline.svg'
+import PersonDark from '../assets/icons/person_dark.svg'
+import {Font} from '../utils/font'
+import {Color} from '../utils/Colors'
 
-const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width
+const h = Dimensions.get('window').height
 
 const SearchSuggestion = () => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useColorScheme() === 'dark'
   return (
     <SafeAreaView
       style={{
@@ -238,14 +238,14 @@ const SearchSuggestion = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default SearchSuggestion;
+export default SearchSuggestion
 
 const styles = StyleSheet.create({
   TextStyle: {
     fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
   },
-});
+})
