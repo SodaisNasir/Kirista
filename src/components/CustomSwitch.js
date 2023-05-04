@@ -1,15 +1,13 @@
-import { View, Switch, useColorScheme,Dimensions } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { Color } from '../utils/Colors';
+import {View, Switch, useColorScheme, Dimensions} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import SwitchToggle from 'react-native-switch-toggle';
-
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CustomSwitch = props => {
-  
   const Theme = useColorScheme() === 'dark';
   useEffect(() => {
     console.log(Theme);
@@ -27,7 +25,7 @@ const CustomSwitch = props => {
 
   return (
     <View style={props.restyleSwitch}>
-      <SwitchToggle
+      {/* <SwitchToggle
         switchOn={isEnabled}
         onPress={toggleSwitch}
         circleColorOff={Theme ? Color.DarkTheme : Color.White}
@@ -47,19 +45,19 @@ const CustomSwitch = props => {
           borderRadius: scale(100),
         
         }}
-      />
-      {/* <Switch
+      /> */}
+      <Switch
         onChange={handleSwitch()}
         trackColor={{
-          false: Color.switchColor,
+          false: '#EBEAEA',
           true: Color.Main,
         }}
-        thumbColor={Theme === 'dark' ? Color.DarkTheme : Color.White}
-        ios_backgroundColor="#3e3e3e"
+        thumbColor={Theme ? '#0e346c' : Color.White}
+        ios_backgroundColor="#D3D3D3"
         onValueChange={toggleSwitch}
         value={isEnabled}
-        style={{ transform: [{ scaleX: scale(0.8) }, { scaleY: scale(0.8) }] }}
-      /> */}
+        // style={{transform: [{scaleX: scale(0.8)}, {scaleY: scale(0.8)}]}}
+      />
     </View>
   );
 };

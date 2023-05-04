@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,24 +7,24 @@ import {
   useColorScheme,
   Dimensions,
   Image,
-} from 'react-native'
-import {useNavigation, useFocusEffect} from '@react-navigation/native'
+} from 'react-native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {
   moderateScale,
   moderateVerticalScale,
   scale,
   verticalScale,
-} from 'react-native-size-matters'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../utils/font'
+} from 'react-native-size-matters';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../utils/font';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 const DetailsCard = (props, {data}) => {
-  const fourInchPotrait = w <= 350 && h <= 600
-  const Theme = useColorScheme() === 'dark'
+  const fourInchPotrait = w <= 350 && h <= 600;
+  const Theme = useColorScheme() === 'dark';
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -107,11 +107,10 @@ const DetailsCard = (props, {data}) => {
                 : moderateScale(5),
           }}>
           {props.TimeTrue ? (
-            <Text style={[styles.DateStyle]}>
-              {' '}
-              {props.date}
-              {'   '}
-              <Text
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={[styles.DateStyle]}>
+                {props.date}
+                {/* <Text
                 style={{
                   color: Color.BoldTextColor,
                   fontFamily: Font.Poppins700,
@@ -119,10 +118,21 @@ const DetailsCard = (props, {data}) => {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                 }}>
                 .
+              </Text> */}
+                {/* {props.time}{' '} */}
               </Text>
-              {'   '}
-              {props.time}{' '}
-            </Text>
+              <View
+                style={{
+                  backgroundColor: Color.BoldTextColor,
+                  borderRadius: 100,
+                  width: scale(5),
+                  height: scale(5),
+                  marginHorizontal: scale(5),
+                  // alignSelf: 'flex-end',
+                }}
+              />
+              <Text style={[styles.DateStyle]}>{props.time}</Text>
+            </View>
           ) : null}
           {props.PlaceTrue ? (
             <Text style={[styles.DateStyle]}>{props.Place}</Text>
@@ -130,8 +140,8 @@ const DetailsCard = (props, {data}) => {
         </View>
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   TitleStyle: {
@@ -144,5 +154,5 @@ const styles = StyleSheet.create({
 
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
-})
-export default DetailsCard
+});
+export default DetailsCard;

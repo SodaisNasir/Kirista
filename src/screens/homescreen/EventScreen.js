@@ -8,37 +8,35 @@ import {
   Modal,
   TouchableOpacity,
   useColorScheme,
-} from 'react-native'
-import React, {useState,useLayoutEffect} from 'react'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import CustomHeader from '../../components/CustomHeader'
-import {Color} from '../../utils/Colors'
-import {verticalScale, scale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
-import ImageModal from '../../components/Modals/ImageModal'
-import Map from '../../components/Map'
+} from 'react-native';
+import React, {useState, useLayoutEffect, useCallback} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import CustomHeader from '../../components/CustomHeader';
+import {Color} from '../../utils/Colors';
+import {verticalScale, scale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import ImageModal from '../../components/Modals/ImageModal';
+import Map from '../../components/Map';
+import {useFocusEffect} from '@react-navigation/native';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const EventScreen = ({navigation}) => {
-  const [showModal, setShowModal] = useState(false)
-  const [isModalVisible, setModalVisible] = useState(false)
-  const Theme = useColorScheme() === 'dark'
+  const [showModal, setShowModal] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const Theme = useColorScheme() === 'dark';
 
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    })
-  }, [])
-
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible)
-  }
+    setModalVisible(!isModalVisible);
+  };
   return (
     <SafeAreaView
       style={[
@@ -61,7 +59,7 @@ const EventScreen = ({navigation}) => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              setShowModal(toggleModal(true))
+              setShowModal(toggleModal(true));
             }}
             style={styles.ImageViewStyle}>
             <Image
@@ -90,7 +88,7 @@ const EventScreen = ({navigation}) => {
             <Text style={styles.DateText}>June 22, 2023 - June 24, 2023</Text>
             <Text
               style={{
-                fontFamily: Font.Poppins800,
+                fontFamily: Font.Poppins900,
                 color: Color.ContinentText,
                 textAlign: 'center',
                 fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(10),
@@ -178,10 +176,9 @@ const EventScreen = ({navigation}) => {
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
           <Image
-          
-          source={require('../../assets/images/maps.png')}
-          
-          style={{height: '100%', width: '100%'}} />
+            source={require('../../assets/images/maps.png')}
+            style={{height: '100%', width: '100%'}}
+          />
 
           {/* <MapView
             style={{flex: 1}}
@@ -200,25 +197,24 @@ const EventScreen = ({navigation}) => {
             ></MapView> */}
         </View>
 
-        <View style={{height:verticalScale(40)}}/>
-  
-          <ImageModal
+        <View style={{height: verticalScale(40)}} />
+
+        <ImageModal
           blurRadius={14}
-            isVisible={isModalVisible}
-            onBackdropPress={() => setModalVisible(false)}
-            swipeDirection="left"
-            onSwipeComplete={() => setModalVisible(false)}
-            onRequestClose={() => setModalVisible(false)}
-            OptionSelect={() => setModalVisible(false)}
-            onPress={() => setModalVisible(false)}
-          />
-     
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
+          swipeDirection="left"
+          onSwipeComplete={() => setModalVisible(false)}
+          onRequestClose={() => setModalVisible(false)}
+          OptionSelect={() => setModalVisible(false)}
+          onPress={() => setModalVisible(false)}
+        />
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default EventScreen
+export default EventScreen;
 
 const styles = StyleSheet.create({
   Container: {
@@ -270,13 +266,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   LocationText: {
-    fontFamily: Font.Poppins600,
+    fontFamily: Font.Poppins700,
     color: Color.TextColor2,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
   },
   LocationDetailsText: {
-    fontFamily: Font.Poppins500,
+    fontFamily: Font.Poppins400,
     color: Color.TextColor2,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
@@ -286,11 +282,11 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(17),
   },
- 
+
   DateText: {
-    fontFamily: Font.Poppins500,
+    fontFamily: Font.Poppins700,
     color: Color.ContinentText,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
-})
+});

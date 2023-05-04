@@ -7,16 +7,10 @@ import {
   useWindowDimensions,
   useColorScheme,
 } from 'react-native';
-import React, {
-  useFocusEffect,
-  useCallback,
-  useEffect,
-  useState,
-  useLayoutEffect,
-} from 'react';
+import React, {useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
 import {Color} from '../../../utils/Colors';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import ReadNavigator from '../../../components/ReadNavigator';
 import {useNavigation} from '@react-navigation/native';
@@ -25,14 +19,6 @@ import FontModal from '../../../components/Modals/FontModal';
 import DrawerScreen from '../../../components/DrawerScreen';
 
 const Readtwo = () => {
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
-  }, []);
-
   const Theme = useColorScheme() === 'dark';
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -56,9 +42,10 @@ const Readtwo = () => {
   const h = useWindowDimensions().height;
   const text_color = Theme ? Color.White : Color.Black;
 
+  const [backgroundColor, setBackgroundColor] = useState(
+    Theme ? Color.DarkTheme : Color.White,
+  );
 
-  const [backgroundColor, setBackgroundColor] = useState(Theme ? Color.DarkTheme : Color.White);
-  
   const [textColor, setTextColor] = useState(text_color);
 
   const handlepressone = () => {
@@ -92,11 +79,7 @@ const Readtwo = () => {
   // }, [navigation])
 
   return (
-    <SafeAreaView
-      style={[
-        styles.MainContainer,
-        {backgroundColor},
-      ]}>
+    <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ReadHeader bookmark={true} backicon={true} />
         <View
@@ -109,11 +92,10 @@ const Readtwo = () => {
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
-                  
                 },
 
                 styles.Title,
-                {color: textColor}
+                {color: textColor},
               ]}>
               Chapter 1
             </Text>
@@ -123,7 +105,7 @@ const Readtwo = () => {
               style={[
                 {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
                 styles.TextStyle,
-                {color : textColor},
+                {color: textColor},
               ]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
@@ -133,7 +115,7 @@ const Readtwo = () => {
             <Text
               style={[
                 {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                {color : textColor},
+                {color: textColor},
                 styles.TextStyle,
               ]}>
               The technical term for this physical arrangement is codex (plural,
@@ -146,7 +128,7 @@ const Readtwo = () => {
               style={[
                 {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
                 styles.TextStyle,
-                {color : textColor},
+                {color: textColor},
               ]}>
               As an intellectual object, a book is prototypically a composition
               of such great length that it takes a considerable investment of
@@ -161,7 +143,7 @@ const Readtwo = () => {
             </Text>
           </View>
         </View>
-        <View style={{height:verticalScale(75)}}/>
+        <View style={{height: verticalScale(75)}} />
 
         <ChapterOptionModal
           isVisible={isModalVisible}

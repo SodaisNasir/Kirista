@@ -12,7 +12,7 @@ import {
 import React, {useCallback} from 'react';
 import {Color} from '../../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import HomeHeader from '../../../components/HomeHeader';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
@@ -21,7 +21,7 @@ import DetailsCard from '../../../components/Card/DetailsCard';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const Events = props => {
+const Events = () => {
   const navigation = useNavigation();
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +32,18 @@ const Events = props => {
           bottom: 0,
           height: verticalScale(80),
           justifyContent: 'space-around',
+          // paddingLeft:50,
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          borderColor: Theme ? Color.DarkTheme : Color.White,
+          paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
+          borderTopWidth: 0,
+        },
+        tabBarLabelStyle: {
+          fontFamily: Font.Poppins600,
+          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+          marginBottom:
+            w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
       });
     }),

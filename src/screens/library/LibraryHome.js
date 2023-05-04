@@ -7,28 +7,29 @@ import {
   Dimensions,
   Image,
   useColorScheme,
-  TouchableOpacity,
+  StatusBar,
   ScrollView,
-} from 'react-native'
-import React, {useState} from 'react'
-import LibraryHeader from '../../components/LibraryHeader'
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import {Color} from '../../utils/Colors'
-import FilterModal from '../../components/Modals/FilterModal'
-import DetailsCard from '../../components/Card/DetailsCard'
+} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import LibraryHeader from '../../components/LibraryHeader';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import {Color} from '../../utils/Colors';
+import FilterModal from '../../components/Modals/FilterModal';
+import DetailsCard from '../../components/Card/DetailsCard';
+import {useFocusEffect} from '@react-navigation/native';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const LibraryHome = ({navigation}) => {
   // for modal
-  const [showModal, setShowModal] = useState(false)
-  const Theme = useColorScheme() === 'dark'
-  const [isModalVisible, setModalVisible] = useState(false)
+  const [showModal, setShowModal] = useState(false);
+  const Theme = useColorScheme() === 'dark';
+  const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
-    setModalVisible(!isModalVisible)
-  }
+    setModalVisible(!isModalVisible);
+  };
 
   const data = [
     {
@@ -73,14 +74,42 @@ const LibraryHome = ({navigation}) => {
       detail: '2023',
       path: 'PopularBooks',
     },
-  ]
-
+  ];
+  useFocusEffect(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: 0,
+          height: verticalScale(80),
+          justifyContent: 'space-around',
+          // paddingLeft:50,
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          borderColor: Theme ? Color.DarkTheme : Color.White,
+          paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
+          borderTopWidth: 0,
+        },
+        tabBarLabelStyle: {
+          fontFamily: Font.Poppins600,
+          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+          marginBottom:
+            w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
+        },
+      });
+    }),
+  );
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.White}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <LibraryHeader
         onPress={() => {
-          setShowModal(toggleModal(true))
+          setShowModal(toggleModal(true));
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -90,12 +119,13 @@ const LibraryHome = ({navigation}) => {
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
           }}>
           <DetailsCard
+            onPress={() => navigation.navigate('ViewManual')}
             source={require('../../assets/images/manual.png')}
             title="Sunday Student"
             resize={'contain'}
             manual="Manual"
             PlaceTrue={true}
-            Place={'Ghana'}
+            Place={'2023'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -128,8 +158,9 @@ const LibraryHome = ({navigation}) => {
             title="RCCG"
             resize={'cover'}
             manual="Precious Ambassadors "
-            PlaceTrue={true}
-            Place={'Ghana'}
+            TimeTrue={true}
+            date={'November 09, 2023'}
+            time={'4PM'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -187,10 +218,10 @@ const LibraryHome = ({navigation}) => {
         onPress={() => setModalVisible(false)}
       />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default LibraryHome
+export default LibraryHome;
 
 const styles = StyleSheet.create({
   border: {
@@ -218,4 +249,4 @@ const styles = StyleSheet.create({
 
     // paddingHorizontal: verticalScale(50),
   },
-})
+});

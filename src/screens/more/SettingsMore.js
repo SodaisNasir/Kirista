@@ -81,7 +81,6 @@ const SettingsMore = () => {
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
-      {/* <HomeHeader/> */}
       <StatusBar
         backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}

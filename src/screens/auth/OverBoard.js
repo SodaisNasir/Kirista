@@ -10,7 +10,7 @@ import {
   ImageBackground,
   useWindowDimensions,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -19,7 +19,6 @@ import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
-import * as Animatable from 'react-native-animatable';
 import {useDispatch} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
 const OverBoard = ({navigation}) => {
@@ -33,14 +32,6 @@ const OverBoard = ({navigation}) => {
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 350 && height <= 600;
 
-  const fadeIn = {
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-  };
   const zoomIn = {
     0: {
       opacity: 0,
@@ -58,12 +49,6 @@ const OverBoard = ({navigation}) => {
 
   console.log(width, height);
   const Theme = useColorScheme() === 'dark';
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'EN', value: 'EN'},
-    {label: 'UR', value: 'UR'},
-  ]);
 
   return (
     <SafeAreaView
@@ -87,15 +72,11 @@ const OverBoard = ({navigation}) => {
               alignSelf: 'center',
               justifyContent: 'center',
             }}>
-            <Animatable.View
-              iterationDelay={500}
-              duration={300}
-              animation={zoomIn}
+            <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 marginTop: verticalScale(30),
-                // paddingHorizontal: verticalScale(15),
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -151,7 +132,7 @@ const OverBoard = ({navigation}) => {
                   Skip
                 </Text>
               </TouchableOpacity>
-            </Animatable.View>
+            </View>
 
             <View
               style={{
@@ -160,10 +141,7 @@ const OverBoard = ({navigation}) => {
               <Kiristalogo />
             </View>
 
-            <Animatable.View
-              iterationDelay={1000}
-              duration={300}
-              animation={zoomIn}
+            <View
               style={{
                 alignItems: 'center',
                 justifyContent: 'space-evenly',
@@ -180,28 +158,35 @@ const OverBoard = ({navigation}) => {
               <View
                 style={{
                   width: tabPotrait ? scale(80) : scale(85),
-                  height: tabPotrait ? verticalScale(80) : verticalScale(85),
+                  height: tabPotrait ? verticalScale(45) : verticalScale(40),
+                  borderWidth: scale(2),
+                  borderColor: Color.Main,
+                  borderRadius: scale(10),
+                  padding: Theme ? 0 : 3,
                 }}>
                 <Image
                   source={
                     Theme
-                      ? require('../../assets/images/second_dark.png')
-                      : require('../../assets/images/second.png')
+                      ? require('../../assets/images/continent2_dark.png')
+                      : require('../../assets/images/continent2.png')
                   }
                   style={{
                     width: '100%',
                     height: '100%',
                   }}
-                  resizeMode={'contain'}
+                  resizeMode={Theme ? 'cover' : 'contain'}
                 />
               </View>
               <View
                 style={{
                   width: tabPotrait ? scale(40) : scale(45),
-                  height: tabPotrait ? scale(50) : scale(60),
+                  height: tabPotrait ? verticalScale(45) : verticalScale(40),
+                  borderWidth: scale(2),
+                  borderColor: Color.Main,
+                  borderRadius: scale(10),
                 }}>
                 <Image
-                  source={require('../../assets/images/third.png')}
+                  source={require('../../assets/images/ad_book_tablet.png')}
                   style={{
                     width: '100%',
                     height: '100%',
@@ -211,24 +196,25 @@ const OverBoard = ({navigation}) => {
               </View>
               <View
                 style={{
-                  width: tabPotrait ? scale(75) : scale(85),
-                  height: tabPotrait ? scale(80) : scale(60),
+                  width: tabPotrait ? scale(75) : scale(75),
+                  height: tabPotrait ? scale(37) : scale(40),
+                  borderWidth: scale(2),
+                  borderColor: Color.Main,
+                  borderRadius: scale(10),
                 }}>
                 <Image
-                  source={require('../../assets/images/fourth.png')}
+                  source={require('../../assets/images/event_screen_image.png')}
                   style={{
                     width: '100%',
                     height: '100%',
+                    borderRadius: scale(8),
                   }}
-                  resizeMode={'contain'}
+                  resizeMode={'cover'}
                 />
               </View>
-            </Animatable.View>
+            </View>
 
-            <Animatable.View
-              iterationDelay={1300}
-              duration={300}
-              animation={zoomIn}
+            <View
               style={{
                 // backgroundColor: 'purple',
                 flexDirection: 'row',
@@ -240,7 +226,7 @@ const OverBoard = ({navigation}) => {
               <CustomSmallButton text={'#Books'} />
               <CustomSmallButton text={'#Events'} />
               <CustomSmallButton text={'#More'} />
-            </Animatable.View>
+            </View>
 
             <View
               style={{
@@ -250,22 +236,16 @@ const OverBoard = ({navigation}) => {
                 // backgroundColor: 'red',
                 // paddingHorizontal:1
               }}>
-              <Animatable.Text
-                iterationDelay={1600}
-                duration={300}
-                animation={zoomIn}
+              <Text
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: tabPotrait ? scale(15) : scale(20),
                   color: Theme ? Color.White : Color.Black,
                 }}>
                 Welcome, Brethern.
-              </Animatable.Text>
+              </Text>
             </View>
-            <Animatable.View
-              iterationDelay={1900}
-              duration={300}
-              animation={zoomIn}
+            <View
               style={{
                 height: tabPotrait ? verticalScale(100) : verticalScale(120),
                 marginTop: tabPotrait ? verticalScale(0) : verticalScale(15),
@@ -290,12 +270,9 @@ const OverBoard = ({navigation}) => {
                   onPress={() => navigation.navigate('Login')}
                 />
               </View>
-            </Animatable.View>
+            </View>
 
-            <Animatable.View
-              iterationDelay={2300}
-              duration={300}
-              animation={zoomIn}
+            <View
               style={[
                 styles.dialouge,
                 {
@@ -341,7 +318,7 @@ const OverBoard = ({navigation}) => {
                   Privacy Policy
                 </Text>
               </Text>
-            </Animatable.View>
+            </View>
           </View>
         </ScrollView>
       </ImageBackground>

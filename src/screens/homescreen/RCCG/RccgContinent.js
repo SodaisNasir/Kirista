@@ -9,25 +9,24 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import React, {useState,useLayoutEffect} from 'react';
+import React, {useCallback} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
 import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
+import {useFocusEffect} from '@react-navigation/native';
 
 const W = Dimensions.get('window').width;
 const H = Dimensions.get('window').height;
 
 const RccgContinent = ({navigation}) => {
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    })
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
 
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
@@ -49,7 +48,6 @@ const RccgContinent = ({navigation}) => {
           }}>
           <View
             style={{
-              //   backgroundColor:'red',
               alignItems: 'center',
               height: H * 0.1,
               // width: W * 1,
@@ -83,7 +81,28 @@ const RccgContinent = ({navigation}) => {
               RCCG Continent 2
             </Text>
           </View>
+          <View
+            style={{
+              paddingVertical:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
+              marginBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
 
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
+                fontFamily: Font.Poppins500,
+                color: Theme ? Color.White : Color.DarkTextColor,
+                textAlign: 'center',
+              }}>
+              This is currently in 22 countries, covering Northern Nigeria, West
+              and Central Africa. As more souls have been won to the Kingdom of
+              God, the Church's influence through the continental structure has
+              grown spiritually, economically, and politically.
+            </Text>
+          </View>
           <View
             style={{
               marginVertical:
@@ -109,27 +128,26 @@ const RccgContinent = ({navigation}) => {
               }}>
               (Continent 2 Overseer)
             </Text>
-          </View>
-
-          <View
-            style={{
-                paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-
-              alignItems: 'center',
-            }}>
             <Text
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
                 color: Theme ? Color.White : Color.DarkTextColor,
                 textAlign: 'center',
+                marginTop: verticalScale(20),
               }}>
               RCCG Northern Zone, Nigeria
             </Text>
+          </View>
+          <View
+            style={{
+              // paddingVertical:
+              //   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
+              marginBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
 
+              alignItems: 'center',
+            }}>
             <Text
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
@@ -485,8 +503,8 @@ const RccgContinent = ({navigation}) => {
               width: '100%',
               alignItems: 'center',
               marginVertical: verticalScale(15),
-                paddingVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              paddingVertical:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
               style={{

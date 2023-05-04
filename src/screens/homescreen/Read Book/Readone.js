@@ -7,32 +7,25 @@ import {
   Dimensions,
   TouchableOpacity,
   useColorScheme,
-} from 'react-native'
-import React, {useState, useLayoutEffect} from 'react'
-import ReadHeader from '../../../components/ReadHeader'
-import {Color} from '../../../utils/Colors'
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
-import {Font} from '../../../utils/font'
-import ReadNavigator from '../../../components/ReadNavigator'
-import {useNavigation} from '@react-navigation/native'
-import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal'
+} from 'react-native';
+import React, {useCallback} from 'react';
+import ReadHeader from '../../../components/ReadHeader';
+import {Color} from '../../../utils/Colors';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import {Font} from '../../../utils/font';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const Readone = () => {
-
-  
-useLayoutEffect(() => {
-  navigation.getParent()?.setOptions({
-    tabBarStyle: {
-      display: 'none',
-    },
-  })
-}, [])
-  const Theme = useColorScheme() === 'dark'
-  const navigation = useNavigation()
-
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
+  const Theme = useColorScheme() === 'dark';
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView
@@ -42,7 +35,7 @@ useLayoutEffect(() => {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-            navigation.navigate('Readtwo')
+            navigation.navigate('Readtwo');
           }}
           style={styles.Container}>
           <View style={{marginVertical: verticalScale(20)}}>
@@ -59,20 +52,32 @@ useLayoutEffect(() => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
             }}>
-            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.Black},
+                styles.TextStyle,
+              ]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
               papyrus, parchment, vellum, or paper) bound together and protected
               by a cover.
             </Text>
-            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.Black},
+                styles.TextStyle,
+              ]}>
               The technical term for this physical arrangement is codex (plural,
               codices). In the history of hand-held physical supports for
               extended written compositions or records, the codex replaces its
               predecessor, the scroll. A single sheet in a codex is a leaf and
               each side of a leaf is a page.
             </Text>
-            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.Black},
+                styles.TextStyle,
+              ]}>
               As an intellectual object, a book is prototypically a composition
               of such great length that it takes a considerable investment of
               time to compose and still considered as an investment of time to
@@ -84,7 +89,11 @@ useLayoutEffect(() => {
               sense, a book is the compositional whole of which such sections,
               whether called books or chapters or parts, are parts.
             </Text>
-            <Text style={[{color: Theme ? Color.White : Color.Black},styles.TextStyle]}>
+            <Text
+              style={[
+                {color: Theme ? Color.White : Color.Black},
+                styles.TextStyle,
+              ]}>
               A book is a medium for recording information in the form of
               writing or images, typically composed of many pages (made of
               papyrus, parchment, vellum, or paper) bound together and protected
@@ -117,15 +126,21 @@ useLayoutEffect(() => {
               {color: Theme ? Color.ExtraViewDark : Color.White},
               styles.BoxStyle,
             ]}>
-            <Text style={styles.ChapterPageText}>1 / 11</Text>
+            <Text
+              style={[
+                styles.ChapterPageText,
+                {color: Theme ? Color.White : Color.Black},
+              ]}>
+              1 / 11
+            </Text>
           </View>
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Readone
+export default Readone;
 
 const styles = StyleSheet.create({
   Container: {
@@ -160,4 +175,4 @@ const styles = StyleSheet.create({
     marginVertical:
       w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
   },
-})
+});

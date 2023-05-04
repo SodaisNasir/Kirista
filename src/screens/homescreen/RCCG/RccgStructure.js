@@ -8,23 +8,21 @@ import {
   useWindowDimensions,
   Image,
 } from 'react-native';
-import React, {useState,useLayoutEffect} from 'react';
+import React, {useCallback} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
 import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
+import {useFocusEffect} from '@react-navigation/native';
 
 const RccgStructure = ({navigation}) => {
-
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    })
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -131,7 +129,7 @@ const RccgStructure = ({navigation}) => {
             style={{
               paddingVertical:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                marginBottom:
+              marginBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
               alignItems: 'center',
             }}>
@@ -383,7 +381,7 @@ const RccgStructure = ({navigation}) => {
                     fontFamily: Font.Poppins500,
                     color: Theme ? Color.White : Color.DarkTextColor,
                   }}>
-                  - Pastor E.A. Odeyemi
+                  - Pastor J.F Odesola
                 </Text>
               </Text>
             </View>
@@ -1041,15 +1039,13 @@ const RccgStructure = ({navigation}) => {
             <CustomButton restyle={{width: '95%'}} text={'Read More'} />
           </View>
         </View>
-        <View
-        style={{height:verticalScale(95)}}
-        />
+        <View style={{height: verticalScale(95)}} />
       </ScrollView>
       <View
         style={{
           position: 'absolute',
           bottom: 0,
-            width:'100%',
+          width: '100%',
           backgroundColor: Color.White,
         }}>
         <CustomNavigator />

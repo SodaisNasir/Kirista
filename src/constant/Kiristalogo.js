@@ -7,28 +7,12 @@ import {
   useColorScheme,
 } from 'react-native';
 import React from 'react';
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import * as Animatable from 'react-native-animatable';
+import {verticalScale} from 'react-native-size-matters';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Kiristalogo = () => {
-  const zoomIn = {
-    0: {
-      opacity: 0,
-      scale: 0,
-    },
-    0.5: {
-      opacity: 1,
-      scale: 0.3,
-    },
-    1: {
-      opacity: 1,
-      scale: 1,
-    },
-  };
-
   const Theme = useColorScheme() === 'dark';
   return (
     <View
@@ -39,19 +23,18 @@ const Kiristalogo = () => {
         width: w >= 768 && h >= 1024 ? '40%' : '60%',
         alignSelf: 'center',
       }}>
-      <Animatable.Image
-        iterationDelay={700}
-        duration={500}
-        animation={zoomIn}
+      <Image
         resizeMode={'contain'}
-        
-        source={ Theme ? require('../assets/images/krista_main_dark.png') : require('../assets/images/krista_main.png')  }
+        source={
+          Theme
+            ? require('../assets/images/krista_main_dark.png')
+            : require('../assets/images/krista_main.png')
+        }
         style={{
           width: '100%',
           height: '100%',
         }}
       />
-
     </View>
   );
 };

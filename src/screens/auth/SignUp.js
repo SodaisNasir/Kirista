@@ -15,35 +15,11 @@ import {Color} from '../../utils/Colors';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import PhoneInput from '../../components/PhoneInput';
 import Password from '../../components/Password';
-import * as Animatable from 'react-native-animatable';
 import {useDispatch} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
 
 const SignUp = ({navigation}) => {
   const Dispatch = useDispatch();
-
-  const fadeIn = {
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-  };
-  const zoomIn = {
-    0: {
-      opacity: 0,
-      scale: 0,
-    },
-    0.5: {
-      opacity: 1,
-      scale: 0.3,
-    },
-    1: {
-      opacity: 1,
-      scale: 1,
-    },
-  };
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -68,10 +44,7 @@ const SignUp = ({navigation}) => {
             <Kiristalogo />
           </View>
 
-          <Animatable.View
-            iterationDelay={1000}
-            duration={300}
-            animation={zoomIn}
+          <View
             style={{
               alignItems: 'center',
               justifyContent: 'center',
@@ -87,12 +60,9 @@ const SignUp = ({navigation}) => {
               }}>
               Create Account
             </Text>
-          </Animatable.View>
+          </View>
 
-          <Animatable.View
-            iterationDelay={1500}
-            duration={300}
-            animation={zoomIn}
+          <View
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(5) : moderateScale(10),
@@ -161,10 +131,7 @@ const SignUp = ({navigation}) => {
 
                 alignItems: 'center',
               }}>
-              <Animatable.Text
-                iterationDelay={1800}
-                duration={300}
-                animation={fadeIn}
+              <Text
                 style={{
                   color: Theme ? Color.White : Color.DarkTextColor,
                   fontFamily: Font.Poppins500,
@@ -180,9 +147,9 @@ const SignUp = ({navigation}) => {
                   }}>
                   Sign in
                 </Text>
-              </Animatable.Text>
+              </Text>
             </View>
-          </Animatable.View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

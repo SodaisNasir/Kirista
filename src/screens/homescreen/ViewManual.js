@@ -6,26 +6,38 @@ import {
   Image,
   Dimensions,
   useColorScheme,
-} from 'react-native'
-import React from 'react'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import CustomHeader from '../../components/CustomHeader'
-import {Color} from '../../utils/Colors'
-import {verticalScale, scale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import CustomButton from '../../components/CustomButton'
+  StatusBar,
+} from 'react-native';
+import React, {useCallback} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import CustomHeader from '../../components/CustomHeader';
+import {Color} from '../../utils/Colors';
+import {verticalScale, scale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import CustomButton from '../../components/CustomButton';
+import {useFocusEffect} from '@react-navigation/native';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const ViewManual = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useColorScheme() === 'dark';
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
+
   return (
     <SafeAreaView
       style={[
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
+      <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.White}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader shareicon={true} saveicon={true} />
         {/* <View style={{height:verticalScale(100),backgroundColor:'purple'}}> */}
@@ -182,9 +194,16 @@ const ViewManual = ({navigation}) => {
             paddingHorizontal: verticalScale(20),
             marginVertical: verticalScale(15),
           }}>
-          <Text style={styles.About}>About</Text>
+          <Text
+            style={[styles.About, {color: Theme ? Color.White : Color.Black}]}>
+            About
+          </Text>
 
-          <Text style={styles.AboutText}>
+          <Text
+            style={[
+              styles.AboutText,
+              {color: Theme ? Color.White : Color.Black},
+            ]}>
             This Sunday School year is expected to be a year of firm and
             dedicated study. This year's manual is a compilation of sound
             biblical doctrines. Our personal goal should be to study the Bible
@@ -195,10 +214,10 @@ const ViewManual = ({navigation}) => {
         <View style={{height: verticalScale(85)}}></View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default ViewManual
+export default ViewManual;
 
 const styles = StyleSheet.create({
   Container: {
@@ -253,4 +272,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
     marginTop: verticalScale(5),
   },
-})
+});

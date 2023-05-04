@@ -8,44 +8,43 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-} from 'react-native'
-import React, {useCallback} from 'react'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
-import {Color} from '../../utils/Colors'
-import {Font} from '../../utils/font'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Entypo from 'react-native-vector-icons/Entypo'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import Edit from '../../assets/icons/edit.svg'
-import About from '../../assets/icons/about.svg'
-import AboutDark from '../../assets/icons/about_dark.svg'
-import LanguageDark from '../../assets/icons/language_dark.svg'
-import Feedback from '../../assets/icons/feedback.svg'
-import Feedback_dark from '../../assets/icons/feedback_dark.svg'
-import Language from '../../assets/icons/language.svg'
-import DarkMode from '../../assets/icons/dakrmode.svg'
-import Dark_dark from '../../assets/icons/dark_dark.svg'
-import Call_dark from '../../assets/icons/call_dark.svg'
-import Logout from '../../assets/icons/logout.svg'
-import Notification from '../../assets/icons/notification.svg'
-import Notification_dark from '../../assets/icons/notification_dark.svg'
-import FAQ from '../../assets/icons/faq.svg'
-import Faq_dark from '../../assets/icons/faq_dark.svg'
-import Terms from '../../assets/icons/terms.svg'
-import Terms_dark from '../../assets/icons/terms_dark.svg'
-import Privacy from '../../assets/icons/privacy.svg'
-import Privacy_dark from '../../assets/icons/privacy_dark.svg'
-import Contact from '../../assets/icons/contact.svg'
-import CustomSwitch from '../../components/CustomSwitch'
-import {useFocusEffect, useNavigation} from '@react-navigation/native'
+} from 'react-native';
+import React, {useCallback} from 'react';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import {Color} from '../../utils/Colors';
+import {Font} from '../../utils/font';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Edit from '../../assets/icons/edit.svg';
+import About from '../../assets/icons/about.svg';
+import AboutDark from '../../assets/icons/about_dark.svg';
+import LanguageDark from '../../assets/icons/language_dark.svg';
+import Feedback from '../../assets/icons/feedback.svg';
+import Feedback_dark from '../../assets/icons/feedback_dark.svg';
+import Language from '../../assets/icons/language.svg';
+import DarkMode from '../../assets/icons/dakrmode.svg';
+import Dark_dark from '../../assets/icons/dark_dark.svg';
+import Call_dark from '../../assets/icons/call_dark.svg';
+import Logout from '../../assets/icons/logout.svg';
+import Notification from '../../assets/icons/notification.svg';
+import Notification_dark from '../../assets/icons/notification_dark.svg';
+import FAQ from '../../assets/icons/faq.svg';
+import Faq_dark from '../../assets/icons/faq_dark.svg';
+import Terms from '../../assets/icons/terms.svg';
+import Terms_dark from '../../assets/icons/terms_dark.svg';
+import Privacy from '../../assets/icons/privacy.svg';
+import Privacy_dark from '../../assets/icons/privacy_dark.svg';
+import Contact from '../../assets/icons/contact.svg';
+import CustomSwitch from '../../components/CustomSwitch';
+import {useNavigation} from '@react-navigation/native';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsGuest = () => {
-  
   const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
   return (
@@ -142,7 +141,7 @@ const SettingsGuest = () => {
             backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
-          <View style={styles.MainView}>
+        <View style={styles.MainView}>
           <TouchableOpacity
             onPress={() => navigation.navigate('About')}
             style={[
@@ -301,7 +300,7 @@ const SettingsGuest = () => {
         />
         <View style={[styles.MainView]}>
           <TouchableOpacity
-             onPress={() => navigation.navigate('Faq')}
+            onPress={() => navigation.navigate('Faq')}
             style={[
               styles.AllItems,
               {
@@ -536,7 +535,7 @@ const SettingsGuest = () => {
             backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
-      
+
         <View style={{height: verticalScale(90)}}></View>
       </ScrollView>
     </SafeAreaView>
@@ -639,7 +638,7 @@ const styles = StyleSheet.create({
   VersionText: {
     fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-    color:'#D1D2D4',
+    color: '#D1D2D4',
     paddingHorizontal: moderateScale(15),
   },
   LogoutTextStyle: {

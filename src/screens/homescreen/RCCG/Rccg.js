@@ -8,23 +8,21 @@ import {
   useWindowDimensions,
   Image,
 } from 'react-native';
-import React, {useState,useLayoutEffect} from 'react';
+import React, {useCallback} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
 import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Rccg = ({navigation}) => {
-  
-useLayoutEffect(() => {
-  navigation.getParent()?.setOptions({
-    tabBarStyle: {
-      display: 'none',
-    },
-  })
-}, [])
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -352,46 +350,46 @@ useLayoutEffect(() => {
             </View>
 
             <View
-            style={{
-              borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
-              borderWidth: 0.5,
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
-            }}>
-            <Text
               style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Pastor E.A. Adeboye
-            </Text>
-            <Text
+                borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
+                borderWidth: 0.5,
+                width: w >= 768 && h >= 1024 ? '70%' : '100%',
+                alignSelf: 'center',
+              }}
+            />
+            <View
               style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                alignItems: 'center',
+                marginVertical: verticalScale(15),
+                paddingVertical:
+                  w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
               }}>
-              General Overseer, RCCG World Wide
-            </Text>
-          </View>
+              <Text
+                style={{
+                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                  fontFamily: Font.Poppins500,
+                  color: Theme ? Color.White : Color.DarkTextColor,
+                }}>
+                Pastor E.A. Adeboye
+              </Text>
+              <Text
+                style={{
+                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                  fontFamily: Font.Poppins700,
+                  color: Theme ? Color.White : Color.DarkTextColor,
+                }}>
+                General Overseer, RCCG World Wide
+              </Text>
+            </View>
 
-          <View
-            style={{
-              borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
-              borderWidth: 0.5,
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
+            <View
+              style={{
+                borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
+                borderWidth: 0.5,
+                width: w >= 768 && h >= 1024 ? '70%' : '100%',
+                alignSelf: 'center',
+              }}
+            />
             <View
               style={{
                 marginVertical:

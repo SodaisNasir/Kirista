@@ -355,7 +355,7 @@ function AllHome() {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Advertisement">
+      initialRouteName="HomeScreen">
       <Stack.Screen
         name="HomeScreen"
         component={Home}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useLayoutEffect} from 'react';
 import {
   View,
@@ -21,19 +21,17 @@ import {
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import Header from './Header';
+import {useFocusEffect} from '@react-navigation/native';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SelectCountry = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
-  useEffect(() => {}, [Theme]);
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
-  });
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   const DATA = [
     {
       id: '1',
@@ -221,8 +219,8 @@ const SelectCountry = ({navigation}) => {
     <SafeAreaView
       style={[
         styles.Container,
-        
-        {backgroundColor : Theme ? Color.DarkTheme : Color.White}
+
+        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
       ]}>
       <View
         style={[
@@ -234,7 +232,11 @@ const SelectCountry = ({navigation}) => {
         <Header text={'Select Country'} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={[{backgroundColor: Theme ? Color.DarkTheme : Color.White},styles.MainBox]}>
+        <View
+          style={[
+            {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+            styles.MainBox,
+          ]}>
           <FlatList
             scrollEnabled={false}
             data={DATA}
@@ -266,8 +268,12 @@ const SelectCountry = ({navigation}) => {
                   <Text
                     style={[
                       styles.title,
-                      
-                       {color: Theme ? Color.DarkThemText2 : Color.DarkTextColor},
+
+                      {
+                        color: Theme
+                          ? Color.DarkThemText2
+                          : Color.DarkTextColor,
+                      },
                     ]}>
                     {item.continent}
                   </Text>
@@ -276,7 +282,9 @@ const SelectCountry = ({navigation}) => {
                 <FlatList
                   style={{
                     // paddingHorizontal: moderateScale(10),
-                    borderBottomColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+                    borderBottomColor: Theme
+                      ? Color.DarkBorderColor
+                      : Color.BorderColor,
                     borderBottomWidth: 1,
                   }}
                   data={item.countries}
@@ -290,10 +298,8 @@ const SelectCountry = ({navigation}) => {
                         <View style={{marginVertical: verticalScale(5)}}>
                           <Text
                             style={[
-                             
-                              {color : Theme ? Color.White : Color.Black}
+                              {color: Theme ? Color.White : Color.Black},
 
-                              ,
                               styles.CountryStyle,
                             ]}>
                             {item.country}
@@ -322,10 +328,12 @@ const SelectCountry = ({navigation}) => {
                           <View>
                             <Text
                               style={[
-                                
-                                {color : Theme ? Color.White : Color.DarkTextColor}
+                                {
+                                  color: Theme
+                                    ? Color.White
+                                    : Color.DarkTextColor,
+                                },
 
-                                ,
                                 styles.CodeStyle,
                               ]}>
                               {item.code}
@@ -344,7 +352,11 @@ const SelectCountry = ({navigation}) => {
             keyExtractor={item => item.id}
           />
         </View>
-        <View style={{height: verticalScale(40), backgroundColor : Theme? Color.DarkTheme : Color.White}}></View>
+        <View
+          style={{
+            height: verticalScale(40),
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          }}></View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -356,7 +368,6 @@ const styles = StyleSheet.create({
   },
   MainBox: {
     paddingHorizontal: moderateScale(20),
-   
   },
   title: {
     fontFamily: Font.Poppins300,

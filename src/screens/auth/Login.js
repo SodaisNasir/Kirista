@@ -16,33 +16,8 @@ import CustomButton from '../../components/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Color} from '../../utils/Colors';
 import Password from '../../components/Password';
-import * as Animatable from 'react-native-animatable';
 import {useDispatch} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
-
-const fadeIn = {
-  from: {
-    opacity: 0,
-  },
-  to: {
-    opacity: 1,
-  },
-};
-
-const zoomIn = {
-  0: {
-    opacity: 0,
-    scale: 0,
-  },
-  0.5: {
-    opacity: 1,
-    scale: 0.3,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
-};
 
 const Login = ({navigation}) => {
   const w = useWindowDimensions().width;
@@ -71,24 +46,21 @@ const Login = ({navigation}) => {
           <Kiristalogo />
         </View>
 
-        <Animatable.View
-          iterationDelay={1000}
-          duration={300}
-          animation={zoomIn}
+        <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: '10%',
           }}>
-          <Animatable.Text
+          <Text
             style={{
               fontFamily: Font.Poppins700,
               fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
               color: Theme ? Color.White : Color.Black,
             }}>
             Welcome Back,
-          </Animatable.Text>
-          <Animatable.Text
+          </Text>
+          <Text
             style={{
               fontFamily: Font.Poppins700,
               fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
@@ -97,14 +69,10 @@ const Login = ({navigation}) => {
             }}>
             {' '}
             Brethren.
-          </Animatable.Text>
-        </Animatable.View>
+          </Text>
+        </View>
 
-        <Animatable.View
-          iterationDelay={1300}
-          duration={300}
-          animation={zoomIn}
-          style={{marginVertical: verticalScale(15)}}>
+        <View style={{marginVertical: verticalScale(15)}}>
           <CustomInput
             onChangeText={txt => {
               console.log('text ==>', email);
@@ -119,12 +87,9 @@ const Login = ({navigation}) => {
           />
 
           <Password text={'Password'} />
-        </Animatable.View>
+        </View>
 
-        <Animatable.View
-          iterationDelay={1600}
-          duration={300}
-          animation={zoomIn}
+        <View
           style={{
             // marginHorizontal: '5%',
             marginVertical:
@@ -138,12 +103,9 @@ const Login = ({navigation}) => {
             }
             text={'Sign in'}
           />
-        </Animatable.View>
+        </View>
 
-        <Animatable.View
-          iterationDelay={1900}
-          duration={300}
-          animation={zoomIn}>
+        <View>
           <TouchableOpacity
             onPress={() => navigation.navigate('ResetPassword')}
             style={{
@@ -183,7 +145,7 @@ const Login = ({navigation}) => {
               </Text>
             </Text>
           </View>
-        </Animatable.View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

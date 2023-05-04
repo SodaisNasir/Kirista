@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {
   View,
   TextInput,
@@ -10,11 +10,13 @@ import {
   Dimensions,
   SafeAreaView,
   FlatList,
+  StatusBar,
+  Keyboard,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import Search from '../assets/icons/search.svg';
@@ -29,6 +31,7 @@ import NoResult from './NoResult';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
+const fourInchPotrait = w <= 350 && h <= 600;
 const Searchbar = () => {
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
@@ -176,21 +179,20 @@ const Searchbar = () => {
   const resetStatus = () => {
     setShow(false);
     setIsSearchBarVisible(false);
+    Keyboard.dismiss();
   };
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   return (
     <SafeAreaView
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
       <View
         style={{
           height: verticalScale(70),
-          backgroundColor: '#f1f6fd',
+          backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
           flexDirection: 'row',
           paddingHorizontal: scale(20),
           borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
@@ -211,6 +213,7 @@ const Searchbar = () => {
             />
           </View>
         ) : null}
+        {/*  this ti for Searchbarr */}
         <View
           style={{
             height: '100%',
@@ -219,17 +222,17 @@ const Searchbar = () => {
           }}>
           <View
             style={{
-              height: '50%',
-              backgroundColor: 'white',
-              borderRadius: 30,
-              // elevation: 2,
+              height: verticalScale(40),
+              backgroundColor: Theme ? '#2B3642' : Color.White,
+              borderRadius: scale(25),
               overflow: 'hidden',
               flexDirection: 'row',
+              paddingHorizontal: moderateScale(20),
             }}>
             <View
               style={{
                 height: '100%',
-                width: tabPotrait ? '10%' : '15%',
+                // width: tabPotrait ? '10%' : '10%',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
@@ -245,6 +248,7 @@ const Searchbar = () => {
             <View
               style={{
                 height: '100%',
+                // backgroundColor: 'pink',
                 width:
                   isSearchBarVisible != true && searchQuery2 == ''
                     ? '90%'
@@ -253,11 +257,16 @@ const Searchbar = () => {
               <TextInput
                 onFocus={() => setIsSearchBarVisible(true)}
                 style={{
-                  height: '100%',
+                  height:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(35)
+                      : verticalScale(45),
                   width: '100%',
                   color: Theme ? '#fff' : '#000',
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                  marginHorizontal: tabPotrait ? scale(-5) : 0,
+                  // marginHorizontal: tabPotrait ? scale(-5) : 0,
+                  fontFamily: Font.Inter500,
+                  top: verticalScale(1.5),
                 }}
                 placeholder="Search"
                 placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
@@ -266,6 +275,7 @@ const Searchbar = () => {
                 value={searchQuery2}
               />
             </View>
+
             {isSearchBarVisible ? (
               <View
                 style={{
@@ -282,6 +292,7 @@ const Searchbar = () => {
             ) : null}
           </View>
         </View>
+        {/*  this ti for Searchbarr */}
         {isSearchBarVisible ? (
           <View
             style={{
@@ -305,7 +316,13 @@ const Searchbar = () => {
         ) : null}
       </View>
       {isSearchBarVisible != true && searchQuery2 == '' ? (
-        <View style={styles.SecondView}>
+        <View
+          style={[
+            styles.SecondView,
+            {
+              backgroundColor: Theme ? '#071A36' : 'white',
+            },
+          ]}>
           <Text
             style={{
               color: Theme ? Color.White : Color.DarkTextColor,
@@ -346,11 +363,15 @@ const Searchbar = () => {
               )}
               keyExtractor={item => item.id.toString()}
             />
-            <View style={{height: verticalScale(55)}} />
+            <View style={{height: verticalScale(10)}} />
           </View>
         </View>
       ) : !show ? (
-        <View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          }}>
           <FlatList
             data={filteredData2}
             showsVerticalScrollIndicator={false}
@@ -362,7 +383,7 @@ const Searchbar = () => {
                     w >= 768 && h >= 1024
                       ? moderateScale(25)
                       : moderateScale(20),
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+
                   flex: 1,
                 }}>
                 <View
@@ -594,7 +615,7 @@ const Searchbar = () => {
 const styles = StyleSheet.create({
   SecondView: {
     flex: 1,
-    backgroundColor: 'white',
+
     paddingHorizontal: scale(20),
     paddingTop: scale(10),
   },

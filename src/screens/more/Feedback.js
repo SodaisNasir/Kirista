@@ -6,8 +6,11 @@ import {
   useColorScheme,
   useWindowDimensions,
   StatusBar,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
@@ -19,6 +22,7 @@ import {
 } from 'react-native-size-matters';
 import CustomButton from '../../components/CustomButton';
 import AttachButton from '../../components/AttachButton';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const Feedback = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
@@ -32,6 +36,32 @@ const Feedback = ({navigation}) => {
       },
     });
   }, []);
+
+  const [saveimage, setsaveimage] = useState();
+  const [show, setShow] = useState(true);
+  const photosave = () => {
+    let options = {
+      storageOptions: {
+        mediaType: 'photo',
+        path: 'image',
+        includeExtra: true,
+      },
+      selectionLimit: 1,
+    };
+
+    launchImageLibrary(options, res => {
+      if (res.didCancel) {
+        console.log('ez pz');
+      } else if (res.error) {
+        console.log('ez pz win');
+      } else if (res.customButton) {
+        alert(res.customButton);
+      } else {
+        setsaveimage(res.assets?.[0]?.uri);
+        setShow(false);
+      }
+    });
+  };
   return (
     <SafeAreaView
       style={[
@@ -50,21 +80,19 @@ const Feedback = ({navigation}) => {
           paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
         }}>
-        <View style={{height: '60%',width:'100%'}}>
+        <View style={{height: '60%', width: '100%'}}>
           <View
             style={{
               flex: 1,
-              width:'100%',
+              width: '100%',
               paddingTop: moderateVerticalScale(10),
               paddingLeft: moderateScale(10),
               paddingRight: moderateScale(30),
             }}>
             <TextInput
-            multiline={true}
+              multiline={true}
               placeholder={`Briefly explain what isn't working or what happened`}
-              placeholderTextColor={
-                Theme ? '#404F64' : '#C6CAD1'
-              }
+              placeholderTextColor={Theme ? '#404F64' : '#C6CAD1'}
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
@@ -79,27 +107,33 @@ const Feedback = ({navigation}) => {
             />
           </View>
         </View>
-
-        <View
-          style={{
-            height: '40%',
-          }}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View
             style={{
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
+              height: '40%',
             }}>
-            <AttachButton text={'Upload'} />
-          </View>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                photosave();
+              }}
+              style={{
+                paddingVertical:
+                  w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
+              }}>
+              <AttachButton text={'Upload'} />
+            </TouchableOpacity>
 
-          <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(35),
-            }}>
-            <CustomButton onPress={() => navigation.goBack()} text={'Send'} />
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(35),
+              }}>
+              <CustomButton onPress={() => navigation.goBack()} text={'Send'} />
+            </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
   );

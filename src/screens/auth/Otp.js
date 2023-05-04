@@ -25,7 +25,6 @@ import {
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
-import * as Animatable from 'react-native-animatable';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -39,30 +38,6 @@ const OTP = ({navigation}) => {
     value,
     setValue,
   });
-
-  const fadeIn = {
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-  };
-
-  const zoomIn = {
-    0: {
-      opacity: 0,
-      scale: 0,
-    },
-    0.5: {
-      opacity: 1,
-      scale: 0.3,
-    },
-    1: {
-      opacity: 1,
-      scale: 1,
-    },
-  };
 
   const [time, setTime] = useState(600);
   useEffect(() => {
@@ -83,10 +58,7 @@ const OTP = ({navigation}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <AuthHeader text={'Email Verification'} />
 
-        <Animatable.View
-          iterationDelay={1000}
-          duration={300}
-          animation={fadeIn}
+        <View
           style={{
             justifyContent: 'center',
             marginVertical: scale(10),
@@ -106,7 +78,7 @@ const OTP = ({navigation}) => {
               maryjames@rccg.com
             </Text>
           </Text>
-        </Animatable.View>
+        </View>
 
         <View
           style={{
@@ -115,21 +87,15 @@ const OTP = ({navigation}) => {
             marginVertical:
               w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
           }}>
-          <Animatable.Text
-            iterationDelay={1300}
-            duration={300}
-            animation={fadeIn}
+          <Text
             style={[
               {color: Theme ? Color.DarkThemText2 : Color.TextColor},
               styles.OtpText,
             ]}>
             OTP
-          </Animatable.Text>
+          </Text>
 
-          <Animatable.View
-            iterationDelay={1500}
-            duration={300}
-            animation={fadeIn}>
+          <View>
             {time == 0 ? (
               <TouchableOpacity
                 style={{
@@ -159,7 +125,7 @@ const OTP = ({navigation}) => {
                 {timeString}
               </Text>
             )}
-          </Animatable.View>
+          </View>
         </View>
 
         <CodeField
@@ -171,10 +137,7 @@ const OTP = ({navigation}) => {
           keyboardType="number-pad"
           textContentType="oneTimeCode"
           renderCell={({index, symbol, isFocused}) => (
-            <Animatable.Text
-              iterationDelay={1800}
-              duration={300}
-              animation={fadeIn}
+            <Text
               key={index}
               style={[
                 {
@@ -188,13 +151,10 @@ const OTP = ({navigation}) => {
               ]}
               onLayout={getCellOnLayoutHandler(index)}>
               {symbol || (isFocused ? <Cursor /> : null)}
-            </Animatable.Text>
+            </Text>
           )}
         />
-        <Animatable.View
-          iterationDelay={2000}
-          duration={300}
-          animation={zoomIn}
+        <View
           style={{
             marginVertical:
               w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
@@ -203,7 +163,7 @@ const OTP = ({navigation}) => {
             onPress={() => navigation.navigate('NewPassword')}
             text={'Continue'}
           />
-        </Animatable.View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -212,14 +172,12 @@ const OTP = ({navigation}) => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    // backgroundColor: Color.White,
     paddingHorizontal:
       w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(20),
   },
 
   NavigatorStyle: {
     height: verticalScale(64),
-    // backgroundColor: 'red',
     justifyContent: 'center',
     marginTop: scale(10),
   },
@@ -231,7 +189,6 @@ const styles = StyleSheet.create({
   },
 
   LongText: {
-    // color: Color.BoldTextColor,
     fontFamily: Font.Poppins400,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
     marginBottom: scale(5),
@@ -246,10 +203,9 @@ const styles = StyleSheet.create({
     marginVertical: scale(10),
   },
   cell: {
-    // paddingHorizontal: scale(30),
     paddingTop: moderateVerticalScale(5),
-    width: w >= 768 && h >= 1024 ? scale(45) : scale(50),
-    height: w >= 768 && h >= 1024 ? verticalScale(28) : verticalScale(40),
+    width: w >= 768 && h >= 1024 ? scale(50) : scale(50),
+    height: w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(40),
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(18),
     borderRadius: scale(16),
     textAlign: 'center',

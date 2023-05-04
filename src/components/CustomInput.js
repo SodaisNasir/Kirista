@@ -1,27 +1,24 @@
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  Image,
   useWindowDimensions,
   useColorScheme,
-} from 'react-native'
-import React, {useState} from 'react'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
-import {Font} from '../assets/fonts/PoppinsFont'
-import {Color} from '../utils/Colors'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+} from 'react-native';
+import React from 'react';
+import {scale, verticalScale} from 'react-native-size-matters';
+import {Font} from '../assets/fonts/PoppinsFont';
+import {Color} from '../utils/Colors';
 
-const CustomInput = (props) => {
-  const Theme = useColorScheme() === 'dark'
-  const width = useWindowDimensions().width
-  const height = useWindowDimensions().height
-  const tabPotrait = width >= 768 && height >= 1024
-  const standardLandscape = width >= 684 && height >= 360
-  const tabLandscape = width >= 768 && height >= 1024
-  const fourInchPotrait = width <= 350 && height <= 600
-  const fourInchLandscape = width <= 600 && height <= 350
+const CustomInput = props => {
+  const Theme = useColorScheme() === 'dark';
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+  const tabPotrait = width >= 768 && height >= 1024;
+  const standardLandscape = width >= 684 && height >= 360;
+  const tabLandscape = width >= 768 && height >= 1024;
+  const fourInchPotrait = width <= 350 && height <= 600;
+  const fourInchLandscape = width <= 600 && height <= 350;
 
   return (
     <View style={props.restyleBox}>
@@ -56,6 +53,7 @@ const CustomInput = (props) => {
           props.RestyleHeight,
         ]}>
         <TextInput
+          keyboardType={props.keyboardType}
           placeholder={props.placeholder}
           placeholderTextColor={Color.BoldTextColor}
           onChangeText={props.onChangeText}
@@ -71,7 +69,9 @@ const CustomInput = (props) => {
                 ? verticalScale(2)
                 : fourInchLandscape
                 ? verticalScale(2)
-                :tabPotrait ? verticalScale(1) : verticalScale(1.5),
+                : tabPotrait
+                ? verticalScale(1)
+                : verticalScale(1.5),
               fontFamily: Font.Poppins400,
               alignItems: 'center',
               justifyContent: 'center',
@@ -82,7 +82,7 @@ const CustomInput = (props) => {
         />
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default CustomInput
+export default CustomInput;

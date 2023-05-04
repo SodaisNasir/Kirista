@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
+  StatusBar,
   View,
   SafeAreaView,
   useColorScheme,
@@ -10,8 +10,6 @@ import {
   ScrollView,
 } from 'react-native';
 import {Color} from '../../utils/Colors';
-import {Font} from '../../assets/fonts/PoppinsFont';
-import {scale} from 'react-native-size-matters';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -29,6 +27,10 @@ const LightSplash = ({navigation}) => {
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
+      <StatusBar
+        backgroundColor={Theme ? Color.DarkTheme : Color.White}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -101,6 +103,7 @@ const LightSplash = ({navigation}) => {
                 style={{
                   height: '70%',
                   width: w >= 768 && h >= 1024 ? '70%' : '80%',
+                  alignSelf: 'center',
                 }}
                 source={require('../../assets/images/dark_splash.png')}
               />

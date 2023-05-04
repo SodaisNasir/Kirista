@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {useLayoutEffect} from 'react';
 import {
   View,
@@ -12,32 +12,22 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import {
-  moderateScale,
-  moderateVerticalScale,
-  scale,
-  verticalScale,
-} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import Header from './Header';
-// import BackWithName from '../../../../components/BackWithName';
-// import CustomSearch from '../../../../components/CustomSearch';
-// import {Color} from '../Kirista/src/assets/colours';
-// import {Font} from '../../../../utils/font';
+import {useFocusEffect} from '@react-navigation/native';
+
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Countrycode = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
-  useEffect(() => {}, [Theme]);
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
-  });
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   const DATA = [
     {
       id: '1',
@@ -112,7 +102,6 @@ const Countrycode = ({navigation}) => {
       flag: 'https://img.icons8.com/color/256/bahamas.png',
       countrycode: '+1242',
     },
-   
   ];
   return (
     <SafeAreaView
@@ -124,104 +113,99 @@ const Countrycode = ({navigation}) => {
       ]}>
       <Header text={'Select Country Code'} />
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View
-        style={[
-          {marginVertical: w >= 768 && h >= 1024 ? scale(20) : scale(30),
-           
-          },
-          styles.MainBox,
-        ]}>
-
-        <FlatList
-          // scrollEnabled={true}
-          showsVerticalScrollIndicator={false}
-          data={DATA}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('SignUp')}
-              style={[
-                styles.item,
-                {
-                  // borderBottomWidth:
-                  //   item.type === 'Nigeria' ? scale(1.5) : scale(0.5),
-                  borderBottomColor:
-                    Theme === 'dark' ? Color.Black : Color.BorderColor,
-                },
-              ]}>
-              <View
-                style={{
-                  height: '100%',
-                  width: '67%',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={[
-                    styles.title,
-                    Theme === 'dark'
-                      ? {color: Color.White}
-                      : {color: Color.DarkTextColor},
-                  ]}>
-                  {item.title}
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: '100%',
-                  width: '33%',
-                  flexDirection: 'row',
-                }}>
+        <View
+          style={[
+            {marginVertical: w >= 768 && h >= 1024 ? scale(20) : scale(30)},
+            styles.MainBox,
+          ]}>
+          <FlatList
+            // scrollEnabled={true}
+            showsVerticalScrollIndicator={false}
+            data={DATA}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('SignUp')}
+                style={[
+                  styles.item,
+                  {
+                    // borderBottomWidth:
+                    //   item.type === 'Nigeria' ? scale(1.5) : scale(0.5),
+                    borderBottomColor:
+                      Theme === 'dark' ? Color.Black : Color.BorderColor,
+                  },
+                ]}>
                 <View
                   style={{
                     height: '100%',
-                    width: '50%',
+                    width: '67%',
                     justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      width: w >= 768 && h >= 1024 ? scale(20) : scale(30),
-                      height:
-                        w >= 768 && h >= 1024
-                          ? verticalScale(15)
-                          : verticalScale(20),
-                    }}>
-                    <Image
-                      source={{
-                        uri: item.flag,
-                      }}
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                      }}
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    height: '100%',
-                    width: '50%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                   }}>
                   <Text
                     style={[
-                      styles.title1,
+                      styles.title,
                       Theme === 'dark'
-                        ? {color: Color.TextDark}
-                        : {color: Color.Black},
+                        ? {color: Color.White}
+                        : {color: Color.DarkTextColor},
                     ]}>
-                    {item.countrycode}
+                    {item.title}
                   </Text>
                 </View>
-              </View>
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item.id}
-        />
-        <View style={{height: verticalScale(10)}} />
-      
-      </View>
-
+                <View
+                  style={{
+                    height: '100%',
+                    width: '33%',
+                    flexDirection: 'row',
+                  }}>
+                  <View
+                    style={{
+                      height: '100%',
+                      width: '50%',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <View
+                      style={{
+                        width: w >= 768 && h >= 1024 ? scale(20) : scale(30),
+                        height:
+                          w >= 768 && h >= 1024
+                            ? verticalScale(15)
+                            : verticalScale(20),
+                      }}>
+                      <Image
+                        source={{
+                          uri: item.flag,
+                        }}
+                        style={{
+                          height: '100%',
+                          width: '100%',
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      height: '100%',
+                      width: '50%',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text
+                      style={[
+                        styles.title1,
+                        Theme === 'dark'
+                          ? {color: Color.TextDark}
+                          : {color: Color.Black},
+                      ]}>
+                      {item.countrycode}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+            keyExtractor={item => item.id}
+          />
+          <View style={{height: verticalScale(10)}} />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

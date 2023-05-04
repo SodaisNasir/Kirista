@@ -16,35 +16,11 @@ import AuthHeader from '../../components/AuthHeader';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
-import * as Animatable from 'react-native-animatable';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
-  const zoomIn = {
-    0: {
-      opacity: 0,
-      scale: 0,
-    },
-    0.5: {
-      opacity: 1,
-      scale: 0.3,
-    },
-    1: {
-      opacity: 1,
-      scale: 1,
-    },
-  };
-
-  const fadeIn = {
-    from: {
-      opacity: 0,
-    },
-    to: {
-      opacity: 1,
-    },
-  };
   const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
@@ -55,10 +31,7 @@ const ResetPassword = ({navigation}) => {
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <AuthHeader text={'Reset Password'} />
 
-        <Animatable.View
-          iterationDelay={700}
-          duration={300}
-          animation={fadeIn}
+        <View
           style={{
             justifyContent: 'center',
             marginVertical: scale(20),
@@ -71,12 +44,9 @@ const ResetPassword = ({navigation}) => {
             Please enter your email address, and we will send you an OTP to
             confirm it.
           </Text>
-        </Animatable.View>
+        </View>
 
-        <Animatable.View
-          iterationDelay={1300}
-          duration={300}
-          animation={fadeIn}
+        <View
           style={{
             marginBottom:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
@@ -84,13 +54,11 @@ const ResetPassword = ({navigation}) => {
           <CustomInput
             placeholder={'maryjames@rccg.com'}
             text={'Email Address'}
+            keyboardType={'email-address'}
           />
-        </Animatable.View>
+        </View>
 
-        <Animatable.View
-          iterationDelay={1400}
-          duration={300}
-          animation={zoomIn}
+        <View
           style={{
             paddingTop:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
@@ -100,7 +68,7 @@ const ResetPassword = ({navigation}) => {
             onPress={() => navigation.navigate('OTP')}
             text={'Next'}
           />
-        </Animatable.View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -109,14 +77,12 @@ const ResetPassword = ({navigation}) => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    // paddingTop: moderateScale(50),
     paddingHorizontal:
       w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(20),
   },
 
   NavigatorStyle: {
     height: verticalScale(64),
-    // backgroundColor: 'red',
     justifyContent: 'center',
     marginTop: scale(10),
   },
@@ -136,13 +102,10 @@ const styles = StyleSheet.create({
     marginVertical: scale(10),
   },
   cell: {
-    // paddingHorizontal: scale(30),
     width: scale(50),
     height: verticalScale(40),
     fontSize: scale(24),
-    // borderWidth: 2,
     borderRadius: scale(16),
-    // borderColor: Color.Main,
     backgroundColor: Color.OtpBoxColor,
     textAlign: 'center',
     color: Color.Black,
