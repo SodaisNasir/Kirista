@@ -94,9 +94,8 @@ const styles = StyleSheet.create({
 
   },
   ArrowStyle: {
-    borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(10),
-    // borderColor: Color.Black,
-    borderWidth: 2,
+    borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(8),
+    borderWidth: scale(1.5),
     height: w >= 768 && h >= 1024 ? verticalScale(17) : verticalScale(30),
     width: w >= 768 && h >= 1024 ? verticalScale(17) : verticalScale(30),
     justifyContent: 'center',

@@ -30,8 +30,12 @@ const PhoneInput = props => {
       <Text
         style={{
           fontFamily: Font.Poppins500,
-          color: Theme?  Color.DarkThemText2 : Color.BoldTextColor,
-          fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14)
+          color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+          fontSize: tabPotrait
+            ? verticalScale(11)
+            : fourInchLandscape
+            ? scale(12)
+            : scale(14),
         }}>
         {props.text}
       </Text>
@@ -45,7 +49,7 @@ const PhoneInput = props => {
           backgroundColor: Theme
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
-            
+
           borderRadius: tabPotrait ? scale(12) : scale(18),
           paddingHorizontal: verticalScale(10),
           marginTop: verticalScale(2),
@@ -60,9 +64,8 @@ const PhoneInput = props => {
           <View
             style={{
               width: tabPotrait ? scale(15) : scale(25),
-              height: tabPotrait ? verticalScale(10) : verticalScale(15),
+              height: tabPotrait ? verticalScale(10) : verticalScale(16),
               flexDirection: 'row',
-              marginTop: '-3%',
             }}>
             <Image
               source={require('../assets/images/nig.png')}
@@ -75,11 +78,14 @@ const PhoneInput = props => {
           <View style={{paddingHorizontal: moderateScale(5)}}>
             <Text
               style={{
-                color: Theme?  Color.White : Color.TextColor,
-                fontFamily: Font.Poppins400,
-                fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14)
+                color: Theme ? Color.White : Color.TextColor,
+                fontFamily:Font.Inter500,
+                fontSize: tabPotrait
+                  ? verticalScale(11)
+                  : fourInchLandscape
+                  ? scale(12)
+                  : scale(14),
               }}>
-              {' '}
               +234
             </Text>
           </View>
@@ -87,7 +93,6 @@ const PhoneInput = props => {
             name="down"
             size={tabPotrait ? scale(11) : scale(16)}
             color={Theme ? Color.White : Color.Black}
-            style={{}}
           />
         </TouchableOpacity>
 
@@ -97,11 +102,19 @@ const PhoneInput = props => {
           // placeholderTextColor={Theme? Color.DarkThemeGreyText : Color.TextColor}
           placeholderTextColor={Color.BoldTextColor}
           style={{
-            fontSize: tabPotrait ? verticalScale(11): fourInchLandscape? scale(12)  :  scale(14),
-            fontFamily: Font.Poppins400,
+            fontSize: tabPotrait
+              ? verticalScale(11)
+              : fourInchLandscape
+              ? scale(12)
+              : scale(14),
+              fontFamily:Font.Inter500,
             paddingLeft: moderateScale(5),
             color: Theme ? Color.DarkThemeInputText : Color.TextColor,
-            top : fourInchPotrait? scale(2) : fourInchLandscape? scale(2) : 1,
+            // top: fourInchPotrait
+            //   ? scale(2.5)
+            //   : fourInchLandscape
+            //   ? scale(2)
+            //   : 1,
             flex: 1,
           }}
         />

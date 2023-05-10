@@ -15,7 +15,7 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
 import CustomInput from '../../../components/CustomInput'
 import SelectDropdown from '../../../components/SelectDropdown'
 import CustomButton from '../../../components/CustomButton'
-
+import SelectRegion from './SelectRegion'
 const ParishFinder = ({navigation}) => {
   const Theme = useColorScheme() === 'dark'
   const w = useWindowDimensions()
@@ -57,7 +57,7 @@ const ParishFinder = ({navigation}) => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('SelectCountry')}
+              onPress={() => navigation.navigate('Language',{type:'Region'})}
               text={'Region'}
               title={'Select Region'}
             />
@@ -68,7 +68,7 @@ const ParishFinder = ({navigation}) => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('SelectCountry')}
+              onPress={() => navigation.navigate('Language',{type:'Provence'})}
               text={'Province'}
               title={'Select Province'}
             />

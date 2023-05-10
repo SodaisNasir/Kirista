@@ -7,20 +7,20 @@ import {
   ScrollView,
   Dimensions,
   useColorScheme,
-} from 'react-native'
-import React from 'react'
-import {Color} from '../../utils/Colors'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import {scale, verticalScale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import Header from '../../components/Header'
-import DetailsCard from '../../components/Card/DetailsCard'
+} from 'react-native';
+import React from 'react';
+import {Color} from '../../utils/Colors';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {scale, verticalScale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import Header from '../../components/Header';
+import DetailsCard from '../../components/Card/DetailsCard';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
-const FeaturedParishes = (props) => {
-  const Theme = useColorScheme() === 'dark'
+const FeaturedParishes = props => {
+  const Theme = useColorScheme() === 'dark';
 
   // const data = [
   //   {
@@ -92,6 +92,7 @@ const FeaturedParishes = (props) => {
             manual="Central Parish"
             resize={'contain'}
             PlaceTrue={true}
+            Place={'Abuja'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -108,7 +109,7 @@ const FeaturedParishes = (props) => {
             resize={'contain'}
             manual="Precious Ambassadors "
             PlaceTrue={true}
-            Place={'Ghana'}
+            Place={'Tojo'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -124,6 +125,7 @@ const FeaturedParishes = (props) => {
             source={require('../../assets/images/parishsmall_2.png')}
             title="RCCG"
             resize={'contain'}
+            Place={'Ghana'}
             manual="Salvation Centre"
             PlaceTrue={true}
             MainBoxRestyle={{
@@ -143,6 +145,7 @@ const FeaturedParishes = (props) => {
             resize={'contain'}
             manual="Salvation Centre"
             PlaceTrue={true}
+            Place={'Abuja'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -157,10 +160,10 @@ const FeaturedParishes = (props) => {
         <View style={{height: verticalScale(75)}} />
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default FeaturedParishes
+export default FeaturedParishes;
 
 const styles = StyleSheet.create({
   Container: {
@@ -187,4 +190,4 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins700,
   },
-})
+});

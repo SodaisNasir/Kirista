@@ -9,12 +9,7 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
-import {
-  moderateScale,
-  moderateVerticalScale,
-  scale,
-  verticalScale,
-} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 
@@ -32,6 +27,7 @@ const DetailsCard = (props, {data}) => {
         props.MainBoxRestyle,
         {
           flexDirection: 'row',
+          alignItems: 'center',
           // marginHorizontal: verticalScale(20),
           // marginTop: verticalScale(15),
           // paddingBottom: verticalScale(15),
@@ -72,9 +68,8 @@ const DetailsCard = (props, {data}) => {
           style={{
             // height: verticalScale(30),
 
-            // backgroundColor: 'yellow',
             justifyContent: 'flex-end',
-            top: scale(5),
+            top: verticalScale(10),
           }}>
           <Text
             style={[
@@ -85,8 +80,10 @@ const DetailsCard = (props, {data}) => {
           </Text>
           <Text
             style={[
-              {bottom: scale(3)},
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {
+                bottom: verticalScale(10),
+                color: Theme ? Color.White : Color.DarkTextColor,
+              },
               styles.TitleStyle,
             ]}>
             {props.manual}
@@ -96,7 +93,7 @@ const DetailsCard = (props, {data}) => {
           style={{
             // height:
             //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
-            justifyContent: 'space-around',
+            // justifyContent: 'space-around',
             right: w >= 768 && h >= 1024 ? scale(1) : scale(2),
             //   flexDirection:'row',
             paddingTop:
@@ -107,28 +104,22 @@ const DetailsCard = (props, {data}) => {
                 : moderateScale(5),
           }}>
           {props.TimeTrue ? (
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={[styles.DateStyle]}>
-                {props.date}
-                {/* <Text
-                style={{
-                  color: Color.BoldTextColor,
-                  fontFamily: Font.Poppins700,
-
-                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
-                }}>
-                .
-              </Text> */}
-                {/* {props.time}{' '} */}
-              </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Text style={[styles.DateStyle]}>{props.date}</Text>
               <View
                 style={{
                   backgroundColor: Color.BoldTextColor,
-                  borderRadius: 100,
-                  width: scale(5),
-                  height: scale(5),
+                  borderRadius: scale(100),
+                  width: w >= 768 && h >= 1024 ? scale(2) : scale(3),
+                  height: w >= 768 && h >= 1024 ? scale(2) : scale(3),
+                  aspectRatio: 1 / 1,
                   marginHorizontal: scale(5),
-                  // alignSelf: 'flex-end',
+                  // alignSelf: 'center',
+                  marginTop: verticalScale(-15),
                 }}
               />
               <Text style={[styles.DateStyle]}>{props.time}</Text>
@@ -151,7 +142,8 @@ const styles = StyleSheet.create({
   DateStyle: {
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins600,
-
+    // backgroundColor: 'red',
+    bottom: verticalScale(7),
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
 });

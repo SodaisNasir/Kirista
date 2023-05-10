@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
+  StatusBar,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -39,7 +40,7 @@ import Privacy from '../../assets/icons/privacy.svg';
 import Privacy_dark from '../../assets/icons/privacy_dark.svg';
 import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -47,13 +48,36 @@ const h = Dimensions.get('window').height;
 const SettingsGuest = () => {
   const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
+  useFocusEffect(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          height:verticalScale(80),
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          borderColor: Theme ? Color.DarkTheme : Color.White,
+          borderTopWidth: 0,
+       
+        // tabBarLabelStyle: {
+        //   fontFamily: Font.Poppins600,
+        //   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+        //   marginBottom:
+        //     w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+        //   right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
+        },
+      });
+    }),
+  );
   return (
     <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
-      {/* <HomeHeader/> */}
+      <StatusBar
+        backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={[
@@ -75,7 +99,7 @@ const SettingsGuest = () => {
           </View>
         </View>
 
-        <View style={styles.MainView}>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.MainView}>
           <View
             style={[
               styles.UserInfo,
@@ -132,9 +156,8 @@ const SettingsGuest = () => {
               </View>
             </View>
 
-            <Edit height={w >= 768 && h >= 1024 ? scale(16) : scale(22)} />
           </View>
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             height: verticalScale(20),
@@ -546,7 +569,7 @@ export default SettingsGuest;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    // backgroundColor: Color.HeaderColor,
+    backgroundColor: Color.HeaderColor,
     height: verticalScale(80),
     justifyContent: 'flex-end',
   },
@@ -558,7 +581,7 @@ const styles = StyleSheet.create({
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(13) : scale(22),
     fontFamily: Font.Poppins500,
-    // color: Color.Black,
+    color: Color.Black,
     paddingHorizontal:
       w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(10),
   },
@@ -567,7 +590,7 @@ const styles = StyleSheet.create({
       w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
   },
   UserInfo: {
-    // backgroundColor: Color.White,
+    backgroundColor: Color.White,
     height: w >= 768 && h >= 1024 ? verticalScale(65) : verticalScale(100),
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -590,7 +613,7 @@ const styles = StyleSheet.create({
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(8),
     borderColor: Color.ArrowBorder,
     borderWidth: 2,
-    height: w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24),
+    height: w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(24),
     width: w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(24),
     justifyContent: 'center',
     alignItems: 'center',
@@ -607,9 +630,9 @@ const styles = StyleSheet.create({
     // color: Color.Black,
   },
   UserNameText: {
-    fontFamily: Font.Poppins600,
+    fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
-    // color: Color.DarkTextColor,
+    color: Color.Black,
   },
   SocialBox: {
     flexDirection: 'row',

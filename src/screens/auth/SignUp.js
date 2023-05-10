@@ -112,12 +112,12 @@ const SignUp = ({navigation}) => {
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
               <CustomButton
-                // onPress={() => navigation.navigate('Login')}
-                onPress={() =>
-                  email != null
-                    ? Dispatch({type: LOGIN, payload: email})
-                    : alert('Complete the form')
-                }
+                onPress={() => navigation.navigate('Login')}
+                // onPress={() =>
+                //   email != null
+                //     ? Dispatch({type: LOGIN, payload: email})
+                //     : alert('Complete the form')
+                // }
                 text={'Sign Up'}
               />
             </View>

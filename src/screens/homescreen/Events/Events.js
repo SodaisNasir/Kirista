@@ -1,11 +1,7 @@
 import {
   StyleSheet,
-  Text,
   View,
-  FlatList,
-  Image,
   Dimensions,
-  TouchableOpacity,
   useColorScheme,
   ScrollView,
 } from 'react-native';

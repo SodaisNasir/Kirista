@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   useColorScheme,
+  StatusBar,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -30,6 +31,10 @@ const Readone = () => {
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      <StatusBar
+        backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ReadHeader textshown={true} text={'Chapter 1 '} />
         <TouchableOpacity

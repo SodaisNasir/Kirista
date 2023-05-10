@@ -8,15 +8,13 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-  StatusBar,
+  StatusBar
 } from 'react-native';
-import React, {useState, useLayoutEffect, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Edit from '../../assets/icons/edit.svg';
@@ -57,27 +55,22 @@ const SettingsMore = () => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          position: 'absolute',
-          bottom: 0,
-          height: verticalScale(80),
-          justifyContent: 'space-around',
-          // paddingLeft:50,
+          height:verticalScale(80),
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
-          paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
           borderTopWidth: 0,
-        },
-        tabBarLabelStyle: {
-          fontFamily: Font.Poppins600,
-          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-          marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
+       
+        // tabBarLabelStyle: {
+        //   fontFamily: Font.Poppins600,
+        //   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+        //   marginBottom:
+        //     w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+        //   right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
       });
     }),
   );
-
+  
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
@@ -529,7 +522,6 @@ const SettingsMore = () => {
           </TouchableOpacity>
         </View>
 
-        <View></View>
         <View style={styles.SocialBox}>
           <TouchableOpacity style={[styles.IconBox]}>
             <FontAwesome5
@@ -575,7 +567,7 @@ const SettingsMore = () => {
             },
           ]}>
           <TouchableOpacity
-            onPress={() => Dispatch({type: LOGIN, payload: null})}
+            onPress={() => navigation.navigate('OverBoard')}
             style={[
               styles.AllItems,
               {

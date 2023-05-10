@@ -84,6 +84,7 @@ const Login = ({navigation}) => {
             }}
             text={'Email Address'}
             placeholder={'Email Address'}
+            keyboardType={'email-address'}
           />
 
           <Password text={'Password'} />
@@ -96,11 +97,12 @@ const Login = ({navigation}) => {
               w >= 768 && h >= 1024 ? verticalScale(22) : verticalScale(30),
           }}>
           <CustomButton
-            onPress={() =>
-              email != null
-                ? Dispatch({type: LOGIN, payload: email})
-                : alert('Complete the form')
-            }
+            onPress={() => navigation.navigate('BottomTabNavigator')}
+            // onPress={() =>
+            //   email != null
+            //     ? Dispatch({type: LOGIN, payload: email})
+            //     : alert('Complete the form')
+            // }
             text={'Sign in'}
           />
         </View>

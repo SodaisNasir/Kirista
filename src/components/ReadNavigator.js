@@ -43,49 +43,34 @@ const ReadNavigator = props => {
       ]}>
       <View style={styles.BoxStyle}>
         <TouchableOpacity onPress={props.onPressTab} style={styles.tabButton}>
-          <FontAwesome5 name="list-ul" size={24} color="#8E8E93" />
+          <FontAwesome5
+            name="list-ul"
+            size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
+            color={Theme ? '#fff' :"#374957"}
+          />
         </TouchableOpacity>
         <TouchableOpacity onPress={toggleIcon} style={styles.tabButton}>
           {showSvg ? (
-            Theme ? (
-              <Sun
-                height={
-                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(26)
-                }
-                width={scale(24)}
+              <Feather
+              name="sun"
+              size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
+              color={Theme ? '#fff' :"#374957"}
               />
-            ) : (
-              <SunBlack
-                height={
-                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
-                }
-                width={scale(24)}
-              />
-            )
-          ) : (
+            ) 
+           : (
             <Feather
               name="moon"
-              size={w >= 768 && h >= 1024 ? scale(12) : scale(24)}
-              color="#374957"
+              size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
+              color={Theme ? '#fff' :"#374957"}
             />
           )}
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPressModal} style={styles.tabButton}>
-          {Theme ? (
-            <SettingsDark
-              height={
-                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
-              }
-              width={scale(24)}
-            />
-          ) : (
-            <Settings
-              height={
-                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(24)
-              }
-              width={scale(24)}
-            />
-          )}
+        <Feather
+            name="settings"
+            size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
+            color={Theme ? '#fff' :"#374957"}
+          />
         </TouchableOpacity>
       </View>
     </View>

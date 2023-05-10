@@ -1,58 +1,58 @@
 // In App.js in a new project
 
-import * as React from 'react'
-import {View, Text, Settings} from 'react-native'
-import {NavigationContainer} from '@react-navigation/native'
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import OverBoard from '../screens/auth/OverBoard'
-import SignUp from '../screens/auth/SignUp'
-import PhoneInput from '../components/PhoneInput'
-import Login from '../screens/auth/Login'
-import Password from '../components/Password'
-import OTP from '../screens/auth/Otp'
-import ResetPassword from '../screens/auth/ResetPassword'
-import NewPassword from '../screens/auth/NewPassword'
-import EventScreen from '../screens/homescreen/EventScreen'
-import ViewEvent from '../screens/homescreen/ViewEvent'
-import PopularBooks from '../screens/homescreen/PopularBooks'
-import ViewManual from '../screens/homescreen/ViewManual'
-import ViewParish from '../screens/homescreen/ViewParish'
-import FeaturedParishes from '../screens/homescreen/FeaturedParishes'
-import ParishesResult from '../screens/homescreen/ParishesResult'
-import ViewBanner from '../screens/homescreen/ViewBanner'
-import Searchbar from '../components/Searchbar'
-import LibraryHeader from '../components/LibraryHeader'
-import LibraryHome from '../screens/library/LibraryHome'
-import LibraryHomeTwo from '../screens/library/LibraryHomeTwo'
-import FilterModal from '../components/Modals/FilterModal'
-import Terms from '../screens/more/Terms'
-import Privacy from '../screens/more/Privacy'
-import SettingsMore from '../screens/more/SettingsMore'
-import Home from '../screens/homescreen/Home'
-import BottomTabNavigator from './BottomTabNavigator'
-import SelectCountry from '../components/SelectCountry'
-import HomeHeader from '../components/HomeHeader'
-import SearchResult from '../components/SearchResult'
-import SearchBarScreen from '../components/SearchBarScreen'
-import Countrycode from '../components/Countrycode'
-import Contact from '../screens/more/Contact'
-import EditProfile from '../screens/more/EditProfile'
-import About from '../screens/more/About'
-import DarkMode from '../screens/more/DarkMode'
-import Language from '../screens/more/Language'
-import Rccg from '../screens/homescreen/RCCG/Rccg'
-import RccgStructure from '../screens/homescreen/RCCG/RccgStructure'
-import RccgContinent from '../screens/homescreen/RCCG/RccgContinent'
-import Feedback from '../screens/more/Feedback'
-import Ad from '../components/Advertisement'
-import Advertisement from '../components/Advertisement'
-import SettingsGuest from '../screens/more/SettingsGuest'
-import Readone from '../screens/homescreen/Read Book/Readone'
-import Readtwo from '../screens/homescreen/Read Book/Readtwo'
-import LightSplash from '../screens/auth/LightSplash'
-import Faq from '../screens/more/Faq'
+import * as React from 'react';
+import {View, Text, Settings} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import OverBoard from '../screens/auth/OverBoard';
+import SignUp from '../screens/auth/SignUp';
+import PhoneInput from '../components/PhoneInput';
+import Login from '../screens/auth/Login';
+import Password from '../components/Password';
+import OTP from '../screens/auth/Otp';
+import ResetPassword from '../screens/auth/ResetPassword';
+import NewPassword from '../screens/auth/NewPassword';
+import EventScreen from '../screens/homescreen/EventScreen';
+import ViewEvent from '../screens/homescreen/ViewEvent';
+import PopularBooks from '../screens/homescreen/PopularBooks';
+import ViewManual from '../screens/homescreen/ViewManual';
+import ViewParish from '../screens/homescreen/ViewParish';
+import FeaturedParishes from '../screens/homescreen/FeaturedParishes';
+import ParishesResult from '../screens/homescreen/ParishesResult';
+import ViewBanner from '../screens/homescreen/ViewBanner';
+import Searchbar from '../components/Searchbar';
+import LibraryHeader from '../components/LibraryHeader';
+import LibraryHome from '../screens/library/LibraryHome';
+import LibraryHomeTwo from '../screens/library/LibraryHomeTwo';
+import FilterModal from '../components/Modals/FilterModal';
+import Terms from '../screens/more/Terms';
+import Privacy from '../screens/more/Privacy';
+import SettingsMore from '../screens/more/SettingsMore';
+import Home from '../screens/homescreen/Home';
+import SelectCountry from '../components/SelectCountry';
+import HomeHeader from '../components/HomeHeader';
+import SearchResult from '../components/SearchResult';
+import SearchBarScreen from '../components/SearchBarScreen';
+import Countrycode from '../components/Countrycode';
+import Contact from '../screens/more/Contact';
+import EditProfile from '../screens/more/EditProfile';
+import About from '../screens/more/About';
+import DarkMode from '../screens/more/DarkMode';
+import Language from '../screens/more/Language';
+import Rccg from '../screens/homescreen/RCCG/Rccg';
+import RccgStructure from '../screens/homescreen/RCCG/RccgStructure';
+import RccgContinent from '../screens/homescreen/RCCG/RccgContinent';
+import Feedback from '../screens/more/Feedback';
+import Ad from '../components/Advertisement';
+import Advertisement from '../components/Advertisement';
+import SettingsGuest from '../screens/more/SettingsGuest';
+import Readone from '../screens/homescreen/Read Book/Readone';
+import Readtwo from '../screens/homescreen/Read Book/Readtwo';
+import LightSplash from '../screens/auth/LightSplash';
+import Faq from '../screens/more/Faq';
+import BottomTabNavigator from './BottomTabNavigator';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 
 function AuthNavigator() {
   return (
@@ -162,9 +162,14 @@ function AuthNavigator() {
           component={Faq}
           options={{animation: 'flip'}}
         />
+        <Stack.Screen
+          name="BottomTabNavigator"
+          component={BottomTabNavigator}
+          options={{animation: 'flip'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
-export default AuthNavigator
+export default AuthNavigator;

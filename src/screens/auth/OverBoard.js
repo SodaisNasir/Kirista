@@ -20,7 +20,7 @@ import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
 import {useDispatch} from 'react-redux';
-import {LOGIN} from '../../redux/reducer';
+import {IS_GUEST, LOGIN} from '../../redux/reducer';
 const OverBoard = ({navigation}) => {
   const Dispatch = useDispatch();
 
@@ -32,24 +32,12 @@ const OverBoard = ({navigation}) => {
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 350 && height <= 600;
 
-  const zoomIn = {
-    0: {
-      opacity: 0,
-      scale: 0,
-    },
-    0.5: {
-      opacity: 1,
-      scale: 0.3,
-    },
-    1: {
-      opacity: 1,
-      scale: 1,
-    },
-  };
-
   console.log(width, height);
   const Theme = useColorScheme() === 'dark';
-
+  const handelSkip = () => {
+    navigation.navigate('BottomTabNavigator');
+    Dispatch({type: IS_GUEST, payload: true});
+  };
   return (
     <SafeAreaView
       style={{
@@ -65,7 +53,7 @@ const OverBoard = ({navigation}) => {
         }
         resizeMode="stretch"
         style={styles.ImageBackground}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               width: tabPotrait ? '85%' : '90%',
@@ -83,9 +71,9 @@ const OverBoard = ({navigation}) => {
                   navigation.navigate('Language');
                 }}
                 style={{
-                  width: tabPotrait ? scale(36) : scale(55),
+                  width: tabPotrait ? scale(40) : scale(55),
                   height: tabPotrait
-                    ? verticalScale(25)
+                    ? verticalScale(27)
                     : fourInchPotrait
                     ? verticalScale(35)
                     : verticalScale(42),
@@ -94,8 +82,13 @@ const OverBoard = ({navigation}) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexDirection: 'row',
+                  // paddingHorizontal: 20,
                 }}>
-                <View style={{flexDirection: 'row'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
                   <Text
                     style={[
                       {
@@ -103,6 +96,7 @@ const OverBoard = ({navigation}) => {
                         fontFamily: Font.Poppins500,
                         color: 'white',
                         marginRight: scale(2),
+                        top: verticalScale(1),
                       },
                     ]}>
                     EN
@@ -112,7 +106,8 @@ const OverBoard = ({navigation}) => {
                     size={tabPotrait ? scale(10) : scale(16)}
                     color={'white'}
                     style={{
-                      alignSelf: 'center',
+                      // alignSelf: 'center',
+                      top: verticalScale(1),
                     }}
                   />
                 </View>
@@ -120,7 +115,13 @@ const OverBoard = ({navigation}) => {
 
               <TouchableOpacity
                 // onPress={() => navigation.navigate('SettingsGuest')}>
-                onPress={() => Dispatch({type: LOGIN, payload: 'email'})}>
+                // onPress={() => {
+                //   // navigation.navigate('BottomTabNavigator', {type: 'isGuest'})
+                //   navigation.navigate('BottomTabNavigator', {
+                //     type: 'isGuest',
+                //   });
+                // }}
+                onPress={() => handelSkip()}>
                 <Text
                   style={{
                     fontFamily: Font.Poppins600,
@@ -147,7 +148,7 @@ const OverBoard = ({navigation}) => {
                 justifyContent: 'space-evenly',
                 flexDirection: 'row',
                 marginTop: tabPotrait
-                  ? '10%'
+                  ? '20%'
                   : standardLandscape
                   ? '10%'
                   : '18%',
@@ -216,11 +217,11 @@ const OverBoard = ({navigation}) => {
 
             <View
               style={{
-                // backgroundColor: 'purple',
                 flexDirection: 'row',
                 justifyContent: 'space-evenly',
                 width: tabPotrait ? '70%' : '81%',
                 alignSelf: 'center',
+                marginTop: verticalScale(20),
               }}>
               <CustomSmallButton text={'#Parishes'} />
               <CustomSmallButton text={'#Books'} />

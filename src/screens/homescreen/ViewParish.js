@@ -6,20 +6,20 @@ import {
   Image,
   Dimensions,
   useColorScheme,
-} from 'react-native'
-import React from 'react'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import CustomHeader from '../../components/CustomHeader'
-import {Color} from '../../utils/Colors'
-import {verticalScale, scale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
+} from 'react-native';
+import React from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import CustomHeader from '../../components/CustomHeader';
+import {Color} from '../../utils/Colors';
+import {verticalScale, scale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const ViewParish = () => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
       style={[
@@ -271,18 +271,16 @@ const ViewParish = () => {
             </Text>
           </View>
         </View>
-        <View style={{height: verticalScale(75)}} />
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default ViewParish
+export default ViewParish;
 
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    // backgroundColor: Color.White,
   },
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),
@@ -341,4 +339,4 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(17),
   },
-})
+});

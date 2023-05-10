@@ -21,7 +21,11 @@ import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
 
-const Language = ({navigation}) => {
+const Language = ({navigation,route}) => {
+  const Type = route.params.type
+  console.log('Type ====>',Type)
+  const Provence = Type == 'Provence';
+  const Region = Type == 'Region'
   const handleSubmit = () => {
     navigation.goBack();
   };
@@ -40,38 +44,38 @@ const Language = ({navigation}) => {
   let DATA = [
     {
       id: '1',
-      title: 'English',
-      Short: '(EN)',
+      title: Provence ?  'Provence 1' : Region ? 'Region 1' : 'English',
+      Short: Provence ? null : Region ? null : '(EN)',
     },
     {
       id: '2',
-      title: 'Hausa',
-      Short: '(HA)',
+      title: Provence ?  'Provence 2' : Region ? 'Region 2' : 'Hausa',
+      Short: Provence ? null : Region ? null : '(HA)',
     },
     {
       id: '3',
-      title: 'Français',
-      Short: '(FR)',
+      title: Provence ?  'Provence 3' : Region ? 'Region 3' : 'Français',
+      Short: Provence ? null : Region ? null : '(FR)',
     },
     {
       id: '4',
-      title: 'Português',
-      Short: '(PO)',
+      title: Provence ?  'Provence 4' : Region ? 'Region 4' : 'Português',
+      Short: Provence ? null : Region ? null :  '(PO)',
     },
     {
       id: '5',
-      title: 'Pidgin',
-      Short: '(PN)',
+      title: Provence ?  'Provence 5' : Region ? 'Region 5' : 'Pidgin',
+      Short: Provence ? null : Region ? null :  '(PN)',
     },
     {
       id: '6',
-      title: 'Fula',
-      Short: '(FU)',
+      title: Provence ?  'Provence 6' : Region ? 'Region 6' : 'Fula',
+      Short: Provence ? null : Region ? null : '(FU)',
     },
     {
       id: '7',
-      title: 'Español',
-      Short: '(ES)',
+      title: Provence ?  'Provence 7' : Region ? 'Region 7' : 'Español',
+      Short: Provence ? null : Region ? null : '(ES)',
     },
   ];
 
@@ -90,7 +94,9 @@ const Language = ({navigation}) => {
         },
         // styles.item,
       ]}
-      onPress={() => [setSelected(data.title), navigation.goBack()]}>
+      onPress={() => [setSelected(data.title), setTimeout(() => {
+        navigation.goBack()
+      }, 1000)]}>
       <View
         style={{
           flexDirection: 'row',
@@ -178,7 +184,7 @@ const Language = ({navigation}) => {
         styles.Container,
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
       ]}>
-      <Header text={'Language'} />
+      <Header text={Provence ? 'Provence' : Region ? 'Region' : 'Language'} />
       <FlatList
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}

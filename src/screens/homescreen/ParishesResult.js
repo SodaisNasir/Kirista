@@ -4,21 +4,24 @@ import {
   View,
   FlatList,
   Image,
-  ScrollView,
+  useColorScheme,
   Dimensions,
   TouchableOpacity,
-} from 'react-native'
-import React from 'react'
-import {Color} from '../../utils/Colors'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import {scale, verticalScale} from 'react-native-size-matters'
-import {Font} from '../../utils/font'
-import Header from '../../components/Header'
-import DetailsCard from '../../components/Card/DetailsCard'
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+} from 'react-native';
+import React, {useCallback} from 'react';
+import {Color} from '../../utils/Colors';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {scale, verticalScale} from 'react-native-size-matters';
+import {Font} from '../../utils/font';
+import Header from '../../components/Header';
+import {useFocusEffect} from '@react-navigation/native';
+
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 const ParishesResult = ({navigation}) => {
+  const Theme = useColorScheme() === 'dark';
+
   const data = [
     {
       id: 1,
@@ -65,10 +68,18 @@ const ParishesResult = ({navigation}) => {
       image: require('../../../src/assets/images/parishsmall_3.png'),
       country: 'Togo',
     },
-  ]
-
+  ];
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   return (
-    <SafeAreaView style={styles.Container}>
+    <SafeAreaView
+      style={[
+        styles.Container,
+        {backgroundColor: Theme ? Color.DarkTheme : '#fff'},
+      ]}>
       <Header text={'Result'} />
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -82,17 +93,10 @@ const ParishesResult = ({navigation}) => {
                   w >= 768 && h >= 1024
                     ? verticalScale(95)
                     : verticalScale(120),
-                // marginTop: verticalScale(10),
-
                 flexDirection: 'row',
                 marginHorizontal: verticalScale(20),
-                // marginBottom: verticalScale(20),
-                // marginVertical: verticalScale(10),
-                // paddingVertical: verticalScale(20),
-                // borderRadius: 12,
                 overflow: 'hidden',
                 borderBottomWidth: 1,
-                // paddingVertical: verticalScale(15),
                 borderColor: Color.BorderColor,
               }}>
               <View
@@ -132,31 +136,45 @@ const ParishesResult = ({navigation}) => {
                     // backgroundColor: 'yellow',
                     justifyContent: 'center',
                   }}>
-                  <Text style={styles.TitleStyle}>{item.title}</Text>
-                  <Text style={[{bottom: scale(3)}, styles.TitleStyle]}>
+                  <Text
+                    style={[
+                      styles.TitleStyle,
+                      {color: Theme ? '#fff' : Color.DarkTextColor,
+    marginTop:verticalScale(5)
+  },
+                    ]}>
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={[
+                      {
+                        color: Theme ? '#fff' : Color.DarkTextColor,
+                        bottom: verticalScale(3),
+                      },
+                      styles.TitleStyle,
+                    ]}>
                     {item.manual}
                   </Text>
                 </View>
                 <View
                   style={{
                     height:
-                      w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
+                      w >= 768 && h >= 1024 ? verticalScale(20) : scale(20),
                     justifyContent: 'center',
                     right: scale(2),
                   }}>
-                  <Text style={styles.CountryStyle}> {item.country}</Text>
+                  <Text style={styles.CountryStyle}>{item.country}</Text>
                 </View>
               </View>
             </TouchableOpacity>
-          )
+          );
         }}
       />
-      <View style={{height: verticalScale(60)}}></View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default ParishesResult
+export default ParishesResult;
 
 const styles = StyleSheet.create({
   Container: {
@@ -171,7 +189,6 @@ const styles = StyleSheet.create({
   },
 
   ImageView: {
-    // backgroundColor: 'red',
     alignItems: 'center',
   },
   CountryStyle: {
@@ -180,11 +197,7 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
   TitleStyle: {
-    color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins700,
-    // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
-
-    // paddingHorizontal: verticalScale(50),
   },
-})
+});

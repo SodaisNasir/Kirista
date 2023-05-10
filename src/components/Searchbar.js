@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
   TextInput,
@@ -10,7 +10,6 @@ import {
   Dimensions,
   SafeAreaView,
   FlatList,
-  StatusBar,
   Keyboard,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -228,6 +227,7 @@ const Searchbar = () => {
               overflow: 'hidden',
               flexDirection: 'row',
               paddingHorizontal: moderateScale(20),
+              alignItems:'center'
             }}>
             <View
               style={{
@@ -245,28 +245,29 @@ const Searchbar = () => {
                 }
               />
             </View>
-            <View
+            {/* <View
               style={{
                 height: '100%',
-                // backgroundColor: 'pink',
+                // // backgroundColor: 'pink',
                 width:
                   isSearchBarVisible != true && searchQuery2 == ''
                     ? '90%'
                     : '80%',
-              }}>
+              }}> */}
               <TextInput
                 onFocus={() => setIsSearchBarVisible(true)}
                 style={{
                   height:
                     w >= 768 && h >= 1024
-                      ? verticalScale(35)
-                      : verticalScale(45),
+                      ? verticalScale(37)
+                      : fourInchPotrait
+                      ? verticalScale(45)
+                      : verticalScale(37),
                   width: '100%',
                   color: Theme ? '#fff' : '#000',
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                  // marginHorizontal: tabPotrait ? scale(-5) : 0,
+                  fontSize: w >= 768 && h >= 1024 ? scale(8) : w >=  450  && h >= 700 ?  scale(10) : scale(14),
                   fontFamily: Font.Inter500,
-                  top: verticalScale(1.5),
+                  top: w <=  450  && h <= 700 ?  verticalScale(5) : verticalScale(1.5),
                 }}
                 placeholder="Search"
                 placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
@@ -274,12 +275,16 @@ const Searchbar = () => {
                 onChangeText={text => handleSearch2(text)}
                 value={searchQuery2}
               />
-            </View>
+         
+            {/* </View> */}
 
             {isSearchBarVisible ? (
               <View
                 style={{
-                  justifyContent: 'center',
+                  // justifyContent: 'center',
+                  alignSelf: 'center',
+                  position: 'absolute',
+                  right: scale(10),
                 }}>
                 <TouchableOpacity onPress={() => setSearchQuery2('')}>
                   <Ionicons
@@ -387,13 +392,21 @@ const Searchbar = () => {
                   flex: 1,
                 }}>
                 <View
-                  style={{
-                    marginVertical:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(5)
-                        : verticalScale(8),
-                    flexDirection: 'row',
-                  }}>
+                  style={[
+                    {
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop:
+                        item.id == 1
+                          ? verticalScale(15)
+                          : w >= 768 && h >= 1024
+                          ? verticalScale(10)
+                          : verticalScale(10),
+                    },
+                    // {item.id == 1 ? {marginTop:verticalScale(10)} : {  marginVertical:
+
+                    //,}}
+                  ]}>
                   {Theme ? (
                     <BookDark
                       height={

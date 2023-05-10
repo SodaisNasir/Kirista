@@ -3,34 +3,37 @@ import {
   Text,
   View,
   Dimensions,
-  Image,
   TouchableOpacity,
   useColorScheme,
-} from 'react-native'
-import React, {useState} from 'react'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
-import {Font} from './../utils/font'
-import {Color} from './../utils/Colors'
-import {useNavigation} from '@react-navigation/native'
-import FilterList from '../assets/icons/filter_list.svg'
-import FilterModal from './Modals/FilterModal'
+  SafeAreaView,
+  StatusBar,
+} from 'react-native';
+import React from 'react';
+import {scale, verticalScale} from 'react-native-size-matters';
+import {Font} from './../utils/font';
+import {Color} from './../utils/Colors';
+import {useNavigation} from '@react-navigation/native';
+import FilterList from '../assets/icons/filter_list.svg';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
-const LibraryHeader = (props) => {
-  const navigation = useNavigation()
-  const Theme = useColorScheme() === 'dark'
+const LibraryHeader = props => {
+  const navigation = useNavigation();
+  const Theme = useColorScheme() === 'dark';
 
   return (
-    <View
+    <SafeAreaView
       style={[
         styles.AuthHeaderStyle,
         {
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         },
       ]}>
+      <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <View style={styles.NavigatorStyle}>
         <Text
           style={[
@@ -55,17 +58,17 @@ const LibraryHeader = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
-  )
-}
+    </SafeAreaView>
+  );
+};
 
-export default LibraryHeader
+export default LibraryHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    // backgroundColor: Color.HeaderColor,
-    height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(90),
-    justifyContent: 'flex-end',
+    height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80),
+    justifyContent: 'center',
+    paddingTop: verticalScale(10),
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(19),
@@ -85,4 +88,4 @@ const styles = StyleSheet.create({
 
     // marginTop: scale(10),
   },
-})
+});

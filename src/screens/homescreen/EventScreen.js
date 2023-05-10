@@ -85,24 +85,47 @@ const EventScreen = ({navigation}) => {
           </View>
 
           <View style={styles.DetailsViewStyle}>
-            <Text style={styles.DateText}>June 22, 2023 - June 24, 2023</Text>
             <Text
-              style={{
-                fontFamily: Font.Poppins900,
-                color: Color.ContinentText,
-                textAlign: 'center',
-                fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(10),
-              }}>
-              .
+              style={[
+                styles.DateText,
+                {
+                  color: Theme ? Color.White : Color.TextColor2,
+                },
+              ]}>
+              June 22, 2023 - June 24, 2023
             </Text>
-            <Text style={styles.DateText}>4PM -7PM WAT</Text>
+            <View
+              style={{
+                backgroundColor: Color.BoldTextColor,
+                borderRadius: 100,
+                width: scale(3),
+                height: scale(3),
+                marginHorizontal: scale(5),
+                alignSelf: 'center',
+              }}
+            />
+            <Text
+              style={[
+                styles.DateText,
+                {
+                  color: Theme ? Color.White : Color.TextColor2,
+                },
+              ]}>
+              4PM -7PM WAT
+            </Text>
           </View>
 
           <View
             style={{
               marginVertical: verticalScale(10),
             }}>
-            <Text style={styles.AboutText}>
+            <Text
+              style={[
+                styles.AboutText,
+                {
+                  color: Theme ? Color.White : Color.TextColor2,
+                },
+              ]}>
               The Abuja Special Holy Ghost Service is an annual gathering of the
               church in the FCT and environs where prayers are offered for the
               country and the church in particular. Ministering is Pastor E.A.
@@ -145,6 +168,7 @@ const EventScreen = ({navigation}) => {
               {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+                color: Theme ? Color.White : Color.TextColor2,
               },
               styles.LocationText,
             ]}>
@@ -155,6 +179,7 @@ const EventScreen = ({navigation}) => {
               {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+                color: Theme ? Color.White : Color.TextColor2,
               },
               styles.LocationDetailsText,
             ]}>
@@ -262,18 +287,16 @@ const styles = StyleSheet.create({
   DetailsViewStyle: {
     //   height:
     //   w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(70),
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     flexDirection: 'row',
   },
   LocationText: {
     fontFamily: Font.Poppins700,
-    color: Color.TextColor2,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
   },
   LocationDetailsText: {
     fontFamily: Font.Poppins400,
-    color: Color.TextColor2,
     textAlign: 'left',
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
   },

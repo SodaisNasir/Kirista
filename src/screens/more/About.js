@@ -48,13 +48,14 @@ const About = ({navigation}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+            marginTop:
+              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(0),
           }}>
           <View
             style={{
               height:
                 w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(150),
               width: w >= 768 && h >= 1024 ? '100%' : '100%',
-              alignSelf: 'center',
             }}>
             <Image
               resizeMode="center"
@@ -63,7 +64,7 @@ const About = ({navigation}) => {
                   ? require('../../assets/images/krista_about_dark.png')
                   : require('../../assets/images/krista_about.png')
               }
-              style={{height: '100%', width: '100%'}}
+              style={{height: '100%', width: '100%', alignSelf: 'center'}}
             />
           </View>
 
@@ -78,7 +79,10 @@ const About = ({navigation}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+                  },
                   styles.TextStyle,
                 ]}>
                 Kirista is mobile platform for learning about or finding
@@ -98,7 +102,10 @@ const About = ({navigation}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+                  },
                   styles.TextStyle,
                 ]}>
                 Kirista is mobile platform for learning about or finding
@@ -118,7 +125,10 @@ const About = ({navigation}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+                  },
                   styles.TextStyle,
                 ]}>
                 This platform's powerful content and resources will assist
@@ -139,7 +149,10 @@ const About = ({navigation}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+                  },
                   styles.TextStyle,
                 ]}>
                 With the intuitive interface, Brethren can access the
@@ -160,7 +173,10 @@ const About = ({navigation}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+                  },
                   styles.TextStyle,
                 ]}>
                 Kirista makes it easy for brethren to find a parish (mostly RCCG
@@ -182,7 +198,10 @@ const About = ({navigation}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+                  },
                   styles.TextStyle,
                 ]}>
                 Brethren can easily access free books, such as manuals, stories,
@@ -204,7 +223,10 @@ const About = ({navigation}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {
+                    color: Theme ? Color.White : Color.DarkTextColor,
+                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(15),
+                  },
                   styles.TextStyle,
                 ]}>
                 Kirista also keeps the brethren informed of upcoming events,
@@ -222,38 +244,41 @@ const About = ({navigation}) => {
               }}
             /> */}
           </View>
-          <View
-            style={{
-              height: verticalScale(80),
-              borderBottomColor: Theme ? Color.Black : Color.BorderColor,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderTopColor: Theme ? Color.Black : Color.BorderColor,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginVertical:
-                w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
-            }}>
+
+          {Theme ? (
             <View
               style={{
-                height: '90%',
-                width: '50%',
-                paddingTop: 5,
+                height: verticalScale(80),
+                borderBottomColor: Theme ? Color.White : Color.BorderColor,
+                borderBottomWidth: 0.5,
+                borderTopWidth: 0.5,
+                borderTopColor: Theme ? Color.White : Color.BorderColor,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginVertical:
+                  w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
               }}>
-              <Image
-                resizeMode="contain"
-                source={
-                  Theme
-                    ? require('../../assets/images/about_dark1.png')
-                    : require('../../assets/images/splash_light.png')
-                }
+              <View
                 style={{
-                  height: '100%',
-                  width: '100%',
-                }}
-              />
+                  height: '90%',
+                  width: '50%',
+                  paddingTop: 5,
+                }}>
+                <Image
+                  resizeMode="contain"
+                  source={
+                    // Theme ?
+                    require('../../assets/images/dark_splash.png')
+                    // : require('../../assets/images/splash_light.png')
+                  }
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                />
+              </View>
             </View>
-          </View>
+          ) : null}
 
           <View style={{top: w >= 768 && h >= 1024 ? scale(10) : scale(5)}}>
             <View style={{alignSelf: 'center'}}>
@@ -338,17 +363,8 @@ const About = ({navigation}) => {
             </View>
           </View>
         </View>
-        <View style={{height: verticalScale(85)}} />
+        <View style={{height: verticalScale(10)}} />
       </ScrollView>
-      {/* <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          backgroundColor: Color.White,
-        }}>
-        <CustomNavigator />
-      </View> */}
     </SafeAreaView>
   );
 };

@@ -63,14 +63,15 @@ const Password = props => {
               : fourInchLandscape
               ? scale(12)
               : scale(14),
-            fontFamily: Font.Poppins400,
-            top: fourInchPotrait
-              ? verticalScale(2)
-              : fourInchLandscape
-              ? verticalScale(3)
-              : tabLandscape
-              ? verticalScale(1)
-              : verticalScale(1.5),
+              fontFamily:Font.Inter500,
+
+            // top: fourInchPotrait
+            //   ? verticalScale(2.3)
+            //   : fourInchLandscape
+            //   ? verticalScale(3)
+            //   : tabLandscape
+            //   ? verticalScale(1)
+            //   : verticalScale(1.5),
             width: '80%',
             color: Theme ? Color.White : Color.TextColor,
           }}

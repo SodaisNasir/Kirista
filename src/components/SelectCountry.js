@@ -223,13 +223,9 @@ const SelectCountry = ({navigation}) => {
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
       ]}>
       <View
-        style={[
-          //   Theme === 'dark'
-          //     ? {borderColor: Color.AcitivityBorderColorBlack}
-          //     : {borderColor: Color.AcitivityBorderColorWhie},
-          styles.backBox,
-        ]}>
-        <Header text={'Select Country'} />
+        style={styles.backBox}>
+        {/* <Header text={'Select Country'} /> */}
+        <Header text={'Select Country'} DontGoBack={true} onPress={() => navigation.navigate('ParishFinder')}/>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -345,8 +341,6 @@ const SelectCountry = ({navigation}) => {
                   )}
                   keyExtractor={item => item.id}
                 />
-                {/* <View style={{height: verticalScale(10),borderBottomColor: Color.BorderColor,
-                        borderBottomWidth: 1,}} /> */}
               </View>
             )}
             keyExtractor={item => item.id}
@@ -356,7 +350,7 @@ const SelectCountry = ({navigation}) => {
           style={{
             height: verticalScale(40),
             backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          }}></View>
+          }}/>
       </ScrollView>
     </SafeAreaView>
   );

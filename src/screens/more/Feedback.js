@@ -11,9 +11,9 @@ import {
   Platform,
 } from 'react-native';
 import React, {useLayoutEffect, useState} from 'react';
-import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
+import CustomHeader from '../../components/CustomHeader';
 import {
   verticalScale,
   scale,
@@ -74,7 +74,7 @@ const Feedback = ({navigation}) => {
         backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
-      <Header text={'Feedback'} />
+      <CustomHeader text={'Feedback'} />
       <View
         style={{
           paddingHorizontal:
@@ -100,8 +100,8 @@ const Feedback = ({navigation}) => {
                   // alignItems: 'center',
                   // justifyContent: 'center',
                   color: Theme ? Color.DarkThemeInputText : Color.TextColor,
-                  flex: 1,
-                  textAlignVertical: 'top',
+                  // flex: 1,
+                  // textAlignVertical: 'top',
                 },
               ]}
             />

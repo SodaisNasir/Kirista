@@ -100,9 +100,7 @@ const Faq = ({navigation}) => {
             {expanded1 && (
               <View
                 style={{
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
+                  backgroundColor: Theme ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -155,9 +153,7 @@ const Faq = ({navigation}) => {
             {expanded2 && (
               <View
                 style={{
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
+                  backgroundColor: Theme ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -210,9 +206,7 @@ const Faq = ({navigation}) => {
             {expanded3 && (
               <View
                 style={{
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
+                  backgroundColor: Theme ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -265,9 +259,7 @@ const Faq = ({navigation}) => {
             {expanded4 && (
               <View
                 style={{
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
+                  backgroundColor: Theme ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -320,9 +312,7 @@ const Faq = ({navigation}) => {
             {expanded5 && (
               <View
                 style={{
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
+                  backgroundColor: Theme ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),

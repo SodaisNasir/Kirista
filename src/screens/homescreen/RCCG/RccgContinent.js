@@ -50,18 +50,24 @@ const RccgContinent = ({navigation}) => {
             style={{
               alignItems: 'center',
               height: H * 0.1,
-              // width: W * 1,
-
               marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(30),
               marginBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(5),
             }}>
-            <Image
-              resizeMode="cover"
-              source={require('../../../assets/images/continent2_logo.png')}
-              style={{height: '100%', width: '100%'}}
-            />
+            {Theme ? (
+              <Image
+                resizeMode="cover"
+                source={require('../../../assets/images/continent2_dark.png')}
+                style={{height: '100%', width: '100%'}}
+              />
+            ) : (
+              <Image
+                resizeMode="cover"
+                source={require('../../../assets/images/continent2_logo.png')}
+                style={{height: '100%', width: '100%'}}
+              />
+            )}
           </View>
 
           <View

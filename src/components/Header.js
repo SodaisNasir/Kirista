@@ -1,22 +1,32 @@
-import {StyleSheet, Text, View, Dimensions, useColorScheme} from 'react-native'
-import React from 'react'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import {scale, verticalScale} from 'react-native-size-matters'
-import {Font} from './../utils/font'
-import {Color} from './../utils/Colors'
-import {useNavigation} from '@react-navigation/native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  useColorScheme,
+  TouchableOpacity,
+} from 'react-native';
+import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {scale, verticalScale} from 'react-native-size-matters';
+import {Font} from './../utils/font';
+import {Color} from './../utils/Colors';
+import {useNavigation} from '@react-navigation/native';
+import Share from '../assets/icons/share.svg';
+import ShareDark from '../assets/icons/share_dark.svg';
 
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
+const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 export default function Header(props) {
-  const Theme = useColorScheme() === 'dark'
-  const navigation = useNavigation()
+  const Theme = useColorScheme() === 'dark';
+  const navigation = useNavigation();
   return (
     <View
       style={[
         {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
         styles.AuthHeaderStyle,
+        props.AuthHeaderStyle,
       ]}>
       <View
         style={{
@@ -27,14 +37,14 @@ export default function Header(props) {
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
         }}>
-        <View style={styles.NavigatorStyle}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.NavigatorStyle}>
           <AntDesign
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
             color={Theme ? Color.White : Color.Black}
-            onPress={() => navigation.goBack()}
+            
           />
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             // height: '12%',
@@ -49,14 +59,34 @@ export default function Header(props) {
           </Text>
         </View>
       </View>
+      <TouchableOpacity>
+        {props.shareicon ? (
+          Theme ? (
+            <ShareDark
+              height={
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(23)
+              }
+              width={scale(24)}
+            />
+          ) : (
+            <Share
+              height={
+                w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(23)
+              }
+              width={scale(24)}
+            />
+          )
+        ) : null}
+      </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: verticalScale(80),
-    justifyContent: 'flex-end',
+    height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80),
+    justifyContent: 'center',
+    paddingTop: verticalScale(10),
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),
@@ -73,4 +103,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // marginTop: scale(10),
   },
-})
+});

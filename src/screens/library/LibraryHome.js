@@ -80,15 +80,11 @@ const LibraryHome = ({navigation}) => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          position: 'absolute',
-          bottom: 0,
-          height: verticalScale(80),
-          justifyContent: 'space-around',
-          // paddingLeft:50,
+          height:verticalScale(80),
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
-          paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
           borderTopWidth: 0,
+          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
         tabBarLabelStyle: {
           fontFamily: Font.Poppins600,
@@ -96,7 +92,8 @@ const LibraryHome = ({navigation}) => {
           marginBottom:
             w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
           right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
-        },
+        }
+       
       });
     }),
   );
@@ -112,7 +109,7 @@ const LibraryHome = ({navigation}) => {
           setShowModal(toggleModal(true));
         }}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} >
         <View
           style={{
             paddingHorizontal:

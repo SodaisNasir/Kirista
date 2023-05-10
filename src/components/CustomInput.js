@@ -65,14 +65,15 @@ const CustomInput = props => {
                 : fourInchLandscape
                 ? scale(12)
                 : scale(14),
-              top: fourInchPotrait
-                ? verticalScale(2)
-                : fourInchLandscape
-                ? verticalScale(2)
-                : tabPotrait
-                ? verticalScale(1)
-                : verticalScale(1.5),
-              fontFamily: Font.Poppins400,
+              // top: fourInchPotrait
+              //   ? verticalScale(2.5)
+              //   : fourInchLandscape
+              //   ? verticalScale(2)
+              //   : tabPotrait
+              //   ? verticalScale(1)
+              //   : verticalScale(1.5),
+              // fontWeight:'500',
+              fontFamily:Font.Inter500,
               alignItems: 'center',
               justifyContent: 'center',
               color: Theme ? Color.White : Color.TextColor,

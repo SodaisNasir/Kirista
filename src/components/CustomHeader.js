@@ -1,6 +1,4 @@
 import {
-  Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -8,31 +6,40 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Font} from '../assets/fonts/PoppinsFont';
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import {scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 import Time from '../assets/icons/time.svg';
 import Share from '../assets/icons/share.svg';
 import ShareDark from '../assets/icons/share_dark.svg';
 import Save from '../assets/icons/save.svg';
 import SaveDark from '../assets/icons/save_dark.svg';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CustomHeader = props => {
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
+  const [isChecked, setIsChecked] = useState(false);
 
+  const handlePress = () => {
+    setIsChecked(!isChecked);
+    if (props.onPress) {
+      props.onPress(!isChecked);
+    }
+  };
+
+  const Bookmark = isChecked ? 'bookmark-plus' : 'bookmark-plus-outline';
   return (
     <View
       style={[
         styles.AuthHeaderStyle,
+        props.AuthHeaderStyle,
         {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         },
@@ -91,49 +98,40 @@ const CustomHeader = props => {
 
           <TouchableOpacity style={styles.IconStyle}>
             {props.saveicon ? (
-            Theme ? (
-              <SaveDark
-                height={
-                  w >= 768 && h >= 1024
-                    ? verticalScale(14)
-                    : verticalScale(20)
-                }
-                width={scale(24)}
-              />
-            ) : (
-              <Save
-                height={
-                  w >= 768 && h >= 1024
-                    ? verticalScale(14)
-                    : verticalScale(20)
-                }
-                width={scale(24)}
-              />
-            )
+              // Theme ? (
+              //   <SaveDark
+              //     height={
+              //       w >= 768 && h >= 1024
+              //         ? verticalScale(14)
+              //         : verticalScale(20)
+              //     }
+              //     width={scale(24)}
+              //   />
+              // ) : (
+              //   <Save
+              //     height={
+              //       w >= 768 && h >= 1024
+              //         ? verticalScale(14)
+              //         : verticalScale(20)
+              //     }
+              //     width={scale(24)}
+              //   />
+              // )
+              <TouchableOpacity onPress={handlePress}>
+                <MaterialCommunityIcons
+                  name={Bookmark}
+                  size={w >= 768 && h >= 1024 ? scale(15) : scale(23)}
+                  color={Color.Main}
+                />
+              </TouchableOpacity>
             ) : null}
           </TouchableOpacity>
 
           <TouchableOpacity>
             {props.shareicon ? (
-              Theme ? (
-                <ShareDark
-                  height={
-                    w >= 768 && h >= 1024
-                      ? verticalScale(15)
-                      : verticalScale(23)
-                  }
-                  width={scale(24)}
-                />
-              ) : (
-                <Share
-                  height={
-                    w >= 768 && h >= 1024
-                      ? verticalScale(15)
-                      : verticalScale(23)
-                  }
-                  width={scale(24)}
-                />
-              )
+             <FontAwesome name='share-square-o'   size={w >= 768 && h >= 1024 ? scale(14) : scale(22)}
+             color={Color.Main}
+             />
             ) : null}
           </TouchableOpacity>
         </View>
@@ -146,10 +144,9 @@ export default CustomHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    backgroundColor: Color.HeaderColor,
-    height: verticalScale(80),
-    justifyContent: 'flex-end',
-    // alignItems: 'flex-end',
+    height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80),
+    justifyContent: 'center',
+    paddingTop: verticalScale(10),
   },
 
   NavigatorStyle: {

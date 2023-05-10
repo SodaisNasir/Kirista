@@ -6,6 +6,7 @@ import {
   ScrollView,
   useWindowDimensions,
   useColorScheme,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -17,8 +18,9 @@ import {useNavigation} from '@react-navigation/native';
 import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
 import FontModal from '../../../components/Modals/FontModal';
 import DrawerScreen from '../../../components/DrawerScreen';
-
-const Readtwo = () => {
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+const Readtwo = props => {
   const Theme = useColorScheme() === 'dark';
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -67,21 +69,75 @@ const Readtwo = () => {
     setTextColor(Color.Black);
   };
 
+  const [isSelect, setisSelect] = useState(false);
+  const handleClick = () => {
+    setisSelect(!isSelect);
+    if (props.onPress) {
+      props.onPress(!isSelect);
+    }
+  };
+  const selected = isSelect ? 'bookmark-outline' : 'bookmark';
   const navigation = useNavigation();
-  // useEffect(() => {
-  //   navigation
-  //     .getParent()
-  //     ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false})
-  //   return () =>
-  //     navigation
-  //       .getParent()
-  //       ?.setOptions({tabBarStyle: undefined, tabBarVisible: undefined})
-  // }, [navigation])
 
   return (
     <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ReadHeader bookmark={true} backicon={true} />
+        {/* <ReadHeader bookmark={true} backicon={true} /> */}
+
+        <View
+          style={[
+            {backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor},
+            styles.AuthHeaderStyle,
+          ]}>
+          <View
+            style={{
+              flexDirection: 'row',
+
+              marginBottom:
+                w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(15),
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
+              justifyContent: 'space-between',
+            }}>
+            {props.textshown ? (
+              <View
+                style={{
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={[
+                    {
+                      color: Theme ? Color.White : '#797B7F',
+                      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                    },
+                    styles.WelcomeText,
+                  ]}>
+                  {props.text}
+                </Text>
+              </View>
+            ) : null}
+
+            <View style={{justifyContent: 'center'}}>
+              <AntDesign
+                name="arrowleft"
+                size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                color={Theme ? Color.White : Color.Black}
+                onPress={() => navigation.navigate('ViewManual')}
+              />
+            </View>
+
+            <TouchableOpacity
+              onPress={handleClick}
+              style={{justifyContent: 'center'}}>
+              <Ionicons
+                name={selected}
+                size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
+                color={Color.Main}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <View
           style={{
             paddingHorizontal:
@@ -213,5 +269,12 @@ const styles = StyleSheet.create({
     fontFamily: Font.Libre400,
     marginBottom: verticalScale(20),
     // color:Color.Main
+  },
+  AuthHeaderStyle: {
+    height: verticalScale(90),
+    justifyContent: 'flex-end',
+  },
+  WelcomeText: {
+    fontFamily: Font.Poppins400,
   },
 });

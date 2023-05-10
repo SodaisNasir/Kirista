@@ -50,7 +50,7 @@ const ViewManual = ({navigation}) => {
             style={{height: '100%', width: '100%'}}
           />
         </View>
-        <View style={{marginBottom: verticalScale(5)}}>
+        <View style={{marginTop: verticalScale(10)}}>
           <Text
             style={[
               {color: Theme ? Color.White : Color.DarkTextColor},
@@ -111,7 +111,7 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={styles.DetailTextStyle}>Language</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Language</Text>
             <Text
               style={[
                 {color: Theme ? Color.White : Color.DarkTextColor},
@@ -129,7 +129,7 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={styles.DetailTextStyle}>Category</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Category</Text>
             <Text
               style={[
                 {color: Theme ? Color.White : Color.DarkTextColor},
@@ -145,7 +145,7 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={styles.DetailTextStyle}>Released</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Released</Text>
             <Text
               style={[
                 {color: Theme ? Color.White : Color.DarkTextColor},

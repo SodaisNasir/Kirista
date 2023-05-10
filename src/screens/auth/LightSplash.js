@@ -99,20 +99,20 @@ const LightSplash = ({navigation}) => {
             </Text> */}
             {Theme ? (
               <Image
-                resizeMode={w >= 768 && h >= 1024 ? 'contain' : 'cover'}
+                resizeMode={'contain'}
                 style={{
-                  height: '70%',
-                  width: w >= 768 && h >= 1024 ? '70%' : '80%',
+                  height: '50%',
+                  width: w >= 768 && h >= 1024 ? '70%' : '50%',
                   alignSelf: 'center',
                 }}
                 source={require('../../assets/images/dark_splash.png')}
               />
             ) : (
               <Image
-                resizeMode={w >= 768 && h >= 1024 ? 'contain' : 'cover'}
+                resizeMode={'contain'}
                 style={{
-                  height: '70%',
-                  width: w >= 768 && h >= 1024 ? '70%' : '80%',
+                  height: '60%',
+                  width: w >= 768 && h >= 1024 ? '70%' : '60%',
                   alignSelf: 'center',
                 }}
                 source={require('../../assets/images/white_splash.png')}

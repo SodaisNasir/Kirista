@@ -1,16 +1,24 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import {useSelector} from 'react-redux';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
+import SplashNavigator from './src/navigation/SplashNavigator';
+import {useDispatch} from 'react-redux';
+import {SPLASH_SCREEN} from './src/redux/reducer';
 
 const App = () => {
-  const userData = useSelector(state => state.userEmail);
-  console.log("userData ==>", userData);
+  // const userData = useSelector(state => state.userEmail);
+  // const splash = useSelector(state => state.splash_screen);
+  // const dispatch = useDispatch(state => state.splash_screen);
+  // console.log('userData ==>', userData);
+  // useEffect(() => {
+  //   if (userData) {
+  //     dispatch({type: SPLASH_SCREEN, payload: 'red'});
+  //   }
+  // }, [userData]);
 
-  return userData != null ? <BottomTabNavigator /> : <AuthNavigator />;
+  return <AuthNavigator />;
 };
 
 export default App;
-
-

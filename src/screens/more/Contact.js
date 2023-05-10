@@ -2,32 +2,30 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   useColorScheme,
   useWindowDimensions,
   View,
-} from 'react-native'
-import React, {useLayoutEffect} from 'react'
-import CustomInput from '../../components/CustomInput'
-import PhoneInput from '../../components/PhoneInput'
-import CustomButton from '../../components/CustomButton'
-import {version} from 'react/cjs/react.production.min'
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters'
-import Header from '../../components/Header'
-import {Color} from '../../utils/Colors'
+} from 'react-native';
+import React, {useLayoutEffect} from 'react';
+import CustomInput from '../../components/CustomInput';
+import PhoneInput from '../../components/PhoneInput';
+import CustomButton from '../../components/CustomButton';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import Header from '../../components/Header';
+import {Color} from '../../utils/Colors';
 
 const Contact = ({navigation}) => {
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
-  const Theme = useColorScheme() === 'dark'
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const Theme = useColorScheme() === 'dark';
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <SafeAreaView
@@ -71,8 +69,7 @@ const Contact = ({navigation}) => {
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
             <CustomInput
-              
-              TextRestyle={{textAlignVertical: 'top'}}
+              // TextRestyle={{textAlignVertical: 'top'}}
               text={'Subject'}
               placeholder={'Type here'}
             />
@@ -107,9 +104,9 @@ const Contact = ({navigation}) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

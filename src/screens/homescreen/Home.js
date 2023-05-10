@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState} from 'react'
 import {
   StyleSheet,
   Text,
@@ -29,28 +29,25 @@ import Advertisement from '../../components/Advertisement';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-const Home = ({navigation}) => {
+const Home = ({ navigation}) => {
+
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          position: 'absolute',
-          bottom: 0,
-          height: verticalScale(80),
-          justifyContent: 'space-around',
-          // paddingLeft:50,
+          height:verticalScale(80),
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
-          paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
           borderTopWidth: 0,
-        },
+       
         tabBarLabelStyle: {
           fontFamily: Font.Poppins600,
           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
           marginBottom:
             w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
           right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
+        }
         },
       });
     }),
@@ -192,7 +189,9 @@ const Home = ({navigation}) => {
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-            <View
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ViewBanner')}
+              activeOpacity={1}
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -210,8 +209,10 @@ const Home = ({navigation}) => {
                 }}
                 source={require('../../../src/assets/images/swiperone.png')}
               />
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ViewBanner')}
+              activeOpacity={1}
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -230,7 +231,7 @@ const Home = ({navigation}) => {
                 }}
                 source={require('../../../src/assets/images/swipertwo.png')}
               />
-            </View>
+            </TouchableOpacity>
           </Swiper>
         </View>
         <View
@@ -314,8 +315,6 @@ const Home = ({navigation}) => {
                       <View style={{marginVertical: verticalScale(20)}}>
                         <View
                           style={{
-                            // height: verticalScale(30),
-
                             justifyContent: 'center',
                           }}>
                           <Text
@@ -332,17 +331,13 @@ const Home = ({navigation}) => {
                           <Text
                             numberOfLines={1}
                             style={[
-                              {
-                                lineHeight: fourInchPotrait
-                                  ? verticalScale(18)
-                                  : scale(16),
-                              },
                               styles.BooksTitleStyle,
                               {
                                 color: Theme
                                   ? Color.White
                                   : Color.DarkTextColor,
-                                maxWidth: '60%',
+                                maxWidth: w >= 768 && h >= 1024 ? '100%' : '80%',
+                                marginTop: verticalScale(-5),
                               },
                             ]}>
                             {item.manual}
@@ -350,10 +345,7 @@ const Home = ({navigation}) => {
                         </View>
                         <View
                           style={{
-                            height:
-                              w >= 768 && h >= 1024
-                                ? verticalScale(20)
-                                : verticalScale(40),
+                            marginTop: verticalScale(3),
                             justifyContent: 'center',
                           }}>
                           <Text style={styles.YearStyle}> {item?.year}</Text>
@@ -476,7 +468,11 @@ const Home = ({navigation}) => {
                               top: item.type == 'ye' ? scale(15) : scale(10),
                               textAlignVertical: 'center',
                               fontSize:
-                                w >= 768 && h >= 1024 ? scale(8) : scale(16),
+                                w >= 768 && h >= 1024
+                                  ? scale(8)
+                                  :  w <= 350 && h <= 600
+                                  ? scale(14)
+                                  : w >=  450  && h >= 700 ?  scale(8) :  scale(14),
                               elevation: 5,
                             }}>
                             {item.text}
@@ -500,7 +496,7 @@ const Home = ({navigation}) => {
                                 fontFamily: Font.Poppins400,
                                 color: Color.White,
                                 fontSize:
-                                  w >= 768 && h >= 1024 ? scale(7) : scale(10),
+                                  w >= 768 && h >= 1024 ? scale(7) :  scale(12),
                                 elevation: 5,
                               }}>
                               {item.text2}
@@ -661,7 +657,7 @@ const Home = ({navigation}) => {
           <View>
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events');
+                navigation.navigate('EventScreen');
               }}
               source={require('../../assets/images/event_1.png')}
               title="West Coast 2 Regional"
@@ -678,7 +674,7 @@ const Home = ({navigation}) => {
             />
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events');
+                navigation.navigate('EventScreen');
               }}
               source={require('../../assets/images/event_2.png')}
               title="West Coast 3 Regional"
@@ -694,7 +690,7 @@ const Home = ({navigation}) => {
             />
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events');
+                navigation.navigate('EventScreen');
               }}
               source={require('../../assets/images/event_3.png')}
               title="West Coast 3 Regional"
@@ -711,7 +707,7 @@ const Home = ({navigation}) => {
             />
             <DetailsCard
               onPress={() => {
-                navigation.navigate('Events');
+                navigation.navigate('EventScreen');
               }}
               source={require('../../assets/images/EventScreenImage1.png')}
               title="Abuja Special Holy Ghost"
