@@ -66,8 +66,8 @@ const Login = ({navigation}) => {
               fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
               color: Theme ? Color.White : Color.Black,
               alignSelf: 'center',
+              marginTop:verticalScale(-10)
             }}>
-            {' '}
             Brethren.
           </Text>
         </View>

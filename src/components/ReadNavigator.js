@@ -69,7 +69,7 @@ const ReadNavigator = props => {
         <Feather
             name="settings"
             size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-            color={Theme ? '#fff' :"#374957"}
+            color={props.ChangeColor ? props.color : Theme ? '#fff' :"#374957"}
           />
         </TouchableOpacity>
       </View>

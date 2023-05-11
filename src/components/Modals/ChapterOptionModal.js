@@ -91,13 +91,8 @@ const ChapterOptionModal = props => {
           </View>
 
           <View
-            style={[
-              {
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
-              },
-              styles.ColorsView,
-            ]}>
+            style={
+              styles.ColorsView            }>
             <TouchableOpacity
               onPress={props.HandlePressOne}
               style={[
@@ -213,18 +208,21 @@ const ChapterOptionModal = props => {
               <View
                 style={{
                   backgroundColor: Theme ? '#243d63' : '#E2E9F3',
-                  paddingHorizontal: moderateScale(10),
+                  // paddingHorizontal: moderateScale(10),
                   borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
                   justifyContent: 'center',
                   alignItems: 'center',
+                  width:scale(30),
+                  aspectRatio:1/1
                 }}>
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
-                    fontFamily: Font.Poppins600,
+                    fontFamily: Font.Inter700,
                     color: Theme ? Color.White : Color.DarkTextColor,
                     textAlignVertical: 'center',
                     textAlign: 'center',
+                    
                   }}>
                   {count}
                 </Text>
@@ -321,6 +319,8 @@ const ChapterOptionModal = props => {
         </View>
 
         <ReadNavigator
+        ChangeColor={true}
+        color={Color.Main}
         // onPress={() => setModalVisible(false)}
         />
       </Modal>
