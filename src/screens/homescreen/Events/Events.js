@@ -4,6 +4,7 @@ import {
   Dimensions,
   useColorScheme,
   ScrollView,
+  Platform
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {Color} from '../../../utils/Colors';
@@ -38,7 +39,7 @@ const Events = () => {
           fontFamily: Font.Poppins600,
           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
           marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+            w >= 768 && h >= 1024 ? verticalScale(-15) : Platform.OS ==='ios' ? verticalScale(0) : verticalScale(15),
           right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
       });

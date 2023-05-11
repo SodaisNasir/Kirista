@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   useColorScheme,
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useLayoutEffect} from 'react';
 import {Color} from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
@@ -24,7 +24,7 @@ const h = Dimensions.get('window').height;
 
 const PopularBooks = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
-  useFocusEffect(
+  useLayoutEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
@@ -40,6 +40,7 @@ const PopularBooks = ({navigation}) => {
       ]}>
       <Header text={'Popular Books'} />
 
+     
       <View
         style={{
           paddingHorizontal:
@@ -123,6 +124,7 @@ const PopularBooks = ({navigation}) => {
 
         {/* <View style ={{height:verticalScale(75)}}/> */}
       </View>
+
     </SafeAreaView>
   );
 };
@@ -132,6 +134,7 @@ export default PopularBooks;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
+    // backgroundColor:'red'
   },
   border: {
     borderBottomWidth: scale(3),

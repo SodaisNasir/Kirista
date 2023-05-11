@@ -7,6 +7,7 @@ import {
   useColorScheme,
   Dimensions,
   Image,
+  Platform
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {
@@ -70,6 +71,8 @@ const PopularBooksCard = (props, {data}) => {
           flex: w >= 768 && h >= 1024 ? 3 : 2.1,
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
+          
+            paddingTop: Platform.OS === 'ios' ? moderateScale(10) : null
         }}>
         <View
           style={{
@@ -100,9 +103,9 @@ const PopularBooksCard = (props, {data}) => {
             // height:
             //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
             justifyContent: 'space-around',
-            right: w >= 768 && h >= 1024 ? scale(0) : scale(2),
+            // right: w >= 768 && h >= 1024 ? scale(0) : scale(0),
             //   flexDirection:'row',
-            paddingTop: w >= 768 && h >= 1024  ? moderateScale(5) : fourInchPotrait ? moderateScale(0) : moderateScale(5)
+            paddingTop: w >= 768 && h >= 1024  ? moderateScale(5) : fourInchPotrait ? moderateScale(0) : Platform.OS ==='ios'? moderateScale(10) :  moderateScale(5)
           }}>
           {props.TimeTrue ? (
             <Text style={[styles.DateStyle]}>
