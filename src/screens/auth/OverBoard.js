@@ -68,7 +68,7 @@ const OverBoard = ({navigation}) => {
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('Language');
+                  navigation.navigate('Language',{type:'Language'});
                 }}
                 style={{
                   width: tabPotrait ? scale(40) : scale(55),

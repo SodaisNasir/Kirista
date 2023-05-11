@@ -22,7 +22,7 @@ import {Font} from '../../utils/font';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const PopularBooksCard = (props, {data}) => {
-
+  const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600
   const Theme = useColorScheme() === 'dark';
 
@@ -72,7 +72,7 @@ const PopularBooksCard = (props, {data}) => {
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(15),
           
-            paddingTop: Platform.OS === 'ios' ? moderateScale(10) : null
+            paddingTop:  w >= 820 && h >= 1180 ? moderateScale(0) : Platform.OS === 'ios' ? moderateScale(10) : null
         }}>
         <View
           style={{

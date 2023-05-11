@@ -19,6 +19,7 @@ const h = Dimensions.get('window').height;
 const DetailsCard = (props, {data}) => {
   const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useColorScheme() === 'dark';
+  const iosTab = w >= 820 && h >= 1180;
 
   const navigation = useNavigation();
   return (
@@ -99,6 +100,7 @@ const DetailsCard = (props, {data}) => {
             right: w >= 768 && h >= 1024 ? scale(0) : Platform.OS === 'ios' ? scale(0) : scale(2),
             //   flexDirection:'row',
             paddingTop:
+              iosTab ? moderateScale(8) :
               w >= 768 && h >= 1024
                 ? moderateScale(5)
                 : fourInchPotrait

@@ -24,15 +24,17 @@ const h = Dimensions.get('window').height;
 
 const PopularBooks = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
-  useLayoutEffect(
+  useFocusEffect(
     useCallback(() => {
-      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none',backgroundColor:'red'}});
     }, []),
   );
  
 
 
   return (
+    <>
+    
     <SafeAreaView
       style={[
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
@@ -126,6 +128,7 @@ const PopularBooks = ({navigation}) => {
       </View>
 
     </SafeAreaView>
+    </>
   );
 };
 

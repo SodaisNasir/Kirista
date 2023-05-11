@@ -57,6 +57,8 @@ const Home = ({ navigation}) => {
 
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
+  console.log(w,h)
+  const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useColorScheme() === 'dark';
 
@@ -115,6 +117,7 @@ const Home = ({ navigation}) => {
       manual: 'Manual',
       image: require('../../../src/assets/images/book1.png'),
       year: '2023',
+      type:'first'
     },
     {
       id: 2,
@@ -145,6 +148,7 @@ const Home = ({ navigation}) => {
       manual: 'Teachers Manual',
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
+      type:'first'
     },
     {
       id: 6,
@@ -291,7 +295,9 @@ const Home = ({ navigation}) => {
 
                         flexDirection: 'row',
                         overflow: 'hidden',
-                        width: scale(200),
+                        width: scale(250),
+                        // backgroundColor:'red',
+                          marginLeft:item.type == 'first' ? scale(-15) :0
                       }}>
                       <View
                         style={{
@@ -332,14 +338,15 @@ const Home = ({ navigation}) => {
                             {item?.title}
                           </Text>
                           <Text
-                            numberOfLines={1}
+                            // numberOfLines={1}
+                            // adjustsFontSizeToFit={true}
                             style={[
                               styles.BooksTitleStyle,
                               {
                                 color: Theme
                                   ? Color.White
                                   : Color.DarkTextColor,
-                                maxWidth: w >= 768 && h >= 1024 ? '100%' : '80%',
+                                // maxWidth: w >= 768 && h >= 1024 ? '100%' : '90%',
                                 marginTop: verticalScale(-5),
                               },
                             ]}>
@@ -467,15 +474,24 @@ const Home = ({ navigation}) => {
                               fontFamily: Font.Libre400,
                               color: Color.White,
                               textTransform: 'uppercase',
-                              maxWidth: '90%',
+                              maxWidth: '100%',
                               top: item.type == 'ye' ? scale(15) : scale(10),
                               textAlignVertical: 'center',
                               fontSize:
-                                w >= 768 && h >= 1024
-                                  ? scale(8)
-                                  :  w <= 350 && h <= 600
-                                  ? scale(14)
-                                  : w >=  450  && h >= 700 ?  scale(8) :  scale(14),
+                              iosTab ? scale(6)  :
+                                w >= 768 && h >= 1024 ? scale(8) : 
+                                 w <= 350 && h <= 600 ? scale(14) :
+                                 w >=  450  && h >= 700 ?  scale(8)  :
+                                 scale(14)
+                                 
+                                
+
+                                  
+                                  ,
+                                
+                                                                
+                                  
+                            
                               elevation: 5,
                             }}>
                             {item.text}

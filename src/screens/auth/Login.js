@@ -18,6 +18,8 @@ import {Color} from '../../utils/Colors';
 import Password from '../../components/Password';
 import {useDispatch} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 const Login = ({navigation}) => {
   const w = useWindowDimensions().width;
@@ -30,6 +32,11 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState(null);
   const Dispatch = useDispatch();
   const Theme = useColorScheme() === 'dark';
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   return (
     <SafeAreaView
       style={{

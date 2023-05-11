@@ -8,6 +8,7 @@ import {
   useColorScheme,
   Animated,
   TextInput,
+  Platform
 } from 'react-native';
 import React, {useState} from 'react';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
@@ -96,11 +97,12 @@ const HomeHeader = props => {
             // marginTop: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(0),
           }}>
           <TouchableOpacity
+        
             onPress={() => {
               navigation.navigate('HomeScreen');
             }}>
             <Text style={[styles.TextStyle, props.HomeRestyle]}>Home</Text>
-            <View style={props.HomeUnderLineStyle} />
+            <View style={[{marginTop : Platform.OS == 'ios' ? verticalScale(2)  : null},props.HomeUnderLineStyle]} />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -110,7 +112,7 @@ const HomeHeader = props => {
             <Text style={[styles.TextStyle, props.ParishRestyle]}>
               Parish Finder
             </Text>
-            <View style={props.ParishUnderLineStyle} />
+            <View style={[{marginTop : Platform.OS == 'ios' ? verticalScale(2)  : null},props.ParishUnderLineStyle]} />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -118,7 +120,7 @@ const HomeHeader = props => {
               navigation.navigate('Events');
             }}>
             <Text style={[styles.TextStyle, props.EventRestyle]}>Events</Text>
-            <View style={props.EventUnderLineStyle} />
+            <View style={[{marginTop : Platform.OS == 'ios' ? verticalScale(2)  : null},props.EventUnderLineStyle]} />
           </TouchableOpacity>
         </View>
       </View>

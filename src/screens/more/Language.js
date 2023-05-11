@@ -45,37 +45,37 @@ const Language = ({navigation,route}) => {
     {
       id: '1',
       title: Provence ?  'Provence 1' : Region ? 'Region 1' : 'English',
-      Short: Provence ? null : Region ? null : '(EN)',
+      Short: '(EN)',
     },
     {
       id: '2',
       title: Provence ?  'Provence 2' : Region ? 'Region 2' : 'Hausa',
-      Short: Provence ? null : Region ? null : '(HA)',
+      Short: '(HA)',
     },
     {
       id: '3',
       title: Provence ?  'Provence 3' : Region ? 'Region 3' : 'Français',
-      Short: Provence ? null : Region ? null : '(FR)',
+      Short: '(FR)',
     },
     {
       id: '4',
       title: Provence ?  'Provence 4' : Region ? 'Region 4' : 'Português',
-      Short: Provence ? null : Region ? null :  '(PO)',
+      Short:  '(PO)',
     },
     {
       id: '5',
       title: Provence ?  'Provence 5' : Region ? 'Region 5' : 'Pidgin',
-      Short: Provence ? null : Region ? null :  '(PN)',
+      Short:  '(PN)',
     },
     {
       id: '6',
       title: Provence ?  'Provence 6' : Region ? 'Region 6' : 'Fula',
-      Short: Provence ? null : Region ? null : '(FU)',
+      Short: '(FU)',
     },
     {
       id: '7',
       title: Provence ?  'Provence 7' : Region ? 'Region 7' : 'Español',
-      Short: Provence ? null : Region ? null : '(ES)',
+      Short: '(ES)',
     },
   ];
 
@@ -119,7 +119,7 @@ const Language = ({navigation,route}) => {
                 styles.title,
               ]}>
               {data.title}
-              <Text
+             { Region || Provence ?  null : <Text
                 style={[
                   {
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
@@ -129,7 +129,7 @@ const Language = ({navigation,route}) => {
                 ]}>
                 {' '}
                 {data.Short}
-              </Text>
+              </Text>}
             </Text>
           </View>
         </View>

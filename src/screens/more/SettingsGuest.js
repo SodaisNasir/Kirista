@@ -99,7 +99,7 @@ const SettingsGuest = () => {
           </View>
         </View>
 
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.MainView}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.MainView}>
           <View
             style={[
               styles.UserInfo,
@@ -202,7 +202,7 @@ const SettingsGuest = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Language')}
+             onPress={() => navigation.navigate('Language',{type:'Language'})}
             style={[
               styles.AllItems,
               {

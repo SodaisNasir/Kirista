@@ -204,7 +204,7 @@ const SettingsMore = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Language')}
+            onPress={() => navigation.navigate('Language',{type:'Language'})}
             style={[
               styles.AllItems,
               {
