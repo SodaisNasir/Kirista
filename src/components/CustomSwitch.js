@@ -1,6 +1,7 @@
-import {View, Switch, useColorScheme} from 'react-native';
+import {View, Switch, useColorScheme,Platform} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Color} from '../utils/Colors';
+import { moderateScale } from 'react-native-size-matters';
 
 const CustomSwitch = props => {
   const Theme = useColorScheme() === 'dark';
@@ -23,6 +24,9 @@ const CustomSwitch = props => {
         onValueChange={toggleSwitch}
         value={isEnabled}
         // style={{transform: [{scaleX: scale(0.8)}, {scaleY: scale(0.8)}]}}
+        // style={{height}}
+        // style={{ transform: Platform.OS === 'ios' ?  [{ scaleX:  moderateScale(1, -3) }, { scaleY:  
+        //   moderateScale(1, -3) }]}}
       />
     </View>
   );

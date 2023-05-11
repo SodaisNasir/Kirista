@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-Kirista-KiristaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Kirista-KiristaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		FA0D913D2A0CD2930005E540 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = FA0D913C2A0CD2930005E540 /* fonts */; };
+		FA0D913F2A0CD4F00005E540 /* Gobold-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FA0D913E2A0CD4F00005E540 /* Gobold-Regular.otf */; };
+		FA0D91422A0CD5030005E540 /* LibreBaskerville-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA0D91402A0CD5030005E540 /* LibreBaskerville-Bold.ttf */; };
+		FA0D91432A0CD5030005E540 /* LibreBaskerville-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA0D91412A0CD5030005E540 /* LibreBaskerville-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Kirista/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Kirista-KiristaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kirista-KiristaTests.release.xcconfig"; path = "Target Support Files/Pods-Kirista-KiristaTests/Pods-Kirista-KiristaTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FA0D913C2A0CD2930005E540 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		FA0D913E2A0CD4F00005E540 /* Gobold-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gobold-Regular.otf"; path = "fonts/Gobold-Regular.otf"; sourceTree = "<group>"; };
+		FA0D91402A0CD5030005E540 /* LibreBaskerville-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LibreBaskerville-Bold.ttf"; path = "fonts/LibreBaskerville-Bold.ttf"; sourceTree = "<group>"; };
+		FA0D91412A0CD5030005E540 /* LibreBaskerville-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LibreBaskerville-Regular.ttf"; path = "fonts/LibreBaskerville-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +124,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				FA0D91402A0CD5030005E540 /* LibreBaskerville-Bold.ttf */,
+				FA0D91412A0CD5030005E540 /* LibreBaskerville-Regular.ttf */,
+				FA0D913E2A0CD4F00005E540 /* Gobold-Regular.otf */,
+				FA0D913C2A0CD2930005E540 /* fonts */,
 				13B07FAE1A68108700A75B9A /* Kirista */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* KiristaTests */,
@@ -242,6 +254,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0D91422A0CD5030005E540 /* LibreBaskerville-Bold.ttf in Resources */,
+				FA0D91432A0CD5030005E540 /* LibreBaskerville-Regular.ttf in Resources */,
+				FA0D913F2A0CD4F00005E540 /* Gobold-Regular.otf in Resources */,
+				FA0D913D2A0CD2930005E540 /* fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -562,7 +578,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -596,6 +612,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -633,7 +650,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -659,6 +676,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

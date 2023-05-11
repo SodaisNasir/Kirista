@@ -12,6 +12,7 @@ import {
   useColorScheme,
   useWindowDimensions,
   StatusBar,
+  Platform
 } from 'react-native';
 import {Color} from '../../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -171,7 +172,7 @@ const Home = ({ navigation}) => {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeader
-          HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
+          HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins400}}
           HomeUnderLineStyle={{
             width: '55%',
             backgroundColor: Color.Main,
@@ -316,6 +317,7 @@ const Home = ({ navigation}) => {
                         <View
                           style={{
                             justifyContent: 'center',
+                            
                           }}>
                           <Text
                             style={[
@@ -461,7 +463,7 @@ const Home = ({ navigation}) => {
                           }}>
                           <Text
                             style={{
-                              fontFamily: Font.GoBold400,
+                              fontFamily: Font.Libre400,
                               color: Color.White,
                               textTransform: 'uppercase',
                               maxWidth: '90%',

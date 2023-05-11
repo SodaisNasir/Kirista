@@ -7,6 +7,7 @@ import {
   useColorScheme,
   Dimensions,
   Image,
+  Platform
 } from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -69,7 +70,7 @@ const DetailsCard = (props, {data}) => {
             // height: verticalScale(30),
 
             justifyContent: 'flex-end',
-            top: verticalScale(10),
+            top: Platform.OS === 'ios' ? null : verticalScale(10) 
           }}>
           <Text
             style={[
@@ -81,7 +82,8 @@ const DetailsCard = (props, {data}) => {
           <Text
             style={[
               {
-                bottom: verticalScale(10),
+                bottom: Platform.OS === 'ios' ? null : verticalScale(10),
+                lineHeight:Platform.OS === 'ios' ? verticalScale(13) : null,
                 color: Theme ? Color.White : Color.DarkTextColor,
               },
               styles.TitleStyle,
@@ -94,20 +96,21 @@ const DetailsCard = (props, {data}) => {
             // height:
             //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
             // justifyContent: 'space-around',
-            right: w >= 768 && h >= 1024 ? scale(1) : scale(2),
+            right: w >= 768 && h >= 1024 ? scale(0) : Platform.OS === 'ios' ? scale(0) : scale(2),
             //   flexDirection:'row',
             paddingTop:
               w >= 768 && h >= 1024
                 ? moderateScale(5)
                 : fourInchPotrait
                 ? moderateScale(0)
-                : moderateScale(5),
+                : Platform.OS === 'ios' ? moderateScale(12) : moderateScale(5),
           }}>
           {props.TimeTrue ? (
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                
               }}>
               <Text style={[styles.DateStyle]}>{props.date}</Text>
               <View
