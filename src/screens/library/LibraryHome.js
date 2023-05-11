@@ -206,7 +206,6 @@ const LibraryHome = ({navigation}) => {
           />
         </View>
       </ScrollView>
-      <View style={{height: verticalScale(75)}} />
       <FilterModal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}

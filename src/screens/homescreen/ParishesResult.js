@@ -129,19 +129,20 @@ const ParishesResult = ({navigation}) => {
                       : verticalScale(15),
                   marginVertical: verticalScale(25),
                 }}>
-                <View
+                {/* <View
                   style={{
                     // height: verticalScale(30),
 
                     // backgroundColor: 'yellow',
                     justifyContent: 'center',
-                  }}>
+                  }}> */}
                   <Text
                     style={[
                       styles.TitleStyle,
-                      {color: Theme ? '#fff' : Color.DarkTextColor,
-    marginTop:verticalScale(5)
-  },
+                      {
+                        color: Theme ? '#fff' : Color.DarkTextColor,
+                        marginTop: verticalScale(5),
+                      },
                     ]}>
                     {item.title}
                   </Text>
@@ -149,22 +150,22 @@ const ParishesResult = ({navigation}) => {
                     style={[
                       {
                         color: Theme ? '#fff' : Color.DarkTextColor,
-                        bottom: verticalScale(3),
+                        marginTop:  verticalScale(-10),
                       },
                       styles.TitleStyle,
                     ]}>
                     {item.manual}
                   </Text>
-                </View>
-                <View
+                {/* </View> */}
+                {/* <View
                   style={{
                     height:
                       w >= 768 && h >= 1024 ? verticalScale(20) : scale(20),
                     justifyContent: 'center',
                     right: scale(2),
-                  }}>
-                  <Text style={styles.CountryStyle}>{item.country}</Text>
-                </View>
+                  }}> */}
+                <Text style={styles.CountryStyle}>{item.country}</Text>
+                {/* </View> */}
               </View>
             </TouchableOpacity>
           );

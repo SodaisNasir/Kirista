@@ -262,12 +262,12 @@ const Searchbar = () => {
                       ? verticalScale(37)
                       : fourInchPotrait
                       ? verticalScale(45)
-                      : verticalScale(37),
+                      : w <=  450  && h <= 700 ? '100%' : verticalScale(37),
                   width: '100%',
                   color: Theme ? '#fff' : '#000',
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : w >=  450  && h >= 700 ?  scale(10) : scale(14),
                   fontFamily: Font.Inter500,
-                  top: w <=  450  && h <= 700 ?  verticalScale(5) : verticalScale(1.5),
+                  top:  verticalScale(1.5),
                 }}
                 placeholder="Search"
                 placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
