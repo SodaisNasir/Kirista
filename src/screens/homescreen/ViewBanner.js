@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   useColorScheme
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Color} from '../../utils/Colors';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -18,13 +18,21 @@ import {Font} from '../../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomNavigator from '../../components/CustomNavigator';
+import { useFocusEffect } from '@react-navigation/native';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ViewBanner = () => {
+const ViewBanner = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
+  
   return (
+    
     <SafeAreaView style={[{backgroundColor: Theme? Color.DarkTheme : Color.White,flex:1}]}>
       <View style={{height: '100%', backgroundColor: Theme? Color.DarkTheme : Color.White}}>
         <Header />

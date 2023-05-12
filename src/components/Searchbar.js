@@ -68,7 +68,7 @@ const Searchbar = () => {
     {
       id: 5,
       title: 'Sunday School',
-      manual: 'Teachers Man..',
+      manual: 'Teachers Manual',
       image: require('../assets/images/book2.png'),
       detail: '2023',
     },
@@ -213,7 +213,7 @@ const Searchbar = () => {
           </View>
         ) : null}
         {/*  this ti for Searchbarr */}
-        <View
+        {/* <View
           style={{
             height: '100%',
             width: isSearchBarVisible ? '80%' : '90%',
@@ -232,7 +232,6 @@ const Searchbar = () => {
             <View
               style={{
                 height: '100%',
-                // width: tabPotrait ? '10%' : '10%',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
@@ -245,15 +244,6 @@ const Searchbar = () => {
                 }
               />
             </View>
-            {/* <View
-              style={{
-                height: '100%',
-                // // backgroundColor: 'pink',
-                width:
-                  isSearchBarVisible != true && searchQuery2 == ''
-                    ? '90%'
-                    : '80%',
-              }}> */}
               <TextInput
                 onFocus={() => setIsSearchBarVisible(true)}
                 style={{
@@ -267,7 +257,7 @@ const Searchbar = () => {
                   color: Theme ? '#fff' : '#000',
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : w >=  450  && h >= 700 ?  scale(10) : scale(14),
                   fontFamily: Font.Inter500,
-                  top:  verticalScale(1.5),
+                  top: fourInchPotrait ? verticalScale(2) : verticalScale(1.5),
                 }}
                 placeholder="Search"
                 placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
@@ -276,7 +266,6 @@ const Searchbar = () => {
                 value={searchQuery2}
               />
          
-            {/* </View> */}
 
             {isSearchBarVisible ? (
               <View
@@ -296,7 +285,64 @@ const Searchbar = () => {
               </View>
             ) : null}
           </View>
-        </View>
+        </View> */}
+        <View
+          style={{
+            width: isSearchBarVisible ? '80%' : '90%',
+            height: verticalScale(40),
+            backgroundColor: Theme ? '#2B3642' : Color.White,
+            borderRadius: scale(25),
+            flexDirection: 'row',
+            paddingHorizontal: moderateScale(20),
+            alignItems: 'center',
+            alignSelf:'center'
+          }}>
+             <Search
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
+                }
+                width={
+                  w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(26)
+                }
+              />
+               <TextInput
+                onFocus={() => setIsSearchBarVisible(true)}
+                style={{
+                  height:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(37)
+                      : fourInchPotrait
+                      ? verticalScale(45)
+                      : w <=  450  && h <= 700 ? '100%' : verticalScale(37),
+                  width: '100%',
+                  color: Theme ? '#fff' : '#000',
+                  fontSize: w >= 768 && h >= 1024 ? scale(8) : w >=  450  && h >= 700 ?  scale(10) : scale(14),
+                  fontFamily: Font.Inter500,
+                  top: fourInchPotrait ? verticalScale(2) : verticalScale(1.5),
+                }}
+                placeholder="Search"
+                placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
+                onSubmitEditing={() => console.log(searchInputValue2)}
+                onChangeText={text => handleSearch2(text)}
+                value={searchQuery2}
+              />
+                       {searchQuery2.length >=1 && isSearchBarVisible ? (
+              <View
+                style={{
+                  alignSelf: 'center',
+                  position: 'absolute',
+                  right: scale(10),
+                }}>
+                <TouchableOpacity onPress={() => setSearchQuery2('')}>
+                  <Ionicons
+                    name="close-circle"
+                    size={tabPotrait ? scale(15) : 22}
+                    color={Theme ? '#B4B5B7' : '#B4B5B7'}
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : null}
+          </View>
         {/*  this ti for Searchbarr */}
         {isSearchBarVisible ? (
           <View

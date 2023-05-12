@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import {
   useColorScheme,
   useWindowDimensions,
   StatusBar,
-  Platform
+  Platform,
 } from 'react-native';
 import {Color} from '../../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -30,26 +30,25 @@ import Advertisement from '../../components/Advertisement';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-const Home = ({ navigation}) => {
-
+const Home = ({navigation}) => {
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          height:verticalScale(80),
+          height: verticalScale(80),
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
           borderTopWidth: 0,
-       
-        tabBarLabelStyle: {
-          fontFamily: Font.Poppins600,
-          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-          marginBottom:
-          w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-       
-          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
-        }
+
+          tabBarLabelStyle: {
+            fontFamily: Font.Poppins600,
+            fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+            marginBottom:
+              w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+
+            left: w >= 768 && h >= 1024 ? scale(115) : scale(0),
+          },
         },
       });
     }),
@@ -57,7 +56,7 @@ const Home = ({ navigation}) => {
 
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
-  console.log(w,h)
+  console.log(w, h);
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useColorScheme() === 'dark';
@@ -78,7 +77,8 @@ const Home = ({ navigation}) => {
       image: require('../../assets/images/list2.jpg'),
       image2: require('../../assets/images/redeemImgradiant.png'),
       image3: require('../../assets/images/rccg_logo.png'),
-      text: 'rccg        structure.',
+      text: 'rccg ',
+      text_subText:'structure',
       text2: 'Read More  ',
       color: '#00923f',
       type: 'ye',
@@ -89,27 +89,14 @@ const Home = ({ navigation}) => {
       image: require('../../assets/images/list3.jpg'),
       image2: require('../../assets/images/redeemImgradiant.png'),
       image3: require('../../assets/images/rccg_logo.png'),
-      text: 'rccg        continent 2',
+      text: 'rccg ',
+      text_subText:'continent 2',
       text2: 'Read More  ',
       color: '#e43f40',
       type: 'ye',
       screen_name: 'RccgContinent',
     },
   ];
-  const swiper_data = [
-    {
-      id: 1,
-      image: require('../../../src/assets/images/swiperone.png'),
-      type: 'big',
-    },
-
-    {
-      id: 2,
-      image: require('../../../src/assets/images/swipertwo.png'),
-      type: 'small',
-    },
-  ];
-
   const books_data = [
     {
       id: 1,
@@ -117,7 +104,7 @@ const Home = ({ navigation}) => {
       manual: 'Manual',
       image: require('../../../src/assets/images/book1.png'),
       year: '2023',
-      type:'first'
+      type: 'first',
     },
     {
       id: 2,
@@ -148,7 +135,7 @@ const Home = ({ navigation}) => {
       manual: 'Teachers Manual',
       image: require('../../../src/assets/images/book2.png'),
       year: '2023',
-      type:'first'
+      type: 'first',
     },
     {
       id: 6,
@@ -177,12 +164,12 @@ const Home = ({ navigation}) => {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeader
-          HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins400}}
+          HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
           HomeUnderLineStyle={{
             width: '55%',
             backgroundColor: Color.Main,
             height: verticalScale(2),
-            bottom: scale(4),
+            bottom: verticalScale(4),
           }}
         />
         <View
@@ -297,7 +284,7 @@ const Home = ({ navigation}) => {
                         overflow: 'hidden',
                         width: scale(250),
                         // backgroundColor:'red',
-                          marginLeft:item.type == 'first' ? scale(-15) :0
+                        marginLeft: item.type == 'first' ? scale(-15) : 0,
                       }}>
                       <View
                         style={{
@@ -324,7 +311,6 @@ const Home = ({ navigation}) => {
                         <View
                           style={{
                             justifyContent: 'center',
-                            
                           }}>
                           <Text
                             style={[
@@ -385,9 +371,9 @@ const Home = ({ navigation}) => {
                     paddingVertical: verticalScale(10),
                     height:
                       w >= 768 && h >= 1024
-                        ? verticalScale(100)
+                        ? verticalScale(110)
                         : verticalScale(140),
-                    width: w >= 768 && h >= 1024 ? scale(100) : scale(195),
+                    width: w >= 768 && h >= 1024 ? scale(115) : scale(200),
                     marginRight:
                       w >= 768 && h >= 1024
                         ? verticalScale(8)
@@ -425,7 +411,7 @@ const Home = ({ navigation}) => {
                         height: '5%',
                         width: '100%',
                         backgroundColor: item.color,
-                      }}></View>
+                      }}/>
                     <View
                       style={{
                         width: '100%',
@@ -471,31 +457,45 @@ const Home = ({ navigation}) => {
                           }}>
                           <Text
                             style={{
-                              fontFamily: Font.Libre400,
+                              fontFamily: Font.GoBold400,
                               color: Color.White,
                               textTransform: 'uppercase',
                               maxWidth: '100%',
                               top: item.type == 'ye' ? scale(15) : scale(10),
-                              textAlignVertical: 'center',
-                              fontSize:
-                              iosTab ? scale(6)  :
-                                w >= 768 && h >= 1024 ? scale(8) : 
-                                 w <= 350 && h <= 600 ? scale(14) :
-                                 w >=  450  && h >= 700 ?  scale(8)  :
-                                 scale(14)
-                                 
-                                
-
-                                  
-                                  ,
-                                
-                                                                
-                                  
-                            
+                              fontSize: iosTab
+                                ? scale(6)
+                                : w >= 768 && h >= 1024
+                                ? scale(7)
+                                : w <= 350 && h <= 600
+                                ? scale(12)
+                                : w >= 450 && h >= 700
+                                ? scale(8)
+                                : scale(13),
                               elevation: 5,
                             }}>
                             {item.text}
                           </Text>
+                          <Text
+                            style={{
+                              fontFamily: Font.GoBold400,
+                              color: Color.White,
+                              textTransform: 'uppercase',
+                              maxWidth: '100%',
+                              top: item.type == 'ye' ? scale(15) : scale(10),
+                              fontSize: iosTab
+                                ? scale(6)
+                                : w >= 768 && h >= 1024
+                                ? scale(7)
+                                : w <= 350 && h <= 600
+                                ? scale(12)
+                                : w >= 450 && h >= 700
+                                ? scale(8)
+                                : scale(13),
+                              elevation: 5,
+                            }}>
+                            {item.text_subText}
+                          </Text>
+                          
                         </View>
                         <View
                           style={{
@@ -515,7 +515,7 @@ const Home = ({ navigation}) => {
                                 fontFamily: Font.Poppins400,
                                 color: Color.White,
                                 fontSize:
-                                  w >= 768 && h >= 1024 ? scale(7) :  scale(12),
+                                  w >= 768 && h >= 1024 ? scale(7) : scale(12),
                                 elevation: 5,
                               }}>
                               {item.text2}
@@ -747,7 +747,7 @@ const Home = ({ navigation}) => {
 
         <View
           style={{
-            height: verticalScale(120),
+            height: verticalScale(10),
           }}
         />
       </ScrollView>

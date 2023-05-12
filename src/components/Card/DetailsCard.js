@@ -94,10 +94,12 @@ const DetailsCard = (props, {data}) => {
         </View>
         <View
           style={{
+            
             // height:
             //   w >= 768 && h >= 1024 ? verticalScale(20) : scale(40),
             // justifyContent: 'space-around',
-            right: w >= 768 && h >= 1024 ? scale(0) : Platform.OS === 'ios' ? scale(0) : scale(2),
+          
+            right: w >= 768 && h >= 1024 ? scale(0) : Platform.OS === 'ios' ? scale(0) : scale(0),
             //   flexDirection:'row',
             paddingTop:
               iosTab ? moderateScale(8) :

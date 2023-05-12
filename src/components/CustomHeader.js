@@ -48,6 +48,7 @@ const CustomHeader = props => {
         style={{
           justifyContent: 'space-between',
           flexDirection: 'row',
+         
 
           marginBottom:
             w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
@@ -83,7 +84,7 @@ const CustomHeader = props => {
             flexDirection: 'row',
             // backgroundColor: 'red',
             alignItems: 'center',
-            // paddingHorizontal: moderateScale(10),
+            // 
           }}>
           <TouchableOpacity style={styles.IconStyle}>
             {props.timeicon ? (
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
   },
   IconStyle: {
     paddingHorizontal:
-      w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(8),
+      w >= 768 && h >= 1024 ? verticalScale(4) : verticalScale(8),
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),

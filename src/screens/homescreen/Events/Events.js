@@ -32,7 +32,7 @@ const Events = () => {
           // paddingLeft:50,
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
-          paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
+          // paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
           borderTopWidth: 0,
         },
         tabBarLabelStyle: {
@@ -40,7 +40,7 @@ const Events = () => {
           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
           marginBottom:
             w >= 768 && h >= 1024 ? verticalScale(-15) : Platform.OS ==='ios' ? verticalScale(0) : verticalScale(15),
-          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
+          // right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
       });
     }),

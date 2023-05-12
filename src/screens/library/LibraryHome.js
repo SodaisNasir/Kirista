@@ -92,7 +92,7 @@ const LibraryHome = ({navigation}) => {
           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
           marginBottom:
             w >= 768 && h >= 1024 ? verticalScale(-15) : Platform.OS ==='ios' ? verticalScale(0) : verticalScale(15),
-          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
+          right: w >= 768 && h >= 1024 ? scale(3) : scale(0),
         }
        
       });
