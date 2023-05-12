@@ -78,7 +78,7 @@ const Home = ({navigation}) => {
       image2: require('../../assets/images/redeemImgradiant.png'),
       image3: require('../../assets/images/rccg_logo.png'),
       text: 'rccg ',
-      text_subText:'structure',
+      text_subText: 'structure',
       text2: 'Read More  ',
       color: '#00923f',
       type: 'ye',
@@ -90,7 +90,7 @@ const Home = ({navigation}) => {
       image2: require('../../assets/images/redeemImgradiant.png'),
       image3: require('../../assets/images/rccg_logo.png'),
       text: 'rccg ',
-      text_subText:'continent 2',
+      text_subText: 'continent 2',
       text2: 'Read More  ',
       color: '#e43f40',
       type: 'ye',
@@ -366,174 +366,176 @@ const Home = ({navigation}) => {
             renderItem={({item}) => {
               return (
                 <View
+                style={{
+                  justifyContent: 'center',
+                  paddingVertical: verticalScale(10),
+                  height:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(110)
+                      : verticalScale(140),
+                  width: w >= 768 && h >= 1024 ? scale(115) : scale(200),
+                  marginRight:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(8)
+                      : verticalScale(0),
+                  alignSelf: 'center',
+                  overflow: 'hidden',
+                  margin: 5,
+                }}>
+                <Image
+                  resizeMode="cover"
                   style={{
-                    justifyContent: 'center',
-                    paddingVertical: verticalScale(10),
-                    height:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(110)
-                        : verticalScale(140),
-                    width: w >= 768 && h >= 1024 ? scale(115) : scale(200),
-                    marginRight:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(8)
-                        : verticalScale(0),
-                    alignSelf: 'center',
-                    overflow: 'hidden',
-                    margin: 5,
+                    height: '100%',
+                    width: '100%',
+                    position: 'absolute',
+                  }}
+                  source={item.image}
+                />
+                <Image
+                  resizeMode="cover"
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                    position: 'absolute',
+                  }}
+                  source={item.image2}
+                />
+                <View
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                    position: 'absolute',
                   }}>
-                  <Image
-                    resizeMode="cover"
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                      position: 'absolute',
-                    }}
-                    source={item.image}
-                  />
-                  <Image
-                    resizeMode="cover"
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                      position: 'absolute',
-                    }}
-                    source={item.image2}
-                  />
                   <View
                     style={{
-                      height: '100%',
+                      height: '5%',
                       width: '100%',
-                      position: 'absolute',
+                      backgroundColor: item.color,
+                    }}/>
+                  <View
+                    style={{
+                      width: '100%',
+                      flexDirection: 'row',
                     }}>
                     <View
                       style={{
-                        height: '5%',
-                        width: '100%',
-                        backgroundColor: item.color,
-                      }}/>
-                    <View
-                      style={{
-                        width: '100%',
-                        flexDirection: 'row',
+                        height: '100%',
+                        width: '40%',
+                        alignItems: 'center',
                       }}>
                       <View
                         style={{
-                          height: '100%',
-                          width: '40%',
-                          alignItems: 'center',
+                          height:
+                            w >= 768 && h >= 1024
+                              ? verticalScale(30)
+                              : verticalScale(65),
+                          width:
+                            w >= 768 && h >= 1024 ? scale(30) : scale(65),
+                          borderRadius: 100,
+                          top: w >= 768 && h >= 1024 ? scale(15) : scale(20),
+                          overflow: 'hidden',
                         }}>
-                        <View
+                        <Image
+                          resizeMode="contain"
                           style={{
-                            height:
-                              w >= 768 && h >= 1024
-                                ? verticalScale(30)
-                                : verticalScale(65),
-                            width:
-                              w >= 768 && h >= 1024 ? scale(30) : scale(65),
-                            borderRadius: 100,
-                            top: w >= 768 && h >= 1024 ? scale(15) : scale(20),
-                            overflow: 'hidden',
+                            height: '100%',
+                            width: '100%',
+                          }}
+                          source={item.image3}
+                        />
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        height: '100%',
+                        width: '60%',
+                        // justifyContent:'center',
+                        // alignItems:'center'
+                      }}>
+                      <View
+                        style={{
+                          height: '70%',
+                          width: '100%',
+                        }}>
+                        <Text
+                          style={{
+                            fontFamily: Font.GoBold400,
+                            color: Color.White,
+                            textTransform: 'uppercase',
+                            maxWidth: '100%',
+                            top: item.type == 'ye' ? scale(15) : scale(10),
+                            fontSize: iosTab
+                              ? scale(6)
+                              : w >= 768 && h >= 1024
+                              ? scale(7)
+                              : w <= 350 && h <= 600
+                              ? scale(12)
+                              : w >= 450 && h >= 700
+                              ? scale(8)
+                              : scale(13),
+                            elevation: 5,
+                            marginTop:verticalScale(20)
                           }}>
-                          <Image
-                            resizeMode="contain"
-                            style={{
-                              height: '100%',
-                              width: '100%',
-                            }}
-                            source={item.image3}
-                          />
-                        </View>
+                          {item.text}
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: Font.GoBold400,
+                            color: Color.White,
+                            textTransform: 'uppercase',
+                            top: item.type == 'ye' ? scale(15) : scale(10),
+                            fontSize: iosTab
+                              ? scale(6)
+                              : w >= 768 && h >= 1024
+                              ? scale(7)
+                              : w <= 350 && h <= 600
+                              ? scale(12)
+                              : w >= 450 && h >= 700
+                              ? scale(8)
+                              : scale(13),
+                            elevation: 5,
+                          }}>
+                          {item.text_subText}
+                        </Text>
+                        
                       </View>
                       <View
                         style={{
-                          height: '100%',
-                          width: '60%',
+                          height: '25%',
+                          width: '100%',
+                          marginVertical: verticalScale(2),
                         }}>
-                        <View
+                        <TouchableOpacity
+                          onPress={() =>
+                            navigation.navigate(item.screen_name)
+                          }
                           style={{
-                            height: '70%',
-                            width: '100%',
+                            flexDirection: 'row',
                           }}>
                           <Text
                             style={{
-                              fontFamily: Font.GoBold400,
+                              fontFamily: Font.Poppins400,
                               color: Color.White,
-                              textTransform: 'uppercase',
-                              maxWidth: '100%',
-                              top: item.type == 'ye' ? scale(15) : scale(10),
-                              fontSize: iosTab
-                                ? scale(6)
-                                : w >= 768 && h >= 1024
-                                ? scale(7)
-                                : w <= 350 && h <= 600
-                                ? scale(12)
-                                : w >= 450 && h >= 700
-                                ? scale(8)
-                                : scale(13),
+                              fontSize:
+                                w >= 768 && h >= 1024 ? scale(7) : scale(12),
                               elevation: 5,
                             }}>
-                            {item.text}
+                            {item.text2}
                           </Text>
-                          <Text
-                            style={{
-                              fontFamily: Font.GoBold400,
-                              color: Color.White,
-                              textTransform: 'uppercase',
-                              maxWidth: '100%',
-                              top: item.type == 'ye' ? scale(15) : scale(10),
-                              fontSize: iosTab
-                                ? scale(6)
-                                : w >= 768 && h >= 1024
-                                ? scale(7)
-                                : w <= 350 && h <= 600
-                                ? scale(12)
-                                : w >= 450 && h >= 700
-                                ? scale(8)
-                                : scale(13),
-                              elevation: 5,
-                            }}>
-                            {item.text_subText}
-                          </Text>
-                          
-                        </View>
-                        <View
-                          style={{
-                            height: '25%',
-                            width: '100%',
-                            marginVertical: verticalScale(2),
-                          }}>
-                          <TouchableOpacity
-                            onPress={() =>
-                              navigation.navigate(item.screen_name)
+                          <MaterialIcons
+                            name="keyboard-arrow-right"
+                            size={
+                              w >= 768 && h >= 1024 ? scale(12) : scale(18)
                             }
-                            style={{
-                              flexDirection: 'row',
-                            }}>
-                            <Text
-                              style={{
-                                fontFamily: Font.Poppins400,
-                                color: Color.White,
-                                fontSize:
-                                  w >= 768 && h >= 1024 ? scale(7) : scale(12),
-                                elevation: 5,
-                              }}>
-                              {item.text2}
-                            </Text>
-                            <MaterialIcons
-                              name="keyboard-arrow-right"
-                              size={
-                                w >= 768 && h >= 1024 ? scale(12) : scale(18)
-                              }
-                              color={'white'}
-                              style={{bottom: 2, right: 3}}
-                            />
-                          </TouchableOpacity>
-                        </View>
+                            color={'white'}
+                            style={{bottom: 2, right: 3}}
+                          />
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
                 </View>
+              </View>
               );
             }}
           />
@@ -817,7 +819,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: moderateScale(20),
-    height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(140),
+    height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(160),
   },
   DateStyle: {
     color: Color.BoldTextColor,
