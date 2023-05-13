@@ -8,6 +8,7 @@ import {
   Modal,
   TouchableOpacity,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -27,6 +28,7 @@ const EventScreen = ({navigation}) => {
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const Theme = useColorScheme() === 'dark';
+  
 
   useFocusEffect(
     useCallback(() => {
@@ -38,11 +40,14 @@ const EventScreen = ({navigation}) => {
     setModalVisible(!isModalVisible);
   };
   return (
-    <SafeAreaView
+    <>
+    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <View
       style={[
         styles.Container,
         {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0
         },
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -89,26 +94,27 @@ const EventScreen = ({navigation}) => {
               style={[
                 styles.DateText,
                 {
-                  color: Theme ? Color.White : Color.TextColor2,
+                  color: Theme ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
               June 22, 2023 - June 24, 2023
             </Text>
             <View
               style={{
-                backgroundColor: Color.BoldTextColor,
+                backgroundColor: Theme ? '#828C9B' : Color.TextColor2,
                 borderRadius: 100,
                 width: scale(3),
                 height: scale(3),
-                marginHorizontal: scale(5),
+                marginHorizontal: scale(15),
                 alignSelf: 'center',
+              
               }}
             />
             <Text
               style={[
                 styles.DateText,
                 {
-                  color: Theme ? Color.White : Color.TextColor2,
+                  color: Theme ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
               4PM -7PM WAT
@@ -235,7 +241,8 @@ const EventScreen = ({navigation}) => {
           onPress={() => setModalVisible(false)}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

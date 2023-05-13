@@ -22,19 +22,17 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const Readtwo = props => {
   const Theme = useColorScheme() === 'dark';
-  const [showModal, setShowModal] = useState(false);
+
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const [showSecondModal, setShowSecondModal] = useState(false);
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
   const toggleModalTwo = () => {
     setSecondModalVisible(!isSecondModalVisible);
   };
 
-  const [showThirdModal, setshowThirdModal] = useState(false);
   const [isModalThreeVisible, setModalThreeVisible] = useState(false);
   const toggleModalThree = () => {
     setModalThreeVisible(!isModalThreeVisible);
@@ -80,179 +78,195 @@ const Readtwo = props => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <ReadHeader bookmark={true} backicon={true} /> */}
+    <>
+      <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          // marginTop:Platform.OS == 'ios' ? verticalScale(-47) : 0
+        }}
+      />
+      <SafeAreaView
+        style={[
+          styles.MainContainer,
+          {backgroundColor},
+          
+        ]}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+            style={[
+              {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
+              styles.AuthHeaderStyle,
+            ]}>
+            <View
+              style={{
+                flexDirection: 'row',
 
-        <View
-          style={[
-            {backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor},
-            styles.AuthHeaderStyle,
-          ]}>
+                marginBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(15),
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
+                justifyContent: 'space-between',
+              }}>
+              {props.textshown ? (
+                <View
+                  style={{
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={[
+                      {
+                        color: Theme ? Color.White : '#797B7F',
+                        fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                      },
+                      styles.WelcomeText,
+                    ]}>
+                    {props.text}
+                  </Text>
+                </View>
+              ) : null}
+
+              <View style={{justifyContent: 'center'}}>
+                <AntDesign
+                  name="arrowleft"
+                  size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                  color={Theme ? Color.White : Color.Black}
+                  onPress={() => navigation.navigate('ViewManual')}
+                />
+              </View>
+
+              <TouchableOpacity
+                onPress={handleClick}
+                style={{justifyContent: 'center'}}>
+                <Ionicons
+                  name={selected}
+                  size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
+                  color={Color.Main}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+
           <View
             style={{
-              flexDirection: 'row',
-
-              marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(15),
               paddingHorizontal:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
-              justifyContent: 'space-between',
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            {props.textshown ? (
-              <View
-                style={{
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : '#797B7F',
-                      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                    },
-                    styles.WelcomeText,
-                  ]}>
-                  {props.text}
-                </Text>
-              </View>
-            ) : null}
+            <View style={{marginVertical: verticalScale(20)}}>
+              <Text
+                style={[
+                  {
+                    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
+                  },
 
-            <View style={{justifyContent: 'center'}}>
-              <AntDesign
-                name="arrowleft"
-                size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                color={Theme ? Color.White : Color.Black}
-                onPress={() => navigation.navigate('ViewManual')}
-              />
+                  styles.Title,
+                  {color: textColor},
+                ]}>
+                Chapter 1
+              </Text>
             </View>
-
-            <TouchableOpacity
-              onPress={handleClick}
-              style={{justifyContent: 'center'}}>
-              <Ionicons
-                name={selected}
-                size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
-                color={Color.Main}
-              />
-            </TouchableOpacity>
+            <View style={{marginVertical: verticalScale(15)}}>
+              <Text
+                style={[
+                  {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
+                  styles.TextStyle,
+                  {color: textColor},
+                ]}>
+                A book is a medium for recording information in the form of
+                writing or images, typically composed of many pages (made of
+                papyrus, parchment, vellum, or paper) bound together and
+                protected by a cover.
+              </Text>
+              <Text
+                style={[
+                  {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
+                  {color: textColor},
+                  styles.TextStyle,
+                ]}>
+                The technical term for this physical arrangement is codex
+                (plural, codices). In the history of hand-held physical supports
+                for extended written compositions or records, the codex replaces
+                its predecessor, the scroll. A single sheet in a codex is a leaf
+                and each side of a leaf is a page.
+              </Text>
+              <Text
+                style={[
+                  {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
+                  styles.TextStyle,
+                  {color: textColor},
+                ]}>
+                As an intellectual object, a book is prototypically a
+                composition of such great length that it takes a considerable
+                investment of time to compose and still considered as an
+                investment of time to read. In a restricted sense, a book is a
+                self-sufficient section or part of a longer composition, a usage
+                reflecting that, in antiquity, long works had to be written on
+                several scrolls and each scroll had to be identified by the book
+                it contained. Each part of Aristotle's Physics is called a book.
+                In an unrestricted sense, a book is the compositional whole of
+                which such sections, whether called books or chapters or parts,
+                are parts.
+              </Text>
+            </View>
           </View>
-        </View>
+          <View style={{height: verticalScale(75)}} />
 
+          <ChapterOptionModal
+            isVisible={isModalVisible}
+            onBackdropPress={() => setModalVisible(false)}
+            swipeDirection="down"
+            onSwipeComplete={() => setModalVisible(false)}
+            onRequestClose={() => setModalVisible(false)}
+            HandlePressOne={handlepressone}
+            HandlePressTwo={handlepresstwo}
+            HandlePressThree={handlepressthree}
+            HandlePressFour={handlepressfour}
+            toggleModalTwo={() => {
+              setModalVisible(false);
+              setTimeout(() => {
+                setSecondModalVisible(true);
+                console.log('second modal state ==>', isSecondModalVisible);
+              }, 500);
+            }}
+          />
+
+          <FontModal
+            isVisible={isSecondModalVisible}
+            onBackdropPress={() => setSecondModalVisible(false)}
+            // swipeDirection="down"
+            onSwipeComplete={() => setSecondModalVisible(false)}
+            onRequestClose={() => setSecondModalVisible(false)}
+            OptionSelect={() => setSecondModalVisible(false)}
+          />
+
+          <DrawerScreen
+            isVisible={isModalThreeVisible}
+            onBackdropPress={() => setModalThreeVisible(false)}
+            // swipeDirection="slideInLeft"
+            onSwipeComplete={() => setModalThreeVisible(false)}
+            onRequestClose={() => setModalThreeVisible(false)}
+            OptionSelect={() => setModalThreeVisible(false)}
+          />
+        </ScrollView>
         <View
           style={{
-            paddingHorizontal:
-              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            flex: 1,
+            // paddingHorizontal: moderateScale(10),
+
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
           }}>
-          <View style={{marginVertical: verticalScale(20)}}>
-            <Text
-              style={[
-                {
-                  fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
-                },
-
-                styles.Title,
-                {color: textColor},
-              ]}>
-              Chapter 1
-            </Text>
-          </View>
-          <View style={{marginVertical: verticalScale(15)}}>
-            <Text
-              style={[
-                {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                styles.TextStyle,
-                {color: textColor},
-              ]}>
-              A book is a medium for recording information in the form of
-              writing or images, typically composed of many pages (made of
-              papyrus, parchment, vellum, or paper) bound together and protected
-              by a cover.
-            </Text>
-            <Text
-              style={[
-                {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                {color: textColor},
-                styles.TextStyle,
-              ]}>
-              The technical term for this physical arrangement is codex (plural,
-              codices). In the history of hand-held physical supports for
-              extended written compositions or records, the codex replaces its
-              predecessor, the scroll. A single sheet in a codex is a leaf and
-              each side of a leaf is a page.
-            </Text>
-            <Text
-              style={[
-                {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                styles.TextStyle,
-                {color: textColor},
-              ]}>
-              As an intellectual object, a book is prototypically a composition
-              of such great length that it takes a considerable investment of
-              time to compose and still considered as an investment of time to
-              read. In a restricted sense, a book is a self-sufficient section
-              or part of a longer composition, a usage reflecting that, in
-              antiquity, long works had to be written on several scrolls and
-              each scroll had to be identified by the book it contained. Each
-              part of Aristotle's Physics is called a book. In an unrestricted
-              sense, a book is the compositional whole of which such sections,
-              whether called books or chapters or parts, are parts.
-            </Text>
-          </View>
+          <ReadNavigator
+            onPressTab={() => {
+              toggleModalThree(true);
+            }}
+            onPressModal={() => {
+              toggleModal(true);
+            }}
+          />
         </View>
-        <View style={{height: verticalScale(75)}} />
-
-        <ChapterOptionModal
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-          swipeDirection="down"
-          onSwipeComplete={() => setModalVisible(false)}
-          onRequestClose={() => setModalVisible(false)}
-          HandlePressOne={handlepressone}
-          HandlePressTwo={handlepresstwo}
-          HandlePressThree={handlepressthree}
-          HandlePressFour={handlepressfour}
-          toggleModalTwo={() => {
-            setShowSecondModal(toggleModalTwo(true));
-          }}
-        />
-
-        <FontModal
-          isVisible={isSecondModalVisible}
-          onBackdropPress={() => setSecondModalVisible(false)}
-          // swipeDirection="down"
-          onSwipeComplete={() => setSecondModalVisible(false)}
-          onRequestClose={() => setSecondModalVisible(false)}
-          OptionSelect={() => setSecondModalVisible(false)}
-        />
-
-        <DrawerScreen
-          isVisible={isModalThreeVisible}
-          onBackdropPress={() => setModalThreeVisible(false)}
-          // swipeDirection="slideInLeft"
-          onSwipeComplete={() => setModalThreeVisible(false)}
-          onRequestClose={() => setModalThreeVisible(false)}
-          OptionSelect={() => setModalThreeVisible(false)}
-        />
-      </ScrollView>
-      <View
-        style={{
-          flex: 1,
-          // paddingHorizontal: moderateScale(10),
-
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-        }}>
-        <ReadNavigator
-          onPressTab={() => {
-            setshowThirdModal(toggleModalThree(true));
-          }}
-          onPressModal={() => {
-            setShowModal(toggleModal(true));
-          }}
-        />
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -271,8 +285,8 @@ const styles = StyleSheet.create({
     // color:Color.Main
   },
   AuthHeaderStyle: {
-    height: verticalScale(90),
-    justifyContent: 'flex-end',
+    height: verticalScale(80),
+    justifyContent: 'center',
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,

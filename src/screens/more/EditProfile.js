@@ -60,7 +60,13 @@ const EditProfile = ({navigation}) => {
     });
   };
   return (
-    <SafeAreaView
+    <>
+         <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <StatusBar
         backgroundColor={Theme ? Color.ExtraViewDark : Color.White}
@@ -152,7 +158,8 @@ const EditProfile = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

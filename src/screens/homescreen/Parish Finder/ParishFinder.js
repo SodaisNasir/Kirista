@@ -21,7 +21,9 @@ const ParishFinder = ({navigation}) => {
   const w = useWindowDimensions()
   const h = useWindowDimensions()
   return (
-    <SafeAreaView
+    <>
+       <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <View
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeader
@@ -82,7 +84,8 @@ const ParishFinder = ({navigation}) => {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
+        </>
   )
 }
 

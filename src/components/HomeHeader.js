@@ -30,6 +30,7 @@ const HomeHeader = props => {
         paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(25),
         backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        marginTop:Platform.OS == 'ios'?  verticalScale(-10) : 0
       }}>
       <View style={{}}>
         <View

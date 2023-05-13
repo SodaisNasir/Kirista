@@ -133,6 +133,12 @@ const DarkMode = ({navigation}) => {
     </TouchableOpacity>
   );
   return (
+    <>
+        <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
     <SafeAreaView
       style={[
         styles.Container,
@@ -152,6 +158,7 @@ const DarkMode = ({navigation}) => {
       />
       <View style={{height: verticalScale(10)}} />
     </SafeAreaView>
+    </>
   );
 };
 

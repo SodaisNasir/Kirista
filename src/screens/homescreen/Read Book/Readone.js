@@ -29,8 +29,13 @@ const Readone = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+    <>
+      <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <View
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        marginTop:Platform.OS == 'ios' ? verticalScale(-47) : 0
+      
+      }}>
       <StatusBar
         backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}
@@ -141,7 +146,8 @@ const Readone = () => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

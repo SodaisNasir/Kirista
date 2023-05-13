@@ -53,37 +53,36 @@ const SettingsGuest = () => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          height:verticalScale(80),
+          display: 'flex',
+     
+          height: Platform.OS == 'ios' ? verticalScale(80) : verticalScale(80),
+          position: 'absolute',
+          bottom: 0,
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          borderColor: Theme ? Color.DarkTheme : Color.White,
-          borderTopWidth: 0,
        
-        // tabBarLabelStyle: {
-        //   fontFamily: Font.Poppins600,
-        //   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-        //   marginBottom:
-        //     w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-        //   right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
       });
     }),
   );
   return (
+    <>
     <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
-      }}>
-      <StatusBar
-        backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
-      />
+    style={{
+      backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+    }}
+  />
+<View
+  style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+  <StatusBar
+    backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
+    barStyle={Theme ? 'light-content' : 'dark-content'}
+  />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View
+      <View
           style={[
             styles.HeaderStyle,
             {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
             },
           ]}>
           <View style={styles.WelcomeView}>
@@ -94,7 +93,7 @@ const SettingsGuest = () => {
                   color: Theme ? Color.White : Color.Black,
                 },
               ]}>
-              Guest, Brethen.
+              Guest, Brethen
             </Text>
           </View>
         </View>
@@ -561,15 +560,14 @@ const SettingsGuest = () => {
 
         <View style={{height: verticalScale(90)}}></View>
       </ScrollView>
-    </SafeAreaView>
-  );
+      </View>
+    </>  );
 };
 
 export default SettingsGuest;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    backgroundColor: Color.HeaderColor,
     height: verticalScale(80),
     justifyContent: 'flex-end',
   },

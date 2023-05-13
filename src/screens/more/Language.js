@@ -44,37 +44,37 @@ const Language = ({navigation,route}) => {
   let DATA = [
     {
       id: '1',
-      title: Provence ?  'Provence 1' : Region ? 'Region 1' : 'English',
+      title: Provence ?  'Province 1' : Region ? 'Region 1' : 'English',
       Short: '(EN)',
     },
     {
       id: '2',
-      title: Provence ?  'Provence 2' : Region ? 'Region 2' : 'Hausa',
+      title: Provence ?  'Province 2' : Region ? 'Region 2' : 'Hausa',
       Short: '(HA)',
     },
     {
       id: '3',
-      title: Provence ?  'Provence 3' : Region ? 'Region 3' : 'Français',
+      title: Provence ?  'Province 3' : Region ? 'Region 3' : 'Français',
       Short: '(FR)',
     },
     {
       id: '4',
-      title: Provence ?  'Provence 4' : Region ? 'Region 4' : 'Português',
+      title: Provence ?  'Province 4' : Region ? 'Region 4' : 'Português',
       Short:  '(PO)',
     },
     {
       id: '5',
-      title: Provence ?  'Provence 5' : Region ? 'Region 5' : 'Pidgin',
+      title: Provence ?  'Province 5' : Region ? 'Region 5' : 'Pidgin',
       Short:  '(PN)',
     },
     {
       id: '6',
-      title: Provence ?  'Provence 6' : Region ? 'Region 6' : 'Fula',
+      title: Provence ?  'Province 6' : Region ? 'Region 6' : 'Fula',
       Short: '(FU)',
     },
     {
       id: '7',
-      title: Provence ?  'Provence 7' : Region ? 'Region 7' : 'Español',
+      title: Provence ?  'Province 7' : Region ? 'Region 7' : 'Español',
       Short: '(ES)',
     },
   ];
@@ -179,12 +179,21 @@ const Language = ({navigation,route}) => {
     </TouchableOpacity>
   );
   return (
+    <>
+    
     <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={[
+        {backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        },
         styles.Container,
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
       ]}>
-      <Header text={Provence ? 'Provence' : Region ? 'Region' : 'Language'} />
+     
+      <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'} />
       <FlatList
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
@@ -195,7 +204,8 @@ const Language = ({navigation,route}) => {
       />
 
       <View style={{height: verticalScale(10)}} />
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

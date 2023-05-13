@@ -151,7 +151,7 @@ const Advertisement = props => {
                 marginBottom: w >= 768 && h >= 1024 ? '16%' : scale(10),
               }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('ViewManual')}
+                onPress={props.onPressView}
                 style={[
                   {
                     height: w >= 768 && h >= 1024 ? verticalScale(30) : '55%',

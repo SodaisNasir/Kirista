@@ -8,12 +8,14 @@ import {
   useColorScheme,
   StatusBar,
 } from 'react-native';
-import React, {useLayoutEffect} from 'react';
+import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import CustomNavigator from '../../components/CustomNavigator';
+import { useFocusEffect } from '@react-navigation/native';
+import { useLayoutEffect } from 'react';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -21,13 +23,11 @@ const h = Dimensions.get('window').height;
 const Terms = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
 
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
-  }, []);
+  useLayoutEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>

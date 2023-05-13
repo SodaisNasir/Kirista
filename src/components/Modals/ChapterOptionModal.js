@@ -45,6 +45,7 @@ const ChapterOptionModal = props => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
 
+  const iosTab = w >= 820 && h >= 1180;
   return (
     <View style={{flex: 1, width: '100%'}}>
       <Modal
@@ -150,7 +151,6 @@ const ChapterOptionModal = props => {
               ]}></TouchableOpacity>
           </View>
 
-          <View>
             <SelectDropdown
               RestyleSelectBox={{
                 backgroundColor: Theme ? '#748194' : Color.FontOptionInput,
@@ -163,7 +163,6 @@ const ChapterOptionModal = props => {
               title={'Arial'}
               onPress={props.toggleModalTwo}
             />
-          </View>
 
           <View
             style={{
@@ -213,7 +212,11 @@ const ChapterOptionModal = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   width:scale(30),
-                  aspectRatio:1/1
+                  aspectRatio: iosTab? null :  1/1,
+                  height : iosTab? verticalScale(25) : null,
+                  // height:
+                  // w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
+                   width: iosTab? scale(25) : scale(30)
                 }}>
                 <Text
                   style={{

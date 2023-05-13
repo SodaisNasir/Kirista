@@ -5,6 +5,7 @@ import {
   Dimensions,
   View,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -26,6 +27,7 @@ const CustomHeader = props => {
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
   const [isChecked, setIsChecked] = useState(false);
+  const iosTab = w >= 820 && h >= 1180;
 
   const handlePress = () => {
     setIsChecked(!isChecked);
@@ -84,13 +86,14 @@ const CustomHeader = props => {
             flexDirection: 'row',
             // backgroundColor: 'red',
             alignItems: 'center',
+         
             // 
           }}>
           <TouchableOpacity style={styles.IconStyle}>
             {props.timeicon ? (
               <Time
                 height={
-                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
+                  w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(20)
                 }
                 width={scale(24)}
               />
@@ -121,19 +124,20 @@ const CustomHeader = props => {
               <TouchableOpacity onPress={handlePress}>
                 <MaterialCommunityIcons
                   name={Bookmark}
-                  size={w >= 768 && h >= 1024 ? scale(15) : scale(23)}
+                  size={w >= 768 && h >= 1024 ? scale(15) : scale(25)}
                   color={Color.Main}
+                  style={{  right: Platform.OS === 'ios' ? iosTab? 4 : 0 : 0}}
                 />
               </TouchableOpacity>
             ) : null}
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.IconStyle}>
             {props.shareicon ? (
-             <FontAwesome name='share-square-o'   size={w >= 768 && h >= 1024 ? scale(14) : scale(22)}
+             <FontAwesome name='share-square-o'   size={w >= 768 && h >= 1024 ? scale(13) : scale(21)}
              color={Color.Main}
              />
-            ) : null}
+            ) : ßnull}
           </TouchableOpacity>
         </View>
       </View>
@@ -159,13 +163,14 @@ const styles = StyleSheet.create({
   },
   IconStyle: {
     paddingHorizontal:
-      w >= 768 && h >= 1024 ? verticalScale(4) : verticalScale(8),
+      w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(6),
+      // backgroundColor:'red'
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),
     fontFamily: Font.Poppins500,
     color: Color.Black,
     // marginBottom: scale(5),
-    // // backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
 });

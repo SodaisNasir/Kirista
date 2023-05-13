@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   useWindowDimensions,
+  SafeAreaView,
 } from 'react-native'
 import Modal from 'react-native-modal'
 import ChapterScreen from './ChapterScreen'
@@ -22,11 +23,7 @@ const DrawerScreen = (props) => {
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
 
-  const [isModalVisible, setModalVisible] = useState(false)
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible)
-  }
   const [chapter, setChapter] = useState(true)
   const [bookmark, setBookmark] = useState(false)
 
@@ -37,7 +34,7 @@ const DrawerScreen = (props) => {
     setBookmark(false)
     setChapterColor(Color.Main)
     setBookmarkColor(color_condition)
-  }
+  }     
   const HandleBookmark = () => {
     setBookmark(true)
     setChapter(false)
@@ -46,19 +43,16 @@ const DrawerScreen = (props) => {
   }
 
   return (
-    <View style={{flex: 1, width: '100%'}}>
-      {/* <Button title="Show modal" onPress={toggleModal} /> */}
+    <SafeAreaView style={{flex: 1, width: '100%'}}>
 
       <Modal
-        // swipeDirection={'left'}
-        // onSwipeComplete={props.onSwipeComplete}
         style={styles.modalStyling}
         backdropOpacity={0.8}
         onBackdropPress={props.onBackdropPress}
         isVisible={props.isVisible}
         animationIn={'slideInLeft'}
         animationOut={'slideInLeft'}>
-        <View
+        <SafeAreaView
           style={[
             styles.modalView,
             {
@@ -152,9 +146,9 @@ const DrawerScreen = (props) => {
           </View>
           {chapter && <ChapterScreen />}
           {bookmark && <BookmarkScreen />}
-        </View>
+        </SafeAreaView>
       </Modal>
-    </View>
+    </SafeAreaView>
   )
 }
 

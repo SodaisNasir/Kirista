@@ -143,14 +143,13 @@ const DetailsCard = (props, {data}) => {
 
 const styles = StyleSheet.create({
   TitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-    fontFamily: Font.Poppins700,
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
+    fontFamily: Font.Poppins600,
   },
   DateStyle: {
-    color: Color.BoldTextColor,
-    fontFamily: Font.Poppins600,
-    // backgroundColor: 'red',
     bottom: verticalScale(7),
+    color: Color.BoldTextColor,
+    fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
 });

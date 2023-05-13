@@ -9,11 +9,12 @@ import {
   useColorScheme,
   ImageBackground,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import CustomButton from '../../components/CustomButton';
 import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
@@ -39,9 +40,10 @@ const OverBoard = ({navigation}) => {
     Dispatch({type: IS_GUEST, payload: true});
   };
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
+        backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
       <ImageBackground
         source={
@@ -59,6 +61,7 @@ const OverBoard = ({navigation}) => {
               width: tabPotrait ? '85%' : '90%',
               alignSelf: 'center',
               justifyContent: 'center',
+              marginTop:verticalScale(20)
             }}>
             <View
               style={{
@@ -71,14 +74,16 @@ const OverBoard = ({navigation}) => {
                   navigation.navigate('Language',{type:'Language'});
                 }}
                 style={{
-                  width: tabPotrait ? scale(40) : scale(55),
-                  height: tabPotrait
-                    ? verticalScale(27)
-                    : fourInchPotrait
-                    ? verticalScale(35)
-                    : verticalScale(42),
+                  // width: tabPotrait ? scale(40) : scale(55),
+                  paddingHorizontal:moderateScale(20),
+                  // height: tabPotrait
+                  //   ? verticalScale(27)
+                  //   : fourInchPotrait
+                  //   ? verticalScale(35)
+                  //   : verticalScale(42),
+                  paddingVertical:moderateVerticalScale(10),
                   backgroundColor: 'rgba(56, 125, 229, 1)',
-                  borderRadius: tabPotrait ? scale(11) : scale(16),
+                  borderRadius: tabPotrait ? scale(11) : scale(100),
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexDirection: 'row',
@@ -114,13 +119,6 @@ const OverBoard = ({navigation}) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => navigation.navigate('SettingsGuest')}>
-                // onPress={() => {
-                //   // navigation.navigate('BottomTabNavigator', {type: 'isGuest'})
-                //   navigation.navigate('BottomTabNavigator', {
-                //     type: 'isGuest',
-                //   });
-                // }}
                 onPress={() => handelSkip()}>
                 <Text
                   style={{
@@ -128,7 +126,7 @@ const OverBoard = ({navigation}) => {
                     color: 'rgba(56, 125, 229, 1)',
                     textDecorationLine: 'underline',
                     fontSize: tabPotrait ? scale(9) : scale(15),
-                    top: tabPotrait ? scale(0) : scale(5),
+                    top: tabPotrait ? scale(0) : Platform.OS == 'ios' ?  scale(7) : scale(5),
                   }}>
                   Skip
                 </Text>
@@ -323,7 +321,7 @@ const OverBoard = ({navigation}) => {
           </View>
         </ScrollView>
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 };
 

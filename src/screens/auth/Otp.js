@@ -56,6 +56,7 @@ const OTP = ({navigation}) => {
         styles.Container,
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{alignSelf:'center',width:'90%'}}>
         <AuthHeader text={'Email Verification'} />
 
         <View
@@ -127,31 +128,38 @@ const OTP = ({navigation}) => {
             )}
           </View>
         </View>
-
         <CodeField
           ref={ref}
           value={value}
           onChangeText={setValue}
           cellCount={CELL_COUNT}
-          rootStyle={styles.codeFieldRoot}
+          rootStyle={[styles.codeFieldRoot,{  color: Theme ? Color.White : Color.Black,
+            borderRadius:scale(16),
+          
+          }]}
           keyboardType="number-pad"
           textContentType="oneTimeCode"
           renderCell={({index, symbol, isFocused}) => (
+            <View style={{  backgroundColor: Theme
+              ? Color.DarkThemeInputBox
+              : Color.OtpBoxColor, borderRadius:scale(16),}}>
             <Text
               key={index}
               style={[
                 {
-                  backgroundColor: Theme
-                    ? Color.DarkThemeInputBox
-                    : Color.OtpBoxColor,
+                 
+                    color: Theme ? Color.White : Color.Black,
+                    // backgroundColor:'pink',
+                  
+                  
                 },
-                {},
                 styles.cell,
                 isFocused && styles.focusCell,
               ]}
               onLayout={getCellOnLayoutHandler(index)}>
               {symbol || (isFocused ? <Cursor /> : null)}
             </Text>
+            </View>
           )}
         />
         <View
@@ -163,6 +171,7 @@ const OTP = ({navigation}) => {
             onPress={() => navigation.navigate('NewPassword')}
             text={'Continue'}
           />
+        </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -201,18 +210,19 @@ const styles = StyleSheet.create({
   codeFieldRoot: {
     paddingHorizontal: moderateScale(32),
     marginVertical: scale(10),
+    borderRadius:scale(16)
   },
   cell: {
     paddingTop: moderateVerticalScale(5),
     width: w >= 768 && h >= 1024 ? scale(50) : scale(50),
     height: w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(40),
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(18),
-    borderRadius: scale(16),
     textAlign: 'center',
-    textAlignVertical: 'center',
-    color: Color.Black,
+    // textAlignVertical: 'center',
     fontFamily: Font.Poppins400,
     elevation: 1,
+    lineHeight:verticalScale(30),
+    // borderRadius:scale(16),
   },
   ImageBox: {
     marginTop: '30%',

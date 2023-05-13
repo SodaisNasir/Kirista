@@ -17,10 +17,10 @@ const ChapterScreen = (props) => {
   const Theme = useColorScheme() === 'dark';
   const color_condition = Theme ? Color.White : Color.Black;
   const [colors, setColors] = useState([
-    {title: 'Chapter 1', color: {color_condition}},
-    {title: 'Chapter 2', color: {color_condition}},
-    {title: 'Chapter 3', color: {color_condition}},
-    {title: 'Chapter 4', color: {color_condition}},
+    {title: 'Chapter 1', color: color_condition},
+    {title: 'Chapter 2', color: color_condition},
+    {title: 'Chapter 3', color: color_condition},
+    {title: 'Chapter 4', color: color_condition},
   ]);
   const handlePress = index => {
     const newColors = [...colors];

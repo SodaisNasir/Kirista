@@ -21,6 +21,8 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
+
+  const iosTab = w >= 820 && h >= 1180;
   const Theme = useColorScheme() === 'dark';
   return (
     <SafeAreaView
@@ -29,6 +31,9 @@ const ResetPassword = ({navigation}) => {
         styles.Container,
       ]}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <View style={{alignSelf:'center',width:'90%'}}>
+
+       
         <AuthHeader text={'Reset Password'} />
 
         <View
@@ -69,6 +74,7 @@ const ResetPassword = ({navigation}) => {
             text={'Next'}
           />
         </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -77,8 +83,7 @@ const ResetPassword = ({navigation}) => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    paddingHorizontal:
-      w >= 768 && h >= 1024 ? moderateScale(30) : moderateScale(20),
+  
   },
 
   NavigatorStyle: {

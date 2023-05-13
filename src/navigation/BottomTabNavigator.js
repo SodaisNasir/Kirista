@@ -63,6 +63,7 @@ const BottomTabNavigator = () => {
   const tabLandscape = w >= 1024 && h >= 768;
   const fourInchPotrait = w <= 350 && h <= 600;
   const fourInchLandscape = w <= 600 && h <= 350;
+  const iosTab = w >= 820 && h >= 1180;
 
   const {width, height} = useWindowDimensions();
   const Theme = useColorScheme() === 'dark';
@@ -225,6 +226,7 @@ const BottomTabNavigator = () => {
                     : verticalScale(15),
                     marginLeft : tabPotrait? scale(35) : 0,
                     right: w >= 768 && h >= 1024 ? scale(0) : scale(0),
+                    left: iosTab?  scale(1) :null
                 }}
                 width={
                   width >= 768 && height >= 1024
@@ -260,8 +262,9 @@ const BottomTabNavigator = () => {
                     ? verticalScale(-30)
                     : verticalScale(15),
              
-                    marginLeft : tabPotrait? scale(35) : 0,
-                    right: w >= 768 && h >= 1024 ? scale(0) : scale(0),
+                    marginLeft : tabPotrait? scale(35)   : 0,
+                    right: iosTab?  scale(0) : w >= 768 && h >= 1024 ? scale(0)  : scale(0),
+                    left: iosTab?  scale(1) :null
                 }}
                 width={
                   width >= 768 && height >= 1024
@@ -301,8 +304,10 @@ const BottomTabNavigator = () => {
           tabBarLabelStyle: {
             fontFamily: Font.Poppins600,
             fontSize: tabPotrait ? scale(7) : scale(11),
-             marginBottom: tabPotrait ? verticalScale(-15) : Platform.OS === 'ios' ? verticalScale(0) : verticalScale(15),
-            right: tabPotrait ? scale(17) : 0,
+             marginBottom: iosTab? verticalScale(-17) : tabPotrait ? verticalScale(-15) : Platform.OS === 'ios' ? verticalScale(0) : verticalScale(15),
+            right: iosTab ? 22 :  tabPotrait? 20 : 0,
+            // marginLeft: tabPotrait? 35 : 0
+            // left:
           },
           tabBarIcon: ({focused}) =>
             focused ? (
@@ -311,6 +316,7 @@ const BottomTabNavigator = () => {
                   marginTop: tabPotrait
                     ? verticalScale(-30)
                     : verticalScale(15),
+                    marginLeft: iosTab? 42 : tabPotrait? 35 : 0
                 }}
                 width={
                   width >= 768 && height >= 1024
@@ -345,6 +351,7 @@ const BottomTabNavigator = () => {
                   marginTop: tabPotrait
                     ? verticalScale(-30)
                     : verticalScale(15),
+                    marginLeft: iosTab? 42 : tabPotrait? 35 : 0
                 }}
                 width={
                   width >= 768 && height >= 1024

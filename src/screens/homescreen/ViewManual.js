@@ -7,6 +7,7 @@ import {
   Dimensions,
   useColorScheme,
   StatusBar,
+  Platform
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -29,15 +30,20 @@ const ViewManual = ({navigation}) => {
   );
 
   return (
+    <>
     <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0
+        },
         styles.Container,
       ]}>
-      <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.White}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
-      />
+     
       <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader shareicon={true} saveicon={true} />
         {/* <View style={{height:verticalScale(100),backgroundColor:'purple'}}> */}
@@ -213,7 +219,8 @@ const ViewManual = ({navigation}) => {
 
         <View style={{height: verticalScale(85)}}></View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

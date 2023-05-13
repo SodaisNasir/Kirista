@@ -7,7 +7,8 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  useColorScheme
+  useColorScheme,
+  StatusBar
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -32,8 +33,13 @@ const ViewBanner = ({navigation}) => {
   );
   
   return (
-    
+    <>
+     
     <SafeAreaView style={[{backgroundColor: Theme? Color.DarkTheme : Color.White,flex:1}]}>
+    <StatusBar
+        backgroundColor={Theme ? Color.ExtraViewDark : '#F1F6FD'}
+        barStyle={Theme ? 'light-content' : 'dark-content'}
+      />
       <View style={{height: '100%', backgroundColor: Theme? Color.DarkTheme : Color.White}}>
         <Header />
         <ScrollView>
@@ -80,6 +86,7 @@ const ViewBanner = ({navigation}) => {
         </View>
       </View>
     </SafeAreaView>
+    </>
   );
 };
 

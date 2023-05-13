@@ -31,6 +31,9 @@ const About = ({navigation}) => {
   }, []);
 
   return (
+    <>
+      <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+
     <SafeAreaView
       style={[
         {
@@ -55,10 +58,10 @@ const About = ({navigation}) => {
             style={{
               height:
                 w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(150),
-              width: w >= 768 && h >= 1024 ? '100%' : '100%',
+              width: w >= 768 && h >= 1024 ? '100%' : '90%',
             }}>
             <Image
-              resizeMode="center"
+              resizeMode="contain"
               source={
                 Theme
                   ? require('../../assets/images/krista_about_dark.png')
@@ -366,6 +369,7 @@ const About = ({navigation}) => {
         <View style={{height: verticalScale(10)}} />
       </ScrollView>
     </SafeAreaView>
+    </>
   );
 };
 

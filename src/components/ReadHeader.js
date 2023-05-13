@@ -5,6 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -33,23 +34,26 @@ const ReadHeader = props => {
   return (
     <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor},
+        {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
         styles.AuthHeaderStyle,
       ]}>
       <View
         style={{
           flexDirection: 'row',
-
+          // backgroundColor:'red',
+          
           marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(15),
+            w >= 768 && h >= 1024 ? verticalScale(12) : Platform.OS =='ios' ? verticalScale(12): verticalScale(15),
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
           justifyContent: 'space-between',
+          
         }}>
         {props.textshown ? (
           <View
             style={{
               justifyContent: 'center',
+              
             }}>
             <Text
               style={[
@@ -94,6 +98,7 @@ const styles = StyleSheet.create({
   AuthHeaderStyle: {
     height: verticalScale(90),
     justifyContent: 'flex-end',
+    // backgroundColor:'red'
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),

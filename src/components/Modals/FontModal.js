@@ -35,11 +35,11 @@ const FontModal = (props) => {
       label: 'Courier',
     },
     {
-      id: '2',
+      id: '3',
       label: 'Georgia',
     },
     {
-      id: '3',
+      id: '4',
       label: 'Lata',
     },
     {

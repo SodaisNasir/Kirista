@@ -89,7 +89,8 @@
 		<string>fonts/Inter-Bold.ttf</string>
 		<string>fonts/Inter-Regular.ttf</string>
 		<string>fonts/Inter-SemiBold.ttf</string>
-		<string>fonts/Gobold-Regular.otf</string>
+		<string>fonts/Gobold.ttf</string>
+		<string>fonts/Gobold-Regular.ttf</string>
 		<string>fonts/LibreBaskerville-Bold.ttf</string>
 		<string>fonts/LibreBaskerville-Regular.ttf</string>
 

@@ -4,7 +4,7 @@ import {
   Dimensions,
   useColorScheme,
   ScrollView,
-  Platform
+  Platform,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {Color} from '../../../utils/Colors';
@@ -19,6 +19,7 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Events = () => {
+  const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +40,11 @@ const Events = () => {
           fontFamily: Font.Poppins600,
           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
           marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(-15) : Platform.OS ==='ios' ? verticalScale(0) : verticalScale(15),
+            w >= 768 && h >= 1024
+              ? verticalScale(-15)
+              : Platform.OS === 'ios'
+              ? verticalScale(0)
+              : verticalScale(15),
           // right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
         },
       });
@@ -95,126 +100,134 @@ const Events = () => {
   // ]
 
   return (
-    <SafeAreaView
-      style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
-        styles.Container,
-      ]}>
-      <HomeHeader
-        EventRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
-        EventUnderLineStyle={{
-          width: '55%',
-          backgroundColor: Color.Main,
-          height: verticalScale(2),
-          bottom: scale(4),
+    <>
+      <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          marginTop : Platform.OS ==='ios'? iosTab ? verticalScale(0) : verticalScale(-30) : 0
         }}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            paddingHorizontal:
-              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            marginTop: verticalScale(10),
-          }}>
-          <DetailsCard
-            onPress={() => navigation.navigate('EventScreen')}
-            source={require('../../../assets/images/event_1.png')}
-            title="West Coast 2 Regional"
-            manual="Convention"
-            resize={'cover'}
-            TimeTrue={true}
-            date={'November 09, 2023'}
-            time={'4PM'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          <DetailsCard
-            source={require('../../../assets/images/event_2.png')}
-            title="West Coast 3 Regional"
-            resize={'cover'}
-            manual="Convention"
-            TimeTrue={true}
-            date={'November 09, 2023'}
-            time={'4PM'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          <DetailsCard
-            source={require('../../../assets/images/event_3.png')}
-            title="West Coast 3 Regional"
-            resize={'cover'}
-            manual="Convention"
-            PlaceTrue={true}
-            TimeTrue={true}
-            date={'November 09, 2023'}
-            time={'4PM'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          <DetailsCard
-            source={require('../../../assets/images/EventScreenImage1.png')}
-            title="Abuja Special Holy Ghost"
-            resize={'cover'}
-            manual="Congress"
-            PlaceTrue={true}
-            // Place="Ghana"
-            TimeTrue={true}
-            date={'November 09, 2023'}
-            time={'4PM'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          <DetailsCard
-            source={require('../../../assets/images/event_2.png')}
-            title="West Coast 3 Regional"
-            resize={'cover'}
-            manual="Convention"
-            TimeTrue={true}
-            date={'November 09, 2023'}
-            time={'4PM'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-        </View>
+      <View
+        style={[
+          {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+          styles.Container,
+        ]}>
+        <HomeHeader
+          EventRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
+          EventUnderLineStyle={{
+            width: '55%',
+            backgroundColor: Color.Main,
+            height: verticalScale(2),
+            bottom: scale(4),
+          }}
+        />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+            style={{
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              marginTop: verticalScale(10),
+            }}>
+            <DetailsCard
+              onPress={() => navigation.navigate('EventScreen')}
+              source={require('../../../assets/images/event_1.png')}
+              title="West Coast 2 Regional"
+              manual="Convention"
+              resize={'cover'}
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth: 1,
+              }}
+            />
+            <DetailsCard
+              source={require('../../../assets/images/event_2.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth: 1,
+              }}
+            />
+            <DetailsCard
+              source={require('../../../assets/images/event_3.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              PlaceTrue={true}
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth: 1,
+              }}
+            />
+            <DetailsCard
+              source={require('../../../assets/images/EventScreenImage1.png')}
+              title="Abuja Special Holy Ghost"
+              resize={'cover'}
+              manual="Congress"
+              PlaceTrue={true}
+              // Place="Ghana"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth: 1,
+              }}
+            />
+            <DetailsCard
+              source={require('../../../assets/images/event_2.png')}
+              title="West Coast 3 Regional"
+              resize={'cover'}
+              manual="Convention"
+              TimeTrue={true}
+              date={'November 09, 2023'}
+              time={'4PM'}
+              MainBoxRestyle={{
+                paddingBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                marginTop:
+                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                // backgroundColor:'red'
+                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomWidth: 1,
+              }}
+            />
+          </View>
 
-        <View style={{height: verticalScale(75)}} />
-      </ScrollView>
-    </SafeAreaView>
+          <View style={{height: verticalScale(75)}} />
+        </ScrollView>
+      </View>
+    </>
   );
 };
 

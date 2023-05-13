@@ -92,13 +92,19 @@ const LibraryHome = ({navigation}) => {
           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
           marginBottom:
             w >= 768 && h >= 1024 ? verticalScale(-15) : Platform.OS ==='ios' ? verticalScale(0) : verticalScale(15),
-          right: w >= 768 && h >= 1024 ? scale(3) : scale(0),
+          right: w >= 768 && h >= 1024 ? scale(0) : scale(0),
         }
        
       });
     }),
   );
   return (
+    <>
+     <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <StatusBar
@@ -215,6 +221,7 @@ const LibraryHome = ({navigation}) => {
         onPress={() => setModalVisible(false)}
       />
     </SafeAreaView>
+    </>
   );
 };
 

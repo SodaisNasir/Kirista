@@ -18,7 +18,7 @@ import {Color} from '../../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import HomeHeader from '../../components/HomeHeader';
 import {Font} from '../../utils/font';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useFocusEffect} from '@react-navigation/native';
 import DetailsCard from '../../components/Card/DetailsCard';
@@ -36,11 +36,12 @@ const Home = ({navigation}) => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
+          position:'absolute',
+          bottom:0,
           height: verticalScale(80),
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
           borderTopWidth: 0,
-
           tabBarLabelStyle: {
             fontFamily: Font.Poppins600,
             fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
@@ -156,6 +157,8 @@ const Home = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(true);
 
   return (
+    <>
+    <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <StatusBar
@@ -251,9 +254,9 @@ const Home = ({navigation}) => {
               onPress={() => navigation.navigate('PopularBooks')}
               style={{flexDirection: 'row'}}>
               <Text style={styles.MoreText}>More</Text>
-              <View style={{}}>
-                <Ionicons
-                  name="chevron-forward"
+              <View style={{top:1}}>
+                <Entypo
+                  name="chevron-small-right"
                   size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                   color={Color.Main}
                 />
@@ -333,7 +336,7 @@ const Home = ({navigation}) => {
                                   ? Color.White
                                   : Color.DarkTextColor,
                                 // maxWidth: w >= 768 && h >= 1024 ? '100%' : '90%',
-                                marginTop: verticalScale(-5),
+                                marginTop:Platform.OS == 'ios' ?  verticalScale(0) : verticalScale(-5),
                               },
                             ]}>
                             {item.manual}
@@ -465,7 +468,7 @@ const Home = ({navigation}) => {
                             maxWidth: '100%',
                             top: item.type == 'ye' ? scale(15) : scale(10),
                             fontSize: iosTab
-                              ? scale(6)
+                              ? scale(7)
                               : w >= 768 && h >= 1024
                               ? scale(7)
                               : w <= 350 && h <= 600
@@ -474,7 +477,8 @@ const Home = ({navigation}) => {
                               ? scale(8)
                               : scale(13),
                             elevation: 5,
-                            marginTop:verticalScale(20)
+                            marginTop:w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20)
+                            
                           }}>
                           {item.text}
                         </Text>
@@ -485,7 +489,7 @@ const Home = ({navigation}) => {
                             textTransform: 'uppercase',
                             top: item.type == 'ye' ? scale(15) : scale(10),
                             fontSize: iosTab
-                              ? scale(6)
+                              ? scale(7)
                               : w >= 768 && h >= 1024
                               ? scale(7)
                               : w <= 350 && h <= 600
@@ -517,7 +521,11 @@ const Home = ({navigation}) => {
                               fontFamily: Font.Poppins400,
                               color: Color.White,
                               fontSize:
-                                w >= 768 && h >= 1024 ? scale(7) : scale(12),
+                              iosTab ? scale(5) :
+                                w >= 768 && h >= 1024 ? scale(7) 
+
+                                : scale(12)
+                                ,
                               elevation: 5,
                             }}>
                             {item.text2}
@@ -571,9 +579,9 @@ const Home = ({navigation}) => {
                 flexDirection: 'row',
               }}>
               <Text style={styles.MoreText}>More</Text>
-              <View style={{}}>
-                <Ionicons
-                  name="chevron-forward"
+              <View style={{top:1}}>
+                <Entypo
+                  name="chevron-small-right"
                   size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                   color={Color.Main}
                 />
@@ -665,10 +673,10 @@ const Home = ({navigation}) => {
                 navigation.navigate('Events');
               }}
               style={{flexDirection: 'row'}}>
-              <Text style={styles.MoreText}>See All</Text>
-              <View style={{}}>
-                <Ionicons
-                  name="chevron-forward"
+              <Text style={styles.MoreText}>See all</Text>
+              <View style={{top:1}}>
+                <Entypo
+                  name="chevron-small-right"
                   size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
                   color={Color.Main}
                 />
@@ -749,15 +757,17 @@ const Home = ({navigation}) => {
 
         <View
           style={{
-            height: verticalScale(10),
+            height: verticalScale(80),
           }}
         />
       </ScrollView>
       <Advertisement
         isVisible={isModalVisible}
         HideModalOnPress={() => setModalVisible(false)}
+        onPressView={() => {navigation.navigate('ViewManual');setModalVisible(false)}}
       />
     </SafeAreaView>
+    </>
   );
 };
 
@@ -778,7 +788,8 @@ const styles = StyleSheet.create({
   MoreText: {
     color: Color.Main,
     fontFamily: Font.Poppins600,
-    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
+    top:1
   },
   ImageView: {
     alignItems: 'center',
@@ -805,6 +816,7 @@ const styles = StyleSheet.create({
     height: '75%',
     marginTop: verticalScale(10),
     alignSelf: 'center',
+  
   },
   SwiperView: {
     alignItems: 'center',

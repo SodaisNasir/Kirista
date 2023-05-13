@@ -55,25 +55,34 @@ const SettingsMore = () => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          height:verticalScale(80),
+          position:'absolute',
+          bottom:0,
+          height: verticalScale(80),
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
           borderTopWidth: 0,
-       
-        tabBarLabelStyle: {
-          fontFamily: Font.Poppins600,
-          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-          marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
-        }
+          tabBarLabelStyle: {
+            fontFamily: Font.Poppins600,
+            fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+            marginBottom:
+              w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+
+            left: w >= 768 && h >= 1024 ? scale(115) : scale(0),
+          },
         },
       });
     }),
   );
+
   
   return (
-    <SafeAreaView
+    <>
+      <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <StatusBar
         backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
@@ -277,7 +286,6 @@ const SettingsMore = () => {
               </Text>
             </View>
 
-            <View></View>
             <CustomSwitch />
           </TouchableOpacity>
           <TouchableOpacity
@@ -590,7 +598,8 @@ const SettingsMore = () => {
         />
         <View style={{height: verticalScale(90)}}></View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 
@@ -598,9 +607,8 @@ export default SettingsMore;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    backgroundColor: Color.HeaderColor,
     height: verticalScale(80),
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   WelcomeView: {
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),

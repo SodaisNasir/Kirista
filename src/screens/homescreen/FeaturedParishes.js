@@ -8,18 +8,21 @@ import {
   Dimensions,
   useColorScheme,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import DetailsCard from '../../components/Card/DetailsCard';
+import {useFocusEffect,useNavigation} from '@react-navigation/native';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const FeaturedParishes = props => {
+  const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
 
   // const data = [
@@ -69,7 +72,11 @@ const FeaturedParishes = props => {
   //     country: 'Togo',
   //   },
   // ]
-
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
+  );
   return (
     <SafeAreaView
       style={[

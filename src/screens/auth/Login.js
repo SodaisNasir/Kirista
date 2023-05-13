@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   useColorScheme,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -24,6 +25,8 @@ import { useCallback } from 'react';
 const Login = ({navigation}) => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
+
+  const iosTab = w >= 820 && h >= 1180;
   const tabPotrait = w >= 768 && h >= 1024;
   const standardLandscape = w >= 684 && h >= 360;
   const tabLandscape = w >= 768 && h >= 1024;
@@ -48,7 +51,7 @@ const Login = ({navigation}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
-            marginTop: '10%',
+            marginTop: '0%',
           }}>
           <Kiristalogo />
         </View>
@@ -57,12 +60,15 @@ const Login = ({navigation}) => {
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            marginTop: '10%',
+            marginVertical: '0%',
+            // backgroundColor:'red',
+          
+            
           }}>
           <Text
             style={{
               fontFamily: Font.Poppins700,
-              fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
+              fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(20),
               color: Theme ? Color.White : Color.Black,
             }}>
             Welcome Back,
@@ -70,16 +76,16 @@ const Login = ({navigation}) => {
           <Text
             style={{
               fontFamily: Font.Poppins700,
-              fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(22),
+              fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(20),
               color: Theme ? Color.White : Color.Black,
               alignSelf: 'center',
-              marginTop:verticalScale(-10)
+              marginTop:Platform.OS == 'ios'? verticalScale(-5) : verticalScale(-10)
             }}>
             Brethren.
           </Text>
         </View>
 
-        <View style={{marginVertical: verticalScale(15)}}>
+        <View style={{marginVertical: verticalScale(20),}}>
           <CustomInput
             onChangeText={txt => {
               console.log('text ==>', email);
@@ -133,7 +139,10 @@ const Login = ({navigation}) => {
             style={{
               alignItems: 'center',
               justifyContent: 'center',
-              marginTop: '32%',
+              marginTop: Platform.OS == 'ios' ? iosTab? '49%' : '55%' : '42%',
+              // alignSelf:'center'
+              // backgroundColor:'red',
+              // 
             }}>
             <Text
               style={{

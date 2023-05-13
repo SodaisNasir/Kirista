@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   FlatList,
   Keyboard,
+  Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
@@ -32,6 +33,8 @@ const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
 const fourInchPotrait = w <= 350 && h <= 600;
 const Searchbar = () => {
+
+  const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
   const data = [
@@ -186,6 +189,8 @@ const Searchbar = () => {
     }, []),
   );
   return (
+    <>
+   <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <SafeAreaView
       style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
       <View
@@ -195,7 +200,7 @@ const Searchbar = () => {
           flexDirection: 'row',
           paddingHorizontal: scale(20),
           borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-          borderBottomWidth: 1,
+          // borderBottomWidth: 1,
         }}>
         {!isSearchBarVisible && searchQuery2 == '' ? (
           <View
@@ -213,79 +218,6 @@ const Searchbar = () => {
           </View>
         ) : null}
         {/*  this ti for Searchbarr */}
-        {/* <View
-          style={{
-            height: '100%',
-            width: isSearchBarVisible ? '80%' : '90%',
-            justifyContent: 'center',
-          }}>
-          <View
-            style={{
-              height: verticalScale(40),
-              backgroundColor: Theme ? '#2B3642' : Color.White,
-              borderRadius: scale(25),
-              overflow: 'hidden',
-              flexDirection: 'row',
-              paddingHorizontal: moderateScale(20),
-              alignItems:'center'
-            }}>
-            <View
-              style={{
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Search
-                height={
-                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
-                }
-                width={
-                  w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(26)
-                }
-              />
-            </View>
-              <TextInput
-                onFocus={() => setIsSearchBarVisible(true)}
-                style={{
-                  height:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(37)
-                      : fourInchPotrait
-                      ? verticalScale(45)
-                      : w <=  450  && h <= 700 ? '100%' : verticalScale(37),
-                  width: '100%',
-                  color: Theme ? '#fff' : '#000',
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : w >=  450  && h >= 700 ?  scale(10) : scale(14),
-                  fontFamily: Font.Inter500,
-                  top: fourInchPotrait ? verticalScale(2) : verticalScale(1.5),
-                }}
-                placeholder="Search"
-                placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
-                onSubmitEditing={() => console.log(searchInputValue2)}
-                onChangeText={text => handleSearch2(text)}
-                value={searchQuery2}
-              />
-         
-
-            {isSearchBarVisible ? (
-              <View
-                style={{
-                  // justifyContent: 'center',
-                  alignSelf: 'center',
-                  position: 'absolute',
-                  right: scale(10),
-                }}>
-                <TouchableOpacity onPress={() => setSearchQuery2('')}>
-                  <Ionicons
-                    name="close-circle"
-                    size={tabPotrait ? scale(15) : 22}
-                    color={Theme ? '#B4B5B7' : '#B4B5B7'}
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : null}
-          </View>
-        </View> */}
         <View
           style={{
             width: isSearchBarVisible ? '80%' : '90%',
@@ -319,6 +251,7 @@ const Searchbar = () => {
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : w >=  450  && h >= 700 ?  scale(10) : scale(14),
                   fontFamily: Font.Inter500,
                   top: fourInchPotrait ? verticalScale(2) : verticalScale(1.5),
+                  left : iosTab? scale(2): 0 
                 }}
                 placeholder="Search"
                 placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
@@ -523,7 +456,9 @@ const Searchbar = () => {
               flexDirection: 'row',
               justifyContent: 'space-around',
               backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-              paddingTop: verticalScale(10),
+              paddingTop: verticalScale(1),
+           
+              
             }}>
             <TouchableOpacity
               style={{marginBottom: verticalScale(10)}}
@@ -539,7 +474,7 @@ const Searchbar = () => {
                       ? Color.Main
                       : '#C1C5CA',
                   },
-                  styles.TextStyle,
+                  styles.Text2Style,
                   styles.BooksStyle,
                 ]}>
                 Books
@@ -560,7 +495,7 @@ const Searchbar = () => {
                       ? Color.Main
                       : '#C1C5CA',
                   },
-                  styles.TextStyle,
+                  styles.Text2Style,
                   // props.ParishRestyle,
                 ]}>
                 Parishes
@@ -582,7 +517,7 @@ const Searchbar = () => {
                       ? Color.Main
                       : '#C1C5CA',
                   },
-                  styles.TextStyle,
+                  styles.Text2Style,
                   // props.EventRestyle,
                 ]}>
                 Events
@@ -595,7 +530,7 @@ const Searchbar = () => {
               <View
                 style={{
                   borderBottomColor: Color.Main,
-                  borderBottomWidth: 1.5,
+                  borderBottomWidth: 2.5,
                   backgroundColor: Theme ? Color.Main : Color.HeaderColor,
                   width: '33%',
                   // marginLeft: '33%',
@@ -606,9 +541,9 @@ const Searchbar = () => {
               <View
                 style={{
                   borderBottomColor: Color.Main,
-                  borderBottomWidth: 1.5,
+                  borderBottomWidth: 2.5,
                   backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-                  width: '33%',
+                  width: '33s%',
                   marginLeft: '33%',
                 }}
               />
@@ -617,7 +552,7 @@ const Searchbar = () => {
               <View
                 style={{
                   borderBottomColor: Color.Main,
-                  borderBottomWidth: 1.5,
+                  borderBottomWidth: 2.5,
                   backgroundColor: Theme ? Color.Main : Color.HeaderColor,
                   width: '33%',
                   marginLeft: '66%',
@@ -668,6 +603,8 @@ const Searchbar = () => {
         </View>
       )}
     </SafeAreaView>
+
+    </>
   );
 };
 
@@ -697,6 +634,10 @@ const styles = StyleSheet.create({
 
   TextStyle: {
     fontFamily: Font.Poppins500,
+    fontSize: tabPotrait ? scale(8) : scale(12),
+  },
+  Text2Style: {
+    fontFamily: Font.Poppins600,
     fontSize: tabPotrait ? scale(8) : scale(12),
   },
   closeButtonText: {

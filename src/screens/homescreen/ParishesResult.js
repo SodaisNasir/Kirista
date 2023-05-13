@@ -7,6 +7,7 @@ import {
   useColorScheme,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
@@ -75,10 +76,16 @@ const ParishesResult = ({navigation}) => {
     }, []),
   );
   return (
-    <SafeAreaView
+    <>
+      <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={[
         styles.Container,
-        {backgroundColor: Theme ? Color.DarkTheme : '#fff'},
+        {backgroundColor: Theme ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-15) : 0},
       ]}>
       <Header text={'Result'} />
       <FlatList
@@ -129,13 +136,6 @@ const ParishesResult = ({navigation}) => {
                       : verticalScale(15),
                   marginVertical: verticalScale(25),
                 }}>
-                {/* <View
-                  style={{
-                    // height: verticalScale(30),
-
-                    // backgroundColor: 'yellow',
-                    justifyContent: 'center',
-                  }}> */}
                   <Text
                     style={[
                       styles.TitleStyle,
@@ -150,7 +150,7 @@ const ParishesResult = ({navigation}) => {
                     style={[
                       {
                         color: Theme ? '#fff' : Color.DarkTextColor,
-                        marginTop:  verticalScale(-10),
+                        marginTop:  Platform.OS == 'ios' ? verticalScale(-5) :  verticalScale(-10),
                       },
                       styles.TitleStyle,
                     ]}>
@@ -171,7 +171,8 @@ const ParishesResult = ({navigation}) => {
           );
         }}
       />
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

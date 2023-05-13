@@ -27,7 +27,7 @@ export const Color = {
   DarkThemeInputText: '#959AA0',
   DarkThemeInputBox: '#2B3642',
   DarkThemeCustomNavigator: '#0A2142',
-  DarkBorderColor: '#061731',
+  DarkBorderColor: '#20314A',
   HomeHeaderTextDark: '#B5BCC6',
   ExtraViewDark: '#0A2142',
   DarkThemText2: '#838C9A',

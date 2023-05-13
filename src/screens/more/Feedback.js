@@ -63,7 +63,13 @@ const Feedback = ({navigation}) => {
     });
   };
   return (
-    <SafeAreaView
+    <>
+      <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={[
         {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
@@ -135,7 +141,8 @@ const Feedback = ({navigation}) => {
           </View>
         </KeyboardAvoidingView>
       </View>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 
