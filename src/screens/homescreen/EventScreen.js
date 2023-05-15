@@ -47,16 +47,25 @@ const EventScreen = ({navigation}) => {
         styles.Container,
         {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0
+          // marginTop:Platform.OS == 'ios' ? verticalScale(-30) : 0
         },
       ]}>
-      <ScrollView showsVerticalScrollIndicator={false}>
         <CustomHeader
           text={'View Event'}
           shareicon={true}
           saveicon={true}
           timeicon={true}
+          AuthHeaderStyle={{
+            marginTop:  w <= 450 && h <= 750 ? 0 : verticalScale(-15),
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}
         />
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:
@@ -238,7 +247,7 @@ const EventScreen = ({navigation}) => {
           onSwipeComplete={() => setModalVisible(false)}
           onRequestClose={() => setModalVisible(false)}
           OptionSelect={() => setModalVisible(false)}
-          onPress={() => setModalVisible(false)}
+          onPressClose={() => setModalVisible(false)}
         />
       </ScrollView>
     </View>

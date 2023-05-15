@@ -28,13 +28,26 @@ const Privacy = ({navigation}) => {
     });
   }, []);
   return (
-    <SafeAreaView
+    <>
+     <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <StatusBar
         backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
-      <Header text={'Privacy'} />
+      <Header text={'Privacy'}  AuthHeaderStyle={{
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={[
@@ -143,7 +156,8 @@ const Privacy = ({navigation}) => {
         }}>
         <CustomNavigator />
       </View>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

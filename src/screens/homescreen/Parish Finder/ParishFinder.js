@@ -32,7 +32,7 @@ const ParishFinder = ({navigation}) => {
             width: '25%',
             backgroundColor: Color.Main,
             height: verticalScale(2),
-            bottom: scale(4),
+            bottom: verticalScale(4),
           }}
         />
         <View
@@ -79,7 +79,7 @@ const ParishFinder = ({navigation}) => {
             onPress={() => navigation.navigate('ParishesResult')}
             text={'Search'}
             stylz={{
-              marginTop: 10,
+              marginTop: verticalScale(25),
             }}
           />
         </View>

@@ -122,33 +122,6 @@ const Searchbar = () => {
   const [Event, setEvent] = useState(false);
 
   console.log('searchQuery.length > 0', searchQuery2);
-
-  // Slide animation for the search bar
-  const slideAnimation = new Animated.Value(0);
-  const slideInSearchBar = () => {
-    setIsSearchBarVisible(true);
-    Animated.timing(slideAnimation, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
-  const slideOutSearchBar = () => {
-    Animated.timing(slideAnimation, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => setIsSearchBarVisible(false));
-  };
-
-  const handleSearch = text => {
-    const formattedQuery = text.toLowerCase();
-    const filteredData = data.filter(item => {
-      return item.title.toLowerCase().includes(formattedQuery);
-    });
-    setFilteredData(filteredData);
-    setSearchQuery(text);
-  };
   const handleSearch2 = text2 => {
     const formattedQuery = text2.toLowerCase();
     const filteredData = searchList.filter(item => {
@@ -191,16 +164,14 @@ const Searchbar = () => {
   return (
     <>
    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
-    <SafeAreaView
+    <View
       style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
       <View
         style={{
-          height: verticalScale(70),
+          height: verticalScale(50),
           backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
           flexDirection: 'row',
-          paddingHorizontal: scale(20),
-          borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-          // borderBottomWidth: 1,
+          paddingHorizontal: moderateScale(10),
         }}>
         {!isSearchBarVisible && searchQuery2 == '' ? (
           <View
@@ -450,7 +421,7 @@ const Searchbar = () => {
           />
         </View>
       ) : (
-        <View style={{flex: 1}}>
+        <View style={{flex: 1,backgroundColor: Theme ? Color.DarkTheme : Color.White,}}>
           <View
             style={{
               flexDirection: 'row',
@@ -602,7 +573,7 @@ const Searchbar = () => {
           </View>
         </View>
       )}
-    </SafeAreaView>
+    </View>
 
     </>
   );

@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -21,13 +22,19 @@ const h = Dimensions.get('window').height;
 const ViewParish = () => {
   const Theme = useColorScheme() === 'dark';
   return (
-    <SafeAreaView
+    <>
+       <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+       <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
+        {
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0
+        },
       ]}>
+        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true} AuthHeaderStyle={{
+        }}/>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true} />
         <View
           style={{
             paddingHorizontal:
@@ -272,7 +279,8 @@ const ViewParish = () => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

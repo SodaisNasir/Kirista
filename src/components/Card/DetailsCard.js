@@ -30,9 +30,6 @@ const DetailsCard = (props, {data}) => {
         {
           flexDirection: 'row',
           alignItems: 'center',
-          // marginHorizontal: verticalScale(20),
-          // marginTop: verticalScale(15),
-          // paddingBottom: verticalScale(15),
         },
       ]}>
       <View
@@ -54,8 +51,6 @@ const DetailsCard = (props, {data}) => {
           style={{
             height: '100%',
             width: '100%',
-            // borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(10),
-            // backgroundColor:'red'
           }}
           source={props.source}
         />
@@ -68,8 +63,6 @@ const DetailsCard = (props, {data}) => {
         }}>
         <View
           style={{
-            // height: verticalScale(30),
-
             justifyContent: 'flex-end',
             top: Platform.OS === 'ios' ? null : verticalScale(10) 
           }}>
@@ -84,7 +77,7 @@ const DetailsCard = (props, {data}) => {
             style={[
               {
                 bottom: Platform.OS === 'ios' ? null : verticalScale(10),
-                lineHeight:Platform.OS === 'ios' ? verticalScale(13) : null,
+                lineHeight:Platform.OS ==='ios' && w <= 450 && h <=750 ? 0 : Platform.OS === 'ios' ? verticalScale(15) : null,
                 color: Theme ? Color.White : Color.DarkTextColor,
               },
               styles.TitleStyle,
@@ -143,14 +136,14 @@ const DetailsCard = (props, {data}) => {
 
 const styles = StyleSheet.create({
   TitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
-    fontFamily: Font.Poppins600,
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(15),
+    fontFamily: Font.Poppins700,
   },
   DateStyle: {
     bottom: verticalScale(7),
     color: Color.BoldTextColor,
-    fontFamily: Font.Poppins500,
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+    fontFamily: Font.Poppins600,
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
   },
 });
 export default DetailsCard;

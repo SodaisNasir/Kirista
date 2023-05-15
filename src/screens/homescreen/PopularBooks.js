@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import React, {useCallback, useLayoutEffect} from 'react';
 import {Color} from '../../utils/Colors';
@@ -34,15 +35,23 @@ const PopularBooks = ({navigation}) => {
 
   return (
     <>
-    
-    <SafeAreaView
+        <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+    <View
       style={[
         {backgroundColor: Theme ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
-      <Header text={'Popular Books'} />
+      <Header text={'Popular Books'} 
+      AuthHeaderStyle={{
 
-     
+        marginTop:Platform.OS == 'ios' ? verticalScale(-25) : 0
+      }}
+
+      />
       <View
         style={{
           paddingHorizontal:
@@ -127,7 +136,7 @@ const PopularBooks = ({navigation}) => {
         {/* <View style ={{height:verticalScale(75)}}/> */}
       </View>
 
-    </SafeAreaView>
+    </View>
     </>
   );
 };
@@ -137,17 +146,14 @@ export default PopularBooks;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    // backgroundColor:'red'
   },
   border: {
     borderBottomWidth: scale(3),
     marginTop: verticalScale(20),
-    // borderColor: Color.BorderColor,
     borderBottomColor: Color.BorderColor,
   },
 
   ImageView: {
-    // backgroundColor: 'red',
     alignItems: 'center',
   },
   YearStyle: {
@@ -156,11 +162,7 @@ const styles = StyleSheet.create({
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
   },
   TitleStyle: {
-    // color: Color.DarkTextColor,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins600,
-    // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
-
-    // paddingHorizontal: verticalScale(50),
   },
 });

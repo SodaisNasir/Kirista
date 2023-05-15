@@ -16,7 +16,6 @@ export const Color = {
   HeaderColor: '#F1F6FD',
   TextColor2: '#5C5C5C',
   BlackText: 'black',
-  ArrowBorder: '#D3D3D3',
   DarkTheme: '#071A36',
   DropDownText: '#BDC1C7',
   ContinentText: '#838C9B',
@@ -33,5 +32,7 @@ export const Color = {
   DarkThemText2: '#838C9A',
   FontBoxColorDark: '#0C2447',
   FontBoxColor: '#EBF2FC',
-  DarkBorder : '#515F72'
+  DarkBorder : '#515F72',
+
+  ArrowBorder: '#D3D3D3',
 }

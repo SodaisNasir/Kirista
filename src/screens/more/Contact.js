@@ -50,10 +50,13 @@ const Contact = () => {
   }, []);
 
   return (
-    <SafeAreaView
+    <>
+    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+
+    <View
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
       <Header text={'Contact'} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:
@@ -66,7 +69,15 @@ const Contact = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
-            <CustomInput text={'Full Name'} placeholder={'Full Name'} />
+            <CustomInput text={'Full Name'} placeholder={'Full Name'}  restyleBox={{
+            marginTop:  w <= 450 && h <= 750 ? 0 : verticalScale(-15),
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
           </View>
 
           <View
@@ -149,7 +160,8 @@ const Contact = () => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

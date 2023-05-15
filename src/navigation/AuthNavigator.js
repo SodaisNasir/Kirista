@@ -13,7 +13,6 @@ import OTP from '../screens/auth/Otp';
 import ResetPassword from '../screens/auth/ResetPassword';
 import NewPassword from '../screens/auth/NewPassword';
 import EventScreen from '../screens/homescreen/EventScreen';
-import ViewEvent from '../screens/homescreen/ViewEvent';
 import PopularBooks from '../screens/homescreen/PopularBooks';
 import ViewManual from '../screens/homescreen/ViewManual';
 import ViewParish from '../screens/homescreen/ViewParish';

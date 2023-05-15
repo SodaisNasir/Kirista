@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import React, {useState, useCallback} from 'react';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -55,8 +55,8 @@ const SettingsMore = () => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          position:'absolute',
-          bottom:0,
+          position: 'absolute',
+          bottom: 0,
           height: verticalScale(80),
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           borderColor: Theme ? Color.DarkTheme : Color.White,
@@ -74,7 +74,6 @@ const SettingsMore = () => {
     }),
   );
 
-  
   return (
     <>
       <SafeAreaView
@@ -82,523 +81,536 @@ const SettingsMore = () => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-    <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
-      <StatusBar
-        backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
-      />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={[
-            styles.HeaderStyle,
-            {
-              backgroundColor: Theme ? Color.DarkTheme : Color.HeaderColor,
-            },
-          ]}>
-          <View style={styles.WelcomeView}>
-            <Text
-              style={[
-                styles.WelcomeText,
-                {
-                  color: Theme ? Color.White : Color.Black,
-                },
-              ]}>
-              Hello, Brethen
-            </Text>
-          </View>
-        </View>
-
-        <View style={[styles.MainView]}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        }}>
+        <StatusBar
+          backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
+          barStyle={Theme ? 'light-content' : 'dark-content'}
+        />
+      
           <View
             style={[
-              styles.UserInfo,
+              styles.HeaderStyle,
               {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                backgroundColor: Theme
+                  ? Color.ExtraViewDark
+                  : Color.HeaderColor,
               },
             ]}>
-            <View style={styles.ImageAndText}>
-              <View
-                style={{
-                  width: w >= 768 && h >= 1024 ? scale(30) : scale(50),
-                  height: w >= 768 && h >= 1024 ? scale(30) : scale(60),
-                }}>
-                <Image
-                  source={require('../../assets/images/krista_settings.png')}
-                  style={{height: '100%', width: '100%'}}
-                  resizeMode="contain"
-                />
-              </View>
-
-              <View
-                style={{
-                  marginHorizontal: verticalScale(10),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={[
-                    styles.UserNameText,
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                    },
-                  ]}>
-                  Mary David
-                </Text>
-                <Text
-                  style={[
-                    styles.UserInfoText,
-                    {
-                      color: Theme ? Color.White : Color.Black,
-                    },
-                  ]}>
-                  <Text
-                    style={{
-                      color: Theme ? Color.White : Color.Black,
-                      fontFamily: Font.Poppins700,
-                      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
-                    }}>
-                    ID:{' '}
-                  </Text>
-                  IOS0000192
-                </Text>
-              </View>
-            </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('EditProfile')}>
-              <Edit height={w >= 768 && h >= 1024 ? scale(18) : scale(22)} />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          }}
-        />
-        <View style={styles.MainView}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('About')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              {Theme ? (
-                <AboutDark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <About height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
-              )}
-
+            <View style={styles.WelcomeView}>
               <Text
                 style={[
-                  styles.TextStyle,
+                  styles.WelcomeText,
                   {
                     color: Theme ? Color.White : Color.Black,
                   },
                 ]}>
-                About
+                Hello, Brethren.
               </Text>
             </View>
-
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Language',{type:'Language'})}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
+          </View>
+          <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={[styles.MainView]}>
             <View
               style={[
-                styles.IconAndText,
+                styles.UserInfo,
                 {
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
                 },
               ]}>
-              {Theme ? (
-                <LanguageDark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <Language
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              )}
+              <View style={styles.ImageAndText}>
+                <View
+                  style={{
+                    width: w >= 768 && h >= 1024 ? scale(30) : scale(70),
+                    height: w >= 768 && h >= 1024 ? scale(30) : scale(70),
+                  }}>
+                  <Image
+                    source={require('../../assets/images/krista_settings.png')}
+                    style={{height: '100%', width: '100%'}}
+                    resizeMode="contain"
+                  />
+                </View>
 
-              <Text
+                <View
+                  style={{
+                    marginHorizontal: verticalScale(10),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={[
+                      styles.UserNameText,
+                      {
+                        color: Theme ? Color.White : Color.DarkTextColor,
+                      },
+                    ]}>
+                    Mary David
+                  </Text>
+                  <Text
+                    style={[
+                      styles.UserInfoText,
+                      {
+                        color: Theme ? Color.White : Color.Black,
+                      },
+                    ]}>
+                    <Text
+                      style={{
+                        color: Theme ? Color.White : Color.Black,
+                        fontFamily: Font.Poppins700,
+                        fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
+                      }}>
+                      ID:{' '}
+                    </Text>
+                    IOS0000192
+                  </Text>
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('EditProfile')}>
+                <Edit height={w >= 768 && h >= 1024 ? scale(18) : scale(22)} />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View
+            style={{
+              height: verticalScale(20),
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            }}
+          />
+          <View style={styles.MainView}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('About')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                {Theme ? (
+                  <AboutDark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <About
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
+
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  About
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Language', {type: 'Language'})
+              }
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View
                 style={[
-                  styles.TextStyle,
+                  styles.IconAndText,
                   {
                     color: Theme ? Color.White : Color.DarkTextColor,
                   },
                 ]}>
-                Language
-              </Text>
-            </View>
+                {Theme ? (
+                  <LanguageDark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <Language
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
 
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.DarkTextColor,
+                    },
+                  ]}>
+                  Language
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={[styles.IconAndText]}>
+                {Theme ? (
+                  <Notification_dark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <Notification
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
+
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  Notifications
+                </Text>
+              </View>
+
+              <CustomSwitch />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('DarkMode')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                {Theme ? (
+                  <Dark_dark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <DarkMode
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  DarkMode
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              height: verticalScale(20),
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            }}
+          />
+          <View style={[styles.MainView]}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Faq')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                {Theme ? (
+                  <Faq_dark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <FAQ height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
+                )}
+
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  FAQ
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Terms')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                {Theme ? (
+                  <Terms_dark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <Terms
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
+
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  Terms
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Privacy')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                {Theme ? (
+                  <Privacy_dark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <Privacy
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
+
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  Privacy
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              height: verticalScale(20),
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            }}
+          />
+
+          <View style={styles.MainView}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Feedback')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                {Theme ? (
+                  <Feedback_dark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <Feedback
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
+
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  Feedback
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Contact')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                {Theme ? (
+                  <Call_dark
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                ) : (
+                  <Contact
+                    height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                  />
+                )}
+
+                <Text
+                  style={[
+                    styles.TextStyle,
+                    {
+                      color: Theme ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  Contact
+                </Text>
+              </View>
+
+              <View style={styles.ArrowStyle}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                  color={Color.ArrowBorder}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.SocialBox}>
+            <TouchableOpacity style={[styles.IconBox]}>
+              <FontAwesome5
+                name="facebook"
+                color={Color.Main}
+                size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={[styles.IconAndText]}>
-              {Theme ? (
-                <Notification_dark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <Notification
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              )}
-
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                Notifications
-              </Text>
-            </View>
-
-            <CustomSwitch />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('DarkMode')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              {Theme ? (
-                <Dark_dark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <DarkMode
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              )}
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                DarkMode
-              </Text>
-            </View>
-
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.IconBox}>
+              <Entypo
+                name="instagram"
+                color={Color.Main}
+                size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          }}
-        />
-        <View style={[styles.MainView]}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Faq')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              {Theme ? (
-                <Faq_dark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <FAQ height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
-              )}
-
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                FAQ
-              </Text>
-            </View>
-
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.IconBox}>
+              <Entypo
+                name="twitter-with-circle"
+                color={Color.Main}
+                size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Terms')}
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              alignSelf: 'center',
+              height: verticalScale(40),
+            }}>
+            <Text style={[styles.VersionText]}>Version 1.0.0</Text>
+          </View>
+
+          <View
+            style={{
+              height: verticalScale(20),
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            }}
+          />
+          <View
             style={[
-              styles.AllItems,
+              styles.MainView,
               {
                 backgroundColor: Theme ? Color.DarkTheme : Color.White,
               },
             ]}>
-            <View style={styles.IconAndText}>
-              {Theme ? (
-                <Terms_dark
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OverBoard')}
+              style={[
+                styles.AllItems,
+                {
+                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+              <View style={styles.IconAndText}>
+                <Logout
                   height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                 />
-              ) : (
-                <Terms height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
-              )}
 
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                Terms
-              </Text>
-            </View>
-
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Privacy')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              {Theme ? (
-                <Privacy_dark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <Privacy
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              )}
-
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                Privacy
-              </Text>
-            </View>
-
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          }}
-        />
-
-        <View style={styles.MainView}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Feedback')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              {Theme ? (
-                <Feedback_dark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <Feedback
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              )}
-
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                Feedback
-              </Text>
-            </View>
-
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
-              />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Contact')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              {Theme ? (
-                <Call_dark
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              ) : (
-                <Contact
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-              )}
-
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                Contact
-              </Text>
-            </View>
-
-            <View style={styles.ArrowStyle}>
-              <Ionicons
-                name="chevron-forward"
-                size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
-                color={Color.ArrowBorder}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.SocialBox}>
-          <TouchableOpacity style={[styles.IconBox]}>
-            <FontAwesome5
-              name="facebook"
-              color={Color.Main}
-              size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.IconBox}>
-            <Entypo
-              name="instagram"
-              color={Color.Main}
-              size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.IconBox}>
-            <Entypo
-              name="twitter-with-circle"
-              color={Color.Main}
-              size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
-            />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            alignSelf: 'center',
-            height: verticalScale(40),
-          }}>
-          <Text style={[styles.VersionText]}>Version 1.0.0</Text>
-        </View>
-
-        <View
-          style={{
-            height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          }}
-        />
-        <View
-          style={[
-            styles.MainView,
-            {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
-            },
-          ]}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('OverBoard')}
-            style={[
-              styles.AllItems,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={styles.IconAndText}>
-              <Logout height={w >= 768 && h >= 1024 ? scale(16) : scale(18)} />
-
-              <Text style={[styles.LogoutTextStyle]}>Log out</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          }}
-        />
-        <View style={{height: verticalScale(90)}}></View>
-      </ScrollView>
-    </View>
+                <Text style={[styles.LogoutTextStyle]}>Log out</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              height: verticalScale(20),
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            }}
+          />
+          <View style={{height: verticalScale(90)}}></View>
+        </ScrollView>
+      </View>
     </>
   );
 };
@@ -607,8 +619,8 @@ export default SettingsMore;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    height: verticalScale(80),
-    justifyContent: 'center',
+    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(35),
+    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null
   },
   WelcomeView: {
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),

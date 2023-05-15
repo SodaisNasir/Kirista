@@ -32,14 +32,24 @@ const RccgContinent = ({navigation}) => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   return (
-    <SafeAreaView
+    <>
+     <SafeAreaView style={{ backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,}} />
+    <View
       style={[
         {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
           flex: 1,
         },
       ]}>
-      <Header text={'RCCG Continent 2'} />
+      <Header text={'RCCG Continent 2'}  AuthHeaderStyle={{
+            marginTop: 0,
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
       <ScrollView>
         <View
           style={{
@@ -640,7 +650,8 @@ const RccgContinent = ({navigation}) => {
         }}>
         <CustomNavigator />
       </View>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

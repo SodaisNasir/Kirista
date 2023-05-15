@@ -85,9 +85,12 @@ const ParishesResult = ({navigation}) => {
     <View
       style={[
         styles.Container,
-        {backgroundColor: Theme ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-15) : 0},
+        {backgroundColor: Theme ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0},
       ]}>
-      <Header text={'Result'} />
+      <Header text={'Result'} AuthHeaderStyle={{
+        paddingTop:0,
+        // height:verticalScale(60)
+      }}/>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={data}

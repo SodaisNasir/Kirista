@@ -66,8 +66,8 @@ export default LibraryHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80),
-    justifyContent: 'center',
+    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(40),
+    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null,
     paddingTop: verticalScale(10),
   },
   WelcomeText: {

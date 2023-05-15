@@ -14,10 +14,6 @@ import {scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import Time from '../assets/icons/time.svg';
-import Share from '../assets/icons/share.svg';
-import ShareDark from '../assets/icons/share_dark.svg';
-import Save from '../assets/icons/save.svg';
-import SaveDark from '../assets/icons/save_dark.svg';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const w = Dimensions.get('window').width;
@@ -29,14 +25,6 @@ const CustomHeader = props => {
   const [isChecked, setIsChecked] = useState(false);
   const iosTab = w >= 820 && h >= 1180;
 
-  const handlePress = () => {
-    setIsChecked(!isChecked);
-    if (props.onPress) {
-      props.onPress(!isChecked);
-    }
-  };
-
-  const Bookmark = isChecked ? 'bookmark-plus' : 'bookmark-plus-outline';
   return (
     <View
       style={[
@@ -56,6 +44,8 @@ const CustomHeader = props => {
             w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
+           marginTop: Platform.OS == 'ios' && w >= 768 && h >= 1024
+            ? verticalScale(20) : 0
         }}>
         <View style={styles.NavigatorStyle}>
           <AntDesign
@@ -102,28 +92,9 @@ const CustomHeader = props => {
 
           <TouchableOpacity style={styles.IconStyle}>
             {props.saveicon ? (
-              // Theme ? (
-              //   <SaveDark
-              //     height={
-              //       w >= 768 && h >= 1024
-              //         ? verticalScale(14)
-              //         : verticalScale(20)
-              //     }
-              //     width={scale(24)}
-              //   />
-              // ) : (
-              //   <Save
-              //     height={
-              //       w >= 768 && h >= 1024
-              //         ? verticalScale(14)
-              //         : verticalScale(20)
-              //     }
-              //     width={scale(24)}
-              //   />
-              // )
-              <TouchableOpacity onPress={handlePress}>
+              <TouchableOpacity onPress={() => setIsChecked(!isChecked)}>
                 <MaterialCommunityIcons
-                  name={Bookmark}
+                  name={isChecked ? 'bookmark-plus' : 'bookmark-plus-outline'}
                   size={w >= 768 && h >= 1024 ? scale(15) : scale(25)}
                   color={Color.Main}
                   style={{  right: Platform.OS === 'ios' ? iosTab? 4 : 0 : 0}}
@@ -137,7 +108,7 @@ const CustomHeader = props => {
              <FontAwesome name='share-square-o'   size={w >= 768 && h >= 1024 ? scale(13) : scale(21)}
              color={Color.Main}
              />
-            ) : ßnull}
+            ) : null}
           </TouchableOpacity>
         </View>
       </View>
@@ -149,28 +120,21 @@ export default CustomHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80),
-    justifyContent: 'center',
-    paddingTop: verticalScale(10),
+    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
+    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null
   },
 
   NavigatorStyle: {
-    //
-    // backgroundColor: 'yellow',
     justifyContent: 'center',
-    // marginTop: scale(10),
     flexDirection: 'row',
   },
   IconStyle: {
     paddingHorizontal:
       w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(6),
-      // backgroundColor:'red'
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),
     fontFamily: Font.Poppins500,
     color: Color.Black,
-    // marginBottom: scale(5),
-    // backgroundColor: 'red',
   },
 });

@@ -5,6 +5,7 @@ import {
   Dimensions,
   useColorScheme,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -31,11 +32,10 @@ export default function Header(props) {
       <View
         style={{
           flexDirection: 'row',
-
-          marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(10),
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
+            marginTop: Platform.OS == 'ios' && w >= 768 && h >= 1024
+            ? verticalScale(20) : 0
         }}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.NavigatorStyle}>
           <AntDesign
@@ -84,23 +84,16 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80),
-    justifyContent: 'center',
-    paddingTop: verticalScale(10),
+    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    justifyContent: w <= 450 && h <= 750 ? 'center' : null
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),
     fontFamily: Font.Poppins500,
-    // color: Color.Black,
-    // marginBottom: scale(5),
-    // backgroundColor: 'red',
     paddingHorizontal:
       w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(10),
   },
   NavigatorStyle: {
-    //
-
     justifyContent: 'center',
-    // marginTop: scale(10),
   },
 });

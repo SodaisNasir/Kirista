@@ -193,7 +193,15 @@ const Language = ({navigation,route}) => {
         styles.Container,
       ]}>
      
-      <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'} />
+      <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'}  AuthHeaderStyle={{
+            
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
       <FlatList
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}

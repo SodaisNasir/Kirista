@@ -216,7 +216,9 @@ const SelectCountry = ({navigation}) => {
     },
   ];
   return (
-    <SafeAreaView
+    <>
+    <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <View
       style={[
         styles.Container,
 
@@ -227,15 +229,17 @@ const SelectCountry = ({navigation}) => {
         {/* <Header text={'Select Country'} /> */}
         <Header text={'Select Country'} DontGoBack={true} onPress={() => navigation.navigate('ParishFinder')}/>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
         <View
           style={[
             {backgroundColor: Theme ? Color.DarkTheme : Color.White},
             styles.MainBox,
           ]}>
           <FlatList
-            scrollEnabled={false}
+            scrollEnabled={true}
+            
             data={DATA}
+            showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
               <View
                 style={[
@@ -346,13 +350,8 @@ const SelectCountry = ({navigation}) => {
             keyExtractor={item => item.id}
           />
         </View>
-        <View
-          style={{
-            height: verticalScale(40),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          }}/>
-      </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

@@ -33,8 +33,7 @@ const About = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
-
-    <SafeAreaView
+    <View
       style={[
         {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
@@ -45,8 +44,15 @@ const About = ({navigation}) => {
         backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
-      <Header text={'About'} />
-      <ScrollView>
+      <Header text={'About'}  AuthHeaderStyle={{
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:
@@ -135,7 +141,7 @@ const About = ({navigation}) => {
                   styles.TextStyle,
                 ]}>
                 This platform's powerful content and resources will assist
-                brethren in staying connected with the activities of the RCCG
+                Brethren in staying connected with the activities of the RCCG
                 Continent 2.
               </Text>
             </View>
@@ -313,7 +319,7 @@ const About = ({navigation}) => {
                   source={
                     Theme
                       ? require('../../assets/images/idc_platforms_dark.png')
-                      : require('../../assets/images/idc.png')
+                      : require('../../assets/images/idc_platforms.png')
                   }
                   style={{
                     height: '100%',
@@ -368,7 +374,7 @@ const About = ({navigation}) => {
         </View>
         <View style={{height: verticalScale(10)}} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
     </>
   );
 };

@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
   useColorScheme,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import React, {useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -20,6 +21,8 @@ import FontModal from '../../../components/Modals/FontModal';
 import DrawerScreen from '../../../components/DrawerScreen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+const h = Dimensions.get('window').height;
+const w = Dimensions.get('window').width;
 const Readtwo = props => {
   const Theme = useColorScheme() === 'dark';
 
@@ -29,9 +32,7 @@ const Readtwo = props => {
   };
 
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
-  const toggleModalTwo = () => {
-    setSecondModalVisible(!isSecondModalVisible);
-  };
+  
 
   const [isModalThreeVisible, setModalThreeVisible] = useState(false);
   const toggleModalThree = () => {
@@ -85,16 +86,15 @@ const Readtwo = props => {
           // marginTop:Platform.OS == 'ios' ? verticalScale(-47) : 0
         }}
       />
-      <SafeAreaView
-        style={[
-          styles.MainContainer,
-          {backgroundColor},
-          
-        ]}>
+      <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={[
-              {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
+              {
+                backgroundColor: Theme
+                  ? Color.ExtraViewDark
+                  : Color.HeaderColor,
+              },
               styles.AuthHeaderStyle,
             ]}>
             <View
@@ -285,8 +285,8 @@ const styles = StyleSheet.create({
     // color:Color.Main
   },
   AuthHeaderStyle: {
-    height: verticalScale(80),
-    justifyContent: 'center',
+    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
+    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,

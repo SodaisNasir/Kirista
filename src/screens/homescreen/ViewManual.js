@@ -39,16 +39,16 @@ const ViewManual = ({navigation}) => {
     <View
       style={[
         {backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0
+          marginTop:Platform.OS == 'ios' && w <= 450 && h <= 750 ? 0 : Platform.OS == 'ios' ? verticalScale(-20) : 0
+          
         },
         styles.Container,
       ]}>
      
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomHeader shareicon={true} saveicon={true} />
-        {/* <View style={{height:verticalScale(100),backgroundColor:'purple'}}> */}
-
-        {/* </View> */}
+        <CustomHeader shareicon={true} saveicon={true} AuthHeaderStyle={{
+          paddingTop:0
+        }}/>
+          <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.ImageViewStyle}>
           <Image
             resizeMode="contain"
@@ -177,7 +177,6 @@ const ViewManual = ({navigation}) => {
               : Color.BorderColor,
             borderBottomWidth: 1,
             marginHorizontal: verticalScale(20),
-            // marginHorizontal:verticalScale(20)
           }}>
           <Text
             style={[

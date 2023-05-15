@@ -3,7 +3,7 @@ import {
   Text,
   View,
   FlatList,
-  Image,
+  Platform,
   ScrollView,
   Dimensions,
   useColorScheme,
@@ -24,68 +24,30 @@ const h = Dimensions.get('window').height;
 const FeaturedParishes = props => {
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
-
-  // const data = [
-  //   {
-  //     id: 1,
-  //     title: 'RCCG',
-  //     manual: 'Central Parish',
-  //     image: require('../../src/assets/images/parishsmall_1.png'),
-  //     country: 'Abuja',
-  //   },
-
-  //   {
-  //     id: 2,
-  //     title: 'RCCG',
-  //     manual: 'Precious Ambassadors',
-  //     image: require('../../src/assets/images/parishsmall_2.png'),
-  //     country: 'Ghana',
-  //   },
-
-  //   {
-  //     id: 3,
-  //     title: 'RCCG',
-  //     manual: 'Salvation Centre',
-  //     image: require('../../src/assets/images/parishsmall_3.png'),
-  //     country: 'Togo',
-  //   },
-
-  //   {
-  //     id: 4,
-  //     title: 'RCCG',
-  //     manual: 'Salvation Centre',
-  //     image: require('../../src/assets/images/parishsmall_3.png'),
-  //     country: 'Togo',
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'RCCG',
-  //     manual: 'Precious Ambassadors',
-  //     image: require('../../src/assets/images/parishsmall_2.png'),
-  //     country: 'Ghana',
-  //   },
-  //   {
-  //     id: 6,
-  //     title: 'RCCG',
-  //     manual: 'Salvation Centre',
-  //     image: require('../../src/assets/images/parishsmall_3.png'),
-  //     country: 'Togo',
-  //   },
-  // ]
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
   return (
-    <SafeAreaView
+    <>
+     <SafeAreaView style={{ backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,}} />
+    <View
       style={[
         styles.Container,
         {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
         },
       ]}>
-      <Header text={'Featured Parishes'} />
+      <Header text={'Featured Parishes'}  AuthHeaderStyle={{
+            marginTop: 0,
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -166,7 +128,8 @@ const FeaturedParishes = props => {
         </View>
         <View style={{height: verticalScale(75)}} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

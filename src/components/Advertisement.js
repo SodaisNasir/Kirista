@@ -154,7 +154,7 @@ const Advertisement = props => {
                 onPress={props.onPressView}
                 style={[
                   {
-                    height: w >= 768 && h >= 1024 ? verticalScale(30) : '55%',
+                    height: w >= 768 && h >= 1024 ? verticalScale(40) : '55%',
                     borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
                   },
                   styles.Btn,

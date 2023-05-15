@@ -30,14 +30,11 @@ const HomeHeader = props => {
         paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(25),
         backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-        marginTop:Platform.OS == 'ios'?  verticalScale(-10) : 0
+        marginTop:Platform.OS == 'ios'?  verticalScale(-20) : 0
       }}>
       <View style={{}}>
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}>
+          style={[styles.HeaderBox,props.HeaderBox]}>
           <View
             style={{
               height:
@@ -56,7 +53,7 @@ const HomeHeader = props => {
               style={{height: '100%', width: '100%'}}
             />
           </View>
-          <View
+          {/* <View
             style={{
               justifyContent: 'center',
               marginTop: verticalScale(10),
@@ -85,7 +82,7 @@ const HomeHeader = props => {
                 />
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
 
         <View
@@ -133,9 +130,9 @@ export default HomeHeader;
 
 const styles = StyleSheet.create({
   TextStyle: {
-    fontFamily: Font.Poppins500,
+    fontFamily: Font.Poppins600,
     color: Color.HomeHeaderText,
-    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
   },
   container: {
     flex: 1,
@@ -179,4 +176,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  HeaderBox:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop:
+    Platform.OS == 'ios' && w >= 768 && h >= 1024
+      ? verticalScale(20)
+      : 0,
+  }
 });

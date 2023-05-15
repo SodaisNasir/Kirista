@@ -9,6 +9,7 @@ import {
   Dimensions,
   useColorScheme,
   StatusBar,
+  Platform,
 } from 'react-native';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Header from '../../components/Header';
@@ -52,14 +53,24 @@ const Faq = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+    <>
+    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <View
+      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White,
+      }}>
       <StatusBar
         backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
-      <ScrollView>
-        <Header text={'FAQ'} />
+        <Header text={'FAQ'}  AuthHeaderStyle={{
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={[
             styles.MainBox,
@@ -332,10 +343,11 @@ const Faq = ({navigation}) => {
             )}
           </View>
 
-          <View style={{height: verticalScale(150)}} />
+          <View style={{height: verticalScale(10)}} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

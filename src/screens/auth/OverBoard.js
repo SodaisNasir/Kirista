@@ -241,7 +241,7 @@ const OverBoard = ({navigation}) => {
                   fontSize: tabPotrait ? scale(15) : scale(20),
                   color: Theme ? Color.White : Color.Black,
                 }}>
-                Welcome, Brethern.
+                Welcome, Brethren.
               </Text>
             </View>
             <View

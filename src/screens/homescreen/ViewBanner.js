@@ -34,8 +34,8 @@ const ViewBanner = ({navigation}) => {
   
   return (
     <>
-     
-    <SafeAreaView style={[{backgroundColor: Theme? Color.DarkTheme : Color.White,flex:1}]}>
+       <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <View style={[{backgroundColor: Theme? Color.DarkTheme : Color.White,flex:1}]}>
     <StatusBar
         backgroundColor={Theme ? Color.ExtraViewDark : '#F1F6FD'}
         barStyle={Theme ? 'light-content' : 'dark-content'}
@@ -85,7 +85,7 @@ const ViewBanner = ({navigation}) => {
           <CustomNavigator />
         </View>
       </View>
-    </SafeAreaView>
+    </View>
     </>
   );
 };

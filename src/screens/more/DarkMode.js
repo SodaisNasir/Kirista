@@ -147,7 +147,14 @@ const DarkMode = ({navigation}) => {
       <StatusBar
         backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
       />
-      <Header text={'Dark Mode'} />
+      <Header text={'Dark Mode'}  AuthHeaderStyle={{
+            height:
+              w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(65)
+                : verticalScale(30),
+          }}/>
       <FlatList
         scrollEnabled={false}
         showsVerticalScrollIndicator={false}

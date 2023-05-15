@@ -96,9 +96,8 @@ export default ReadHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: verticalScale(90),
-    justifyContent: 'flex-end',
-    // backgroundColor:'red'
+    height: verticalScale(40),
+    justifyContent: 'center',
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),

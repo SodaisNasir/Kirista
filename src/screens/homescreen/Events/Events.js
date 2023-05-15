@@ -104,12 +104,13 @@ const Events = () => {
       <SafeAreaView
         style={{
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          marginTop : Platform.OS ==='ios'? iosTab ? verticalScale(0) : verticalScale(-30) : 0
         }}
       />
       <View
         style={[
-          {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+          {backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            marginTop : Platform.OS ==='ios' && w <= 450 && h <=750 ? verticalScale(20) : Platform.OS ==='ios'? verticalScale(-30) : 0
+          },
           styles.Container,
         ]}>
         <HomeHeader
@@ -118,7 +119,10 @@ const Events = () => {
             width: '55%',
             backgroundColor: Color.Main,
             height: verticalScale(2),
-            bottom: scale(4),
+            bottom: verticalScale(4),
+          }}
+          HeaderBox={{
+            marginTop:Platform.OS == 'ios' &&  w >= 768 && h >= 1024 ?  verticalScale(35) : 0
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -142,7 +146,6 @@ const Events = () => {
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
                 marginTop:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
                 borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
                 borderBottomWidth: 1,
               }}
