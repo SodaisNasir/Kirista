@@ -83,7 +83,7 @@ const HomeHeader = props => {
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             width: w >= 766 && h >= 1024 ? '55%' : '75%',
@@ -118,7 +118,7 @@ const HomeHeader = props => {
             <Text style={[styles.TextStyle, props.EventRestyle]}>Events</Text>
             <View style={[{marginTop : Platform.OS == 'ios' ? verticalScale(2)  : null},props.EventUnderLineStyle]} />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     </View>
   );

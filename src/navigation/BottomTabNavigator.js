@@ -52,6 +52,7 @@ import Login from '../screens/auth/Login';
 import ParishesResult from '../screens/homescreen/ParishesResult';
 import SelectRegion from '../screens/homescreen/Parish Finder/SelectRegion';
 import {useSelector} from 'react-redux';
+import HomeScreen from '../screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -401,6 +402,11 @@ function AllHome() {
     <Stack.Navigator
       screenOptions={{headerShown: false}}
       initialRouteName="Advertisement">
+         <Stack.Screen
+        name="HomeScreenMain"
+        component={HomeScreen}
+        options={{animation: 'fade_from_bottom'}}
+      />
       <Stack.Screen
         name="HomeScreen"
         component={Home}

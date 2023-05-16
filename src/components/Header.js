@@ -84,7 +84,7 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    height: Platform.OS == 'android' ? verticalScale(80) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
     justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null
   },
   WelcomeText: {

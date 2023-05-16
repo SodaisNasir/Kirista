@@ -235,7 +235,7 @@ const SelectCountry = ({navigation}) => {
             scrollEnabled={true}
             data={DATA}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: moderateVerticalScale(80)}}
+            contentContainerStyle={{ paddingBottom: moderateVerticalScale(100)}}
             renderItem={({item}) => (
               <View
                 style={[

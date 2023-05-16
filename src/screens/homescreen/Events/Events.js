@@ -55,7 +55,7 @@ const Events = () => {
           },
           styles.Container,
         ]}>
-        <HomeHeader
+        {/* <HomeHeader
           EventRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
           EventUnderLineStyle={{
             width: '55%',
@@ -69,7 +69,7 @@ const Events = () => {
                 ? verticalScale(35)
                 : 0,
           }}
-        />
+        /> */}
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{

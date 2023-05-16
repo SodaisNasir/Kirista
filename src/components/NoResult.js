@@ -10,7 +10,7 @@ const h = Dimensions.get('window').height;
 const NoResult = () => {
   const Theme = useColorScheme() === 'dark';
   return (
-    <View style={{alignItems:'center',justifyContent:'center'}}>
+    <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
     <View>
       <NoResults
       

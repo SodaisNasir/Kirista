@@ -11,8 +11,9 @@ import {
   SafeAreaView,
   FlatList,
   Keyboard,
-  Platform,
+  useWindowDimensions,
 } from 'react-native';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -27,54 +28,74 @@ import HouseSvg from '../assets/icons/house-2.svg';
 import CalendarSvg from '../assets/icons/calendar-2.svg';
 import PersonSvg from '../assets/icons/person_outline.svg';
 import NoResult from './NoResult';
+import ParishFinderSearch from './ParishFinderSearch';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
 const fourInchPotrait = w <= 350 && h <= 600;
+
+
+
+const ThirdRoute = () => <NoResult />;
+const FourthRoute = () => <ParishFinderSearch/>;
+const FifthRoute = () => <NoResult />;
+
+const renderScene = SceneMap({
+  Bedrooms: ThirdRoute,
+  DiningRoom: FourthRoute,
+  LivingRoom: FifthRoute,
+});
 const Searchbar = () => {
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = useState(0);
+
+  const [routes] = useState([
+    {key: 'Bedrooms', title: 'Books', type: 'home'},
+    {key: 'DiningRoom', title: 'Parishes', type: 'finder'},
+    {key: 'LivingRoom', title: 'Events'},
+  ]);
+
+  const renderTabBar = props => (
+    <View
+      style={{
+        flexDirection: 'row',
+      }}>
+      <TabBar
+        {...props}
+        indicatorStyle={{backgroundColor: Color.Main}}
+        style={{
+          backgroundColor: 'transparent',
+          elevation: 0,
+          // width:'90%',
+          marginTop:verticalScale(10),
+        }}
+        renderLabel={({route, focused, color}) => (
+          <>
+            <Text
+              style={{
+                fontFamily: Font.Poppins600,
+                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
+                color: focused ? Color.Main : Color.HomeHeaderText,
+              }}>
+              {route.title}
+            </Text>
+          </>
+        )}
+        activeColor={{color: Color.Main}}
+        inactiveColor={{color: Color.HomeHeaderText}}
+        tabStyle={{ width: scale(117)}}
+        bounces={true}
+        scrollEnabled={true}
+      />
+    </View>
+  );
+
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
-  const data = [
-    {
-      id: 1,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../assets/images/book1.png'),
-      detail: '2023',
-    },
-
-    {
-      id: 2,
-      title: 'RCCG',
-      manual: 'Central Parish',
-      image: require('../assets/images/parishsmall_1.png'),
-      detail: 'Ghana',
-    },
-
-    {
-      id: 3,
-      title: 'West Coast 3 Regional',
-      manual: 'Convention',
-      image: require('../assets/images/event_4.png'),
-      detail: 'July 7, 2023.   .   4PM',
-    },
-    {
-      id: 4,
-      title: 'RCCG His Grace Assembly',
-      manual: '',
-      image: require('../assets/images/rcg_centralparish.png'),
-      detail: 'Banjul',
-    },
-    {
-      id: 5,
-      title: 'Sunday School',
-      manual: 'Teachers Manual',
-      image: require('../assets/images/book2.png'),
-      detail: '2023',
-    },
-  ];
+  
   const searchList = [
     {
       id: 1,
@@ -105,6 +126,45 @@ const Searchbar = () => {
       id: 6,
       title: 'Abuja Special Holy Ghost Service',
       type: 'light6',
+    },
+  ];
+  const data = [
+    {
+      id: 1,
+      title: 'Sunday Student',
+      manual: 'Manual',
+      image: require('../assets/images/book1.png'),
+      detail: '2023',
+    },
+  
+    {
+      id: 2,
+      title: 'RCCG',
+      manual: 'Central Parish',
+      image: require('../assets/images/parishsmall_1.png'),
+      detail: 'Ghana',
+    },
+  
+    {
+      id: 3,
+      title: 'West Coast 3 Regional',
+      manual: 'Convention',
+      image: require('../assets/images/event_4.png'),
+      detail: 'July 7, 2023.   .   4PM',
+    },
+    {
+      id: 4,
+      title: 'RCCG His Grace Assembly',
+      manual: '',
+      image: require('../assets/images/rcg_centralparish.png'),
+      detail: 'Banjul',
+    },
+    {
+      id: 5,
+      title: 'Sunday School',
+      manual: 'Teachers Manual',
+      image: require('../assets/images/book2.png'),
+      detail: '2023',
     },
   ];
 
@@ -433,158 +493,21 @@ const Searchbar = () => {
             />
           </View>
         ) : (
+
           <View
             style={{
               flex: 1,
               backgroundColor: Theme ? Color.DarkTheme : Color.White,
             }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                backgroundColor: Theme
-                  ? Color.ExtraViewDark
-                  : Color.HeaderColor,
-                paddingTop: verticalScale(1),
-              }}>
-              <TouchableOpacity
-                style={{marginBottom: verticalScale(10)}}
-                onPress={HandelBook}>
-                <Text
-                  style={[
-                    {
-                      color: Theme
-                        ? Book
-                          ? Color.Main
-                          : '#9DA6B3'
-                        : Book
-                        ? Color.Main
-                        : '#C1C5CA',
-                    },
-                    styles.Text2Style,
-                    styles.BooksStyle,
-                  ]}>
-                  Books
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={{marginBottom: verticalScale(10)}}
-                onPress={HandelParishes}>
-                <Text
-                  style={[
-                    {
-                      color: Theme
-                        ? Parishes
-                          ? Color.Main
-                          : '#9DA6B3'
-                        : Parishes
-                        ? Color.Main
-                        : '#C1C5CA',
-                    },
-                    styles.Text2Style,
-                    // props.ParishRestyle,
-                  ]}>
-                  Parishes
-                </Text>
-                {/* <View style={props.ParishUnderLineStyle} /> */}
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={HandelEvent}
-                style={{marginBottom: verticalScale(10)}}>
-                <Text
-                  style={[
-                    {
-                      color: Theme
-                        ? Event
-                          ? Color.Main
-                          : '#9DA6B3'
-                        : Event
-                        ? Color.Main
-                        : '#C1C5CA',
-                    },
-                    styles.Text2Style,
-                    // props.EventRestyle,
-                  ]}>
-                  Events
-                </Text>
-                {/* <View style={props.EventUnderLineStyle} /> */}
-              </TouchableOpacity>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              {Book && (
-                <View
-                  style={{
-                    borderBottomColor: Color.Main,
-                    borderBottomWidth: 2.5,
-                    backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-                    width: '33%',
-                    // marginLeft: '33%',
-                  }}
-                />
-              )}
-              {Parishes && (
-                <View
-                  style={{
-                    borderBottomColor: Color.Main,
-                    borderBottomWidth: 2.5,
-                    backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-                    width: '33%',
-                    marginLeft: '33%',
-                  }}
-                />
-              )}
-              {Event && (
-                <View
-                  style={{
-                    borderBottomColor: Color.Main,
-                    borderBottomWidth: 2.5,
-                    backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-                    width: '33%',
-                    marginLeft: '66%',
-                  }}
-                />
-              )}
-            </View>
-            <View style={{flex: 1, justifyContent: 'center'}}>
-              {Book && <NoResult />}
-              {Parishes && (
-                <View style={{flex: 1, paddingHorizontal: moderateScale(20)}}>
-                  <FlatList
-                    data={data}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({item}) => (
-                      <DetailsCard
-                        source={item.image}
-                        title={item.title}
-                        resize={'contain'}
-                        manual={item.manual}
-                        PlaceTrue={true}
-                        Place={item.detail}
-                        MainBoxRestyle={{
-                          paddingBottom:
-                            w >= 768 && h >= 1024
-                              ? verticalScale(10)
-                              : verticalScale(15),
-                          marginTop:
-                            w >= 768 && h >= 1024
-                              ? verticalScale(10)
-                              : verticalScale(15),
-                          borderBottomColor: Theme
-                            ? Color.DarkBorder
-                            : Color.BorderColor,
-                          borderBottomWidth: 1,
-                        }}
-                      />
-                    )}
-                    keyExtractor={item => item.id.toString()}
-                    ListEmptyComponent={() => <NoResult />}
-                  />
-                </View>
-              )}
-              {Event && <NoResult />}
-            </View>
+         <View style={{flex: 1}}>
+          <TabView
+            renderTabBar={renderTabBar}
+            navigationState={{index, routes}}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{width: layout.width}}
+          />
+        </View>
           </View>
         )}
       </View>
