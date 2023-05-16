@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react';
-import {useLayoutEffect} from 'react';
 import {
   View,
   Text,
@@ -10,7 +9,6 @@ import {
   SafeAreaView,
   useColorScheme,
   Dimensions,
-  ScrollView,
 } from 'react-native';
 import {
   moderateScale,
@@ -226,10 +224,8 @@ const SelectCountry = ({navigation}) => {
       ]}>
       <View
         style={styles.backBox}>
-        {/* <Header text={'Select Country'} /> */}
         <Header text={'Select Country'} DontGoBack={true} onPress={() => navigation.navigate('ParishFinder')}/>
       </View>
-      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
         <View
           style={[
             {backgroundColor: Theme ? Color.DarkTheme : Color.White},
@@ -237,9 +233,9 @@ const SelectCountry = ({navigation}) => {
           ]}>
           <FlatList
             scrollEnabled={true}
-            
             data={DATA}
             showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: moderateVerticalScale(80)}}
             renderItem={({item}) => (
               <View
                 style={[
@@ -257,9 +253,6 @@ const SelectCountry = ({navigation}) => {
                       ? Color.DarkBorderColor
                       : Color.BorderColor,
                     borderBottomWidth: 1,
-                    // borderTopColor:Color.BorderColor,
-                    // borderTopWidth:1,
-                    // backgroundColor:'red',
                     height:
                       w >= 768 && h >= 1024
                         ? verticalScale(25)
@@ -281,7 +274,6 @@ const SelectCountry = ({navigation}) => {
 
                 <FlatList
                   style={{
-                    // paddingHorizontal: moderateScale(10),
                     borderBottomColor: Theme
                       ? Color.DarkBorderColor
                       : Color.BorderColor,

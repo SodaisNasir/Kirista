@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   useColorScheme,
+  StatusBar,
 } from 'react-native';
 import {
   moderateScale,
@@ -180,12 +181,12 @@ const Language = ({navigation,route}) => {
   );
   return (
     <>
-    
     <SafeAreaView
         style={{
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
+      <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor }/>
     <View
       style={[
         {backgroundColor: Theme ? Color.DarkTheme : Color.White,
@@ -196,6 +197,7 @@ const Language = ({navigation,route}) => {
       <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'}  AuthHeaderStyle={{
             
             height:
+            Platform.OS == 'android' ? verticalScale(80) :
               w >= 768 && h >= 1024
                 ? verticalScale(50)
                 : w <= 450 && h <= 750

@@ -10,7 +10,7 @@ import {
 import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Font} from '../assets/fonts/PoppinsFont';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import Time from '../assets/icons/time.svg';
@@ -121,7 +121,8 @@ export default CustomHeader;
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
-    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null
+    justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
+    paddingTop:Platform.OS == 'android' ? moderateVerticalScale(25) : 0
   },
 
   NavigatorStyle: {

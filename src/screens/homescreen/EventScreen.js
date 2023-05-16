@@ -47,7 +47,6 @@ const EventScreen = ({navigation}) => {
         styles.Container,
         {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          // marginTop:Platform.OS == 'ios' ? verticalScale(-30) : 0
         },
       ]}>
         <CustomHeader
@@ -58,6 +57,7 @@ const EventScreen = ({navigation}) => {
           AuthHeaderStyle={{
             marginTop:  w <= 450 && h <= 750 ? 0 : verticalScale(-15),
             height:
+            Platform.OS === 'android' ? verticalScale(80) :
               w >= 768 && h >= 1024
                 ? verticalScale(50)
                 : w <= 450 && h <= 750

@@ -41,6 +41,7 @@ import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
+import BottomTab from '../../constant/BottomTab';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -55,20 +56,7 @@ const SettingsMore = () => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          position: 'absolute',
-          bottom: 0,
-          height: verticalScale(80),
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          borderColor: Theme ? Color.DarkTheme : Color.White,
-          borderTopWidth: 0,
-          tabBarLabelStyle: {
-            fontFamily: Font.Poppins600,
-            fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-            marginBottom:
-              w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
-
-            left: w >= 768 && h >= 1024 ? scale(115) : scale(0),
-          },
+          display: 'none',
         },
       });
     }),
@@ -611,6 +599,7 @@ const SettingsMore = () => {
           <View style={{height: verticalScale(90)}}></View>
         </ScrollView>
       </View>
+      <BottomTab  activeMore={true}/>
     </>
   );
 };

@@ -18,7 +18,7 @@ const LightSplash = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
 
   setTimeout(() => {
-    navigation.navigate('OverBoard');
+    navigation.replace('OverBoard');
   }, 3000);
 
   return (

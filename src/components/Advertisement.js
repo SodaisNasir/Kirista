@@ -50,8 +50,8 @@ const Advertisement = props => {
     return () => clearTimeout(timerId);
   }, [seconds]);
   return (
-    <SafeAreaView style={styles.container}>
-      <Modal isVisible={props.isVisible} style={styles.modalStyling}>
+    <View style={styles.container}>
+      <StatusBar backgroundColor='#66a981'/>
         <ImageBackground
           blurRadius={14}
           source={require('../assets/images/ad_book_tablet.png')}
@@ -74,13 +74,13 @@ const Advertisement = props => {
               }}>
               <TouchableOpacity
                 // opacity={0.1}
-                onPress={props.HideModalOnPress}
+                onPress={() => navigation.replace('HomeScreen')}
                 style={[
                   {
                     borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
                     backgroundColor: 'white',
                     alignSelf: 'flex-end',
-                    opacity: 0.7,
+                    opacity: 0.5,
                     paddingVertical:
                       w >= 768 && h >= 1024
                         ? verticalScale(2)
@@ -96,7 +96,7 @@ const Advertisement = props => {
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                     // textAlign: 'center',
                     color: Color.DarkTextColor,
-                    fontFamily: Font.Poppins500,
+                    fontFamily: Font.Inter500,
                   }}>
                   {seconds} Skip
                 </Text>
@@ -179,8 +179,8 @@ const Advertisement = props => {
             </View>
           </View>
         </ImageBackground>
-      </Modal>
-    </SafeAreaView>
+      {/* </Modal> */}
+    </View>
   );
 };
 

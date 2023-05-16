@@ -24,6 +24,8 @@ import {useFocusEffect} from '@react-navigation/native';
 import DetailsCard from '../../components/Card/DetailsCard';
 import Swiper from 'react-native-swiper';
 import Advertisement from '../../components/Advertisement';
+import BottomTab from '../../constant/BottomTab';
+
 // import AdvertisementModal from '../../components/Modals/AdvertisementModal'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { HIDE_ADVERTISEMENT } from '../../redux/reducer'
@@ -31,29 +33,29 @@ import Advertisement from '../../components/Advertisement';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const Home = ({navigation}) => {
-  useFocusEffect(
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useCallback(() => {
-      navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          position: 'absolute',
-          bottom: 0,
-          height: verticalScale(80),
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          borderColor: Theme ? Color.DarkTheme : Color.White,
-          borderTopWidth: 0,
-          tabBarLabelStyle: {
-            fontFamily: Font.Poppins600,
-            fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-            marginBottom:
-              w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
+  // useFocusEffect(
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   useCallback(() => {
+  //     navigation.getParent()?.setOptions({
+  //       tabBarStyle: {
+  //         position: 'absolute',
+  //         bottom: 0,
+  //         height: verticalScale(80),
+  //         backgroundColor: Theme ? Color.DarkTheme : Color.White,
+  //         borderColor: Theme ? Color.DarkTheme : Color.White,
+  //         borderTopWidth: 0,
+  //         tabBarLabelStyle: {
+  //           fontFamily: Font.Poppins600,
+  //           fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
+  //           marginBottom:
+  //             w >= 768 && h >= 1024 ? verticalScale(-15) : verticalScale(15),
 
-            left: w >= 768 && h >= 1024 ? scale(115) : scale(0),
-          },
-        },
-      });
-    }),
-  );
+  //           left: w >= 768 && h >= 1024 ? scale(115) : scale(0),
+  //         },
+  //       },
+  //     });
+  //   }),
+  // );
 
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
@@ -167,13 +169,12 @@ const Home = ({navigation}) => {
         style={{
           flex: 1,
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
-        
         }}>
         <StatusBar
           backgroundColor={Theme ? Color.ExtraViewDark : '#F1F6FD'}
           barStyle={Theme ? 'light-content' : 'dark-content'}
         />
-        <ScrollView showsVerticalScrollIndicator={false}>
+       
           <HomeHeader
             HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
             HomeUnderLineStyle={{
@@ -183,6 +184,7 @@ const Home = ({navigation}) => {
               bottom: verticalScale(4),
             }}
           />
+           <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={[
               {
@@ -770,21 +772,8 @@ const Home = ({navigation}) => {
               />
             </View>
           </View>
-
-          <View
-            style={{
-              height: verticalScale(80),
-            }}
-          />
         </ScrollView>
-        <Advertisement
-          isVisible={isModalVisible}
-          HideModalOnPress={() => setModalVisible(false)}
-          onPressView={() => {
-            navigation.navigate('ViewManual');
-            setModalVisible(false);
-          }}
-        />
+        <BottomTab  activeHome={true}/>
       </View>
     </>
   );

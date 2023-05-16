@@ -5,6 +5,7 @@ import {
   useColorScheme,
   useWindowDimensions,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import React, {useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -32,6 +33,7 @@ const SignUp = ({navigation}) => {
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
+      <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{

@@ -42,6 +42,7 @@ import Privacy_dark from '../../assets/icons/privacy_dark.svg';
 import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import BottomTab from '../../constant/BottomTab';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -54,12 +55,7 @@ const SettingsGuest = () => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          display: 'flex',
-
-          height: Platform.OS == 'ios' ? verticalScale(80) : verticalScale(80),
-          position: 'absolute',
-          bottom: 0,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          display: 'none',
         },
       });
     }),
@@ -573,6 +569,7 @@ const SettingsGuest = () => {
           <View style={{height: verticalScale(90)}}></View>
         </ScrollView>
       </View>
+      <BottomTab  activeMore={true}/>
     </>
   );
 };

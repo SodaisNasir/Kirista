@@ -14,6 +14,7 @@ import {Font} from '../../../utils/font';
 import HomeHeader from '../../../components/HomeHeader';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import DetailsCard from '../../../components/Card/DetailsCard';
+import BottomTab from '../../../constant/BottomTab';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -26,78 +27,13 @@ const Events = () => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          position: 'absolute',
-          bottom: 0,
-          height: verticalScale(80),
-          justifyContent: 'space-around',
-          // paddingLeft:50,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          borderColor: Theme ? Color.DarkTheme : Color.White,
-          // paddingLeft: w >= 768 && h >= 1024 ? moderateScale(30) : 0,
-          borderTopWidth: 0,
-        },
-        tabBarLabelStyle: {
-          fontFamily: Font.Poppins600,
-          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-          marginBottom:
-            w >= 768 && h >= 1024
-              ? verticalScale(-15)
-              : Platform.OS === 'ios'
-              ? verticalScale(0)
-              : verticalScale(15),
-          // right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
+          display: 'none',
         },
       });
     }),
   );
 
   const Theme = useColorScheme() === 'dark';
-
-  // const data = [
-  //   {
-  //     id: 1,
-  //     title: 'West Coast 2 Regional ',
-  //     manual: 'Convention',
-  //     image: require('../../../assets/images/event_1.png'),
-  //     date: 'June 22, 2023.',
-  //     time: '4PM',
-  //   },
-
-  //   {
-  //     id: 2,
-  //     title: 'West Coast 3 Regional ',
-  //     manual: 'Convention',
-  //     image: require('../../../assets/images/event_2.png'),
-  //     date: 'July 7, 2023.',
-  //     time: '4PM',
-  //   },
-
-  //   {
-  //     id: 3,
-  //     title: 'West Coast 1 Regional ',
-  //     manual: 'Convention',
-  //     image: require('../../../assets/images/event_3.png'),
-  //     date: 'July 21, 2023.',
-  //     time: '4PM',
-  //   },
-
-  //   {
-  //     id: 4,
-  //     title: 'Abuja Special Holy Ghost',
-  //     manual: 'Congress',
-  //     image: require('../../../assets/images/event_4.png'),
-  //     date: 'November 09, 2023',
-  //     time: '4PM',
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'West Coast 1 Regional ',
-  //     manual: 'Convention',
-  //     image: require('../../../assets/images/event_1.png'),
-  //     date: 'July 21, 2023',
-  //     time: '4PM',
-  //   },
-  // ]
 
   return (
     <>
@@ -108,8 +44,14 @@ const Events = () => {
       />
       <View
         style={[
-          {backgroundColor: Theme ? Color.DarkTheme : Color.White,
-            marginTop : Platform.OS ==='ios' && w <= 450 && h <=750 ? verticalScale(20) : Platform.OS ==='ios'? verticalScale(-30) : 0
+          {
+            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            marginTop:
+              Platform.OS === 'ios' && w <= 450 && h <= 750
+                ? verticalScale(20)
+                : Platform.OS === 'ios'
+                ? verticalScale(-30)
+                : 0,
           },
           styles.Container,
         ]}>
@@ -122,7 +64,10 @@ const Events = () => {
             bottom: verticalScale(4),
           }}
           HeaderBox={{
-            marginTop:Platform.OS == 'ios' &&  w >= 768 && h >= 1024 ?  verticalScale(35) : 0
+            marginTop:
+              Platform.OS == 'ios' && w >= 768 && h >= 1024
+                ? verticalScale(35)
+                : 0,
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -227,9 +172,9 @@ const Events = () => {
             />
           </View>
 
-          <View style={{height: verticalScale(75)}} />
         </ScrollView>
       </View>
+      <BottomTab  activeHome={true}/>
     </>
   );
 };

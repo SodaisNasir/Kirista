@@ -6,11 +6,9 @@ import {
   TouchableOpacity,
   Dimensions,
   useColorScheme,
-  Animated,
-  TextInput,
   Platform
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
@@ -53,7 +51,7 @@ const HomeHeader = props => {
               style={{height: '100%', width: '100%'}}
             />
           </View>
-          {/* <View
+          <View
             style={{
               justifyContent: 'center',
               marginTop: verticalScale(10),
@@ -82,7 +80,7 @@ const HomeHeader = props => {
                 />
               </View>
             </TouchableOpacity>
-          </View> */}
+          </View>
         </View>
 
         <View

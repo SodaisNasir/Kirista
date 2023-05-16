@@ -10,6 +10,7 @@ import {
   ImageBackground,
   useWindowDimensions,
   Platform,
+  StatusBar,
 } from 'react-native';
 import React from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -45,6 +46,7 @@ const OverBoard = ({navigation}) => {
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
+         <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} />
       <ImageBackground
         source={
           Theme
@@ -74,20 +76,13 @@ const OverBoard = ({navigation}) => {
                   navigation.navigate('Language',{type:'Language'});
                 }}
                 style={{
-                  // width: tabPotrait ? scale(40) : scale(55),
                   paddingHorizontal:moderateScale(20),
-                  // height: tabPotrait
-                  //   ? verticalScale(27)
-                  //   : fourInchPotrait
-                  //   ? verticalScale(35)
-                  //   : verticalScale(42),
                   paddingVertical:moderateVerticalScale(10),
                   backgroundColor: 'rgba(56, 125, 229, 1)',
                   borderRadius: tabPotrait ? scale(11) : scale(100),
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexDirection: 'row',
-                  // paddingHorizontal: 20,
                 }}>
                 <View
                   style={{
@@ -111,7 +106,6 @@ const OverBoard = ({navigation}) => {
                     size={tabPotrait ? scale(10) : scale(16)}
                     color={'white'}
                     style={{
-                      // alignSelf: 'center',
                       top: verticalScale(1),
                     }}
                   />
@@ -139,18 +133,19 @@ const OverBoard = ({navigation}) => {
               }}>
               <Kiristalogo />
             </View>
-
+            <View style={{width:scale(150),height:verticalScale(50),alignSelf:'center',marginTop:verticalScale(10),marginBottom:verticalScale(15) }}>
+              <Image style={{width: '100%',height:'100%'}} resizeMode='contain' source={require('../../assets/images/first.png')}/>
+              </View>
             <View
               style={{
                 alignItems: 'center',
                 justifyContent: 'space-evenly',
                 flexDirection: 'row',
-                marginTop: tabPotrait
-                  ? '20%'
-                  : standardLandscape
-                  ? '10%'
-                  : '18%',
-
+                // marginTop: tabPotrait
+                //   ? '20%'
+                //   : standardLandscape
+                //   ? '10%'
+                //   : '18%',
                 alignSelf: 'center',
                 width: tabPotrait ? '78%' : standardLandscape ? '100%' : '90%',
               }}>
@@ -231,9 +226,7 @@ const OverBoard = ({navigation}) => {
               style={{
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                height: tabPotrait ? verticalScale(130) : verticalScale(110),
-                // backgroundColor: 'red',
-                // paddingHorizontal:1
+                height: tabPotrait ? verticalScale(130) : verticalScale(110)
               }}>
               <Text
                 style={{
@@ -282,7 +275,6 @@ const OverBoard = ({navigation}) => {
                     ? {fontSize: scale(8)}
                     : {fontSize: scale(12)},
 
-                  // width: '90%',
                   paddingHorizontal: verticalScale(25),
                   width: tabPotrait ? '60%' : '100%',
                   alignSelf: 'center',
@@ -332,14 +324,10 @@ const styles = StyleSheet.create({
   },
   dialouge: {
     textAlign: 'center',
-    // fontFamily: Font.Poppins600,
-    // marginTop: verticalScale(2),
   },
   term: {
     color: Color.Main,
-    fontFamily: Font.Poppins400,
-    // top: verticalScale(10),
-    // backgroundColor: 'red',
+    fontFamily: Font.Poppins400
   },
 });
 

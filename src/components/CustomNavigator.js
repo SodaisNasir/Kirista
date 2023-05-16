@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import React from 'react'
 import {Color} from '../utils/Colors'
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters'
+import {scale, verticalScale, moderateScale, moderateVerticalScale} from 'react-native-size-matters'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -19,7 +19,7 @@ const CustomNavigator = (props) => {
   return (
     <View
       style={{
-        height: verticalScale(90),
+        height: verticalScale(70),
         backgroundColor: Theme ? Color.DarkThemeCustomNavigator : Color.White,
         justifyContent: 'center',
         borderColor: Theme ? '#091E3B'  : Color.BorderColor,
@@ -32,9 +32,7 @@ const CustomNavigator = (props) => {
           flexDirection: 'row',
           width: w >= 768 && h >= 1024 ? '30%' : '55%',
           alignSelf: 'center',
-
-          // paddingHorizontal:verticalScale(30),
-          paddingBottom: verticalScale(5),
+          paddingBottom: moderateVerticalScale(5),
           marginVertical: verticalScale(20),
         }}>
         <View
@@ -46,7 +44,7 @@ const CustomNavigator = (props) => {
           ]}>
           <Ionicons
             name="chevron-back"
-            size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
+            size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
             color={Theme ? Color.White : Color.Black}
           />
         </View>
@@ -59,7 +57,7 @@ const CustomNavigator = (props) => {
           ]}>
           <AntDesign
             name="reload1"
-            size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
+            size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
             color={Theme ? Color.White : Color.Black}
           />
         </View>
@@ -72,7 +70,7 @@ const CustomNavigator = (props) => {
           ]}>
           <Ionicons
             name="chevron-forward"
-            size={w >= 768 && h >= 1024 ? scale(10) : scale(20)}
+            size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
             color={Theme ? Color.White : Color.Black}
           />
         </View>
@@ -86,18 +84,18 @@ export default CustomNavigator
 const styles = StyleSheet.create({
   LoadStyle: {
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(10),
-    borderWidth: 2,
-    height: w >= 768 && h >= 1024 ? verticalScale(19) : verticalScale(35),
-    width: w >= 768 && h >= 1024 ? verticalScale(19) : verticalScale(35),
+    borderWidth: scale(1.2),
+    height: w >= 768 && h >= 1024 ? verticalScale(22) : verticalScale(35),
+    width: w >= 768 && h >= 1024 ? verticalScale(22) : verticalScale(35),
     justifyContent: 'center',
     alignItems: 'center',
 
   },
   ArrowStyle: {
     borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(8),
-    borderWidth: scale(1.5),
-    height: w >= 768 && h >= 1024 ? verticalScale(17) : verticalScale(30),
-    width: w >= 768 && h >= 1024 ? verticalScale(17) : verticalScale(30),
+    borderWidth: scale(1.2),
+    height: w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30),
+    width: w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30),
     justifyContent: 'center',
     alignItems: 'center',
   },

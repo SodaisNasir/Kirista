@@ -16,6 +16,7 @@ import CustomInput from '../../../components/CustomInput'
 import SelectDropdown from '../../../components/SelectDropdown'
 import CustomButton from '../../../components/CustomButton'
 import SelectRegion from './SelectRegion'
+import BottomTab from '../../../constant/BottomTab'
 const ParishFinder = ({navigation}) => {
   const Theme = useColorScheme() === 'dark'
   const w = useWindowDimensions()
@@ -25,7 +26,6 @@ const ParishFinder = ({navigation}) => {
        <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <View
       style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
-      <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHeader
           ParishRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
           ParishUnderLineStyle={{
@@ -35,6 +35,7 @@ const ParishFinder = ({navigation}) => {
             bottom: verticalScale(4),
           }}
         />
+          <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             marginVertical:
@@ -85,6 +86,7 @@ const ParishFinder = ({navigation}) => {
         </View>
       </ScrollView>
     </View>
+    <BottomTab  activeHome={true}/>
         </>
   )
 }

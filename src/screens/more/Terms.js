@@ -35,6 +35,7 @@ const Terms = ({navigation}) => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
+        <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor }/>
       <View
         style={{
           flex: 1,
@@ -44,14 +45,19 @@ const Terms = ({navigation}) => {
           backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
           barStyle={Theme ? 'light-content' : 'dark-content'}
         />
-        <Header text={'Terms'}  AuthHeaderStyle={{
+        <Header
+          text={'Terms'}
+          AuthHeaderStyle={{
             height:
-              w >= 768 && h >= 1024
+              Platform.OS == 'android'
+                ? verticalScale(80)
+                : w >= 768 && h >= 1024
                 ? verticalScale(50)
                 : w <= 450 && h <= 750
                 ? verticalScale(65)
                 : verticalScale(30),
-          }}/>
+          }}
+        />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={[
@@ -99,12 +105,9 @@ const Terms = ({navigation}) => {
               Agreement, without notifying you.
             </Text>
           </View>
-          <View style={{height: verticalScale(85)}} />
         </ScrollView>
         <View
           style={{
-            position: 'absolute',
-            bottom: 0,
             width: '100%',
             backgroundColor: Color.White,
           }}>

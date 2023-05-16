@@ -7,6 +7,7 @@ import {
   Dimensions,
   useColorScheme,
   StatusBar,
+  Platform,
 } from 'react-native';
 import React, {useLayoutEffect} from 'react';
 import {Color} from '../../utils/Colors';
@@ -29,34 +30,61 @@ const Privacy = ({navigation}) => {
   }, []);
   return (
     <>
-     <SafeAreaView
+      <SafeAreaView
         style={{
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-    <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
-      <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
-      />
-      <Header text={'Privacy'}  AuthHeaderStyle={{
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        }}>
+        <StatusBar
+          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme ? 'light-content' : 'dark-content'}
+        />
+        <Header
+          text={'Privacy'}
+          AuthHeaderStyle={{
             height:
-              w >= 768 && h >= 1024
+              Platform.OS == 'android'
+                ? verticalScale(80)
+                : w >= 768 && h >= 1024
                 ? verticalScale(50)
                 : w <= 450 && h <= 750
                 ? verticalScale(65)
                 : verticalScale(30),
-          }}/>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={[
-            styles.Container,
-            {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
-            },
-          ]}>
-          <View style={{marginVertical: verticalScale(20)}}>
+          }}
+        />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+            style={[
+              styles.Container,
+              {
+                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              },
+            ]}>
+            <View style={{marginVertical: verticalScale(20)}}>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.Black,
+                  },
+                ]}>
+                Privacy Policy
+              </Text>
+              <Text
+                style={[
+                  styles.TextStyle,
+                  {
+                    color: Theme ? Color.White : Color.Black,
+                  },
+                ]}>
+                INTRODUCTION
+              </Text>
+            </View>
             <Text
               style={[
                 styles.TextStyle,
@@ -64,99 +92,79 @@ const Privacy = ({navigation}) => {
                   color: Theme ? Color.White : Color.Black,
                 },
               ]}>
-              Privacy Policy
+              Kirista is dedicated to protecting your personal information and
+              informing you about how we use your information. This privacy
+              policy applies to your use of our services including our Mobile
+              App and services (collectively “Platform”). We operate this mobile
+              application, a digital reading platform that enables brethren read
+              RCCG books using a variety of electronic devices, software
+              applications, and other services.
             </Text>
             <Text
               style={[
-                styles.TextStyle,
                 {
+                  marginTop: verticalScale(10),
                   color: Theme ? Color.White : Color.Black,
                 },
+                styles.TextStyle,
               ]}>
-              INTRODUCTION
+              This Privacy Policy should be read in conjunction with the Terms
+              of Use and is integrated into the Terms of Use. All capitalized
+              proper nouns not defined in this Agreement will have the same
+              definitions and meanings as defined by the Terms of If you do not
+              agree to these Terms of Use, you should not review information
+              from this Mobile App. We have the total right to edit or delete
+              any content in this Mobile Platform, including this Agreement,
+              without notifying you.
+            </Text>
+            <Text
+              style={[
+                {
+                  marginTop: verticalScale(10),
+                  color: Theme ? Color.White : Color.Black,
+                },
+                styles.TextStyle,
+              ]}>
+              Kirista is dedicated to protecting your personal information and
+              informing you about how we use your information. This privacy
+              policy applies to your use of our services including our Mobile
+              App and services (collectively “Platform”). We operate this mobile
+              application, a digital reading platform that enables brethren read
+              RCCG books using a variety of electronic devices, software
+              applications, and other services.
+            </Text>
+            <Text
+              style={[
+                {
+                  marginTop: verticalScale(10),
+                  color: Theme ? Color.White : Color.Black,
+                },
+                styles.TextStyle,
+              ]}>
+              This Privacy Policy should be read in conjunction with the Terms
+              of Use and is integrated into the Terms of Use. All capitalized
+              proper nouns not defined in this Agreement will have the same
+              definitions and meanings as defined by the Terms of Use. This
+              Privacy Policy should be read in conjunction with the Terms of Use
+              and is integrated into the Terms of Use. All capitalized proper
+              nouns not defined in this Agreement will have the same definitions
+              and meanings as defined by the Terms of If you do not agree to
+              these Terms of Use, you should not review information from this
+              Mobile App. We have the total right to edit or delete any content
+              in this Mobile Platform, including this Agreement, without
+              notifying you.
             </Text>
           </View>
-          <Text
-            style={[
-              styles.TextStyle,
-              {
-                color: Theme ? Color.White : Color.Black,
-              },
-            ]}>
-            Kirista is dedicated to protecting your personal information and
-            informing you about how we use your information. This privacy policy
-            applies to your use of our services including our Mobile App and
-            services (collectively “Platform”). We operate this mobile
-            application, a digital reading platform that enables brethren read
-            RCCG books using a variety of electronic devices, software
-            applications, and other services.
-          </Text>
-          <Text
-            style={[
-              {
-                marginTop: verticalScale(10),
-                color: Theme ? Color.White : Color.Black,
-              },
-              styles.TextStyle,
-            ]}>
-            This Privacy Policy should be read in conjunction with the Terms of
-            Use and is integrated into the Terms of Use. All capitalized proper
-            nouns not defined in this Agreement will have the same definitions
-            and meanings as defined by the Terms of If you do not agree to these
-            Terms of Use, you should not review information from this Mobile
-            App. We have the total right to edit or delete any content in this
-            Mobile Platform, including this Agreement, without notifying you.
-          </Text>
-          <Text
-            style={[
-              {
-                marginTop: verticalScale(10),
-                color: Theme ? Color.White : Color.Black,
-              },
-              styles.TextStyle,
-            ]}>
-            Kirista is dedicated to protecting your personal information and
-            informing you about how we use your information. This privacy policy
-            applies to your use of our services including our Mobile App and
-            services (collectively “Platform”). We operate this mobile
-            application, a digital reading platform that enables brethren read
-            RCCG books using a variety of electronic devices, software
-            applications, and other services.
-          </Text>
-          <Text
-            style={[
-              {
-                marginTop: verticalScale(10),
-                color: Theme ? Color.White : Color.Black,
-              },
-              styles.TextStyle,
-            ]}>
-            This Privacy Policy should be read in conjunction with the Terms of
-            Use and is integrated into the Terms of Use. All capitalized proper
-            nouns not defined in this Agreement will have the same definitions
-            and meanings as defined by the Terms of Use. This Privacy Policy
-            should be read in conjunction with the Terms of Use and is
-            integrated into the Terms of Use. All capitalized proper nouns not
-            defined in this Agreement will have the same definitions and
-            meanings as defined by the Terms of If you do not agree to these
-            Terms of Use, you should not review information from this Mobile
-            App. We have the total right to edit or delete any content in this
-            Mobile Platform, including this Agreement, without notifying you.
-          </Text>
+        </ScrollView>
+        <View
+          style={{
+            width: '100%',
+            backgroundColor: Color.White,
+            justifyContent: 'center',
+          }}>
+          <CustomNavigator />
         </View>
-        <View style={{height: verticalScale(90)}} />
-      </ScrollView>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          backgroundColor: Color.White,
-          justifyContent: 'center',
-        }}>
-        <CustomNavigator />
       </View>
-    </View>
     </>
   );
 };

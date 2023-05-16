@@ -33,6 +33,6 @@ export const Color = {
   FontBoxColorDark: '#0C2447',
   FontBoxColor: '#EBF2FC',
   DarkBorder : '#515F72',
-
+  NonActive: '#d1d2d4',
   ArrowBorder: '#D3D3D3',
 }

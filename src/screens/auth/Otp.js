@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import {
@@ -56,122 +57,124 @@ const OTP = ({navigation}) => {
         styles.Container,
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{alignSelf:'center',width:'90%'}}>
-        <AuthHeader text={'Email Verification'} />
+        <View style={{alignSelf: 'center', width: '90%'}}>
+          <AuthHeader text={'Email Verification'} />
 
-        <View
-          style={{
-            justifyContent: 'center',
-            marginVertical: scale(10),
-          }}>
-          <Text
-            style={[
-              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
-              styles.LongText,
-            ]}>
-            We have sent a one-time password to{' '}
+          <View
+            style={{
+              justifyContent: 'center',
+              marginVertical: scale(10),
+            }}>
             <Text
-              style={{
-                fontFamily: Font.Poppins700,
-                fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
-                color: Theme ? Color.DarkThemText2 : Color.TextColor,
-              }}>
-              maryjames@rccg.com
-            </Text>
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginVertical:
-              w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
-          }}>
-          <Text
-            style={[
-              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
-              styles.OtpText,
-            ]}>
-            OTP
-          </Text>
-
-          <View>
-            {time == 0 ? (
-              <TouchableOpacity
+              style={[
+                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                styles.LongText,
+              ]}>
+              We have sent a one-time password to{' '}
+              <Text
                 style={{
-                  // padding: 7,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: scale(10),
-                }}
-                onPress={() => setTime(600)}>
+                  fontFamily: Font.Poppins700,
+                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
+                  color: Theme ? Color.DarkThemText2 : Color.TextColor,
+                }}>
+                maryjames@rccg.com
+              </Text>
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
+            }}>
+            <Text
+              style={[
+                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                styles.OtpText,
+              ]}>
+              OTP
+            </Text>
+
+            <View>
+              {time == 0 ? (
+                <TouchableOpacity
+                  style={{
+                    // padding: 7,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: scale(10),
+                  }}
+                  onPress={() => setTime(600)}>
+                  <Text
+                    style={{
+                      color: Theme ? Color.White : Color.Black,
+                      fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                      fontFamily: Font.Poppins700,
+                    }}>
+                    Resend
+                  </Text>
+                </TouchableOpacity>
+              ) : (
                 <Text
                   style={{
                     color: Theme ? Color.White : Color.Black,
                     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                    alignSelf: 'center',
                     fontFamily: Font.Poppins700,
                   }}>
-                  Resend
+                  {timeString}
                 </Text>
-              </TouchableOpacity>
-            ) : (
-              <Text
-                style={{
-                  color: Theme ? Color.White : Color.Black,
-                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
-                  alignSelf: 'center',
-                  fontFamily: Font.Poppins700,
-                }}>
-                {timeString}
-              </Text>
-            )}
-          </View>
-        </View>
-        <CodeField
-          ref={ref}
-          value={value}
-          onChangeText={setValue}
-          cellCount={CELL_COUNT}
-          rootStyle={[styles.codeFieldRoot,{  color: Theme ? Color.White : Color.Black,
-            borderRadius:scale(16),
-          
-          }]}
-          keyboardType="number-pad"
-          textContentType="oneTimeCode"
-          renderCell={({index, symbol, isFocused}) => (
-            <View style={{  backgroundColor: Theme
-              ? Color.DarkThemeInputBox
-              : Color.OtpBoxColor, borderRadius:scale(16),}}>
-            <Text
-              key={index}
-              style={[
-                {
-                 
-                    color: Theme ? Color.White : Color.Black,
-                    // backgroundColor:'pink',
-                  
-                  
-                },
-                styles.cell,
-                isFocused && styles.focusCell,
-              ]}
-              onLayout={getCellOnLayoutHandler(index)}>
-              {symbol || (isFocused ? <Cursor /> : null)}
-            </Text>
+              )}
             </View>
-          )}
-        />
-        <View
-          style={{
-            marginVertical:
-              w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
-          }}>
-          <CustomButton
-            onPress={() => navigation.navigate('NewPassword')}
-            text={'Continue'}
+          </View>
+          <CodeField
+            ref={ref}
+            value={value}
+            onChangeText={setValue}
+            cellCount={CELL_COUNT}
+            rootStyle={[
+              styles.codeFieldRoot,
+              {
+                color: Theme ? Color.White : Color.Black,
+                borderRadius: scale(16),
+              },
+            ]}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            renderCell={({index, symbol, isFocused}) => (
+              <View
+                style={{
+                  backgroundColor: Theme
+                    ? Color.DarkThemeInputBox
+                    : Color.OtpBoxColor,
+                  borderRadius: scale(16),
+                }}>
+                <Text
+                  key={index}
+                  style={[
+                    {color: Theme ? Color.White : Color.Black},
+                    styles.cell,
+                    isFocused && styles.focusCell,
+                    Platform.OS == 'ios' ?  {lineHeight:verticalScale(30)} : {textAlignVertical:'center'}
+                  ]}
+                  onLayout={getCellOnLayoutHandler(index)}>
+                  {symbol || (isFocused ? <Cursor /> : null)}
+                </Text>
+              </View>
+            )}
           />
-        </View>
+          <View
+            style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
+            }}>
+            <CustomButton
+              onPress={() => navigation.navigate('NewPassword')}
+              text={'Continue'}
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -210,7 +213,7 @@ const styles = StyleSheet.create({
   codeFieldRoot: {
     paddingHorizontal: moderateScale(32),
     marginVertical: scale(10),
-    borderRadius:scale(16)
+    borderRadius: scale(16),
   },
   cell: {
     paddingTop: moderateVerticalScale(5),
@@ -221,7 +224,7 @@ const styles = StyleSheet.create({
     // textAlignVertical: 'center',
     fontFamily: Font.Poppins400,
     elevation: 1,
-    lineHeight:verticalScale(30),
+
     // borderRadius:scale(16),
   },
   ImageBox: {

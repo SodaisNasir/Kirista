@@ -19,6 +19,7 @@ import {Color} from '../../utils/Colors';
 import FilterModal from '../../components/Modals/FilterModal';
 import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect} from '@react-navigation/native';
+import BottomTab from '../../constant/BottomTab';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -77,26 +78,9 @@ const LibraryHome = ({navigation}) => {
     },
   ];
   useFocusEffect(
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useCallback(() => {
-      navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          height:verticalScale(80),
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          borderColor: Theme ? Color.DarkTheme : Color.White,
-          borderTopWidth: 0,
-          right: w >= 768 && h >= 1024 ? scale(18) : scale(0),
-        },
-        tabBarLabelStyle: {
-          fontFamily: Font.Poppins600,
-          fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
-          marginBottom:
-            w >= 768 && h >= 1024 ? verticalScale(-15) : Platform.OS ==='ios' ? verticalScale(0) : verticalScale(15),
-          right: w >= 768 && h >= 1024 ? scale(0) : scale(0),
-        }
-       
-      });
-    }),
+      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    }, []),
   );
   return (
     <>
@@ -213,6 +197,7 @@ const LibraryHome = ({navigation}) => {
           />
         </View>
       </ScrollView>
+     
       <FilterModal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}
@@ -221,6 +206,7 @@ const LibraryHome = ({navigation}) => {
         onPress={() => setModalVisible(false)}
       />
     </SafeAreaView>
+    <BottomTab  activeLibary={true}/>
     </>
   );
 };

@@ -33,7 +33,6 @@ const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
 const fourInchPotrait = w <= 350 && h <= 600;
 const Searchbar = () => {
-
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
@@ -163,74 +162,87 @@ const Searchbar = () => {
   );
   return (
     <>
-   <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
-    <View
-      style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
-      <View
+      <SafeAreaView
         style={{
-          height: verticalScale(50),
-          backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
-          flexDirection: 'row',
-          paddingHorizontal: moderateScale(10),
-        }}>
-        {!isSearchBarVisible && searchQuery2 == '' ? (
-          <View
-            style={{
-              height: '100%',
-              justifyContent: 'center',
-              marginRight: scale(5),
-            }}>
-            <AntDesign
-              name="arrowleft"
-              size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-              color={Theme ? Color.White : Color.Black}
-              onPress={() => navigation.goBack()}
-            />
-          </View>
-        ) : null}
-        {/*  this ti for Searchbarr */}
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+      <View style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
         <View
           style={{
-            width: isSearchBarVisible ? '80%' : '90%',
-            height: verticalScale(40),
-            backgroundColor: Theme ? '#2B3642' : Color.White,
-            borderRadius: scale(25),
+            height: verticalScale(50),
+            backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
             flexDirection: 'row',
-            paddingHorizontal: moderateScale(20),
-            alignItems: 'center',
-            alignSelf:'center'
+            paddingHorizontal: moderateScale(10),
           }}>
-             <Search
-                height={
-                  w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
-                }
-                width={
-                  w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(26)
-                }
+          {!isSearchBarVisible && searchQuery2 == '' ? (
+            <View
+              style={{
+                height: '100%',
+                justifyContent: 'center',
+                marginRight: scale(5),
+              }}>
+              <AntDesign
+                name="arrowleft"
+                size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                color={Theme ? Color.White : Color.Black}
+                onPress={() => navigation.goBack()}
               />
-               <TextInput
-                onFocus={() => setIsSearchBarVisible(true)}
-                style={{
-                  height:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(37)
-                      : fourInchPotrait
-                      ? verticalScale(45)
-                      : w <=  450  && h <= 700 ? '100%' : verticalScale(37),
-                  width: '100%',
-                  color: Theme ? '#fff' : '#000',
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : w >=  450  && h >= 700 ?  scale(10) : scale(14),
-                  fontFamily: Font.Inter500,
-                  top: fourInchPotrait ? verticalScale(2) : verticalScale(1.5),
-                  left : iosTab? scale(2): 0 
-                }}
-                placeholder="Search"
-                placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
-                onSubmitEditing={() => console.log(searchInputValue2)}
-                onChangeText={text => handleSearch2(text)}
-                value={searchQuery2}
-              />
-                       {searchQuery2.length >=1 && isSearchBarVisible ? (
+            </View>
+          ) : null}
+          {/*  this ti for Searchbarr */}
+          <View
+            style={{
+              width: isSearchBarVisible ? '85%' : '90%',
+              height:
+                w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(35),
+              backgroundColor: Theme ? '#2B3642' : Color.White,
+              borderRadius: scale(25),
+              flexDirection: 'row',
+              paddingHorizontal: moderateScale(20),
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Search
+              height={
+                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
+              }
+              width={
+                w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(26)
+              }
+            />
+            <TextInput
+              onFocus={() => setIsSearchBarVisible(true)}
+              style={{
+                height:
+                  w >= 768 && h >= 1024
+                    ? verticalScale(37)
+                    : fourInchPotrait
+                    ? verticalScale(45)
+                    : w <= 450 && h <= 700
+                    ? '100%'
+                    : verticalScale(37),
+                width: '100%',
+                color: Theme ? '#fff' : '#000',
+                fontSize:
+                  w >= 768 && h >= 1024
+                    ? scale(8)
+                    : w >= 450 && h >= 700
+                    ? scale(10)
+                    : w <= 400 && h <= 650
+                    ? scale(10)
+                    : scale(14),
+                fontFamily: Font.Inter500,
+                top: fourInchPotrait ? verticalScale(2) : verticalScale(1.5),
+                left: iosTab ? scale(2) : 0,
+              }}
+              placeholder="Search"
+              placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
+              onSubmitEditing={() => console.log(searchInputValue2)}
+              onChangeText={text => handleSearch2(text)}
+              value={searchQuery2}
+            />
+            {searchQuery2.length >= 1 && isSearchBarVisible ? (
               <View
                 style={{
                   alignSelf: 'center',
@@ -247,334 +259,335 @@ const Searchbar = () => {
               </View>
             ) : null}
           </View>
-        {/*  this ti for Searchbarr */}
-        {isSearchBarVisible ? (
+          {/*  this ti for Searchbarr */}
+          {isSearchBarVisible ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity onPress={() => resetStatus()}>
+                <Text
+                  style={{
+                    color: Theme ? '#B5BCC6' : '#4D5C72',
+                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+                    fontFamily: Font.Poppins600,
+                    letterSpacing: 0.3,
+                  }}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : null}
+        </View>
+        {isSearchBarVisible != true && searchQuery2 == '' ? (
+          <View
+            style={[
+              styles.SecondView,
+              {
+                backgroundColor: Theme ? '#071A36' : 'white',
+              },
+            ]}>
+            <Text
+              style={{
+                color: Theme ? Color.White : Color.DarkTextColor,
+                fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                fontFamily: Font.Poppins500,
+              }}>
+              Popular Searches
+            </Text>
+            <View style={{flex: 1}}>
+              <FlatList
+                data={data}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item}) => (
+                  <DetailsCard
+                    // onPress={() => navigation.navigate('SearchResult')}
+                    source={item.image}
+                    title={item.title}
+                    resize={'contain'}
+                    manual={item.manual}
+                    PlaceTrue={true}
+                    Place={item.detail}
+                    MainBoxRestyle={{
+                      paddingBottom:
+                        w >= 768 && h >= 1024
+                          ? verticalScale(10)
+                          : verticalScale(15),
+                      marginTop:
+                        w >= 768 && h >= 1024
+                          ? verticalScale(10)
+                          : verticalScale(15),
+                      // backgroundColor:'red'
+                      borderBottomColor: Theme
+                        ? Color.DarkBorder
+                        : Color.BorderColor,
+                      borderBottomWidth: 1,
+                    }}
+                  />
+                )}
+                keyExtractor={item => item.id.toString()}
+              />
+              <View style={{height: verticalScale(10)}} />
+            </View>
+          </View>
+        ) : !show ? (
           <View
             style={{
               flex: 1,
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              flexDirection: 'row',
+              backgroundColor: Theme ? Color.DarkTheme : Color.White,
             }}>
-            <TouchableOpacity onPress={() => resetStatus()}>
-              <Text
-                style={{
-                  color: Theme ? '#B5BCC6' : '#4D5C72',
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-                  fontFamily: Font.Poppins600,
-                  letterSpacing: 0.3,
-                }}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ) : null}
-      </View>
-      {isSearchBarVisible != true && searchQuery2 == '' ? (
-        <View
-          style={[
-            styles.SecondView,
-            {
-              backgroundColor: Theme ? '#071A36' : 'white',
-            },
-          ]}>
-          <Text
-            style={{
-              color: Theme ? Color.White : Color.DarkTextColor,
-              fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-              fontFamily: Font.Poppins500,
-            }}>
-            Popular Searches
-          </Text>
-          <View style={{flex: 1}}>
             <FlatList
-              data={data}
+              data={filteredData2}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => (
-                <DetailsCard
-                  // onPress={() => navigation.navigate('SearchResult')}
-                  source={item.image}
-                  title={item.title}
-                  resize={'contain'}
-                  manual={item.manual}
-                  PlaceTrue={true}
-                  Place={item.detail}
-                  MainBoxRestyle={{
-                    paddingBottom:
+                <TouchableOpacity
+                  onPress={() => showData()}
+                  style={{
+                    paddingHorizontal:
                       w >= 768 && h >= 1024
-                        ? verticalScale(10)
-                        : verticalScale(15),
-                    marginTop:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(10)
-                        : verticalScale(15),
-                    // backgroundColor:'red'
-                    borderBottomColor: Theme
-                      ? Color.DarkBorder
-                      : Color.BorderColor,
-                    borderBottomWidth: 1,
-                  }}
-                />
+                        ? moderateScale(25)
+                        : moderateScale(20),
+
+                    flex: 1,
+                  }}>
+                  <View
+                    style={[
+                      {
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop:
+                          item.id == 1
+                            ? verticalScale(15)
+                            : w >= 768 && h >= 1024
+                            ? verticalScale(10)
+                            : verticalScale(10),
+                      },
+                      // {item.id == 1 ? {marginTop:verticalScale(10)} : {  marginVertical:
+
+                      //,}}
+                    ]}>
+                    {Theme ? (
+                      <BookDark
+                        height={
+                          w >= 768 && h >= 1024
+                            ? verticalScale(18)
+                            : verticalScale(20)
+                        }
+                        width={25}
+                      />
+                    ) : item.type === 'light' ? (
+                      <BookSvg
+                        height={
+                          w >= 768 && h >= 1024
+                            ? verticalScale(18)
+                            : verticalScale(20)
+                        }
+                        width={25}
+                      />
+                    ) : item.type === 'light3' ? (
+                      <HouseSvg
+                        height={
+                          w >= 768 && h >= 1024
+                            ? verticalScale(18)
+                            : verticalScale(20)
+                        }
+                        width={25}
+                      />
+                    ) : item.type == 'light4' ? (
+                      <PersonSvg
+                        height={
+                          w >= 768 && h >= 1024
+                            ? verticalScale(18)
+                            : verticalScale(20)
+                        }
+                        width={25}
+                      />
+                    ) : item.type == 'light6' ? (
+                      <CalendarSvg
+                        height={
+                          w >= 768 && h >= 1024
+                            ? verticalScale(18)
+                            : verticalScale(18)
+                        }
+                        width={25}
+                      />
+                    ) : null}
+
+                    <View style={{paddingHorizontal: moderateScale(10)}}>
+                      <Text
+                        style={[
+                          {color: Theme ? Color.White : Color.DarkTextColor},
+                          styles.TextStyle,
+                        ]}>
+                        {item.title}
+                      </Text>
+                    </View>
+                  </View>
+                  {/* <SearchSuggestion /> */}
+                </TouchableOpacity>
               )}
               keyExtractor={item => item.id.toString()}
             />
-            <View style={{height: verticalScale(10)}} />
           </View>
-        </View>
-      ) : !show ? (
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          }}>
-          <FlatList
-            data={filteredData2}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => showData()}
-                style={{
-                  paddingHorizontal:
-                    w >= 768 && h >= 1024
-                      ? moderateScale(25)
-                      : moderateScale(20),
-
-                  flex: 1,
-                }}>
-                <View
-                  style={[
-                    {
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop:
-                        item.id == 1
-                          ? verticalScale(15)
-                          : w >= 768 && h >= 1024
-                          ? verticalScale(10)
-                          : verticalScale(10),
-                    },
-                    // {item.id == 1 ? {marginTop:verticalScale(10)} : {  marginVertical:
-
-                    //,}}
-                  ]}>
-                  {Theme ? (
-                    <BookDark
-                      height={
-                        w >= 768 && h >= 1024
-                          ? verticalScale(18)
-                          : verticalScale(20)
-                      }
-                      width={25}
-                    />
-                  ) : item.type === 'light' ? (
-                    <BookSvg
-                      height={
-                        w >= 768 && h >= 1024
-                          ? verticalScale(18)
-                          : verticalScale(20)
-                      }
-                      width={25}
-                    />
-                  ) : item.type === 'light3' ? (
-                    <HouseSvg
-                      height={
-                        w >= 768 && h >= 1024
-                          ? verticalScale(18)
-                          : verticalScale(20)
-                      }
-                      width={25}
-                    />
-                  ) : item.type == 'light4' ? (
-                    <PersonSvg
-                      height={
-                        w >= 768 && h >= 1024
-                          ? verticalScale(18)
-                          : verticalScale(20)
-                      }
-                      width={25}
-                    />
-                  ) : item.type == 'light6' ? (
-                    <CalendarSvg
-                      height={
-                        w >= 768 && h >= 1024
-                          ? verticalScale(18)
-                          : verticalScale(18)
-                      }
-                      width={25}
-                    />
-                  ) : null}
-
-                  <View style={{paddingHorizontal: moderateScale(10)}}>
-                    <Text
-                      style={[
-                        {color: Theme ? Color.White : Color.DarkTextColor},
-                        styles.TextStyle,
-                      ]}>
-                      {item.title}
-                    </Text>
-                  </View>
-                </View>
-                {/* <SearchSuggestion /> */}
-              </TouchableOpacity>
-            )}
-            keyExtractor={item => item.id.toString()}
-          />
-        </View>
-      ) : (
-        <View style={{flex: 1,backgroundColor: Theme ? Color.DarkTheme : Color.White,}}>
+        ) : (
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-              paddingTop: verticalScale(1),
-           
-              
+              flex: 1,
+              backgroundColor: Theme ? Color.DarkTheme : Color.White,
             }}>
-            <TouchableOpacity
-              style={{marginBottom: verticalScale(10)}}
-              onPress={HandelBook}>
-              <Text
-                style={[
-                  {
-                    color: Theme
-                      ? Book
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                backgroundColor: Theme
+                  ? Color.ExtraViewDark
+                  : Color.HeaderColor,
+                paddingTop: verticalScale(1),
+              }}>
+              <TouchableOpacity
+                style={{marginBottom: verticalScale(10)}}
+                onPress={HandelBook}>
+                <Text
+                  style={[
+                    {
+                      color: Theme
+                        ? Book
+                          ? Color.Main
+                          : '#9DA6B3'
+                        : Book
                         ? Color.Main
-                        : '#9DA6B3'
-                      : Book
-                      ? Color.Main
-                      : '#C1C5CA',
-                  },
-                  styles.Text2Style,
-                  styles.BooksStyle,
-                ]}>
-                Books
-              </Text>
-            </TouchableOpacity>
+                        : '#C1C5CA',
+                    },
+                    styles.Text2Style,
+                    styles.BooksStyle,
+                  ]}>
+                  Books
+                </Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{marginBottom: verticalScale(10)}}
-              onPress={HandelParishes}>
-              <Text
-                style={[
-                  {
-                    color: Theme
-                      ? Parishes
+              <TouchableOpacity
+                style={{marginBottom: verticalScale(10)}}
+                onPress={HandelParishes}>
+                <Text
+                  style={[
+                    {
+                      color: Theme
+                        ? Parishes
+                          ? Color.Main
+                          : '#9DA6B3'
+                        : Parishes
                         ? Color.Main
-                        : '#9DA6B3'
-                      : Parishes
-                      ? Color.Main
-                      : '#C1C5CA',
-                  },
-                  styles.Text2Style,
-                  // props.ParishRestyle,
-                ]}>
-                Parishes
-              </Text>
-              {/* <View style={props.ParishUnderLineStyle} /> */}
-            </TouchableOpacity>
+                        : '#C1C5CA',
+                    },
+                    styles.Text2Style,
+                    // props.ParishRestyle,
+                  ]}>
+                  Parishes
+                </Text>
+                {/* <View style={props.ParishUnderLineStyle} /> */}
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={HandelEvent}
-              style={{marginBottom: verticalScale(10)}}>
-              <Text
-                style={[
-                  {
-                    color: Theme
-                      ? Event
+              <TouchableOpacity
+                onPress={HandelEvent}
+                style={{marginBottom: verticalScale(10)}}>
+                <Text
+                  style={[
+                    {
+                      color: Theme
+                        ? Event
+                          ? Color.Main
+                          : '#9DA6B3'
+                        : Event
                         ? Color.Main
-                        : '#9DA6B3'
-                      : Event
-                      ? Color.Main
-                      : '#C1C5CA',
-                  },
-                  styles.Text2Style,
-                  // props.EventRestyle,
-                ]}>
-                Events
-              </Text>
-              {/* <View style={props.EventUnderLineStyle} /> */}
-            </TouchableOpacity>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            {Book && (
-              <View
-                style={{
-                  borderBottomColor: Color.Main,
-                  borderBottomWidth: 2.5,
-                  backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-                  width: '33%',
-                  // marginLeft: '33%',
-                }}
-              />
-            )}
-            {Parishes && (
-              <View
-                style={{
-                  borderBottomColor: Color.Main,
-                  borderBottomWidth: 2.5,
-                  backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-                  width: '33s%',
-                  marginLeft: '33%',
-                }}
-              />
-            )}
-            {Event && (
-              <View
-                style={{
-                  borderBottomColor: Color.Main,
-                  borderBottomWidth: 2.5,
-                  backgroundColor: Theme ? Color.Main : Color.HeaderColor,
-                  width: '33%',
-                  marginLeft: '66%',
-                }}
-              />
-            )}
-          </View>
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            {Book && <NoResult />}
-            {Parishes && (
-              <View style={{flex: 1, paddingHorizontal: scale(20)}}>
-                <FlatList
-                  data={data}
-                  showsVerticalScrollIndicator={false}
-                  renderItem={({item}) => (
-                    <DetailsCard
-                      // onPress={() => navigation.navigate('SearchResult')}
-                      source={item.image}
-                      title={item.title}
-                      resize={'contain'}
-                      manual={item.manual}
-                      PlaceTrue={true}
-                      Place={item.detail}
-                      MainBoxRestyle={{
-                        paddingBottom:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(10)
-                            : verticalScale(15),
-                        marginTop:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(10)
-                            : verticalScale(15),
-                        // backgroundColor:'red'
-                        borderBottomColor: Theme
-                          ? Color.DarkBorder
-                          : Color.BorderColor,
-                        borderBottomWidth: 1,
-                      }}
-                    />
-                  )}
-                  keyExtractor={item => item.id.toString()}
-                  ListEmptyComponent={() => <NoResult />}
+                        : '#C1C5CA',
+                    },
+                    styles.Text2Style,
+                    // props.EventRestyle,
+                  ]}>
+                  Events
+                </Text>
+                {/* <View style={props.EventUnderLineStyle} /> */}
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              {Book && (
+                <View
+                  style={{
+                    borderBottomColor: Color.Main,
+                    borderBottomWidth: 2.5,
+                    backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+                    width: '33%',
+                    // marginLeft: '33%',
+                  }}
                 />
-              </View>
-            )}
-            {Event && <NoResult />}
+              )}
+              {Parishes && (
+                <View
+                  style={{
+                    borderBottomColor: Color.Main,
+                    borderBottomWidth: 2.5,
+                    backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+                    width: '33%',
+                    marginLeft: '33%',
+                  }}
+                />
+              )}
+              {Event && (
+                <View
+                  style={{
+                    borderBottomColor: Color.Main,
+                    borderBottomWidth: 2.5,
+                    backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+                    width: '33%',
+                    marginLeft: '66%',
+                  }}
+                />
+              )}
+            </View>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              {Book && <NoResult />}
+              {Parishes && (
+                <View style={{flex: 1, paddingHorizontal: moderateScale(20)}}>
+                  <FlatList
+                    data={data}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({item}) => (
+                      <DetailsCard
+                        source={item.image}
+                        title={item.title}
+                        resize={'contain'}
+                        manual={item.manual}
+                        PlaceTrue={true}
+                        Place={item.detail}
+                        MainBoxRestyle={{
+                          paddingBottom:
+                            w >= 768 && h >= 1024
+                              ? verticalScale(10)
+                              : verticalScale(15),
+                          marginTop:
+                            w >= 768 && h >= 1024
+                              ? verticalScale(10)
+                              : verticalScale(15),
+                          borderBottomColor: Theme
+                            ? Color.DarkBorder
+                            : Color.BorderColor,
+                          borderBottomWidth: 1,
+                        }}
+                      />
+                    )}
+                    keyExtractor={item => item.id.toString()}
+                    ListEmptyComponent={() => <NoResult />}
+                  />
+                </View>
+              )}
+              {Event && <NoResult />}
+            </View>
           </View>
-        </View>
-      )}
-    </View>
-
+        )}
+      </View>
     </>
   );
 };
