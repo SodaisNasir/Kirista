@@ -16,7 +16,6 @@ import CustomInput from '../../../components/CustomInput'
 import SelectDropdown from '../../../components/SelectDropdown'
 import CustomButton from '../../../components/CustomButton'
 import SelectRegion from './SelectRegion'
-import BottomTab from '../../../constant/BottomTab'
 import { useNavigation } from '@react-navigation/native'
 const ParishFinder = () => {
   const navigation = useNavigation()
@@ -88,7 +87,6 @@ const ParishFinder = () => {
         </View>
       </ScrollView>
     </View>
-    <BottomTab  activeHome={true}/>
         </>
   )
 }

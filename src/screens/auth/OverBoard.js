@@ -46,7 +46,7 @@ const OverBoard = ({navigation}) => {
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
-         <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} />
+         <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} barStyle={Theme ? 'light-content' : 'dark-content'} />
       <ImageBackground
         source={
           Theme

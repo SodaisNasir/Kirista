@@ -41,7 +41,7 @@ const Readone = () => {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
+          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
           barStyle={Theme ? 'light-content' : 'dark-content'}
         />
           <ReadHeader textshown={true} text={'Chapter 1 '} />

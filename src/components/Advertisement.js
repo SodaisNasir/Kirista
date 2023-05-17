@@ -51,7 +51,7 @@ const Advertisement = props => {
   }, [seconds]);
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#66a981'/>
+      <StatusBar backgroundColor='#66a981' barStyle={'light-content'}/>
         <ImageBackground
           blurRadius={14}
           source={require('../assets/images/ad_book_tablet.png')}
@@ -74,7 +74,7 @@ const Advertisement = props => {
               }}>
               <TouchableOpacity
                 // opacity={0.1}
-                onPress={() => navigation.replace('HomeScreen')}
+                onPress={() => navigation.navigate('HomeScreen')}
                 style={[
                   {
                     borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
@@ -151,7 +151,7 @@ const Advertisement = props => {
                 marginBottom: w >= 768 && h >= 1024 ? '16%' : scale(10),
               }}>
               <TouchableOpacity
-                onPress={props.onPressView}
+                onPress={() => navigation.navigate('ViewManual')}
                 style={[
                   {
                     height: w >= 768 && h >= 1024 ? verticalScale(40) : '55%',

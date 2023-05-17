@@ -16,19 +16,13 @@ import {
 } from 'react-native';
 import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import HomeHeader from '../components/HomeHeader';
 import {Font} from '../utils/font';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
 import DetailsCard from '../components/Card/DetailsCard';
 import Swiper from 'react-native-swiper';
-import Advertisement from '../components/Advertisement';
-import BottomTab from '../constant/BottomTab';
 
-// import AdvertisementModal from '../components/Modals/AdvertisementModal'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { HIDE_ADVERTISEMENT } from '../redux/reducer'
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -255,8 +249,10 @@ const HomeScreen = () => {
 
                       flexDirection: 'row',
                       overflow: 'hidden',
-                      width: scale(250),
-                      // backgroundColor:'red',
+                      width: 
+                      w >= 768 && h >= 1024
+                        ? verticalScale(180)
+                        : verticalScale(250),
                       marginLeft: item.type == 'first' ? scale(-15) : 0,
                     }}>
                     <View
@@ -297,8 +293,6 @@ const HomeScreen = () => {
                           {item?.title}
                         </Text>
                         <Text
-                          // numberOfLines={1}
-                          // adjustsFontSizeToFit={true}
                           style={[
                             styles.BooksTitleStyle,
                             {
@@ -356,6 +350,7 @@ const HomeScreen = () => {
                   alignSelf: 'center',
                   overflow: 'hidden',
                   margin: 5,
+                  marginLeft: item.id == 1 ? scale(20) : scale(8)
                 }}>
                 <Image
                   resizeMode="cover"
@@ -447,14 +442,14 @@ const HomeScreen = () => {
                               ? scale(7)
                               : w <= 350 && h <= 600
                               ? scale(12)
-                              : w >= 450 && h >= 700
-                              ? scale(8)
+                              : w < 450 && h < 750
+                              ? scale(10)
                               : scale(13),
                             elevation: 5,
                             marginTop:
                               w >= 768 && h >= 1024
                                 ? verticalScale(5)
-                                : verticalScale(20),
+                                 : verticalScale(20),
                           }}>
                           {item.text}
                         </Text>
@@ -470,8 +465,8 @@ const HomeScreen = () => {
                               ? scale(7)
                               : w <= 350 && h <= 600
                               ? scale(12)
-                              : w >= 450 && h >= 700
-                              ? scale(8)
+                              : w < 450 && h < 750
+                              ? scale(10)
                               : scale(13),
                             elevation: 5,
                           }}>
@@ -499,7 +494,8 @@ const HomeScreen = () => {
                                 ? scale(5)
                                 : w >= 768 && h >= 1024
                                 ? scale(7)
-                                : scale(12),
+                                : w < 450 && h < 750
+                                ? scale(10) : scale(12),
                               elevation: 5,
                             }}>
                             {item.text2}
@@ -507,10 +503,11 @@ const HomeScreen = () => {
                           <MaterialIcons
                             name="keyboard-arrow-right"
                             size={
-                              w >= 768 && h >= 1024 ? scale(12) : scale(18)
+                              w >= 768 && h >= 1024 ? scale(12) : w < 450 && h < 750
+                              ? scale(15) : scale(18)
                             }
                             color={'white'}
-                            style={{bottom: 2, right: 3}}
+                            // style={{bottom: 2, right: 3}}
                           />
                         </TouchableOpacity>
                       </View>
@@ -729,7 +726,7 @@ const HomeScreen = () => {
         </View>
       </View>
     </ScrollView>
-    <BottomTab  activeHome={true}/>
+   
   </View>
   )
 }
@@ -790,7 +787,6 @@ const styles = StyleSheet.create({
     SwiperViewTwo: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingHorizontal: moderateScale(20),
       height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(160),
     },
     DateStyle: {

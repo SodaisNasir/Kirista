@@ -12,7 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import React, {useCallback} from 'react';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -73,7 +73,7 @@ const SettingsGuest = () => {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
+          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
           barStyle={Theme ? 'light-content' : 'dark-content'}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -578,8 +578,9 @@ export default SettingsGuest;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(35),
-    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null
+    height: Platform.OS == 'android' ? verticalScale(70) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(35),
+    justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
+    paddingTop: Platform.OS == 'android' ? moderateVerticalScale(10) : 0
   },
   WelcomeView: {
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),

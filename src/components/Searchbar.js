@@ -486,7 +486,6 @@ const Searchbar = () => {
                       </Text>
                     </View>
                   </View>
-                  {/* <SearchSuggestion /> */}
                 </TouchableOpacity>
               )}
               keyExtractor={item => item.id.toString()}

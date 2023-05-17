@@ -106,7 +106,7 @@ const DetailsCard = (props, {data}) => {
             paddingTop: iosTab
               ? moderateScale(8)
               : w >= 768 && h >= 1024
-              ? moderateScale(5)
+              ? moderateScale(12)
               : fourInchPotrait
               ? moderateScale(0)
               : Platform.OS === 'ios'

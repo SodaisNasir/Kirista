@@ -3,37 +3,23 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Image,
   SafeAreaView,
-  ScrollView,
-  FlatList,
   Dimensions,
   useColorScheme,
   useWindowDimensions,
   StatusBar,
-  Platform,
 } from 'react-native';
 import {Color} from '../../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import HomeHeader from '../../components/HomeHeader';
 import {Font} from '../../utils/font';
-import Entypo from 'react-native-vector-icons/Entypo';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useFocusEffect} from '@react-navigation/native';
-import DetailsCard from '../../components/Card/DetailsCard';
-import Swiper from 'react-native-swiper';
-import Advertisement from '../../components/Advertisement';
+
 import BottomTab from '../../constant/BottomTab';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 
 import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
-
-// import AdvertisementModal from '../../components/Modals/AdvertisementModal'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { HIDE_ADVERTISEMENT } from '../../redux/reducer'
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -47,7 +33,7 @@ const renderScene = SceneMap({
   DiningRoom: FourthRoute,
   LivingRoom: FifthRoute,
 });
-const Home = ({navigation}) => {
+const Home = () => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = useState(0);
@@ -64,11 +50,18 @@ const Home = ({navigation}) => {
       }}>
       <TabBar
         {...props}
-        indicatorStyle={{backgroundColor: 'transparent'}}
+        indicatorStyle={{
+          // backgroundColor: Color.Main,
+          backgroundColor: 'transparent',
+          // height: verticalScale(2.2),
+        }}
+       
         style={{
           backgroundColor: 'transparent',
           elevation: 0,
+          height: w >= 768 && h >= 1024 ? scale(20) : scale(36),
           marginTop: verticalScale(-8),
+          marginBottom: verticalScale(15),
         }}
         renderLabel={({route, focused, color}) => (
           <>
@@ -90,6 +83,7 @@ const Home = ({navigation}) => {
                   borderBottomWidth: verticalScale(2.2),
                   width: scale(20),
                   marginLeft: route.type == 'home' ? scale(10) : 0,
+                  alignSelf:'center'
                 },
               ]}
             />
@@ -212,34 +206,25 @@ const Home = ({navigation}) => {
         }}
       />
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : '#F1F6FD'}
+        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
 
-      <HomeHeader
-        HomeRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
-        HomeUnderLineStyle={{
-          width: '55%',
-          backgroundColor: 'red',
-          height: verticalScale(2),
-          bottom: verticalScale(4),
-        }}
-      />
+      <HomeHeader />
       <View
         style={{
           flex: 1,
           backgroundColor: Theme ? Color.ExtraViewDark : '#F1F6FD',
         }}>
-        <View style={{flex: 1}}>
-          <TabView
-            renderTabBar={renderTabBar}
-            navigationState={{index, routes}}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{width: layout.width}}
-          />
-        </View>
+        <TabView
+          renderTabBar={renderTabBar}
+          navigationState={{index, routes}}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{width: layout.width}}
+        />
       </View>
+      <BottomTab activeHome={true} />
     </>
   );
 };

@@ -120,7 +120,7 @@ export default CustomHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
+    height: Platform.OS == 'android' ? verticalScale(60) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
     justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
     paddingTop:Platform.OS == 'android' ? moderateVerticalScale(25) : 0
   },

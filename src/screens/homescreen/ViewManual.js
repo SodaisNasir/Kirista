@@ -36,6 +36,7 @@ const ViewManual = ({navigation}) => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
+      <StatusBar barStyle={Theme ? 'light-content' : 'dark-content' } backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
     <View
       style={[
         {backgroundColor: Theme ? Color.DarkTheme : Color.White,

@@ -7,12 +7,13 @@ import {
   useWindowDimensions,
   useColorScheme,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native';
 import React, {useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
 import {Color} from '../../../utils/Colors';
-import {verticalScale, scale} from 'react-native-size-matters';
+import {verticalScale, scale, moderateVerticalScale} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import ReadNavigator from '../../../components/ReadNavigator';
 import {useNavigation} from '@react-navigation/native';
@@ -285,8 +286,9 @@ const styles = StyleSheet.create({
     // color:Color.Main
   },
   AuthHeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
-    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null
+    height: Platform.OS == 'android' ? verticalScale(65) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
+    justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
+    paddingTop:Platform.OS == 'android' ? moderateVerticalScale(15) : 0
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,

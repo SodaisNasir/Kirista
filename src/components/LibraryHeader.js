@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import React from 'react';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from './../utils/font';
 import {Color} from './../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
@@ -66,9 +66,10 @@ export default LibraryHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(40),
-    justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null,
-    paddingTop: verticalScale(10),
+    height: w < 450 && h < 750 ? verticalScale(70) : verticalScale(60),
+    // justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null,
+    paddingTop:w < 450 && h < 750 ? moderateVerticalScale(15) : moderateVerticalScale(10),
+    justifyContent:'center'
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(19),

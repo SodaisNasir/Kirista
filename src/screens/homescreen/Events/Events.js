@@ -14,7 +14,6 @@ import {Font} from '../../../utils/font';
 import HomeHeader from '../../../components/HomeHeader';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import DetailsCard from '../../../components/Card/DetailsCard';
-import BottomTab from '../../../constant/BottomTab';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -174,7 +173,6 @@ const Events = () => {
 
         </ScrollView>
       </View>
-      <BottomTab  activeHome={true}/>
     </>
   );
 };

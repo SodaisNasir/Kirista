@@ -12,7 +12,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Color} from '../utils/Colors';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import {useNavigation} from '@react-navigation/native';
 import {Font} from '../utils/font';
 
@@ -96,8 +96,9 @@ export default ReadHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: verticalScale(40),
-    justifyContent: 'center',
+    height: Platform.OS == 'android' ? verticalScale(60) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
+    justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
+    paddingTop:Platform.OS == 'android' ? moderateVerticalScale(25) : 0
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
