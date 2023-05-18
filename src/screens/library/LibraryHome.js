@@ -126,7 +126,7 @@ const LibraryHome = ({navigation}) => {
           />
           <DetailsCard
           onPress={() => navigation.navigate('ViewParish')}
-            source={require('../../assets/images/parishsmall_1.png')}
+            source={require('../../assets/images/parishsmall_2.png')}
             title="RCCG"
             resize={'contain'}
             manual="Precious Ambassadors"
@@ -165,7 +165,7 @@ const LibraryHome = ({navigation}) => {
             source={require('../../assets/images/parishsmall_3.png')}
             title="RCCG"
             resize={'contain'}
-            manual="Precious Ambassadors "
+            manual="Salvation Centre"
             PlaceTrue={true}
             Place={'Togo'}
             MainBoxRestyle={{
