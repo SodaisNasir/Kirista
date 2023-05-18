@@ -46,9 +46,7 @@ const ViewManual = ({navigation}) => {
         styles.Container,
       ]}>
      
-        <CustomHeader shareicon={true} saveicon={true} AuthHeaderStyle={{
-          paddingTop:0
-        }}/>
+        <CustomHeader shareicon={true} saveicon={true} />
           <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.ImageViewStyle}>
           <Image
@@ -217,7 +215,7 @@ const ViewManual = ({navigation}) => {
           </Text>
         </View>
 
-        <View style={{height: verticalScale(85)}}></View>
+        <View style={{height: verticalScale(6)}}></View>
       </ScrollView>
     </View>
     </>

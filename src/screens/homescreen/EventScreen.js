@@ -54,16 +54,16 @@ const EventScreen = ({navigation}) => {
           shareicon={true}
           saveicon={true}
           timeicon={true}
-          AuthHeaderStyle={{
-            marginTop:  w <= 450 && h <= 750 ? 0 : verticalScale(-15),
-            height:
-            Platform.OS === 'android' ? verticalScale(80) :
-              w >= 768 && h >= 1024
-                ? verticalScale(50)
-                : w <= 450 && h <= 750
-                ? verticalScale(65)
-                : verticalScale(30),
-          }}
+          // AuthHeaderStyle={{
+          //   marginTop:  w <= 450 && h <= 750 ? 0 : verticalScale(-15),
+          //   height:
+          //   Platform.OS === 'android' ? verticalScale(80) :
+          //     w >= 768 && h >= 1024
+          //       ? verticalScale(50)
+          //       : w <= 450 && h <= 750
+          //       ? verticalScale(65)
+          //       : verticalScale(30),
+          // }}
         />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View

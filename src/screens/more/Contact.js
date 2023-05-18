@@ -116,7 +116,39 @@ const Contact = () => {
             />
           </View>
 
-          <View
+            <View  style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+            }}>
+            <TextInput
+                
+                placeholderTextColor={Color.BoldTextColor}
+                
+                style={{
+                  fontSize: tabPotrait
+                  ? verticalScale(12)
+                  : fourInchLandscape
+                  ? scale(12)
+                  : scale(14.5),
+                  paddingBottom: iosTab ?  moderateVerticalScale(60) : moderateVerticalScale(100),
+                  color: Theme ? Color.White : Color.TextColor,
+                  backgroundColor: Theme
+                    ? Color.DarkThemeInputBox
+                    : Color.InputBoxColor,
+                  borderRadius: tabPotrait ? scale(12) : scale(18),
+                  fontFamily: Font.Inter500,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: Theme ? Color.White : Color.TextColor,
+                  flex: 1,
+                  paddingHorizontal:verticalScale(10)
+                }}
+                placeholder={'Type here'}
+              
+              />
+            </View>
+
+          {/* <View
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
@@ -157,7 +189,7 @@ const Contact = () => {
               
               />
             </View>
-          </View>
+          </View> */}
 
           <View
             style={{

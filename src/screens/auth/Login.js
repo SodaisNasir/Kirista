@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -7,6 +6,7 @@ import {
   useColorScheme,
   ScrollView,
   Platform,
+  StatusBar
 } from 'react-native';
 import React, {useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -48,6 +48,7 @@ const Login = ({navigation}) => {
         paddingHorizontal:
           w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
       }}>
+        <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
