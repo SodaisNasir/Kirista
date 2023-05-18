@@ -240,12 +240,13 @@ const Searchbar = () => {
                   ? verticalScale(100)
                   : verticalScale(130)
                 : w >= 768 && h >= 1024
-                ? verticalScale(50)
+                ? verticalScale(70)
                 : w <= 450 && h <= 750
                 ? verticalScale(60)
-                : verticalScale(30),
+                : verticalScale(100),
             // justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
             paddingTop:
+            Platform.OS == 'ios' ? 0 :
               w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
                 : moderateVerticalScale(35),

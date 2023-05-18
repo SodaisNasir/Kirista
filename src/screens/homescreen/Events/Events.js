@@ -43,9 +43,9 @@ const Events = () => {
             backgroundColor: Theme ? Color.DarkTheme : Color.White,
             marginTop:
               Platform.OS === 'ios' && w <= 450 && h <= 750
-                ? verticalScale(20)
+                ? verticalScale(0)
                 : Platform.OS === 'ios'
-                ? verticalScale(-30)
+                ? verticalScale(10)
                 : 0,
           },
           styles.Container,

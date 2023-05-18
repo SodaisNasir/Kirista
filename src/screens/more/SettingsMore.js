@@ -610,7 +610,7 @@ export default SettingsMore;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(66) : verticalScale(60),
     justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
     paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(20) :moderateVerticalScale(25)
   },

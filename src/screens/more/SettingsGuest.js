@@ -13,7 +13,12 @@ import {
   Linking,
 } from 'react-native';
 import React, {useCallback} from 'react';
-import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
+import {
+  moderateScale,
+  moderateVerticalScale,
+  scale,
+  verticalScale,
+} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -528,24 +533,34 @@ const SettingsGuest = () => {
             </TouchableOpacity>
           </View>
 
-         
           <View style={styles.SocialBox}>
-            <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/idcplatforms')} style={[styles.IconBox]}>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL('https://www.facebook.com/idcplatforms')
+              }
+              style={[styles.IconBox]}>
               <FontAwesome5
                 name="facebook"
                 color={Color.Main}
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
             </TouchableOpacity>
-            <TouchableOpacity 
-            onPress={() => Linking.openURL('https://www.instagram.com/idcplatforms/')} style={styles.IconBox}>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL('https://www.instagram.com/idcplatforms/')
+              }
+              style={styles.IconBox}>
               <Entypo
                 name="instagram"
                 color={Color.Main}
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
             </TouchableOpacity>
-            <TouchableOpacity  onPress={() => Linking.openURL('https://twitter.com/idcplatforms')} style={styles.IconBox}>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL('https://twitter.com/idcplatforms')
+              }
+              style={styles.IconBox}>
               <Entypo
                 name="twitter-with-circle"
                 color={Color.Main}
@@ -571,7 +586,7 @@ const SettingsGuest = () => {
           <View style={{height: verticalScale(90)}}></View>
         </ScrollView>
       </View>
-      <BottomTab  activeMore={true}/>
+      <BottomTab activeMore={true} />
     </>
   );
 };
@@ -580,9 +595,26 @@ export default SettingsGuest;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
-    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
-    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(20) :moderateVerticalScale(25)
+    height:
+      Platform.OS == 'android'
+        ? w >= 768 && h >= 1024
+          ? verticalScale(80)
+          : verticalScale(100)
+        : w >= 768 && h >= 1024
+        ? verticalScale(50)
+        : w <= 450 && h <= 750
+        ? verticalScale(65)
+        : verticalScale(60),
+    justifyContent:
+      Platform.OS == 'android'
+        ? 'center'
+        : w <= 450 && h <= 750
+        ? 'center'
+        : null,
+    paddingTop:
+      w >= 768 && h >= 1024
+        ? moderateVerticalScale(20)
+        : moderateVerticalScale(25),
   },
   WelcomeView: {
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),

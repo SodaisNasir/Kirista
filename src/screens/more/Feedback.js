@@ -87,10 +87,10 @@ const Feedback = ({navigation}) => {
              ? verticalScale(85)
              : verticalScale(110)
            : w >= 768 && h >= 1024
-           ? verticalScale(50)
+           ? verticalScale(80)
            : w <= 450 && h <= 750
-           ? verticalScale(50)
-           : verticalScale(30),
+           ? verticalScale(60)
+           : verticalScale(60),
            paddingTop:
            w >= 768 && h >= 1024
              ? moderateVerticalScale(30)

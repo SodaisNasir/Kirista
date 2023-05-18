@@ -9,7 +9,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
+import {
+  moderateVerticalScale,
+  scale,
+  verticalScale,
+} from 'react-native-size-matters';
 import {Font} from './../utils/font';
 import {Color} from './../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
@@ -34,15 +38,18 @@ export default function Header(props) {
           flexDirection: 'row',
           paddingHorizontal:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
-            marginTop: Platform.OS == 'ios' && w >= 768 && h >= 1024
-            ? verticalScale(20) : 0
+          marginTop:
+            Platform.OS == 'ios' && w >= 768 && h >= 1024
+              ? verticalScale(20)
+              : 0,
         }}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.NavigatorStyle}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.NavigatorStyle}>
           <AntDesign
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
             color={Theme ? Color.White : Color.Black}
-            
           />
         </TouchableOpacity>
         <View
@@ -54,7 +61,7 @@ export default function Header(props) {
             style={[
               {color: Theme ? Color.White : Color.Black},
               styles.WelcomeText,
-              props.welcomeText
+              props.welcomeText,
             ]}>
             {props.text}
           </Text>
@@ -85,9 +92,21 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
-    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
-    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(20) :moderateVerticalScale(25)
+    height:
+      Platform.OS == 'android'
+        ? w >= 768 && h >= 1024
+          ? verticalScale(80)
+          : verticalScale(100)
+        : w >= 768 && h >= 1024
+        ? verticalScale(65)
+        : w <= 450 && h <= 750
+        ? verticalScale(50)
+        : verticalScale(65),
+    justifyContent: 'center',
+    paddingTop:
+      w >= 768 && h >= 1024
+        ? moderateVerticalScale(20)
+        : moderateVerticalScale(25),
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),

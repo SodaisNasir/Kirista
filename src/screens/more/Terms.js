@@ -7,6 +7,7 @@ import {
   Dimensions,
   useColorScheme,
   StatusBar,
+  Platform,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
@@ -52,10 +53,10 @@ const Terms = ({navigation}) => {
               Platform.OS == 'android'
                 ? verticalScale(80)
                 : w >= 768 && h >= 1024
-                ? verticalScale(50)
+                ? verticalScale(70)
                 : w <= 450 && h <= 750
                 ? verticalScale(65)
-                : verticalScale(30),
+                : verticalScale(60),
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>

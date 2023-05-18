@@ -8,12 +8,13 @@ import {
   TextInput,
   TouchableOpacity,
   useColorScheme,
-  StatusBar
+  StatusBar,
+  Platform
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Color} from '../../utils/Colors';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import Header from '../../components/Header';
 import {Font} from '../../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -41,7 +42,23 @@ const ViewBanner = ({navigation}) => {
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
       <View style={{height: '100%', backgroundColor: Theme? Color.DarkTheme : Color.White}}>
-        <Header />
+        <Header AuthHeaderStyle={{
+              height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(80)
+                  : verticalScale(100)
+                : w >= 768 && h >= 1024
+                ? verticalScale(65)
+                : w <= 450 && h <= 750
+                ? verticalScale(50)
+                : verticalScale(40),
+                paddingTop:
+                Platform.OS == 'ios' ? moderateVerticalScale(0) :
+                w >= 768 && h >= 1024
+                  ? moderateVerticalScale(20)
+                  : moderateVerticalScale(25),
+        }}/>
         <ScrollView>
 
         <View style={styles.Container}>

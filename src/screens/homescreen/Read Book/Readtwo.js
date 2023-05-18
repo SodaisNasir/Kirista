@@ -8,12 +8,16 @@ import {
   useColorScheme,
   TouchableOpacity,
   Dimensions,
-  Platform
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
 import {Color} from '../../../utils/Colors';
-import {verticalScale, scale, moderateVerticalScale} from 'react-native-size-matters';
+import {
+  verticalScale,
+  scale,
+  moderateVerticalScale,
+} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import ReadNavigator from '../../../components/ReadNavigator';
 import {useNavigation} from '@react-navigation/native';
@@ -33,7 +37,6 @@ const Readtwo = props => {
   };
 
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
-  
 
   const [isModalThreeVisible, setModalThreeVisible] = useState(false);
   const toggleModalThree = () => {
@@ -286,9 +289,26 @@ const styles = StyleSheet.create({
     // color:Color.Main
   },
   AuthHeaderStyle: {
-    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
-    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
-    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(30) :moderateVerticalScale(35)
+    height:
+      Platform.OS == 'android'
+        ? w >= 768 && h >= 1024
+          ? verticalScale(80)
+          : verticalScale(100)
+        : w >= 768 && h >= 1024
+        ? verticalScale(70)
+        : w <= 450 && h <= 750
+        ? verticalScale(70)
+        : verticalScale(65),
+    justifyContent:
+      Platform.OS == 'android'
+        ? 'center'
+        : w <= 450 && h <= 750
+        ? 'center'
+        : null,
+    paddingTop:
+      w >= 768 && h >= 1024
+        ? moderateVerticalScale(30)
+        : moderateVerticalScale(35),
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,
