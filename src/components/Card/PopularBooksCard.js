@@ -136,7 +136,7 @@ const PopularBooksCard = (props, {data}) => {
 
 const styles = StyleSheet.create({
   TitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
     fontFamily: Font.Poppins700,
   },
   DateStyle: {

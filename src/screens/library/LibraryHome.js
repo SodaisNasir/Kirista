@@ -226,18 +226,18 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     alignItems: 'center',
   },
-  DateStyle: {
-    color: Color.BoldTextColor,
-    fontFamily: Font.Poppins600,
+  // DateStyle: {
+  //   color: Color.BoldTextColor,
+  //   fontFamily: Font.Poppins600,
 
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
-  },
-  TitleStyle: {
-    // color: Color.DarkTextColor,
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-    fontFamily: Font.Poppins700,
-    // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
+  //   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+  // },
+  // TitleStyle: {
+  //   // color: Color.DarkTextColor,
+  //   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+  //   fontFamily: Font.Poppins700,
+  //   // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
 
-    // paddingHorizontal: verticalScale(50),
-  },
+  //   // paddingHorizontal: verticalScale(50),
+  // },
 });

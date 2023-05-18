@@ -169,10 +169,10 @@ const styles = StyleSheet.create({
   YearStyle: {
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins400,
-    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
   },
   TitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
     fontFamily: Font.Poppins600,
   },
 });

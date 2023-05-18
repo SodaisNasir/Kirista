@@ -753,12 +753,7 @@ const styles = StyleSheet.create({
     ImageView: {
       alignItems: 'center',
     },
-    YearStyle: {
-      color: Color.BoldTextColor,
-      fontFamily: Font.Poppins500,
-      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
-    },
-  
+   
     slide: {
       flex: 1,
     },
@@ -787,12 +782,22 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(160),
     },
-
-   
+    DateStyle: {
+      color: Color.BoldTextColor,
+      fontFamily: Font.Poppins600,
+  
+      fontSize: w >= 768 && h >= 1024 ? scale(6) : scale(10),
+    },
+    YearStyle: {
+      color: Color.BoldTextColor,
+      fontFamily: Font.Poppins500,
+      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+    },
+  
     BooksTitleStyle: {
-      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
+      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
       fontFamily: Font.Poppins600,
     },
- 
+    
   });
 export default HomeScreen
