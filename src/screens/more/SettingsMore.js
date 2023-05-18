@@ -75,7 +75,7 @@ const SettingsMore = () => {
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.DarkTheme : Color.HeaderColor}
+          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
           barStyle={Theme ? 'light-content' : 'dark-content'}
         />
       
@@ -608,9 +608,9 @@ export default SettingsMore;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    height: Platform.OS == 'android' ? verticalScale(70) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(35),
-    justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
-    paddingTop: Platform.OS == 'android' ? moderateVerticalScale(10) : 0
+    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(20) :moderateVerticalScale(25)
   },
   WelcomeView: {
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),

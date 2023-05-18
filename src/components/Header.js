@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from './../utils/font';
 import {Color} from './../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
@@ -84,8 +84,9 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: Platform.OS == 'android' ? verticalScale(80) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
-    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null
+    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(20) :moderateVerticalScale(25)
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(11) : scale(18),

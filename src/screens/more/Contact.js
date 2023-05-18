@@ -64,7 +64,15 @@ const Contact = () => {
             marginVertical:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
           }}>
+            
           <View
+            style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+            }}>
+            <CustomInput text={'Full Name'} placeholder={'Full Name'}/>
+          </View>
+          {/* <View
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
@@ -78,7 +86,7 @@ const Contact = () => {
                 ? verticalScale(65)
                 : verticalScale(30),
           }}/>
-          </View>
+          </View> */}
 
           <View
             style={{

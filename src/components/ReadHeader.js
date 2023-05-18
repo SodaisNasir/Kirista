@@ -96,9 +96,9 @@ export default ReadHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: Platform.OS == 'android' ? verticalScale(60) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
-    justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
-    paddingTop:Platform.OS == 'android' ? moderateVerticalScale(25) : 0
+    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(25) :moderateVerticalScale(25)
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),

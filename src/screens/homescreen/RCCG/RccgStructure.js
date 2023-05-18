@@ -7,6 +7,7 @@ import {
   useColorScheme,
   useWindowDimensions,
   Image,
+  StatusBar
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
@@ -36,7 +37,9 @@ const RccgStructure = ({navigation}) => {
           flex: 1,
         },
       ]}>
-      <Header text={'RCCG Structure'}  AuthHeaderStyle={{
+        <StatusBar backgroundColor={ Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
+      <Header text={'RCCG Structure'} />
+        {/* AuthHeaderStyle={{
             marginTop: 0,
             height:
               w >= 768 && h >= 1024
@@ -44,7 +47,7 @@ const RccgStructure = ({navigation}) => {
                 : w <= 450 && h <= 750
                 ? verticalScale(65)
                 : verticalScale(30),
-          }}/>
+          }}/> */}
       
       <ScrollView>
         <View

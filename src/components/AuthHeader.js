@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View, Dimensions,useColorScheme} from 'react-native';
+import {StyleSheet, Text, View, Dimensions,useColorScheme, Platform} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from './../utils/font';
 import {Color} from './../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
@@ -38,6 +38,7 @@ export default AuthHeader;
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
     marginTop: w >= 768 && h >= 1024 ? '10%' : 0,
+    paddingTop:Platform.OS == 'android' ? moderateVerticalScale(25) : 0
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(16) : scale(26),

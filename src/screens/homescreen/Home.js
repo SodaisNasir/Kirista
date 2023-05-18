@@ -51,9 +51,7 @@ const Home = () => {
       <TabBar
         {...props}
         indicatorStyle={{
-          // backgroundColor: Color.Main,
           backgroundColor: 'transparent',
-          // height: verticalScale(2.2),
         }}
        
         style={{
@@ -83,7 +81,6 @@ const Home = () => {
                   borderBottomWidth: verticalScale(2.2),
                   width: scale(20),
                   marginLeft: route.type == 'home' ? scale(10) : 0,
-                  alignSelf:'center'
                 },
               ]}
             />

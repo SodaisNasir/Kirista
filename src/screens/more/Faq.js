@@ -62,14 +62,15 @@ const Faq = ({navigation}) => {
         backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
-        <Header text={'FAQ'}  AuthHeaderStyle={{
+        <Header text={'FAQ'} /> 
+         {/* AuthHeaderStyle={{
             height:
               w >= 768 && h >= 1024
                 ? verticalScale(50)
                 : w <= 450 && h <= 750
                 ? verticalScale(65)
                 : verticalScale(30),
-          }}/>
+          }} */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={[

@@ -35,12 +35,8 @@ const Events = () => {
   const Theme = useColorScheme() === 'dark';
 
   return (
-    <>
-      <SafeAreaView
-        style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-        }}
-      />
+    
+
       <View
         style={[
           {
@@ -54,21 +50,6 @@ const Events = () => {
           },
           styles.Container,
         ]}>
-        {/* <HomeHeader
-          EventRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
-          EventUnderLineStyle={{
-            width: '55%',
-            backgroundColor: Color.Main,
-            height: verticalScale(2),
-            bottom: verticalScale(4),
-          }}
-          HeaderBox={{
-            marginTop:
-              Platform.OS == 'ios' && w >= 768 && h >= 1024
-                ? verticalScale(35)
-                : 0,
-          }}
-        /> */}
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
@@ -170,10 +151,8 @@ const Events = () => {
               }}
             />
           </View>
-
         </ScrollView>
       </View>
-    </>
   );
 };
 
@@ -191,7 +170,6 @@ const styles = StyleSheet.create({
   },
 
   ImageView: {
-    // backgroundColor: 'red',
     alignItems: 'center',
   },
   DateStyle: {
@@ -203,8 +181,5 @@ const styles = StyleSheet.create({
   TitleStyle: {
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
     fontFamily: Font.Poppins700,
-    // maxWidth: w >= 768 && h >= 1024 ? '0%' : '90%',
-
-    // paddingHorizontal: verticalScale(50),
   },
 });

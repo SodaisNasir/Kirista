@@ -51,7 +51,6 @@ const Advertisement = props => {
   }, [seconds]);
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#66a981' barStyle={'light-content'}/>
         <ImageBackground
           blurRadius={14}
           source={require('../assets/images/ad_book_tablet.png')}

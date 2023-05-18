@@ -46,7 +46,8 @@ const OverBoard = ({navigation}) => {
         flex: 1,
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
-         <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} barStyle={Theme ? 'light-content' : 'dark-content'} />
+         {/* <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} barStyle={Theme ? 'light-content' : 'dark-content'} /> */}
+         <StatusBar translucent={true} backgroundColor={'transparent'} />
       <ImageBackground
         source={
           Theme
@@ -70,6 +71,7 @@ const OverBoard = ({navigation}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 marginTop: verticalScale(30),
+                marginHorizontal:scale(8)
               }}>
               <TouchableOpacity
                 onPress={() => {

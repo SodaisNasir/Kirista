@@ -30,7 +30,7 @@ const NewPassword = ({navigation}) => {
         styles.Container,
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{alignSelf:'center',width:'90%'}}>
+      <View style={{alignSelf:'center',width:'95%'}}>
         <AuthHeader text={'New Password'} />
 
         <View

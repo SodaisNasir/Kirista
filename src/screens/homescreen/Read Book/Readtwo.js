@@ -286,9 +286,9 @@ const styles = StyleSheet.create({
     // color:Color.Main
   },
   AuthHeaderStyle: {
-    height: Platform.OS == 'android' ? verticalScale(65) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(60) : verticalScale(30),
-    justifyContent: Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'flex-end' : null,
-    paddingTop:Platform.OS == 'android' ? moderateVerticalScale(15) : 0
+    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(30) :moderateVerticalScale(35)
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,
