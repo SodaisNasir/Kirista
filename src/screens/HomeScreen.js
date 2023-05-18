@@ -782,12 +782,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(160),
     },
-    DateStyle: {
-      color: Color.BoldTextColor,
-      fontFamily: Font.Poppins600,
-  
-      fontSize: w >= 768 && h >= 1024 ? scale(6) : scale(10),
-    },
+
     YearStyle: {
       color: Color.BoldTextColor,
       fontFamily: Font.Poppins500,
