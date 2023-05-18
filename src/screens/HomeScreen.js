@@ -196,8 +196,7 @@ const HomeScreen = () => {
       </View>
       <View
         style={{
-          paddingHorizontal:
-            w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+         
         }}>
         <View
           style={{
@@ -205,6 +204,8 @@ const HomeScreen = () => {
             width: '100%',
             flexDirection: 'row',
             marginTop: verticalScale(15),
+            paddingHorizontal:
+            w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
           }}>
           <Text
             style={[
@@ -253,7 +254,7 @@ const HomeScreen = () => {
                       w >= 768 && h >= 1024
                         ? verticalScale(180)
                         : verticalScale(250),
-                      marginLeft: item.type == 'first' ? scale(-15) : 0,
+                      marginLeft: item.type == 'first' ? scale(5) : 0,
                     }}>
                     <View
                       style={{
@@ -641,7 +642,7 @@ const HomeScreen = () => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('EventScreen');
+              navigation.navigate('Home');
             }}
             style={{flexDirection: 'row'}}>
             <Text style={styles.MoreText}>See all</Text>
