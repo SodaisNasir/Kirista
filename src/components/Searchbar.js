@@ -16,7 +16,12 @@ import {
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {verticalScale, scale, moderateScale, moderateVerticalScale} from 'react-native-size-matters';
+import {
+  verticalScale,
+  scale,
+  moderateScale,
+  moderateVerticalScale,
+} from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {Color} from '../utils/Colors';
@@ -36,10 +41,8 @@ const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
 const fourInchPotrait = w <= 350 && h <= 600;
 
-
-
 const ThirdRoute = () => <NoResult />;
-const FourthRoute = () => <ParishFinderSearch/>;
+const FourthRoute = () => <ParishFinderSearch />;
 const FifthRoute = () => <NoResult />;
 
 const renderScene = SceneMap({
@@ -53,9 +56,9 @@ const Searchbar = () => {
   const [index, setIndex] = useState(0);
 
   const [routes] = useState([
-    {key: 'Bedrooms', title: 'Books', type: 'home'},
-    {key: 'DiningRoom', title: 'Parishes', type: 'finder'},
-    {key: 'LivingRoom', title: 'Events'},
+    {key: 'Bedrooms', title: 'Books ', type: 'home'},
+    {key: 'DiningRoom', title: 'Parishes ', type: 'finder'},
+    {key: 'LivingRoom', title: 'Events '},
   ]);
 
   const renderTabBar = props => (
@@ -70,13 +73,13 @@ const Searchbar = () => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HomeHeaderText,
           elevation: 0,
           // width:'90%',
-          paddingTop:verticalScale(10),
+          // paddingTop: verticalScale(10),
         }}
         renderLabel={({route, focused, color}) => (
           <>
             <Text
               style={{
-                fontFamily: focused ? Font.Poppins500 : Font.Poppins600,
+                fontFamily: focused ? Font.Poppins600 : Font.Poppins500,
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 color: focused ? Color.Main : Color.HomeHeaderText,
               }}>
@@ -86,7 +89,7 @@ const Searchbar = () => {
         )}
         activeColor={{color: Color.Main}}
         inactiveColor={{color: Color.HomeHeaderText}}
-        tabStyle={{ width: scale(117)}}
+        tabStyle={{width: scale(117)}}
         bounces={true}
         scrollEnabled={true}
       />
@@ -96,7 +99,7 @@ const Searchbar = () => {
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
-  
+
   const searchList = [
     {
       id: 1,
@@ -137,7 +140,7 @@ const Searchbar = () => {
       image: require('../assets/images/book1.png'),
       detail: '2023',
     },
-  
+
     {
       id: 2,
       title: 'RCCG',
@@ -145,7 +148,7 @@ const Searchbar = () => {
       image: require('../assets/images/parishsmall_1.png'),
       detail: 'Ghana',
     },
-  
+
     {
       id: 3,
       title: 'West Coast 3 Regional',
@@ -229,12 +232,25 @@ const Searchbar = () => {
         }}
       />
       <View style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
-      <View
+        <View
           style={{
-            height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
-    // justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
-    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(25) :moderateVerticalScale(35),
-            backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
+            height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(90)
+                  : verticalScale(110)
+                : w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(50)
+                : verticalScale(30),
+            // justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+            paddingTop:
+              w >= 768 && h >= 1024
+                ? moderateVerticalScale(25)
+                : moderateVerticalScale(35),
+            // backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
+            // backgroundColor:'red',
             flexDirection: 'row',
             paddingHorizontal: moderateScale(10),
           }}>
@@ -253,10 +269,11 @@ const Searchbar = () => {
               />
             </View>
           ) : null}
-          {/*  this ti for Searchbarr */}
+          {/*  this is for Searchbarr */}
           <View
             style={{
-              width: isSearchBarVisible ? '85%' : '90%',
+              width: isSearchBarVisible ? '83%' : '90%',
+              // width:'83%',
               height:
                 w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(35),
               backgroundColor: Theme ? '#2B3642' : Color.White,
@@ -327,9 +344,11 @@ const Searchbar = () => {
             <View
               style={{
                 flex: 1,
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems:'center'
+                // alignItems: 'center',
+                // alignItems:'flex-end'
+                // flexDirection: 'row',
               }}>
               <TouchableOpacity onPress={() => resetStatus()}>
                 <Text
@@ -362,98 +381,127 @@ const Searchbar = () => {
               Popular Searches
             </Text>
             <View style={{flex: 1}}>
-            <DetailsCard
-            onPress={() => navigation.navigate('ViewManual')}
-            source={require('../assets/images/manual.png')}
-            title="Sunday Student"
-            resize={'contain'}
-            manual="Manual"
-            PlaceTrue={true}
-            Place={'2023'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          <DetailsCard
-          onPress={() => navigation.navigate('ViewParish')}
-            source={require('../assets/images/parishsmall_1.png')}
-            title="RCCG"
-            resize={'contain'}
-            manual="Central Parish"
-            PlaceTrue={true}
-            Place={'Abuja'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          <DetailsCard
-          onPress={() => navigation.navigate('EventScreen')}
-            source={require('../assets/images/EventScreenImage1.png')}
-            title="West Coast 3 Regional "
-            resize={'cover'}
-            manual="Convention"
-            TimeTrue={true}
-            date={'July 7, 2023'}
-            time={'4PM'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          
-          <DetailsCard
-          // onPress={() => navigation.navigate('ParishFinderSearch')}
-            source={require('../assets/images/rcg_centralparish.png')}
-            title="RCCG His Grace Assembly"
-            resize={'contain'}
-        
-            PlaceTrue={true}
-            Place={'Banjul'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-            <DetailsCard
-            onPress={() => navigation.navigate('ViewManual')}
-            source={require('../assets/images/sunday_manual2.png')}
-            title="Sunday School"
-            resize={'contain'}
-            manual="Teachers Man.."
-            PlaceTrue={true}
-            Place={'2023'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
+              <DetailsCard
+                onPress={() => navigation.navigate('ViewManual')}
+                source={require('../assets/images/manual.png')}
+                title="Sunday Student"
+                resize={'contain'}
+                manual="Manual"
+                PlaceTrue={true}
+                Place={'2023'}
+                MainBoxRestyle={{
+                  paddingBottom:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  marginTop:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  // backgroundColor:'red'
+                  borderBottomColor: Theme
+                    ? Color.DarkBorder
+                    : Color.BorderColor,
+                  borderBottomWidth: 1,
+                }}
+              />
+              <DetailsCard
+                onPress={() => navigation.navigate('ViewParish')}
+                source={require('../assets/images/parishsmall_1.png')}
+                title="RCCG"
+                resize={'contain'}
+                manual="Central Parish"
+                PlaceTrue={true}
+                Place={'Abuja'}
+                MainBoxRestyle={{
+                  paddingBottom:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  marginTop:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  // backgroundColor:'red'
+                  borderBottomColor: Theme
+                    ? Color.DarkBorder
+                    : Color.BorderColor,
+                  borderBottomWidth: 1,
+                }}
+              />
+              <DetailsCard
+                onPress={() => navigation.navigate('EventScreen')}
+                source={require('../assets/images/EventScreenImage1.png')}
+                title="West Coast 3 Regional "
+                resize={'cover'}
+                manual="Convention"
+                TimeTrue={true}
+                date={'July 7, 2023'}
+                time={'4PM'}
+                MainBoxRestyle={{
+                  paddingBottom:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  marginTop:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  // backgroundColor:'red'
+                  borderBottomColor: Theme
+                    ? Color.DarkBorder
+                    : Color.BorderColor,
+                  borderBottomWidth: 1,
+                }}
+              />
+
+              <DetailsCard
+                // onPress={() => navigation.navigate('ParishFinderSearch')}
+                source={require('../assets/images/rcg_centralparish.png')}
+                title="RCCG His Grace Assembly"
+                resize={'contain'}
+                PlaceTrue={true}
+                Place={'Banjul'}
+                MainBoxRestyle={{
+                  paddingBottom:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  marginTop:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  // backgroundColor:'red'
+                  borderBottomColor: Theme
+                    ? Color.DarkBorder
+                    : Color.BorderColor,
+                  borderBottomWidth: 1,
+                }}
+              />
+              <DetailsCard
+                onPress={() => navigation.navigate('ViewManual')}
+                source={require('../assets/images/sunday_manual2.png')}
+                title="Sunday School"
+                resize={'contain'}
+                manual="Teachers Man.."
+                PlaceTrue={true}
+                Place={'2023'}
+                MainBoxRestyle={{
+                  paddingBottom:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  marginTop:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(10)
+                      : verticalScale(15),
+                  // backgroundColor:'red'
+                  borderBottomColor: Theme
+                    ? Color.DarkBorder
+                    : Color.BorderColor,
+                  borderBottomWidth: 1,
+                }}
+              />
               <View style={{height: verticalScale(10)}} />
             </View>
           </View>
@@ -556,21 +604,20 @@ const Searchbar = () => {
             />
           </View>
         ) : (
-
           <View
             style={{
               flex: 1,
               backgroundColor: Theme ? Color.DarkTheme : Color.White,
             }}>
-         <View style={{flex: 1}}>
-          <TabView
-            renderTabBar={renderTabBar}
-            navigationState={{index, routes}}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{width: layout.width}}
-          />
-        </View>
+            <View style={{flex: 1}}>
+              <TabView
+                renderTabBar={renderTabBar}
+                navigationState={{index, routes}}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                initialLayout={{width: layout.width}}
+              />
+            </View>
           </View>
         )}
       </View>

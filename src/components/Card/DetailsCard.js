@@ -76,19 +76,11 @@ const DetailsCard = (props, {data}) => {
           <Text
             style={[
               {
-                bottom:
-                  Platform.OS === 'ios'
-                    ? null
-                    : Platform.OS === 'android' && w >= 768 && h >= 1024
-                    ? verticalScale(6)
-                    : verticalScale(10),
-                lineHeight:
-                  Platform.OS === 'ios' && w <= 450 && h <= 750
-                    ? 0
-                    : Platform.OS === 'ios'
-                    ? verticalScale(15)
-                    : null,
                 color: Theme ? Color.White : Color.DarkTextColor,
+                marginTop:
+                Platform.OS == 'ios'
+                  ? 0
+                  : verticalScale(-7),
               },
               styles.TitleStyle,
             ]}>
@@ -126,10 +118,8 @@ const DetailsCard = (props, {data}) => {
                   borderRadius: scale(100),
                   width: w >= 768 && h >= 1024 ? scale(2) : scale(3),
                   height: w >= 768 && h >= 1024 ? scale(2) : scale(3),
-                  aspectRatio: 1 / 1,
                   marginHorizontal: scale(5),
-                  // alignSelf: 'center',
-                  marginTop: verticalScale(-15),
+                  // marginTop: verticalScale(-15),
                 }}
               />
               <Text style={[styles.DateStyle]}>{props.time}</Text>
@@ -147,13 +137,14 @@ const DetailsCard = (props, {data}) => {
 const styles = StyleSheet.create({
   TitleStyle: {
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
-    fontFamily: Font.Poppins700,
+      fontFamily: Font.Poppins600,
   },
   DateStyle: {
-    bottom: verticalScale(7),
+    // bottom: verticalScale(7),
     color: Color.BoldTextColor,
-    fontFamily: Font.Poppins600,
+    fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+    marginTop:verticalScale(2)
   },
 });
 export default DetailsCard;

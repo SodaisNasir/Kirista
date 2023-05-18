@@ -8,6 +8,7 @@ import {
   View,
   Image,
   StatusBar,
+  Linking,
 } from 'react-native';
 import React, {useLayoutEffect} from 'react';
 import Header from '../../components/Header';
@@ -90,10 +91,12 @@ const About = ({navigation}) => {
               style={{
                 height:
                   w >= 768 && h >= 1024
-                    ? verticalScale(80)
+                    ? verticalScale(50)
                     : verticalScale(100),
-                width: w >= 768 && h >= 1024 ? '70%' : '60%',
+                width: w >= 768 && h >= 1024 ? '40%' : '60%',
                 alignSelf: 'center',
+                marginBottom: w >= 768 && h >= 1024
+                ? verticalScale(5) : 0
               }}
             />
             <View
@@ -364,6 +367,7 @@ const About = ({navigation}) => {
                 </View>
 
                 <Text
+                   onPress={() => Linking.openURL('https://www.idcplatforms.com/')}
                   style={{
                     fontFamily: Font.Poppins700,
                     color: Theme ? Color.White : Color.DarkTextColor,
@@ -407,7 +411,7 @@ const About = ({navigation}) => {
               </View>
             </View>
           </View>
-          <View style={{height: verticalScale(10)}} />
+          {/* <View style={{height: verticalScale(10)}} /> */}
         </ScrollView>
       </View>
     </>
