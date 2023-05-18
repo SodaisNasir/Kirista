@@ -758,10 +758,7 @@ const styles = StyleSheet.create({
       fontFamily: Font.Poppins500,
       fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
     },
-    TitleStyle: {
-      fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-      fontFamily: Font.Poppins600,
-    },
+  
     slide: {
       flex: 1,
     },
@@ -790,29 +787,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(160),
     },
-    DateStyle: {
-      color: Color.BoldTextColor,
-      fontFamily: Font.Poppins600,
-  
-      fontSize: w >= 768 && h >= 1024 ? scale(6) : scale(10),
-    },
-  
-    CountryStyle: {
-      color: Color.BoldTextColor,
-      fontFamily: Font.Poppins400,
-      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
-    },
+
+   
     BooksTitleStyle: {
-      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
+      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
       fontFamily: Font.Poppins600,
     },
-    EventTtitleStyle: {
-      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
-      fontFamily: Font.Poppins700,
-    },
-    ParishTitleStyle: {
-      fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(14),
-      fontFamily: Font.Poppins700,
-    },
+ 
   });
 export default HomeScreen
