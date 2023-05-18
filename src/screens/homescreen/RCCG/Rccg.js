@@ -45,8 +45,9 @@ const Rccg = ({navigation}) => {
 
         <Header
           text={'RCCG'}
+          welcomeText={{paddingTop:moderateScale(5)}}
         />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               paddingHorizontal:

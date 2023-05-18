@@ -38,7 +38,7 @@ const RccgStructure = ({navigation}) => {
         },
       ]}>
         <StatusBar backgroundColor={ Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
-      <Header text={'RCCG Structure'} />
+      <Header text={'RCCG Structure'} welcomeText={{paddingTop:moderateScale(5)}}/>
         {/* AuthHeaderStyle={{
             marginTop: 0,
             height:
@@ -49,7 +49,7 @@ const RccgStructure = ({navigation}) => {
                 : verticalScale(30),
           }}/> */}
       
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:

@@ -113,12 +113,12 @@ const SettingsMore = () => {
               <View style={styles.ImageAndText}>
                 <View
                   style={{
-                    width: w >= 768 && h >= 1024 ? scale(30) : scale(70),
-                    height: w >= 768 && h >= 1024 ? scale(30) : scale(70),
+                    width: w >= 768 && h >= 1024 ? scale(30) : scale(55),
+                    height: w >= 768 && h >= 1024 ? scale(30) : scale(55),
                   }}>
                   <Image
                     source={require('../../assets/images/krista_settings.png')}
-                    style={{height: '100%', width: '100%'}}
+                    style={{height: '100%', width: '100%',borderRadius:scale(100)}}
                     resizeMode="contain"
                   />
                 </View>

@@ -70,7 +70,7 @@ const Searchbar = () => {
         {...props}
         indicatorStyle={{backgroundColor: Color.Main}}
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HomeHeaderText,
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           elevation: 0,
           // width:'90%',
           // paddingTop: verticalScale(10),
@@ -231,18 +231,18 @@ const Searchbar = () => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      <View style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
+      <View style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.HeaderColor}}>
         <View
           style={{
             height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
-                  ? verticalScale(90)
-                  : verticalScale(110)
+                  ? verticalScale(100)
+                  : verticalScale(130)
                 : w >= 768 && h >= 1024
                 ? verticalScale(50)
                 : w <= 450 && h <= 750
-                ? verticalScale(50)
+                ? verticalScale(60)
                 : verticalScale(30),
             // justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
             paddingTop:
@@ -275,7 +275,7 @@ const Searchbar = () => {
               width: isSearchBarVisible ? '83%' : '90%',
               // width:'83%',
               height:
-                w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(35),
+                w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
               backgroundColor: Theme ? '#2B3642' : Color.White,
               borderRadius: scale(25),
               flexDirection: 'row',

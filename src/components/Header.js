@@ -54,6 +54,7 @@ export default function Header(props) {
             style={[
               {color: Theme ? Color.White : Color.Black},
               styles.WelcomeText,
+              props.welcomeText
             ]}>
             {props.text}
           </Text>

@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   View,
   TextInput,
+  Text
 } from 'react-native';
 import React, {useLayoutEffect, useEffect} from 'react';
 import CustomInput from '../../components/CustomInput';
@@ -101,7 +102,7 @@ const Contact = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
-            <PhoneInput text={'Phone Number'} />
+            <PhoneInput text={'Phone Number (optional)'} />
           </View>
 
           <View
@@ -120,6 +121,18 @@ const Contact = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
+               <Text
+        style={{
+          fontFamily: Font.Poppins500,
+          color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+          fontSize: tabPotrait
+            ? verticalScale(11)
+            : fourInchLandscape
+            ? scale(12)
+            : scale(14),
+        }}>
+        Message
+      </Text>
             <TextInput
                 
                 placeholderTextColor={Color.BoldTextColor}
@@ -141,7 +154,7 @@ const Contact = () => {
                   justifyContent: 'center',
                   color: Theme ? Color.White : Color.TextColor,
                   flex: 1,
-                  paddingHorizontal:verticalScale(10)
+                  paddingHorizontal:verticalScale(15)
                 }}
                 placeholder={'Type here'}
               multiline={true}
