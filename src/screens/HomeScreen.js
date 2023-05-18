@@ -451,6 +451,10 @@ const HomeScreen = () => {
                               w >= 768 && h >= 1024
                                 ? verticalScale(5)
                                  : verticalScale(20),
+                                 fontWeight:'800',
+                                 textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                                 textShadowOffset: {width: -1, height: 1},
+                                 textShadowRadius: 10
                           }}>
                           {item.text}
                         </Text>
@@ -470,6 +474,10 @@ const HomeScreen = () => {
                               ? scale(10)
                               : scale(13),
                             elevation: 5,
+                            fontWeight:'800',
+                            textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                            textShadowOffset: {width: -1, height: 1},
+                            textShadowRadius: 10
                           }}>
                           {item.text_subText}
                         </Text>

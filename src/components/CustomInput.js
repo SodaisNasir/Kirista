@@ -78,6 +78,7 @@ const CustomInput = props => {
               justifyContent: 'center',
               color: Theme ? Color.White : Color.TextColor,
               flex: 1,
+              top:verticalScale(1)
             },
           ]}
         />
