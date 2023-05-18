@@ -9,6 +9,7 @@ import {
   Image,
   useColorScheme,
   StatusBar,
+  Linking,
 } from 'react-native';
 import React, {useState, useCallback} from 'react';
 import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
@@ -530,21 +531,22 @@ const SettingsMore = () => {
           </View>
 
           <View style={styles.SocialBox}>
-            <TouchableOpacity style={[styles.IconBox]}>
+            <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/idcplatforms')} style={[styles.IconBox]}>
               <FontAwesome5
                 name="facebook"
                 color={Color.Main}
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.IconBox}>
+            <TouchableOpacity 
+            onPress={() => Linking.openURL('https://www.instagram.com/idcplatforms/')} style={styles.IconBox}>
               <Entypo
                 name="instagram"
                 color={Color.Main}
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.IconBox}>
+            <TouchableOpacity  onPress={() => Linking.openURL('https://twitter.com/idcplatforms')} style={styles.IconBox}>
               <Entypo
                 name="twitter-with-circle"
                 color={Color.Main}

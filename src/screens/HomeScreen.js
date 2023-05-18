@@ -545,7 +545,7 @@ const HomeScreen = () => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ViewParish');
+              navigation.navigate('FeaturedParishes');
             }}
             style={{
               flexDirection: 'row',
@@ -640,7 +640,7 @@ const HomeScreen = () => {
             </Text>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               navigation.navigate('Home');
             }}
@@ -653,7 +653,7 @@ const HomeScreen = () => {
                 color={Color.Main}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View>
           <DetailsCard

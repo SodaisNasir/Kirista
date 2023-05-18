@@ -144,53 +144,9 @@ const Contact = () => {
                   paddingHorizontal:verticalScale(10)
                 }}
                 placeholder={'Type here'}
-              
+              multiline={true}
               />
             </View>
-
-          {/* <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
-            }}>
-            <View
-              style={{
-                height:
-                  w >= 768 && h >= 1024
-                    ? verticalScale(80)
-                    : verticalScale(130),
-                // paddingHorizontal: moderateScale(10),
-                borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
-              }}>
-              <TextInput
-                
-                placeholderTextColor={Color.BoldTextColor}
-                
-                style={{
-                  fontSize: tabPotrait
-                  ? verticalScale(12)
-                  : fourInchLandscape
-                  ? scale(12)
-                  : scale(14.5),
-                  paddingBottom: iosTab ?  moderateVerticalScale(60) : moderateVerticalScale(100),
-                  color: Theme ? Color.White : Color.TextColor,
-                  backgroundColor: Theme
-                    ? Color.DarkThemeInputBox
-                    : Color.InputBoxColor,
-                  borderRadius: tabPotrait ? scale(12) : scale(18),
-                  fontFamily: Font.Inter500,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: Theme ? Color.White : Color.TextColor,
-                  flex: 1,
-                  paddingHorizontal:verticalScale(10)
-                }}
-                placeholder={'Type here'}
-              
-              />
-            </View>
-          </View> */}
-
           <View
             style={{
               marginVertical:
