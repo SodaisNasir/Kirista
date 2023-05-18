@@ -665,7 +665,7 @@ const HomeScreen = () => {
             manual="Convention"
             resize={'cover'}
             TimeTrue={true}
-            date={'November 09, 2023'}
+            date={'June 22, 2023'}
             time={'4PM'}
             MainBoxRestyle={{
               // paddingBottom: verticalScale(10),
@@ -682,7 +682,7 @@ const HomeScreen = () => {
             resize={'cover'}
             manual="Convention"
             TimeTrue={true}
-            date={'November 09, 2023'}
+            date={'July 7, 2023'}
             time={'4PM'}
             MainBoxRestyle={{
               paddingBottom: 0,
@@ -699,7 +699,7 @@ const HomeScreen = () => {
             manual="Convention"
             PlaceTrue={true}
             TimeTrue={true}
-            date={'November 09, 2023'}
+            date={'July 21, 2023'}
             time={'4PM'}
             MainBoxRestyle={{
               paddingBottom: 0,
@@ -717,7 +717,7 @@ const HomeScreen = () => {
             PlaceTrue={true}
             // Place="Ghana"
             TimeTrue={true}
-            date={'June 22, 2023'}
+            date={'November 09, 2023'}
             time={'4PM'}
             MainBoxRestyle={{
               paddingBottom: 0,
