@@ -125,12 +125,13 @@ const LibraryHome = ({navigation}) => {
             }}
           />
           <DetailsCard
+          onPress={() => navigation.navigate('ViewParish')}
             source={require('../../assets/images/parishsmall_1.png')}
             title="RCCG"
             resize={'contain'}
-            manual="Precious Ambassadors "
+            manual="Precious Ambassadors"
             PlaceTrue={true}
-            Place={'Ghana'}
+            Place={'Abuja'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -143,11 +144,11 @@ const LibraryHome = ({navigation}) => {
           />
           <DetailsCard
             source={require('../../assets/images/EventScreenImage1.png')}
-            title="RCCG"
+            title="WestCoast 3 Regional"
             resize={'cover'}
-            manual="Precious Ambassadors "
+            manual="Convention "
             TimeTrue={true}
-            date={'November 09, 2023'}
+            date={'July 7, 2023'}
             time={'4PM'}
             MainBoxRestyle={{
               paddingBottom:
@@ -166,7 +167,7 @@ const LibraryHome = ({navigation}) => {
             resize={'contain'}
             manual="Precious Ambassadors "
             PlaceTrue={true}
-            Place={'Ghana'}
+            Place={'Togo'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -180,11 +181,11 @@ const LibraryHome = ({navigation}) => {
 
           <DetailsCard
             source={require('../../assets/images/sunday_manual2.png')}
-            title="RCCG"
+            title="Sunday School"
             resize={'contain'}
-            manual="Precious Ambassadors "
+            manual="Teachers Man..."
             PlaceTrue={true}
-            Place={'Ghana'}
+            Place={'2023'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),

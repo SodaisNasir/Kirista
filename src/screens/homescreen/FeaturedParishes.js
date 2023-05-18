@@ -78,7 +78,7 @@ const FeaturedParishes = props => {
             resize={'contain'}
             manual="Precious Ambassadors "
             PlaceTrue={true}
-            Place={'Tojo'}
+            Place={'Ghana'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -91,10 +91,10 @@ const FeaturedParishes = props => {
           />
 
           <DetailsCard
-            source={require('../../assets/images/parishsmall_2.png')}
+            source={require('../../assets/images/parishsmall_3.png')}
             title="RCCG"
             resize={'contain'}
-            Place={'Ghana'}
+            Place={'Togo'}
             manual="Salvation Centre"
             PlaceTrue={true}
             MainBoxRestyle={{
@@ -114,7 +114,7 @@ const FeaturedParishes = props => {
             resize={'contain'}
             manual="Salvation Centre"
             PlaceTrue={true}
-            Place={'Abuja'}
+            Place={'Togo'}
             MainBoxRestyle={{
               paddingBottom:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
@@ -125,6 +125,41 @@ const FeaturedParishes = props => {
               borderBottomWidth: 1,
             }}
           />
+           <DetailsCard
+            source={require('../../assets/images/parishsmall_2.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Precious Ambassadors "
+            PlaceTrue={true}
+            Place={'Ghana'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+           <DetailsCard
+            source={require('../../assets/images/parishsmall_3.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Salvation Centre"
+            PlaceTrue={true}
+            Place={'Togo'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          
         </View>
         <View style={{height: verticalScale(75)}} />
       </ScrollView>

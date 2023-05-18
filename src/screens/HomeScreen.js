@@ -579,9 +579,9 @@ const HomeScreen = () => {
             onPress={() => {
               navigation.navigate('ViewParish');
             }}
-            source={require('../assets/images/parishsmall_3.png')}
+            source={require('../assets/images/parishsmall_2.png')}
             title="RCCG"
-            manual="Salvation Center"
+            manual="Precious Ambadassadors"
             resize={'contain'}
             PlaceTrue={true}
             Place={'Ghana'}
@@ -594,12 +594,12 @@ const HomeScreen = () => {
             onPress={() => {
               navigation.navigate('ViewParish');
             }}
-            source={require('../assets/images/parishsmall_2.png')}
+            source={require('../assets/images/parishsmall_3.png')}
             title="RCCG"
-            manual="Precious Ambassadors "
+            manual="Salvation Centre"
             resize={'contain'}
             PlaceTrue={true}
-            Place={'Abuja'}
+            Place={'Togo'}
             MainBoxRestyle={{
               // paddingBottom: verticalScale(10),
               marginTop: verticalScale(10),
@@ -693,7 +693,7 @@ const HomeScreen = () => {
               navigation.navigate('EventScreen');
             }}
             source={require('../assets/images/event_3.png')}
-            title="West Coast 3 Regional"
+            title="West Coast 1 Regional"
             resize={'cover'}
             manual="Convention"
             PlaceTrue={true}

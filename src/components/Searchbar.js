@@ -66,16 +66,16 @@ const Searchbar = () => {
         {...props}
         indicatorStyle={{backgroundColor: Color.Main}}
         style={{
-          backgroundColor: 'transparent',
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HomeHeaderText,
           elevation: 0,
           // width:'90%',
-          marginTop:verticalScale(10),
+          paddingTop:verticalScale(10),
         }}
         renderLabel={({route, focused, color}) => (
           <>
             <Text
               style={{
-                fontFamily: Font.Poppins600,
+                fontFamily: focused ? Font.Poppins500 : Font.Poppins600,
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 color: focused ? Color.Main : Color.HomeHeaderText,
               }}>
@@ -149,7 +149,7 @@ const Searchbar = () => {
       id: 3,
       title: 'West Coast 3 Regional',
       manual: 'Convention',
-      image: require('../assets/images/event_4.png'),
+      image: require('../assets/images/event_5.png'),
       detail: 'July 7, 2023.   .   4PM',
     },
     {
@@ -359,37 +359,98 @@ const Searchbar = () => {
               Popular Searches
             </Text>
             <View style={{flex: 1}}>
-              <FlatList
-                data={data}
-                showsVerticalScrollIndicator={false}
-                renderItem={({item}) => (
-                  <DetailsCard
-                    // onPress={() => navigation.navigate('SearchResult')}
-                    source={item.image}
-                    title={item.title}
-                    resize={'contain'}
-                    manual={item.manual}
-                    PlaceTrue={true}
-                    Place={item.detail}
-                    MainBoxRestyle={{
-                      paddingBottom:
-                        w >= 768 && h >= 1024
-                          ? verticalScale(10)
-                          : verticalScale(15),
-                      marginTop:
-                        w >= 768 && h >= 1024
-                          ? verticalScale(10)
-                          : verticalScale(15),
-                      // backgroundColor:'red'
-                      borderBottomColor: Theme
-                        ? Color.DarkBorder
-                        : Color.BorderColor,
-                      borderBottomWidth: 1,
-                    }}
-                  />
-                )}
-                keyExtractor={item => item.id.toString()}
-              />
+            <DetailsCard
+            onPress={() => navigation.navigate('ViewManual')}
+            source={require('../assets/images/manual.png')}
+            title="Sunday Student"
+            resize={'contain'}
+            manual="Manual"
+            PlaceTrue={true}
+            Place={'2023'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+          onPress={() => navigation.navigate('ViewParish')}
+            source={require('../assets/images/parishsmall_1.png')}
+            title="RCCG"
+            resize={'contain'}
+            manual="Central Parish"
+            PlaceTrue={true}
+            Place={'Abuja'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          <DetailsCard
+          onPress={() => navigation.navigate('EventScreen')}
+            source={require('../assets/images/EventScreenImage1.png')}
+            title="West Coast 3 Regional "
+            resize={'cover'}
+            manual="Convention"
+            TimeTrue={true}
+            date={'July 7, 2023'}
+            time={'4PM'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+          
+          <DetailsCard
+          // onPress={() => navigation.navigate('ParishFinderSearch')}
+            source={require('../assets/images/rcg_centralparish.png')}
+            title="RCCG His Grace Assembly"
+            resize={'contain'}
+        
+            PlaceTrue={true}
+            Place={'Banjul'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
+            <DetailsCard
+            onPress={() => navigation.navigate('ViewManual')}
+            source={require('../assets/images/sunday_manual2.png')}
+            title="Sunday School"
+            resize={'contain'}
+            manual="Teachers Man.."
+            PlaceTrue={true}
+            Place={'2023'}
+            MainBoxRestyle={{
+              paddingBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              marginTop:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+              // backgroundColor:'red'
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+            }}
+          />
               <View style={{height: verticalScale(10)}} />
             </View>
           </View>

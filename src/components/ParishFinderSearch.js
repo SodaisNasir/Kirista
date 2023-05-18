@@ -14,40 +14,55 @@ const ParishFinderSearch = () => {
   const data = [
     {
       id: 1,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../assets/images/book1.png'),
-      detail: '2023',
+      title: 'RCCG',
+      manual: 'Central Parish',
+      image: require('../assets/images/parishsmall_1.png'),
+      detail: 'Abuja',
+     
     },
   
     {
       id: 2,
       title: 'RCCG',
-      manual: 'Central Parish',
-      image: require('../assets/images/parishsmall_1.png'),
+      manual: 'Precious Ambassadors',
+      image: require('../assets/images/parishsmall_2.png'),
       detail: 'Ghana',
+      
+      
     },
   
     {
       id: 3,
-      title: 'West Coast 3 Regional',
-      manual: 'Convention',
-      image: require('../assets/images/event_4.png'),
-      detail: 'July 7, 2023.   .   4PM',
+      title: 'RCCG',
+      manual: 'Salvation Centre',
+      image: require('../assets/images/parishsmall_3.png'),
+      detail: 'Togo',
+      
+
     },
     {
       id: 4,
-      title: 'RCCG His Grace Assembly',
-      manual: '',
-      image: require('../assets/images/rcg_centralparish.png'),
+      title: 'RCCG',
+      manual: 'Salvation Centre',
+      image: require('../assets/images/parishsmall_3.png'),
       detail: 'Banjul',
+     
     },
     {
       id: 5,
-      title: 'Sunday School',
-      manual: 'Teachers Manual',
-      image: require('../assets/images/book2.png'),
+      title: 'RCCG',
+      manual: 'Precious Ambassadors',
+      image: require('../assets/images/parishsmall_2.png'),
       detail: '2023',
+      
+    },
+    {
+      id: 6,
+      title: 'RCCG',
+      manual: 'Salvation Centre',
+      image: require('../assets/images/parishsmall_3.png'),
+      detail: 'Togo',
+     
     },
   ];
     return(
@@ -62,7 +77,10 @@ const ParishFinderSearch = () => {
               resize={'contain'}
               manual={item.manual}
               PlaceTrue={true}
+
               Place={item.detail}
+
+              
               MainBoxRestyle={{
                 paddingBottom:
                   w >= 768 && h >= 1024
