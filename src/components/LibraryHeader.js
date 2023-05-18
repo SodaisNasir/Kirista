@@ -66,10 +66,13 @@ export default LibraryHeader;
 
 const styles = StyleSheet.create({
   AuthHeaderStyle: {
-    height: w < 450 && h < 750 ? verticalScale(70) : verticalScale(60),
-    // justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null,
-    paddingTop:w < 450 && h < 750 ? moderateVerticalScale(15) : moderateVerticalScale(10),
-    justifyContent:'center'
+    // height: w < 450 && h < 750 ? verticalScale(70) : verticalScale(60),
+    // // justifyContent: w <= 450 && h <= 750 ? 'flex-end' : null,
+    // paddingTop:w < 450 && h < 750 ? moderateVerticalScale(15) : moderateVerticalScale(10),
+    // justifyContent:'center'
+    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(25) :moderateVerticalScale(35)
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(19),

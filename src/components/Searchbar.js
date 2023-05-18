@@ -12,10 +12,11 @@ import {
   FlatList,
   Keyboard,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import {verticalScale, scale, moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {Color} from '../utils/Colors';
@@ -228,9 +229,11 @@ const Searchbar = () => {
         }}
       />
       <View style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.White}}>
-        <View
+      <View
           style={{
-            height: verticalScale(50),
+            height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(50) : verticalScale(30),
+    // justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(25) :moderateVerticalScale(35),
             backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
             flexDirection: 'row',
             paddingHorizontal: moderateScale(10),

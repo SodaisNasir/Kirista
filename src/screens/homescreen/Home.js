@@ -66,7 +66,6 @@ const Home = () => {
             <Text
               style={{
                 fontFamily: Font.Poppins600,
-                // width: route.type === 'finder' ? scale(120) : scale(100),
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 paddingLeft: route.type == 'home' ? scale(10) : 0,
                 color: focused ? Color.Main : Color.HomeHeaderText,
@@ -75,11 +74,11 @@ const Home = () => {
             </Text>
             <View
               style={[
-                // {marginTop: Platform.OS == 'ios' ? verticalScale(2) : null},
                 {
-                  borderBottomColor: focused ? Color.Main : 'transparent',
-                  borderBottomWidth: verticalScale(2.2),
-                  width: scale(20),
+                  backgroundColor: focused ? Color.Main : 'transparent',
+                  // borderBottomWidth: w >= 768 && h >= 1024 ? verticalScale(1) : verticalScale(2.2),
+                  height:w >= 768 && h >= 1024 ?  verticalScale(3) : verticalScale(2.2),
+                  width: w >= 768 && h >= 1024 ? scale(10) : scale(20),
                   marginLeft: route.type == 'home' ? scale(10) : 0,
                 },
               ]}
