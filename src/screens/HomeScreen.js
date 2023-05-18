@@ -544,7 +544,7 @@ const HomeScreen = () => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('FeaturedParishes');
+              navigation.navigate('ViewParish');
             }}
             style={{
               flexDirection: 'row',
@@ -641,7 +641,7 @@ const HomeScreen = () => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Events');
+              navigation.navigate('EventScreen');
             }}
             style={{flexDirection: 'row'}}>
             <Text style={styles.MoreText}>See all</Text>

@@ -13,7 +13,7 @@ import {
 import React, {useCallback, useLayoutEffect} from 'react';
 import {Color} from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {scale, verticalScale, moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -27,116 +27,126 @@ const PopularBooks = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
   useFocusEffect(
     useCallback(() => {
-      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none',backgroundColor:'red'}});
+      navigation
+        .getParent()
+        ?.setOptions({tabBarStyle: {display: 'none', backgroundColor: 'red'}});
     }, []),
   );
- 
-
 
   return (
     <>
-        <SafeAreaView
+      <SafeAreaView
         style={{
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-    <View
-      style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
-        styles.Container,
-      ]}>
-      <Header text={'Popular Books'} 
-      AuthHeaderStyle={{
-
-        marginTop:Platform.OS == 'ios' ? verticalScale(-25) : 0
-      }}
-
-      />
       <View
-        style={{
-          paddingHorizontal:
-            w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-        }}>
-        <PopularBooksCard
-          onPress={() => navigation.navigate('ViewManual')}
-          source={require('../../assets/images/manual.png')}
-          title="Sunday Student"
-          manual="Manual"
-          resize={'contain'}
-          PlaceTrue={true}
-          Place="2023"
-          MainBoxRestyle={{
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-            marginTop: verticalScale(15),
-            paddingBottom: verticalScale(15),
-          }}
-        />
-        <PopularBooksCard
-          onPress={() => navigation.navigate('ViewManual')}
-          source={require('../../assets/images/sunday_manual2.png')}
-          title="Sunday Student"
-          manual="Manual"
-          resize={'contain'}
-          PlaceTrue={true}
-          Place="2023"
-          MainBoxRestyle={{
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-            marginTop: verticalScale(15),
-            paddingBottom: verticalScale(15),
-          }}
-        />
-        <PopularBooksCard
-          onPress={() => navigation.navigate('ViewManual')}
-          source={require('../../assets/images/manual.png')}
-          title="Sunday School Teachers"
-          manual="Manual"
-          resize={'contain'}
-          PlaceTrue={true}
-          Place="2023"
-          MainBoxRestyle={{
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-            marginTop: verticalScale(15),
-            paddingBottom: verticalScale(15),
-          }}
-        />
-        <PopularBooksCard
-          onPress={() => navigation.navigate('ViewManual')}
-          source={require('../../assets/images/sunday_manual2.png')}
-          title="Sunday School Teachers"
-          manual="Manual"
-          resize={'contain'}
-          PlaceTrue={true}
-          Place="2023"
-          MainBoxRestyle={{
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-            marginTop: verticalScale(15),
-            paddingBottom: verticalScale(15),
-          }}
-        />
-        <PopularBooksCard
-          onPress={() => navigation.navigate('ViewManual')}
-          source={require('../../assets/images/manual.png')}
-          title="Sunday Student"
-          manual="Manual"
-          resize={'contain'}
-          PlaceTrue={true}
-          Place="2023"
-          MainBoxRestyle={{
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-            borderBottomWidth: 1,
-            marginTop: verticalScale(15),
-            paddingBottom: verticalScale(15),
-          }}
-        />
+        style={[
+          {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+          styles.Container,
+        ]}>
+        <Header
+          text={'Popular Books'}
+          AuthHeaderStyle={{
+            marginTop: Platform.OS == 'ios' ? verticalScale(-25) : 0,
+            height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(65)
+                  : verticalScale(80)
+                : w >= 768 && h >= 1024
+                ? verticalScale(50)
+                : w <= 450 && h <= 750
+                ? verticalScale(50)
+                : verticalScale(30),
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(7) :moderateVerticalScale(10)
 
-        {/* <View style ={{height:verticalScale(75)}}/> */}
+          }}
+        />
+        <View
+          style={{
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+          }}>
+          <PopularBooksCard
+            onPress={() => navigation.navigate('ViewManual')}
+            source={require('../../assets/images/manual.png')}
+            title="Sunday Student"
+            manual="Manual"
+            resize={'contain'}
+            PlaceTrue={true}
+            Place="2023"
+            MainBoxRestyle={{
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+              marginTop: verticalScale(15),
+              paddingBottom: verticalScale(15),
+            }}
+          />
+          <PopularBooksCard
+            onPress={() => navigation.navigate('ViewManual')}
+            source={require('../../assets/images/sunday_manual2.png')}
+            title="Sunday Student"
+            manual="Manual"
+            resize={'contain'}
+            PlaceTrue={true}
+            Place="2023"
+            MainBoxRestyle={{
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+              marginTop: verticalScale(15),
+              paddingBottom: verticalScale(15),
+            }}
+          />
+          <PopularBooksCard
+            onPress={() => navigation.navigate('ViewManual')}
+            source={require('../../assets/images/manual.png')}
+            title="Sunday School Teachers"
+            manual="Manual"
+            resize={'contain'}
+            PlaceTrue={true}
+            Place="2023"
+            MainBoxRestyle={{
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+              marginTop: verticalScale(15),
+              paddingBottom: verticalScale(15),
+            }}
+          />
+          <PopularBooksCard
+            onPress={() => navigation.navigate('ViewManual')}
+            source={require('../../assets/images/sunday_manual2.png')}
+            title="Sunday School Teachers"
+            manual="Manual"
+            resize={'contain'}
+            PlaceTrue={true}
+            Place="2023"
+            MainBoxRestyle={{
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+              marginTop: verticalScale(15),
+              paddingBottom: verticalScale(15),
+            }}
+          />
+          <PopularBooksCard
+            onPress={() => navigation.navigate('ViewManual')}
+            source={require('../../assets/images/manual.png')}
+            title="Sunday Student"
+            manual="Manual"
+            resize={'contain'}
+            PlaceTrue={true}
+            Place="2023"
+            MainBoxRestyle={{
+              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomWidth: 1,
+              marginTop: verticalScale(15),
+              paddingBottom: verticalScale(15),
+            }}
+          />
+
+          {/* <View style ={{height:verticalScale(75)}}/> */}
+        </View>
       </View>
-
-    </View>
     </>
   );
 };
