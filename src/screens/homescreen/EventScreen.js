@@ -14,7 +14,7 @@ import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomHeader from '../../components/CustomHeader';
 import {Color} from '../../utils/Colors';
-import {verticalScale, scale} from 'react-native-size-matters';
+import {verticalScale, scale, moderateVerticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import ImageModal from '../../components/Modals/ImageModal';
@@ -54,16 +54,24 @@ const EventScreen = ({navigation}) => {
           shareicon={true}
           saveicon={true}
           timeicon={true}
-          // AuthHeaderStyle={{
-          //   marginTop:  w <= 450 && h <= 750 ? 0 : verticalScale(-15),
-          //   height:
-          //   Platform.OS === 'android' ? verticalScale(80) :
-          //     w >= 768 && h >= 1024
-          //       ? verticalScale(50)
-          //       : w <= 450 && h <= 750
-          //       ? verticalScale(65)
-          //       : verticalScale(30),
-          // }}
+          AuthHeaderStyle={{
+            // marginTop: Platform.OS = 'ios' ? verticalScale(-5) : 0,
+            paddingTop:
+            Platform.OS == 'ios' ? 0 :  w >= 768 && h >= 1024
+        ? moderateVerticalScale(20)
+        : moderateVerticalScale(10),
+        height:
+        Platform.OS == 'android'
+          ? w >= 768 && h >= 1024
+            ? verticalScale(80)
+            : verticalScale(80)
+            : w >= 768 && h >= 1024
+            ? verticalScale(65)
+            : w <= 450 && h <= 750
+            ? verticalScale(50)
+            : verticalScale(30),
+            
+          }}
         />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View

@@ -149,11 +149,11 @@ const styles = StyleSheet.create({
         ? w >= 768 && h >= 1024
           ? verticalScale(80)
           : verticalScale(80)
-        : w >= 768 && h >= 1024
-        ? verticalScale(70)
-        : w <= 450 && h <= 750
-        ? verticalScale(50)
-        : verticalScale(60),
+          : w >= 768 && h >= 1024
+          ? verticalScale(65)
+          : w <= 450 && h <= 750
+          ? verticalScale(50)
+          : verticalScale(45),
     justifyContent:
       Platform.OS == 'android'
         ? 'center'

@@ -49,21 +49,36 @@ const FeaturedParishes = props => {
         <Header
           text={'Featured Parishes'}
           AuthHeaderStyle={{
-            paddingTop:
-              w >= 768 && h >= 1024
-                ? moderateVerticalScale(10)
-                : moderateVerticalScale(10),
+            marginTop: Platform.OS == 'ios' ? verticalScale(-25) : 0,
             height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
-                  ? verticalScale(70)
-                  : verticalScale(70)
+                  ? verticalScale(65)
+                  : verticalScale(80)
                 : w >= 768 && h >= 1024
-                ? verticalScale(50)
+                ? verticalScale(70)
                 : w <= 450 && h <= 750
                 ? verticalScale(50)
-                : verticalScale(30),
+                : verticalScale(50),
+    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(7) :moderateVerticalScale(10)
+
           }}
+          // AuthHeaderStyle={{
+          //   paddingTop:
+          //     w >= 768 && h >= 1024
+          //       ? moderateVerticalScale(10)
+          //       : moderateVerticalScale(10),
+          //   height:
+          //     Platform.OS == 'android'
+          //       ? w >= 768 && h >= 1024
+          //         ? verticalScale(70)
+          //         : verticalScale(70)
+          //       : w >= 768 && h >= 1024
+          //       ? verticalScale(50)
+          //       : w <= 450 && h <= 750
+          //       ? verticalScale(50)
+          //       : verticalScale(60),
+          // }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View

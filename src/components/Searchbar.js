@@ -243,15 +243,12 @@ const Searchbar = () => {
                 ? verticalScale(70)
                 : w <= 450 && h <= 750
                 ? verticalScale(60)
-                : verticalScale(100),
-            // justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
+                : verticalScale(60),
             paddingTop:
             Platform.OS == 'ios' ? 0 :
               w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
                 : moderateVerticalScale(35),
-            // backgroundColor: Theme ? '#0A2142' : '#f1f6fd',
-            // backgroundColor:'red',
             flexDirection: 'row',
             paddingHorizontal: moderateScale(10),
           }}>
@@ -276,7 +273,7 @@ const Searchbar = () => {
               width: isSearchBarVisible ? '83%' : '90%',
               // width:'83%',
               height:
-                w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
+                w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(37),
               backgroundColor: Theme ? '#2B3642' : Color.White,
               borderRadius: scale(25),
               flexDirection: 'row',

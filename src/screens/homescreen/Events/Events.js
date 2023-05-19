@@ -40,13 +40,7 @@ const Events = () => {
       <View
         style={[
           {
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
-            marginTop:
-              Platform.OS === 'ios' && w <= 450 && h <= 750
-                ? verticalScale(0)
-                : Platform.OS === 'ios'
-                ? verticalScale(10)
-                : 0,
+            backgroundColor: Theme ? Color.DarkTheme : Color.White
           },
           styles.Container,
         ]}>

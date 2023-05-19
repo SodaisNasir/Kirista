@@ -55,7 +55,6 @@ const FontModal = (props) => {
   const Theme = useColorScheme() === 'dark'
 
   return (
-    <View style={{flex: 1, width: '100%'}}>
       <Modal
         testID={'modal'}
         style={styles.modalStyling}
@@ -137,7 +136,6 @@ const FontModal = (props) => {
           />
         </View>
       </Modal>
-    </View>
   )
 }
 

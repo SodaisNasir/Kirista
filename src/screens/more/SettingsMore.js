@@ -12,7 +12,12 @@ import {
   Linking,
 } from 'react-native';
 import React, {useState, useCallback} from 'react';
-import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
+import {
+  moderateScale,
+  moderateVerticalScale,
+  scale,
+  verticalScale,
+} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -40,7 +45,7 @@ import Privacy_dark from '../../assets/icons/privacy_dark.svg';
 import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
 import BottomTab from '../../constant/BottomTab';
 
@@ -63,6 +68,7 @@ const SettingsMore = () => {
     }),
   );
 
+  const is_guest = useSelector(state => state.is_guest);
   return (
     <>
       <SafeAreaView
@@ -79,17 +85,26 @@ const SettingsMore = () => {
           backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
           barStyle={Theme ? 'light-content' : 'dark-content'}
         />
-      
-          <View
-            style={[
-              styles.HeaderStyle,
-              {
-                backgroundColor: Theme
-                  ? Color.ExtraViewDark
-                  : Color.HeaderColor,
-              },
-            ]}>
-            <View style={styles.WelcomeView}>
+
+        <View
+          style={[
+            styles.HeaderStyle,
+            {
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            },
+          ]}>
+          <View style={styles.WelcomeView}>
+            {is_guest ? (
+              <Text
+                style={[
+                  styles.WelcomeText,
+                  {
+                    color: Theme ? Color.White : Color.Black,
+                  },
+                ]}>
+                Guest, Brethren.
+              </Text>
+            ) : (
               <Text
                 style={[
                   styles.WelcomeText,
@@ -99,11 +114,14 @@ const SettingsMore = () => {
                 ]}>
                 Hello, Brethren.
               </Text>
-            </View>
+            )}
           </View>
-          <ScrollView showsVerticalScrollIndicator={false}>
+        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={[styles.MainView]}>
-            <View
+            <TouchableOpacity
+            activeOpacity={1}
+            // onPress={() => is_guest ? navigation.navigate('Login') : console.log('asdf')}
               style={[
                 styles.UserInfo,
                 {
@@ -117,8 +135,16 @@ const SettingsMore = () => {
                     height: w >= 768 && h >= 1024 ? scale(30) : scale(55),
                   }}>
                   <Image
-                    source={require('../../assets/images/krista_settings.png')}
-                    style={{height: '100%', width: '100%',borderRadius:scale(100)}}
+                    source={
+                      is_guest
+                        ? require('../../assets/images/rccg_logo.png')
+                        : require('../../assets/images/krista_settings.png')
+                    }
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                      borderRadius: scale(100),
+                    }}
                     resizeMode="contain"
                   />
                 </View>
@@ -129,39 +155,88 @@ const SettingsMore = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Text
-                    style={[
-                      styles.UserNameText,
-                      {
-                        color: Theme ? Color.White : Color.DarkTextColor,
-                      },
-                    ]}>
-                    Mary David
-                  </Text>
-                  <Text
-                    style={[
-                      styles.UserInfoText,
-                      {
-                        color: Theme ? Color.White : Color.Black,
-                      },
-                    ]}>
-                    <Text
-                      style={{
-                        color: Theme ? Color.White : Color.Black,
-                        fontFamily: Font.Poppins700,
-                        fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
-                      }}>
-                      ID:{' '}
-                    </Text>
-                    IOS0000192
-                  </Text>
+                  {is_guest ? (
+                   <View>
+                      <Text
+                        style={[
+                          styles.UserNameText,
+                          {
+                            color: Theme ? Color.White : Color.DarkTextColor,
+                            fontFamily: Font.Poppins700,
+                            alignSelf: 'flex-start',
+                          },
+                        ]}>
+                        Sign in
+                      </Text>
+                      <Text
+                        style={[
+                          styles.UserInfoText,
+                          {
+                            color: Theme ? Color.White : Color.Black,
+                          },
+                        ]}>
+                        <Text
+                          style={{
+                            color: Theme ? Color.White : Color.Black,
+                            fontFamily: Font.Poppins700,
+                            fontSize:
+                              w >= 768 && h >= 1024 ? scale(8) : scale(11),
+                          }}>
+                          ID:{' '}
+                        </Text>
+                        AND00000395
+                      </Text>
+                      </View>
+                  ) : (
+                    <View>
+                      <Text
+                        style={[
+                          styles.UserNameText,
+                          {
+                            color: Theme ? Color.White : Color.DarkTextColor,
+                          },
+                        ]}>
+                        Mary David
+                      </Text>
+                      <Text
+                        style={[
+                          styles.UserInfoText,
+                          {
+                            color: Theme ? Color.White : Color.Black,
+                          },
+                        ]}>
+                        <Text
+                          style={{
+                            color: Theme ? Color.White : Color.Black,
+                            fontFamily: Font.Poppins700,
+                            fontSize:
+                              w >= 768 && h >= 1024 ? scale(8) : scale(11),
+                          }}>
+                          ID:{' '}
+                        </Text>
+                        IOS0000192
+                      </Text>
+                     </View>
+                  )}
                 </View>
               </View>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('EditProfile')}>
-                <Edit height={w >= 768 && h >= 1024 ? scale(18) : scale(22)} />
-              </TouchableOpacity>
-            </View>
+              {is_guest ? (
+                <View style={styles.ArrowStyle}>
+                  <Ionicons
+                    name="chevron-forward"
+                    size={w >= 768 && h >= 1024 ? scale(10) : scale(14)}
+                    color={Color.ArrowBorder}
+                  />
+                </View>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('EditProfile')}>
+                  <Edit
+                    height={w >= 768 && h >= 1024 ? scale(18) : scale(22)}
+                  />
+                </TouchableOpacity>
+              )}
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -531,22 +606,33 @@ const SettingsMore = () => {
           </View>
 
           <View style={styles.SocialBox}>
-            <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/idcplatforms')} style={[styles.IconBox]}>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL('https://www.facebook.com/idcplatforms')
+              }
+              style={[styles.IconBox]}>
               <FontAwesome5
                 name="facebook"
                 color={Color.Main}
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
             </TouchableOpacity>
-            <TouchableOpacity 
-            onPress={() => Linking.openURL('https://www.instagram.com/idcplatforms/')} style={styles.IconBox}>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL('https://www.instagram.com/idcplatforms/')
+              }
+              style={styles.IconBox}>
               <Entypo
                 name="instagram"
                 color={Color.Main}
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(20)}
               />
             </TouchableOpacity>
-            <TouchableOpacity  onPress={() => Linking.openURL('https://twitter.com/idcplatforms')} style={styles.IconBox}>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL('https://twitter.com/idcplatforms')
+              }
+              style={styles.IconBox}>
               <Entypo
                 name="twitter-with-circle"
                 color={Color.Main}
@@ -561,47 +647,55 @@ const SettingsMore = () => {
             }}>
             <Text style={[styles.VersionText]}>Version 1.0.0</Text>
           </View>
+          {is_guest ? null : (
+            <>
+              <View
+                style={{
+                  height: verticalScale(20),
+                  backgroundColor: Theme
+                    ? Color.ExtraViewDark
+                    : Color.HeaderColor,
+                }}
+              />
+              <View
+                style={[
+                  styles.MainView,
+                  {
+                    backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  },
+                ]}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('OverBoard')}
+                  style={[
+                    styles.AllItems,
+                    {
+                      backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                    },
+                  ]}>
+                  <View style={styles.IconAndText}>
+                    <Logout
+                      height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
+                    />
 
-          <View
-            style={{
-              height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-            }}
-          />
-          <View
-            style={[
-              styles.MainView,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('OverBoard')}
-              style={[
-                styles.AllItems,
-                {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
-                },
-              ]}>
-              <View style={styles.IconAndText}>
-                <Logout
-                  height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
-                />
-
-                <Text style={[styles.LogoutTextStyle]}>Log out</Text>
+                    <Text style={[styles.LogoutTextStyle]}>Log out</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-            }}
-          />
-          <View style={{height: verticalScale(90)}}></View>
+              <View
+                style={{
+                  height: verticalScale(20),
+                  backgroundColor: Theme
+                    ? Color.ExtraViewDark
+                    : Color.HeaderColor,
+                }}
+              />
+            </>
+          )}
+
+          {/* <View style={{height: verticalScale(90)}}></View> */}
         </ScrollView>
       </View>
-      <BottomTab  activeMore={true}/>
+      <BottomTab activeMore={true} />
     </>
   );
 };
@@ -610,9 +704,26 @@ export default SettingsMore;
 
 const styles = StyleSheet.create({
   HeaderStyle: {
-    height: Platform.OS == 'android' ? w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100) : w >= 768 && h >= 1024 ? verticalScale(50) : w <= 450 && h <= 750 ? verticalScale(66) : verticalScale(60),
-    justifyContent:  Platform.OS == 'android' ? 'center' : w <= 450 && h <= 750 ? 'center' : null,
-    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(20) :moderateVerticalScale(25)
+    height:
+      Platform.OS == 'android'
+        ? w >= 768 && h >= 1024
+          ? verticalScale(80)
+          : verticalScale(100)
+        : w >= 768 && h >= 1024
+        ? verticalScale(50)
+        : w <= 450 && h <= 750
+        ? verticalScale(66)
+        : verticalScale(60),
+    justifyContent:
+      Platform.OS == 'android'
+        ? 'center'
+        : w <= 450 && h <= 750
+        ? 'center'
+        : null,
+    paddingTop:
+      w >= 768 && h >= 1024
+        ? moderateVerticalScale(20)
+        : moderateVerticalScale(25),
   },
   WelcomeView: {
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),

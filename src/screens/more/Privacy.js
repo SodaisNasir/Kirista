@@ -52,9 +52,11 @@ const Privacy = ({navigation}) => {
                 ? verticalScale(80)
                 : w >= 768 && h >= 1024
                 ? verticalScale(70)
-                : w <= 450 && h <= 750
+                : w >= 768 && h >= 1024
                 ? verticalScale(65)
-                : verticalScale(60),
+                : w <= 450 && h <= 750
+                ? verticalScale(50)
+                : verticalScale(45),
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>

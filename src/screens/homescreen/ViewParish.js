@@ -32,8 +32,7 @@ const ViewParish = () => {
           marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0
         },
       ]}>
-        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true} AuthHeaderStyle={{
-        }}/>
+        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{

@@ -101,9 +101,10 @@ const styles = StyleSheet.create({
         ? verticalScale(65)
         : w <= 450 && h <= 750
         ? verticalScale(50)
-        : verticalScale(65),
+        : verticalScale(45),
     justifyContent: 'center',
     paddingTop:
+    Platform.OS == 'ios' ? 0 :
       w >= 768 && h >= 1024
         ? moderateVerticalScale(20)
         : moderateVerticalScale(25),

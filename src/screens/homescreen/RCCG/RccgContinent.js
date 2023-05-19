@@ -49,7 +49,7 @@ const RccgContinent = ({navigation}) => {
         <View
           style={{
             paddingHorizontal:
-              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+            w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(22),
           }}>
           <View
             style={{

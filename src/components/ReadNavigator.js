@@ -7,19 +7,10 @@ import {
   useColorScheme,
   Dimensions,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
-import SettingsDark from '../assets/icons/settings.svg';
-import Settings from '../assets/icons/settings_light.svg';
-import SettingsPress from '../assets/icons/settings_press.svg';
-import Sun from '../assets/icons/sun.svg';
-import SunBlack from '../assets/icons/sun_black.svg';
-
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 

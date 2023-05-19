@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  Button,
+  // Modal
 } from 'react-native';
 import React, {useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -26,22 +28,20 @@ import FontModal from '../../../components/Modals/FontModal';
 import DrawerScreen from '../../../components/DrawerScreen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Modal from 'react-native-modal';
+
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 const Readtwo = props => {
   const Theme = useColorScheme() === 'dark';
 
-  const [isModalVisible, setModalVisible] = useState(false);
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+  // const [isModalVisible, setModalVisible] = useState(false);
+
 
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
 
   const [isModalThreeVisible, setModalThreeVisible] = useState(false);
-  const toggleModalThree = () => {
-    setModalThreeVisible(!isModalThreeVisible);
-  };
+
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -82,16 +82,23 @@ const Readtwo = props => {
   const selected = isSelect ? 'bookmark-outline' : 'bookmark';
   const navigation = useNavigation();
 
+  // const [isModalVisible, setModalVisible] = useState(false);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+ 
   return (
     <>
       <SafeAreaView
         style={{
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          // marginTop:Platform.OS == 'ios' ? verticalScale(-47) : 0
         }}
       />
-      <SafeAreaView style={[styles.MainContainer, {backgroundColor}]}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+
+      <View style={[styles.MainContainer, {backgroundColor}]}>
           <View
             style={[
               {
@@ -149,7 +156,19 @@ const Readtwo = props => {
               </TouchableOpacity>
             </View>
           </View>
+        
+        <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{alignSelf:'center'}}>
+      <Button title="Show modal" onPress={toggleModal} />
 
+      <Modal isVisible={isModalVisible}>
+        <View style={{ flex: 1 }}>
+          <Text>Hello!</Text>
+
+          <Button title="Hide modal" onPress={toggleModal} />
+        </View>
+      </Modal>
+    </View>
           <View
             style={{
               paddingHorizontal:
@@ -214,7 +233,9 @@ const Readtwo = props => {
           </View>
           <View style={{height: verticalScale(75)}} />
 
-          <ChapterOptionModal
+
+
+          {/* <ChapterOptionModal
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}
             swipeDirection="down"
@@ -231,7 +252,25 @@ const Readtwo = props => {
                 console.log('second modal state ==>', isSecondModalVisible);
               }, 500);
             }}
-          />
+          /> */}
+           {/* <ChapterOptionModal
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+        swipeDirection="down"
+        onSwipeComplete={() => setModalVisible(false)}
+        onRequestClose={() => setModalVisible(false)}
+        HandlePressOne={handlepressone}
+        HandlePressTwo={handlepresstwo}
+        HandlePressThree={handlepressthree}
+        HandlePressFour={handlepressfour}
+        toggleModalTwo={() => {
+          setModalVisible(false);
+          setTimeout(() => {
+            setSecondModalVisible(true);
+            console.log('second modal state ==>', isSecondModalVisible);
+          }, 500);
+        }}
+      />
 
           <FontModal
             isVisible={isSecondModalVisible}
@@ -243,13 +282,13 @@ const Readtwo = props => {
           />
 
           <DrawerScreen
-            isVisible={isModalThreeVisible}
+            isVisible={true}
             onBackdropPress={() => setModalThreeVisible(false)}
             // swipeDirection="slideInLeft"
             onSwipeComplete={() => setModalThreeVisible(false)}
             onRequestClose={() => setModalThreeVisible(false)}
             OptionSelect={() => setModalThreeVisible(false)}
-          />
+          /> */}
         </ScrollView>
         <View
           style={{
@@ -261,15 +300,12 @@ const Readtwo = props => {
             width: '100%',
           }}>
           <ReadNavigator
-            onPressTab={() => {
-              toggleModalThree(true);
-            }}
-            onPressModal={() => {
-              toggleModal(true);
-            }}
+            onPressTab={() => setModalThreeVisible(true)}
+            onPressModal={() => setModalVisible(true)}
           />
         </View>
-      </SafeAreaView>
+     
+      </View>
     </>
   );
 };

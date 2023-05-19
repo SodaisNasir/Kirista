@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   SafeAreaView,
+  // Modal
 } from 'react-native'
 import Modal from 'react-native-modal'
 import ChapterScreen from './ChapterScreen'
@@ -24,7 +25,7 @@ const DrawerScreen = (props) => {
   const h = useWindowDimensions().height
 
 
-  const [chapter, setChapter] = useState(true)
+  const [chapter, setChapter] = useState(false)
   const [bookmark, setBookmark] = useState(false)
 
   const [chapterColor, setChapterColor] = useState(Color.Main)
@@ -43,7 +44,7 @@ const DrawerScreen = (props) => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1, width: '100%'}}>
+    // <SafeAreaView style={{flex: 1, width: '100%', height: '100%'}}>
 
       <Modal
         style={styles.modalStyling}
@@ -148,7 +149,7 @@ const DrawerScreen = (props) => {
           {bookmark && <BookmarkScreen />}
         </SafeAreaView>
       </Modal>
-    </SafeAreaView>
+    // </SafeAreaView>
   )
 }
 

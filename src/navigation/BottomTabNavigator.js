@@ -545,19 +545,19 @@ function AllSettings() {
     <Stack.Navigator
       screenOptions={{headerShown: false}}
       initialRouteName="SettingsMore">
-      {is_guest ? (
+      {/* {is_guest ? (
         <Stack.Screen
           name="SettingsMore"
           component={SettingsGuest}
           options={{animation: 'fade_from_bottom'}}
         />
-      ) : (
+      ) : ( */}
         <Stack.Screen
           name="SettingsMore"
           component={SettingsMore}
           options={{animation: 'fade_from_bottom'}}
         />
-      )}
+      {/* )} */}
       <Stack.Screen
         name="Privacy"
         component={Privacy}

@@ -53,7 +53,6 @@ const Home = () => {
         indicatorStyle={{
           backgroundColor: 'transparent',
         }}
-       
         style={{
           backgroundColor: 'transparent',
           elevation: 0,
@@ -67,7 +66,12 @@ const Home = () => {
               style={{
                 fontFamily: Font.Poppins600,
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                paddingLeft: route.type == 'home' ? scale(10) : 0,
+                paddingLeft:
+                  route.type == 'home'
+                    ? w >= 768 && h >= 1024
+                      ? scale(15)
+                      : scale(10)
+                    : 0,
                 color: focused ? Color.Main : Color.HomeHeaderText,
               }}>
               {route.title}
@@ -77,9 +81,17 @@ const Home = () => {
                 {
                   backgroundColor: focused ? Color.Main : 'transparent',
                   // borderBottomWidth: w >= 768 && h >= 1024 ? verticalScale(1) : verticalScale(2.2),
-                  height:w >= 768 && h >= 1024 ?  verticalScale(3) : verticalScale(2.2),
+                  height:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(3)
+                      : verticalScale(2.2),
                   width: w >= 768 && h >= 1024 ? scale(10) : scale(20),
-                  marginLeft: route.type == 'home' ? scale(10) : 0,
+                  marginLeft:
+                    route.type == 'home'
+                      ? w >= 768 && h >= 1024
+                        ? scale(15)
+                        : scale(10)
+                      : 0,
                 },
               ]}
             />
