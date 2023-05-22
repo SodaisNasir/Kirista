@@ -80,10 +80,9 @@ const Home = () => {
               style={[
                 {
                   backgroundColor: focused ? Color.Main : 'transparent',
-                  // borderBottomWidth: w >= 768 && h >= 1024 ? verticalScale(1) : verticalScale(2.2),
                   height:
                     w >= 768 && h >= 1024
-                      ? verticalScale(3)
+                      ? verticalScale(1.7)
                       : verticalScale(2.2),
                   width: w >= 768 && h >= 1024 ? scale(10) : scale(20),
                   marginLeft:
@@ -112,99 +111,6 @@ const Home = () => {
   const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useColorScheme() === 'dark';
 
-  const image_data = [
-    {
-      id: 1,
-      image: require('../../assets/images/list.jpg'),
-      image2: require('../../assets/images/redeemImgradiant.png'),
-      image3: require('../../assets/images/rccg_logo.png'),
-      text: 'the redeemed christian church of god.',
-      text2: 'Read More  ',
-      color: '#28166f',
-      screen_name: 'Rccg',
-    },
-    {
-      id: 2,
-      image: require('../../assets/images/list2.jpg'),
-      image2: require('../../assets/images/redeemImgradiant.png'),
-      image3: require('../../assets/images/rccg_logo.png'),
-      text: 'rccg ',
-      text_subText: 'structure',
-      text2: 'Read More  ',
-      color: '#00923f',
-      type: 'ye',
-      screen_name: 'RccgStructure',
-    },
-    {
-      id: 3,
-      image: require('../../assets/images/list3.jpg'),
-      image2: require('../../assets/images/redeemImgradiant.png'),
-      image3: require('../../assets/images/rccg_logo.png'),
-      text: 'rccg ',
-      text_subText: 'continent 2',
-      text2: 'Read More  ',
-      color: '#e43f40',
-      type: 'ye',
-      screen_name: 'RccgContinent',
-    },
-  ];
-  const books_data = [
-    {
-      id: 1,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book1.png'),
-      year: '2023',
-      type: 'first',
-    },
-    {
-      id: 2,
-      title: 'Sunday School',
-      manual: 'Manual',
-      image: require('../../../src/assets/images/book1.png'),
-      year: '2023',
-    },
-
-    {
-      id: 3,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-
-    {
-      id: 4,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-    {
-      id: 5,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-      type: 'first',
-    },
-    {
-      id: 6,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-    {
-      id: 7,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-  ];
-
-  const [isModalVisible, setModalVisible] = useState(true);
 
   return (
     <>

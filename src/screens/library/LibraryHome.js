@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
 import LibraryHeader from '../../components/LibraryHeader';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {scale, verticalScale, moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import FilterModal from '../../components/Modals/FilterModal';
@@ -98,6 +98,24 @@ const LibraryHome = ({navigation}) => {
       <LibraryHeader
         onPress={() => {
           setShowModal(toggleModal(true));
+        }}
+        AuthHeaderStyle={{
+          height:
+          Platform.OS == 'android'
+            ? w >= 768 && h >= 1024
+              ? verticalScale(80)
+              : verticalScale(80)
+            : w >= 768 && h >= 1024
+            ? verticalScale(70)
+            : w <= 450 && h <= 750
+            ? verticalScale(60)
+            : verticalScale(40),
+        justifyContent: 'center',
+        paddingTop:
+        Platform.OS == 'android' ? moderateVerticalScale(30) :
+          w >= 768 && h >= 1024
+            ? moderateVerticalScale(25)
+            : moderateVerticalScale(25),
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false} >

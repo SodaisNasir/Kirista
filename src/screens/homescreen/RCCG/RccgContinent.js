@@ -44,7 +44,7 @@ const RccgContinent = ({navigation}) => {
       ]}>
         <StatusBar backgroundColor={ Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
 
-      <Header text={'RCCG Continent 2'} welcomeText={{paddingTop:moderateScale(5)}}/>
+      <Header text={'RCCG Continent 2'} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{

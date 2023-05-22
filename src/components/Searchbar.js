@@ -39,7 +39,7 @@ import ParishFinderSearch from './ParishFinderSearch';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
-const fourInchPotrait = w <= 350 && h <= 600;
+const fourInchPotrait = w <= 370 && h <= 650;
 
 const ThirdRoute = () => <NoResult />;
 const FourthRoute = () => <ParishFinderSearch />;
@@ -72,7 +72,7 @@ const Searchbar = () => {
         style={{
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
           elevation: 0,
-          // width:'90%',
+          width: '100%',
           // paddingTop: verticalScale(10),
         }}
         renderLabel={({route, focused, color}) => (
@@ -231,22 +231,27 @@ const Searchbar = () => {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      <View style={{flex: 1, backgroundColor: Theme ? '#0A2142' : Color.HeaderColor}}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Theme ? '#0A2142' : Color.HeaderColor,
+        }}>
         <View
           style={{
             height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
                   ? verticalScale(100)
-                  : verticalScale(130)
+                  : verticalScale(100)
                 : w >= 768 && h >= 1024
                 ? verticalScale(70)
                 : w <= 450 && h <= 750
                 ? verticalScale(60)
                 : verticalScale(60),
             paddingTop:
-            Platform.OS == 'ios' ? 0 :
-              w >= 768 && h >= 1024
+              Platform.OS == 'ios'
+                ? 0
+                : w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
                 : moderateVerticalScale(35),
             flexDirection: 'row',
@@ -310,8 +315,8 @@ const Searchbar = () => {
                     : w <= 400 && h <= 650
                     ? scale(10)
                     : scale(14),
-                fontFamily: Font.Inter500,
-                top: fourInchPotrait ? verticalScale(2) : verticalScale(1.5),
+                // fontFamily: Font.Inter500,
+                // top: fourInchPotrait ?  verticalScale(1.3) : 0, //fourInchPotrait ? verticalScale(20) :0,
                 left: iosTab ? scale(2) : 0,
               }}
               placeholder="Search"
@@ -343,7 +348,7 @@ const Searchbar = () => {
               style={{
                 flex: 1,
                 justifyContent: 'center',
-                alignItems:'center'
+                alignItems: 'center',
                 // alignItems: 'center',
                 // alignItems:'flex-end'
                 // flexDirection: 'row',

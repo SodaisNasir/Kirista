@@ -31,6 +31,7 @@ const LibraryHeader = props => {
     <SafeAreaView
       style={[
         styles.AuthHeaderStyle,
+        props.AuthHeaderStyle,
         {
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         },
@@ -70,20 +71,7 @@ const LibraryHeader = props => {
 export default LibraryHeader;
 
 const styles = StyleSheet.create({
-  AuthHeaderStyle: {
-    height:
-      Platform.OS == 'android'
-        ? w >= 768 && h >= 1024
-          ? verticalScale(80)
-          : verticalScale(100)
-        : w >= 768 && h >= 1024
-        ? verticalScale(50)
-        : w <= 450 && h <= 750
-        ? verticalScale(50)
-        : verticalScale(50),
-        
-  },
-  WelcomeText: {
+   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(19),
     fontFamily: Font.Poppins500,
     color: Color.Black,

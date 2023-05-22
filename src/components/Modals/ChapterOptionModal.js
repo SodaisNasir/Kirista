@@ -9,9 +9,8 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-  Modal
 } from 'react-native';
-// import Modal from 'react-native-modal';
+import Modal from 'react-native-modal';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
@@ -36,18 +35,19 @@ const ChapterOptionModal = props => {
   const [selected, setSelected] = useState();
   const navigation = useNavigation();
 
-  // const incrementCount = () => {
-  //   setCount(count + 1);
-  // };
-  // const decrementCount = () => {
-  //   setCount(count - 1);
-  // };
+  const incrementCount = () => {
+    setCount(count + 1);
+  };
+  const decrementCount = () => {
+    setCount(count - 1);
+  };
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
 
   const iosTab = w >= 820 && h >= 1180;
   return (
+    <View style={{flex: 1, width: '100%'}}>
       <Modal
         testID={'modal'}
         style={styles.modalStyling}
@@ -57,7 +57,7 @@ const ChapterOptionModal = props => {
         isVisible={props.isVisible}
         swipeDirection="down"
         onSwipeComplete={props.onSwipeComplete}>
-       <View
+        <View
           style={[
             {
               backgroundColor: Theme ? Color.DarkTheme : Color.White,
@@ -93,7 +93,7 @@ const ChapterOptionModal = props => {
 
           <View
             style={
-              styles.ColorsView            }>
+              styles.ColorsView}>
             <TouchableOpacity
               onPress={props.HandlePressOne}
               style={[
@@ -193,9 +193,7 @@ const ChapterOptionModal = props => {
                 width: w >= 768 && h >= 1024 ? '45%' : '45%',
                 justifyContent: 'center',
               }}>
-              <TouchableOpacity 
-              // onPress={decrementCount}
-              >
+              <TouchableOpacity onPress={decrementCount}>
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
@@ -232,9 +230,7 @@ const ChapterOptionModal = props => {
                   {count}
                 </Text>
               </View>
-              <TouchableOpacity 
-              // onPress={incrementCount}
-              >
+              <TouchableOpacity onPress={incrementCount}>
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
@@ -325,13 +321,17 @@ const ChapterOptionModal = props => {
           </View>
         </View>
 
-        {/* <ReadNavigator
+        <ReadNavigator
         ChangeColor={true}
         color={Color.Main}
-        // onPress={() => setModalVisible(false)}
-        /> */}
-
+        onPressModal={props.CloseBtn}
+        DontShowMoon={true}
+        DontShowMenu={true}
+        // tabButtonStyle={{alignItems:'flex-end',width:'100%'}}
+        onPressTab={props.onPressTab}
+        />
       </Modal>
+    </View>
   );
 };
 

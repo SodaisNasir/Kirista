@@ -214,8 +214,23 @@ const HomeScreen = () => {
             ]}>
             Popular Books
           </Text>
-
           <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('PopularBooks');
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems:'center'
+            }}>
+            <Text style={styles.MoreText}>More</Text>
+              <Entypo
+                name="chevron-small-right"
+                size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
+                color={Color.Main}
+                // style={{top:verticalScale(1)}}
+              />
+          </TouchableOpacity>
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate('PopularBooks')}
             style={{flexDirection: 'row'}}>
             <Text style={styles.MoreText}>More</Text>
@@ -226,7 +241,7 @@ const HomeScreen = () => {
                 color={Color.Main}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <ScrollView
           horizontal
@@ -312,7 +327,6 @@ const HomeScreen = () => {
                       <View
                         style={{
                           marginTop: verticalScale(3),
-                          justifyContent: 'center',
                         }}>
                         <Text style={styles.YearStyle}> {item?.year}</Text>
                       </View>
@@ -557,15 +571,15 @@ const HomeScreen = () => {
             }}
             style={{
               flexDirection: 'row',
+              alignItems:'center'
             }}>
             <Text style={styles.MoreText}>More</Text>
-            <View style={{top: 1}}>
               <Entypo
                 name="chevron-small-right"
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                 color={Color.Main}
+                // style={{top:verticalScale(1)}}
               />
-            </View>
           </TouchableOpacity>
         </View>
 
@@ -795,6 +809,7 @@ const styles = StyleSheet.create({
       color: Color.BoldTextColor,
       fontFamily: Font.Poppins500,
       fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+      right: w >= 768 && h >= 1024 ? scale(1) : 0
     },
   
     BooksTitleStyle: {

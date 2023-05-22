@@ -10,7 +10,7 @@ import {
   Dimensions,
   Platform,
   Button,
-  // Modal
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -19,29 +19,41 @@ import {
   verticalScale,
   scale,
   moderateVerticalScale,
+  moderateScale,
 } from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
-import ReadNavigator from '../../../components/ReadNavigator';
 import {useNavigation} from '@react-navigation/native';
 import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
-import FontModal from '../../../components/Modals/FontModal';
 import DrawerScreen from '../../../components/DrawerScreen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 
+import SelectDropdown from '../../../components/SelectDropdown';
+import LeftRight from '../../../assets/icons/left-right.svg';
+import LeftRightDark from '../../../assets/icons/leftright_dark.svg';
+import UpDown from '../../../assets/icons/up-down.svg';
+import UpDownDark from '../../../assets/icons/upright_dark.svg';
+import FontModal from '../../../components/Modals/FontModal';
+import Sun from '../../../assets/icons/sun_light.svg';
+import Sun_light from '../../../assets/icons/sun_one.svg';
+import SwiperBrightness from '../../../components/Modals/SwiperBrightness';
+import ReadNavigator from '../../../components/ReadNavigator';
+import ChapterScreen from '../../../components/ChapterScreen';
+import BookmarkScreen from '../../../components/BookmarkScreen';
+
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
+
 const Readtwo = props => {
   const Theme = useColorScheme() === 'dark';
-
+  const [count, setCount] = useState(0);
+  // const [selected, setSelected] = useState();
   // const [isModalVisible, setModalVisible] = useState(false);
-
 
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
 
   const [isModalThreeVisible, setModalThreeVisible] = useState(false);
-
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -75,21 +87,35 @@ const Readtwo = props => {
   const [isSelect, setisSelect] = useState(false);
   const handleClick = () => {
     setisSelect(!isSelect);
-    if (props.onPress) {
-      props.onPress(!isSelect);
-    }
   };
   const selected = isSelect ? 'bookmark-outline' : 'bookmark';
   const navigation = useNavigation();
 
-  // const [isModalVisible, setModalVisible] = useState(false);
-
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const [chapter, setChapter] = useState(false);
+  const [bookmark, setBookmark] = useState(false);
+
+  const [chapterColor, setChapterColor] = useState(Color.Main);
+  const [bookmarkColor, setBookmarkColor] = useState(color_condition);
+
+  const color_condition = Theme ? Color.DarkThemeGreyText : Color.Black;
+
+  const HandleChapter = () => {
+    setChapter(true);
+    setBookmark(false);
+    setChapterColor(Color.Main);
+    setBookmarkColor(color_condition);
   };
- 
+  const HandleBookmark = () => {
+    setBookmark(true);
+    setChapter(false);
+    setChapterColor(color_condition);
+    setBookmarkColor(Color.Main);
+  };
+
+  const iosTab = w >= 820 && h >= 1180;
+
   return (
     <>
       <SafeAreaView
@@ -99,76 +125,63 @@ const Readtwo = props => {
       />
 
       <View style={[styles.MainContainer, {backgroundColor}]}>
+        <View
+          style={[
+            {
+              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            },
+            styles.AuthHeaderStyle,
+          ]}>
           <View
-            style={[
-              {
-                backgroundColor: Theme
-                  ? Color.ExtraViewDark
-                  : Color.HeaderColor,
-              },
-              styles.AuthHeaderStyle,
-            ]}>
-            <View
-              style={{
-                flexDirection: 'row',
+            style={{
+              flexDirection: 'row',
 
-                marginBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(15),
-                paddingHorizontal:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
-                justifyContent: 'space-between',
-              }}>
-              {props.textshown ? (
-                <View
-                  style={{
-                    justifyContent: 'center',
-                  }}>
-                  <Text
-                    style={[
-                      {
-                        color: Theme ? Color.White : '#797B7F',
-                        fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                      },
-                      styles.WelcomeText,
-                    ]}>
-                    {props.text}
-                  </Text>
-                </View>
-              ) : null}
-
-              <View style={{justifyContent: 'center'}}>
-                <AntDesign
-                  name="arrowleft"
-                  size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                  color={Theme ? Color.White : Color.Black}
-                  onPress={() => navigation.navigate('ViewManual')}
-                />
+              marginBottom:
+                w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(15),
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
+              justifyContent: 'space-between',
+            }}>
+            {props.textshown ? (
+              <View
+                style={{
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={[
+                    {
+                      color: Theme ? Color.White : '#797B7F',
+                      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                    },
+                    styles.WelcomeText,
+                  ]}>
+                  {props.text}
+                </Text>
               </View>
+            ) : null}
 
-              <TouchableOpacity
-                onPress={handleClick}
-                style={{justifyContent: 'center'}}>
-                <Ionicons
-                  name={selected}
-                  size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
-                  color={Color.Main}
-                />
-              </TouchableOpacity>
+            <View style={{justifyContent: 'center'}}>
+              <AntDesign
+                name="arrowleft"
+                size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                color={Theme ? Color.White : Color.Black}
+                onPress={() => navigation.navigate('ViewManual')}
+              />
             </View>
+
+            <TouchableOpacity
+              onPress={handleClick}
+              style={{justifyContent: 'center'}}>
+              <Ionicons
+                name={selected}
+                size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
+                color={Color.Main}
+              />
+            </TouchableOpacity>
           </View>
-        
-        <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{alignSelf:'center'}}>
-      <Button title="Show modal" onPress={toggleModal} />
-
-      <Modal isVisible={isModalVisible}>
-        <View style={{ flex: 1 }}>
-          <Text>Hello!</Text>
-
-          <Button title="Hide modal" onPress={toggleModal} />
         </View>
-      </Modal>
-    </View>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               paddingHorizontal:
@@ -233,9 +246,7 @@ const Readtwo = props => {
           </View>
           <View style={{height: verticalScale(75)}} />
 
-
-
-          {/* <ChapterOptionModal
+          <ChapterOptionModal
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}
             swipeDirection="down"
@@ -245,6 +256,13 @@ const Readtwo = props => {
             HandlePressTwo={handlepresstwo}
             HandlePressThree={handlepressthree}
             HandlePressFour={handlepressfour}
+            onPressTab={() => {
+              setModalVisible(false)
+              setTimeout(() => {
+                setModalThreeVisible(true)
+                console.log('opening deawer')
+              }, 300);
+              }}
             toggleModalTwo={() => {
               setModalVisible(false);
               setTimeout(() => {
@@ -252,26 +270,9 @@ const Readtwo = props => {
                 console.log('second modal state ==>', isSecondModalVisible);
               }, 500);
             }}
-          /> */}
-           {/* <ChapterOptionModal
-        isVisible={isModalVisible}
-        onBackdropPress={() => setModalVisible(false)}
-        swipeDirection="down"
-        onSwipeComplete={() => setModalVisible(false)}
-        onRequestClose={() => setModalVisible(false)}
-        HandlePressOne={handlepressone}
-        HandlePressTwo={handlepresstwo}
-        HandlePressThree={handlepressthree}
-        HandlePressFour={handlepressfour}
-        toggleModalTwo={() => {
-          setModalVisible(false);
-          setTimeout(() => {
-            setSecondModalVisible(true);
-            console.log('second modal state ==>', isSecondModalVisible);
-          }, 500);
-        }}
-      />
-
+            CloseBtn={() => setModalVisible(false)}
+          />
+         
           <FontModal
             isVisible={isSecondModalVisible}
             onBackdropPress={() => setSecondModalVisible(false)}
@@ -282,29 +283,28 @@ const Readtwo = props => {
           />
 
           <DrawerScreen
-            isVisible={true}
+            isVisible={isModalThreeVisible}
             onBackdropPress={() => setModalThreeVisible(false)}
-            // swipeDirection="slideInLeft"
-            onSwipeComplete={() => setModalThreeVisible(false)}
+            // onSwipeComplete={() => setModalThreeVisible(false)}
             onRequestClose={() => setModalThreeVisible(false)}
             OptionSelect={() => setModalThreeVisible(false)}
-          /> */}
+          />
         </ScrollView>
         <View
           style={{
             flex: 1,
-            // paddingHorizontal: moderateScale(10),
-
             position: 'absolute',
             bottom: 0,
             width: '100%',
           }}>
           <ReadNavigator
-            onPressTab={() => setModalThreeVisible(true)}
+            onPressTab={() => {
+              setModalThreeVisible(!isModalThreeVisible);
+              console.log('asdf');
+            }}
             onPressModal={() => setModalVisible(true)}
           />
         </View>
-     
       </View>
     </>
   );
@@ -333,20 +333,52 @@ const styles = StyleSheet.create({
         : w >= 768 && h >= 1024
         ? verticalScale(70)
         : w <= 450 && h <= 750
-        ? verticalScale(70)
-        : verticalScale(65),
-    justifyContent:
-      Platform.OS == 'android'
-        ? 'center'
-        : w <= 450 && h <= 750
-        ? 'center'
-        : null,
+        ? verticalScale(55)
+        : verticalScale(45),
+    justifyContent: 'center',
     paddingTop:
-      w >= 768 && h >= 1024
+      Platform.OS == 'ios'
+        ? 10
+        : w >= 768 && h >= 1024
         ? moderateVerticalScale(30)
         : moderateVerticalScale(35),
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,
+  },
+  modalStyling: {
+    justifyContent: 'flex-end',
+    margin: 0,
+    // flex:1,
+  },
+
+  modalView: {
+    width: '100%',
+  },
+  BrightnessView: {
+    height: verticalScale(60),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  ColorsView: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingHorizontal: moderateScale(5),
+  },
+  modalView: {
+    width: '80%',
+    height: '100%',
+
+    paddingVertical: verticalScale(10),
+  },
+  topText: {
+    color: '#071A36',
+    fontFamily: Font.Poppins600,
+  },
+  Chapter: {
+    color: Color.Main,
+    fontFamily: Font.Poppins600,
   },
 });

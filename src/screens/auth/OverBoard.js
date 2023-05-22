@@ -78,8 +78,9 @@ const OverBoard = ({navigation}) => {
                   navigation.navigate('Language',{type:'Language'});
                 }}
                 style={{
-                  paddingHorizontal:moderateScale(20),
-                  paddingVertical:moderateVerticalScale(10),
+                  paddingHorizontal:moderateScale(15),
+                  // paddingVertical:moderateVerticalScale(10),
+                  height:width >= 768 && height >= 1024 ? verticalScale(25) : verticalScale(30),
                   backgroundColor: 'rgba(56, 125, 229, 1)',
                   borderRadius: tabPotrait ? scale(11) : scale(100),
                   alignItems: 'center',

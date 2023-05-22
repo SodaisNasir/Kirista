@@ -33,34 +33,41 @@ const ReadNavigator = props => {
         },
       ]}>
       <View style={styles.BoxStyle}>
-        <TouchableOpacity onPress={props.onPressTab} style={styles.tabButton}>
-          <FontAwesome5
-            name="list-ul"
-            size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-            color={Theme ? '#fff' :"#374957"}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={toggleIcon} style={styles.tabButton}>
-          {showSvg ? (
-              <Feather
-              name="sun"
-              size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-              color={Theme ? '#fff' :"#374957"}
-              />
-            ) 
-           : (
-            <Feather
-              name="moon"
-              size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-              color={Theme ? '#fff' :"#374957"}
+        {/* {props.DontShowMenu ? null : ( */}
+          <TouchableOpacity onPress={props.onPressTab} style={[styles.tabButton,props.tabButtonRestyle]}>
+            <FontAwesome5
+              name="list-ul"
+              size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
+              color={Theme ? '#fff' : '#374957'}
             />
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity onPress={props.onPressModal} style={styles.tabButton}>
-        <Feather
+          </TouchableOpacity>
+        {/* )} */}
+
+        {/* {props.DontShowMoon ? null : ( */}
+          <TouchableOpacity onPress={toggleIcon} style={styles.tabButton}>
+            {showSvg ? (
+              <Feather
+                name="sun"
+                size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
+                color={Theme ? '#fff' : '#374957'}
+              />
+            ) : (
+              <Feather
+                name="moon"
+                size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
+                color={Theme ? '#fff' : '#374957'}
+              />
+            )}
+          </TouchableOpacity>
+        {/* )} */}
+
+        <TouchableOpacity
+          onPress={props.onPressModal}
+          style={[styles.tabButton, props.tabButtonStyle]}>
+          <Feather
             name="settings"
             size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-            color={props.ChangeColor ? props.color : Theme ? '#fff' :"#374957"}
+            color={props.ChangeColor ? props.color : Theme ? '#fff' : '#374957'}
           />
         </TouchableOpacity>
       </View>

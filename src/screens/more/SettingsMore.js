@@ -121,7 +121,7 @@ const SettingsMore = () => {
           <View style={[styles.MainView]}>
             <TouchableOpacity
             activeOpacity={1}
-            // onPress={() => is_guest ? navigation.navigate('Login') : console.log('asdf')}
+            onPress={() => is_guest ? navigation.navigate('Login') : console.log('asdf')}
               style={[
                 styles.UserInfo,
                 {

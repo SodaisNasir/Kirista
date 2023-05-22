@@ -25,7 +25,7 @@ const DrawerScreen = (props) => {
   const h = useWindowDimensions().height
 
 
-  const [chapter, setChapter] = useState(false)
+  const [chapter, setChapter] = useState(true)
   const [bookmark, setBookmark] = useState(false)
 
   const [chapterColor, setChapterColor] = useState(Color.Main)
@@ -52,7 +52,9 @@ const DrawerScreen = (props) => {
         onBackdropPress={props.onBackdropPress}
         isVisible={props.isVisible}
         animationIn={'slideInLeft'}
-        animationOut={'slideInLeft'}>
+        animationOut={'fadeOut'}
+        // swipeDirection={'left'}
+        >
         <SafeAreaView
           style={[
             styles.modalView,
@@ -85,6 +87,7 @@ const DrawerScreen = (props) => {
               style={{
                 flex: 1,
                 top: scale(1),
+               
               }}>
               <Text
                 style={[
