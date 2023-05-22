@@ -34,6 +34,7 @@ const renderScene = SceneMap({
   LivingRoom: FifthRoute,
 });
 const Home = () => {
+  const tabPotrait = w >= 768 && h >= 1024;
   const layout = useWindowDimensions();
 
   const [index, setIndex] = useState(0);
@@ -47,6 +48,7 @@ const Home = () => {
     <View
       style={{
         flexDirection: 'row',
+       
       }}>
       <TabBar
         {...props}
@@ -79,12 +81,14 @@ const Home = () => {
             <View
               style={[
                 {
+                  
                   backgroundColor: focused ? Color.Main : 'transparent',
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(1.7)
                       : verticalScale(2.2),
-                  width: w >= 768 && h >= 1024 ? scale(10) : scale(20),
+                  width: w >= 768 && h >= 1024 ? scale(11) : scale(20),
+                  bottom: tabPotrait? 2 : 0,
                   marginLeft:
                     route.type == 'home'
                       ? w >= 768 && h >= 1024

@@ -28,12 +28,17 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const HomeScreen = () => {
+  const tabPotrait = w >= 768 && h >= 1024;
+  const standardLandscape = width >= 684 && height >= 360;
+  const tabLandscape = width >= 768 && height >= 1024;
+  const fourInchLandscape = w <= 600 && h <= 350;
+
     const navigation = useNavigation()
     const width = useWindowDimensions().width;
     const height = useWindowDimensions().height;
     console.log(w, h);
     const iosTab = w >= 820 && h >= 1180;
-    const fourInchPotrait = w <= 350 && h <= 600;
+    const fourInchPotrait = w <= 380 && h <= 630;
     const Theme = useColorScheme() === 'dark';
     const image_data = [
         {
@@ -326,7 +331,7 @@ const HomeScreen = () => {
                       </View>
                       <View
                         style={{
-                          marginTop: verticalScale(3),
+                          marginTop: tabPotrait? verticalScale(1) : fourInchPotrait ? verticalScale(0.5) : verticalScale(2),
                         }}>
                         <Text style={styles.YearStyle}> {item?.year}</Text>
                       </View>
