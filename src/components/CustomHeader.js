@@ -42,6 +42,7 @@ const CustomHeader = props => {
         style={{
           justifyContent: 'space-between',
           flexDirection: 'row',
+       
 
           marginBottom:
             w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
@@ -150,10 +151,11 @@ const styles = StyleSheet.create({
           ? verticalScale(80)
           : verticalScale(80)
           : w >= 768 && h >= 1024
-          ? verticalScale(65)
+          ? verticalScale(75)
           : w <= 450 && h <= 750
           ? verticalScale(50)
           : verticalScale(45),
+          
     justifyContent:
       Platform.OS == 'android'
         ? 'center'
