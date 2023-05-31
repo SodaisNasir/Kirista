@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   ScrollView,
   StatusBar,
+  StyleSheet,
 } from 'react-native';
 import React, {useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -18,14 +19,26 @@ import PhoneInput from '../../components/PhoneInput';
 import Password from '../../components/Password';
 import {useDispatch} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
+import {useForm} from 'react-hook-form';
+import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 const SignUp = ({navigation}) => {
+  const {
+    control,
+    handleSubmit,
+    formState: {errors, isValid},
+  } = useForm({mode: 'all'});
+
   const Dispatch = useDispatch();
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark';
-  const [email, setEmail] = useState(null);
+
+  const onSubmit = data => {
+    navigation.navigate('Login');
+    console.log(data);
+  };
 
   return (
     <SafeAreaView
@@ -74,15 +87,27 @@ const SignUp = ({navigation}) => {
                 paddingVertical:
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
-              <CustomInput text={'Full Name'} placeholder={'Full Name'} />
-            </View>
+              <CustomInput
+                control={control}
+                name="fullname"
+                rules={{
+                  required: 'Full name is required',
+                  message: 'Please enter your full name',
+                }}
+                // restyleBox={{
+                //   marginBottom:
+                //     w >= 768 && h >= 1024
+                //       ? verticalScale(15)
+                //       : verticalScale(15),
+                // }}
+                text={'Full Name'}
+                placeholder={'Full Name'}
+                // keyboardType={'email-address'}
+              />
 
-            <View
-              style={{
-                paddingVertical:
-                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
-              }}>
-              <PhoneInput text={'Phone Number'} />
+              {errors.fullname && (
+                <Text style={styles.error}>{errors.fullname.message} </Text>
+              )}
             </View>
 
             <View
@@ -91,13 +116,32 @@ const SignUp = ({navigation}) => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
               <CustomInput
-                onChangeText={txt => {
-                  console.log('text ==>', email);
-                  setEmail(txt);
+                control={control}
+                name="phonenumber"
+                maxLength={16}
+                rules={{
+                  required: 'Phone number is required',
+                  message: 'Please enter your phone number',
+                  maxLength:{
+                    value: 15,
+                    message: 'Please enter a valid phone number'
+                  }
                 }}
-                text={'Email Address'}
-                placeholder={'Email'}
+                // restyleBox={{
+                //   marginBottom:
+                //     w >= 768 && h >= 1024
+                //       ? verticalScale(15)
+                //       : verticalScale(15),
+                // }}
+                placeholder={'Phone Number'}
+                keyboardType={'numeric'}
+                text={'Phone Number'}
+                phone={true}
+                
               />
+              {errors.phonenumber && (
+                <Text style={styles.error}>{errors.phonenumber.message} </Text>
+              )}
             </View>
 
             <View
@@ -105,7 +149,56 @@ const SignUp = ({navigation}) => {
                 paddingVertical:
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
-              <Password text={'Password'} />
+              <CustomInput
+                control={control}
+                name="email"
+                rules={{
+                  required: 'Email is required',
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  message: 'Enter a valid email',
+                }}
+                // onChangeText={txt => {
+                //   console.log('text ==>', email);
+                //   setEmail(txt);
+                // }}
+
+                text={'Email Address'}
+                placeholder={'Email Address'}
+                keyboardType={'email-address'}
+              />
+              {errors.email && (
+                <Text style={styles.error}>{errors.email.message} </Text>
+              )}
+            </View>
+
+            <View
+              style={{
+                paddingVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
+              }}>
+              <CustomInput
+                password={true}
+                text={'Password'}
+                placeholder={'Password'}
+                control={control}
+                name="password"
+                rules={{
+                  required: 'Password is required',
+                  minLength: {
+                    value: 8,
+                    message: '*Password too short (minimum length is 8)',
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: '*Password too long (maximum length is 16)',
+                  },
+                }}
+                keyboardType="default"
+                maxLength={20}
+              />
+              {errors.password && (
+                <Text style={styles.error}>{errors.password.message} </Text>
+              )}
             </View>
 
             <View
@@ -114,7 +207,7 @@ const SignUp = ({navigation}) => {
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
               <CustomButton
-                onPress={() => navigation.navigate('Login')}
+                onPress={handleSubmit(onSubmit)}
                 // onPress={() =>
                 //   email != null
                 //     ? Dispatch({type: LOGIN, payload: email})
@@ -157,5 +250,17 @@ const SignUp = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  error: {
+    color: Color.Main,
+    fontSize: scale(12),
+    alignSelf: 'flex-start',
+    // marginLeft: scale(25),
+    marginTop: 5,
+    fontFamily: 'Poppins-SemiBold',
+    marginBottom:-20
+  },
+});
 
 export default SignUp;

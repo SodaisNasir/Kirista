@@ -60,7 +60,7 @@ const NewPassword = ({navigation}) => {
             text={'New Password'}
           />
 
-          <Password text={'Confirm Password'} />
+          <Password password = {true} text={'Confirm Password'} />
         </View>
 
         <View

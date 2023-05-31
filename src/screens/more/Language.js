@@ -23,13 +23,11 @@ import {Font} from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
 
 const Language = ({navigation,route}) => {
-  const Type = route.params.type
-  console.log('Type ====>',Type)
-  const Provence = Type == 'Provence';
-  const Region = Type == 'Region'
-  const handleSubmit = () => {
-    navigation.goBack();
-  };
+  const {type,setSelectedLanguage} = route.params
+  console.log('Type ====>',type)
+  const Provence = type == 'Provence';
+  const Region = type == 'Region'
+
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -47,38 +45,51 @@ const Language = ({navigation,route}) => {
       id: '1',
       title: Provence ?  'Province 1' : Region ? 'Region 1' : 'English',
       Short: '(EN)',
+      select : 'EN'
     },
     {
       id: '2',
       title: Provence ?  'Province 2' : Region ? 'Region 2' : 'Hausa',
       Short: '(HA)',
+      select : 'HA'
     },
     {
       id: '3',
       title: Provence ?  'Province 3' : Region ? 'Region 3' : 'Français',
       Short: '(FR)',
+      select : 'FR'
     },
     {
       id: '4',
       title: Provence ?  'Province 4' : Region ? 'Region 4' : 'Português',
       Short:  '(PO)',
+      select : 'PO'
     },
     {
       id: '5',
       title: Provence ?  'Province 5' : Region ? 'Region 5' : 'Pidgin',
       Short:  '(PN)',
+      select : 'PN'
     },
     {
       id: '6',
       title: Provence ?  'Province 6' : Region ? 'Region 6' : 'Fula',
       Short: '(FU)',
+      select : 'FU'
     },
     {
       id: '7',
       title: Provence ?  'Province 7' : Region ? 'Region 7' : 'Español',
       Short: '(ES)',
+      select : 'ES'
     },
   ];
+
+  const handleLanguageSelect = (language) => {
+    navigation.goBack();
+    setSelectedLanguage(language)
+    // navigation.Params('setSelectedLanguage')(language)
+  }
 
   const [option, setOption] = useState(null);
 
@@ -95,9 +106,7 @@ const Language = ({navigation,route}) => {
         },
         // styles.item,
       ]}
-      onPress={() => [setSelected(data.title), setTimeout(() => {
-        navigation.goBack()
-      }, 1000)]}>
+      onPress={() => handleLanguageSelect(data.select)}>
       <View
         style={{
           flexDirection: 'row',

@@ -4,13 +4,21 @@ import {
   TextInput,
   useWindowDimensions,
   useColorScheme,
+  TouchableOpacity,
+  Image
 } from 'react-native';
-import React from 'react';
-import {scale, verticalScale} from 'react-native-size-matters';
+import React, {forwardRef, useState} from 'react';
+import {scale, verticalScale,moderateScale} from 'react-native-size-matters';
 import {Font} from '../assets/fonts/PoppinsFont';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Color} from '../utils/Colors';
+import {useController} from 'react-hook-form';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
-const CustomInput = props => {
+
+const CustomInput = forwardRef((props, ref) => {3
+  const navigation = useNavigation();
   const Theme = useColorScheme() === 'dark';
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
@@ -19,6 +27,14 @@ const CustomInput = props => {
   const tabLandscape = width >= 768 && height >= 1024;
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 600 && height <= 350;
+
+  const {field} = useController({
+    control: props.control,
+    defaultValue: props.defaultValue || '',
+    name: props.name,
+    rules: props.rules,
+  });
+  const [isVisible, setVisible] = useState(true);
 
   return (
     <View style={props.restyleBox}>
@@ -47,16 +63,68 @@ const CustomInput = props => {
               : Color.InputBoxColor,
             borderRadius: tabPotrait ? scale(12) : scale(18),
             paddingHorizontal: verticalScale(10),
-
+            flexDirection: 'row',
             marginTop: verticalScale(2),
           },
           props.RestyleHeight,
         ]}>
+        {props.phone == true ? (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SelectCountry')}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                width: tabPotrait ? scale(15) : scale(25),
+                height: tabPotrait ? verticalScale(10) : verticalScale(16),
+                flexDirection: 'row',
+              }}>
+              <Image
+                source={require('../assets/images/nig.png')}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            </View>
+            <View style={{paddingHorizontal: moderateScale(5)}}>
+              <Text
+                style={{
+                  color: Theme ? Color.White : Color.TextColor,
+                  fontFamily: Font.Inter500,
+                  fontSize: tabPotrait
+                    ? verticalScale(11)
+                    : fourInchLandscape
+                    ? scale(12)
+                    : scale(14),
+                }}>
+                +234
+              </Text>
+            </View>
+            <AntDesign
+              name="down"
+              size={tabPotrait ? scale(11) : scale(16)}
+              color={Theme ? Color.White : Color.Black}
+            />
+          </TouchableOpacity>
+        ) : null}
+
         <TextInput
+          onFocus={props.onFocus}
+          value={field.value}
+          ref={ref}
+          multiline={props.multiline}
           keyboardType={props.keyboardType}
           placeholder={props.placeholder}
           placeholderTextColor={Color.BoldTextColor}
-          onChangeText={props.onChangeText}
+          onChangeText={field.onChange}
+          onChange={props.onChange}
+          onSubmitEditing={props.onSubmitEditing}
+          defaultValue={props.defaultValue}
+          maxLength={props.maxLength}
+          // secureTextEntry={props.password ? showPassword : false}
           style={[
             props.TextRestyle,
             {
@@ -65,26 +133,30 @@ const CustomInput = props => {
                 : fourInchLandscape
                 ? scale(12)
                 : scale(14),
-              // top: fourInchPotrait
-              //   ? verticalScale(2.5)
-              //   : fourInchLandscape
-              //   ? verticalScale(2)
-              //   : tabPotrait
-              //   ? verticalScale(1)
-              //   : verticalScale(1.5),
-              // fontWeight:'500',
-              fontFamily:Font.Inter500,
+              fontFamily: Font.Inter500,
               alignItems: 'center',
               justifyContent: 'center',
               color: Theme ? Color.White : Color.TextColor,
               flex: 1,
-              top:verticalScale(1)
+              top: verticalScale(1),
             },
           ]}
         />
+        {props.password == true ? (
+          <MaterialCommunityIcons
+            name={isVisible ? 'eye-off-outline' : 'eye-outline'}
+            size={width >= 768 && height >= 1024 ? scale(14) : scale(26)}
+            color={Color.Main}
+            onPress={() => setVisible(!isVisible)}
+            style={{
+              alignSelf: 'center',
+              marginLeft: '5%',
+            }}
+          />
+        ) : null}
       </View>
     </View>
   );
-};
+});
 
 export default CustomInput;

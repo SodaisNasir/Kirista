@@ -657,7 +657,7 @@ const HomeScreen = () => {
             flexDirection: 'row',
             marginTop: verticalScale(15),
           }}>
-          <View>
+           <View>
             <Text
               style={[
                 {color: Theme ? Color.White : Color.DarkTextColor},

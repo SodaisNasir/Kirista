@@ -12,7 +12,7 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import React from 'react';
+import React,{useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
 import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
@@ -24,6 +24,22 @@ import {Color} from '../../utils/Colors';
 import {useDispatch} from 'react-redux';
 import {IS_GUEST, LOGIN} from '../../redux/reducer';
 const OverBoard = ({navigation}) => {
+
+
+
+
+  const [selectedLanguage, setselectedLanguage] = useState('EN')
+// navigation.navigate('Language',{type:'Language'})
+
+console.log('selectedLanguage', selectedLanguage)
+
+  const handleLanguageButtonPress = () => {
+    navigation.navigate('Language', {
+      type : 'Language',
+      setSelectedLanguage: setselectedLanguage,
+    });
+  };
+
   const Dispatch = useDispatch();
 
   const width = useWindowDimensions().width;
@@ -74,9 +90,7 @@ const OverBoard = ({navigation}) => {
                 marginHorizontal:scale(8)
               }}>
               <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Language',{type:'Language'});
-                }}
+                onPress={handleLanguageButtonPress}
                 style={{
                   paddingHorizontal:moderateScale(15),
                   // paddingVertical:moderateVerticalScale(10),
@@ -102,7 +116,7 @@ const OverBoard = ({navigation}) => {
                         top: verticalScale(1),
                       },
                     ]}>
-                    EN
+                    {selectedLanguage}
                   </Text>
                   <AntDesign
                     name="down"

@@ -63,7 +63,7 @@ const Password = props => {
               : fourInchLandscape
               ? scale(12)
               : scale(14),
-              fontFamily:Font.Inter500,
+            fontFamily: Font.Inter500,
 
             // top: fourInchPotrait
             //   ? verticalScale(2.3)
@@ -76,16 +76,18 @@ const Password = props => {
             color: Theme ? Color.White : Color.TextColor,
           }}
         />
-        <MaterialCommunityIcons
-          name={isVisible ? 'eye-off-outline' : 'eye-outline'}
-          size={w >= 768 && h >= 1024 ? scale(14) : scale(26)}
-          color={Color.Main}
-          onPress={() => setVisible(!isVisible)}
-          style={{
-            alignSelf: 'center',
-            marginLeft: '5%',
-          }}
-        />
+        {props.password == true ? (
+          <MaterialCommunityIcons
+            name={isVisible ? 'eye-off-outline' : 'eye-outline'}
+            size={w >= 768 && h >= 1024 ? scale(14) : scale(26)}
+            color={Color.Main}
+            onPress={() => setVisible(!isVisible)}
+            style={{
+              alignSelf: 'center',
+              marginLeft: '5%',
+            }}
+          />
+        ) : null}
       </View>
     </View>
   );
