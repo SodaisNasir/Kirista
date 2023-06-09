@@ -22,8 +22,18 @@ import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import {Font} from '../../utils/font';
+import {useForm} from 'react-hook-form';
+
+
 
 const Contact = () => {
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors, isValid},
+  } = useForm({mode: 'all'});
+
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark';
@@ -94,7 +104,35 @@ const Contact = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
-            <CustomInput text={'Email Address'} placeholder={'Email'} />
+             <CustomInput
+              control={control}
+              name="email"
+              rules={{
+                required: 'Email is required',
+                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                message: 'Enter a valid email',
+              }}
+              onChangeText={txt => {
+                console.log('text ==>', email);
+                setEmail(txt);
+              }}
+             
+              text={'Email Address'}
+              placeholder={'Email Address'}
+              keyboardType={'email-address'}
+            />
+              {errors.email && (
+            <Text style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>{errors.email.message} </Text>
+          )}
           </View>
 
           <View
@@ -102,7 +140,45 @@ const Contact = () => {
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
-            <PhoneInput text={'Phone Number (optional)'} />
+            <CustomInput
+                onPress={handlePhoneNumberButtonPress}
+                control={control}
+                name="phonenumber"
+                maxLength={16}
+                rules={{
+                  required: 'Phone number is required',
+                  message: 'Please enter your phone number',
+                  maxLength: {
+                    value: 15,
+                    message: 'Please enter a valid phone number',
+                  },
+                }}
+                // restyleBox={{
+                //   marginBottom:
+                //     w >= 768 && h >= 1024
+                //       ? verticalScale(15)
+                //       : verticalScale(15),
+                // }}
+                placeholder={'Phone Number'}
+                keyboardType={'numeric'}
+                text={'Phone Number'}
+                flagImage={flagImage}
+                phoneNumber={phoneNumber}
+                phone={true}
+                // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
+              />
+              {errors.phonenumber && (
+                <Text style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>{errors.phonenumber.message} </Text>
+              )}
           </View>
 
           <View
@@ -176,4 +252,14 @@ const Contact = () => {
 
 export default Contact;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  error: {
+    color: Color.Main,
+    fontFamily: Font.Inter500,
+    alignSelf: 'flex-start',
+    // marginLeft: scale(25),
+    marginTop: 5,
+    paddingHorizontal: verticalScale(10),
+   
+  },
+});

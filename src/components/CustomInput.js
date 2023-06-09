@@ -19,12 +19,14 @@ import { useNavigation } from '@react-navigation/native';
 
 const CustomInput = forwardRef((props, ref) => {3
   const navigation = useNavigation();
+
+  const standardLandscape = width >= 684 && height >= 360;
+  const tabLandscape = width >= 768 && height >= 1024;
   const Theme = useColorScheme() === 'dark';
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
   const tabPotrait = width >= 768 && height >= 1024;
-  const standardLandscape = width >= 684 && height >= 360;
-  const tabLandscape = width >= 768 && height >= 1024;
+
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 600 && height <= 350;
 
@@ -70,7 +72,7 @@ const CustomInput = forwardRef((props, ref) => {3
         ]}>
         {props.phone == true ? (
           <TouchableOpacity
-            onPress={() => navigation.navigate('SelectCountry')}
+            onPress={props.onPress}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -82,7 +84,7 @@ const CustomInput = forwardRef((props, ref) => {3
                 flexDirection: 'row',
               }}>
               <Image
-                source={require('../assets/images/nig.png')}
+                source={props.flagImage}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -100,7 +102,7 @@ const CustomInput = forwardRef((props, ref) => {3
                     ? scale(12)
                     : scale(14),
                 }}>
-                +234
+                {props.phoneNumber}
               </Text>
             </View>
             <AntDesign

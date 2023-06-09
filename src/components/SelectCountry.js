@@ -23,13 +23,23 @@ import {useFocusEffect} from '@react-navigation/native';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const SelectCountry = ({navigation}) => {
+const SelectCountry = ({navigation,route}) => {
   const Theme = useColorScheme() === 'dark';
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
+  const {setPhoneNumber,setFlagImage} = route.params;
+  const handlePhoneSelect = (code,flag) =>{  
+    navigation.goBack();
+    setPhoneNumber(code)
+    setFlagImage(flag)
+
+
+  }
+
+  console.log(setPhoneNumber)
   const DATA = [
     {
       id: '1',
@@ -281,7 +291,10 @@ const SelectCountry = ({navigation}) => {
                   }}
                   data={item.countries}
                   renderItem={({item}) => (
-                    <TouchableOpacity>
+                    <TouchableOpacity 
+                    
+                      onPress={() => handlePhoneSelect(item.code,item.flag)}
+                    >
                       <View
                         style={{
                           justifyContent: 'space-between',

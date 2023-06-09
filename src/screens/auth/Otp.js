@@ -31,14 +31,30 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CELL_COUNT = 4;
-const OTP = ({navigation}) => {
+const OTP = ({navigation, route}) => {
   const Theme = useColorScheme() === 'dark';
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState();
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
+
+  const {type, data} = route.params;
+
+  const otp = '1111';
+
+  const handleOtp = () => {
+    if (type == 'Signup' && value == otp) {
+      navigation.navigate('BottomTabNavigator');
+      // alert('Email verified!')
+    } else if (type == 'Forget' && value == otp) {
+      navigation.navigate('NewPassword');
+    }
+    else{
+      alert('Please enter the correct OTP!')
+    }
+  };
 
   const [time, setTime] = useState(600);
   useEffect(() => {
@@ -157,7 +173,9 @@ const OTP = ({navigation}) => {
                     {color: Theme ? Color.White : Color.Black},
                     styles.cell,
                     isFocused && styles.focusCell,
-                    Platform.OS == 'ios' ?  {lineHeight:verticalScale(30)} : {textAlignVertical:'center'}
+                    Platform.OS == 'ios'
+                      ? {lineHeight: verticalScale(30)}
+                      : {textAlignVertical: 'center'},
                   ]}
                   onLayout={getCellOnLayoutHandler(index)}>
                   {symbol || (isFocused ? <Cursor /> : null)}
@@ -170,10 +188,7 @@ const OTP = ({navigation}) => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
             }}>
-            <CustomButton
-              onPress={() => navigation.navigate('NewPassword')}
-              text={'Continue'}
-            />
+            <CustomButton onPress={() => handleOtp()} text={'Continue'} />
           </View>
         </View>
       </ScrollView>

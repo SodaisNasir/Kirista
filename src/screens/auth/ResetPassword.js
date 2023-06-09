@@ -16,14 +16,27 @@ import AuthHeader from '../../components/AuthHeader';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
+import {useForm} from 'react-hook-form';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
-
   const iosTab = w >= 820 && h >= 1180;
   const Theme = useColorScheme() === 'dark';
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors, isValid},
+  } = useForm({mode: 'all'});
+
+  const handleNextButton = () => {
+    navigation.navigate('OTP',{
+      type: 'Forget'
+    });
+    // console.log(data);
+  };
   return (
     <SafeAreaView
       style={[
@@ -31,49 +44,62 @@ const ResetPassword = ({navigation}) => {
         styles.Container,
       ]}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-        <View style={{alignSelf:'center',width:'90%'}}>
+        <View style={{alignSelf: 'center', width: '90%'}}>
+          <AuthHeader text={'Reset Password'} />
 
-       
-        <AuthHeader text={'Reset Password'} />
+          <View
+            style={{
+              justifyContent: 'center',
+              marginVertical: scale(20),
+            }}>
+            <Text
+              style={[
+                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                styles.LongText,
+              ]}>
+              Please enter your email address, and we will send you an OTP to
+              confirm it.
+            </Text>
+          </View>
 
-        <View
-          style={{
-            justifyContent: 'center',
-            marginVertical: scale(20),
-          }}>
-          <Text
-            style={[
-              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
-              styles.LongText,
-            ]}>
-            Please enter your email address, and we will send you an OTP to
-            confirm it.
-          </Text>
-        </View>
+          <View
+            style={{
+              marginBottom:
+                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
+            }}>
+            <CustomInput
+              control={control}
+              name="email"
+              rules={{
+                required: 'Email is required',
+                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                message: 'Enter a valid email',
+              }}
+              restyleBox={{
+                marginBottom:
+                  w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
+              }}
+              text={'Email Address'}
+              placeholder={'Email Address'}
+              keyboardType={'email-address'}
+            />
+            {errors.email && (
+              <Text style={styles.error}>{errors.email.message} </Text>
+            )}
+          </View>
 
-        <View
-          style={{
-            marginBottom:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
-          }}>
-          <CustomInput
-            placeholder={'maryjames@rccg.com'}
-            text={'Email Address'}
-            keyboardType={'email-address'}
-          />
-        </View>
-
-        <View
-          style={{
-            paddingTop:
-              w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-            marginBottom: verticalScale(10),
-          }}>
-          <CustomButton
-            onPress={() => navigation.navigate('OTP')}
-            text={'Next'}
-          />
-        </View>
+          <View
+            style={{
+              // paddingTop:
+              //   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
+              marginBottom: verticalScale(10),
+             
+            }}>
+            <CustomButton
+              onPress={handleSubmit(handleNextButton)}
+              text={'Next'}
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -83,7 +109,6 @@ const ResetPassword = ({navigation}) => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-  
   },
 
   NavigatorStyle: {
@@ -126,6 +151,17 @@ const styles = StyleSheet.create({
     width: scale(220),
     height: scale(170),
     resizeMode: 'contain',
+  },
+  error: {
+    color: Color.Main,
+    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
+    alignSelf: 'flex-start',
+    // marginLeft: scale(15),
+    // marginTop: 5,
+    marginTop: -10,
+    // backgroundColor:'red',
+    
+    fontFamily: 'Poppins-SemiBold',
   },
 });
 

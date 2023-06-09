@@ -7,6 +7,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -22,7 +23,12 @@ import {LOGIN} from '../../redux/reducer';
 import {useForm} from 'react-hook-form';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 const SignUp = ({navigation}) => {
+  const fourInchPotrait = width <= 350 && height <= 600;
+  const fourInchLandscape = width <= 600 && height <= 350;
+  const tabPotrait = width >= 768 && height >= 1024;
   const {
     control,
     handleSubmit,
@@ -36,8 +42,22 @@ const SignUp = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
 
   const onSubmit = data => {
-    navigation.navigate('Login');
+    navigation.navigate('OTP', {
+      type: 'Signup',
+      data: data,
+    });
     console.log(data);
+  };
+
+  const [phoneNumber, setPhoneNumber] = useState('+234');
+  const [flagImage, setFlagImage] = useState(
+    require('../../assets/images/nig.png'),
+  );
+  const handlePhoneNumberButtonPress = () => {
+    navigation.navigate('SelectCountry', {
+      setPhoneNumber: setPhoneNumber,
+      setFlagImage: setFlagImage,
+    });
   };
 
   return (
@@ -102,11 +122,21 @@ const SignUp = ({navigation}) => {
                 // }}
                 text={'Full Name'}
                 placeholder={'Full Name'}
+
                 // keyboardType={'email-address'}
               />
 
               {errors.fullname && (
-                <Text style={styles.error}>{errors.fullname.message} </Text>
+                <Text style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>{errors.fullname.message} </Text>
               )}
             </View>
 
@@ -116,16 +146,17 @@ const SignUp = ({navigation}) => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
               <CustomInput
+                onPress={handlePhoneNumberButtonPress}
                 control={control}
                 name="phonenumber"
                 maxLength={16}
                 rules={{
                   required: 'Phone number is required',
                   message: 'Please enter your phone number',
-                  maxLength:{
+                  maxLength: {
                     value: 15,
-                    message: 'Please enter a valid phone number'
-                  }
+                    message: 'Please enter a valid phone number',
+                  },
                 }}
                 // restyleBox={{
                 //   marginBottom:
@@ -136,11 +167,22 @@ const SignUp = ({navigation}) => {
                 placeholder={'Phone Number'}
                 keyboardType={'numeric'}
                 text={'Phone Number'}
+                flagImage={flagImage}
+                phoneNumber={phoneNumber}
                 phone={true}
-                
+                // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
               {errors.phonenumber && (
-                <Text style={styles.error}>{errors.phonenumber.message} </Text>
+                <Text style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>{errors.phonenumber.message} </Text>
               )}
             </View>
 
@@ -167,7 +209,16 @@ const SignUp = ({navigation}) => {
                 keyboardType={'email-address'}
               />
               {errors.email && (
-                <Text style={styles.error}>{errors.email.message} </Text>
+                <Text style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>{errors.email.message} </Text>
               )}
             </View>
 
@@ -197,7 +248,19 @@ const SignUp = ({navigation}) => {
                 maxLength={20}
               />
               {errors.password && (
-                <Text style={styles.error}>{errors.password.message} </Text>
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.password.message}{' '}
+                </Text>
               )}
             </View>
 
@@ -254,12 +317,12 @@ const SignUp = ({navigation}) => {
 const styles = StyleSheet.create({
   error: {
     color: Color.Main,
-    fontSize: scale(12),
     alignSelf: 'flex-start',
     // marginLeft: scale(25),
     marginTop: 5,
-    fontFamily: 'Poppins-SemiBold',
-    marginBottom:-20
+    fontFamily: Font.Inter500,
+    marginBottom: -20,
+    paddingHorizontal: verticalScale(10),
   },
 });
 

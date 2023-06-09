@@ -29,6 +29,8 @@ const OverBoard = ({navigation}) => {
 
 
   const [selectedLanguage, setselectedLanguage] = useState('EN')
+
+
 // navigation.navigate('Language',{type:'Language'})
 
 console.log('selectedLanguage', selectedLanguage)
@@ -40,6 +42,7 @@ console.log('selectedLanguage', selectedLanguage)
     });
   };
 
+ 
   const Dispatch = useDispatch();
 
   const width = useWindowDimensions().width;
