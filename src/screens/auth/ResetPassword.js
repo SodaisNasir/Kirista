@@ -17,11 +17,15 @@ import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
 import {useForm} from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { verify_Email_befaorep } from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
+  const dispatch = useDispatch()
+
   const iosTab = w >= 820 && h >= 1180;
   const Theme = useColorScheme() === 'dark';
 
@@ -31,12 +35,15 @@ const ResetPassword = ({navigation}) => {
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
 
-  const handleNextButton = () => {
+  const resnd = 'fogot'
+
+
+  const handleNextButton = (data) => {
+    // dispatch(verify_Email_befaorep(data,navigation,resnd))
     navigation.navigate('OTP',{
-      type: 'Forget'
+      type: 'forget'
     });
-    // console.log(data);
-  };
+   };
   return (
     <SafeAreaView
       style={[

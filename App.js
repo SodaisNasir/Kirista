@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {SPLASH_SCREEN} from './src/redux/reducer';
 
 const App = () => {
-  // const userData = useSelector(state => state.userEmail);
+  const user_details = useSelector(state => state.user_details);
   // const splash = useSelector(state => state.splash_screen);
   // const dispatch = useDispatch(state => state.splash_screen);
   // console.log('userData ==>', userData);
@@ -18,7 +18,13 @@ const App = () => {
   //   }
   // }, [userData]);
 
-  return <AuthNavigator />;
+  return (
+
+    <>
+    {user_details == null && <AuthNavigator />}
+    {user_details != null && <BottomTabNavigator />}
+    </>
+    )
 };
 
 export default App;

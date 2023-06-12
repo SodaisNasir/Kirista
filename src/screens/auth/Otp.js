@@ -26,12 +26,20 @@ import {
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
+import { useDispatch, useSelector } from 'react-redux';
+import { change_password, register, verify_Email, verify_Email_befaorep } from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CELL_COUNT = 4;
 const OTP = ({navigation, route}) => {
+  // const {type, data} = route.params;
+  const dispatch = useDispatch()
+  const otp = useSelector((state) => state.otp)
+
+
+
   const Theme = useColorScheme() === 'dark';
   const [value, setValue] = useState();
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
@@ -40,21 +48,8 @@ const OTP = ({navigation, route}) => {
     setValue,
   });
 
-  const {type, data} = route.params;
 
-  const otp = '1111';
 
-  const handleOtp = () => {
-    if (type == 'Signup' && value == otp) {
-      navigation.navigate('BottomTabNavigator');
-      // alert('Email verified!')
-    } else if (type == 'Forget' && value == otp) {
-      navigation.navigate('NewPassword');
-    }
-    else{
-      alert('Please enter the correct OTP!')
-    }
-  };
 
   const [time, setTime] = useState(600);
   useEffect(() => {
@@ -65,6 +60,38 @@ const OTP = ({navigation, route}) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+  const handleOtp = () => {
+    navigation.navigate('NewPassword')
+    // if(value == otp){
+    //   if (type == 'signup') {
+    //     dispatch(register(data))
+    //   } else if (type == 'forgot') {
+    //     navigation.navigate('NewPassword',{
+    //       data:data
+    //     });
+    //   }
+    //   else{
+    //     console.log('first')
+    //   }
+    // } else{
+    //   alert('Incorrect OTP!!')
+    // }
+  };
+
+  const resnd = 'resend'
+
+  const resendOtp = () => {
+    // if (type == 'signup') {
+    //   dispatch(verify_Email(data,navigation,resnd,setTime))
+    // } else if (type == 'forgot') {
+    //   dispatch(verify_Email_befaorep(data,navigation,resnd,setTime))
+    // }
+    // else{
+    //   console.log('first')
+    // }
+   
+  }
 
   return (
     <SafeAreaView
@@ -122,7 +149,7 @@ const OTP = ({navigation, route}) => {
                     alignItems: 'center',
                     borderRadius: scale(10),
                   }}
-                  onPress={() => setTime(600)}>
+                  onPress={resendOtp}>
                   <Text
                     style={{
                       color: Theme ? Color.White : Color.Black,

@@ -16,16 +16,16 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {Color} from '../../utils/Colors';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import PhoneInput from '../../components/PhoneInput';
-import Password from '../../components/Password';
 import {useDispatch} from 'react-redux';
-import {LOGIN} from '../../redux/reducer';
 import {useForm} from 'react-hook-form';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import { register, verify_Email } from '../../redux/actions/AuthAction';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+
 const SignUp = ({navigation}) => {
+  const dispatch = useDispatch()
+
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 600 && height <= 350;
   const tabPotrait = width >= 768 && height >= 1024;
@@ -35,19 +35,15 @@ const SignUp = ({navigation}) => {
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
 
-  const Dispatch = useDispatch();
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark';
 
-  const onSubmit = data => {
-    navigation.navigate('OTP', {
-      type: 'Signup',
-      data: data,
-    });
-    console.log(data);
-  };
+  const type = 'signup'
+
+
+
 
   const [phoneNumber, setPhoneNumber] = useState('+234');
   const [flagImage, setFlagImage] = useState(
@@ -59,6 +55,24 @@ const SignUp = ({navigation}) => {
       setFlagImage: setFlagImage,
     });
   };
+
+  // const onSubmit = (data) => {
+  //   if (data.password == data.confirm_password) {
+  //     // dispatch(verify_Email(data,navigation,type))
+  //     navigation.navigate('OTP',{
+  //       type: type,
+  //       data: data
+  //   })
+     
+  //   } else {
+  //     alert('password is not same')
+  //   }
+  // };
+
+  const onSubmit = (data) => {
+    // dispatch(register(data))
+    navigation.navigate('OTP')
+  }
 
   return (
     <SafeAreaView
@@ -259,11 +273,51 @@ const SignUp = ({navigation}) => {
                     },
                     styles.error,
                   ]}>
-                  {errors.password.message}{' '}
+                  {errors.password.message}
                 </Text>
               )}
             </View>
-
+            <View
+              style={{
+                paddingVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
+              }}>
+              <CustomInput
+                password={true}
+                text={'Confirm Password'}
+                placeholder={'Confirm Password'}
+                control={control}
+                name="confirm_password"
+                rules={{
+                  required: 'Password is required',
+                  minLength: {
+                    value: 8,
+                    message: '*Password too short (minimum length is 8)',
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: '*Password too long (maximum length is 16)',
+                  },
+                }}
+                keyboardType="default"
+                maxLength={20}
+              />
+              {errors.confirm_password && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.confirm_password.message}{' '}
+                </Text>
+              )}
+            </View>
             <View
               style={{
                 paddingVertical:
