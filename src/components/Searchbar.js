@@ -185,14 +185,14 @@ const Searchbar = () => {
   const [Event, setEvent] = useState(false);
 
   console.log('searchQuery.length > 0', searchQuery2);
-  const handleSearch2 = text2 => {
-    const formattedQuery = text2.toLowerCase();
-    const filteredData = searchList.filter(item => {
-      return item.title.toLowerCase().includes(formattedQuery);
-    });
-    setFilteredData2(filteredData);
-    setSearchQuery2(text2);
-  };
+    const handleSearch2 = text2 => {
+      const formattedQuery = text2.toLowerCase();
+      const filteredData = searchList.filter(item => {
+        return item.title.toLowerCase().includes(formattedQuery);
+      });
+      setFilteredData2(filteredData);
+      setSearchQuery2(text2);
+    };
   const showData = () => {
     setShow(true);
     setIsSearchBarVisible(true);

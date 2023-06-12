@@ -66,7 +66,7 @@ console.log('selectedLanguage', selectedLanguage)
         backgroundColor: Theme ? Color.DarkTheme : Color.White,
       }}>
          {/* <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} barStyle={Theme ? 'light-content' : 'dark-content'} /> */}
-         <StatusBar translucent={true} backgroundColor={'transparent'} />
+         <StatusBar  translucent={true} backgroundColor={'transparent'} barStyle={Theme ? 'light-content' : 'dark-content'} />
       <ImageBackground
         source={
           Theme

@@ -11,6 +11,6 @@ export const Font = {
   Inter700 : 'Inter-Bold',
   Inter500 : 'Inter-Medium',
   GoBold400 : 'Gobold',
-  GoBold300 : 'Gobold-Light'
-
+  GoBold300 : 'Gobold-Light',
+  emoji: 'NotoColorEmoji-Regular'
 };

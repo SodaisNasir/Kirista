@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   View,
   TextInput,
-  Text
+  Text,
 } from 'react-native';
 import React, {useLayoutEffect, useEffect} from 'react';
 import CustomInput from '../../components/CustomInput';
@@ -24,9 +24,11 @@ import {useNavigation} from '@react-navigation/native';
 import {Font} from '../../utils/font';
 import {useForm} from 'react-hook-form';
 
-
-
 const Contact = () => {
+
+  const onSubmit = data =>{
+    console.log(data)
+  }
 
   const {
     control,
@@ -42,16 +44,6 @@ const Contact = () => {
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   navigation
-  //     .getParent()
-  //     ?.setOptions({tabBarStyle: {display: 'none'}, tabBarVisible: false});
-  //   return () =>
-  //     navigation
-  //       .getParent()
-  //       ?.setOptions({tabBarStyle: null, tabBarVisible: false});
-  // }, [navigation]);
-
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -62,28 +54,65 @@ const Contact = () => {
 
   return (
     <>
-    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+      <SafeAreaView
+        style={{
+          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
 
-    <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
-      <Header text={'Contact'} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            paddingHorizontal:
-              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-            marginVertical:
-              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-          }}>
-            
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        }}>
+        <Header text={'Contact'} />
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
               marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
             }}>
-            <CustomInput text={'Full Name'} placeholder={'Full Name'}/>
-          </View>
-          {/* <View
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+              }}>
+              <CustomInput
+              
+              control={control}
+                name="fullname"
+                rules={{
+                  required: 'Full name is required',
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  message: 'Enter a full name',
+                }}
+                // onChangeText={txt => {
+                //   console.log('text ==>', email);
+                //   setEmail(txt);
+                // }}
+                text={'Full Name'}
+                placeholder={'Full Name'}
+                // keyboardType={'email-address'}
+              />
+                {errors.fullname && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.email.fullname}
+                </Text>
+              )}
+            </View>
+            {/* <View
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
@@ -99,30 +128,30 @@ const Contact = () => {
           }}/>
           </View> */}
 
-          <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
-            }}>
-             <CustomInput
-              control={control}
-              name="email"
-              rules={{
-                required: 'Email is required',
-                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                message: 'Enter a valid email',
-              }}
-              onChangeText={txt => {
-                console.log('text ==>', email);
-                setEmail(txt);
-              }}
-             
-              text={'Email Address'}
-              placeholder={'Email Address'}
-              keyboardType={'email-address'}
-            />
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+              }}>
+              <CustomInput
+                control={control}
+                name="email"
+                rules={{
+                  required: 'Email is required',
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  message: 'Enter a valid email',
+                }}
+                // onChangeText={txt => {
+                //   console.log('text ==>', email);
+                //   setEmail(txt);
+                // }}
+                text={'Email Address'}
+                placeholder={'Email Address'}
+                keyboardType={'email-address'}
+              />
               {errors.email && (
-            <Text style={[
+                <Text
+                  style={[
                     {
                       fontSize: tabPotrait
                         ? verticalScale(11)
@@ -131,17 +160,19 @@ const Contact = () => {
                         : scale(14),
                     },
                     styles.error,
-                  ]}>{errors.email.message} </Text>
-          )}
-          </View>
+                  ]}>
+                  {errors.email.message}{' '}
+                </Text>
+              )}
+            </View>
 
-          <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
-            }}>
-            <CustomInput
-                onPress={handlePhoneNumberButtonPress}
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+              }}>
+              <CustomInput
+                // onPress={handlePhoneNumberButtonPress}
                 control={control}
                 name="phonenumber"
                 maxLength={16}
@@ -162,13 +193,14 @@ const Contact = () => {
                 placeholder={'Phone Number'}
                 keyboardType={'numeric'}
                 text={'Phone Number'}
-                flagImage={flagImage}
-                phoneNumber={phoneNumber}
+                // flagImage={flagImage}
+                // phoneNumber={phoneNumber}
                 phone={true}
                 // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
               {errors.phonenumber && (
-                <Text style={[
+                <Text
+                  style={[
                     {
                       fontSize: tabPotrait
                         ? verticalScale(11)
@@ -177,49 +209,79 @@ const Contact = () => {
                         : scale(14),
                     },
                     styles.error,
-                  ]}>{errors.phonenumber.message} </Text>
+                  ]}>
+                  {errors.phonenumber.message}{' '}
+                </Text>
               )}
-          </View>
+            </View>
 
-          <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
-            }}>
-            <CustomInput
-              // TextRestyle={{textAlignVertical: 'top'}}
-              text={'Subject'}
-              placeholder={'Type here'}
-            />
-          </View>
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+              }}>
+              <CustomInput
+                // TextRestyle={{textAlignVertical: 'top'}}
+                control={control}
+                name="subject"
+                rules={{
+                  required: 'Subject is required',
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  message: 'Enter a valid subject',
+                }}
+                // onChangeText={txt => {
+                //   console.log('text ==>', email);
+                //   setEmail(txt);
+                // }}
+                text={'Subject'}
+                placeholder={'Subject'}
+                // keyboardType={'email-address'}
+              />
+              {errors.subject && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.subject.message}
+                </Text>
+              )}
+            </View>
 
-            <View  style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
-            }}>
-               <Text
-        style={{
-          fontFamily: Font.Poppins500,
-          color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
-          fontSize: tabPotrait
-            ? verticalScale(11)
-            : fourInchLandscape
-            ? scale(12)
-            : scale(14),
-        }}>
-        Message
-      </Text>
-            <TextInput
-                
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+              }}>
+              <Text
+                style={{
+                  fontFamily: Font.Poppins500,
+                  color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+                  fontSize: tabPotrait
+                    ? verticalScale(11)
+                    : fourInchLandscape
+                    ? scale(12)
+                    : scale(14),
+                }}>
+                Message
+              </Text>
+              <TextInput
                 placeholderTextColor={Color.BoldTextColor}
-                
                 style={{
                   fontSize: tabPotrait
-                  ? verticalScale(12)
-                  : fourInchLandscape
-                  ? scale(12)
-                  : scale(14.5),
-                  paddingBottom: iosTab ?  moderateVerticalScale(60) : moderateVerticalScale(100),
+                    ? verticalScale(12)
+                    : fourInchLandscape
+                    ? scale(12)
+                    : scale(14.5),
+                  paddingBottom: iosTab
+                    ? moderateVerticalScale(60)
+                    : moderateVerticalScale(100),
                   color: Theme ? Color.White : Color.TextColor,
                   backgroundColor: Theme
                     ? Color.DarkThemeInputBox
@@ -228,24 +290,24 @@ const Contact = () => {
                   fontFamily: Font.Inter500,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: Theme ? Color.White : Color.TextColor,
+              
                   flex: 1,
-                  paddingHorizontal:verticalScale(15)
+                  paddingHorizontal: verticalScale(15),
                 }}
                 placeholder={'Type here'}
-              multiline={true}
+                multiline={true}
               />
             </View>
-          <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
-            }}>
-            <CustomButton text={'Submit'} />
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
+              }}>
+              <CustomButton text={'Submit'} onPress={handleSubmit(onSubmit)} />
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
     </>
   );
 };
@@ -260,6 +322,5 @@ const styles = StyleSheet.create({
     // marginLeft: scale(25),
     marginTop: 5,
     paddingHorizontal: verticalScale(10),
-   
   },
 });

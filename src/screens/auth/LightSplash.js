@@ -14,12 +14,9 @@ import {Color} from '../../utils/Colors';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const LightSplash = ({navigation}) => {
+const LightSplash = () => {
   const Theme = useColorScheme() === 'dark';
 
-  setTimeout(() => {
-    navigation.navigate('OverBoard');
-  }, 3000);
 
   return (
     <SafeAreaView

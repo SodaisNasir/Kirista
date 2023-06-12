@@ -19,6 +19,7 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import {useDispatch} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import { register, verify_Email } from '../../redux/actions/AuthAction';
+import { useEffect } from 'react';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -370,7 +371,7 @@ const SignUp = ({navigation}) => {
 
 const styles = StyleSheet.create({
   error: {
-    color: Color.Main,
+    color: 'red',
     alignSelf: 'flex-start',
     // marginLeft: scale(25),
     marginTop: 5,

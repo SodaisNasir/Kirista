@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   useColorScheme,
   Dimensions,
+  StatusBar
 } from 'react-native';
 import {
   moderateScale,
@@ -226,6 +227,7 @@ const SelectCountry = ({navigation,route}) => {
   return (
     <>
     <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
     <View
       style={[
         styles.Container,
@@ -292,9 +294,7 @@ const SelectCountry = ({navigation,route}) => {
                   data={item.countries}
                   renderItem={({item}) => (
                     <TouchableOpacity 
-                    
-                      onPress={() => handlePhoneSelect(item.code,item.flag)}
-                    >
+                      onPress={() => handlePhoneSelect(item.code,item.flag)}>
                       <View
                         style={{
                           justifyContent: 'space-between',
