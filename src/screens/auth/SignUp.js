@@ -8,6 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
@@ -18,14 +19,14 @@ import {Color} from '../../utils/Colors';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import {useDispatch} from 'react-redux';
 import {useForm} from 'react-hook-form';
-import { register, verify_Email } from '../../redux/actions/AuthAction';
-import { useEffect } from 'react';
+import {register, verify_Email} from '../../redux/actions/AuthAction';
+import {useEffect} from 'react';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const SignUp = ({navigation}) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 600 && height <= 350;
@@ -36,15 +37,11 @@ const SignUp = ({navigation}) => {
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
 
-
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark';
 
-  const type = 'signup'
-
-
-
+  const type = 'signup';
 
   const [phoneNumber, setPhoneNumber] = useState('+234');
   const [flagImage, setFlagImage] = useState(
@@ -64,16 +61,22 @@ const SignUp = ({navigation}) => {
   //       type: type,
   //       data: data
   //   })
-     
+
   //   } else {
   //     alert('password is not same')
   //   }
   // };
 
-  const onSubmit = (data) => {
-    // dispatch(register(data))
-    navigation.navigate('OTP')
-  }
+  const device = Platform.OS;
+  const [notMatched, setNotMatched] = useState(false);
+  const onSubmit = data => {
+    if (data.password == data.confirm_password) {
+      dispatch(register(data, navigation, device));
+      // navigation.navigate('OTP')
+    } else {
+      setNotMatched(true);
+    }
+  };
 
   return (
     <SafeAreaView
@@ -124,25 +127,19 @@ const SignUp = ({navigation}) => {
               }}>
               <CustomInput
                 control={control}
-                name="fullname"
+                name="full_name"
                 rules={{
                   required: 'Full name is required',
                   message: 'Please enter your full name',
                 }}
-                // restyleBox={{
-                //   marginBottom:
-                //     w >= 768 && h >= 1024
-                //       ? verticalScale(15)
-                //       : verticalScale(15),
-                // }}
                 text={'Full Name'}
                 placeholder={'Full Name'}
-
                 // keyboardType={'email-address'}
               />
 
-              {errors.fullname && (
-                <Text style={[
+              {errors.full_name && (
+                <Text
+                  style={[
                     {
                       fontSize: tabPotrait
                         ? verticalScale(11)
@@ -151,7 +148,9 @@ const SignUp = ({navigation}) => {
                         : scale(14),
                     },
                     styles.error,
-                  ]}>{errors.fullname.message} </Text>
+                  ]}>
+                  {errors.full_name.message}{' '}
+                </Text>
               )}
             </View>
 
@@ -188,7 +187,8 @@ const SignUp = ({navigation}) => {
                 // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
               {errors.phonenumber && (
-                <Text style={[
+                <Text
+                  style={[
                     {
                       fontSize: tabPotrait
                         ? verticalScale(11)
@@ -197,7 +197,9 @@ const SignUp = ({navigation}) => {
                         : scale(14),
                     },
                     styles.error,
-                  ]}>{errors.phonenumber.message} </Text>
+                  ]}>
+                  {errors.phonenumber.message}{' '}
+                </Text>
               )}
             </View>
 
@@ -210,21 +212,19 @@ const SignUp = ({navigation}) => {
                 control={control}
                 name="email"
                 rules={{
-                  required: 'Email is required',
-                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                  message: 'Enter a valid email',
+                  required: '*Email is required',
+                  pattern: {
+                    value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                    message: 'Email is not valid',
+                  },
                 }}
-                // onChangeText={txt => {
-                //   console.log('text ==>', email);
-                //   setEmail(txt);
-                // }}
-
                 text={'Email Address'}
                 placeholder={'Email Address'}
                 keyboardType={'email-address'}
               />
               {errors.email && (
-                <Text style={[
+                <Text
+                  style={[
                     {
                       fontSize: tabPotrait
                         ? verticalScale(11)
@@ -233,7 +233,9 @@ const SignUp = ({navigation}) => {
                         : scale(14),
                     },
                     styles.error,
-                  ]}>{errors.email.message} </Text>
+                  ]}>
+                  {errors.email.message}{' '}
+                </Text>
               )}
             </View>
 
@@ -319,6 +321,22 @@ const SignUp = ({navigation}) => {
                 </Text>
               )}
             </View>
+            {notMatched ? (
+              <Text
+                style={[
+                  {
+                    fontSize: tabPotrait
+                      ? verticalScale(11)
+                      : fourInchLandscape
+                      ? scale(12)
+                      : scale(14),
+                  },
+                  styles.error,
+                ]}>
+                {' '}
+                Password is not matched
+              </Text>
+            ) : null}
             <View
               style={{
                 paddingVertical:
