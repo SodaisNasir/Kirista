@@ -18,7 +18,7 @@ import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
 import {useForm} from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { verify_Email_befaorep } from '../../redux/actions/AuthAction';
+import { verify_Email_before_password } from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -35,14 +35,14 @@ const ResetPassword = ({navigation}) => {
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
 
-  const resnd = 'fogot'
+  const type = 'forgot'
 
 
   const handleNextButton = (data) => {
-    // dispatch(verify_Email_befaorep(data,navigation,resnd))
-    navigation.navigate('OTP',{
-      type: 'forget'
-    });
+    verify_Email_before_password(data,navigation,type)
+    // navigation.navigate('OTP',{
+    //   type: 'forget'
+    // });
    };
   return (
     <SafeAreaView
@@ -97,8 +97,6 @@ const ResetPassword = ({navigation}) => {
 
           <View
             style={{
-              // paddingTop:
-              //   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
               marginBottom: verticalScale(10),
              
             }}>
@@ -160,7 +158,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   error: {
-    color: Color.Main,
+    color: `red`,
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(12),
     alignSelf: 'flex-start',
     // marginLeft: scale(15),

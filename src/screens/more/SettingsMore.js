@@ -10,6 +10,7 @@ import {
   useColorScheme,
   StatusBar,
   Linking,
+  Platform,
 } from 'react-native';
 import React, {useState, useCallback} from 'react';
 import {
@@ -46,15 +47,16 @@ import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {LOGIN} from '../../redux/reducer';
+import {LOGIN, USER_DETAILS} from '../../redux/reducer';
 import BottomTab from '../../constant/BottomTab';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsMore = () => {
   const [email, setEmail] = useState(null);
-  const Dispatch = useDispatch();
+  const dispatch = useDispatch();
   const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
   useFocusEffect(
@@ -69,6 +71,11 @@ const SettingsMore = () => {
   );
 
   const is_guest = useSelector(state => state.is_guest);
+
+  const logOut = async () => {
+    await AsyncStorage.removeItem('user_Details')
+    dispatch({type: USER_DETAILS, payload: null})
+  }
   return (
     <>
       <SafeAreaView
@@ -665,7 +672,7 @@ const SettingsMore = () => {
                   },
                 ]}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('OverBoard')}
+                  onPress={logOut}
                   style={[
                     styles.AllItems,
                     {

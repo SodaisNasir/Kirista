@@ -25,6 +25,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import { sign_in } from '../../redux/actions/AuthAction';
 
 
 
@@ -61,8 +62,9 @@ const Login = ({navigation}) => {
     }, []),
   );
 
+  const dispatch = useDispatch();
   const onSubmit = data => {
-    navigation.navigate('BottomTabNavigator');
+    dispatch(sign_in(data));
     console.log(data);
   };
   return (

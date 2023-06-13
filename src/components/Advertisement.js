@@ -4,30 +4,30 @@ import {
   View,
   Image,
   ImageBackground,
-  SafeAreaView,
   TouchableOpacity,
   useWindowDimensions,
-  useColorScheme,
   StatusBar,
 } from 'react-native';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
-import Modal from 'react-native-modal';
+import {show_popup} from '../redux/actions/UserAction';
 
-const Advertisement = props => {
+const Advertisement = () => {
   const navigation = useNavigation();
+  const [forImage, setForImage] = useState();
+  const [forTitle, setForTitle] = useState();
+  const [forLink, setForLink] = useState();
   useFocusEffect(
     useCallback(() => {
-      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      show_popup(setForImage, setForTitle, setForLink);
     }, []),
   );
 
-  const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [seconds, setSeconds] = useState(3);
@@ -49,136 +49,150 @@ const Advertisement = props => {
 
     return () => clearTimeout(timerId);
   }, [seconds]);
+  useFocusEffect(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: 'none',
+        },
+      });
+    }),
+  );
   return (
     <View style={styles.container}>
-         <StatusBar translucent={true} backgroundColor={'transparent'} />
-        <ImageBackground
-          blurRadius={14}
-          source={require('../assets/images/ad_book_tablet.png')}
-          style={styles.ImageBackground}>
+      <StatusBar translucent={true} backgroundColor={'transparent'} />
+      <ImageBackground
+        blurRadius={14}
+        // source={require('../assets/images/ad_book_tablet.png')}
+        source={{uri: forImage}}
+        style={styles.ImageBackground}>
+        <View
+          style={[
+            {
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            },
+            styles.container,
+          ]}>
           <View
-            style={[
-              {
-                paddingHorizontal:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-              },
-              styles.container,
-            ]}>
-            <View
-              style={{
-                // marginTop: verticalScale(20),
+            style={{
+              // marginTop: verticalScale(20),
 
-                flex: w >= 768 && h >= 1024 ? 0.7 : 0.5,
-                justifyContent: 'flex-end',
-                width: '100%',
-              }}>
-              <TouchableOpacity
-                // opacity={0.1}
-                onPress={() => navigation.navigate('HomeScreen')}
-                style={[
-                  {
-                    borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
-                    backgroundColor: 'white',
-                    alignSelf: 'flex-end',
-                    opacity: 0.5,
-                    paddingVertical:
-                      w >= 768 && h >= 1024
-                        ? verticalScale(2)
-                        : verticalScale(5),
-                    paddingHorizontal:
-                      w >= 768 && h >= 1024
-                        ? moderateScale(15)
-                        : moderateScale(15),
-                  },
-                ]}>
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                    // textAlign: 'center',
-                    color: Color.DarkTextColor,
-                    fontFamily: Font.Inter500,
-                  }}>
-                  {seconds} Skip
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            <View
-              style={{
-                // marginTop: verticalScale(20),
-
-                flex: 3,
-                justifyContent: 'center',
-                width: '100%',
-              }}>
-              <View
+              flex: w >= 768 && h >= 1024 ? 0.7 : 0.5,
+              justifyContent: 'flex-end',
+              width: '100%',
+            }}>
+            <TouchableOpacity
+              // opacity={0.1}
+              disabled={seconds > 0 ? true : false}
+              onPress={() => navigation.navigate('HomeScreen')}
+              style={[
+                {
+                  borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
+                  backgroundColor: 'white',
+                  alignSelf: 'flex-end',
+                  opacity: 0.5,
+                  paddingVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(2) : verticalScale(5),
+                  paddingHorizontal:
+                    w >= 768 && h >= 1024
+                      ? moderateScale(15)
+                      : moderateScale(15),
+                },
+              ]}>
+              <Text
                 style={{
-                  height: w >= 768 && h >= 1024 ? scale(130) : '50%',
-                  //   width:
-                  //     w >= 768 && h >= 1024 ? scale(130) : verticalScale(240),
-
-                  //   marginBottom: verticalScale(15),
+                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                  // textAlign: 'center',
+                  color: Color.DarkTextColor,
+                  fontFamily: Font.Inter500,
                 }}>
-                <Image
-                  resizeMode="contain"
-                  style={{
-                    height: '100%',
-                    width: '100%',
+                {seconds} Skip
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-                    // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
-                  }}
-                  source={require('../assets/images/ad_book.png')}
-                />
-              </View>
-              <View style={{marginTop: verticalScale(20)}}>
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
-                    textAlign: 'center',
-                    color: Color.White,
-                    fontFamily: Font.Poppins600,
-                  }}>
-                  Sunday School {`\n`} Student’s Manual
-                </Text>
-              </View>
-            </View>
+          <View
+            style={{
+              // marginTop: verticalScale(20),
 
+              flex: 3,
+              justifyContent: 'center',
+              width: '100%',
+            }}>
             <View
               style={{
-                flex: 0.5,
-                justifyContent: 'center',
-                width: '100%',
-                marginBottom: w >= 768 && h >= 1024 ? '16%' : scale(10),
+                height: w >= 768 && h >= 1024 ? scale(130) : '70%',
+                marginBottom: verticalScale(15),
+                borderRadius: scale(20),
               }}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ViewManual')}
-                style={[
-                  {
-                    height: w >= 768 && h >= 1024 ? verticalScale(40) : '55%',
-                    borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
-                  },
-                  styles.Btn,
-                ]}>
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                    textAlign: 'center',
-                    color: Color.Main,
-                    fontFamily: Font.Poppins600,
-                  }}>
-                  View
-                </Text>
-                <View style={{marginLeft: scale(5)}}>
-                  <AntDesign
-                    name="arrowright"
-                    size={w >= 768 && h >= 1024 ? scale(9) : scale(16)}
-                    color={Color.Main}
-                  />
-                </View>
-              </TouchableOpacity>
+              <Image
+                resizeMode="contain"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  borderRadius: scale(20),
+
+                  // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
+                }}
+                // source={require('../assets/images/ad_book.png')}
+                source={{uri: forImage}}
+              />
+            </View>
+            <View style={{maxWidth: '50%', alignSelf: 'center'}}>
+              <Text
+                style={{
+                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
+                  textAlign: 'center',
+                  color: Color.White,
+                  fontFamily: Font.Poppins600,
+                }}>
+                {forTitle}
+              </Text>
             </View>
           </View>
-        </ImageBackground>
+
+          <View
+            style={{
+              flex: 0.5,
+              justifyContent: 'center',
+              width: '100%',
+              marginBottom: w >= 768 && h >= 1024 ? '16%' : scale(10),
+            }}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('AdvWebView', {
+                  link: forLink,
+                })
+              }
+              style={[
+                {
+                  height: w >= 768 && h >= 1024 ? verticalScale(40) : '55%',
+                  borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
+                },
+                styles.Btn,
+              ]}>
+              <Text
+                style={{
+                  fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
+                  textAlign: 'center',
+                  color: Color.Main,
+                  fontFamily: Font.Poppins600,
+                }}>
+                View
+              </Text>
+              <View style={{marginLeft: scale(5)}}>
+                <AntDesign
+                  name="arrowright"
+                  size={w >= 768 && h >= 1024 ? scale(9) : scale(16)}
+                  color={Color.Main}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>
       {/* </Modal> */}
     </View>
   );
@@ -187,7 +201,7 @@ const Advertisement = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(2, 136, 50, 0.5)',
+    backgroundColor: 'rgba(2, 136, 50, 0.3)',
     alignItems: 'center',
 
     width: '100%',

@@ -26,19 +26,17 @@ import {
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
-import { useDispatch, useSelector } from 'react-redux';
-import { change_password, register, verify_Email, verify_Email_befaorep } from '../../redux/actions/AuthAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {OTPMethod, sign_in} from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CELL_COUNT = 4;
 const OTP = ({navigation, route}) => {
-  // const {type, data} = route.params;
-  const dispatch = useDispatch()
-  const otp = useSelector((state) => state.otp)
-
-
+  const {type, Code, data, id} = route.params;
+  const dispatch = useDispatch();
+  // const otp = useSelector((state) => state.otp)
 
   const Theme = useColorScheme() === 'dark';
   const [value, setValue] = useState();
@@ -47,9 +45,6 @@ const OTP = ({navigation, route}) => {
     value,
     setValue,
   });
-
-
-
 
   const [time, setTime] = useState(600);
   useEffect(() => {
@@ -62,24 +57,22 @@ const OTP = ({navigation, route}) => {
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
   const handleOtp = () => {
-    navigation.navigate('NewPassword')
-    // if(value == otp){
-    //   if (type == 'signup') {
-    //     dispatch(register(data))
-    //   } else if (type == 'forgot') {
-    //     navigation.navigate('NewPassword',{
-    //       data:data
-    //     });
-    //   }
-    //   else{
-    //     console.log('first')
-    //   }
-    // } else{
-    //   alert('Incorrect OTP!!')
-    // }
+    if (Code == value) {
+      if (type == 'signup') {
+        dispatch(OTPMethod(id));
+        console.log('id', id);
+        console.log('this is working');
+      } else if (type == 'forgot') {
+        navigation.navigate('NewPassword', {
+          data: data,
+        });
+      } else {
+        console.log('else error in handelOtp');
+      }
+    } else {
+      alert('Incorrect OTP!!');
+    }
   };
-
-  const resnd = 'resend'
 
   const resendOtp = () => {
     // if (type == 'signup') {
@@ -90,8 +83,7 @@ const OTP = ({navigation, route}) => {
     // else{
     //   console.log('first')
     // }
-   
-  }
+  };
 
   return (
     <SafeAreaView
@@ -137,7 +129,7 @@ const OTP = ({navigation, route}) => {
                 {color: Theme ? Color.DarkThemText2 : Color.TextColor},
                 styles.OtpText,
               ]}>
-              OTP
+              OTP {Code}
             </Text>
 
             <View>

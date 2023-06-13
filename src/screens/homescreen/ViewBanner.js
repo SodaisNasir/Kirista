@@ -42,23 +42,21 @@ const ViewBanner = ({navigation}) => {
         barStyle={Theme ? 'light-content' : 'dark-content'}
       />
       <View style={{height: '100%', backgroundColor: Theme? Color.DarkTheme : Color.White}}>
-        <Header AuthHeaderStyle={{
+        <Header
+         AuthHeaderStyle={{
               height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
                   ? verticalScale(80)
-                  : verticalScale(100)
+                  : verticalScale(60)
                 : w >= 768 && h >= 1024
                 ? verticalScale(65)
                 : w <= 450 && h <= 750
                 ? verticalScale(50)
                 : verticalScale(40),
-                paddingTop:
-                Platform.OS == 'ios' ? moderateVerticalScale(0) :
-                w >= 768 && h >= 1024
-                  ? moderateVerticalScale(20)
-                  : moderateVerticalScale(25),
-        }}/>
+                paddingTop: 0
+        }}
+        />
         <ScrollView>
 
         <View style={styles.Container}>

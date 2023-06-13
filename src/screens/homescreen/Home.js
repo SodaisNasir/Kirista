@@ -48,7 +48,6 @@ const Home = () => {
     <View
       style={{
         flexDirection: 'row',
-       
       }}>
       <TabBar
         {...props}
@@ -81,14 +80,13 @@ const Home = () => {
             <View
               style={[
                 {
-                  
                   backgroundColor: focused ? Color.Main : 'transparent',
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(1.7)
                       : verticalScale(2.2),
                   width: w >= 768 && h >= 1024 ? scale(11) : scale(20),
-                  bottom: tabPotrait? 2 : 0,
+                  bottom: tabPotrait ? 2 : 0,
                   marginLeft:
                     route.type == 'home'
                       ? w >= 768 && h >= 1024
@@ -114,7 +112,6 @@ const Home = () => {
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useColorScheme() === 'dark';
-
 
   return (
     <>

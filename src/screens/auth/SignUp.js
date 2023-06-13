@@ -72,7 +72,6 @@ const SignUp = ({navigation}) => {
   const onSubmit = data => {
     if (data.password == data.confirm_password) {
       dispatch(register(data, navigation, device));
-      // navigation.navigate('OTP')
     } else {
       setNotMatched(true);
     }
