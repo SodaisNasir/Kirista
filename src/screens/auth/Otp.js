@@ -27,16 +27,18 @@ import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
 import {useDispatch, useSelector} from 'react-redux';
-import {OTPMethod, sign_in} from '../../redux/actions/AuthAction';
+import {OTPMethod, register, sign_in, verify_Email_before_password} from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CELL_COUNT = 4;
 const OTP = ({navigation, route}) => {
-  const {type, Code, data, id} = route.params;
+  const {type, data, id,device} = route.params;
   const dispatch = useDispatch();
-  // const otp = useSelector((state) => state.otp)
+  const otp = useSelector((state) => state.otp)
+
+  console.log('id', id)
 
   const Theme = useColorScheme() === 'dark';
   const [value, setValue] = useState();
@@ -46,7 +48,7 @@ const OTP = ({navigation, route}) => {
     setValue,
   });
 
-  const [time, setTime] = useState(600);
+  const [time, setTime] = useState(5);
   useEffect(() => {
     const timer = time > 0 && setInterval(() => setTime(time - 1), 1000);
     return () => clearInterval(timer);
@@ -57,33 +59,19 @@ const OTP = ({navigation, route}) => {
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
   const handleOtp = () => {
-    if (Code == value) {
-      if (type == 'signup') {
-        dispatch(OTPMethod(id));
-        console.log('id', id);
-        console.log('this is working');
-      } else if (type == 'forgot') {
-        navigation.navigate('NewPassword', {
-          data: data,
-        });
-      } else {
-        console.log('else error in handelOtp');
-      }
+    if (otp == value) {
+      navigation.navigate('NewPassword', {
+        data: data,
+        id: id
+      });
     } else {
       alert('Incorrect OTP!!');
     }
   };
 
   const resendOtp = () => {
-    // if (type == 'signup') {
-    //   dispatch(verify_Email(data,navigation,resnd,setTime))
-    // } else if (type == 'forgot') {
-    //   dispatch(verify_Email_befaorep(data,navigation,resnd,setTime))
-    // }
-    // else{
-    //   console.log('first')
-    // }
-  };
+      dispatch(verify_Email_before_password(data,navigation, 'resend' ,setTime))
+ }
 
   return (
     <SafeAreaView
@@ -112,7 +100,8 @@ const OTP = ({navigation, route}) => {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
                   color: Theme ? Color.DarkThemText2 : Color.TextColor,
                 }}>
-                maryjames@rccg.com
+                {/* maryjames@rccg.com */}
+                {data?.email}
               </Text>
             </Text>
           </View>
@@ -129,7 +118,7 @@ const OTP = ({navigation, route}) => {
                 {color: Theme ? Color.DarkThemText2 : Color.TextColor},
                 styles.OtpText,
               ]}>
-              OTP {Code}
+              OTP {otp}
             </Text>
 
             <View>

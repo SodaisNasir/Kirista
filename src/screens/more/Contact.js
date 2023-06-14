@@ -23,12 +23,12 @@ import {Color} from '../../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import {Font} from '../../utils/font';
 import {useForm} from 'react-hook-form';
+import { useState } from 'react';
+import { base_Url } from '../../utils/Url';
 
 const Contact = () => {
 
-  const onSubmit = data =>{
-    console.log(data)
-  }
+
 
   const {
     control,
@@ -43,6 +43,8 @@ const Contact = () => {
   const fourInchLandscape = w <= 600 && h <= 350;
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
+  const [text, onChangeText] = useState('');
+  
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -51,6 +53,56 @@ const Contact = () => {
       },
     });
   }, []);
+
+  const contactUs = async (data) => {
+    try {
+      
+      let base_url = `${base_Url}contact`;
+      let myData = new FormData();
+  
+      myData.append('name', data.fullname);
+      myData.append('email', data.email);
+      myData.append('phone_number', data.phonenumber);
+      myData.append('subject', data.subject);
+      myData.append('message', text);
+  
+      const response = await fetch(base_url, {
+        method: 'post',
+        body: myData,
+      });
+
+      const responseData = await response.json();
+      if(responseData.success.status === 200){
+        alert('Successfully Submited')
+        console.log('responseData', responseData.success.data)
+        setTimeout(() => {
+          navigation.goBack()
+        }, 2000);
+      }
+
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+ 
+  const onSubmit = data =>{
+    if(data && text != ''){
+      contactUs(data)
+    }else{
+      alert('Please fill the form')
+    }
+  }
+  const [phoneNumber, setPhoneNumber] = useState('+234');
+  const [flagImage, setFlagImage] = useState(
+    require('../../assets/images/nig.png'),
+  );
+  const handlePhoneNumberButtonPress = () => {
+    navigation.navigate('SelectCountry', {
+      setPhoneNumber: setPhoneNumber,
+      setFlagImage: setFlagImage,
+      type: 'Contact'
+    });
+  };
 
   return (
     <>
@@ -108,7 +160,7 @@ const Contact = () => {
                     },
                     styles.error,
                   ]}>
-                  {errors.email.fullname}
+                  {errors.fullname.message}
                 </Text>
               )}
             </View>
@@ -172,7 +224,7 @@ const Contact = () => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
               }}>
               <CustomInput
-                // onPress={handlePhoneNumberButtonPress}
+                onPress={handlePhoneNumberButtonPress}
                 control={control}
                 name="phonenumber"
                 maxLength={16}
@@ -195,6 +247,8 @@ const Contact = () => {
                 text={'Phone Number'}
                 // flagImage={flagImage}
                 // phoneNumber={phoneNumber}
+                flagImage={flagImage}
+                phoneNumber={phoneNumber}
                 phone={true}
                 // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
@@ -296,6 +350,8 @@ const Contact = () => {
                 }}
                 placeholder={'Type here'}
                 multiline={true}
+                onChangeText={onChangeText}
+                value={text}
               />
             </View>
             <View

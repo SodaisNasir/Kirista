@@ -19,7 +19,7 @@ import {Color} from '../../utils/Colors';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import {useDispatch} from 'react-redux';
 import {useForm} from 'react-hook-form';
-import {register, verify_Email} from '../../redux/actions/AuthAction';
+import {register} from '../../redux/actions/AuthAction';
 import {useEffect} from 'react';
 
 const width = Dimensions.get('window').width;
@@ -40,8 +40,6 @@ const SignUp = ({navigation}) => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark';
-
-  const type = 'signup';
 
   const [phoneNumber, setPhoneNumber] = useState('+234');
   const [flagImage, setFlagImage] = useState(
@@ -71,7 +69,7 @@ const SignUp = ({navigation}) => {
   const [notMatched, setNotMatched] = useState(false);
   const onSubmit = data => {
     if (data.password == data.confirm_password) {
-      dispatch(register(data, navigation, device));
+      dispatch(register(data, device));
     } else {
       setNotMatched(true);
     }

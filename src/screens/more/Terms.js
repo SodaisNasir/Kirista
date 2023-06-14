@@ -8,6 +8,7 @@ import {
   useColorScheme,
   StatusBar,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
@@ -17,27 +18,33 @@ import Header from '../../components/Header';
 import CustomNavigator from '../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
 import {useLayoutEffect} from 'react';
+import RenderHtml from 'react-native-render-html';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Terms = ({navigation}) => {
   const Theme = useColorScheme() === 'dark';
-
+  const { width } = useWindowDimensions();
   useLayoutEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
+
+  const source = {
+    html: ``
+  };
   return (
-    <>
-      <SafeAreaView
+    < >
+<SafeAreaView
         style={{
           backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
         <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor }/>
-      <View
+
+        <View
         style={{
           flex: 1,
           backgroundColor: Theme ? Color.DarkTheme : Color.White,
@@ -62,61 +69,16 @@ const Terms = ({navigation}) => {
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={[
-              styles.Container,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={{marginVertical: verticalScale(12)}}>
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {color: Theme ? Color.White : Color.DarkTextColor},
-                ]}>
-                Terms of Use
-              </Text>
-            </View>
-            <Text
-              style={[
-                styles.TextStyle,
-                {
-                  color: Theme ? Color.White : Color.Black,
-                },
-              ]}>
-              This platform is powered by RCCG Africa Continent 2 and developed
-              by IDC Platforms Limited ("we", "us" or "our"). The use, content
-              and information available on this Mobile App shall be subject to
-              acceptance of and compliance with the terms and conditions set
-              forth in these terms of use and elsewhere on this Mobile App. The
-              terms "you," "your", "yours", "member" "members" and "yourself"
-              refer to all visitors/members to this Mobile App. Your agreement
-              to comply with and be bound by these Terms of Use is deemed to
-              occur upon your first use of the Mobile App.
-            </Text>
-            <Text
-              style={[
-                styles.TextStyle,
-                {
-                  color: Theme ? Color.White : Color.Black,
-                },
-              ]}>
-              If you do not agree to these Terms of Use, you should not review
-              information from this Mobile App. We have the total right to edit
-              or delete any content in this Mobile Platform, including this
-              Agreement, without notifying you.
-            </Text>
-          </View>
+<RenderHtml
+      contentWidth={width}
+      source={source}
+    />
+
         </ScrollView>
-        <View
-          style={{
-            width: '100%',
-            backgroundColor: Color.White,
-          }}>
-          <CustomNavigator />
-        </View>
-      </View>
+
+
+</View>
+     
     </>
   );
 };

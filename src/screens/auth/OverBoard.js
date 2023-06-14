@@ -22,7 +22,7 @@ import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
 import {useDispatch} from 'react-redux';
-import {IS_GUEST, LOGIN} from '../../redux/reducer';
+import {IS_GUEST, LOGIN, USER_DETAILS} from '../../redux/reducer';
 const OverBoard = ({navigation}) => {
 
 
@@ -56,8 +56,9 @@ console.log('selectedLanguage', selectedLanguage)
   console.log(width, height);
   const Theme = useColorScheme() === 'dark';
   const handelSkip = () => {
-    navigation.navigate('BottomTabNavigator');
+    // navigation.navigate('BottomTabNavigator');
     Dispatch({type: IS_GUEST, payload: true});
+    Dispatch({type: USER_DETAILS, payload: 'vvvvvvv'});
   };
   return (
     <View

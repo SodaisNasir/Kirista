@@ -31,16 +31,23 @@ const SelectCountry = ({navigation,route}) => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
-  const {setPhoneNumber,setFlagImage} = route.params;
-  const handlePhoneSelect = (code,flag) =>{  
-    navigation.goBack();
-    setPhoneNumber(code)
-    setFlagImage(flag)
+  const {setPhoneNumber,setFlagImage,type} = route.params;
+  const handlePhoneSelect = (code,flag) => {  
 
+    if(type){
+      navigation.navigate(type)
+      setPhoneNumber(code)
+      setFlagImage(flag)
+    }else{
+
+      navigation.goBack();
+      setPhoneNumber(code)
+      setFlagImage(flag)
+    }
+      
 
   }
 
-  console.log(setPhoneNumber)
   const DATA = [
     {
       id: '1',

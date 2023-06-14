@@ -28,6 +28,7 @@ const ResetPassword = ({navigation}) => {
 
   const iosTab = w >= 820 && h >= 1180;
   const Theme = useColorScheme() === 'dark';
+  const [message,setMessage] = useState('')
 
   const {
     control,
@@ -39,10 +40,7 @@ const ResetPassword = ({navigation}) => {
 
 
   const handleNextButton = (data) => {
-    verify_Email_before_password(data,navigation,type)
-    // navigation.navigate('OTP',{
-    //   type: 'forget'
-    // });
+    dispatch(verify_Email_before_password(data,navigation,type,setMessage))
    };
   return (
     <SafeAreaView
@@ -67,6 +65,10 @@ const ResetPassword = ({navigation}) => {
               Please enter your email address, and we will send you an OTP to
               confirm it.
             </Text>
+            <Text   style={[
+                {color: 'red'},
+                styles.LongText,
+              ]}>{message}</Text>
           </View>
 
           <View

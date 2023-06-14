@@ -75,6 +75,9 @@ const Password = props => {
             width: '80%',
             color: Theme ? Color.White : Color.TextColor,
           }}
+          onChangeText={props.onChangeText}
+          value={props.value}
+          defaultValue={props.defaultValue}
         />
         {props.password == true ? (
           <MaterialCommunityIcons

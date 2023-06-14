@@ -23,11 +23,17 @@ import {
 import CustomButton from '../../components/CustomButton';
 import AttachButton from '../../components/AttachButton';
 import {launchImageLibrary} from 'react-native-image-picker';
+import { base_Url } from '../../utils/Url';
+import { useSelector } from 'react-redux';
 
 const Feedback = ({navigation}) => {
+  const user_details = useSelector(state => state.user_details)
   const Theme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
+  const [text, onChangeText] = useState('');
+  const [saveimage, setsaveimage] = useState();
+  const [show, setShow] = useState(true);
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -37,8 +43,6 @@ const Feedback = ({navigation}) => {
     });
   }, []);
 
-  const [saveimage, setsaveimage] = useState();
-  const [show, setShow] = useState(true);
   const photosave = () => {
     let options = {
       storageOptions: {
@@ -57,11 +61,52 @@ const Feedback = ({navigation}) => {
       } else if (res.customButton) {
         alert(res.customButton);
       } else {
-        setsaveimage(res.assets?.[0]?.uri);
+        setsaveimage({
+          name: res.assets?.[0]?.fileName,
+          uri: res.assets?.[0]?.uri,
+          type: res.assets?.[0]?.type,
+        })
         setShow(false);
       }
     });
   };
+
+  const feedbackApi = async () => {
+    try {
+
+      let base_url = `${base_Url}feedback/${user_details.data.id}`;
+      let myData = new FormData();
+  
+      myData.append('text', text);
+      myData.append('image', saveimage);
+  
+      const response = await fetch(base_url, {
+        method: 'post',
+        body: myData,
+      });
+
+      const responseData = await response.json();
+      if(responseData.success.status === 200){
+        alert('Successfully Submited')
+        console.log('responseData', responseData.success.data)
+        setTimeout(() => {
+          navigation.goBack()
+        }, 2000);
+      }
+      
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  const  onSumbit = () => {
+    if(text != ''){
+      feedbackApi()
+    }else{
+      alert('Please fill the form')
+    }
+
+  }
   return (
     <>
       <SafeAreaView
@@ -126,6 +171,8 @@ const Feedback = ({navigation}) => {
                   // textAlignVertical: 'top',
                 },
               ]}
+              onChangeText={onChangeText}
+              value={text}
             />
           </View>
         </View>
@@ -152,7 +199,11 @@ const Feedback = ({navigation}) => {
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(35),
               }}>
-              <CustomButton onPress={() => navigation.goBack()} text={'Send'} />
+              <CustomButton 
+              
+              // onPress={() => navigation.goBack()}
+              onPress={onSumbit}
+               text={'Send'} />
             </View>
           </View>
         </KeyboardAvoidingView>

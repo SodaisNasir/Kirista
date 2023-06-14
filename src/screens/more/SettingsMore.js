@@ -56,6 +56,7 @@ const h = Dimensions.get('window').height;
 
 const SettingsMore = () => {
   const [email, setEmail] = useState(null);
+  const userData = useSelector(state => state.user_details)
   const dispatch = useDispatch();
   const Theme = useColorScheme() === 'dark';
   const navigation = useNavigation();
@@ -73,7 +74,7 @@ const SettingsMore = () => {
   const is_guest = useSelector(state => state.is_guest);
 
   const logOut = async () => {
-    await AsyncStorage.removeItem('user_Details')
+    await AsyncStorage.removeItem('user_details')
     dispatch({type: USER_DETAILS, payload: null})
   }
   return (
@@ -141,6 +142,18 @@ const SettingsMore = () => {
                     width: w >= 768 && h >= 1024 ? scale(30) : scale(55),
                     height: w >= 768 && h >= 1024 ? scale(30) : scale(55),
                   }}>
+                    {
+                      userData.data.profile_image != null ?
+                      <Image
+                    source={{uri: userData.data.profile_image}}
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                      borderRadius: scale(100),
+                    }}
+                    resizeMode="contain"
+                  />
+                      :
                   <Image
                     source={
                       is_guest
@@ -154,6 +167,7 @@ const SettingsMore = () => {
                     }}
                     resizeMode="contain"
                   />
+                    }
                 </View>
 
                 <View
@@ -203,7 +217,8 @@ const SettingsMore = () => {
                             color: Theme ? Color.White : Color.DarkTextColor,
                           },
                         ]}>
-                        Mary David
+                        {/* Mary David */}
+                        {userData.data.name}
                       </Text>
                       <Text
                         style={[
