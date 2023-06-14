@@ -147,7 +147,7 @@ function AllHome() {
       <Stack.Screen
         name="AdvWebView"
         component={AdvWebView}
-        options={{animation: 'fade_from_bottom'}}
+        options={{animation: 'slide_from_bottom'}}
       />
       <Stack.Screen
         name="ViewBanner"

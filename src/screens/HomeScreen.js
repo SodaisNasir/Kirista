@@ -11,6 +11,7 @@ import {
   useColorScheme,
   Platform,
   Linking,
+  ActivityIndicator,
 } from 'react-native';
 import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -20,8 +21,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import DetailsCard from '../components/Card/DetailsCard';
 import Swiper from 'react-native-swiper';
-import {show_all_banner} from '../redux/actions/UserAction';
+import {
+  active_event,
+  parish,
+  show_all_banner,
+} from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
+import moment from 'moment';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -30,6 +36,9 @@ const HomeScreen = () => {
   const tabPotrait = w >= 768 && h >= 1024;
   const [forImage, setForImage] = useState('');
   const [forLink, setForLink] = useState(``);
+  const [data, setData] = useState([]);
+  const [event, setEvent] = useState([]);
+  // console.log('data', data[0].email);
 
   const navigation = useNavigation();
 
@@ -131,6 +140,8 @@ const HomeScreen = () => {
   useFocusEffect(
     useCallback(() => {
       show_all_banner(setForImage, setForLink);
+      parish(setData);
+      active_event(setEvent);
     }, []),
   );
   const imageUrl =
@@ -154,8 +165,16 @@ const HomeScreen = () => {
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-              <SwiperCard source={{uri: forImage}} text_subText='asdf is the live event my friend' lastText='asdf' live/>
-              <SwiperCard source={{uri: imageUrl}} text_subText='asdf is the live event my friend'/>
+            <SwiperCard
+              source={{uri: forImage}}
+              text_subText="asdf is the live event my friend"
+              lastText="asdf"
+              live
+            />
+            <SwiperCard
+              source={{uri: imageUrl}}
+              text_subText="asdf is the live event my friend"
+            />
             {/* <TouchableOpacity
               // onPress={() => navigation.navigate('ViewBanner')}
               // onPress={() => Linking.openURL(forLink)}
@@ -182,7 +201,7 @@ const HomeScreen = () => {
                 source={{uri: forImage}}
               />
             </TouchableOpacity> */}
-         
+
             {/* <TouchableOpacity
               // onPress={() => navigation.navigate('ViewBanner')}
               // onPress={() => Linking.openURL(forLink)}
@@ -242,18 +261,6 @@ const HomeScreen = () => {
                 // style={{top:verticalScale(1)}}
               />
             </TouchableOpacity>
-            {/* <TouchableOpacity
-            onPress={() => navigation.navigate('PopularBooks')}
-            style={{flexDirection: 'row'}}>
-            <Text style={styles.MoreText}>More</Text>
-            <View style={{top: 1}}>
-              <Entypo
-                name="chevron-small-right"
-                size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
-                color={Color.Main}
-              />
-            </View>
-          </TouchableOpacity> */}
           </View>
           <ScrollView
             horizontal
@@ -599,55 +606,39 @@ const HomeScreen = () => {
               />
             </TouchableOpacity>
           </View>
-
-          <View>
-            <DetailsCard
-              onPress={() => {
-                navigation.navigate('ViewParish');
-              }}
-              source={require('../assets/images/parishsmall_1.png')}
-              title="RCCG "
-              manual="Central Parish"
-              resize={'contain'}
-              PlaceTrue={true}
-              Place={'Abuja'}
-              MainBoxRestyle={{
-                marginTop: verticalScale(10),
-              }}
-            />
-            <DetailsCard
-              onPress={() => {
-                navigation.navigate('ViewParish');
-              }}
-              source={require('../assets/images/parishsmall_2.png')}
-              title="RCCG"
-              manual="Precious Ambadassadors"
-              resize={'contain'}
-              PlaceTrue={true}
-              Place={'Ghana'}
-              MainBoxRestyle={{
-                marginTop: verticalScale(10),
-              }}
-            />
-
-            <DetailsCard
-              onPress={() => {
-                navigation.navigate('ViewParish');
-              }}
-              source={require('../assets/images/parishsmall_3.png')}
-              title="RCCG"
-              manual="Salvation Centre"
-              resize={'contain'}
-              PlaceTrue={true}
-              Place={'Togo'}
-              MainBoxRestyle={{
-                // paddingBottom: verticalScale(10),
-                marginTop: verticalScale(10),
-                // backgroundColor:'red'
-                paddingBottom: verticalScale(15),
-              }}
-            />
-          </View>
+          {data.length > 0 ? (
+            <>
+              {data?.map((item, index) => {
+                return (
+                  index < 3 && (
+                    <DetailsCard
+                      key={item.id}
+                      data={item}
+                      onPress={() => {
+                        navigation.navigate('ViewParish', {
+                          id: item.id,
+                        });
+                      }}
+                      source={{uri: item.image}}
+                      // title="RCCG"
+                      manual={item.title}
+                      resize={'contain'}
+                      PlaceTrue={true}
+                      Place={item.location}
+                      MainBoxRestyle={{
+                        marginTop: verticalScale(10),
+                      }}
+                    />
+                  )
+                );
+              })}
+            </>
+          ) : (
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <ActivityIndicator size="large" color={Color.White} />
+            </View>
+          )}
         </View>
 
         <View
@@ -695,24 +686,44 @@ const HomeScreen = () => {
           </TouchableOpacity> */}
           </View>
           <View>
-            <DetailsCard
-              onPress={() => {
-                navigation.navigate('EventScreen');
-              }}
-              source={require('../assets/images/event_1.png')}
-              title="West Coast 2 Regional"
-              manual="Convention"
-              resize={'cover'}
-              TimeTrue={true}
-              date={'June 22, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                // paddingBottom: verticalScale(10),
-                marginTop: verticalScale(12),
-                // backgroundColor:'red'
-              }}
-            />
-            <DetailsCard
+            {event.length > 0 ? (
+              <>
+                {event?.map((item, index) => {
+                  return (
+                    index < 4 && (
+                      <DetailsCard
+                        key={item.id}
+                        data={item}
+                        onPress={() => {
+                          navigation.navigate('EventScreen', {id: item.id});
+                        }}
+                        source={{uri: item.image}}
+                        manual={item.title}
+                        // title="West Coast 2 Regional"
+                        resize={'cover'}
+                        TimeTrue={true}
+                        time={item.start_time}
+                        date={moment(data.start_date).format('MMM Do YY')}
+                        MainBoxRestyle={{
+                          marginTop: verticalScale(12),
+                        }}
+                      />
+                    )
+                  );
+                })}
+              </>
+            ) : (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <ActivityIndicator size="large" color={Color.White} />
+              </View>
+            )}
+
+            {/* <DetailsCard
               onPress={() => {
                 navigation.navigate('EventScreen');
               }}
@@ -762,9 +773,10 @@ const HomeScreen = () => {
                 paddingBottom: 0,
                 marginTop: verticalScale(12),
               }}
-            />
+            /> */}
           </View>
         </View>
+        <View style={{height: verticalScale(10)}} />
       </ScrollView>
     </View>
   );

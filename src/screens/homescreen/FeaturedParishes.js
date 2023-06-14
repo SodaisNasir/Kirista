@@ -7,8 +7,9 @@ import {
   ScrollView,
   Dimensions,
   useColorScheme,
+  ActivityIndicator,
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Color} from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -20,16 +21,20 @@ import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {parish} from '../../redux/actions/UserAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const FeaturedParishes = props => {
+const FeaturedParishes = () => {
   const navigation = useNavigation();
+  const [data, setData] = useState([]);
+  // console.log('data sadf', data[0].id)
   const Theme = useColorScheme() === 'dark';
+
   useFocusEffect(
     useCallback(() => {
-      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      parish(setData);
     }, []),
   );
   return (
@@ -60,25 +65,11 @@ const FeaturedParishes = props => {
                 : w <= 450 && h <= 750
                 ? verticalScale(50)
                 : verticalScale(50),
-    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(7) :moderateVerticalScale(10)
-
+            paddingTop:
+              w >= 768 && h >= 1024
+                ? moderateVerticalScale(7)
+                : moderateVerticalScale(10),
           }}
-          // AuthHeaderStyle={{
-          //   paddingTop:
-          //     w >= 768 && h >= 1024
-          //       ? moderateVerticalScale(10)
-          //       : moderateVerticalScale(10),
-          //   height:
-          //     Platform.OS == 'android'
-          //       ? w >= 768 && h >= 1024
-          //         ? verticalScale(70)
-          //         : verticalScale(70)
-          //       : w >= 768 && h >= 1024
-          //       ? verticalScale(50)
-          //       : w <= 450 && h <= 750
-          //       ? verticalScale(50)
-          //       : verticalScale(60),
-          // }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
@@ -87,110 +78,44 @@ const FeaturedParishes = props => {
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               marginTop: verticalScale(10),
             }}>
-            <DetailsCard
-              source={require('../../assets/images/parishsmall_1.png')}
-              title="RCCG "
-              manual="Central Parish"
-              resize={'contain'}
-              PlaceTrue={true}
-              Place={'Abuja'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-            <DetailsCard
-              source={require('../../assets/images/parishsmall_2.png')}
-              title="RCCG"
-              resize={'contain'}
-              manual="Precious Ambassadors "
-              PlaceTrue={true}
-              Place={'Ghana'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-
-            <DetailsCard
-              source={require('../../assets/images/parishsmall_3.png')}
-              title="RCCG"
-              resize={'contain'}
-              Place={'Togo'}
-              manual="Salvation Centre"
-              PlaceTrue={true}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-
-            <DetailsCard
-              source={require('../../assets/images/parishsmall_3.png')}
-              title="RCCG"
-              resize={'contain'}
-              manual="Salvation Centre"
-              PlaceTrue={true}
-              Place={'Togo'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-            <DetailsCard
-              source={require('../../assets/images/parishsmall_2.png')}
-              title="RCCG"
-              resize={'contain'}
-              manual="Precious Ambassadors "
-              PlaceTrue={true}
-              Place={'Ghana'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-            <DetailsCard
-              source={require('../../assets/images/parishsmall_3.png')}
-              title="RCCG"
-              resize={'contain'}
-              manual="Salvation Centre"
-              PlaceTrue={true}
-              Place={'Togo'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
+            {data.length > 0 ? (
+              <>
+                {data?.map(item => {
+                  return (
+                    <DetailsCard
+                      key={item.id}
+                      data={item}
+                      onPress={() => {
+                        navigation.navigate('ViewParish', {
+                          id: item.id,
+                        });
+                      }}
+                      source={{uri: item.image}}
+                      // title="RCCG"
+                      manual={item.title}
+                      resize={'contain'}
+                      PlaceTrue={true}
+                      Place={item.location}
+                      MainBoxRestyle={{
+                        marginTop: verticalScale(10),
+                      }}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <View
+                style={{
+                  marginTop: '70%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <ActivityIndicator
+                  size="large"
+                  color={Theme ? Color.White : Color.DarkTheme}
+                />
+              </View>
+            )}
           </View>
           <View style={{height: verticalScale(75)}} />
         </ScrollView>

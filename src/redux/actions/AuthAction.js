@@ -142,7 +142,7 @@ export const verify_Email_before_password = async (data,navigation,type) => {
         console.log('else error');
       }
     } catch (error) {
-      console.log('catch error', error);
+      console.log('catch error in verify email', error);
     }
 //   };
 };

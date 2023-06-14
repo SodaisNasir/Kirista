@@ -20,13 +20,20 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import ImageModal from '../../components/Modals/ImageModal';
 import Map from '../../components/Map';
 import {useFocusEffect} from '@react-navigation/native';
+import Loading from '../../components/Modals/Loading';
+import { event_by_id } from '../../redux/actions/UserAction';
+import moment from 'moment/moment';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const EventScreen = ({navigation}) => {
+const EventScreen = ({route, navigation}) => {
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const {id} = route.params;
+  const [data, setData] = useState('');
+  console.log('data ==>', data);
+  const [loading, setLoading] = useState(false);
   const Theme = useColorScheme() === 'dark';
   
 
@@ -39,7 +46,15 @@ const EventScreen = ({navigation}) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  return (
+
+  useFocusEffect(
+    useCallback(() => {
+      event_by_id(setData, id, setLoading);
+    }, []),
+  );
+  return loading ? (
+    <Loading />
+  ) : (
     <>
     <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <View
@@ -86,7 +101,7 @@ const EventScreen = ({navigation}) => {
             style={styles.ImageViewStyle}>
             <Image
               resizeMode="contain"
-              source={require('../../assets/images/EventScreenImage1.png')}
+              source={{uri: data.image}}
               style={{height: '100%', width: '100%'}}
             />
           </TouchableOpacity>
@@ -102,7 +117,7 @@ const EventScreen = ({navigation}) => {
                   color: Theme ? Color.White : Color.DarkTextColor,
                 },
               ]}>
-              Abuja Special Holy Ghost Congress
+              {data.title}
             </Text>
           </View>
 
@@ -114,7 +129,7 @@ const EventScreen = ({navigation}) => {
                   color: Theme ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
-              June 22, 2023 - June 24, 2023
+              {moment(data.start_date).format("MMM Do YY")} -  {moment(data.end_date).format("MMM Do YY")}
             </Text>
             <View
               style={{
@@ -134,7 +149,7 @@ const EventScreen = ({navigation}) => {
                   color: Theme ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
-              4PM -7PM WAT
+              {data.start_time} - {data.end_time}
             </Text>
           </View>
 
@@ -149,10 +164,11 @@ const EventScreen = ({navigation}) => {
                   color: Theme ? Color.White : Color.TextColor2,
                 },
               ]}>
-              The Abuja Special Holy Ghost Service is an annual gathering of the
+              {/* The Abuja Special Holy Ghost Service is an annual gathering of the
               church in the FCT and environs where prayers are offered for the
               country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed ministers of God.
+              Adeboye and other anointed ministers of God. */}
+              {data.about}
             </Text>
           </View>
         </View>
@@ -160,7 +176,7 @@ const EventScreen = ({navigation}) => {
           style={{
             height: verticalScale(25),
             backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          }}></View>
+          }} />
 
         <View
           style={{
@@ -195,7 +211,7 @@ const EventScreen = ({navigation}) => {
               },
               styles.LocationText,
             ]}>
-            Keiffi
+            {data.location}
           </Text>
           <Text
             style={[
@@ -206,8 +222,7 @@ const EventScreen = ({navigation}) => {
               },
               styles.LocationDetailsText,
             ]}>
-            KM 23, Auta-Gurku Village, Abuja-Keffi Expressway, Nasarawa State,
-            Nigeria.
+            {data.address}
           </Text>
         </View>
         <View
