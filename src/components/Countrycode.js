@@ -17,12 +17,13 @@ import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import Header from './Header';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Countrycode = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});

@@ -49,12 +49,13 @@ import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import BottomTab from '../../constant/BottomTab';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsGuest = () => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,24 +71,24 @@ const SettingsGuest = () => {
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-          barStyle={Theme ? 'light-content' : 'dark-content'}
+          backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={[
               styles.HeaderStyle,
               {
-                backgroundColor: Theme
+                backgroundColor: Theme === 'dark'
                   ? Color.ExtraViewDark
                   : Color.HeaderColor,
               },
@@ -97,7 +98,7 @@ const SettingsGuest = () => {
                 style={[
                   styles.WelcomeText,
                   {
-                    color: Theme ? Color.White : Color.Black,
+                    color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
                 Guest, Brethren.
@@ -112,7 +113,7 @@ const SettingsGuest = () => {
               style={[
                 styles.UserInfo,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.ImageAndText}>
@@ -139,7 +140,7 @@ const SettingsGuest = () => {
                     style={[
                       styles.UserNameText,
                       {
-                        color: Theme ? Color.White : Color.DarkTextColor,
+                        color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                       },
                     ]}>
                     Sign In
@@ -148,12 +149,12 @@ const SettingsGuest = () => {
                     style={[
                       styles.UserInfoText,
                       {
-                        color: Theme ? Color.White : Color.Black,
+                        color: Theme === 'dark' ? Color.White : Color.Black,
                       },
                     ]}>
                     <Text
                       style={{
-                        color: Theme ? Color.White : Color.Black,
+                        color: Theme === 'dark' ? Color.White : Color.Black,
                         fontFamily: Font.Poppins700,
                         fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(11),
                       }}>
@@ -168,7 +169,7 @@ const SettingsGuest = () => {
           <View
             style={{
               height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             }}
           />
           <View style={styles.MainView}>
@@ -177,11 +178,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <AboutDark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -195,7 +196,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   About
@@ -217,17 +218,17 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View
                 style={[
                   styles.IconAndText,
                   {
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   },
                 ]}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <LanguageDark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -241,7 +242,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.DarkTextColor,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     },
                   ]}>
                   Language
@@ -260,11 +261,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={[styles.IconAndText]}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Notification_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -278,7 +279,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   Notifications
@@ -293,11 +294,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Dark_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -310,7 +311,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   DarkMode
@@ -329,7 +330,7 @@ const SettingsGuest = () => {
           <View
             style={{
               height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             }}
           />
           <View style={[styles.MainView]}>
@@ -338,11 +339,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Faq_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -354,7 +355,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   FAQ
@@ -374,11 +375,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Terms_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -392,7 +393,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   Terms
@@ -412,11 +413,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Privacy_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -430,7 +431,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   Privacy
@@ -449,7 +450,7 @@ const SettingsGuest = () => {
           <View
             style={{
               height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             }}
           />
 
@@ -459,11 +460,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Feedback_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -477,7 +478,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   Feedback
@@ -498,11 +499,11 @@ const SettingsGuest = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Call_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -516,7 +517,7 @@ const SettingsGuest = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   Contact
@@ -579,7 +580,7 @@ const SettingsGuest = () => {
           <View
             style={{
               height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             }}
           />
 

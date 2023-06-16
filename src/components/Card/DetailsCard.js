@@ -12,12 +12,13 @@ import {
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const DetailsCard = props => {
   const fourInchPotrait = w <= 350 && h <= 600;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const iosTab = w >= 820 && h >= 1180;
 
   return (
@@ -66,7 +67,7 @@ const DetailsCard = props => {
           }}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TitleStyle,
             ]}>
             {props.title}
@@ -74,7 +75,7 @@ const DetailsCard = props => {
           <Text
             style={[
               {
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 marginTop:
                 Platform.OS == 'ios'
                   ? 0

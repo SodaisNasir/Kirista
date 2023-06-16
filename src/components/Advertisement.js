@@ -22,6 +22,7 @@ const Advertisement = () => {
   const [forImage, setForImage] = useState();
   const [forTitle, setForTitle] = useState();
   const [forLink, setForLink] = useState();
+  
   useFocusEffect(
     useCallback(() => {
       show_popup(setForImage, setForTitle, setForLink);

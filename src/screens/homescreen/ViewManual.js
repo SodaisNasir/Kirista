@@ -17,12 +17,15 @@ import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import CustomButton from '../../components/CustomButton';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ViewManual = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+const ViewManual = ({navigation,route}) => {
+  const {item} = route.params
+  const Theme = useSelector(state => state.mode)
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -33,13 +36,13 @@ const ViewManual = ({navigation}) => {
     <>
     <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      <StatusBar barStyle={Theme ? 'light-content' : 'dark-content' } backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
+      <StatusBar barStyle={Theme === 'dark' ? 'light-content' : 'dark-content' } backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
     <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
           marginTop:Platform.OS == 'ios' && w <= 450 && h <= 750 ? 0 : Platform.OS == 'ios' ? verticalScale(-20) : 0
           
         },
@@ -51,25 +54,26 @@ const ViewManual = ({navigation}) => {
         <View style={styles.ImageViewStyle}>
           <Image
             resizeMode="contain"
-            source={require('../../assets/images/manual.png')}
+            source={{uri: item?.cover_image}}
             style={{height: '100%', width: '100%'}}
           />
         </View>
         <View style={{marginTop: verticalScale(10)}}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TextStyle,
             ]}>
-            Sunday School Student
+            {/* Sunday School Student */}
+            {item?.title}
           </Text>
-          <Text
+          {/* <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TextStyle,
             ]}>
             Manual
-          </Text>
+          </Text> */}
         </View>
 
         <View
@@ -80,7 +84,10 @@ const ViewManual = ({navigation}) => {
             paddingHorizontal: verticalScale(20),
           }}>
           <CustomButton
-            onPress={() => navigation.navigate('Readone')}
+            onPress={() => navigation.navigate('Readone',{
+              id: item?.id,
+              item:item
+            })}
             text={'Read'}
           />
         </View>
@@ -90,7 +97,7 @@ const ViewManual = ({navigation}) => {
         <View
           style={{
             height: verticalScale(18),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -102,7 +109,7 @@ const ViewManual = ({navigation}) => {
             alignSelf: 'center',
             height:
               w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(120),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             // height: verticalScale(80),
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
@@ -116,13 +123,13 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Language</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>Language</Text>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BoldDetailTextStyle,
               ]}>
-              English
+               {item?.language}
             </Text>
           </View>
           <View
@@ -134,13 +141,13 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Category</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>Category</Text>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BoldDetailTextStyle,
               ]}>
-              Manual
+              {item?.category}
             </Text>
           </View>
           <View
@@ -150,20 +157,20 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Released</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>Released</Text>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BoldDetailTextStyle,
               ]}>
-              2023
+               {item?.release_year}
             </Text>
           </View>
         </View>
         <View
           style={{
             height: verticalScale(18),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -171,7 +178,7 @@ const ViewManual = ({navigation}) => {
           style={{
             height: verticalScale(70),
             justifyContent: 'center',
-            borderBottomColor: Theme
+            borderBottomColor: Theme === 'dark'
               ? Color.DarkBorderColor
               : Color.BorderColor,
             borderBottomWidth: 1,
@@ -179,17 +186,17 @@ const ViewManual = ({navigation}) => {
           }}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.AuthorText,
             ]}>
             Author
           </Text>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.AuthorNameText,
             ]}>
-            Pastor E.A. Adeboye
+           {item?.author}
           </Text>
         </View>
 
@@ -199,19 +206,20 @@ const ViewManual = ({navigation}) => {
             marginVertical: verticalScale(15),
           }}>
           <Text
-            style={[styles.About, {color: Theme ? Color.White : Color.Black}]}>
+            style={[styles.About, {color: Theme === 'dark' ? Color.White : Color.Black}]}>
             About
           </Text>
 
           <Text
             style={[
               styles.AboutText,
-              {color: Theme ? Color.White : Color.Black},
+              {color: Theme === 'dark' ? Color.White : Color.Black},
             ]}>
-            This Sunday School year is expected to be a year of firm and
+            {/* This Sunday School year is expected to be a year of firm and
             dedicated study. This year's manual is a compilation of sound
             biblical doctrines. Our personal goal should be to study the Bible
-            to discover the treasures in it.
+            to discover the treasures in it. */}
+            {item?.about}
           </Text>
         </View>
 
@@ -238,6 +246,8 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins600,
     textAlign: 'center',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
+    width: '80%',
+    alignSelf: 'center'
   },
   DetailTextStyle: {
     fontFamily: Font.Poppins400,

@@ -16,12 +16,13 @@ import {scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ParishesResult = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   const data = [
     {
@@ -79,13 +80,13 @@ const ParishesResult = ({navigation}) => {
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
     <View
       style={[
         styles.Container,
-        {backgroundColor: Theme ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0},
       ]}>
       <Header text={'Result'} AuthHeaderStyle={{
         paddingTop:0,
@@ -143,7 +144,7 @@ const ParishesResult = ({navigation}) => {
                     style={[
                       styles.TitleStyle,
                       {
-                        color: Theme ? '#fff' : Color.DarkTextColor,
+                        color: Theme === 'dark' ? '#fff' : Color.DarkTextColor,
                         marginTop: verticalScale(5),
                       },
                     ]}>
@@ -152,7 +153,7 @@ const ParishesResult = ({navigation}) => {
                   <Text
                     style={[
                       {
-                        color: Theme ? '#fff' : Color.DarkTextColor,
+                        color: Theme === 'dark' ? '#fff' : Color.DarkTextColor,
                         marginTop:  Platform.OS == 'ios' ? verticalScale(-5) :  verticalScale(-10),
                       },
                       styles.TitleStyle,

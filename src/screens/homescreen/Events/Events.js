@@ -15,6 +15,7 @@ import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import DetailsCard from '../../../components/Card/DetailsCard';
 import {active_event} from '../../../redux/actions/UserAction';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -30,13 +31,13 @@ const Events = () => {
       active_event(setEvent);
     }, []),
   );
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   return (
     <View
       style={[
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
         styles.Container,
       ]}>
@@ -82,7 +83,7 @@ const Events = () => {
               }}>
               <ActivityIndicator
                 size="large"
-                color={Theme ? Color.White : Color.DarkTheme}
+                color={Theme === 'dark' ? Color.White : Color.DarkTheme}
               />
             </View>
           )}
@@ -100,7 +101,7 @@ const Events = () => {
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
                 marginTop:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
                 borderBottomWidth: 1,
               }}
             />
@@ -118,7 +119,7 @@ const Events = () => {
                 marginTop:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
                 // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
                 borderBottomWidth: 1,
               }}
             />
@@ -137,7 +138,7 @@ const Events = () => {
                 marginTop:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
                 // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
                 borderBottomWidth: 1,
               }}
             />
@@ -157,7 +158,7 @@ const Events = () => {
                 marginTop:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
                 // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
                 borderBottomWidth: 1,
               }}
             />
@@ -175,7 +176,7 @@ const Events = () => {
                 marginTop:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
                 // backgroundColor:'red'
-                borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
                 borderBottomWidth: 1,
               }}
             /> */}

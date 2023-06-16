@@ -23,11 +23,13 @@ import DetailsCard from '../components/Card/DetailsCard';
 import Swiper from 'react-native-swiper';
 import {
   active_event,
+  getBooks,
   parish,
   show_all_banner,
 } from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -38,13 +40,13 @@ const HomeScreen = () => {
   const [forLink, setForLink] = useState(``);
   const [data, setData] = useState([]);
   const [event, setEvent] = useState([]);
-  // console.log('data', data[0].email);
+  const [myData,setMyData] = useState([])
 
   const navigation = useNavigation();
 
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const image_data = [
     {
       id: 1,
@@ -142,6 +144,7 @@ const HomeScreen = () => {
       show_all_banner(setForImage, setForLink);
       parish(setData);
       active_event(setEvent);
+      getBooks(setMyData)
     }, []),
   );
   const imageUrl =
@@ -150,13 +153,13 @@ const HomeScreen = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={[
             {
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             },
             styles.SwiperViewOne,
           ]}>
@@ -172,7 +175,7 @@ const HomeScreen = () => {
               live
             />
             <SwiperCard
-              source={{uri: imageUrl}}
+              source={{uri: forImage}}
               text_subText="asdf is the live event my friend"
             />
             {/* <TouchableOpacity
@@ -240,7 +243,7 @@ const HomeScreen = () => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BooksText,
               ]}>
               Popular Books
@@ -270,11 +273,14 @@ const HomeScreen = () => {
             <FlatList
               showsHorizontalScrollIndicator={false}
               numColumns={Math.ceil(books_data?.length / 2)}
-              data={books_data}
+              // data={myData}
+              data={myData.slice(0, 5)}
               renderItem={({item}) => {
                 return (
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('ViewManual')}>
+                    onPress={() => navigation.navigate('ViewManual',{
+                      item:item
+                    })}>
                     <View
                       style={{
                         height:
@@ -307,7 +313,7 @@ const HomeScreen = () => {
                               height: '100%',
                               width: '100%',
                             }}
-                            source={item?.image}
+                            source={{uri: item?.cover_image}}
                           />
                         </View>
                       </View>
@@ -319,7 +325,7 @@ const HomeScreen = () => {
                           <Text
                             style={[
                               {
-                                color: Theme
+                                color: Theme === 'dark'
                                   ? Color.White
                                   : Color.DarkTextColor,
                               },
@@ -331,14 +337,14 @@ const HomeScreen = () => {
                             style={[
                               styles.BooksTitleStyle,
                               {
-                                color: Theme
+                                color: Theme === 'dark'
                                   ? Color.White
                                   : Color.DarkTextColor,
                                 marginTop:
                                   Platform.OS == 'ios' ? 0 : verticalScale(-5),
                               },
                             ]}>
-                            {item.manual}
+                            {item?.category}
                           </Text>
                         </View>
                         <View
@@ -361,7 +367,7 @@ const HomeScreen = () => {
         </View>
         <View
           style={[
-            {backgroundColor: Theme ? Color.ExtraViewDark : Color.White},
+            {backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.White},
             styles.SwiperViewTwo,
           ]}>
           <FlatList
@@ -582,7 +588,7 @@ const HomeScreen = () => {
             <View style={{}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.BooksText,
                 ]}>
                 Featured Parishes
@@ -609,6 +615,7 @@ const HomeScreen = () => {
           {data.length > 0 ? (
             <>
               {data?.map((item, index) => {
+         
                 return (
                   index < 3 && (
                     <DetailsCard
@@ -620,7 +627,7 @@ const HomeScreen = () => {
                         });
                       }}
                       source={{uri: item.image}}
-                      // title="RCCG"
+                      title="RCCG"
                       manual={item.title}
                       resize={'contain'}
                       PlaceTrue={true}
@@ -644,7 +651,7 @@ const HomeScreen = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View
@@ -663,7 +670,7 @@ const HomeScreen = () => {
             <View>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.UpcomingText,
                 ]}>
                 Upcoming Events
@@ -698,8 +705,9 @@ const HomeScreen = () => {
                           navigation.navigate('EventScreen', {id: item.id});
                         }}
                         source={{uri: item.image}}
-                        manual={item.title}
+                        title={item.title}
                         // title="West Coast 2 Regional"
+                        manual={item?.address}
                         resize={'cover'}
                         TimeTrue={true}
                         time={item.start_time}

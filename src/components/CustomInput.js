@@ -15,6 +15,7 @@ import {Color} from '../utils/Colors';
 import {useController} from 'react-hook-form';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 
 const CustomInput = forwardRef((props, ref) => {3
@@ -22,7 +23,7 @@ const CustomInput = forwardRef((props, ref) => {3
 
   const standardLandscape = width >= 684 && height >= 360;
   const tabLandscape = width >= 768 && height >= 1024;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
   const tabPotrait = width >= 768 && height >= 1024;
@@ -43,7 +44,7 @@ const CustomInput = forwardRef((props, ref) => {3
       <Text
         style={{
           fontFamily: Font.Poppins500,
-          color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+          color: Theme === 'dark' ? Color.DarkThemText2 : Color.BoldTextColor,
           fontSize: tabPotrait
             ? verticalScale(11)
             : fourInchLandscape
@@ -94,7 +95,7 @@ const CustomInput = forwardRef((props, ref) => {3
             <View style={{paddingHorizontal: moderateScale(5)}}>
               <Text
                 style={{
-                  color: Theme ? Color.White : Color.TextColor,
+                  color: Theme === 'dark' ? Color.White : Color.TextColor,
                   fontFamily: Font.Inter500,
                   fontSize: tabPotrait
                     ? verticalScale(11)
@@ -108,7 +109,7 @@ const CustomInput = forwardRef((props, ref) => {3
             <AntDesign
               name="down"
               size={tabPotrait ? scale(11) : scale(16)}
-              color={Theme ? Color.White : Color.Black}
+              color={Theme === 'dark' ? Color.White : Color.Black}
             />
           </TouchableOpacity>
         ) : null}
@@ -138,7 +139,7 @@ const CustomInput = forwardRef((props, ref) => {3
               fontFamily: Font.Inter500,
               alignItems: 'center',
               justifyContent: 'center',
-              color: Theme ? Color.White : Color.TextColor,
+              color: Theme === 'dark' ? Color.White : Color.TextColor,
               flex: 1,
               top: verticalScale(1),
             },

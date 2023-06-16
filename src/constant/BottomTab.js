@@ -7,6 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import {Color} from '../utils/Colors';
 import { Font } from '../utils/font';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -14,13 +15,13 @@ const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
 const fourInch = w <= 450 && h <= 750;
 const BottomTab = props => {
-    const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
     const Navigation = useNavigation()
     return (
     <View
       style={[
         styles.Row,
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
         props.BottomTabRestyle
       ]}>
       <Pressable onPress={() => Navigation.navigate('Home')} style={styles.Boxes}>

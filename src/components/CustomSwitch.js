@@ -2,9 +2,10 @@ import {View, Switch, useColorScheme,Platform} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Color} from '../utils/Colors';
 import { moderateScale } from 'react-native-size-matters';
+import { useSelector } from 'react-redux';
 
 const CustomSwitch = props => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   useEffect(() => {
     console.log(Theme);
   }, [Theme]);
@@ -19,7 +20,7 @@ const CustomSwitch = props => {
           false: '#EBEAEA',
           true: Color.Main,
         }}
-        thumbColor={Theme ? '#0e346c' : Color.White}
+        thumbColor={Theme === 'dark' ? '#0e346c' : Color.White}
         ios_backgroundColor="#D3D3D3"
         onValueChange={toggleSwitch}
         value={isEnabled}

@@ -16,17 +16,18 @@ import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { getFAQ } from '../../redux/actions/UserAction';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Faq = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
-  const [expanded1, setExpanded1] = useState(false);
-  const [expanded2, setExpanded2] = useState(false);
-  const [expanded3, setExpanded3] = useState(false);
-  const [expanded4, setExpanded4] = useState(false);
-  const [expanded5, setExpanded5] = useState(false);
+  const Theme = useSelector(state => state.mode)
+
+
+  const [data, setData] = useState([]);
+  const [select, setSelect] = useState('');
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -34,33 +35,27 @@ const Faq = ({navigation}) => {
         display: 'none',
       },
     });
+    getFAQ(setData)
   }, []);
 
-  const handlePress1 = () => {
-    setExpanded1(!expanded1);
-  };
-  const handlePress2 = () => {
-    setExpanded2(!expanded2);
-  };
-  const handlePress3 = () => {
-    setExpanded3(!expanded3);
-  };
-  const handlePress4 = () => {
-    setExpanded4(!expanded4);
-  };
-  const handlePress5 = () => {
-    setExpanded5(!expanded5);
-  };
 
+
+  const onSubmit = (id) => {
+    if(select == id) {
+      setSelect('')
+    } else {
+      setSelect(id)
+    }
+  }
   return (
     <>
-    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <SafeAreaView style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White,
+      style={{flex: 1, backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
         <Header text={'FAQ'} /> 
          {/* AuthHeaderStyle={{
@@ -76,43 +71,49 @@ const Faq = ({navigation}) => {
           style={[
             styles.MainBox,
             {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             },
           ]}>
-          <View style={{marginVertical: verticalScale(15)}}>
+            {
+              data?.map((item) => {
+                return(
+                  <>
+                  
+          <View style={{marginBottom: verticalScale(15)}}>
             <TouchableOpacity
               style={[
                 styles.BoxStyle,
                 {
-                  backgroundColor: Theme
+                  backgroundColor: Theme === 'dark'
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
                 },
               ]}
-              onPress={handlePress1}>
+              onPress={() => onSubmit(item.id)}>
               <View style={{width: '75%'}}>
                 <Text
                   style={[
                     styles.InnerText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTheme,
                     },
                   ]}>
-                  How can I download Kirista app?
+                  {/* How can I download Kirista app? */}
+                  {item?.question}
                 </Text>
               </View>
               <View style={{flex: 1, alignItems: 'flex-end'}}>
                 <AntDesign
                   name={'minus'}
                   size={24}
-                  color={Theme ? Color.White : Color.Black}
+                  color={Theme === 'dark' ? Color.White : Color.Black}
                 />
               </View>
             </TouchableOpacity>
-            {expanded1 && (
+            {item?.id == select && (
               <View
                 style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -121,17 +122,22 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.ExpandedText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTheme,
                     },
                   ]}>
-                  Kirista is a mobile application that provides brethren with
+                  {/* Kirista is a mobile application that provides brethren with
                   access to a library of books that they can read on their
-                  devices.
+                  devices. */}
+                    {item?.answer}
                 </Text>
               </View>
             )}
           </View>
-
+                  </>
+                )
+              })
+            }
+{/* 
           <View style={{marginVertical: verticalScale(15)}}>
             <TouchableOpacity
               style={[
@@ -148,7 +154,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.InnerText,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   What is the goal of Kirista App?
@@ -158,14 +164,14 @@ const Faq = ({navigation}) => {
                 <AntDesign
                   name={'minus'}
                   size={24}
-                  color={Theme ? Color.White : Color.Black}
+                  color={Theme === 'dark' ? Color.White : Color.Black}
                 />
               </View>
             </TouchableOpacity>
             {expanded2 && (
               <View
                 style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -174,7 +180,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.ExpandedText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTheme,
                     },
                   ]}>
                   Kirista is a mobile application that provides brethren with
@@ -201,7 +207,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.InnerText,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   How can I download Kirista app?
@@ -211,14 +217,14 @@ const Faq = ({navigation}) => {
                 <AntDesign
                   name={'minus'}
                   size={24}
-                  color={Theme ? Color.White : Color.Black}
+                  color={Theme === 'dark' ? Color.White : Color.Black}
                 />
               </View>
             </TouchableOpacity>
             {expanded3 && (
               <View
                 style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -227,7 +233,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.ExpandedText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTheme,
                     },
                   ]}>
                   Kirista is a mobile application that provides brethren with
@@ -254,7 +260,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.InnerText,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   Are the books on Kirista app really free?
@@ -264,14 +270,14 @@ const Faq = ({navigation}) => {
                 <AntDesign
                   name={'minus'}
                   size={24}
-                  color={Theme ? Color.White : Color.Black}
+                  color={Theme === 'dark' ? Color.White : Color.Black}
                 />
               </View>
             </TouchableOpacity>
             {expanded4 && (
               <View
                 style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -280,7 +286,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.ExpandedText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTheme,
                     },
                   ]}>
                   Kirista is a mobile application that provides brethren with
@@ -307,7 +313,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.InnerText,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
                   What types of books are available on Kirista app?
@@ -317,14 +323,14 @@ const Faq = ({navigation}) => {
                 <AntDesign
                   name={'minus'}
                   size={24}
-                  color={Theme ? Color.White : Color.Black}
+                  color={Theme === 'dark' ? Color.White : Color.Black}
                 />
               </View>
             </TouchableOpacity>
             {expanded5 && (
               <View
                 style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.Black : Color.White,
                   borderRadius: scale(16),
                   paddingHorizontal: 5,
                   marginTop: verticalScale(10),
@@ -333,7 +339,7 @@ const Faq = ({navigation}) => {
                   style={[
                     styles.ExpandedText,
                     {
-                      color: Theme ? Color.White : Color.DarkTheme,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTheme,
                     },
                   ]}>
                   Kirista is a mobile application that provides brethren with
@@ -342,7 +348,7 @@ const Faq = ({navigation}) => {
                 </Text>
               </View>
             )}
-          </View>
+          </View> */}
 
           <View style={{height: verticalScale(10)}} />
         </View>

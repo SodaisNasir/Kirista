@@ -17,6 +17,7 @@ import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const RccgStructure = ({navigation}) => {
   useFocusEffect(
@@ -24,20 +25,20 @@ const RccgStructure = ({navigation}) => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   return (
     <>
-    <SafeAreaView style={{ backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,}} />
+    <SafeAreaView style={{ backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,}} />
        <View
       style={[
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
           flex: 1,
         },
       ]}>
-        <StatusBar backgroundColor={ Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
+        <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
       <Header text={'RCCG Structure'} />   
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -73,7 +74,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 1
             </Text>
@@ -81,7 +82,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
               }}>
               Nigeria, North Africa (Ethiopia)
@@ -97,14 +98,14 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continental Overseer{''}
               <Text
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 - Pastor J.O. Obayemi
               </Text>
@@ -114,7 +115,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textAlign: 'center',
               }}>
               Deputy Continental Overseer {''}
@@ -122,7 +123,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 - Pastor Tosin Macauley
               </Text>
@@ -141,7 +142,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Assistant Continental Overseers
             </Text>
@@ -149,7 +150,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Pastor Sunday Akande
             </Text>
@@ -157,7 +158,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Pastor Kalu Ndukwe
             </Text>
@@ -165,7 +166,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Pastor Margaret Daramola
             </Text>
@@ -173,7 +174,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Pastor Tunde Oduwole
             </Text>
@@ -181,7 +182,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -199,7 +200,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 2
             </Text>
@@ -207,7 +208,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -224,14 +225,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor E.A. Odeyemi
                 </Text>
@@ -241,7 +242,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Deputy Continental Overseer {''}
@@ -249,7 +250,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor James Dagunduro
                 </Text>
@@ -266,7 +267,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Assistant Continental Overseers
               </Text>
@@ -275,7 +276,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Pastor Peter Akalamudo (Cameroun)
@@ -285,7 +286,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Pastor Peter Akalamudo (Cameroun)
@@ -295,7 +296,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Pastor Emmanuel Kalejaiye (Gambia)
@@ -305,7 +306,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Pastor John Temitope (Cote D' Ivoire)
@@ -315,7 +316,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Pastor Christopher Oni
@@ -325,7 +326,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Pastor Dele Olowookere
@@ -334,7 +335,7 @@ const RccgStructure = ({navigation}) => {
           </View>
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -352,7 +353,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 3
             </Text>
@@ -360,7 +361,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -376,14 +377,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor J.F Odesola
                 </Text>
@@ -393,7 +394,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -411,7 +412,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 4
             </Text>
@@ -419,7 +420,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -435,14 +436,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Ayo Adeloye
                 </Text>
@@ -452,7 +453,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -470,7 +471,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 5
             </Text>
@@ -478,7 +479,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -494,7 +495,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Continental Overseer {''}
@@ -502,7 +503,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Peter Amenkhienan
                 </Text>
@@ -512,7 +513,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Deputy Continental Overseer {''}
@@ -520,7 +521,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Prince ObasiIke
                 </Text>
@@ -530,7 +531,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -548,7 +549,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 6
             </Text>
@@ -556,7 +557,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -573,14 +574,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor James Fadel
                 </Text>
@@ -590,14 +591,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Deputy Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Femi Olawale
                 </Text>
@@ -607,7 +608,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -625,7 +626,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 7
             </Text>
@@ -633,7 +634,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -649,14 +650,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Remi Akintunde
                 </Text>
@@ -666,14 +667,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Deputy Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Kola Olaade
                 </Text>
@@ -683,7 +684,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -701,7 +702,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 8
             </Text>
@@ -709,7 +710,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -725,14 +726,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Wole Haastrup
                 </Text>
@@ -742,7 +743,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Deputy Continental Overseer {''}
@@ -750,7 +751,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Ibukun Williams
                 </Text>
@@ -760,7 +761,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -778,7 +779,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Continent 9
             </Text>
@@ -786,7 +787,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 textDecorationLine: 'underline',
                 textAlign: 'center',
               }}>
@@ -803,14 +804,14 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Continental Overseer {''}
                 <Text
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Dele Olowu
                 </Text>
@@ -820,7 +821,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Deputy Continental Overseer {''}
@@ -828,7 +829,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Leke Sanusi
                 </Text>
@@ -838,7 +839,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
               borderWidth: 1,
               borderStyle: 'dashed',
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
@@ -856,7 +857,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Intercontinental Departments
             </Text>
@@ -870,7 +871,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Intercontinental Evangelist {''}
@@ -878,7 +879,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor J.T Kalejaiye
                 </Text>
@@ -888,7 +889,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Intercontinental Youth Pastor {''}
@@ -896,7 +897,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Belemina Obunge
                 </Text>
@@ -906,7 +907,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Intercontinental Prayer Coordinator {''}
@@ -914,7 +915,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Peter Olawale
                 </Text>
@@ -924,7 +925,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Intercontinental Music Director {''}
@@ -932,7 +933,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Kunle Ajayi
                 </Text>
@@ -942,7 +943,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Intercontinental Financial Controller {''}
@@ -950,7 +951,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Joseph Adeyokunnu
                 </Text>
@@ -960,7 +961,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Intercontinental CSR Coordinator {''}
@@ -968,7 +969,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Idowu Iluyomade
                 </Text>
@@ -978,7 +979,7 @@ const RccgStructure = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   textAlign: 'center',
                 }}>
                 Intercontinental Security Director {''}
@@ -986,7 +987,7 @@ const RccgStructure = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   - Pastor Oke Mofunaya
                 </Text>
@@ -996,7 +997,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
               borderWidth: 1,
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
@@ -1013,7 +1014,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Pastor E.A. Adeboye
             </Text>
@@ -1021,7 +1022,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               General Overseer, RCCG World Wide
             </Text>
@@ -1029,7 +1030,7 @@ const RccgStructure = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
               borderWidth: 1,
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',

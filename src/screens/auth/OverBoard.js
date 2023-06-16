@@ -21,7 +21,7 @@ import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IS_GUEST, LOGIN, USER_DETAILS} from '../../redux/reducer';
 const OverBoard = ({navigation}) => {
 
@@ -54,7 +54,7 @@ console.log('selectedLanguage', selectedLanguage)
   const fourInchLandscape = width <= 350 && height <= 600;
 
   console.log(width, height);
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const handelSkip = () => {
     // navigation.navigate('BottomTabNavigator');
     Dispatch({type: IS_GUEST, payload: true});
@@ -64,10 +64,10 @@ console.log('selectedLanguage', selectedLanguage)
     <View
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
-         {/* <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} barStyle={Theme ? 'light-content' : 'dark-content'} /> */}
-         <StatusBar  translucent={true} backgroundColor={'transparent'} barStyle={Theme ? 'light-content' : 'dark-content'} />
+         {/* <StatusBar backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White} barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'} /> */}
+         <StatusBar  translucent={true} backgroundColor={'transparent'} barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'} />
       <ImageBackground
         source={
           Theme
@@ -177,7 +177,7 @@ console.log('selectedLanguage', selectedLanguage)
                   borderWidth: scale(2),
                   borderColor: Color.Main,
                   borderRadius: scale(10),
-                  padding: Theme ? 0 : 3,
+                  padding: Theme === 'dark' ? 0 : 3,
                 }}>
                 <Image
                   source={
@@ -189,7 +189,7 @@ console.log('selectedLanguage', selectedLanguage)
                     width: '100%',
                     height: '100%',
                   }}
-                  resizeMode={Theme ? 'cover' : 'contain'}
+                  resizeMode={Theme === 'dark' ? 'cover' : 'contain'}
                 />
               </View>
               <View
@@ -253,7 +253,7 @@ console.log('selectedLanguage', selectedLanguage)
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: tabPotrait ? scale(15) : scale(20),
-                  color: Theme ? Color.White : Color.Black,
+                  color: Theme === 'dark' ? Color.White : Color.Black,
                 }}>
                 Welcome, Brethren.
               </Text>

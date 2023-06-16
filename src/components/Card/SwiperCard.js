@@ -15,13 +15,15 @@ import {
 import {Font} from '../../utils/font';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const SwiperCard = ({source, live, text_subText,lastText}) => {
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
-  const Theme = useColorScheme() === 'dark';
+  // const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   return (
     <>
       <View

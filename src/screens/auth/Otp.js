@@ -38,9 +38,8 @@ const OTP = ({navigation, route}) => {
   const dispatch = useDispatch();
   const otp = useSelector((state) => state.otp)
 
-  console.log('id', id)
 
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const [value, setValue] = useState();
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -76,7 +75,7 @@ const OTP = ({navigation, route}) => {
   return (
     <SafeAreaView
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -90,7 +89,7 @@ const OTP = ({navigation, route}) => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.LongText,
               ]}>
               We have sent a one-time password to{' '}
@@ -98,7 +97,7 @@ const OTP = ({navigation, route}) => {
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
-                  color: Theme ? Color.DarkThemText2 : Color.TextColor,
+                  color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor,
                 }}>
                 {/* maryjames@rccg.com */}
                 {data?.email}
@@ -115,7 +114,7 @@ const OTP = ({navigation, route}) => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.OtpText,
               ]}>
               OTP {otp}
@@ -133,7 +132,7 @@ const OTP = ({navigation, route}) => {
                   onPress={resendOtp}>
                   <Text
                     style={{
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                       fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                       fontFamily: Font.Poppins700,
                     }}>
@@ -143,7 +142,7 @@ const OTP = ({navigation, route}) => {
               ) : (
                 <Text
                   style={{
-                    color: Theme ? Color.White : Color.Black,
+                    color: Theme === 'dark' ? Color.White : Color.Black,
                     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                     alignSelf: 'center',
                     fontFamily: Font.Poppins700,
@@ -161,7 +160,7 @@ const OTP = ({navigation, route}) => {
             rootStyle={[
               styles.codeFieldRoot,
               {
-                color: Theme ? Color.White : Color.Black,
+                color: Theme === 'dark' ? Color.White : Color.Black,
                 borderRadius: scale(16),
               },
             ]}
@@ -178,7 +177,7 @@ const OTP = ({navigation, route}) => {
                 <Text
                   key={index}
                   style={[
-                    {color: Theme ? Color.White : Color.Black},
+                    {color: Theme === 'dark' ? Color.White : Color.Black},
                     styles.cell,
                     isFocused && styles.focusCell,
                     Platform.OS == 'ios'

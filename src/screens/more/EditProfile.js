@@ -33,7 +33,7 @@ const EditProfile = ({navigation}) => {
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const userData = useSelector(state => state.user_details)
   const [text, onChangeText] = useState('');
 
@@ -107,14 +107,14 @@ defaultValues:{
     <>
          <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
     <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      style={{flex: 1, backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White}}>
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.White}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.White}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
       <Header text={'Edit Profile'} />
       <ScrollView showsVerticalScrollIndicator={false}>

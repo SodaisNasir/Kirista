@@ -23,6 +23,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import Loading from '../../components/Modals/Loading';
 import { event_by_id } from '../../redux/actions/UserAction';
 import moment from 'moment/moment';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -32,9 +33,8 @@ const EventScreen = ({route, navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const {id} = route.params;
   const [data, setData] = useState('');
-  console.log('data ==>', data);
   const [loading, setLoading] = useState(false);
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   
 
   useFocusEffect(
@@ -56,12 +56,12 @@ const EventScreen = ({route, navigation}) => {
     <Loading />
   ) : (
     <>
-    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <SafeAreaView style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <View
       style={[
         styles.Container,
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
       ]}>
         <CustomHeader
@@ -114,7 +114,7 @@ const EventScreen = ({route, navigation}) => {
               style={[
                 styles.TextStyle,
                 {
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
               ]}>
               {data.title}
@@ -126,14 +126,14 @@ const EventScreen = ({route, navigation}) => {
               style={[
                 styles.DateText,
                 {
-                  color: Theme ? '#828C9B' : Color.TextColor2,
+                  color: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
               {moment(data.start_date).format("MMM Do YY")} -  {moment(data.end_date).format("MMM Do YY")}
             </Text>
             <View
               style={{
-                backgroundColor: Theme ? '#828C9B' : Color.TextColor2,
+                backgroundColor: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 borderRadius: 100,
                 width: scale(3),
                 height: scale(3),
@@ -146,7 +146,7 @@ const EventScreen = ({route, navigation}) => {
               style={[
                 styles.DateText,
                 {
-                  color: Theme ? '#828C9B' : Color.TextColor2,
+                  color: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
               {data.start_time} - {data.end_time}
@@ -161,7 +161,7 @@ const EventScreen = ({route, navigation}) => {
               style={[
                 styles.AboutText,
                 {
-                  color: Theme ? Color.White : Color.TextColor2,
+                  color: Theme === 'dark' ? Color.White : Color.TextColor2,
                 },
               ]}>
               {/* The Abuja Special Holy Ghost Service is an annual gathering of the
@@ -175,7 +175,7 @@ const EventScreen = ({route, navigation}) => {
         <View
           style={{
             height: verticalScale(25),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }} />
 
         <View
@@ -188,7 +188,7 @@ const EventScreen = ({route, navigation}) => {
           <Text
             style={[
               {
-                color: Theme ? Color.White : Color.Black,
+                color: Theme === 'dark' ? Color.White : Color.Black,
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               },
@@ -207,7 +207,7 @@ const EventScreen = ({route, navigation}) => {
               {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-                color: Theme ? Color.White : Color.TextColor2,
+                color: Theme === 'dark' ? Color.White : Color.TextColor2,
               },
               styles.LocationText,
             ]}>
@@ -218,7 +218,7 @@ const EventScreen = ({route, navigation}) => {
               {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-                color: Theme ? Color.White : Color.TextColor2,
+                color: Theme === 'dark' ? Color.White : Color.TextColor2,
               },
               styles.LocationDetailsText,
             ]}>

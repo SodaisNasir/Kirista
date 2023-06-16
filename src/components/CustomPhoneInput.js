@@ -14,12 +14,13 @@ import { Font } from '../utils/font';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {useNavigation} from '@react-navigation/native';
 import { Color } from '../utils/Colors';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const CustomPhoneinput = props => {
   const fourInchPotrait = w <= 350 && h <= 600;
-    const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
   useEffect(() => {}, [Theme]);
   return (

@@ -20,13 +20,30 @@ import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { MODE } from '../../redux/reducer';
 
 const DarkMode = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const getTheme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
+  const dispatch = useDispatch()
+  const Theme = useSelector(state => state.mode)
+  const [selected, setSelected] = useState('');
 
-  const [selected, setSelected] = useState();
+
+
+  const modeCheck = async () => {
+    const getMode = await AsyncStorage.getItem('mode')
+    const cnvrtMode = JSON.parse(getMode)
+    setSelected(cnvrtMode)
+  }
+
+useEffect(() => {
+  modeCheck()
+}, [])
+
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -38,11 +55,11 @@ const DarkMode = ({navigation}) => {
   let DATA = [
     {
       id: '1',
-      title: 'On',
+      title: 'Off',
     },
     {
       id: '2',
-      title: 'Off',
+      title: 'On',
     },
     {
       id: '3',
@@ -50,7 +67,6 @@ const DarkMode = ({navigation}) => {
     },
   ];
 
-  const [option, setOption] = useState(null);
 
   const Item = ({data}) => (
     <TouchableOpacity
@@ -61,7 +77,7 @@ const DarkMode = ({navigation}) => {
         },
         styles.item,
       ]}
-      onPress={() => setSelected(data.title)}>
+      onPress={() => onSubmit(data)}>
       <View
         style={{
           flexDirection: 'row',
@@ -79,7 +95,7 @@ const DarkMode = ({navigation}) => {
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
                 styles.title,
               ]}>
@@ -132,20 +148,40 @@ const DarkMode = ({navigation}) => {
       />
     </TouchableOpacity>
   );
+
+  const onSubmit = async (data) => {
+    setSelected(data.title)
+    // dispatch({type: MODE, payload: data.title})
+    await AsyncStorage.setItem('mode', JSON.stringify(data.title))
+
+    const onMode = 'dark'
+    const ofMode = 'light'
+  
+
+    if(data.title == 'On'){
+      dispatch({type: MODE, payload: onMode})
+    }else if(data.title == 'Off'){
+      dispatch({type: MODE, payload: ofMode})
+    }else if(data.title == 'Device Settings'){
+      dispatch({type: MODE, payload: getTheme})
+    }else{
+      console.log('vvvvvvv')
+    }
+  }
   return (
     <>
         <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
     <SafeAreaView
       style={[
         styles.Container,
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
       ]}>
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
       />
       <Header text={'Dark Mode'}  />
       <FlatList

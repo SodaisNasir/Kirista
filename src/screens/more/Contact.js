@@ -25,6 +25,7 @@ import {Font} from '../../utils/font';
 import {useForm} from 'react-hook-form';
 import { useState } from 'react';
 import { base_Url } from '../../utils/Url';
+import { useSelector } from 'react-redux';
 
 const Contact = () => {
 
@@ -38,7 +39,7 @@ const Contact = () => {
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const tabPotrait = w >= 768 && h >= 1024;
   const fourInchLandscape = w <= 600 && h <= 350;
   const iosTab = w >= 820 && h >= 1180;
@@ -108,14 +109,14 @@ const Contact = () => {
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
 
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <Header text={'Contact'} />
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -316,7 +317,7 @@ const Contact = () => {
               <Text
                 style={{
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+                  color: Theme === 'dark' ? Color.DarkThemText2 : Color.BoldTextColor,
                   fontSize: tabPotrait
                     ? verticalScale(11)
                     : fourInchLandscape
@@ -336,7 +337,7 @@ const Contact = () => {
                   paddingBottom: iosTab
                     ? moderateVerticalScale(60)
                     : moderateVerticalScale(100),
-                  color: Theme ? Color.White : Color.TextColor,
+                  color: Theme === 'dark' ? Color.White : Color.TextColor,
                   backgroundColor: Theme
                     ? Color.DarkThemeInputBox
                     : Color.InputBoxColor,

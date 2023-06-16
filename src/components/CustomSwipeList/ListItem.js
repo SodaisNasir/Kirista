@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Dimensions, PanResponder, useColorScheme } from 'react-native';
 import { Color } from '../../utils/Colors';
+import { useSelector } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 
 const ListItem = ({ text, success, setScrollEnabled }) => {
-    const Theme = useColorScheme() === 'dark'
+    // const Theme = useColorScheme() === 'dark'
+    const Theme = useSelector(state => state.mode)
   const [position] = useState(new Animated.ValueXY());
   const gestureDelay = -35;
   const scrollViewEnabled = useRef(true);
@@ -56,7 +58,7 @@ const ListItem = ({ text, success, setScrollEnabled }) => {
         <View style={styles.absoluteCell}>
           <Text style={styles.absoluteCellText}>DELETE</Text>
         </View>
-        <View style={[styles.innerCell,{backgroundColor: Theme ? Color.DarkTheme : Color.White,}]}>
+        <View style={[styles.innerCell,{backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,}]}>
           <Text>{text}</Text>
         </View>
       </Animated.View>

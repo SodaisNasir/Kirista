@@ -4,13 +4,15 @@ import { FlatList,View,useColorScheme,StyleSheet, Dimensions } from "react-nativ
 import DetailsCard from './Card/DetailsCard';
 import { moderateScale, verticalScale } from "react-native-size-matters";
 import { Color } from "../utils/Colors";
+import { useSelector } from "react-redux";
+import NoResult from "./NoResult";
 
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const ParishFinderSearch = () => {
   const Navigation = useNavigation()
-  const Theme = useColorScheme() == 'dark'
+  const Theme = useSelector(state => state.mode)
   const data = [
     {
       id: 1,
@@ -77,10 +79,7 @@ const ParishFinderSearch = () => {
               resize={'contain'}
               manual={item.manual}
               PlaceTrue={true}
-
               Place={item.detail}
-
-              
               MainBoxRestyle={{
                 paddingBottom:
                   w >= 768 && h >= 1024
@@ -90,7 +89,7 @@ const ParishFinderSearch = () => {
                   w >= 768 && h >= 1024
                     ? verticalScale(10)
                     : verticalScale(15),
-                borderBottomColor: Theme
+                borderBottomColor: Theme === 'dark'
                   ? Color.DarkBorder
                   : Color.BorderColor,
                 borderBottomWidth: 1,

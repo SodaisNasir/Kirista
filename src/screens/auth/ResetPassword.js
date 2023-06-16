@@ -17,7 +17,7 @@ import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import CustomInput from '../../components/CustomInput';
 import {useForm} from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { verify_Email_before_password } from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
@@ -27,7 +27,7 @@ const ResetPassword = ({navigation}) => {
   const dispatch = useDispatch()
 
   const iosTab = w >= 820 && h >= 1180;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const [message,setMessage] = useState('')
 
   const {
@@ -45,7 +45,7 @@ const ResetPassword = ({navigation}) => {
   return (
     <SafeAreaView
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -59,7 +59,7 @@ const ResetPassword = ({navigation}) => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.LongText,
               ]}>
               Please enter your email address, and we will send you an OTP to

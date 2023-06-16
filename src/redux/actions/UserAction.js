@@ -45,7 +45,6 @@ export const show_popup = async (setForImage, setForTitle,setForLink) =>{
     }
 }
 
-<<<<<<< Updated upstream
 export const parish = async (setData) => {
   try {
     let base_url = `${base_Url}parish-active`;
@@ -126,7 +125,8 @@ export const event_by_id = async (setData, id,setLoading) => {
     }
   } catch (error) {
     console.log('error', error)
-=======
+  }
+}
 export const updateProfile = (data,userData,saveimage,text,navigation) => {
   return async (dispatch) => {
     try {
@@ -181,6 +181,79 @@ export const updateProfile = (data,userData,saveimage,text,navigation) => {
     } catch (error) {
       console.log('error', error)
     }
->>>>>>> Stashed changes
+  }
+}
+
+export const getBooks = async (setData) => {
+  try {
+    let base_url = `${base_Url}book-active`;
+  
+    const response = await fetch(base_url, {
+      method: 'GET',
+    });
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      setData(responseData.success.data)
+      }else{
+        console.log('first')
+      }
+     }catch (error) {
+    console.log('error', error)
+  }
+}
+export const getChaptersByID = async (setData,id) => {
+  try {
+    let base_url = `${base_Url}chapter/${id}`;
+  
+    const response = await fetch(base_url, {
+      method: 'GET',
+    });
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      setData(responseData.success.data)
+      }else{
+        console.log('first')
+      }
+     }catch (error) {
+    console.log('error', error)
+  }
+}
+
+export const getChapters = async (setData,id) => {
+  try {
+    let base_url = `${base_Url}book-chapter/${id}`;
+  
+    const response = await fetch(base_url, {
+      method: 'GET',
+    });
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      setData(responseData.success.data)
+      }else{
+        console.log('first')
+      }
+     }catch (error) {
+    console.log('error', error)
+  }
+}
+export const getFAQ = async (setData) => {
+  try {
+    let base_url = `${base_Url}faq`;
+  
+    const response = await fetch(base_url, {
+      method: 'GET',
+    });
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      setData(responseData.success.data)
+      }else{
+        console.log('first')
+      }
+     }catch (error) {
+    console.log('error', error)
   }
 }

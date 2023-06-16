@@ -21,6 +21,7 @@ import CustomInput from '../../components/CustomInput';
 import Password from '../../components/Password';
 import { useForm } from 'react-hook-form';
 import { change_password } from '../../redux/actions/AuthAction';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -30,7 +31,7 @@ const height = Dimensions.get('window').height;
 
 const NewPassword = ({navigation,route}) => {
   const {data, id} = route.params;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
 
 
@@ -79,13 +80,13 @@ const NewPassword = ({navigation,route}) => {
       change_password(data,id,navigation)
       console.log('first',data)
     }else{
-      alert('vvvvvvvv')
+      console.log('vvvvvvvv')
     }
   }
   return (
     <SafeAreaView
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -99,7 +100,7 @@ const NewPassword = ({navigation,route}) => {
           }}>
           <Text
             style={[
-              {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+              {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
               styles.LongText,
             ]}>
             Kindly fill your new password and confirm it.

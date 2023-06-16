@@ -16,11 +16,12 @@ import {
 } from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const ParishCard = (props, {data}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   const navigation = useNavigation();
   return (
@@ -78,7 +79,7 @@ const ParishCard = (props, {data}) => {
           }}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TitleStyle,
             ]}>
             {props.title}
@@ -86,7 +87,7 @@ const ParishCard = (props, {data}) => {
           <Text
             style={[
               {bottom: scale(3)},
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TitleStyle,
             ]}>
             {props.manual}

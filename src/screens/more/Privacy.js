@@ -8,6 +8,7 @@ import {
   useColorScheme,
   StatusBar,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import React, {useLayoutEffect} from 'react';
 import {Color} from '../../utils/Colors';
@@ -15,34 +16,73 @@ import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import CustomNavigator from '../../components/CustomNavigator';
+import { base_Url } from '../../utils/Url';
+import { useState } from 'react';
+import RenderHtml from 'react-native-render-html';
+import { useSelector } from 'react-redux';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Privacy = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
+  const [data,setData] = useState('')
+  const { width } = useWindowDimensions();
+
+
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
     });
+    getPrivacy()
   }, []);
+
+
+const type = 'Privacy'
+  const getPrivacy = async () => {
+    try {
+
+      let base_url = `${base_Url}show-about`;
+      let myData = new FormData();
+      
+      myData.append('type',type);
+
+      const response = await fetch(base_url, {
+        body: myData,
+        method: 'post',
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success.status === 200) {
+        setData(responseData.success.data.description)
+      }
+      
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+  const source = {
+    html: data
+  };
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-          barStyle={Theme ? 'light-content' : 'dark-content'}
+          backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
         <Header
           text={'Privacy'}
@@ -64,15 +104,19 @@ const Privacy = ({navigation}) => {
             style={[
               styles.Container,
               {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
               },
             ]}>
-            <View style={{marginVertical: verticalScale(20)}}>
+              <RenderHtml
+      contentWidth={width}
+      source={source}
+    />
+            {/* <View style={{marginVertical: verticalScale(20)}}>
               <Text
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.Black,
+                    color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
                 Privacy Policy
@@ -81,7 +125,7 @@ const Privacy = ({navigation}) => {
                 style={[
                   styles.TextStyle,
                   {
-                    color: Theme ? Color.White : Color.Black,
+                    color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
                 INTRODUCTION
@@ -91,7 +135,7 @@ const Privacy = ({navigation}) => {
               style={[
                 styles.TextStyle,
                 {
-                  color: Theme ? Color.White : Color.Black,
+                  color: Theme === 'dark' ? Color.White : Color.Black,
                 },
               ]}>
               Kirista is dedicated to protecting your personal information and
@@ -106,7 +150,7 @@ const Privacy = ({navigation}) => {
               style={[
                 {
                   marginTop: verticalScale(10),
-                  color: Theme ? Color.White : Color.Black,
+                  color: Theme === 'dark' ? Color.White : Color.Black,
                 },
                 styles.TextStyle,
               ]}>
@@ -123,7 +167,7 @@ const Privacy = ({navigation}) => {
               style={[
                 {
                   marginTop: verticalScale(10),
-                  color: Theme ? Color.White : Color.Black,
+                  color: Theme === 'dark' ? Color.White : Color.Black,
                 },
                 styles.TextStyle,
               ]}>
@@ -139,7 +183,7 @@ const Privacy = ({navigation}) => {
               style={[
                 {
                   marginTop: verticalScale(10),
-                  color: Theme ? Color.White : Color.Black,
+                  color: Theme === 'dark' ? Color.White : Color.Black,
                 },
                 styles.TextStyle,
               ]}>
@@ -155,8 +199,9 @@ const Privacy = ({navigation}) => {
               Mobile App. We have the total right to edit or delete any content
               in this Mobile Platform, including this Agreement, without
               notifying you.
-            </Text>
+            </Text> */}
           </View>
+          
         </ScrollView>
         <View
           style={{

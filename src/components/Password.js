@@ -10,9 +10,10 @@ import {Font} from '../utils/font';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector } from 'react-redux';
 
 const Password = props => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const tabPotrait = w >= 768 && h >= 1024;
@@ -28,7 +29,7 @@ const Password = props => {
         style={[
           {
             fontFamily: Font.Poppins500,
-            color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+            color: Theme === 'dark' ? Color.DarkThemText2 : Color.BoldTextColor,
             fontSize: tabPotrait
               ? verticalScale(11)
               : fourInchLandscape
@@ -45,7 +46,7 @@ const Password = props => {
             : fourInchPotrait
             ? verticalScale(52)
             : verticalScale(45),
-          backgroundColor: Theme
+          backgroundColor: Theme === 'dark'
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
           borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
@@ -73,7 +74,7 @@ const Password = props => {
             //   ? verticalScale(1)
             //   : verticalScale(1.5),
             width: '80%',
-            color: Theme ? Color.White : Color.TextColor,
+            color: Theme === 'dark' ? Color.White : Color.TextColor,
           }}
           onChangeText={props.onChangeText}
           value={props.value}

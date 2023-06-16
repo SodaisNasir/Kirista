@@ -21,14 +21,14 @@ import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
+import { useSelector } from 'react-redux';
 
 const Language = ({navigation,route}) => {
-  const {type,setSelectedLanguage} = route.params
-  console.log('Type ====>',type)
+  const {type,setSelectedLanguage,} = route.params
   const Provence = type == 'Provence';
   const Region = type == 'Region'
 
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [selected, setSelected] = useState();
@@ -91,7 +91,7 @@ const Language = ({navigation,route}) => {
     // navigation.Params('setSelectedLanguage')(language)
   }
 
-  const [option, setOption] = useState(null);
+
 
   const Item = ({data}) => (
     <TouchableOpacity
@@ -124,7 +124,7 @@ const Language = ({navigation,route}) => {
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
                 styles.title,
               ]}>
@@ -133,7 +133,7 @@ const Language = ({navigation,route}) => {
                 style={[
                   {
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   },
                   styles.Short,
                 ]}>
@@ -179,7 +179,7 @@ const Language = ({navigation,route}) => {
       <View
         style={[
           {
-            borderBottomColor: Theme
+            borderBottomColor: Theme === 'dark'
               ? Color.DarkBorderColor
               : Color.BorderColor,
           },
@@ -192,13 +192,13 @@ const Language = ({navigation,route}) => {
     <>
     <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      {/* <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor }/> */}
+      {/* <StatusBar backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor }/> */}
     <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
         styles.Container,
       ]}>

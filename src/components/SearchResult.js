@@ -17,6 +17,7 @@ import {Font} from '../utils/font'
 import {useNavigation} from '@react-navigation/native'
 import Search from '../assets/icons/search.svg'
 import NoResult from './NoResult'
+import { useSelector } from 'react-redux'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -46,19 +47,19 @@ const SearchResult = (props) => {
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
   const [searchInputValue, setSearchInputValue] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useSelector(state => state.mode)
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
       <View
         style={{
           height: verticalScale(90),
 
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
 
           justifyContent: 'flex-end',
           paddingHorizontal:
@@ -77,7 +78,7 @@ const SearchResult = (props) => {
           <View
             style={[
               styles.searchContainerAfter,
-              {backgroundColor: Theme ? Color.DarkThemeInputBox : Color.White},
+              {backgroundColor: Theme === 'dark' ? Color.DarkThemeInputBox : Color.White},
             ]}>
             <View
               style={{
@@ -94,9 +95,9 @@ const SearchResult = (props) => {
               />
 
               <TextInput
-                style={[styles.searchInput, {color: Theme ? '#fff' : '#000'}]}
+                style={[styles.searchInput, {color: Theme === 'dark' ? '#fff' : '#000'}]}
                 placeholder="Search"
-                placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
+                placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
                 // onSubmitEditing={() => console.log(searchInputValue)}
                 // onChangeText={text => setSearchQuery(text)}
                 // value={searchQuery}
@@ -109,7 +110,7 @@ const SearchResult = (props) => {
                   <Ionicons
                     name="close-circle"
                     size={24}
-                    color={Theme ? '#B4B5B7' : 'black'}
+                    color={Theme === 'dark' ? '#B4B5B7' : 'black'}
                   />
                 </TouchableOpacity>
               )}
@@ -121,7 +122,7 @@ const SearchResult = (props) => {
               <Text
                 style={[
                   styles.closeButtonText,
-                  {color: Theme ? '#B5BCC6' : 'black'},
+                  {color: Theme === 'dark' ? '#B5BCC6' : 'black'},
                 ]}>
                 Cancel
               </Text>
@@ -133,7 +134,7 @@ const SearchResult = (props) => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           paddingTop: verticalScale(10),
         }}>
         <TouchableOpacity
@@ -141,7 +142,7 @@ const SearchResult = (props) => {
           onPress={HandelBook}>
           <Text
             style={[
-              {color: Theme ? '#9DA6B3' : '#C1C5CA'},
+              {color: Theme === 'dark' ? '#9DA6B3' : '#C1C5CA'},
               styles.TextStyle,
               props.BooksRestyle,
               styles.BooksStyle,
@@ -155,7 +156,7 @@ const SearchResult = (props) => {
           onPress={HandelParishes}>
           <Text
             style={[
-              {color: Theme ? '#9DA6B3' : '#C1C5CA'},
+              {color: Theme === 'dark' ? '#9DA6B3' : '#C1C5CA'},
               styles.TextStyle,
               props.ParishRestyle,
             ]}>
@@ -169,7 +170,7 @@ const SearchResult = (props) => {
           style={{marginBottom: verticalScale(10)}}>
           <Text
             style={[
-              {color: Theme ? '#9DA6B3' : '#C1C5CA'},
+              {color: Theme === 'dark' ? '#9DA6B3' : '#C1C5CA'},
               styles.TextStyle,
               props.EventRestyle,
             ]}>
@@ -184,7 +185,7 @@ const SearchResult = (props) => {
             style={{
               borderBottomColor: Color.Main,
               borderBottomWidth: 1.5,
-              backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.Main : Color.HeaderColor,
               width: '33%',
               // marginLeft: '33%',
             }}
@@ -195,7 +196,7 @@ const SearchResult = (props) => {
             style={{
               borderBottomColor: Color.Main,
               borderBottomWidth: 1.5,
-              backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.Main : Color.HeaderColor,
               width: '33%',
               marginLeft: '33%',
             }}
@@ -206,7 +207,7 @@ const SearchResult = (props) => {
             style={{
               borderBottomColor: Color.Main,
               borderBottomWidth: 1.5,
-              backgroundColor: Theme ? Color.Main : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.Main : Color.HeaderColor,
               width: '33%',
               marginLeft: '66%',
             }}

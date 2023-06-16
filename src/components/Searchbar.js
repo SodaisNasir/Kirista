@@ -35,6 +35,7 @@ import CalendarSvg from '../assets/icons/calendar-2.svg';
 import PersonSvg from '../assets/icons/person_outline.svg';
 import NoResult from './NoResult';
 import ParishFinderSearch from './ParishFinderSearch';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -52,7 +53,9 @@ const renderScene = SceneMap({
 });
 const Searchbar = () => {
   const layout = useWindowDimensions();
-
+  const iosTab = w >= 820 && h >= 1180;
+  const navigation = useNavigation();
+  const Theme = useSelector(state => state.mode)
   const [index, setIndex] = useState(0);
 
   const [routes] = useState([
@@ -70,7 +73,7 @@ const Searchbar = () => {
         {...props}
         indicatorStyle={{backgroundColor: Color.Main}}
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           elevation: 0,
           width: '100%',
           // paddingTop: verticalScale(10),
@@ -96,9 +99,7 @@ const Searchbar = () => {
     </View>
   );
 
-  const iosTab = w >= 820 && h >= 1180;
-  const navigation = useNavigation();
-  const Theme = useColorScheme() === 'dark';
+
 
   const searchList = [
     {
@@ -184,7 +185,7 @@ const Searchbar = () => {
   const [Parishes, setParishes] = useState(false);
   const [Event, setEvent] = useState(false);
 
-  console.log('searchQuery.length > 0', searchQuery2);
+
     const handleSearch2 = text2 => {
       const formattedQuery = text2.toLowerCase();
       const filteredData = searchList.filter(item => {
@@ -228,13 +229,13 @@ const Searchbar = () => {
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? '#0A2142' : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? '#0A2142' : Color.HeaderColor,
         }}>
         <View
           style={{
@@ -267,7 +268,7 @@ const Searchbar = () => {
               <AntDesign
                 name="arrowleft"
                 size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                color={Theme ? Color.White : Color.Black}
+                color={Theme === 'dark' ? Color.White : Color.Black}
                 onPress={() => navigation.goBack()}
               />
             </View>
@@ -279,7 +280,7 @@ const Searchbar = () => {
               // width:'83%',
               height:
                 w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(37),
-              backgroundColor: Theme ? '#2B3642' : Color.White,
+              backgroundColor: Theme === 'dark' ? '#2B3642' : Color.White,
               borderRadius: scale(25),
               flexDirection: 'row',
               paddingHorizontal: moderateScale(20),
@@ -306,7 +307,7 @@ const Searchbar = () => {
                     ? '100%'
                     : verticalScale(37),
                 width: '100%',
-                color: Theme ? '#fff' : '#000',
+                color: Theme === 'dark' ? '#fff' : '#000',
                 fontSize:
                   w >= 768 && h >= 1024
                     ? scale(8)
@@ -320,7 +321,7 @@ const Searchbar = () => {
                 left: iosTab ? scale(2) : 0,
               }}
               placeholder="Search"
-              placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
+              placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
               onSubmitEditing={() => console.log(searchInputValue2)}
               onChangeText={text => handleSearch2(text)}
               value={searchQuery2}
@@ -336,7 +337,7 @@ const Searchbar = () => {
                   <Ionicons
                     name="close-circle"
                     size={tabPotrait ? scale(15) : 22}
-                    color={Theme ? '#B4B5B7' : '#B4B5B7'}
+                    color={Theme === 'dark' ? '#B4B5B7' : '#B4B5B7'}
                   />
                 </TouchableOpacity>
               </View>
@@ -356,7 +357,7 @@ const Searchbar = () => {
               <TouchableOpacity onPress={() => resetStatus()}>
                 <Text
                   style={{
-                    color: Theme ? '#B5BCC6' : '#4D5C72',
+                    color: Theme === 'dark' ? '#B5BCC6' : '#4D5C72',
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
                     fontFamily: Font.Poppins600,
                     letterSpacing: 0.3,
@@ -372,12 +373,12 @@ const Searchbar = () => {
             style={[
               styles.SecondView,
               {
-                backgroundColor: Theme ? '#071A36' : 'white',
+                backgroundColor: Theme === 'dark' ? '#071A36' : 'white',
               },
             ]}>
             <Text
               style={{
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                 fontFamily: Font.Poppins500,
               }}>
@@ -402,7 +403,7 @@ const Searchbar = () => {
                       ? verticalScale(10)
                       : verticalScale(15),
                   // backgroundColor:'red'
-                  borderBottomColor: Theme
+                  borderBottomColor: Theme === 'dark'
                     ? Color.DarkBorder
                     : Color.BorderColor,
                   borderBottomWidth: 1,
@@ -451,7 +452,7 @@ const Searchbar = () => {
                       ? verticalScale(10)
                       : verticalScale(15),
                   // backgroundColor:'red'
-                  borderBottomColor: Theme
+                  borderBottomColor: Theme === 'dark'
                     ? Color.DarkBorder
                     : Color.BorderColor,
                   borderBottomWidth: 1,
@@ -475,7 +476,7 @@ const Searchbar = () => {
                       ? verticalScale(10)
                       : verticalScale(15),
                   // backgroundColor:'red'
-                  borderBottomColor: Theme
+                  borderBottomColor: Theme === 'dark'
                     ? Color.DarkBorder
                     : Color.BorderColor,
                   borderBottomWidth: 1,
@@ -499,7 +500,7 @@ const Searchbar = () => {
                       ? verticalScale(10)
                       : verticalScale(15),
                   // backgroundColor:'red'
-                  borderBottomColor: Theme
+                  borderBottomColor: Theme === 'dark'
                     ? Color.DarkBorder
                     : Color.BorderColor,
                   borderBottomWidth: 1,
@@ -512,7 +513,7 @@ const Searchbar = () => {
           <View
             style={{
               flex: 1,
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             }}>
             <FlatList
               data={filteredData2}
@@ -544,7 +545,7 @@ const Searchbar = () => {
 
                       //,}}
                     ]}>
-                    {Theme ? (
+                    {Theme === 'dark' ? (
                       <BookDark
                         height={
                           w >= 768 && h >= 1024
@@ -594,7 +595,7 @@ const Searchbar = () => {
                     <View style={{paddingHorizontal: moderateScale(10)}}>
                       <Text
                         style={[
-                          {color: Theme ? Color.White : Color.DarkTextColor},
+                          {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                           styles.TextStyle,
                         ]}>
                         {item.title}
@@ -610,7 +611,7 @@ const Searchbar = () => {
           <View
             style={{
               flex: 1,
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             }}>
             <View style={{flex: 1}}>
               <TabView

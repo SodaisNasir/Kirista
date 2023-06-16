@@ -19,7 +19,7 @@ import CustomButton from '../../components/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Color} from '../../utils/Colors';
 import Password from '../../components/Password';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {LOGIN} from '../../redux/reducer';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback} from 'react';
@@ -54,8 +54,7 @@ const Login = ({navigation}) => {
   // const fourInchLandscape = w <= 350 && h <= 600;
 
   const [email, setEmail] = useState(null);
-  const Dispatch = useDispatch();
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -71,11 +70,11 @@ const Login = ({navigation}) => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         paddingHorizontal:
           w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
       }}>
-      <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} />
+      <StatusBar backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -95,7 +94,7 @@ const Login = ({navigation}) => {
             style={{
               fontFamily: Font.Poppins700,
               fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(20),
-              color: Theme ? Color.White : Color.Black,
+              color: Theme === 'dark' ? Color.White : Color.Black,
             }}>
             Welcome Back,
           </Text>
@@ -103,7 +102,7 @@ const Login = ({navigation}) => {
             style={{
               fontFamily: Font.Poppins700,
               fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(20),
-              color: Theme ? Color.White : Color.Black,
+              color: Theme === 'dark' ? Color.White : Color.Black,
               alignSelf: 'center',
               marginTop:
                 Platform.OS == 'ios' ? verticalScale(-5) : verticalScale(-10),
@@ -223,7 +222,7 @@ const Login = ({navigation}) => {
               style={{
                 fontFamily: Font.Poppins700,
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(15),
-                color: Theme ? Color.White : Color.TextColor,
+                color: Theme === 'dark' ? Color.White : Color.TextColor,
               }}>
               Forgot Password?
             </Text>
@@ -242,7 +241,7 @@ const Login = ({navigation}) => {
               style={{
                 fontFamily: Font.Poppins400,
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
-                color: Theme ? Color.White : Color.TextColor,
+                color: Theme === 'dark' ? Color.White : Color.TextColor,
               }}>
               Don’t have an account?
               <Text
@@ -250,7 +249,7 @@ const Login = ({navigation}) => {
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(13),
-                  color: Theme ? Color.White : Color.TextColor,
+                  color: Theme === 'dark' ? Color.White : Color.TextColor,
                 }}>
                 {' '}
                 Sign up

@@ -16,6 +16,7 @@ import {Color} from '../../utils/Colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import CustomButton from '../CustomButton'
 import {useNavigation} from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const FontModal = (props) => {
   // const toggleModal = () => {
@@ -52,7 +53,8 @@ const FontModal = (props) => {
     },
   ]
 
-  const Theme = useColorScheme() === 'dark'
+  
+ const Theme = useSelector(state => state.mode)
 
   return (
       <Modal
@@ -74,7 +76,7 @@ const FontModal = (props) => {
                 w >= 768 && h >= 1024 ? scale(20) : scale(22),
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.White,
             },
             styles.modalView,
           ]}>
@@ -91,7 +93,7 @@ const FontModal = (props) => {
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
                 styles.BigTextStyle,
               ]}>
@@ -121,7 +123,7 @@ const FontModal = (props) => {
                             {
                               fontSize:
                                 w >= 768 && h >= 1024 ? scale(8) : scale(16),
-                              color: Theme ? Color.White : Color.DarkTextColor,
+                              color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                             },
                             styles.SmallTextStyle,
                           ]}>

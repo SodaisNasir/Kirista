@@ -19,12 +19,13 @@ import {
 } from 'react-native-size-matters';
 import {useNavigation} from '@react-navigation/native';
 import {Font} from '../utils/font';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ReadHeader = props => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
   const [isSelect, setisSelect] = useState(false);
   const handleClick = () => {
@@ -35,7 +36,7 @@ const ReadHeader = props => {
   return (
     <View
       style={[
-        {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
+        {backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor},
         styles.AuthHeaderStyle,
       ]}>
       <View
@@ -60,7 +61,7 @@ const ReadHeader = props => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.White : '#797B7F'},
+                {color: Theme === 'dark' ? Color.White : '#797B7F'},
                 styles.WelcomeText,
               ]}>
               {props.text}
@@ -73,7 +74,7 @@ const ReadHeader = props => {
             <AntDesign
               name="arrowleft"
               size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-              color={Theme ? Color.White : Color.Black}
+              color={Theme === 'dark' ? Color.White : Color.Black}
               onPress={() => navigation.goBack()}
             />
           </View>

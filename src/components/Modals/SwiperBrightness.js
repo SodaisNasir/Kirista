@@ -1,13 +1,18 @@
 import React from 'react'
-import {StyleSheet, Text, View, useWindowDimensions,useColorScheme} from 'react-native'
+import {StyleSheet, Text, View, useWindowDimensions,Platform} from 'react-native'
 import Slider from 'react-native-custom-slider'
 import {verticalScale, scale} from 'react-native-size-matters'
 import {Color} from '../../utils/Colors'
+import { useSelector } from 'react-redux'
 
 const Lalit = () => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
+
+  
+
+  
   return (
     <View>
       <Slider
@@ -18,7 +23,7 @@ const Lalit = () => {
         // value={data.value}
         //  onValueChange={setSliderValue}
         minimumTrackTintColor={Color.Main}
-        maximumTrackTintColor={Theme ? Color.FontBoxColorDark : '#F5F8FE'}
+        maximumTrackTintColor={Theme === 'dark' ? Color.FontBoxColorDark : '#F5F8FE'}
         thumbTintColor={Color.Main}
         thumbStyle={{
           borderWidth: scale(1),

@@ -19,39 +19,69 @@ import CustomNavigator from '../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
 import {useLayoutEffect} from 'react';
 import RenderHtml from 'react-native-render-html';
+import { useState } from 'react';
+import { base_Url } from '../../utils/Url';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Terms = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
+  const [data,setData] = useState('')
   const { width } = useWindowDimensions();
   useLayoutEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      getTerms()
     }, []),
   );
 
+  const type = 'Terms'
+  const getTerms = async () => {
+    try {
+
+      let base_url = `${base_Url}show-about`;
+      let myData = new FormData();
+      
+      myData.append('type',type);
+
+      const response = await fetch(base_url, {
+        body: myData,
+        method: 'post',
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success.status === 200) {
+        setData(responseData.success.data.description)
+      }
+      
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
   const source = {
-    html: ``
+    html: data
   };
   return (
     < >
 <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-        <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor }/>
+        <StatusBar backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor }/>
 
         <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-          barStyle={Theme ? 'light-content' : 'dark-content'}
+          backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
         <Header
           text={'Terms'}
@@ -69,10 +99,19 @@ const Terms = ({navigation}) => {
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
-<RenderHtml
-      contentWidth={width}
-      source={source}
-    />
+        <View
+            style={[
+              styles.Container,
+              {
+                backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
+              },
+            ]}>
+
+          <RenderHtml
+          contentWidth={width}
+          source={source}
+           />
+      </View>
 
         </ScrollView>
 

@@ -17,7 +17,7 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {Color} from '../../utils/Colors';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import {register} from '../../redux/actions/AuthAction';
 import {useEffect} from 'react';
@@ -39,7 +39,7 @@ const SignUp = ({navigation}) => {
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   const [phoneNumber, setPhoneNumber] = useState('+234');
   const [flagImage, setFlagImage] = useState(
@@ -79,9 +79,9 @@ const SignUp = ({navigation}) => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
-      <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} />
+      <StatusBar backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -106,7 +106,7 @@ const SignUp = ({navigation}) => {
               style={{
                 fontFamily: Font.Poppins700,
                 fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(25),
-                color: Theme ? Color.White : Color.Black,
+                color: Theme === 'dark' ? Color.White : Color.Black,
               }}>
               Create Account
             </Text>
@@ -361,7 +361,7 @@ const SignUp = ({navigation}) => {
               }}>
               <Text
                 style={{
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   fontFamily: Font.Poppins500,
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                 }}>
@@ -369,7 +369,7 @@ const SignUp = ({navigation}) => {
                 <Text
                   onPress={() => navigation.navigate('Login')}
                   style={{
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                     fontFamily: Font.Poppins700,
                   }}>

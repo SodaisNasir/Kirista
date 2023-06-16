@@ -15,11 +15,12 @@ import {Font} from '../utils/font';
 import {useNavigation} from '@react-navigation/native';
 
 import SearchNormal from '../assets/icons/search-normal';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const HomeHeader = props => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   const navigation = useNavigation();
   return (
@@ -27,7 +28,7 @@ const HomeHeader = props => {
       style={{
         paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(25),
-        backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+        backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         marginTop:Platform.OS == 'ios'?  verticalScale(-20) : 0,
         paddingTop: Platform.OS == 'ios'? 0 : moderateScale(20)
       }}>
@@ -44,7 +45,7 @@ const HomeHeader = props => {
             }}>
             <Image
               source={
-                Theme
+                Theme === 'dark'
                   ? require('../assets/images/krista_main_dark.png')
                   : require('../assets/images/krista_main.png')
               }
@@ -62,7 +63,7 @@ const HomeHeader = props => {
             <TouchableOpacity
               style={{
                 borderRadius: w >= 768 && h >= 1024 ? scale(5) : scale(7),
-                backgroundColor: Theme ? '#0A2E61' : '#fff',
+                backgroundColor: Theme === 'dark' ? '#0A2E61' : '#fff',
                 justifyContent: 'center',
                 alignItems: 'center',
                 height:

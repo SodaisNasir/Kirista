@@ -14,8 +14,9 @@ import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import SwipeableList from './CustomSwipeList/SwipeableList';
 import ListData from './CustomSwipeList/ListData';
+import { useSelector } from 'react-redux';
 const BookmarkScreen = () => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const DATA = [
@@ -37,7 +38,7 @@ const BookmarkScreen = () => {
           width: '100%',
           paddingVertical:
             w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(10),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             borderTopWidth: 1,
             borderBottomColor: '#F1F2F2',
             borderTopColor:'#F1F2F2'
@@ -48,7 +49,7 @@ const BookmarkScreen = () => {
         <Text
           style={{
             fontFamily: Font.Poppins600,
-            color: Theme ? Color.White : Color.Black,
+            color: Theme === 'dark' ? Color.White : Color.Black,
             fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
             marginLeft:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
@@ -58,7 +59,7 @@ const BookmarkScreen = () => {
         <Text
           style={{
             fontFamily: Font.Poppins500,
-            color: Theme ? Color.GreyText : Color.Black,
+            color: Theme === 'dark' ? Color.GreyText : Color.Black,
             fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
             marginLeft:
             w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),

@@ -17,6 +17,7 @@ import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const Rccg = ({navigation}) => {
   useFocusEffect(
@@ -24,24 +25,24 @@ const Rccg = ({navigation}) => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={[
           {
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             flex: 1,
           },
         ]}>
-        <StatusBar backgroundColor={ Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
+        <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
 
         <Header
           text={'RCCG'}
@@ -81,7 +82,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 The Redeemed Christian Church of God
               </Text>
@@ -96,7 +97,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 RCCG is one of the world's largest and fastest growing
                 Pentecostal churches, having been founded in 1952. The church
@@ -111,7 +112,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 Mission and Vision
               </Text>
@@ -119,7 +120,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 1) To make heaven.
               </Text>
@@ -127,7 +128,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 1) To make heaven.
               </Text>
@@ -135,7 +136,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 2) To take as many people with us.
               </Text>
@@ -143,7 +144,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 3) To have a member of RCCG in every family of all nations.
               </Text>
@@ -151,7 +152,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 4) To accomplish No. 1 above, holiness will be our lifestyle.
               </Text>
@@ -160,7 +161,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 5) To accomplish No. 2 and 3 above, we will plant churches
                 within five minutes walking distance in every city and town of
@@ -171,7 +172,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 6) We will pursue these objectives until every Nation in the
                 world is reached for the Lord Jesus Christ.
@@ -187,7 +188,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                   fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 History
               </Text>
@@ -195,7 +196,7 @@ const Rccg = ({navigation}) => {
                 style={{
                   fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                   fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 }}>
                 In July 1909, a son was born into the Akindayomi family of Ondo
                 State of Nigeria. Even though this child grew up surrounded by
@@ -217,7 +218,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   Whilst there, he began to hear a voice within him saying, “You
                   will be my servant.” Since this was not his intention, he
@@ -256,7 +257,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   Akindayomi also had a vision of words that appeared to be
                   written on a blackboard. The words were “The Redeemed
@@ -285,7 +286,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   Thus, the Redeemed Christian Church of God was born in 1952,
                   destined by the Lord Himself to take the world for Him. The
@@ -308,7 +309,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   Sometime in the early 70s, God had spoken to Pa Akindayomi
                   about his successor. The Lord told him that this man who was
@@ -335,7 +336,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   Since 1981, an open explosion began with the number of
                   parishes growing in leaps and bounds. At the last count, there
@@ -361,7 +362,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   Today, God is still doing marvellous deeds through the
                   Redeemed Christian Church of God, worldwide. One of the
@@ -378,7 +379,7 @@ const Rccg = ({navigation}) => {
 
               <View
                 style={{
-                  borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
+                  borderColor: Theme === 'dark' ? Color.DarkBorderColor : '#E5E5E5',
                   borderWidth: 0.5,
                   width: w >= 768 && h >= 1024 ? '70%' : '100%',
                   alignSelf: 'center',
@@ -397,7 +398,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                     fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   Pastor E.A. Adeboye
                 </Text>
@@ -405,7 +406,7 @@ const Rccg = ({navigation}) => {
                   style={{
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                     fontFamily: Font.Poppins700,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   }}>
                   General Overseer, RCCG World Wide
                 </Text>
@@ -413,7 +414,7 @@ const Rccg = ({navigation}) => {
 
               <View
                 style={{
-                  borderColor: Theme ? Color.DarkBorderColor : '#E5E5E5',
+                  borderColor: Theme === 'dark' ? Color.DarkBorderColor : '#E5E5E5',
                   borderWidth: 0.5,
                   width: w >= 768 && h >= 1024 ? '70%' : '100%',
                   alignSelf: 'center',

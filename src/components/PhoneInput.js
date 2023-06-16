@@ -30,7 +30,7 @@ const PhoneInput = props => {
       <Text
         style={{
           fontFamily: Font.Poppins500,
-          color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+          color: Theme === 'dark' ? Color.DarkThemText2 : Color.BoldTextColor,
           fontSize: tabPotrait
             ? verticalScale(11)
             : fourInchLandscape
@@ -46,7 +46,7 @@ const PhoneInput = props => {
             : fourInchPotrait
             ? verticalScale(52)
             : verticalScale(45),
-          backgroundColor: Theme
+          backgroundColor: Theme === 'dark'
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
 
@@ -79,7 +79,7 @@ const PhoneInput = props => {
             <View style={{paddingHorizontal: moderateScale(5)}}>
               <Text
                 style={{
-                  color: Theme ? Color.White : Color.TextColor,
+                  color: Theme === 'dark' ? Color.White : Color.TextColor,
                   fontFamily: Font.Inter500,
                   fontSize: tabPotrait
                     ? verticalScale(11)
@@ -93,7 +93,7 @@ const PhoneInput = props => {
             <AntDesign
               name="down"
               size={tabPotrait ? scale(11) : scale(16)}
-              color={Theme ? Color.White : Color.Black}
+              color={Theme === 'dark' ? Color.White : Color.Black}
             />
           </TouchableOpacity>
         ) : null}
@@ -111,7 +111,7 @@ const PhoneInput = props => {
               : scale(14),
             fontFamily: Font.Inter500,
             paddingLeft: moderateScale(5),
-            color: Theme ? Color.DarkThemeInputText : Color.TextColor,
+            color: Theme === 'dark' ? Color.DarkThemeInputText : Color.TextColor,
             // top: fourInchPotrait
             //   ? scale(2.5)
             //   : fourInchLandscape

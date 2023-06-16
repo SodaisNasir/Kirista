@@ -22,6 +22,7 @@ import Header from '../../components/Header';
 import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {parish} from '../../redux/actions/UserAction';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -30,7 +31,7 @@ const FeaturedParishes = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   // console.log('data sadf', data[0].id)
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   useFocusEffect(
     useCallback(() => {
@@ -41,14 +42,14 @@ const FeaturedParishes = () => {
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={[
           styles.Container,
           {
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
           },
         ]}>
         <Header
@@ -112,7 +113,7 @@ const FeaturedParishes = () => {
                 }}>
                 <ActivityIndicator
                   size="large"
-                  color={Theme ? Color.White : Color.DarkTheme}
+                  color={Theme === 'dark' ? Color.White : Color.DarkTheme}
                 />
               </View>
             )}

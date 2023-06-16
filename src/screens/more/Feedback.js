@@ -28,7 +28,7 @@ import { useSelector } from 'react-redux';
 
 const Feedback = ({navigation}) => {
   const user_details = useSelector(state => state.user_details)
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [text, onChangeText] = useState('');
@@ -111,19 +111,19 @@ const Feedback = ({navigation}) => {
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
     <View
       style={[
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
           flex: 1,
         },
       ]}>
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
       <CustomHeader text={'Feedback'} AuthHeaderStyle={{
          height:
@@ -159,14 +159,14 @@ const Feedback = ({navigation}) => {
             <TextInput
               multiline={true}
               placeholder={`Briefly explain what isn't working or what happened`}
-              placeholderTextColor={Theme ? '#404F64' : '#C6CAD1'}
+              placeholderTextColor={Theme === 'dark' ? '#404F64' : '#C6CAD1'}
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                   fontFamily: Font.Poppins400,
                   // alignItems: 'center',
                   // justifyContent: 'center',
-                  color: Theme ? Color.DarkThemeInputText : Color.TextColor,
+                  color: Theme === 'dark' ? Color.DarkThemeInputText : Color.TextColor,
                   // flex: 1,
                   // textAlignVertical: 'top',
                 },
@@ -200,7 +200,6 @@ const Feedback = ({navigation}) => {
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(35),
               }}>
               <CustomButton 
-              
               // onPress={() => navigation.goBack()}
               onPress={onSumbit}
                text={'Send'} />

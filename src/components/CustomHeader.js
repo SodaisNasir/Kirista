@@ -20,12 +20,13 @@ import {useNavigation} from '@react-navigation/native';
 import Time from '../assets/icons/time.svg';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CustomHeader = props => {
   const navigation = useNavigation();
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const [isChecked, setIsChecked] = useState(false);
   const iosTab = w >= 820 && h >= 1180;
 
@@ -35,7 +36,7 @@ const CustomHeader = props => {
         styles.AuthHeaderStyle,
         props.AuthHeaderStyle,
         {
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         },
       ]}>
       <View
@@ -56,7 +57,7 @@ const CustomHeader = props => {
           <AntDesign
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-            color={Theme ? Color.White : Color.Black}
+            color={Theme === 'dark' ? Color.White : Color.Black}
             onPress={() => navigation.goBack()}
           />
           <View
@@ -68,7 +69,7 @@ const CustomHeader = props => {
               style={[
                 styles.WelcomeText,
                 {
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
               ]}>
               {props.text}

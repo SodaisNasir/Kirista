@@ -89,6 +89,11 @@ function AllHome() {
         component={HomeScreen}
         options={{animation: 'fade_from_bottom'}}
       />
+          <Stack.Screen
+        name="Language"
+        component={Language}
+        options={{animation: 'fade_from_bottom'}}
+      />
       <Stack.Screen
         name="HomeScreen"
         component={Home}

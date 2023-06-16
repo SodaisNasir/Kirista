@@ -10,19 +10,20 @@ import {Color} from '../utils/Colors'
 import {scale, verticalScale, moderateScale, moderateVerticalScale} from 'react-native-size-matters'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useSelector } from 'react-redux'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 const CustomNavigator = (props) => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useSelector(state => state.mode)
   return (
     <View
       style={{
         height: verticalScale(70),
-        backgroundColor: Theme ? Color.DarkThemeCustomNavigator : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkThemeCustomNavigator : Color.White,
         justifyContent: 'center',
-        borderColor: Theme ? '#091E3B'  : Color.BorderColor,
+        borderColor: Theme === 'dark' ? '#091E3B'  : Color.BorderColor,
         borderTopWidth:1
       }}>
       <View
@@ -39,39 +40,39 @@ const CustomNavigator = (props) => {
           style={[
             styles.ArrowStyle,
             {
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
             },
           ]}>
           <Ionicons
             name="chevron-back"
             size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
-            color={Theme ? Color.White : Color.Black}
+            color={Theme === 'dark' ? Color.White : Color.Black}
           />
         </View>
         <View
           style={[
             styles.LoadStyle,
             {
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
             },
           ]}>
           <AntDesign
             name="reload1"
             size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
-            color={Theme ? Color.White : Color.Black}
+            color={Theme === 'dark' ? Color.White : Color.Black}
           />
         </View>
         <View
           style={[
             styles.ArrowStyle,
             {
-              borderColor: Theme ? Color.White : Color.Black,
+              borderColor: Theme === 'dark' ? Color.White : Color.Black,
             },
           ]}>
           <Ionicons
             name="chevron-forward"
             size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
-            color={Theme ? Color.White : Color.Black}
+            color={Theme === 'dark' ? Color.White : Color.Black}
           />
         </View>
       </View>

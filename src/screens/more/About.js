@@ -17,11 +17,17 @@ import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomNavigator from '../../components/CustomNavigator';
+import { base_Url } from '../../utils/Url';
+import { useState } from 'react';
+import RenderHtml from 'react-native-render-html';
+import { useSelector } from 'react-redux';
 
 const About = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
+  const [data,setData] = useState('')
+  const { width } = useWindowDimensions();
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -29,20 +35,50 @@ const About = ({navigation}) => {
         display: 'none',
       },
     });
+    getAbout()
   }, []);
+
+  const type = 'Kirista'
+  const getAbout = async () => {
+    try {
+
+      let base_url = `${base_Url}show-about`;
+      let myData = new FormData();
+      
+      myData.append('type',type);
+
+      const response = await fetch(base_url, {
+        body: myData,
+        method: 'post',
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success.status === 200) {
+        setData(responseData.success.data.description)
+      }
+      
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  const source = {
+    html: data
+  };
 
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      <StatusBar backgroundColor={ Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
+      <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
       <View
         style={[
           {
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             flex: 1,
           },
         ]}>
@@ -99,205 +135,21 @@ const About = ({navigation}) => {
                 ? verticalScale(5) : 0
               }}
             />
-            <View
-              style={[
-                styles.TextViewStyle,
-                {
-                  marginVertical:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(10)
-                      : verticalScale(10),
-                },
-              ]}>
-              <View>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    },
-                    styles.TextStyle,
-                  ]}>
-                  Kirista is mobile platform for learning about or finding
-                  parishes, reading books, and more.
-                </Text>
-              </View>
-            </View>
+            
+          <RenderHtml
+          contentWidth={width}
+          source={source}
+           />
+           
 
-            <View
-              style={[
-                styles.TextViewStyle,
-                {
-                  marginVertical:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(10)
-                      : verticalScale(10),
-                },
-              ]}>
-              <View>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    },
-                    styles.TextStyle,
-                  ]}>
-                  Kirista is mobile platform for learning about or finding
-                  parishes, reading books, and more.
-                </Text>
-              </View>
-            </View>
-
-            <View
-              style={[
-                styles.TextViewStyle,
-                {
-                  marginVertical:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(10)
-                      : verticalScale(10),
-                },
-              ]}>
-              <View>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    },
-                    styles.TextStyle,
-                  ]}>
-                  This platform's powerful content and resources will assist
-                  Brethren in staying connected with the activities of the RCCG
-                  Continent 2.
-                </Text>
-              </View>
-            </View>
-
-            <View
-              style={[
-                styles.TextViewStyle,
-                {
-                  marginVertical:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(10)
-                      : verticalScale(10),
-                },
-              ]}>
-              <View>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    },
-                    styles.TextStyle,
-                  ]}>
-                  With the intuitive interface, Brethren can access the
-                  information whenever they need it and can navigate the
-                  features with ease.
-                </Text>
-              </View>
-            </View>
-
-            <View
-              style={[
-                styles.TextViewStyle,
-                {
-                  marginVertical:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(10)
-                      : verticalScale(10),
-                },
-              ]}>
-              <View>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    },
-                    styles.TextStyle,
-                  ]}>
-                  Kirista makes it easy for brethren to find a parish (mostly
-                  RCCG Continent 2 Parishes) through sorting and searching by
-                  Country, Region, Province, Zone, or Area and then viewing
-                  parish information.
-                </Text>
-              </View>
-            </View>
-
-            <View
-              style={[
-                styles.TextViewStyle,
-                {
-                  marginVertical:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(10)
-                      : verticalScale(10),
-                },
-              ]}>
-              <View>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    },
-                    styles.TextStyle,
-                  ]}>
-                  Brethren can easily access free books, such as manuals,
-                  stories, articles, activities, and everything in between.
-                  Brethren can then save, read, bookmark, and share books with
-                  friends and family.
-                </Text>
-              </View>
-            </View>
-
-            <View
-              style={[
-                styles.TextViewStyle,
-                {
-                  marginVertical:
-                    w >= 768 && h >= 1024
-                      ? verticalScale(10)
-                      : verticalScale(10),
-                },
-              ]}>
-              <View>
-                <Text
-                  style={[
-                    {
-                      color: Theme ? Color.White : Color.DarkTextColor,
-                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    },
-                    styles.TextStyle,
-                  ]}>
-                  Kirista also keeps the brethren informed of upcoming events,
-                  which can be easily browsed, saved, and added to the calendar.
-                </Text>
-              </View>
-
-              {/* <View
-              style={{
-                borderBottomColor: Theme ? Color.Black : Color.BorderColor,
-                borderBottomWidth: 0.5,
-                width: '100%',
-                alignSelf: 'center',
-                marginVertical: verticalScale(15),
-              }}
-            /> */}
-            </View>
-
-            {Theme ? (
+            {Theme === 'dark' ? (
               <View
                 style={{
                   height: verticalScale(80),
-                  borderBottomColor: Theme ? Color.White : Color.BorderColor,
+                  borderBottomColor: Theme === 'dark' ? Color.White : Color.BorderColor,
                   borderBottomWidth: 0.5,
                   borderTopWidth: 0.5,
-                  borderTopColor: Theme ? Color.White : Color.BorderColor,
+                  borderTopColor: Theme === 'dark' ? Color.White : Color.BorderColor,
                   justifyContent: 'center',
                   alignItems: 'center',
                   marginVertical:
@@ -314,7 +166,7 @@ const About = ({navigation}) => {
                   <Image
                     resizeMode="contain"
                     source={
-                      // Theme ?
+                      // Theme === 'dark' ?
                       require('../../assets/images/dark_splash.png')
                       // : require('../../assets/images/splash_light.png')
                     }
@@ -332,7 +184,7 @@ const About = ({navigation}) => {
                 <Text
                   style={{
                     fontFamily: Font.Poppins600,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     textAlign: 'center',
                     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
                     top: w >= 768 && h >= 1024 ? scale(5) : scale(10),
@@ -370,7 +222,7 @@ const About = ({navigation}) => {
                    onPress={() => Linking.openURL('https://www.idcplatforms.com/')}
                   style={{
                     fontFamily: Font.Poppins700,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     textAlign: 'center',
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
                     bottom: w >= 768 && h >= 1024 ? scale(10) : scale(10),
@@ -396,7 +248,7 @@ const About = ({navigation}) => {
                   style={[
                     {
                       fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                      color: Theme ? Color.White : Color.DarkTextColor,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     },
                     styles.NaijaText,
                   ]}>

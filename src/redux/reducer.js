@@ -3,6 +3,8 @@ export const SPLASH_SCREEN = 'SPLASH_SCREEN';
 export const IS_GUEST = 'IS_GUEST';
 export const USER_DETAILS = 'USER_DETAILS'
 export const OTP_SEND = 'OTP_SEND'
+export const MODE = 'MODE'
+export const CHAPTERS = 'CHAPTERS'
 
 
 const initialState = {
@@ -12,7 +14,8 @@ const initialState = {
   is_guest: false,
   user_details: null,
   otp: null,
-
+mode: null,
+chapters: [],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -41,6 +44,16 @@ export const Reducer = (state = initialState, action) => {
             return {
               ...state,
               otp: action.payload,
+            }
+          case MODE:
+            return {
+              ...state,
+              mode: action.payload,
+            }
+          case CHAPTERS:
+            return {
+              ...state,
+              chapters: action.payload,
             }
 
     default:

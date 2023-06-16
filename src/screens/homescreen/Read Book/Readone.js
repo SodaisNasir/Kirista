@@ -15,50 +15,63 @@ import {Color} from '../../../utils/Colors';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {  getChaptersByID } from '../../../redux/actions/UserAction';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const Readone = () => {
+const Readone = ({route}) => {
+
+  const {id,item} = route.params
+  const [data,setData] = useState([])
+
+
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      getChaptersByID(setData,id)
     }, []),
   );
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
 
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-          barStyle={Theme ? 'light-content' : 'dark-content'}
+          backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
-          <ReadHeader textshown={true} text={'Chapter 1 '} />
+          <ReadHeader textshown={true} text={data?.title} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              navigation.navigate('Readtwo');
+              navigation.navigate('Readtwo',{
+                id:data?.id,
+                bookData:item
+              });
             }}
             style={styles.Container}>
             <View style={{marginVertical: verticalScale(20)}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.Black},
+                  {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.Title,
                 ]}>
-                Chapter 1
+                {data?.title}
               </Text>
             </View>
             <View
@@ -68,17 +81,18 @@ const Readone = () => {
               }}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.Black},
+                  {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.TextStyle,
                 ]}>
-                A book is a medium for recording information in the form of
+                {/* A book is a medium for recording information in the form of
                 writing or images, typically composed of many pages (made of
                 papyrus, parchment, vellum, or paper) bound together and
-                protected by a cover.
+                protected by a cover. */}
+                {data?.description}
               </Text>
-              <Text
+              {/* <Text
                 style={[
-                  {color: Theme ? Color.White : Color.Black},
+                  {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.TextStyle,
                 ]}>
                 The technical term for this physical arrangement is codex
@@ -89,7 +103,7 @@ const Readone = () => {
               </Text>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.Black},
+                  {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.TextStyle,
                 ]}>
                 As an intellectual object, a book is prototypically a
@@ -106,14 +120,14 @@ const Readone = () => {
               </Text>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.Black},
+                  {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.TextStyle,
                 ]}>
                 A book is a medium for recording information in the form of
                 writing or images, typically composed of many pages (made of
                 papyrus, parchment, vellum, or paper) bound together and
                 protected by a cover.
-              </Text>
+              </Text> */}
             </View>
           </TouchableOpacity>
           <View style={{height: verticalScale(80)}} />
@@ -133,18 +147,18 @@ const Readone = () => {
           }}>
           <View
             style={[
-              {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+              {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
               styles.ChapterPageStyle,
             ]}>
             <View
               style={[
-                {color: Theme ? Color.ExtraViewDark : Color.White},
+                {color: Theme === 'dark' ? Color.ExtraViewDark : Color.White},
                 styles.BoxStyle,
               ]}>
               <Text
                 style={[
                   styles.ChapterPageText,
-                  {color: Theme ? Color.White : Color.Black},
+                  {color: Theme === 'dark' ? Color.White : Color.Black},
                 ]}>
                 1 / 11
               </Text>

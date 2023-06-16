@@ -4,11 +4,12 @@ import NoResults from '../assets/icons/no_result.svg'
 import { verticalScale ,scale,moderateScale} from 'react-native-size-matters'
 import { Font } from '../utils/font'
 import { Color } from '../utils/Colors'
+import { useSelector } from 'react-redux'
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const NoResult = () => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   return (
     <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
     <View>
@@ -19,7 +20,7 @@ const NoResult = () => {
       />
     </View>
     <View style={{}}>
-      <Text style={[{color : Theme ? Color.White : Color.Black},styles.TextStyle]}>No result found</Text>
+      <Text style={[{color : Theme === 'dark' ? Color.White : Color.Black},styles.TextStyle]}>No result found</Text>
     </View>
 
     </View>

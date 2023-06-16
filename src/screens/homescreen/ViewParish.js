@@ -21,6 +21,8 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useState} from 'react';
 import {parish_by_id} from '../../redux/actions/UserAction';
 import Loading from '../../components/Modals/Loading';
+import Map from '../../components/Map';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -29,28 +31,28 @@ const ViewParish = ({route}) => {
   const {id} = route.params;
   const [data, setData] = useState('');
   const [loading, setLoading] = useState(false);
-  console.log('data ==>', data);
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   useFocusEffect(
     useCallback(() => {
       parish_by_id(setData, id, setLoading);
     }, []),
   );
+
   return loading ? (
     <Loading />
   ) : (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={[
           styles.Container,
           {
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             marginTop: Platform.OS == 'ios' ? verticalScale(-20) : 0,
           },
         ]}>
@@ -76,7 +78,7 @@ const ViewParish = ({route}) => {
               }}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
                 {data.title}
@@ -86,14 +88,14 @@ const ViewParish = ({route}) => {
             <View style={styles.DetailsViewStyle}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationText,
                 ]}>
                 Country:
               </Text>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.country}
@@ -103,14 +105,14 @@ const ViewParish = ({route}) => {
             <View style={styles.DetailsViewStyle}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationText,
                 ]}>
                 Region:
               </Text>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.region}
@@ -120,14 +122,14 @@ const ViewParish = ({route}) => {
             <View style={styles.DetailsViewStyle}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationText,
                 ]}>
                 Province:
               </Text>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.province}
@@ -140,7 +142,7 @@ const ViewParish = ({route}) => {
               }}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.AboutText,
                 ]}>
                 {/* The Redeemed Christian Church of God, Central Parish, is the
@@ -157,7 +159,7 @@ const ViewParish = ({route}) => {
           </View>
           <View
             style={{
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
               height: verticalScale(25),
             }}
           />
@@ -178,7 +180,7 @@ const ViewParish = ({route}) => {
                       : verticalScale(20),
                 },
                 styles.LocationBigText,
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               ]}>
               Location
             </Text>
@@ -197,7 +199,7 @@ const ViewParish = ({route}) => {
                       : verticalScale(20),
                 },
                 styles.LocationText,
-                {color: Theme ? Color.White : Color.TextColor2},
+                {color: Theme === 'dark' ? Color.White : Color.TextColor2},
               ]}>
               {data.location}
             </Text>
@@ -210,7 +212,7 @@ const ViewParish = ({route}) => {
                       : verticalScale(20),
                 },
                 styles.LocationDetailsText,
-                {color: Theme ? Color.White : Color.TextColor2},
+                {color: Theme === 'dark' ? Color.White : Color.TextColor2},
               ]}>
               {data.address}
             </Text>
@@ -227,6 +229,7 @@ const ViewParish = ({route}) => {
               overflow: 'hidden',
               marginHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+                backgroundColor: 'pink'
             }}>
             {/* <Image
               source={require('../../assets/images/maps.png')}
@@ -245,11 +248,12 @@ const ViewParish = ({route}) => {
               // zoomControlEnabled={true}
               provider={PROVIDER_GOOGLE}
             /> */}
+            <Map />
             
           </View>
           <View
             style={{
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
               height: verticalScale(25),
             }}
           />
@@ -270,7 +274,7 @@ const ViewParish = ({route}) => {
                         : verticalScale(20),
                   },
                   styles.LocationBigText,
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 ]}>
                 Contact
               </Text>
@@ -285,14 +289,14 @@ const ViewParish = ({route}) => {
               }}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.phone_number}
               </Text>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.email}
@@ -300,7 +304,7 @@ const ViewParish = ({route}) => {
               <Text
                 onPress={() => Linking.openURL(data.website)}
                 style={[
-                  {color: Theme ? Color.White : Color.TextColor2},
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.website}

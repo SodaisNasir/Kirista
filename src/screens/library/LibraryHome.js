@@ -20,20 +20,22 @@ import FilterModal from '../../components/Modals/FilterModal';
 import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect} from '@react-navigation/native';
 import BottomTab from '../../constant/BottomTab';
+import { getBooks } from '../../redux/actions/UserAction';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const LibraryHome = ({navigation}) => {
-  // for modal
   const [showModal, setShowModal] = useState(false);
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const [isModalVisible, setModalVisible] = useState(false);
+  const [data,setData] = useState([])
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const data = [
+  const myData = [
     {
       id: 1,
       title: 'Sunday Student',
@@ -80,20 +82,23 @@ const LibraryHome = ({navigation}) => {
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      getBooks(setData)
     }, []),
   );
+
+
   return (
     <>
      <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
     <SafeAreaView
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      style={{flex: 1, backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White}}>
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.White}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.White}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
       <LibraryHeader
         onPress={() => {
@@ -124,25 +129,37 @@ const LibraryHome = ({navigation}) => {
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
           }}>
-          <DetailsCard
-            onPress={() => navigation.navigate('ViewManual')}
-            source={require('../../assets/images/manual.png')}
-            title="Sunday Student"
-            resize={'contain'}
-            manual="Manual"
-            PlaceTrue={true}
-            Place={'2023'}
-            MainBoxRestyle={{
-              paddingBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-              // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-            }}
-          />
-          <DetailsCard
+            {
+              data?.map((item) => {
+                return(
+                  <>
+                  <DetailsCard
+                  key={item?.id}
+                  onPress={() => navigation.navigate('ViewManual',{
+                    item:item
+                  })}
+                  source={{uri: item?.cover_image}}
+                  title={item?.title}
+                  resize={'contain'}
+                  manual={item?.category}
+                  PlaceTrue={true}
+                  Place={item?.release_year}
+                  MainBoxRestyle={{
+                    paddingBottom:
+                      w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                    marginTop:
+                      w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
+                    // backgroundColor:'red'
+                    borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
+                    borderBottomWidth: 1,
+                  }}
+                />
+                  </>
+                )
+              })
+            }
+         
+          {/* <DetailsCard
           onPress={() => navigation.navigate('ViewParish')}
             source={require('../../assets/images/parishsmall_2.png')}
             title="RCCG"
@@ -156,7 +173,7 @@ const LibraryHome = ({navigation}) => {
               marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
               // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
               borderBottomWidth: 1,
             }}
           />
@@ -174,7 +191,7 @@ const LibraryHome = ({navigation}) => {
               marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
               // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
               borderBottomWidth: 1,
             }}
           />
@@ -192,7 +209,7 @@ const LibraryHome = ({navigation}) => {
               marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
               // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
               borderBottomWidth: 1,
             }}
           />
@@ -210,10 +227,10 @@ const LibraryHome = ({navigation}) => {
               marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
               // backgroundColor:'red'
-              borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
               borderBottomWidth: 1,
             }}
-          />
+          /> */}
         </View>
       </ScrollView>
      

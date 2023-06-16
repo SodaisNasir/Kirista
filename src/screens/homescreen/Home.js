@@ -20,6 +20,7 @@ import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -108,28 +109,27 @@ const Home = () => {
   );
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
-  console.log(w, h);
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
 
       <HomeHeader />
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.ExtraViewDark : '#F1F6FD',
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : '#F1F6FD',
         }}>
         <TabView
           renderTabBar={renderTabBar}

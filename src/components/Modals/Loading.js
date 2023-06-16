@@ -1,9 +1,10 @@
 import { ActivityIndicator, StyleSheet,  View, useColorScheme } from 'react-native'
 import React from 'react'
 import { Color } from '../../utils/Colors'
+import { useSelector } from 'react-redux'
 
 const Loading = () => {
-    const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   return (
    <>
      <View
@@ -11,12 +12,12 @@ const Loading = () => {
         // marginTop: space ? '70%' : 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         flex:1
       }}>
       <ActivityIndicator
         size="large"
-        color={Theme ? Color.White : Color.DarkTheme}
+        color={Theme === 'dark' ? Color.White : Color.DarkTheme}
       />
     </View>
    </>

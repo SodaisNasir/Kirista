@@ -4,12 +4,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import LightSplash from './src/screens/auth/LightSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {USER_DETAILS} from './src/redux/reducer';
+import {MODE, USER_DETAILS} from './src/redux/reducer';
+import {
+  useColorScheme,
+} from 'react-native';
 
 const App = () => {
   const user_details = useSelector(state => state.user_details);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const Theme = useColorScheme() === 'dark';
 
   setTimeout(() => {
     setLoading(false);
@@ -24,10 +28,29 @@ const App = () => {
       console.log('Please login');
     }
   };
-
   useEffect(() => {
     checkStatus();
+    modeCheck()
   }, []);
+
+  const modeCheck = async () => {
+    const getMode = await AsyncStorage.getItem('mode')
+    const cnvrtMode = JSON.parse(getMode)
+
+    const onMode = 'dark'
+    const ofMode = 'light'
+  
+
+    if(cnvrtMode == 'On'){
+      dispatch({type: MODE, payload: onMode})
+    }else if(cnvrtMode == 'Off'){
+      dispatch({type: MODE, payload: ofMode})
+    }else if(cnvrtMode == 'Device Settings'){
+      dispatch({type: MODE, payload: Theme})
+    }else{
+      console.log('vvvvvvv')
+    }
+  }
   return (
     <>
       {loading ? (
