@@ -74,13 +74,13 @@ const FilterModal = (props) => {
           </View>
 
           <FlatList
-            data={data}
+            data={props.data}
             renderItem={({item}) => {
               return (
                 <View style={{}}>
                   <TouchableOpacity
                     style={{marginBottom: verticalScale(10)}}
-                    onPress={() => setSelected(item.id)}>
+                    onPress={props.selectPress}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -119,7 +119,7 @@ const FilterModal = (props) => {
                             borderWidth: scale(1.5),
                             marginBottom: verticalScale(15),
                           }}>
-                          {selected == item.id ? (
+                          {props.selected == item.id ? (
                             <View
                               style={{
                                 flex: 1,
@@ -137,7 +137,7 @@ const FilterModal = (props) => {
                                     width >= 768 && height >= 1024
                                       ? verticalScale(7)
                                       : verticalScale(10),
-                                  backgroundColor: Color.Black,
+                                  backgroundColor:  Color.Black,
                                   borderRadius: scale(50),
                                 }}
                               />

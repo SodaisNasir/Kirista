@@ -15,28 +15,31 @@ import {Color} from '../../../utils/Colors';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {  getChaptersByID } from '../../../redux/actions/UserAction';
+import {getChapters, getChaptersByID} from '../../../redux/actions/UserAction';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Readone = ({route}) => {
 
+  const dispatch = useDispatch()
+  const chapters = useSelector(state => state.chapters)
+
   const {id,item} = route.params
   const [data,setData] = useState([])
-
-
 
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
-      getChaptersByID(setData,id)
+      // getChaptersByID(setData,id)
+      dispatch(getChapters(setData,id))
     }, []),
   );
   const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
+
 
   return (
     <>
@@ -54,14 +57,18 @@ const Readone = ({route}) => {
           backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
           barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
-          <ReadHeader textshown={true} text={data?.title} />
+          <ReadHeader textshown={true} text={chapters?.title} />
+          {
+            chapters ?
+
         <ScrollView showsVerticalScrollIndicator={false}>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
               navigation.navigate('Readtwo',{
-                id:data?.id,
-                bookData:item
+                id:id,
+                bookData:item,
+                chapterOne: data[0]?.id
               });
             }}
             style={styles.Container}>
@@ -71,7 +78,7 @@ const Readone = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.Title,
                 ]}>
-                {data?.title}
+                {chapters?.title}
               </Text>
             </View>
             <View
@@ -84,54 +91,27 @@ const Readone = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.TextStyle,
                 ]}>
-                {/* A book is a medium for recording information in the form of
-                writing or images, typically composed of many pages (made of
-                papyrus, parchment, vellum, or paper) bound together and
-                protected by a cover. */}
-                {data?.description}
+                {chapters?.description}
               </Text>
-              {/* <Text
-                style={[
-                  {color: Theme === 'dark' ? Color.White : Color.Black},
-                  styles.TextStyle,
-                ]}>
-                The technical term for this physical arrangement is codex
-                (plural, codices). In the history of hand-held physical supports
-                for extended written compositions or records, the codex replaces
-                its predecessor, the scroll. A single sheet in a codex is a leaf
-                and each side of a leaf is a page.
-              </Text>
-              <Text
-                style={[
-                  {color: Theme === 'dark' ? Color.White : Color.Black},
-                  styles.TextStyle,
-                ]}>
-                As an intellectual object, a book is prototypically a
-                composition of such great length that it takes a considerable
-                investment of time to compose and still considered as an
-                investment of time to read. In a restricted sense, a book is a
-                self-sufficient section or part of a longer composition, a usage
-                reflecting that, in antiquity, long works had to be written on
-                several scrolls and each scroll had to be identified by the book
-                it contained. Each part of Aristotle's Physics is called a book.
-                In an unrestricted sense, a book is the compositional whole of
-                which such sections, whether called books or chapters or parts,
-                are parts.
-              </Text>
-              <Text
-                style={[
-                  {color: Theme === 'dark' ? Color.White : Color.Black},
-                  styles.TextStyle,
-                ]}>
-                A book is a medium for recording information in the form of
-                writing or images, typically composed of many pages (made of
-                papyrus, parchment, vellum, or paper) bound together and
-                protected by a cover.
-              </Text> */}
+            
             </View>
           </TouchableOpacity>
           <View style={{height: verticalScale(80)}} />
-        </ScrollView>
+        </ScrollView> 
+        : <View
+        style={{
+          height: (h * 1) / 1.7,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{
+          color: Theme === 'dark' ? Color.White : Color.Black,
+           fontFamily: Font.Inter500
+           }}>
+          No Chapters Available
+        </Text>
+      </View>
+          }
         <View
           style={{
             flex: 1,
@@ -145,7 +125,7 @@ const Readone = ({route}) => {
             bottom: 0,
             width: '100%',
           }}>
-          <View
+          {/* <View
             style={[
               {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
               styles.ChapterPageStyle,
@@ -163,7 +143,7 @@ const Readone = ({route}) => {
                 1 / 11
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
       </View>
     </>

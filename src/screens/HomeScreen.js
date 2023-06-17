@@ -24,19 +24,21 @@ import Swiper from 'react-native-swiper';
 import {
   active_event,
   getBooks,
+  getSearchData,
   parish,
   show_all_banner,
 } from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const HomeScreen = () => {
+  const dispatch = useDispatch()
   const tabPotrait = w >= 768 && h >= 1024;
-  const [forImage, setForImage] = useState('');
+  const [forImage, setForImage] = useState([]);
   const [forLink, setForLink] = useState(``);
   const [data, setData] = useState([]);
   const [event, setEvent] = useState([]);
@@ -145,8 +147,10 @@ const HomeScreen = () => {
       parish(setData);
       active_event(setEvent);
       getBooks(setMyData)
+      dispatch(getSearchData())
     }, []),
   );
+console.log('forImage', forImage)
   const imageUrl =
     'https://images.unsplash.com/photo-1526045612212-70caf35c14df';
   return (
@@ -163,73 +167,46 @@ const HomeScreen = () => {
             },
             styles.SwiperViewOne,
           ]}>
-          <Swiper
+            <Swiper
             autoplayTimeout={5}
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-            <SwiperCard
-              source={{uri: forImage}}
-              text_subText="asdf is the live event my friend"
-              lastText="asdf"
-              live
-            />
-            <SwiperCard
-              source={{uri: forImage}}
-              text_subText="asdf is the live event my friend"
-            />
-            {/* <TouchableOpacity
-              // onPress={() => navigation.navigate('ViewBanner')}
-              // onPress={() => Linking.openURL(forLink)}
-              onPress={() =>
-                Linking.openURL('https://www.google.com/')
+              {
+                forImage?.length > 0 ?
+                forImage?.map((item,index) => {
+                  return(
+                    <>
+                    <SwiperCard
+                    key={index}
+                      source={{uri: item.image}}
+                      text_subText={item?.title}
+                      lastText={item?.tag}
+                      // live
+                      />
+                      </>
+                  )
+                }) :
+                <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+              <Text style={[
+              styles.BigTextStyle,
+              {
+                color: Theme === 'dark' ? Color.White : Color.Black,
+              },
+            ]}>No Banners Available</Text>
+            </View>
               }
-              activeOpacity={1}
-              style={{
-                height:
-                  w >= 768 && h >= 1024
-                    ? verticalScale(100)
-                    : verticalScale(135),
-                alignSelf: 'center',
-                width: w >= 768 && h >= 1024 ? scale(160) : scale(300),
-                overflow: 'hidden',
-              }}>
-              <Image
-                // resizeMode="stretch"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                }}
-                // source={require('../../src/assets/images/swiperone.png')}
-                source={{uri: forImage}}
-              />
-            </TouchableOpacity> */}
-
-            {/* <TouchableOpacity
-              // onPress={() => navigation.navigate('ViewBanner')}
-              // onPress={() => Linking.openURL(forLink)}
-              activeOpacity={1}
-              style={{
-                height:
-                  w >= 768 && h >= 1024
-                    ? verticalScale(100)
-                    : verticalScale(135),
-
-                alignSelf: 'center',
-                width: w >= 768 && h >= 1024 ? scale(160) : scale(300),
-                overflow: 'hidden',
-              }}>
-              <Image
-                resizeMode="stretch"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                }}
-                // source={require('../../src/assets/images/swipertwo.png')}
-                source={{uri: imageUrl}}
-              />
-            </TouchableOpacity> */}
+            {/* <SwiperCard
+              source={{uri: forImage}}
+              text_subText="asdf is the live event my friend"
+            /> */}
           </Swiper>
+       
         </View>
         <View style={{}}>
           <View
@@ -275,92 +252,110 @@ const HomeScreen = () => {
               numColumns={Math.ceil(books_data?.length / 2)}
               // data={myData}
               data={myData.slice(0, 5)}
-              renderItem={({item}) => {
+              renderItem={({item,index}) => {
                 return (
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('ViewManual',{
-                      item:item
-                    })}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ViewManual',{
+                    item:item
+                  })}>
+                  <View
+                    style={{
+                      height:
+                        w >= 768 && h >= 1024
+                          ? verticalScale(80)
+                          : verticalScale(100),
+
+                      flexDirection: 'row',
+                      overflow: 'hidden',
+                      width:
+                        w >= 768 && h >= 1024
+                          ? verticalScale(180)
+                          : verticalScale(250),
+                      marginLeft: index == 0 ? scale(10) : 0,
+                    }}>
                     <View
                       style={{
-                        height:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(80)
-                            : verticalScale(100),
-
-                        flexDirection: 'row',
-                        overflow: 'hidden',
-                        width:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(180)
-                            : verticalScale(250),
-                        marginLeft: item.type == 'first' ? scale(5) : 0,
+                        justifyContent: 'center',
+                        alignItems: 'flex-start',
                       }}>
                       <View
                         style={{
-                          justifyContent: 'center',
-                          alignItems: 'flex-start',
+                          height: w >= 768 && h >= 1024 ? '68%' : '70%',
+                          width:
+                            w >= 768 && h >= 1024 ? scale(60) : scale(100),
                         }}>
-                        <View
+                        <Image
+                          resizeMode="cover"
                           style={{
-                            height: w >= 768 && h >= 1024 ? '68%' : '100%',
-                            width:
-                              w >= 768 && h >= 1024 ? scale(60) : scale(100),
-                          }}>
-                          <Image
-                            resizeMode="contain"
-                            style={{
-                              height: '100%',
-                              width: '100%',
-                            }}
-                            source={{uri: item?.cover_image}}
-                          />
-                        </View>
-                      </View>
-                      <View style={{marginVertical: verticalScale(20)}}>
-                        <View
-                          style={{
-                            justifyContent: 'center',
-                          }}>
-                          <Text
-                            style={[
-                              {
-                                color: Theme === 'dark'
-                                  ? Color.White
-                                  : Color.DarkTextColor,
-                              },
-                              styles.BooksTitleStyle,
-                            ]}>
-                            {item?.title}
-                          </Text>
-                          <Text
-                            style={[
-                              styles.BooksTitleStyle,
-                              {
-                                color: Theme === 'dark'
-                                  ? Color.White
-                                  : Color.DarkTextColor,
-                                marginTop:
-                                  Platform.OS == 'ios' ? 0 : verticalScale(-5),
-                              },
-                            ]}>
-                            {item?.category}
-                          </Text>
-                        </View>
-                        <View
-                          style={{
-                            marginTop: tabPotrait
-                              ? verticalScale(1)
-                              : fourInchPotrait
-                              ? verticalScale(0.5)
-                              : verticalScale(2),
-                          }}>
-                          <Text style={styles.YearStyle}> {item?.year}</Text>
-                        </View>
+                            height: '100%',
+                            width: '100%',
+                          }}
+                          source={{uri: item?.cover_image}}
+                        />
                       </View>
                     </View>
-                  </TouchableOpacity>
+                    <View style={{marginVertical: verticalScale(20), marginLeft: scale(10)}}>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                        }}>
+                        <Text
+                          style={[
+                            {
+                              color: Theme === 'dark'
+                                ? Color.White
+                                : Color.DarkTextColor,
+                            },
+                            styles.BooksTitleStyle,
+                          ]}>
+                          {item?.title}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.BooksTitleStyle,
+                            {
+                              color: Theme === 'dark'
+                                ? Color.White
+                                : Color.DarkTextColor,
+                              marginTop:
+                                Platform.OS == 'ios' ? 0 : verticalScale(-5),
+                            },
+                          ]}>
+                          {item?.category}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          marginTop: tabPotrait
+                            ? verticalScale(1)
+                            : fourInchPotrait
+                            ? verticalScale(0.5)
+                            : verticalScale(2),
+                        }}>
+                        <Text style={styles.YearStyle}> {item?.release_year}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
                 );
+              }}
+              ListEmptyComponent={() => {
+                return(
+                  <View
+                  style={{
+                    height:verticalScale(60),
+                    width: scale(350),
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                <Text style={[
+                styles.BigTextStyle,
+                {
+                  color: Theme === 'dark' ? Color.White : Color.Black,
+                },
+              ]}>No Books Available</Text>
+              </View>
+                  )
               }}
             />
           </ScrollView>
@@ -627,8 +622,8 @@ const HomeScreen = () => {
                         });
                       }}
                       source={{uri: item.image}}
-                      title="RCCG"
-                      manual={item.title}
+                      title={item.title}
+                      manual={item.country}
                       resize={'contain'}
                       PlaceTrue={true}
                       Place={item.location}
@@ -731,57 +726,7 @@ const HomeScreen = () => {
               </View>
             )}
 
-            {/* <DetailsCard
-              onPress={() => {
-                navigation.navigate('EventScreen');
-              }}
-              source={require('../assets/images/event_2.png')}
-              title="West Coast 3 Regional"
-              resize={'cover'}
-              manual="Convention"
-              TimeTrue={true}
-              date={'July 7, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom: 0,
-                marginTop: verticalScale(12),
-              }}
-            />
-            <DetailsCard
-              onPress={() => {
-                navigation.navigate('EventScreen');
-              }}
-              source={require('../assets/images/event_3.png')}
-              title="West Coast 1 Regional"
-              resize={'cover'}
-              manual="Convention"
-              PlaceTrue={true}
-              TimeTrue={true}
-              date={'July 21, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom: 0,
-                marginTop: verticalScale(12),
-              }}
-            />
-            <DetailsCard
-              onPress={() => {
-                navigation.navigate('EventScreen');
-              }}
-              source={require('../assets/images/EventScreenImage1.png')}
-              title="Abuja Special Holy Ghost"
-              resize={'cover'}
-              manual="Congress"
-              PlaceTrue={true}
-              // Place="Ghana"
-              TimeTrue={true}
-              date={'November 09, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom: 0,
-                marginTop: verticalScale(12),
-              }}
-            /> */}
+            
           </View>
         </View>
         <View style={{height: verticalScale(10)}} />
@@ -851,6 +796,11 @@ const styles = StyleSheet.create({
   BooksTitleStyle: {
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
     fontFamily: Font.Poppins600,
+  },
+  BigTextStyle: {
+    color: Color.DarkTextColor,
+    fontFamily: Font.Poppins500,
+    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(13),
   },
 });
 export default HomeScreen;

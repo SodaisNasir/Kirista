@@ -21,10 +21,13 @@ import { useSelector } from 'react-redux';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ParishesResult = ({navigation}) => {
+const ParishesResult = ({navigation,route}) => {
   const Theme = useSelector(state => state.mode)
+  const {data} = route.params;
 
-  const data = [
+  console.log('data', data)
+
+  const data2 = [
     {
       id: 1,
       title: 'RCCG',
@@ -98,7 +101,9 @@ const ParishesResult = ({navigation}) => {
         renderItem={({item}) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate('ViewParish')}
+              onPress={() => navigation.navigate('ViewParish',{
+                id:item.id
+              })}
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -127,7 +132,7 @@ const ParishesResult = ({navigation}) => {
                       height: '100%',
                       width: '100%',
                     }}
-                    source={item.image}
+                    source={{uri: item?.image}}
                   />
                 </View>
               </View>
@@ -148,7 +153,7 @@ const ParishesResult = ({navigation}) => {
                         marginTop: verticalScale(5),
                       },
                     ]}>
-                    {item.title}
+                    {item?.region}
                   </Text>
                   <Text
                     style={[
@@ -158,7 +163,7 @@ const ParishesResult = ({navigation}) => {
                       },
                       styles.TitleStyle,
                     ]}>
-                    {item.manual}
+                    {item?.title}
                   </Text>
                 {/* </View> */}
                 {/* <View
@@ -168,7 +173,7 @@ const ParishesResult = ({navigation}) => {
                     justifyContent: 'center',
                     right: scale(2),
                   }}> */}
-                <Text style={styles.CountryStyle}>{item.country}</Text>
+                <Text style={styles.CountryStyle}>{item?.country}</Text>
                 {/* </View> */}
               </View>
             </TouchableOpacity>

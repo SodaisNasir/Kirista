@@ -18,6 +18,7 @@ import {Font} from '../../utils/font';
 import CustomButton from '../../components/CustomButton';
 import {useFocusEffect} from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import Share from 'react-native-share'
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -32,6 +33,14 @@ const ViewManual = ({navigation,route}) => {
     }, []),
   );
 
+  const shareBook = (data) => {
+    let shareImageBase64 = {
+      title: 'Book',
+      url: `d`,
+      subject: 'Share Book Link', //  for email
+    }
+    Share.open(shareImageBase64).catch((error) => console.log(error))
+  }
   return (
     <>
     <SafeAreaView
@@ -49,7 +58,10 @@ const ViewManual = ({navigation,route}) => {
         styles.Container,
       ]}>
      
-        <CustomHeader shareicon={true} saveicon={true} />
+        <CustomHeader
+         shareicon={true}
+        //  saveicon={true}
+          shareOnPress={shareBook} />
           <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.ImageViewStyle}>
           <Image

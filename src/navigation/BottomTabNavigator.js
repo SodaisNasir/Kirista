@@ -43,6 +43,8 @@ import ParishesResult from '../screens/homescreen/ParishesResult';
 import SelectRegion from '../screens/homescreen/Parish Finder/SelectRegion';
 import HomeScreen from '../screens/HomeScreen';
 import AdvWebView from '../components/AdvWebView';
+import RegionCountry from '../screens/RegionCountry';
+import Country from '../screens/Country';
 
 const Tab = createBottomTabNavigator();
 
@@ -92,6 +94,16 @@ function AllHome() {
           <Stack.Screen
         name="Language"
         component={Language}
+        options={{animation: 'fade_from_bottom'}}
+      />
+          <Stack.Screen
+        name="regioncountry"
+        component={RegionCountry}
+        options={{animation: 'fade_from_bottom'}}
+      />
+          <Stack.Screen
+        name="Country"
+        component={Country}
         options={{animation: 'fade_from_bottom'}}
       />
       <Stack.Screen

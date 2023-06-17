@@ -20,7 +20,9 @@ import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFocusEffect } from '@react-navigation/native';
+import { getSearchData } from '../../redux/actions/UserAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -37,6 +39,7 @@ const renderScene = SceneMap({
 const Home = () => {
   const tabPotrait = w >= 768 && h >= 1024;
   const layout = useWindowDimensions();
+
 
   const [index, setIndex] = useState(0);
 
@@ -112,6 +115,8 @@ const Home = () => {
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useSelector(state => state.mode)
+
+
 
   return (
     <>

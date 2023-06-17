@@ -19,23 +19,7 @@ const ChapterScreen = (props) => {
   const h = useWindowDimensions().height;
   const Theme = useColorScheme() === 'dark';
   const myData = props.data
-  const dispatch = useDispatch()
-  // const color_condition = Theme ? Color.White : Color.Black;
-  // const [colors, setColors] = useState([
-  //   {title: 'Chapter 1', color: color_condition},
-  //   {title: 'Chapter 2', color: color_condition},
-  //   {title: 'Chapter 3', color: color_condition},
-  //   {title: 'Chapter 4', color: color_condition},
-  // ]);
-  // const handlePress = index => {
-  //   const newColors = [...colors];
-  //   newColors.forEach((Btn, i) => {
-  //     Btn.color = i === index ? '#387DE5' : Theme ? Color.White : Color.Black;
-  //   });
-  //   setColors(newColors);
-  // };
-
- 
+  const dispatch = useDispatch() 
 
   const extractData =  myData?.find((item) => item.id == props.select)
 
@@ -46,6 +30,7 @@ const ChapterScreen = (props) => {
   useEffect(() => {
     dispatch({type: CHAPTERS, payload: extractData})
   }, [props.select])
+
 
   return (
     <View>

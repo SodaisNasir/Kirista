@@ -12,12 +12,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import { useSelector } from 'react-redux';
+
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ReadNavigator = props => {
   const heyTheme = useSelector(state => state.mode)
   const Theme = props.newTheme != '' ? props.newTheme : heyTheme
+
+  console.log('props.newTheme', props.newTheme, Theme)
 
 
 
@@ -43,7 +46,7 @@ const ReadNavigator = props => {
 
         {/* {props.DontShowMoon ? null : ( */}
           <TouchableOpacity onPress={props.moonPress} style={styles.tabButton}>
-            {!props.show ? (
+            {props.show ? (
               <Feather
                 name="sun"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}

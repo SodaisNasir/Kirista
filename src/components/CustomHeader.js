@@ -111,7 +111,7 @@ const CustomHeader = props => {
             ) : null}
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.IconStyle}>
+          <TouchableOpacity style={styles.IconStyle} onPress={props.shareOnPress}>
             {props.shareicon ? (
               <FontAwesome
                 name="share-square-o"

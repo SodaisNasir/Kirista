@@ -4,13 +4,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import LightSplash from './src/screens/auth/LightSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {MODE, USER_DETAILS} from './src/redux/reducer';
+import {BOOKMARK, MODE, USER_DETAILS} from './src/redux/reducer';
 import {
   useColorScheme,
 } from 'react-native';
 
 const App = () => {
   const user_details = useSelector(state => state.user_details);
+  const bookmark = useSelector(state => state.bookmark)
+
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const Theme = useColorScheme() === 'dark';
@@ -32,6 +35,22 @@ const App = () => {
     checkStatus();
     modeCheck()
   }, []);
+
+  useEffect(() => {
+    bookmarkData()
+  }, [])
+
+  const bookmarkData = async () => {
+    const bookMark = await AsyncStorage.getItem('bookmark')
+    const convertData = JSON.parse(bookMark)
+
+
+    if(convertData != null){
+      dispatch({type: BOOKMARK, payload: [convertData]})
+    }else{
+      console.log('Monkey D. Luffy')
+    }
+  }
 
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode')

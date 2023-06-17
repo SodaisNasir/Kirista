@@ -5,19 +5,16 @@ import {
   Text,
   View,
   useWindowDimensions,
-  useColorScheme,
 } from 'react-native'
 import React,{useState} from 'react'
-import HomeHeader from '../../../components/HomeHeader'
 import {Color} from '../../../utils/Colors'
-import {Font} from '../../../utils/font'
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
-import CustomInput from '../../../components/CustomInput'
 import SelectDropdown from '../../../components/SelectDropdown'
 import CustomButton from '../../../components/CustomButton'
-import SelectRegion from './SelectRegion'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { searchPerish } from '../../../redux/actions/UserAction'
+
 const ParishFinder = () => {
   const navigation = useNavigation()
   const Theme = useSelector(state => state.mode)
@@ -30,6 +27,14 @@ const ParishFinder = () => {
   const [flagImage, setFlagImage] = useState(
     require('../../../assets/images/nig.png'),
   );
+
+  const onSubmit = () => {
+    if(country != '' && province != '' && region != ''){
+      searchPerish(country,province,region,navigation)
+    }else{
+      alert('Please Select All Three Fields!')
+    }
+  }
   return (
     <>
        <SafeAreaView style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
@@ -58,7 +63,7 @@ const ParishFinder = () => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('SelectCountry',{
+              onPress={() => navigation.navigate('Country',{
                   setPhoneNumber: setPhoneNumber,
                   setFlagImage: setFlagImage,
                   setCountry: setCountry,
@@ -74,8 +79,8 @@ const ParishFinder = () => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('Language',{
-                type:'Region',
+              onPress={() => navigation.navigate('regioncountry',{
+                type:'region',
                 setSelectedLanguage:setRegion
               })}
               text={'Region'}
@@ -88,8 +93,8 @@ const ParishFinder = () => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('Language',{
-                type:'Provence',
+              onPress={() => navigation.navigate('regioncountry',{
+                type:'province',
                 setSelectedLanguage:setProvince
               })}
               text={'Province'}
@@ -97,7 +102,8 @@ const ParishFinder = () => {
             />
           </View>
           <CustomButton
-            onPress={() => navigation.navigate('ParishesResult')}
+            onPress={onSubmit}
+            // onPress={() => navigation.navigate('ParishesResult')}
             text={'Search'}
             stylz={{
               marginTop: verticalScale(25),

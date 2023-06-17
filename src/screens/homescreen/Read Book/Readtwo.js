@@ -13,7 +13,6 @@ import {
   Image,
 } from 'react-native';
 import React, {useState} from 'react';
-import ReadHeader from '../../../components/ReadHeader';
 import {Color} from '../../../utils/Colors';
 import {
   verticalScale,
@@ -27,44 +26,30 @@ import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
 import DrawerScreen from '../../../components/DrawerScreen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Modal from 'react-native-modal';
-
-import SelectDropdown from '../../../components/SelectDropdown';
-import LeftRight from '../../../assets/icons/left-right.svg';
-import LeftRightDark from '../../../assets/icons/leftright_dark.svg';
-import UpDown from '../../../assets/icons/up-down.svg';
-import UpDownDark from '../../../assets/icons/upright_dark.svg';
 import FontModal from '../../../components/Modals/FontModal';
-import Sun from '../../../assets/icons/sun_light.svg';
-import Sun_light from '../../../assets/icons/sun_one.svg';
-import SwiperBrightness from '../../../components/Modals/SwiperBrightness';
 import ReadNavigator from '../../../components/ReadNavigator';
-import ChapterScreen from '../../../components/ChapterScreen';
-import BookmarkScreen from '../../../components/BookmarkScreen';
 import { useCallback } from 'react';
 import { getChapters } from '../../../redux/actions/UserAction';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { BOOKMARK } from '../../../redux/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
+
 
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
 const Readtwo = ({route}) => {
 
-  const [count, setCount] = useState(0);
-  const {id,bookData} = route.params
-  // const [selected, setSelected] = useState();
-  // const [isModalVisible, setModalVisible] = useState(false);
+const dispatch = useDispatch()
+
+  const {id,bookData,chapterOne} = route.params
+
+
+
   const chapters = useSelector(state => state.chapters)
   const [data,setData] = useState([])
   const [bookId,setBookId] = useState(id)
-
-
-
-  useFocusEffect(
-    useCallback(() => {
-      getChapters(setData,bookId)
-    }, []),
-  );
   const navigation = useNavigation();
   const [tempMode,setTempMode] = useState('')
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
@@ -79,7 +64,19 @@ const Readtwo = ({route}) => {
     Theme === 'dark' ? Color.DarkTheme : Color.White,
   );
   const [textColor, setTextColor] = useState(text_color);
+  const selected = isSelect == true ? 'bookmark-outline' : 'bookmark';
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [select, setSelect] = useState(chapterOne)
+  const [isSelect, setisSelect] = useState(false);
+  const bookmark = useSelector(state => state.bookmark)
 
+
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(getChapters(setData,bookId))
+    }, []),
+  );
   const handlepressone = () => {
     setBackgroundColor('#F5F5F5');
     setTextColor(Color.Black);
@@ -88,58 +85,57 @@ const Readtwo = ({route}) => {
     setBackgroundColor('#F5EDD8');
     setTextColor(Color.Black);
   };
-
   const handlepressthree = () => {
     setBackgroundColor('#E5F1FD');
     setTextColor(Color.Black);
   };
-
   const handlepressfour = () => {
     setBackgroundColor('#DBE7E3');
     setTextColor(Color.Black);
   };
-
-  const [isSelect, setisSelect] = useState(false);
-  const handleClick = () => {
+  const handleClick = async () => {
     setisSelect(!isSelect);
+   
+    const extractData =  data?.find((item) => item.id == chapters.id)
+    const newObject = extractData
+    const findData = bookmark?.find((item) => item.id == newObject.id)
+
+    if (findData) {
+      // If the object already exists in the array, remove it
+      const updatedData = bookmark.filter((item) => item.id !== findData.id);
+      dispatch({type: BOOKMARK, payload: updatedData})
+      // await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
+    } else {
+      dispatch({type: BOOKMARK, payload: [...bookmark, newObject]})
+      console.log('Object not found in the array');
+      // Object does not exist in the array, handle accordingly
+      // await AsyncStorage.setItem('bookmark', JSON.stringify([...bookmark, newObject]));
+    }
   };
-  const selected = isSelect ? 'bookmark-outline' : 'bookmark';
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [chapter, setChapter] = useState(false);
-  const [bookmark, setBookmark] = useState(false);
-  const [chapterColor, setChapterColor] = useState(Color.Main);
-  const [bookmarkColor, setBookmarkColor] = useState(color_condition);
-  const [select, setSelect] = useState('1')
-  const color_condition = Theme === 'dark' ? Color.DarkThemeGreyText : Color.Black;
-
- 
-
-  const HandleChapter = () => {
-    setChapter(true);
-    setBookmark(false);
-    setChapterColor(Color.Main);
-    setBookmarkColor(color_condition);
-  };
-  const HandleBookmark = () => {
-    setBookmark(true);
-    setChapter(false);
-    setChapterColor(color_condition);
-    setBookmarkColor(Color.Main);
-  };
-
-  const iosTab = w >= 820 && h >= 1180;
-
- console.log('showSvg', showSvg,tempMode)
-
   const toggleIcon = () => {
-    setShowSvg(!showSvg);
     if(showSvg == true){
-      setTempMode('dark')
-    }else{
       setTempMode('light')
+      setShowSvg(!showSvg);
+    }else{
+      setTempMode('dark')
+      setShowSvg(!showSvg);
     }
   };
 
+  useEffect(() => {
+    addBookmark()
+  },[])
+
+  const addBookmark = () => {
+    const extrxtIds = bookmark.find((item) => item.id == chapters.id && item.books_id == chapters.books_id)
+   console.log('extrxtIds', extrxtIds)
+    if(extrxtIds != null || undefined){
+      alert('hai')
+    }else{
+      alert('nh h')
+    }
+  }
+  
   return (
     <>
       <SafeAreaView
@@ -189,7 +185,7 @@ const Readtwo = ({route}) => {
                 name="arrowleft"
                 size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
                 color={Theme === 'dark' ? Color.White : Color.Black}
-                onPress={() => navigation.navigate('ViewManual')}
+                onPress={() => navigation.goBack()}
               />
             </View>
 
@@ -197,7 +193,7 @@ const Readtwo = ({route}) => {
               onPress={handleClick}
               style={{justifyContent: 'center'}}>
               <Ionicons
-                name={selected}
+                name={isSelect == true ? 'bookmark-outline' : 'bookmark'}
                 size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
                 color={Color.Main}
               />
@@ -309,6 +305,7 @@ const Readtwo = ({route}) => {
             onSwipeComplete={() => setSecondModalVisible(false)}
             onRequestClose={() => setSecondModalVisible(false)}
             OptionSelect={() => setSecondModalVisible(false)}
+          
           />
 
           <DrawerScreen
@@ -321,7 +318,6 @@ const Readtwo = ({route}) => {
             chapterData={data}
             select={select}
             setSelect={setSelect}
-            
           />
         </ScrollView>
         <View
@@ -336,7 +332,7 @@ const Readtwo = ({route}) => {
               setModalThreeVisible(!isModalThreeVisible);
             }}
             onPressModal={() => setModalVisible(true)}
-            moonPress={toggleIcon}
+            moonPress={() => toggleIcon()}
             show={showSvg}
             newTheme={tempMode}
           />

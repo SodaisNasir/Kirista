@@ -46,6 +46,8 @@ const chapterData = props.chapterData
     setBookmarkColor(Color.Main)
   }
 
+
+
   return (
     // <SafeAreaView style={{flex: 1, width: '100%', height: '100%'}}>
 
@@ -79,6 +81,8 @@ const chapterData = props.chapterData
                     : verticalScale(100),
                 width: w >= 768 && h >= 1024 ? scale(70) : scale(110),
                 // backgroundColor: 'red',
+                overflow: 'hidden',
+                borderRadius:5
               }}>
               <Image
                 source={{uri: bookData?.cover_image}}
@@ -96,7 +100,7 @@ const chapterData = props.chapterData
                 style={[
                   styles.topText,
                   {fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14)},
-                  {color: Theme === 'dark' ? Color.White : Color.DarkTheme},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTheme,top: 5},
                 ]}>
                 {/* Sunday School */}
                 {bookData?.title}
@@ -110,6 +114,15 @@ const chapterData = props.chapterData
                 ]}>
                 {/* Student Manual */}
                 {bookData?.category}
+              </Text>
+              <Text
+                style={[
+                  styles.topText,
+                  {fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12)},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTheme,lineHeight : verticalScale(18)},
+                  
+                ]}>
+                {bookData?.release_year}
               </Text>
             </View>
           </View>
@@ -155,7 +168,7 @@ const chapterData = props.chapterData
           </View>
           {chapter && <ChapterScreen data={chapterData} select={props.select}
             setSelect={props.setSelect} />}
-          {bookmark && <BookmarkScreen />}
+          {bookmark && <BookmarkScreen book_id={chapterData[0]?.books_id} />}
         </SafeAreaView>
       </Modal>
     // </SafeAreaView>
