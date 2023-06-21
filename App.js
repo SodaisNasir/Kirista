@@ -56,7 +56,7 @@ const App = () => {
       dispatch({type: GETLANGUAGE, payload: cnvrtlng})
     } else{
        dispatch({type: APPLANGUAGE, payload: English})
-       dispatch({type: GETLANGUAGE, payload: 'EN'})
+       dispatch({type: GETLANGUAGE, payload: 'English'})
     }
   }
 

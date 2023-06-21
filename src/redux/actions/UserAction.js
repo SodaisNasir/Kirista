@@ -238,7 +238,8 @@ export const getChapters =  (setData,id) => {
     }
   }
 }
-export const getFAQ = async (setData) => {
+export const getFAQ = async (setData,setLoading) => {
+  setLoading(true)
   try {
     let base_url = `${base_Url}faq`;
   
@@ -249,11 +250,14 @@ export const getFAQ = async (setData) => {
 
     if (responseData.success.status === 200) {
       setData(responseData.success.data)
+      setLoading(false)
       }else{
         console.log('first')
+        setLoading(false)
       }
      }catch (error) {
     console.log('error', error)
+    setLoading(false)
   }
 }
 export const getPerishRegion = async (setData) => {

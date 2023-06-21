@@ -2,10 +2,9 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
   Dimensions,
-  useColorScheme,
+  ActivityIndicator,
   StatusBar,
   Platform,
   useWindowDimensions,
@@ -31,7 +30,7 @@ const Privacy = ({navigation}) => {
   const { width } = useWindowDimensions();
   const applanguage = useSelector(state => state.applanguage)
   const language = useSelector(state => state.language)
-
+  const [Loading, setLoading] = useState(false);
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -44,6 +43,7 @@ const Privacy = ({navigation}) => {
 
 const type = 'Privacy'
   const getPrivacy = async () => {
+    setLoading(true)
     try {
 
       let base_url = `${base_Url}show-about`;
@@ -61,10 +61,12 @@ const type = 'Privacy'
 
       if (responseData.success.status === 200) {
         setData(responseData.success.data.description)
+        setLoading(false)
       }
       
     } catch (error) {
       console.log('error', error)
+      setLoading(false)
     }
   }
   const source = {
@@ -101,6 +103,9 @@ const type = 'Privacy'
                 : verticalScale(45),
           }}
         />
+         {Loading ? (
+          <ActivityIndicator style={{marginTop:'70%'}} color={Color.Main} size="large" />
+        ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={[
@@ -205,11 +210,14 @@ const type = 'Privacy'
           </View>
           
         </ScrollView>
+        )}
         <View
           style={{
             width: '100%',
             backgroundColor: Color.White,
             justifyContent: 'center',
+            position:Loading ? 'absolute' : 'relative',
+            bottom:0
           }}>
           <CustomNavigator />
         </View>

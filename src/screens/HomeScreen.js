@@ -8,7 +8,6 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
-  useColorScheme,
   Platform,
   Linking,
   ActivityIndicator,
@@ -30,23 +29,22 @@ import {
 } from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const HomeScreen = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const Theme = useSelector(state => state.mode)
-  const applanguage = useSelector(state => state.applanguage)
+  const Theme = useSelector(state => state.mode);
+  const applanguage = useSelector(state => state.applanguage);
 
   const tabPotrait = w >= 768 && h >= 1024;
   const [forImage, setForImage] = useState([]);
   const [data, setData] = useState([]);
   const [event, setEvent] = useState([]);
-  const [myData,setMyData] = useState([])
-
+  const [myData, setMyData] = useState([]);
 
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
@@ -147,8 +145,8 @@ const HomeScreen = () => {
       show_all_banner(setForImage);
       parish(setData);
       active_event(setEvent);
-      getBooks(setMyData)
-      dispatch(getSearchData())
+      getBooks(setMyData);
+      dispatch(getSearchData());
     }, []),
   );
   const imageUrl =
@@ -163,50 +161,58 @@ const HomeScreen = () => {
         <View
           style={[
             {
-              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor:
+                Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             },
             styles.SwiperViewOne,
           ]}>
-            <Swiper
+          <Swiper
             autoplayTimeout={5}
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-              {
-                forImage?.length > 0 ?
-                forImage?.map((item,index) => {
-                  return(
-                    <>
+            {forImage?.length > 0 ? (
+              forImage?.map((item, index) => {
+                return (
+                  <>
                     <SwiperCard
-                    key={index}
+                      key={index}
                       source={{uri: item.image}}
                       text_subText={item?.title}
                       lastText={item?.tag}
                       // live
-                      />
-                      </>
-                  )
-                }) :
-                <View
+                    />
+                  </>
+                );
+              })
+            ) : (
+              <View
                 style={{
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-              <Text style={[
-              styles.BigTextStyle,
-              {
-                color: Theme === 'dark' ? Color.White : Color.Black,
-              },
-            ]}>No Banners Available</Text>
-            </View>
-              }
+                {/* <Text
+                  style={[
+                    styles.BigTextStyle,
+                    {
+                      color: Theme === 'dark' ? Color.White : Color.Black,
+                    },
+                  ]}>
+                  No Banners Available
+                </Text> */}
+                      <ActivityIndicator
+                  // style={{marginTop: '70%'}}
+                  color={Color.Main}
+                  size="large"
+                />
+              </View>
+            )}
             {/* <SwiperCard
               source={{uri: forImage}}
               text_subText="asdf is the live event my friend"
             /> */}
           </Swiper>
-       
         </View>
         <View style={{}}>
           <View
@@ -243,142 +249,148 @@ const HomeScreen = () => {
             </TouchableOpacity>
           </View>
           <ScrollView
-  horizontal
-  showsHorizontalScrollIndicator={false}
-  directionalLockEnabled={true}
-  alwaysBounceVertical={false}
->
-  <FlatList
-    showsHorizontalScrollIndicator={false}
-    data={myData?.slice(0, 5)}
-    renderItem={({ item, index }) => {
-      return (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('ViewManual', {
-              item: item,
-            })
-          }
-        >
-          <View
-            style={{
-              height:
-                w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100),
-              flexDirection: 'row',
-              overflow: 'hidden',
-              width:
-                w >= 768 && h >= 1024
-                  ? verticalScale(180)
-                  : verticalScale(250),
-              // marginLeft: index == 0 ? scale(10) : 0,
-              paddingLeft: 10
-            }}
-          >
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'flex-start',
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            directionalLockEnabled={true}
+            alwaysBounceVertical={false}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              data={myData?.slice(0, 5)}
+              renderItem={({item, index}) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('ViewManual', {
+                        item: item,
+                      })
+                    }>
+                    <View
+                      style={{
+                        height:
+                          w >= 768 && h >= 1024
+                            ? verticalScale(80)
+                            : verticalScale(100),
+                        flexDirection: 'row',
+                        overflow: 'hidden',
+                        width:
+                          w >= 768 && h >= 1024
+                            ? verticalScale(180)
+                            : verticalScale(250),
+                        // marginLeft: index == 0 ? scale(10) : 0,
+                        paddingLeft: 10,
+                      }}>
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'flex-start',
+                        }}>
+                        <View
+                          style={{
+                            height:
+                              w >= 768 && h >= 1024 ? scale(60) : scale(100),
+                            width:
+                              w >= 768 && h >= 1024 ? scale(60) : scale(100),
+                          }}>
+                          <Image
+                            resizeMode="cover"
+                            style={{
+                              height: '100%',
+                              width: '100%',
+                            }}
+                            source={{uri: item?.cover_image}}
+                          />
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          marginVertical: verticalScale(20),
+                          marginLeft: scale(10),
+                        }}>
+                        <View
+                          style={{
+                            justifyContent: 'center',
+                          }}>
+                          <Text
+                            style={[
+                              {
+                                color:
+                                  Theme === 'dark'
+                                    ? Color.White
+                                    : Color.DarkTextColor,
+                              },
+                              styles.BooksTitleStyle,
+                            ]}>
+                            {item?.title}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.BooksTitleStyle,
+                              {
+                                color:
+                                  Theme === 'dark'
+                                    ? Color.White
+                                    : Color.DarkTextColor,
+                                marginTop:
+                                  Platform.OS == 'ios' ? 0 : verticalScale(-5),
+                              },
+                            ]}>
+                            {item?.category}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            marginTop: tabPotrait
+                              ? verticalScale(1)
+                              : fourInchPotrait
+                              ? verticalScale(0.5)
+                              : verticalScale(2),
+                          }}>
+                          <Text style={styles.YearStyle}>
+                            {item?.release_year}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                );
               }}
-            >
-              <View
-                style={{
-                  height: w >= 768 && h >= 1024 ? scale(60) : scale(100),
-                  width: w >= 768 && h >= 1024 ? scale(60) : scale(100),
-                }}
-              >
-                <Image
-                  resizeMode="cover"
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                  }}
-                  source={{ uri: item?.cover_image }}
+              ListEmptyComponent={() => {
+                return (
+                  <View
+                    style={{
+                      height: verticalScale(60),
+                      width: scale(350),
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {/* <Text
+                      style={[
+                        styles.BigTextStyle,
+                        {
+                          color: Theme === 'dark' ? Color.White : Color.Black,
+                        },
+                      ]}>
+                      No Books Available
+                    </Text> */}
+                  <ActivityIndicator
+                  // style={{marginTop: '70%'}}
+                  color={Color.Main}
+                  size="large"
                 />
-              </View>
-            </View>
-            <View
-              style={{
-                marginVertical: verticalScale(20),
-                marginLeft: scale(10),
+                  </View>
+                );
               }}
-            >
-              <View
-                style={{
-                  justifyContent: 'center',
-                }}
-              >
-                <Text
-                  style={[
-                    {
-                      color:
-                        Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                    },
-                    styles.BooksTitleStyle,
-                  ]}
-                >
-                  {item?.title}
-                </Text>
-                <Text
-                  style={[
-                    styles.BooksTitleStyle,
-                    {
-                      color:
-                        Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                      marginTop: Platform.OS == 'ios' ? 0 : verticalScale(-5),
-                    },
-                  ]}
-                >
-                  {item?.category}
-                </Text>
-              </View>
-              <View
-                style={{
-                  marginTop: tabPotrait
-                    ? verticalScale(1)
-                    : fourInchPotrait
-                    ? verticalScale(0.5)
-                    : verticalScale(2),
-                }}
-              >
-                <Text style={styles.YearStyle}>{item?.release_year}</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    }}
-    ListEmptyComponent={() => {
-      return (
-        <View
-          style={{
-            height: verticalScale(60),
-            width: scale(350),
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text
-            style={[
-              styles.BigTextStyle,
-              {
-                color: Theme === 'dark' ? Color.White : Color.Black,
-              },
-            ]}
-          >
-            No Books Available
-          </Text>
-        </View>
-      );
-    }}
-    key={Math.ceil(myData?.length / 2).toString()}
-    numColumns={Math.ceil(myData?.length / 2)}
-  />
-</ScrollView>
-
+              key={Math.ceil(myData?.length / 2).toString()}
+              numColumns={Math.ceil(myData?.length / 2)}
+            />
+          </ScrollView>
         </View>
         <View
           style={[
-            {backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.White},
+            {
+              backgroundColor:
+                Theme === 'dark' ? Color.ExtraViewDark : Color.White,
+            },
             styles.SwiperViewTwo,
           ]}>
           <FlatList
@@ -626,7 +638,6 @@ const HomeScreen = () => {
           {data.length > 0 ? (
             <>
               {data?.map((item, index) => {
-         
                 return (
                   index < 3 && (
                     <DetailsCard
@@ -654,7 +665,10 @@ const HomeScreen = () => {
           ) : (
             <View
               style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <ActivityIndicator size="large" color={Color.White} />
+              <ActivityIndicator
+                size="large"
+                color={Theme === 'dark' ? Color.DarkTheme : Color.White}
+              />
             </View>
           )}
         </View>
@@ -662,7 +676,8 @@ const HomeScreen = () => {
         <View
           style={{
             height: verticalScale(20),
-            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+            backgroundColor:
+              Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
         <View
@@ -738,11 +753,12 @@ const HomeScreen = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <ActivityIndicator size="large" color={Color.White} />
+                <ActivityIndicator
+                  size="large"
+                  color={Theme === 'dark' ? Color.DarkTheme : Color.White}
+                />
               </View>
             )}
-
-            
           </View>
         </View>
         <View style={{height: verticalScale(10)}} />

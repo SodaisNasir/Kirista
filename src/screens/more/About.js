@@ -4,11 +4,11 @@ import {
   StyleSheet,
   Text,
   useWindowDimensions,
-  useColorScheme,
   View,
   Image,
   StatusBar,
   Linking,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useLayoutEffect} from 'react';
 import Header from '../../components/Header';
@@ -16,40 +16,38 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CustomNavigator from '../../components/CustomNavigator';
-import { base_Url } from '../../utils/Url';
-import { useState } from 'react';
+import {base_Url} from '../../utils/Url';
+import {useState} from 'react';
 import RenderHtml from 'react-native-render-html';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const About = ({navigation}) => {
-  const Theme = useSelector(state => state.mode)
+  const Theme = useSelector(state => state.mode);
+  const language = useSelector(state => state.language);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const [data,setData] = useState('')
-  const { width } = useWindowDimensions();
-  const language = useSelector(state => state.language)
-
-
-
+  const [data, setData] = useState('');
+  const {width} = useWindowDimensions();
+  const [Loading,setLoading] = useState(false)
+  console.log('language', language)
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
     });
-    getAbout()
+    getAbout();
   }, []);
 
-  const type = 'Kirista'
+  const type = 'Kirista';
   const getAbout = async () => {
+    setLoading(true)
     try {
-
       let base_url = `${base_Url}show-about`;
       let myData = new FormData();
-      
-      myData.append('type',type);
-      myData.append('language',language);
+
+      myData.append('type', type);
+      myData.append('language', language);
 
       const response = await fetch(base_url, {
         body: myData,
@@ -57,28 +55,35 @@ const About = ({navigation}) => {
       });
 
       const responseData = await response.json();
+      console.log('responseData', responseData)
 
       if (responseData.success.status === 200) {
-        setData(responseData.success.data.description)
+        setData(responseData.success.data.description);
+        setLoading(false)
       }
-      
     } catch (error) {
-      console.log('error', error)
+      console.log('error', error);
+      setLoading(false)
     }
-  }
+  };
 
   const source = {
-    html: data
+    html: data,
   };
 
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor:
+            Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
+      <StatusBar
+        backgroundColor={
+          Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor
+        }
+      />
       <View
         style={[
           {
@@ -103,13 +108,6 @@ const About = ({navigation}) => {
               marginTop:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(0),
             }}>
-            {/* <View
-            style={{
-              height:
-                w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(150),
-              width: w >= 768 && h >= 1024 ? '70%' : '70%',
-              alignItems:'center'
-            }}>
             <Image
               resizeMode="contain"
               source={
@@ -117,17 +115,6 @@ const About = ({navigation}) => {
                   ? require('../../assets/images/krista_about_dark.png')
                   : require('../../assets/images/krista_about.png')
               }
-              style={{height: '100%', width: '100%', alignSelf: 'center'}}
-            />
-          </View> */}
-            <Image
-              resizeMode="contain"
-              source={
-                Theme
-                  ? require('../../assets/images/krista_about_dark.png')
-                  : require('../../assets/images/krista_about.png')
-              }
-
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -135,25 +122,28 @@ const About = ({navigation}) => {
                     : verticalScale(100),
                 width: w >= 768 && h >= 1024 ? '40%' : '60%',
                 alignSelf: 'center',
-                marginBottom: w >= 768 && h >= 1024
-                ? verticalScale(5) : 0
+                marginBottom: w >= 768 && h >= 1024 ? verticalScale(5) : 0,
               }}
             />
-            
-          <RenderHtml
-          contentWidth={width}
-          source={source}
-           />
-           
+            {Loading ? (
+              <ActivityIndicator
+              color={Theme === 'dark' ? Color.White : Color.DarkTheme}
+                size="large"
+              />
+            ) : (
+              <RenderHtml contentWidth={width} source={source} />
+            )}
 
             {Theme === 'dark' ? (
               <View
                 style={{
                   height: verticalScale(80),
-                  borderBottomColor: Theme === 'dark' ? Color.White : Color.BorderColor,
+                  borderBottomColor:
+                    Theme === 'dark' ? Color.White : Color.BorderColor,
                   borderBottomWidth: 0.5,
                   borderTopWidth: 0.5,
-                  borderTopColor: Theme === 'dark' ? Color.White : Color.BorderColor,
+                  borderTopColor:
+                    Theme === 'dark' ? Color.White : Color.BorderColor,
                   justifyContent: 'center',
                   alignItems: 'center',
                   marginVertical:
@@ -223,7 +213,9 @@ const About = ({navigation}) => {
                 </View>
 
                 <Text
-                   onPress={() => Linking.openURL('https://www.idcplatforms.com/')}
+                  onPress={() =>
+                    Linking.openURL('https://www.idcplatforms.com/')
+                  }
                   style={{
                     fontFamily: Font.Poppins700,
                     color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
@@ -252,7 +244,8 @@ const About = ({navigation}) => {
                   style={[
                     {
                       fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                      color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
+                      color:
+                        Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     },
                     styles.NaijaText,
                   ]}>

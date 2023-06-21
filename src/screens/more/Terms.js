@@ -2,21 +2,19 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
   Dimensions,
-  useColorScheme,
   StatusBar,
   Platform,
   useWindowDimensions,
+  ActivityIndicator,
+
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
-import CustomNavigator from '../../components/CustomNavigator';
-import {useFocusEffect} from '@react-navigation/native';
 import {useLayoutEffect} from 'react';
 import RenderHtml from 'react-native-render-html';
 import { useState } from 'react';
@@ -30,18 +28,22 @@ const Terms = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
   const language = useSelector(state => state.language)
+  const [Loading, setLoading] = useState(false);
 
   const [data,setData] = useState('')
   const { width } = useWindowDimensions();
-  useLayoutEffect(
-    useCallback(() => {
-      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
-      getTerms()
-    }, []),
-  );
 
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+    getTerms()
+  }, []);
   const type = 'Terms'
   const getTerms = async () => {
+    setLoading(true)
     try {
 
       let base_url = `${base_Url}show-about`;
@@ -59,10 +61,12 @@ const Terms = ({navigation}) => {
 
       if (responseData.success.status === 200) {
         setData(responseData.success.data.description)
+        setLoading(false)
       }
       
     } catch (error) {
       console.log('error', error)
+      setLoading(false)
     }
   }
 
@@ -102,22 +106,27 @@ const Terms = ({navigation}) => {
                 : verticalScale(45),
           }}
         />
-        <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-            style={[
-              styles.Container,
-              {
-                backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-
-          <RenderHtml
-          contentWidth={width}
-          source={source}
-           />
-      </View>
-
-        </ScrollView>
+         {Loading ? (
+          <ActivityIndicator style={{marginTop:'70%'}} color={Color.Main} size="large" />
+        ) : (
+          <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+              style={[
+                styles.Container,
+                {
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
+                },
+              ]}>
+  
+            <RenderHtml
+            contentWidth={width}
+            source={source}
+             />
+        </View>
+  
+          </ScrollView>
+        )}
+       
 
 
 </View>
