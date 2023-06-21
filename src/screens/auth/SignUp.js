@@ -10,7 +10,7 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
 import CustomInput from '../../components/CustomInput';
@@ -20,13 +20,17 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import {register} from '../../redux/actions/AuthAction';
-import {useEffect} from 'react';
+import { useRef } from 'react';
+import IncorrectModal from '../../components/Modals/IncorrectModal';
+import { useFocusEffect } from '@react-navigation/native';
+import { getPerishCountry } from '../../redux/actions/UserAction';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const SignUp = ({navigation}) => {
   const dispatch = useDispatch();
+  const applanguage = useSelector(state => state.applanguage)
 
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 600 && height <= 350;
@@ -34,13 +38,16 @@ const SignUp = ({navigation}) => {
   const {
     control,
     handleSubmit,
+    watch,
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
+
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
-
+  const [isVisible, setVisible] = useState(true);
+  const [isVisible2, setVisible2] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('+234');
   const [flagImage, setFlagImage] = useState(
     require('../../assets/images/nig.png'),
@@ -67,13 +74,17 @@ const SignUp = ({navigation}) => {
 
   const device = Platform.OS;
   const [notMatched, setNotMatched] = useState(false);
+  const [message, setMessage] = useState('');
+  const [check, setCheck] = useState(false)
+
   const onSubmit = data => {
     if (data.password == data.confirm_password) {
-      dispatch(register(data, device));
+      dispatch(register(data, device,setMessage,setCheck,phoneNumber,flagImage));
     } else {
       setNotMatched(true);
     }
   };
+  const confirmPasswordRef = useRef()
 
   return (
     <SafeAreaView
@@ -108,7 +119,7 @@ const SignUp = ({navigation}) => {
                 fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(25),
                 color: Theme === 'dark' ? Color.White : Color.Black,
               }}>
-              Create Account
+              {applanguage.CreateAccount}
             </Text>
           </View>
 
@@ -126,11 +137,11 @@ const SignUp = ({navigation}) => {
                 control={control}
                 name="full_name"
                 rules={{
-                  required: 'Full name is required',
-                  message: 'Please enter your full name',
+                  required: applanguage.FullNameReq,
+                  message: applanguage.EnterFullName,
                 }}
-                text={'Full Name'}
-                placeholder={'Full Name'}
+                text={applanguage.FullName}
+                placeholder={applanguage.FullName}
                 // keyboardType={'email-address'}
               />
 
@@ -162,11 +173,11 @@ const SignUp = ({navigation}) => {
                 name="phonenumber"
                 maxLength={16}
                 rules={{
-                  required: 'Phone number is required',
-                  message: 'Please enter your phone number',
+                  required: applanguage.RequiredPhone,
+                  message: applanguage.Phonemessage,
                   maxLength: {
                     value: 15,
-                    message: 'Please enter a valid phone number',
+                    message: applanguage.ValidPhone,
                   },
                 }}
                 // restyleBox={{
@@ -175,9 +186,9 @@ const SignUp = ({navigation}) => {
                 //       ? verticalScale(15)
                 //       : verticalScale(15),
                 // }}
-                placeholder={'Phone Number'}
+                placeholder={applanguage.PhoneNumber}
                 keyboardType={'numeric'}
-                text={'Phone Number'}
+                text={applanguage.PhoneNumber}
                 flagImage={flagImage}
                 phoneNumber={phoneNumber}
                 phone={true}
@@ -209,15 +220,16 @@ const SignUp = ({navigation}) => {
                 control={control}
                 name="email"
                 rules={{
-                  required: '*Email is required',
+                  required: applanguage.RequiredEmail,
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                   pattern: {
                     value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                    message: 'Email is not valid',
+                    message: applanguage.ValidEmail,
                   },
                 }}
-                text={'Email Address'}
-                placeholder={'Email Address'}
-                keyboardType={'email-address'}
+                text={applanguage.EmailAddress}
+                placeholder={applanguage.EmailAddress}
+                keyboardType="email-address"
               />
               {errors.email && (
                 <Text
@@ -243,23 +255,27 @@ const SignUp = ({navigation}) => {
               }}>
               <CustomInput
                 password={true}
-                text={'Password'}
-                placeholder={'Password'}
+                text={applanguage.Password}
+                placeholder={applanguage.Password}
                 control={control}
                 name="password"
                 rules={{
-                  required: 'Password is required',
+                  required: applanguage.RequiredPassword,
                   minLength: {
                     value: 8,
-                    message: '*Password too short (minimum length is 8)',
+                    message: applanguage.PasswordMax,
                   },
                   maxLength: {
                     value: 16,
-                    message: '*Password too long (maximum length is 16)',
+                    message: applanguage.PasswordMin,
                   },
                 }}
                 keyboardType="default"
                 maxLength={20}
+                onSubmitEditing={() => confirmPasswordRef.current.focus()}
+                secureTextEntry={isVisible}
+                PIname={isVisible ? 'eye-off-outline' : 'eye-outline'}
+                onShowPass={() => setVisible(!isVisible)}
               />
               {errors.password && (
                 <Text
@@ -284,23 +300,31 @@ const SignUp = ({navigation}) => {
               }}>
               <CustomInput
                 password={true}
-                text={'Confirm Password'}
-                placeholder={'Confirm Password'}
+                text={applanguage.ConfirmPassword}
+                placeholder={applanguage.ConfirmPassword}
                 control={control}
                 name="confirm_password"
                 rules={{
-                  required: 'Password is required',
+                  required: applanguage.RequiredConfirmPassword,
                   minLength: {
                     value: 8,
-                    message: '*Password too short (minimum length is 8)',
+                    message: applanguage.ConfirmPasswordMax,
                   },
                   maxLength: {
                     value: 16,
-                    message: '*Password too long (maximum length is 16)',
+                    message: applanguage.ConfirmPasswordMin,
+                  },
+                  validate: {
+                    positive: (value) =>
+                      value === watch('password') || applanguage.PasswordMatch,
                   },
                 }}
                 keyboardType="default"
                 maxLength={20}
+                ref={(e) => (confirmPasswordRef.current = e)}
+                secureTextEntry={isVisible2}
+                PIname={isVisible2 ? 'eye-off-outline' : 'eye-outline'}
+                onShowPass={() => setVisible2(!isVisible2)}
               />
               {errors.confirm_password && (
                 <Text
@@ -318,22 +342,6 @@ const SignUp = ({navigation}) => {
                 </Text>
               )}
             </View>
-            {notMatched ? (
-              <Text
-                style={[
-                  {
-                    fontSize: tabPotrait
-                      ? verticalScale(11)
-                      : fourInchLandscape
-                      ? scale(12)
-                      : scale(14),
-                  },
-                  styles.error,
-                ]}>
-                {' '}
-                Password is not matched
-              </Text>
-            ) : null}
             <View
               style={{
                 paddingVertical:
@@ -346,7 +354,7 @@ const SignUp = ({navigation}) => {
                 //     ? Dispatch({type: LOGIN, payload: email})
                 //     : alert('Complete the form')
                 // }
-                text={'Sign Up'}
+                text={applanguage.SignUp}
               />
             </View>
 
@@ -365,7 +373,7 @@ const SignUp = ({navigation}) => {
                   fontFamily: Font.Poppins500,
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                 }}>
-                If you have an account,{' '}
+                {applanguage.SignUpText}, {' '}
                 <Text
                   onPress={() => navigation.navigate('Login')}
                   style={{
@@ -373,13 +381,20 @@ const SignUp = ({navigation}) => {
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                     fontFamily: Font.Poppins700,
                   }}>
-                  Sign in
+                  {applanguage.SignIn}
                 </Text>
               </Text>
             </View>
           </View>
         </View>
       </ScrollView>
+
+      <IncorrectModal
+          text={message}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </SafeAreaView>
   );
 };

@@ -28,6 +28,7 @@ import { useSelector } from 'react-redux';
 
 const Feedback = ({navigation}) => {
   const user_details = useSelector(state => state.user_details)
+  const applanguage = useSelector(state => state.applanguage)
   const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -125,7 +126,7 @@ const Feedback = ({navigation}) => {
         backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
-      <CustomHeader text={'Feedback'} AuthHeaderStyle={{
+      <CustomHeader text={applanguage.Feedback} AuthHeaderStyle={{
          height:
          Platform.OS == 'android'
            ? w >= 768 && h >= 1024
@@ -158,7 +159,7 @@ const Feedback = ({navigation}) => {
             }}>
             <TextInput
               multiline={true}
-              placeholder={`Briefly explain what isn't working or what happened`}
+              placeholder={applanguage.FeedbackBrief}
               placeholderTextColor={Theme === 'dark' ? '#404F64' : '#C6CAD1'}
               style={[
                 {
@@ -191,7 +192,7 @@ const Feedback = ({navigation}) => {
                 paddingVertical:
                   w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
               }}>
-              <AttachButton text={'Upload'} />
+              <AttachButton text={applanguage.Upload} />
             </TouchableOpacity>
 
             <View
@@ -202,7 +203,7 @@ const Feedback = ({navigation}) => {
               <CustomButton 
               // onPress={() => navigation.goBack()}
               onPress={onSumbit}
-               text={'Send'} />
+               text={applanguage.Send} />
             </View>
           </View>
         </KeyboardAvoidingView>

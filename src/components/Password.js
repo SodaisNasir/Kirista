@@ -55,9 +55,8 @@ const Password = props => {
           justifyContent: 'space-between',
         }}>
         <TextInput
-          placeholder={'Password'}
+          placeholder={props.placeholder}
           placeholderTextColor={Color.BoldTextColor}
-          secureTextEntry={isVisible}
           style={{
             fontSize: tabPotrait
               ? verticalScale(11)
@@ -79,13 +78,17 @@ const Password = props => {
           onChangeText={props.onChangeText}
           value={props.value}
           defaultValue={props.defaultValue}
+          secureTextEntry={props.secureTextEntry}
         />
         {props.password == true ? (
           <MaterialCommunityIcons
-            name={isVisible ? 'eye-off-outline' : 'eye-outline'}
-            size={w >= 768 && h >= 1024 ? scale(14) : scale(26)}
+          size={w >= 768 && h >= 1024 ? scale(14) : scale(26)}
+          onPress={props.onShowPass}
+          // onPress={() => setVisible(!isVisible)}
+            // name={isVisible ? 'eye-off-outline' : 'eye-outline'}
+            name={props.PIname}
             color={Color.Main}
-            onPress={() => setVisible(!isVisible)}
+
             style={{
               alignSelf: 'center',
               marginLeft: '5%',

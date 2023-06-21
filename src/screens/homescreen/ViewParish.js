@@ -32,6 +32,7 @@ const ViewParish = ({route}) => {
   const [data, setData] = useState('');
   const [loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
 
   useFocusEffect(
     useCallback(() => {
@@ -56,7 +57,7 @@ const ViewParish = ({route}) => {
             marginTop: Platform.OS == 'ios' ? verticalScale(-20) : 0,
           },
         ]}>
-        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true} />
+        <CustomHeader text={applanguage.ViewParish} shareicon={true} saveicon={true} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
@@ -91,7 +92,7 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationText,
                 ]}>
-                Country:
+                {applanguage.Country}:
               </Text>
               <Text
                 style={[
@@ -108,7 +109,7 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationText,
                 ]}>
-                Region:
+                {applanguage.Region}:
               </Text>
               <Text
                 style={[
@@ -125,7 +126,7 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationText,
                 ]}>
-                Province:
+                {applanguage.Province}:
               </Text>
               <Text
                 style={[
@@ -182,7 +183,7 @@ const ViewParish = ({route}) => {
                 styles.LocationBigText,
                 {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               ]}>
-              Location
+               {applanguage.Location}
             </Text>
           </View>
           <View
@@ -276,7 +277,7 @@ const ViewParish = ({route}) => {
                   styles.LocationBigText,
                   {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 ]}>
-                Contact
+               {applanguage.Contact}
               </Text>
             </View>
 

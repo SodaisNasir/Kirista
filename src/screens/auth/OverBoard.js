@@ -23,17 +23,16 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {IS_GUEST, LOGIN, USER_DETAILS} from '../../redux/reducer';
+
+
 const OverBoard = ({navigation}) => {
 
+  const getlanguage = useSelector(state => state.getlanguage)
+  const applanguage = useSelector(state => state.applanguage)
 
+  const defaulLang = getlanguage != null ? getlanguage : 'EN'
 
-
-  const [selectedLanguage, setselectedLanguage] = useState('EN')
-
-
-// navigation.navigate('Language',{type:'Language'})
-
-console.log('selectedLanguage', selectedLanguage)
+  const [selectedLanguage, setselectedLanguage] = useState(defaulLang)
 
   const handleLanguageButtonPress = () => {
     navigation.navigate('Language', {
@@ -41,6 +40,7 @@ console.log('selectedLanguage', selectedLanguage)
       setSelectedLanguage: setselectedLanguage,
     });
   };
+
 
  
   const Dispatch = useDispatch();
@@ -53,7 +53,6 @@ console.log('selectedLanguage', selectedLanguage)
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 350 && height <= 600;
 
-  console.log(width, height);
   const Theme = useSelector(state => state.mode)
   const handelSkip = () => {
     // navigation.navigate('BottomTabNavigator');
@@ -143,7 +142,7 @@ console.log('selectedLanguage', selectedLanguage)
                     fontSize: tabPotrait ? scale(9) : scale(15),
                     top: tabPotrait ? scale(0) : Platform.OS == 'ios' ?  scale(7) : scale(5),
                   }}>
-                  Skip
+                  {applanguage.Skip}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -237,10 +236,10 @@ console.log('selectedLanguage', selectedLanguage)
                 alignSelf: 'center',
                 marginTop: verticalScale(20),
               }}>
-              <CustomSmallButton text={'#Parishes'} />
-              <CustomSmallButton text={'#Books'} />
-              <CustomSmallButton text={'#Events'} />
-              <CustomSmallButton text={'#More'} />
+              <CustomSmallButton text={`#${applanguage.Parishes}`} />
+              <CustomSmallButton text={`#${applanguage.Books}`} />
+              <CustomSmallButton text={`#${applanguage.Events}`} />
+              <CustomSmallButton text={`#${applanguage.More}`} />
             </View>
 
             <View
@@ -255,7 +254,7 @@ console.log('selectedLanguage', selectedLanguage)
                   fontSize: tabPotrait ? scale(15) : scale(20),
                   color: Theme === 'dark' ? Color.White : Color.Black,
                 }}>
-                Welcome, Brethren.
+                {applanguage.Welcome}Brethren
               </Text>
             </View>
             <View
@@ -266,7 +265,7 @@ console.log('selectedLanguage', selectedLanguage)
               }}>
               <View style={{marginTop: verticalScale(4)}}>
                 <CustomButton
-                  text={'Create an account'}
+                  text={applanguage.NewAccount}
                   onPress={() => navigation.navigate('SignUp')}
                 />
               </View>
@@ -279,7 +278,7 @@ console.log('selectedLanguage', selectedLanguage)
                     : verticalScale(10),
                 }}>
                 <InvertCustomButton
-                  text={'Sign In'}
+                  text={applanguage.SignIn}
                   onPress={() => navigation.navigate('Login')}
                 />
               </View>
@@ -311,23 +310,23 @@ console.log('selectedLanguage', selectedLanguage)
                   fontFamily: Font.Poppins500,
                 }}>
                 {' '}
-                By continuing, you agree the{' '}
+                {applanguage.Terms}{' '}
                 <Text
                   onPress={() => navigation.navigate('Terms')}
                   style={[
                     styles.term,
                     tabPotrait ? {fontSize: scale(7)} : {fontSize: scale(10)},
                   ]}>
-                  Terms of Use
+                  {applanguage.OfUse}
                 </Text>
-                <Text style={{color: Color.BoldTextColor}}> and </Text>
+                <Text style={{color: Color.BoldTextColor}}> {applanguage.And} </Text>
                 <Text
                   onPress={() => navigation.navigate('Privacy')}
                   style={[
                     styles.term,
                     tabPotrait ? {fontSize: scale(7)} : {fontSize: scale(10)},
                   ]}>
-                  Privacy Policy
+                  {applanguage.Privacy}
                 </Text>
               </Text>
             </View>

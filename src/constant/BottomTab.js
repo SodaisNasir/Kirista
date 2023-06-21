@@ -15,6 +15,7 @@ const h = Dimensions.get('window').height;
 const tabPotrait = w >= 768 && h >= 1024;
 const fourInch = w <= 450 && h <= 750;
 const BottomTab = props => {
+  const applanguage = useSelector(state => state.applanguage)
   const Theme = useSelector(state => state.mode)
     const Navigation = useNavigation()
     return (
@@ -36,7 +37,7 @@ const BottomTab = props => {
             styles.Name,
             {color: props.activeHome ? Color.Main : Color.NonActive},
           ]}>
-          Home
+          {applanguage.Home}
         </Text>
       </Pressable>
       <Pressable onPress={() => Navigation.navigate('Library')} style={styles.Boxes}>
@@ -51,7 +52,7 @@ const BottomTab = props => {
             styles.Name,
             {color: props.activeLibary ? Color.Main : Color.NonActive,left:scale(1)},
           ]}>
-          Library
+          {applanguage.Library}
         </Text>
       </Pressable>
       <Pressable onPress={() => Navigation.navigate('More')} style={styles.Boxes}>
@@ -66,7 +67,7 @@ const BottomTab = props => {
             styles.Name,
             {color: props.activeMore ? Color.Main : Color.NonActive,left:scale(1)},
           ]}>
-          More
+          {applanguage.More}
         </Text>
       </Pressable>
     </View>

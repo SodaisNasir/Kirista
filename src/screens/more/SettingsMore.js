@@ -57,6 +57,8 @@ const h = Dimensions.get('window').height;
 const SettingsMore = () => {
   const [email, setEmail] = useState(null);
   const userData = useSelector(state => state.user_details)
+  const applanguage = useSelector(state => state.applanguage)
+
   const dispatch = useDispatch();
   const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
@@ -120,7 +122,8 @@ const SettingsMore = () => {
                     color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
-                Hello, Brethren.
+                {/* Hello, Brethren. */}
+                {applanguage.Hello}, Brethren.
               </Text>
             )}
           </View>
@@ -187,7 +190,7 @@ const SettingsMore = () => {
                             alignSelf: 'flex-start',
                           },
                         ]}>
-                        Sign in
+                        {applanguage.SignIn}
                       </Text>
                       <Text
                         style={[
@@ -293,7 +296,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  About
+                  {applanguage.About}
                 </Text>
               </View>
 
@@ -339,7 +342,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     },
                   ]}>
-                  Language
+                  {applanguage.Language}
                 </Text>
               </View>
 
@@ -376,7 +379,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Notifications
+                  {applanguage.Notifications}
                 </Text>
               </View>
 
@@ -407,7 +410,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  DarkMode
+                 {applanguage.DarkMode} 
                 </Text>
               </View>
 
@@ -451,7 +454,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  FAQ
+                  {applanguage.FAQ} 
                 </Text>
               </View>
 
@@ -489,7 +492,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Terms
+                  {applanguage.TermsPlain}
                 </Text>
               </View>
 
@@ -527,7 +530,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Privacy
+                  {applanguage.PrivacyPlain}
                 </Text>
               </View>
 
@@ -574,7 +577,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Feedback
+                  {applanguage.Feedback}
                 </Text>
               </View>
 
@@ -613,7 +616,7 @@ const SettingsMore = () => {
                       color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Contact
+                  {applanguage.Contact}
                 </Text>
               </View>
 

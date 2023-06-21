@@ -37,18 +37,19 @@ const h = Dimensions.get('window').height;
 
 const HomeScreen = () => {
   const dispatch = useDispatch()
+  const navigation = useNavigation();
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
   const tabPotrait = w >= 768 && h >= 1024;
   const [forImage, setForImage] = useState([]);
-  const [forLink, setForLink] = useState(``);
   const [data, setData] = useState([]);
   const [event, setEvent] = useState([]);
   const [myData,setMyData] = useState([])
 
-  const navigation = useNavigation();
 
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
-  const Theme = useSelector(state => state.mode)
   const image_data = [
     {
       id: 1,
@@ -143,14 +144,13 @@ const HomeScreen = () => {
 
   useFocusEffect(
     useCallback(() => {
-      show_all_banner(setForImage, setForLink);
+      show_all_banner(setForImage);
       parish(setData);
       active_event(setEvent);
       getBooks(setMyData)
       dispatch(getSearchData())
     }, []),
   );
-console.log('forImage', forImage)
   const imageUrl =
     'https://images.unsplash.com/photo-1526045612212-70caf35c14df';
   return (
@@ -223,7 +223,7 @@ console.log('forImage', forImage)
                 {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BooksText,
               ]}>
-              Popular Books
+              {applanguage.PopularBooks}
             </Text>
             <TouchableOpacity
               onPress={() => {
@@ -233,7 +233,7 @@ console.log('forImage', forImage)
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <Text style={styles.MoreText}>More</Text>
+              <Text style={styles.MoreText}>{applanguage.More}</Text>
               <Entypo
                 name="chevron-small-right"
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
@@ -243,122 +243,138 @@ console.log('forImage', forImage)
             </TouchableOpacity>
           </View>
           <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            directionalLockEnabled={true}
-            alwaysBounceVertical={false}>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              numColumns={Math.ceil(books_data?.length / 2)}
-              // data={myData}
-              data={myData.slice(0, 5)}
-              renderItem={({item,index}) => {
-                return (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('ViewManual',{
-                    item:item
-                  })}>
-                  <View
-                    style={{
-                      height:
-                        w >= 768 && h >= 1024
-                          ? verticalScale(80)
-                          : verticalScale(100),
-
-                      flexDirection: 'row',
-                      overflow: 'hidden',
-                      width:
-                        w >= 768 && h >= 1024
-                          ? verticalScale(180)
-                          : verticalScale(250),
-                      marginLeft: index == 0 ? scale(10) : 0,
-                    }}>
-                    <View
-                      style={{
-                        justifyContent: 'center',
-                        alignItems: 'flex-start',
-                      }}>
-                      <View
-                        style={{
-                          height: w >= 768 && h >= 1024 ? '68%' : '70%',
-                          width:
-                            w >= 768 && h >= 1024 ? scale(60) : scale(100),
-                        }}>
-                        <Image
-                          resizeMode="cover"
-                          style={{
-                            height: '100%',
-                            width: '100%',
-                          }}
-                          source={{uri: item?.cover_image}}
-                        />
-                      </View>
-                    </View>
-                    <View style={{marginVertical: verticalScale(20), marginLeft: scale(10)}}>
-                      <View
-                        style={{
-                          justifyContent: 'center',
-                        }}>
-                        <Text
-                          style={[
-                            {
-                              color: Theme === 'dark'
-                                ? Color.White
-                                : Color.DarkTextColor,
-                            },
-                            styles.BooksTitleStyle,
-                          ]}>
-                          {item?.title}
-                        </Text>
-                        <Text
-                          style={[
-                            styles.BooksTitleStyle,
-                            {
-                              color: Theme === 'dark'
-                                ? Color.White
-                                : Color.DarkTextColor,
-                              marginTop:
-                                Platform.OS == 'ios' ? 0 : verticalScale(-5),
-                            },
-                          ]}>
-                          {item?.category}
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          marginTop: tabPotrait
-                            ? verticalScale(1)
-                            : fourInchPotrait
-                            ? verticalScale(0.5)
-                            : verticalScale(2),
-                        }}>
-                        <Text style={styles.YearStyle}> {item?.release_year}</Text>
-                      </View>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                );
+  horizontal
+  showsHorizontalScrollIndicator={false}
+  directionalLockEnabled={true}
+  alwaysBounceVertical={false}
+>
+  <FlatList
+    showsHorizontalScrollIndicator={false}
+    data={myData?.slice(0, 5)}
+    renderItem={({ item, index }) => {
+      return (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ViewManual', {
+              item: item,
+            })
+          }
+        >
+          <View
+            style={{
+              height:
+                w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100),
+              flexDirection: 'row',
+              overflow: 'hidden',
+              width:
+                w >= 768 && h >= 1024
+                  ? verticalScale(180)
+                  : verticalScale(250),
+              // marginLeft: index == 0 ? scale(10) : 0,
+              paddingLeft: 10
+            }}
+          >
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'flex-start',
               }}
-              ListEmptyComponent={() => {
-                return(
-                  <View
+            >
+              <View
+                style={{
+                  height: w >= 768 && h >= 1024 ? scale(60) : scale(100),
+                  width: w >= 768 && h >= 1024 ? scale(60) : scale(100),
+                }}
+              >
+                <Image
+                  resizeMode="cover"
                   style={{
-                    height:verticalScale(60),
-                    width: scale(350),
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}>
-                <Text style={[
-                styles.BigTextStyle,
-                {
-                  color: Theme === 'dark' ? Color.White : Color.Black,
-                },
-              ]}>No Books Available</Text>
+                    height: '100%',
+                    width: '100%',
+                  }}
+                  source={{ uri: item?.cover_image }}
+                />
               </View>
-                  )
+            </View>
+            <View
+              style={{
+                marginVertical: verticalScale(20),
+                marginLeft: scale(10),
               }}
-            />
-          </ScrollView>
+            >
+              <View
+                style={{
+                  justifyContent: 'center',
+                }}
+              >
+                <Text
+                  style={[
+                    {
+                      color:
+                        Theme === 'dark' ? Color.White : Color.DarkTextColor,
+                    },
+                    styles.BooksTitleStyle,
+                  ]}
+                >
+                  {item?.title}
+                </Text>
+                <Text
+                  style={[
+                    styles.BooksTitleStyle,
+                    {
+                      color:
+                        Theme === 'dark' ? Color.White : Color.DarkTextColor,
+                      marginTop: Platform.OS == 'ios' ? 0 : verticalScale(-5),
+                    },
+                  ]}
+                >
+                  {item?.category}
+                </Text>
+              </View>
+              <View
+                style={{
+                  marginTop: tabPotrait
+                    ? verticalScale(1)
+                    : fourInchPotrait
+                    ? verticalScale(0.5)
+                    : verticalScale(2),
+                }}
+              >
+                <Text style={styles.YearStyle}>{item?.release_year}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    }}
+    ListEmptyComponent={() => {
+      return (
+        <View
+          style={{
+            height: verticalScale(60),
+            width: scale(350),
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={[
+              styles.BigTextStyle,
+              {
+                color: Theme === 'dark' ? Color.White : Color.Black,
+              },
+            ]}
+          >
+            No Books Available
+          </Text>
+        </View>
+      );
+    }}
+    key={Math.ceil(myData?.length / 2).toString()}
+    numColumns={Math.ceil(myData?.length / 2)}
+  />
+</ScrollView>
+
         </View>
         <View
           style={[
@@ -586,7 +602,7 @@ console.log('forImage', forImage)
                   {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.BooksText,
                 ]}>
-                Featured Parishes
+                {applanguage.FeaturedParishes}
               </Text>
             </View>
 
@@ -598,7 +614,7 @@ console.log('forImage', forImage)
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <Text style={styles.MoreText}>More</Text>
+              <Text style={styles.MoreText}>{applanguage.More}</Text>
               <Entypo
                 name="chevron-small-right"
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
@@ -668,7 +684,7 @@ console.log('forImage', forImage)
                   {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.UpcomingText,
                 ]}>
-                Upcoming Events
+                {applanguage.UpcomingEvents}
               </Text>
             </View>
 

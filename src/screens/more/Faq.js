@@ -24,7 +24,7 @@ const h = Dimensions.get('window').height;
 
 const Faq = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
-
+  const applanguage = useSelector(state => state.applanguage)
 
   const [data, setData] = useState([]);
   const [select, setSelect] = useState('');
@@ -57,7 +57,7 @@ const Faq = ({navigation}) => {
         backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
-        <Header text={'FAQ'} /> 
+        <Header text={applanguage.FAQ} /> 
          {/* AuthHeaderStyle={{
             height:
               w >= 768 && h >= 1024

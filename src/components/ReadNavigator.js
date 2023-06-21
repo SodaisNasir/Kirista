@@ -20,17 +20,16 @@ const ReadNavigator = props => {
   const heyTheme = useSelector(state => state.mode)
   const Theme = props.newTheme != '' ? props.newTheme : heyTheme
 
-  console.log('props.newTheme', props.newTheme, Theme)
 
 
-
+console.log('props.background', props.background)
   return (
     <View
       style={[
         styles.container,
         props.reStyle,
         {
-          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
+          backgroundColor: props.background ? props.background  : Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
       ]}>
       <View style={styles.BoxStyle}>
@@ -39,7 +38,7 @@ const ReadNavigator = props => {
             <FontAwesome5
               name="list-ul"
               size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-              color={Theme === 'dark' ? '#fff' : '#374957'}
+              color={props.background ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
             />
           </TouchableOpacity>
         {/* )} */}
@@ -50,13 +49,13 @@ const ReadNavigator = props => {
               <Feather
                 name="sun"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-                color={Theme === 'dark' ? '#fff' : '#374957'}
+                color={props.background ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
               />
             ) : (
               <Feather
                 name="moon"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-                color={Theme === 'dark' ? '#fff' : '#374957'}
+                color={props.background  ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
               />
             )}
           </TouchableOpacity>
@@ -68,7 +67,7 @@ const ReadNavigator = props => {
           <Feather
             name="settings"
             size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-            color={props.ChangeColor ? props.color : Theme === 'dark' ? '#fff' : '#374957'}
+            color={props.background  ? '#374957' : props.ChangeColor ? props.color : Theme === 'dark' ? '#fff' : '#374957'}
           />
         </TouchableOpacity>
       </View>

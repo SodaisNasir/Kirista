@@ -55,7 +55,10 @@ const FontModal = (props) => {
 
   
  const Theme = useSelector(state => state.mode)
-
+const onSubmit = (item) => {
+  props.OptionSelect(false)
+  props.fontData(item.label)
+}
   return (
       <Modal
         testID={'modal'}
@@ -108,7 +111,9 @@ const FontModal = (props) => {
                 <View style={{}}>
                   <TouchableOpacity
                     style={{marginTop: verticalScale(12)}}
-                    onPress={props.OptionSelect}>
+                    // onPress={props.OptionSelect}
+                    onPress={() => onSubmit(item)}
+                    >
                     <View
                       style={{
                         flexDirection: 'row',

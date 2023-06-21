@@ -35,6 +35,8 @@ const EventScreen = ({route, navigation}) => {
   const [data, setData] = useState('');
   const [loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
   
 
   useFocusEffect(
@@ -65,9 +67,10 @@ const EventScreen = ({route, navigation}) => {
         },
       ]}>
         <CustomHeader
-          text={'View Event'}
+          // text={'View Event'}
+          text={applanguage.View + ' ' + applanguage.Events}
           shareicon={true}
-          saveicon={true}
+          // saveicon={true}
           timeicon={true}
           AuthHeaderStyle={{
             // marginTop: Platform.OS = 'ios' ? verticalScale(-5) : 0,
@@ -194,7 +197,7 @@ const EventScreen = ({route, navigation}) => {
               },
               styles.LocationBigText,
             ]}>
-            Location
+            {applanguage.Location}
           </Text>
         </View>
         <View

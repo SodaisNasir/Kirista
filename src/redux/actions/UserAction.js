@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { base_Url } from "../../utils/Url";
 import { CHAPTERS, SEARCH_DATA, USER_DETAILS } from "../reducer";
 
-export const show_all_banner = async (setForImage,setForLink) =>{
+export const show_all_banner = async (setForImage) =>{
     try {
         let base_url = `${base_Url}banner-active`;
   
@@ -94,7 +94,6 @@ export const active_event = async (setEvent) => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
-     console.log('responseData in active_event ==>', responseData)
      setEvent(responseData.success.data)
     } else {
       console.log('else error');
@@ -228,8 +227,9 @@ export const getChapters =  (setData,id) => {
       const responseData = await response.json();
       
       if (responseData.success.status === 200) {
-        setData(responseData.success.data)
-        dispatch({type: CHAPTERS, payload: responseData.success.data[0]})
+        setData(responseData.success.data[0])
+        dispatch({type: CHAPTERS, payload: responseData.success.data})
+        
       }else{
         console.log('first')
       }

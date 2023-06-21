@@ -22,6 +22,7 @@ import Password from '../../components/Password';
 import { useForm } from 'react-hook-form';
 import { change_password } from '../../redux/actions/AuthAction';
 import { useSelector } from 'react-redux';
+import TickModal from '../../components/Modals/TickModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -32,8 +33,7 @@ const height = Dimensions.get('window').height;
 const NewPassword = ({navigation,route}) => {
   const {data, id} = route.params;
   const Theme = useSelector(state => state.mode)
-
-
+  const applanguage = useSelector(state => state.applanguage)
 
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 600 && height <= 350;
@@ -41,6 +41,7 @@ const NewPassword = ({navigation,route}) => {
   const {
     control,
     handleSubmit,
+    watch,
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
 
@@ -74,13 +75,18 @@ const NewPassword = ({navigation,route}) => {
 
   const device = Platform.OS;
   const [notMatched, setNotMatched] = useState(false);
+  const [check, setCheck] = useState(false)
+  const confirmPasswordRef = useRef()
+  const [isVisible, setVisible] = useState(true);
+  const [isVisible2, setVisible2] = useState(true);
+
 
   const onSubmit = (data) => {
     if(data.password == data.confirm_password){
-      change_password(data,id,navigation)
-      console.log('first',data)
+      change_password(data,id,navigation,setCheck)
+      // setCheck(true)
     }else{
-      console.log('vvvvvvvv')
+      console.log('incorrect')
     }
   }
   return (
@@ -91,7 +97,7 @@ const NewPassword = ({navigation,route}) => {
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{alignSelf:'center',width:'95%'}}>
-        <AuthHeader text={'New Password'} />
+        <AuthHeader text={applanguage.NewPassword} />
 
         <View
           style={{
@@ -103,25 +109,11 @@ const NewPassword = ({navigation,route}) => {
               {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
               styles.LongText,
             ]}>
-            Kindly fill your new password and confirm it.
+            {/* Kindly fill your new password and confirm it. */}
+            {applanguage.KindlyFill}
           </Text>
         </View>
 
-        {/* <View
-          style={{
-            marginVertical:
-              w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20),
-          }}>
-          <Password
-            restyleBox={{
-              marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(25),
-            }}
-            text={'New Password'}
-          />
-
-          <Password password = {true} text={'Confirm Password'} />
-        </View> */}
          <View
               style={{
                 paddingVertical:
@@ -129,23 +121,27 @@ const NewPassword = ({navigation,route}) => {
               }}>
               <CustomInput
                 password={true}
-                text={'Password'}
-                placeholder={'Password'}
+                text={applanguage.Password}
+                placeholder={applanguage.Password}
                 control={control}
                 name="password"
                 rules={{
-                  required: 'Password is required',
+                  required: applanguage.RequiredPassword,
                   minLength: {
                     value: 8,
-                    message: 'Password too short (minimum length is 8)',
+                    message: applanguage.PasswordMax,
                   },
                   maxLength: {
                     value: 16,
-                    message: 'Password too long (maximum length is 16)',
+                    message: applanguage.PasswordMin,
                   },
                 }}
                 keyboardType="default"
                 maxLength={20}
+                onSubmitEditing={() => confirmPasswordRef.current.focus()}
+                secureTextEntry={isVisible}
+                PIname={isVisible ? 'eye-off-outline' : 'eye-outline'}
+                onShowPass={() => setVisible(!isVisible)}
               />
               {errors.password && (
                 <Text
@@ -170,23 +166,31 @@ const NewPassword = ({navigation,route}) => {
               }}>
               <CustomInput
                 password={true}
-                text={'Confirm Password'}
-                placeholder={'Confirm Password'}
+                text={applanguage.ConfirmPassword}
+                placeholder={applanguage.ConfirmPassword}
                 control={control}
                 name="confirm_password"
                 rules={{
-                  required: 'Confirm Password is required',
+                  required: applanguage.RequiredConfirmPassword,
                   minLength: {
                     value: 8,
-                    message: 'Password too short (minimum length is 8)',
+                    message: applanguage.ConfirmPasswordMax,
                   },
                   maxLength: {
                     value: 16,
-                    message: 'Password too long (maximum length is 16)',
+                    message: applanguage.ConfirmPasswordMin,
+                  },
+                  validate: {
+                    positive: (value) =>
+                      value === watch('password') || applanguage.PasswordMatch,
                   },
                 }}
                 keyboardType="default"
                 maxLength={20}
+                ref={(e) => (confirmPasswordRef.current = e)}
+                secureTextEntry={isVisible2}
+                PIname={isVisible2 ? 'eye-off-outline' : 'eye-outline'}
+                onShowPass={() => setVisible2(!isVisible)}
               />
               {errors.confirm_password && (
                 <Text
@@ -204,22 +208,7 @@ const NewPassword = ({navigation,route}) => {
                 </Text>
               )}
             </View>
-            {notMatched ? (
-              <Text
-                style={[
-                  {
-                    fontSize: tabPotrait
-                      ? verticalScale(11)
-                      : fourInchLandscape
-                      ? scale(12)
-                      : scale(14),
-                  },
-                  styles.error,
-                ]}>
-                {' '}
-                Password is not matched
-              </Text>
-            ) : null}
+            
 
         <View
           style={{
@@ -230,11 +219,17 @@ const NewPassword = ({navigation,route}) => {
           <CustomButton
             // onPress={() => navigation.navigate('Login')}
             onPress={handleSubmit(onSubmit)}
-            text={'Finish'}
+            text={applanguage.Finish}
           />
         </View>
         </View>
       </ScrollView>
+      <TickModal
+          text="Your password has been successfully updated!"
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </SafeAreaView>
   );
 };

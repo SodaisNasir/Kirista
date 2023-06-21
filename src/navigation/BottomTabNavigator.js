@@ -45,11 +45,12 @@ import HomeScreen from '../screens/HomeScreen';
 import AdvWebView from '../components/AdvWebView';
 import RegionCountry from '../screens/RegionCountry';
 import Country from '../screens/Country';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-
+  
   return (
     <NavigationContainer>
     <Tab.Navigator

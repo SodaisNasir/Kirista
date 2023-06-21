@@ -23,9 +23,8 @@ const h = Dimensions.get('window').height;
 
 const ParishesResult = ({navigation,route}) => {
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
   const {data} = route.params;
-
-  console.log('data', data)
 
   const data2 = [
     {
@@ -91,7 +90,7 @@ const ParishesResult = ({navigation,route}) => {
         styles.Container,
         {backgroundColor: Theme === 'dark' ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0},
       ]}>
-      <Header text={'Result'} AuthHeaderStyle={{
+      <Header text={applanguage.Result} AuthHeaderStyle={{
         paddingTop:0,
         // height:verticalScale(60)
       }}/>

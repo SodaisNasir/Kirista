@@ -6,8 +6,8 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  useColorScheme,
   StatusBar,
+  useWindowDimensions,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -15,9 +15,11 @@ import {Color} from '../../../utils/Colors';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Font} from '../../../utils/font';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {getChapters, getChaptersByID} from '../../../redux/actions/UserAction';
+import {getChapters} from '../../../redux/actions/UserAction';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import RenderHtml from 'react-native-render-html';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -26,6 +28,7 @@ const Readone = ({route}) => {
 
   const dispatch = useDispatch()
   const chapters = useSelector(state => state.chapters)
+  const { width } = useWindowDimensions();
 
   const {id,item} = route.params
   const [data,setData] = useState([])
@@ -33,12 +36,30 @@ const Readone = ({route}) => {
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
-      // getChaptersByID(setData,id)
       dispatch(getChapters(setData,id))
     }, []),
   );
   const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
+  let text = data?.title;
+  let text2 = data?.description;
+
+  let result = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family:arial; font-size:20px; font-weight:bold;'`);
+  let result2 = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family:arial; font-size:14px; font-weight:bold;'`);
+  let result3 = text2?.replace("class='chap_description'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family:'LibreBaskerville-Regular'; font-size:15px; font-weight:600;'`);
+  
+  const heading = {
+    html: result2
+  };
+
+
+  const title = {
+    html: result
+  };
+
+  const description = {
+    html: result3
+  };
 
 
   return (
@@ -57,7 +78,11 @@ const Readone = ({route}) => {
           backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
           barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
-          <ReadHeader textshown={true} text={chapters?.title} />
+          <ReadHeader textshown={true} text={ 
+          <RenderHtml
+          contentWidth={width}
+          source={heading}
+           /> } />
           {
             chapters ?
 
@@ -68,7 +93,7 @@ const Readone = ({route}) => {
               navigation.navigate('Readtwo',{
                 id:id,
                 bookData:item,
-                chapterOne: data[0]?.id
+                chapterOne: data.id
               });
             }}
             style={styles.Container}>
@@ -78,7 +103,10 @@ const Readone = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.Title,
                 ]}>
-                {chapters?.title}
+                 <RenderHtml
+                  contentWidth={width}
+                  source={title}
+                  />
               </Text>
             </View>
             <View
@@ -86,13 +114,17 @@ const Readone = ({route}) => {
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
               }}>
-              <Text
+              {/* <Text
                 style={[
                   {color: Theme === 'dark' ? Color.White : Color.Black},
                   styles.TextStyle,
                 ]}>
                 {chapters?.description}
-              </Text>
+              </Text> */}
+               <RenderHtml
+                  contentWidth={width}
+                  source={description}
+                  />
             
             </View>
           </TouchableOpacity>

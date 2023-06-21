@@ -26,6 +26,7 @@ const h = Dimensions.get('window').height;
 const ViewManual = ({navigation,route}) => {
   const {item} = route.params
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
 
   useFocusEffect(
     useCallback(() => {
@@ -100,7 +101,7 @@ const ViewManual = ({navigation,route}) => {
               id: item?.id,
               item:item
             })}
-            text={'Read'}
+            text={applanguage.Read}
           />
         </View>
 
@@ -135,7 +136,7 @@ const ViewManual = ({navigation,route}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>Language</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>{applanguage.LanguagePlain}</Text>
             <Text
               style={[
                 {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
@@ -153,7 +154,7 @@ const ViewManual = ({navigation,route}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>Category</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>{applanguage.Category}</Text>
             <Text
               style={[
                 {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
@@ -169,7 +170,7 @@ const ViewManual = ({navigation,route}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>Released</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>{applanguage.Released}</Text>
             <Text
               style={[
                 {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
@@ -201,7 +202,7 @@ const ViewManual = ({navigation,route}) => {
               {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.AuthorText,
             ]}>
-            Author
+            {applanguage.Author}
           </Text>
           <Text
             style={[
@@ -219,7 +220,7 @@ const ViewManual = ({navigation,route}) => {
           }}>
           <Text
             style={[styles.About, {color: Theme === 'dark' ? Color.White : Color.Black}]}>
-            About
+            {applanguage.About}
           </Text>
 
           <Text

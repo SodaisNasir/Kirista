@@ -16,9 +16,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
 import {show_popup} from '../redux/actions/UserAction';
+import { useSelector } from 'react-redux';
 
 const Advertisement = () => {
   const navigation = useNavigation();
+  const applanguage = useSelector(state => state.applanguage)
   const [forImage, setForImage] = useState();
   const [forTitle, setForTitle] = useState();
   const [forLink, setForLink] = useState();
@@ -109,7 +111,7 @@ const Advertisement = () => {
                   color: Color.DarkTextColor,
                   fontFamily: Font.Inter500,
                 }}>
-                {seconds} Skip
+                {seconds} {applanguage.Skip}
               </Text>
             </TouchableOpacity>
           </View>
@@ -181,7 +183,7 @@ const Advertisement = () => {
                   color: Color.Main,
                   fontFamily: Font.Poppins600,
                 }}>
-                View
+                {applanguage.View}
               </Text>
               <View style={{marginLeft: scale(5)}}>
                 <AntDesign

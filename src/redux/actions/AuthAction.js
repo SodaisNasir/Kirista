@@ -3,7 +3,7 @@ import {base_Url, token} from '../../utils/Url';
 import {USER_DETAILS} from '../reducer';
 import {OTP_SEND} from '../reducer';
 
-export const sign_in = data => {
+export const sign_in = (data,setCheck) => {
   return async (dispatch) => {
     try {
       let base_url = `${base_Url}login`;
@@ -22,21 +22,25 @@ export const sign_in = data => {
       });
       const responseData = await response.json();
 
-      if (responseData.success.status === 200) {
+      console.log('responseData', responseData)
+
+      if (responseData?.success?.status === 200) {
         dispatch({type: USER_DETAILS, payload: responseData.success});
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
         console.log('responseData if for otpMEthod', responseData);
         console.log('USER_DETAILS', USER_DETAILS)
       } else {
         console.log('else error');
+        setCheck(true)
       }
     } catch (error) {
       console.log('catch error', error);
+      
     }
   };
 };
 
-export const register =  (data, device) => {
+export const register =  (data, device,setEmail,setCheck,phoneNumber,flagImage) => {
   return async dispatch => {
     try {
       let base_url = `${base_Url}register`;
@@ -54,9 +58,22 @@ export const register =  (data, device) => {
         method: 'post',
       });
 
+      console.log('response', response)
       const responseData = await response.json();
 
-      if (responseData.success.status === 200) {
+      console.log('responseData', responseData)
+
+      if(responseData?.error.email){
+        setEmail(responseData?.error.email[0])
+        setCheck(true)
+      }else if(responseData?.error.phone_number){
+        setEmail(responseData?.error.phone_number[0])
+        setCheck(true)
+      }else{
+        console.log('finee')
+      }
+
+      if (responseData?.success.status === 200) {
         dispatch({type: USER_DETAILS, payload: responseData.success});
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
         console.log('responseData register', responseData);
@@ -153,12 +170,7 @@ export const verify_Email_before_password =  (data,navigation,type,setTime) => {
 };
 
 
-export const change_password = async (data,id,navigation) => {
-  console.log('first',
-  data.password,
-  data.confirm_password,
-  id
-  )
+export const change_password = async (data,id,navigation,setCheck) => {
   try {
     let base_url = `${base_Url}resetpassword/${id}`;
     let myData = new FormData();
@@ -175,8 +187,12 @@ export const change_password = async (data,id,navigation) => {
     console.log('responseData', responseData)
 
     if (responseData.success.status === 200) {
+      setCheck(true)
       console.log('responseData', responseData);
-      navigation.navigate('Login')
+      setTimeout(() => {
+        navigation.navigate('Login')
+        // setCheck(false)
+      }, 1500);
     } else {
       console.log('else error');
     }

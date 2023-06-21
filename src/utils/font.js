@@ -12,5 +12,8 @@ export const Font = {
   Inter500 : 'Inter-Medium',
   GoBold400 : 'Gobold',
   GoBold300 : 'Gobold-Light',
-  emoji: 'NotoColorEmoji-Regular'
+  emoji: 'NotoColorEmoji-Regular',
+  arial: 'Arial',
+  roman: 'times-new-roman',
+  RomanBold: 'times-new-roman-bold',
 };

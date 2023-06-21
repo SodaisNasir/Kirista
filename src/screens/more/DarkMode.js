@@ -19,7 +19,6 @@ import {
 import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
-import ReadNavigator from '../../components/ReadNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { MODE } from '../../redux/reducer';
@@ -30,6 +29,7 @@ const DarkMode = ({navigation}) => {
   const h = useWindowDimensions().height;
   const dispatch = useDispatch()
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
   const [selected, setSelected] = useState('');
 
 
@@ -55,15 +55,15 @@ useEffect(() => {
   let DATA = [
     {
       id: '1',
-      title: 'Off',
+      title: applanguage.Off,
     },
     {
       id: '2',
-      title: 'On',
+      title: applanguage.On,
     },
     {
       id: '3',
-      title: 'Device Settings',
+      title: applanguage.DeviceSettings,
     },
   ];
 
@@ -139,7 +139,7 @@ useEffect(() => {
       <View
         style={[
           {
-            borderBottomColor: Theme
+            borderBottomColor: Theme === 'dark'
               ? Color.DarkBorderColor
               : Color.BorderColor,
           },
@@ -158,11 +158,11 @@ useEffect(() => {
     const ofMode = 'light'
   
 
-    if(data.title == 'On'){
+    if(data.title == applanguage.On){
       dispatch({type: MODE, payload: onMode})
-    }else if(data.title == 'Off'){
+    }else if(data.title == applanguage.Off){
       dispatch({type: MODE, payload: ofMode})
-    }else if(data.title == 'Device Settings'){
+    }else if(data.title == applanguage.DeviceSettings){
       dispatch({type: MODE, payload: getTheme})
     }else{
       console.log('vvvvvvv')
@@ -183,7 +183,7 @@ useEffect(() => {
       <StatusBar
         backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
       />
-      <Header text={'Dark Mode'}  />
+      <Header text={applanguage.DarkMode}  />
       <FlatList
         scrollEnabled={false}
         showsVerticalScrollIndicator={false}

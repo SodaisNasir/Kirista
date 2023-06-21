@@ -20,6 +20,8 @@ const AttachButton = props => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [isVisible, setVisible] = useState(false);
+  const applanguage = useSelector(state => state.applanguage)
+
   return (
     <View style={props.restyleBox}>
       <Text
@@ -55,7 +57,7 @@ const AttachButton = props => {
             width: '80%',
             color: Theme === 'dark' ? Color.DarkThemeInputText : '#C6CAD1',
           }}>
-          Screenshot Upload
+          {applanguage.ScreenShotUpload}
         </Text>
 
         {/* }}>

@@ -21,12 +21,15 @@ import { useSelector } from 'react-redux'
 
 const DrawerScreen = (props) => {
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
   const color_condition = Theme === 'dark' ? Color.DarkThemeGreyText : Color.Black
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
 
 const bookData = props.data
 const chapterData = props.chapterData
+
 
   const [chapter, setChapter] = useState(true)
   const [bookmark, setBookmark] = useState(false)
@@ -78,9 +81,8 @@ const chapterData = props.chapterData
                 height:
                   w >= 768 && h >= 1024
                     ? verticalScale(65)
-                    : verticalScale(100),
+                    : verticalScale(80),
                 width: w >= 768 && h >= 1024 ? scale(70) : scale(110),
-                // backgroundColor: 'red',
                 overflow: 'hidden',
                 borderRadius:5
               }}>
@@ -93,7 +95,8 @@ const chapterData = props.chapterData
             <View
               style={{
                 flex: 1,
-                top: scale(1),
+                top: scale(5),
+                paddingLeft:5
                
               }}>
               <Text
@@ -118,7 +121,7 @@ const chapterData = props.chapterData
               <Text
                 style={[
                   styles.topText,
-                  {fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12)},
+                  {fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10)},
                   {color: Theme === 'dark' ? Color.White : Color.DarkTheme,lineHeight : verticalScale(18)},
                   
                 ]}>
@@ -146,9 +149,11 @@ const chapterData = props.chapterData
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                   },
                   styles.Chapter,
-                  {color: chapterColor},
+                  // {color: chapterColor},
+                  Theme === 'dark' ?
+                    {color: chapter  ? Color.Main : Color.White} : {color: chapter  ? Color.Main : Color.Black}
                 ]}>
-                Chapters
+                {applanguage.Chapters}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -159,14 +164,16 @@ const chapterData = props.chapterData
                   styles.Chapter,
                   {
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
-                    color: bookmarkColor,
+                    // color: bookmarkColor,
                   },
+                  Theme === 'dark' ?
+                    {color: bookmark  ? Color.Main : Color.White} : {color: bookmark  ? Color.Main : Color.Black}
                 ]}>
-                Bookmarks
+                {applanguage.Bookmarks}
               </Text>
             </TouchableOpacity>
           </View>
-          {chapter && <ChapterScreen data={chapterData} select={props.select}
+          {chapter && <ChapterScreen selectOff={props.selectOff} data={chapterData} select={props.select}
             setSelect={props.setSelect} />}
           {bookmark && <BookmarkScreen book_id={chapterData[0]?.books_id} />}
         </SafeAreaView>

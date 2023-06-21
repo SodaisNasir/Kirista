@@ -29,27 +29,25 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontModal from '../../../components/Modals/FontModal';
 import ReadNavigator from '../../../components/ReadNavigator';
 import { useCallback } from 'react';
-import { getChapters } from '../../../redux/actions/UserAction';
+import { getChapters, getChaptersByID } from '../../../redux/actions/UserAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { BOOKMARK } from '../../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
-
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
 const Readtwo = ({route}) => {
-
-const dispatch = useDispatch()
-
+  const dispatch = useDispatch()
   const {id,bookData,chapterOne} = route.params
 
-
-
   const chapters = useSelector(state => state.chapters)
+  const bookmark = useSelector(state => state.bookmark)
+  const { width } = useWindowDimensions();
+
   const [data,setData] = useState([])
-  const [bookId,setBookId] = useState(id)
   const navigation = useNavigation();
   const [tempMode,setTempMode] = useState('')
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
@@ -57,26 +55,29 @@ const dispatch = useDispatch()
   const [showSvg, setShowSvg] = useState(false);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const heyTheme = useSelector(state => state.mode)
-  const Theme = tempMode != '' ? tempMode : heyTheme
-  const text_color = Theme === 'dark' ? Color.White : Color.Black;
-  const [backgroundColor, setBackgroundColor] = useState(
-    Theme === 'dark' ? Color.DarkTheme : Color.White,
-  );
-  const [textColor, setTextColor] = useState(text_color);
-  const selected = isSelect == true ? 'bookmark-outline' : 'bookmark';
+  const modeCheck = useSelector(state => state.mode)
+  const Theme = tempMode != '' ? tempMode : modeCheck
+  const [backgroundColor, setBackgroundColor] = useState('');
+
+  const [textColor, setTextColor] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
   const [select, setSelect] = useState(chapterOne)
   const [isSelect, setisSelect] = useState(false);
-  const bookmark = useSelector(state => state.bookmark)
+  const [chapterData, setChapterData] = useState([])
+  const [fontData, setFontData] = useState('')
+  const [count, setCount] = useState(0)
 
 
-
+  const systemFonts = [...defaultSystemFonts, 'Arial', 'times-new-roman-bold'];
   useFocusEffect(
     useCallback(() => {
-      dispatch(getChapters(setData,bookId))
+      dispatch(getChapters(setData,id))
     }, []),
   );
+
+  useEffect(() => {
+    getChaptersByID(setChapterData,select)
+  }, [select])
   const handlepressone = () => {
     setBackgroundColor('#F5F5F5');
     setTextColor(Color.Black);
@@ -94,22 +95,23 @@ const dispatch = useDispatch()
     setTextColor(Color.Black);
   };
   const handleClick = async () => {
-    setisSelect(!isSelect);
-   
-    const extractData =  data?.find((item) => item.id == chapters.id)
-    const newObject = extractData
-    const findData = bookmark?.find((item) => item.id == newObject.id)
+    const extractData =  chapters?.find((item) => item.id == chapterData.id)
+    console.log('extractData', extractData)
+    const findData = bookmark?.find((item) => item.id == extractData?.id)
+
+    console.log('findData', findData)
 
     if (findData) {
-      // If the object already exists in the array, remove it
       const updatedData = bookmark.filter((item) => item.id !== findData.id);
       dispatch({type: BOOKMARK, payload: updatedData})
-      // await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
+      await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
+      setisSelect(false)
+      console.log('laraib =========>')
     } else {
-      dispatch({type: BOOKMARK, payload: [...bookmark, newObject]})
+      dispatch({type: BOOKMARK, payload: [...bookmark, extractData]})
       console.log('Object not found in the array');
-      // Object does not exist in the array, handle accordingly
-      // await AsyncStorage.setItem('bookmark', JSON.stringify([...bookmark, newObject]));
+      setisSelect(true);
+      await AsyncStorage.setItem('bookmark', JSON.stringify([...bookmark, extractData]));
     }
   };
   const toggleIcon = () => {
@@ -121,20 +123,32 @@ const dispatch = useDispatch()
       setShowSvg(!showSvg);
     }
   };
+  const addBookmark = () => {
+    const extrxtIds = bookmark.find((item) => item.id == chapterData.id && item.books_id == chapterData.books_id)
+    if(extrxtIds != null || undefined){
+      setisSelect(true);
+    }else{
+      setisSelect(false)
+    }
+  }
+
 
   useEffect(() => {
     addBookmark()
-  },[])
+  },[chapterData,bookmark])
 
-  const addBookmark = () => {
-    const extrxtIds = bookmark.find((item) => item.id == chapters.id && item.books_id == chapters.books_id)
-   console.log('extrxtIds', extrxtIds)
-    if(extrxtIds != null || undefined){
-      alert('hai')
-    }else{
-      alert('nh h')
-    }
-  }
+  let text = chapterData?.title;
+  let text2 = chapterData?.description;
+  let result = text?.replace("class='chap_title'",
+   `style='color:${backgroundColor != '' ? 'black' :  Theme === 'dark' ? Color.White : Color.Black}; font-family:${fontData}; font-size:${count + 20}px; font-weight:600;'`);
+   let result3 = text2?.replace("class='chap_description'", `style='color:${backgroundColor != '' ? 'black' : Theme === 'dark' ? Color.White : Color.Black}; font-family:${fontData}; font-size:${count + 15}px; font-weight:800;'`);
+  
+  const title = {
+    html: result
+  };
+  const description = {
+    html: result3
+  };
   
   return (
     <>
@@ -144,11 +158,11 @@ const dispatch = useDispatch()
         }}
       />
 
-      <View style={[styles.MainContainer, {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,}]}>
+      <View style={[styles.MainContainer, {backgroundColor: backgroundColor != '' ? backgroundColor : Theme === 'dark' ? Color.DarkTheme : Color.White,}]}>
         <View
           style={[
             {
-              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: backgroundColor != '' ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             },
             styles.AuthHeaderStyle,
           ]}>
@@ -162,29 +176,12 @@ const dispatch = useDispatch()
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
               justifyContent: 'space-between',
             }}>
-            {/* {props.textshown ? (
-              <View
-                style={{
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={[
-                    {
-                      color: Theme === 'dark' ? Color.White : '#797B7F',
-                      fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                    },
-                    styles.WelcomeText,
-                  ]}>
-                  {props.text}
-                </Text>
-              </View>
-            ) : null} */}
 
             <View style={{justifyContent: 'center'}}>
               <AntDesign
                 name="arrowleft"
                 size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                color={Theme === 'dark' ? Color.White : Color.Black}
+                color={backgroundColor != '' ? 'black' :  Theme === 'dark' ? Color.White : Color.Black}
                 onPress={() => navigation.goBack()}
               />
             </View>
@@ -193,7 +190,7 @@ const dispatch = useDispatch()
               onPress={handleClick}
               style={{justifyContent: 'center'}}>
               <Ionicons
-                name={isSelect == true ? 'bookmark-outline' : 'bookmark'}
+                name={isSelect == false ? 'bookmark-outline' : 'bookmark'}
                 size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
                 color={Color.Main}
               />
@@ -206,9 +203,10 @@ const dispatch = useDispatch()
             style={{
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+                backgroundColor: backgroundColor != '' ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor
             }}>
             <View style={{marginVertical: verticalScale(20)}}>
-              <Text
+              {/* <Text
                 style={[
                   {
                     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
@@ -217,56 +215,32 @@ const dispatch = useDispatch()
                   styles.Title,
                   {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 ]}>
-                {/* Chapter 1 */}
-                {chapters?.title}
-              </Text>
+                {chapterData?.title}
+              </Text> */}
+               <RenderHtml
+                  contentWidth={width}
+                  source={title}
+                  // tagsStyles={{p: {fontFamily:'Montserrat-Bold',lineHeight: 23}}} 
+                  // systemFonts={systemFonts}
+                  
+                  />
             </View>
             <View style={{marginVertical: verticalScale(15)}}>
-              <Text
+              {/* <Text
                 style={[
                   {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
                   styles.TextStyle,
                   {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 ]}>
-                {/* A book is a medium for recording information in the form of
-                writing or images, typically composed of many pages (made of
-                papyrus, parchment, vellum, or paper) bound together and
-                protected by a cover. */}
-                {chapters?.description}
-              </Text>
-              {/* <Text
-                style={[
-                  {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                  {color: textColor},
-                  styles.TextStyle,
-                ]}>
-                The technical term for this physical arrangement is codex
-                (plural, codices). In the history of hand-held physical supports
-                for extended written compositions or records, the codex replaces
-                its predecessor, the scroll. A single sheet in a codex is a leaf
-                and each side of a leaf is a page.
-              </Text>
-              <Text
-                style={[
-                  {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                  styles.TextStyle,
-                  {color: textColor},
-                ]}>
-                As an intellectual object, a book is prototypically a
-                composition of such great length that it takes a considerable
-                investment of time to compose and still considered as an
-                investment of time to read. In a restricted sense, a book is a
-                self-sufficient section or part of a longer composition, a usage
-                reflecting that, in antiquity, long works had to be written on
-                several scrolls and each scroll had to be identified by the book
-                it contained. Each part of Aristotle's Physics is called a book.
-                In an unrestricted sense, a book is the compositional whole of
-                which such sections, whether called books or chapters or parts,
-                are parts.
+                {chapterData?.description}
               </Text> */}
+              <RenderHtml
+                  contentWidth={width}
+                  source={description}
+                  />
             </View>
           </View>
-          <View style={{height: verticalScale(75)}} />
+          <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}} />
 
           <ChapterOptionModal
             isVisible={isModalVisible}
@@ -274,28 +248,29 @@ const dispatch = useDispatch()
             swipeDirection="down"
             onSwipeComplete={() => setModalVisible(false)}
             onRequestClose={() => setModalVisible(false)}
+
             HandlePressOne={handlepressone}
             HandlePressTwo={handlepresstwo}
             HandlePressThree={handlepressthree}
             HandlePressFour={handlepressfour}
+
             onPressTab={() => {
               setModalVisible(false)
               setTimeout(() => {
                 setModalThreeVisible(true)
-                console.log('opening deawer')
               }, 300);
               }}
             toggleModalTwo={() => {
               setModalVisible(false);
               setTimeout(() => {
                 setSecondModalVisible(true);
-                console.log('second modal state ==>', isSecondModalVisible);
               }, 500);
             }}
             CloseBtn={() => setModalVisible(false)}
             moonPress={toggleIcon}
             show={showSvg}
             newTheme={tempMode}
+            newCount={setCount}
           />
          
           <FontModal
@@ -304,20 +279,20 @@ const dispatch = useDispatch()
             // swipeDirection="down"
             onSwipeComplete={() => setSecondModalVisible(false)}
             onRequestClose={() => setSecondModalVisible(false)}
-            OptionSelect={() => setSecondModalVisible(false)}
-          
+            OptionSelect={setSecondModalVisible}
+            fontData={setFontData}
           />
 
           <DrawerScreen
             isVisible={isModalThreeVisible}
             onBackdropPress={() => setModalThreeVisible(false)}
-            // onSwipeComplete={() => setModalThreeVisible(false)}
             onRequestClose={() => setModalThreeVisible(false)}
             OptionSelect={() => setModalThreeVisible(false)}
             data={bookData}
-            chapterData={data}
+            chapterData={chapters}
             select={select}
             setSelect={setSelect}
+            selectOff={setModalThreeVisible}
           />
         </ScrollView>
         <View
@@ -326,6 +301,7 @@ const dispatch = useDispatch()
             position: 'absolute',
             bottom: 0,
             width: '100%',
+            
           }}>
           <ReadNavigator
             onPressTab={() => {
@@ -335,6 +311,7 @@ const dispatch = useDispatch()
             moonPress={() => toggleIcon()}
             show={showSvg}
             newTheme={tempMode}
+            background={backgroundColor}
           />
         </View>
       </View>
@@ -384,9 +361,6 @@ const styles = StyleSheet.create({
     // flex:1,
   },
 
-  modalView: {
-    width: '100%',
-  },
   BrightnessView: {
     height: verticalScale(60),
     flexDirection: 'row',

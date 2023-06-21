@@ -28,15 +28,12 @@ import { base_Url } from '../../utils/Url';
 import { useSelector } from 'react-redux';
 
 const Contact = () => {
-
-
-
   const {
     control,
     handleSubmit,
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
-
+  const applanguage = useSelector(state => state.applanguage)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
@@ -118,7 +115,7 @@ const Contact = () => {
           flex: 1,
           backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
-        <Header text={'Contact'} />
+        <Header text={applanguage.Contact} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
@@ -145,8 +142,8 @@ const Contact = () => {
                 //   console.log('text ==>', email);
                 //   setEmail(txt);
                 // }}
-                text={'Full Name'}
-                placeholder={'Full Name'}
+                text={applanguage.FullName}
+                placeholder={applanguage.FullName}
                 // keyboardType={'email-address'}
               />
                 {errors.fullname && (
@@ -198,8 +195,8 @@ const Contact = () => {
                 //   console.log('text ==>', email);
                 //   setEmail(txt);
                 // }}
-                text={'Email Address'}
-                placeholder={'Email Address'}
+                text={applanguage.EmailAddress}
+                placeholder={applanguage.EmailAddress}
                 keyboardType={'email-address'}
               />
               {errors.email && (
@@ -243,9 +240,9 @@ const Contact = () => {
                 //       ? verticalScale(15)
                 //       : verticalScale(15),
                 // }}
-                placeholder={'Phone Number'}
+                placeholder={applanguage.PhoneNumber}
+                text={applanguage.PhoneNumber}
                 keyboardType={'numeric'}
-                text={'Phone Number'}
                 // flagImage={flagImage}
                 // phoneNumber={phoneNumber}
                 flagImage={flagImage}
@@ -281,15 +278,15 @@ const Contact = () => {
                 name="subject"
                 rules={{
                   required: 'Subject is required',
-                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                  message: 'Enter a valid subject',
+                  // value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  // message: 'Enter a valid subject',
                 }}
                 // onChangeText={txt => {
                 //   console.log('text ==>', email);
                 //   setEmail(txt);
                 // }}
-                text={'Subject'}
-                placeholder={'Subject'}
+                text={applanguage.Subject}
+                placeholder={applanguage.Subject}
                 // keyboardType={'email-address'}
               />
               {errors.subject && (
@@ -324,7 +321,7 @@ const Contact = () => {
                     ? scale(12)
                     : scale(14),
                 }}>
-                Message
+                {applanguage.Message}
               </Text>
               <TextInput
                 placeholderTextColor={Color.BoldTextColor}
@@ -349,7 +346,7 @@ const Contact = () => {
                   flex: 1,
                   paddingHorizontal: verticalScale(15),
                 }}
-                placeholder={'Type here'}
+                placeholder= {applanguage.Typehere}
                 multiline={true}
                 onChangeText={onChangeText}
                 value={text}
@@ -360,7 +357,7 @@ const Contact = () => {
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
-              <CustomButton text={'Submit'} onPress={handleSubmit(onSubmit)} />
+              <CustomButton text={applanguage.Submit} onPress={handleSubmit(onSubmit)} />
             </View>
           </View>
         </ScrollView>

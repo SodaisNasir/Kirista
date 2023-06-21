@@ -18,6 +18,7 @@ import { searchPerish } from '../../../redux/actions/UserAction'
 const ParishFinder = () => {
   const navigation = useNavigation()
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
   const w = useWindowDimensions()
   const h = useWindowDimensions()
   const [phoneNumber, setPhoneNumber] = useState('+234');
@@ -69,8 +70,8 @@ const ParishFinder = () => {
                   setCountry: setCountry,
                   newType: 'country'
               })}
-              text={'Country'}
-              title={country != '' ? country : 'Select Country'}
+              text={applanguage.Country}
+              title={country != '' ? country : applanguage.SelectCountry}
             />
           </View>
           <View
@@ -83,8 +84,8 @@ const ParishFinder = () => {
                 type:'region',
                 setSelectedLanguage:setRegion
               })}
-              text={'Region'}
-              title={region != '' ? region : 'Select Region'}
+              text={applanguage.Region}
+              title={region != '' ? region : applanguage.SelectRegion}
             />
           </View>
           <View
@@ -97,14 +98,14 @@ const ParishFinder = () => {
                 type:'province',
                 setSelectedLanguage:setProvince
               })}
-              text={'Province'}
-              title={province != '' ? province : 'Select Province'}
+              text={applanguage.Province}
+              title={province != '' ? province : applanguage.SelectProvince}
             />
           </View>
           <CustomButton
             onPress={onSubmit}
             // onPress={() => navigation.navigate('ParishesResult')}
-            text={'Search'}
+            text={applanguage.Search}
             stylz={{
               marginTop: verticalScale(25),
             }}

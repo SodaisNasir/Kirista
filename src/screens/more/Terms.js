@@ -28,6 +28,9 @@ const h = Dimensions.get('window').height;
 
 const Terms = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+  const language = useSelector(state => state.language)
+
   const [data,setData] = useState('')
   const { width } = useWindowDimensions();
   useLayoutEffect(
@@ -45,6 +48,7 @@ const Terms = ({navigation}) => {
       let myData = new FormData();
       
       myData.append('type',type);
+      myData.append('language',language);
 
       const response = await fetch(base_url, {
         body: myData,
@@ -84,7 +88,7 @@ const Terms = ({navigation}) => {
           barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
         <Header
-          text={'Terms'}
+          text={applanguage.TermsPlain}
           AuthHeaderStyle={{
             height:
               Platform.OS == 'android'

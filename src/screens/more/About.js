@@ -28,6 +28,9 @@ const About = ({navigation}) => {
   const h = useWindowDimensions().height;
   const [data,setData] = useState('')
   const { width } = useWindowDimensions();
+  const language = useSelector(state => state.language)
+
+
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -46,6 +49,7 @@ const About = ({navigation}) => {
       let myData = new FormData();
       
       myData.append('type',type);
+      myData.append('language',language);
 
       const response = await fetch(base_url, {
         body: myData,

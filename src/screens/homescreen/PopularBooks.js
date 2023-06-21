@@ -27,6 +27,8 @@ const h = Dimensions.get('window').height;
 
 const PopularBooks = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
   const [myData,setMyData] = useState([])
 
  
@@ -52,7 +54,7 @@ const PopularBooks = ({navigation}) => {
           styles.Container,
         ]}>
         <Header
-          text={'Popular Books'}
+          text={applanguage.PopularBooks}
           AuthHeaderStyle={{
             marginTop: Platform.OS == 'ios' ? verticalScale(-25) : 0,
             height:

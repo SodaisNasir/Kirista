@@ -21,8 +21,6 @@ import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFocusEffect } from '@react-navigation/native';
-import { getSearchData } from '../../redux/actions/UserAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -39,14 +37,14 @@ const renderScene = SceneMap({
 const Home = () => {
   const tabPotrait = w >= 768 && h >= 1024;
   const layout = useWindowDimensions();
-
+  const applanguage = useSelector(state => state.applanguage)
 
   const [index, setIndex] = useState(0);
 
   const [routes] = useState([
-    {key: 'Bedrooms', title: 'Home', type: 'home'},
-    {key: 'DiningRoom', title: 'Parish Finder', type: 'finder'},
-    {key: 'LivingRoom', title: 'Events'},
+    {key: 'Bedrooms', title: applanguage.Home, type: 'home'},
+    {key: 'DiningRoom', title: applanguage.ParishFinder, type: 'finder'},
+    {key: 'LivingRoom', title: applanguage.Events},
   ]);
   const renderTabBar = props => (
     <View

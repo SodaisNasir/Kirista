@@ -3,7 +3,6 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
-  useColorScheme,
   ScrollView,
   Platform,
   StyleSheet,
@@ -18,22 +17,22 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Color} from '../../utils/Colors';
-import Password from '../../components/Password';
 import {useDispatch, useSelector} from 'react-redux';
-import {LOGIN} from '../../redux/reducer';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import { sign_in } from '../../redux/actions/AuthAction';
+import IncorrectModal from '../../components/Modals/IncorrectModal';
 
 
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
 
-  
   const {
     control,
     handleSubmit,
@@ -54,17 +53,17 @@ const Login = ({navigation}) => {
   // const fourInchLandscape = w <= 350 && h <= 600;
 
   const [email, setEmail] = useState(null);
-  const Theme = useSelector(state => state.mode)
+  const [check, setCheck] = useState(false)
+  const [isVisible, setVisible] = useState(true);
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
 
-  const dispatch = useDispatch();
   const onSubmit = data => {
-    dispatch(sign_in(data));
-    console.log(data);
+    dispatch(sign_in(data,setCheck));
   };
   return (
     <SafeAreaView
@@ -96,7 +95,8 @@ const Login = ({navigation}) => {
               fontSize: w >= 768 && h >= 1024 ? scale(18) : scale(20),
               color: Theme === 'dark' ? Color.White : Color.Black,
             }}>
-            Welcome Back,
+            {/* Welcome Back, */}
+            {applanguage.Welcome}
           </Text>
           <Text
             style={{
@@ -107,7 +107,7 @@ const Login = ({navigation}) => {
               marginTop:
                 Platform.OS == 'ios' ? verticalScale(-5) : verticalScale(-10),
             }}>
-            Brethren.
+            {applanguage.Brethren}.
           </Text>
         </View>
 
@@ -117,22 +117,25 @@ const Login = ({navigation}) => {
               paddingVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
             }}>
+               
             <CustomInput
               control={control}
               name="email"
               rules={{
-                required: 'Email is required',
+                required: applanguage.RequiredEmail,
                 value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                message: 'Enter a valid email',
+                pattern: {
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  message: applanguage.ValidEmail,
+                },
               }}
               onChangeText={txt => {
-                console.log('text ==>', email);
                 setEmail(txt);
               }}
              
-              text={'Email Address'}
-              placeholder={'Email Address'}
-              keyboardType={'email-address'}
+              text={applanguage.EmailAddress}
+              placeholder={applanguage.EmailAddress}
+              keyboardType="email-address"
             />
                {errors.email && (
             <Text style={[
@@ -146,6 +149,7 @@ const Login = ({navigation}) => {
                     styles.error,
                   ]}>{errors.email.message} </Text>
           )}
+          
           </View>
 
        
@@ -159,23 +163,26 @@ const Login = ({navigation}) => {
             }}>
             <CustomInput
               password={true}
-              text={'Password'}
-              placeholder={'Password'}
+              text={applanguage.Password}
+              placeholder={applanguage.Password}
               control={control}
               name="password"
               rules={{
-                required: 'Password is required',
+                required: applanguage.RequiredPassword,
                 minLength: {
                   value: 8,
-                  message: '*Password too short (minimum length is 8)',
+                  message: applanguage.PasswordMax,
                 },
                 maxLength: {
                   value: 16,
-                  message: '*Password too long (maximum length is 16)',
+                  message: applanguage.PasswordMin,
                 },
               }}
               keyboardType="default"
               maxLength={20}
+              secureTextEntry={isVisible}
+              PIname={isVisible ? 'eye-off-outline' : 'eye-outline'}
+              onShowPass={() => setVisible(!isVisible)}
             />
             
               {errors.password && (
@@ -208,7 +215,7 @@ const Login = ({navigation}) => {
             //     ? Dispatch({type: LOGIN, payload: email})
             //     : alert('Complete the form')
             // }
-            text={'Sign in'}
+            text={applanguage.SignIn}
           />
         </View>
 
@@ -224,7 +231,7 @@ const Login = ({navigation}) => {
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(15),
                 color: Theme === 'dark' ? Color.White : Color.TextColor,
               }}>
-              Forgot Password?
+             {applanguage.ForgotPassword}
             </Text>
           </TouchableOpacity>
           <View
@@ -243,7 +250,7 @@ const Login = ({navigation}) => {
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                 color: Theme === 'dark' ? Color.White : Color.TextColor,
               }}>
-              Don’t have an account?
+             {applanguage.LoginText}
               <Text
                 onPress={() => navigation.navigate('SignUp')}
                 style={{
@@ -252,12 +259,19 @@ const Login = ({navigation}) => {
                   color: Theme === 'dark' ? Color.White : Color.TextColor,
                 }}>
                 {' '}
-                Sign up
+                {applanguage.SignUp}
               </Text>
             </Text>
           </View>
         </View>
       </ScrollView>
+
+      <IncorrectModal
+          text={applanguage.Invalid}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </SafeAreaView>
   );
 };

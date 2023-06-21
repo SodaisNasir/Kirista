@@ -36,12 +36,13 @@ const ChapterOptionModal = props => {
   const Theme = props.newTheme != '' ? props.newTheme : heyTheme
   const [selected, setSelected] = useState();
   const navigation = useNavigation();
-
   const incrementCount = () => {
     setCount(count + 1);
+    props.newCount(count + 1)
   };
   const decrementCount = () => {
     setCount(count - 1);
+    props.newCount(count - 1)
   };
 
   const w = useWindowDimensions().width;
@@ -218,7 +219,7 @@ const ChapterOptionModal = props => {
                   height : iosTab? verticalScale(25) : null,
                   // height:
                   // w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
-                   width: iosTab? scale(25) : scale(30)
+                  //  width: iosTab? scale(25) : scale(30)
                 }}>
                 <Text
                   style={{

@@ -144,17 +144,21 @@ const CustomInput = forwardRef((props, ref) => {3
               top: verticalScale(1),
             },
           ]}
+          secureTextEntry={props.secureTextEntry}
         />
         {props.password == true ? (
           <MaterialCommunityIcons
-            name={isVisible ? 'eye-off-outline' : 'eye-outline'}
-            size={width >= 768 && height >= 1024 ? scale(14) : scale(26)}
+          onPress={props.onShowPass}
+          // onPress={() => setVisible(!isVisible)}
+            // name={isVisible ? 'eye-off-outline' : 'eye-outline'}
+            name={props.PIname}
             color={Color.Main}
-            onPress={() => setVisible(!isVisible)}
+
             style={{
               alignSelf: 'center',
               marginLeft: '5%',
             }}
+            size={width >= 768 && height >= 1024 ? scale(14) : scale(26)}
           />
         ) : null}
       </View>

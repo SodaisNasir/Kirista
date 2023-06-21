@@ -14,30 +14,39 @@ import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import SwipeableList from './CustomSwipeList/SwipeableList';
 import ListData from './CustomSwipeList/ListData';
-import { useSelector } from 'react-redux';
-const BookmarkScreen = ({book_id}) => {
-  const bookmark = useSelector(state => state.bookmark)
-  const Theme = useSelector(state => state.mode)
+import { useDispatch, useSelector } from 'react-redux';
+import { BOOKMARK } from '../redux/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RenderHtml from 'react-native-render-html';
 
+const BookmarkScreen = ({book_id}) => {
+  const { width } = useWindowDimensions();
+  const dispatch = useDispatch()
+  const bookmark = useSelector(state => state.bookmark)
+  const applanguage = useSelector(state => state.applanguage)
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-
   const [data,setData] = useState([])
-
   const DATA = [
     {Number: '5', Date: 'Feb 16th , 2023.'},
     {Number: '6', Date: 'Feb 16th , 2023.'},
   ];
   useEffect(() => {
     getNewData()
-  },[])
+  },[bookmark])
 
   const getNewData = () => {
     const filterMatchIdData = bookmark.filter((item) => item.books_id == book_id)
     setData(filterMatchIdData)
   }
 
-  
+  const deleteBookmark = async (elm) => {
+    const updatedData = bookmark.filter((item) => item.id !== elm.id);
+    dispatch({type: BOOKMARK, payload: updatedData})
+    await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
+  }
+
  
   return (
    <View style={{flex:1}}>
@@ -48,7 +57,12 @@ const BookmarkScreen = ({book_id}) => {
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         // style={{height: '100%'}}
-        renderItem={({item}) =>{ return(
+        renderItem={({item}) =>{
+          const result = item?.title?.replace("class='chap_title'",`style='color:${Theme === 'dark' ? Color.White : Color.Black }; font-family:lato; font-size:${w >= 768 && h >= 1024 ? "8px" : '12px'};'`)
+          const title = {
+              html: result
+              }
+          return(
           <View
           style={{
             width: '100%',
@@ -62,7 +76,16 @@ const BookmarkScreen = ({book_id}) => {
               borderBottomWidth:1,
   
           }}>
-          <Text
+            <View style={{
+              marginLeft:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            }}>
+                  <RenderHtml
+                  contentWidth={width}
+                  source={title}
+                  />
+                  </View>
+          {/* <Text
             style={{
               fontFamily: Font.Poppins600,
               color: Theme === 'dark' ? Color.White : Color.Black,
@@ -70,8 +93,8 @@ const BookmarkScreen = ({book_id}) => {
               marginLeft:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            {item.Number}
-          </Text>
+            {item?.title}
+          </Text> */}
           <Text
             style={{
               fontFamily: Font.Poppins500,
@@ -80,12 +103,12 @@ const BookmarkScreen = ({book_id}) => {
               marginLeft:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            {item.Date}
+            {item?.created_at.split('T')[0]}
           </Text>
         </View>
         )}
           }
-        renderHiddenItem={() => (
+        renderHiddenItem={({item}) => (
           // <View style={styles.rowBack}>
           //   <TouchableOpacity style={[styles.IconBox]}>
               // <MaterialCommunityIcons
@@ -97,7 +120,7 @@ const BookmarkScreen = ({book_id}) => {
           //   </TouchableOpacity>
           // </View>
           <View style={styles.rowBack}>
-          <TouchableOpacity style={styles.IconBox}>
+          <TouchableOpacity style={styles.IconBox} onPress={() => deleteBookmark(item)}>
               <MaterialCommunityIcons
                 name="delete"
                 size={w >= 768 && h >= 1024 ? scale(20) : scale(28)}
@@ -120,7 +143,7 @@ const BookmarkScreen = ({book_id}) => {
               {
                 color: Theme === 'dark' ? Color.White : Color.Black,
               },
-            ]}>No Bookmarks Available</Text>
+            ]}>{applanguage.NoBookMark}</Text>
 </View>
     }
    </View>

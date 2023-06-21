@@ -1,27 +1,37 @@
-import React from 'react'
-import {StyleSheet, Text, View, useWindowDimensions,Platform} from 'react-native'
-import Slider from 'react-native-custom-slider'
-import {verticalScale, scale} from 'react-native-size-matters'
-import {Color} from '../../utils/Colors'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import Slider from 'react-native-custom-slider';
+import { verticalScale, scale } from 'react-native-size-matters';
+import { Color } from '../../utils/Colors';
+import { useSelector } from 'react-redux';
+import DeviceBrightness from '@adrianso/react-native-device-brightness';
 
 const Lalit = () => {
-  const Theme = useSelector(state => state.mode)
-  const w = useWindowDimensions().width
-  const h = useWindowDimensions().height
+  const Theme = useSelector((state) => state.mode);
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const [brightnessValue, setBrightnessValue] = useState(0.5);
+
+
+  useEffect(() => {
+    DeviceBrightness.setBrightnessLevel(brightnessValue);
+  }, [brightnessValue]);
+
+  const handleBrightnessChange = async (value) => {
+    setBrightnessValue(value);
+  };
 
   
 
-  
   return (
     <View>
       <Slider
-        style={{width: '100%'}}
         minimumValue={0}
-        maximumValue={100}
-        step={1}
-        // value={data.value}
-        //  onValueChange={setSliderValue}
+        maximumValue={1}
+        step={0.01}
+        value={brightnessValue}
+        onValueChange={handleBrightnessChange}
+        style={{ width: '100%' }}
         minimumTrackTintColor={Color.Main}
         maximumTrackTintColor={Theme === 'dark' ? Color.FontBoxColorDark : '#F5F8FE'}
         thumbTintColor={Color.Main}
@@ -38,9 +48,9 @@ const Lalit = () => {
         }}
       />
     </View>
-  )
-}
+  );
+};
 
-export default Lalit
+export default Lalit;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

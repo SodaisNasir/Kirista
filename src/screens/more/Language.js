@@ -21,17 +21,21 @@ import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { GETLANGUAGE, LANGUAGE } from '../../redux/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Language = ({navigation,route}) => {
   const {type,setSelectedLanguage,} = route.params
   const Provence = type == 'Provence';
   const Region = type == 'Region'
+  const dispatch = useDispatch()
 
   const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [selected, setSelected] = useState();
+  
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -85,9 +89,14 @@ const Language = ({navigation,route}) => {
     },
   ];
 
-  const handleLanguageSelect = (language) => {
+  const handleLanguageSelect = async (language) => {
+    console.log('language', language)
+    dispatch({type: GETLANGUAGE, payload: language.select})
+    dispatch({type: LANGUAGE, payload: language.title})
+    await AsyncStorage.setItem('language', JSON.stringify(language.select))
+    await AsyncStorage.setItem('languagetitle', JSON.stringify(language.title))
     navigation.goBack();
-    setSelectedLanguage(language)
+    setSelectedLanguage(language.select)
     // navigation.Params('setSelectedLanguage')(language)
   }
 
@@ -106,7 +115,7 @@ const Language = ({navigation,route}) => {
         },
         // styles.item,
       ]}
-      onPress={() => handleLanguageSelect(data.select)}>
+      onPress={() => handleLanguageSelect(data)}>
       <View
         style={{
           flexDirection: 'row',

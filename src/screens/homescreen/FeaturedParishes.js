@@ -32,6 +32,8 @@ const FeaturedParishes = () => {
   const [data, setData] = useState([]);
   // console.log('data sadf', data[0].id)
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
 
   useFocusEffect(
     useCallback(() => {
@@ -53,7 +55,7 @@ const FeaturedParishes = () => {
           },
         ]}>
         <Header
-          text={'Featured Parishes'}
+          text={applanguage.FeaturedParishes}
           AuthHeaderStyle={{
             marginTop: Platform.OS == 'ios' ? verticalScale(-25) : 0,
             height:

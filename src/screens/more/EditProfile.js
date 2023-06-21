@@ -30,12 +30,15 @@ const height = Dimensions.get('window').height;
 
 const EditProfile = ({navigation}) => {
   const dispatch = useDispatch()
+  const applanguage = useSelector(state => state.applanguage)
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
   const userData = useSelector(state => state.user_details)
   const [text, onChangeText] = useState('');
+  const [isVisible, setVisible] = useState(true);
+  const [isVisible2, setVisible2] = useState(true);
 
   const {
     control,
@@ -116,7 +119,7 @@ defaultValues:{
         backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.White}
         barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
-      <Header text={'Edit Profile'} />
+      <Header text={applanguage.EditProfile} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -126,7 +129,7 @@ defaultValues:{
             marginTop:
               w >= 768 && h >= 1024 ? moderateScale(20) : moderateScale(20),
           }}>
-          <View >
+          <View>
             {
               show && userData.data.profile_image == null ?
               <ChangeImage
@@ -178,13 +181,13 @@ defaultValues:{
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
             <CustomInput
-             text={'Full Name'}
-              placeholder={'Full Name'} 
+             text={applanguage.FullName}
+              placeholder={applanguage.FullName} 
               control={control}
               name="full_name"
               rules={{
-                required: 'Full name is required',
-                message: 'Please enter your full name',
+                required: applanguage.FullNameReq,
+                message: applanguage.EnterFullName,
               }}
               />
           </View>
@@ -200,11 +203,11 @@ defaultValues:{
                 name="phonenumber"
                 maxLength={16}
                 rules={{
-                  required: 'Phone number is required',
-                  message: 'Please enter your phone number',
+                  required: applanguage.RequiredPhone,
+                  message: applanguage.Phonemessage,
                   maxLength: {
                     value: 15,
-                    message: 'Please enter a valid phone number',
+                    message: applanguage.ValidPhone,
                   },
                 }}
                 // restyleBox={{
@@ -213,9 +216,9 @@ defaultValues:{
                 //       ? verticalScale(15)
                 //       : verticalScale(15),
                 // }}
-                placeholder={'Phone Number'}
+                placeholder={applanguage.PhoneNumber}
                 keyboardType={'numeric'}
-                text={'Phone Number'}
+                text={applanguage.PhoneNumber}
                 flagImage={flagImage}
                 phoneNumber={phoneNumber}
                 phone={true}
@@ -244,18 +247,19 @@ defaultValues:{
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
             <CustomInput 
-            text={'Email Address'} 
-            placeholder={'Email'}
-            control={control}
             name="email"
+            text={applanguage.EmailAddress}
+            placeholder={applanguage.EmailAddress}
+            control={control}
             rules={{
-              required: '*Email is required',
+              required: applanguage.RequiredEmail,
+              value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
               pattern: {
                 value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                message: 'Email is not valid',
+                message: applanguage.ValidEmail,
               },
             }}
-            keyboardType={'email-address'}
+            keyboardType="email-address"
              />
              {errors.email && (
                 <Text
@@ -281,23 +285,27 @@ defaultValues:{
               }}>
               <CustomInput
                 password={true}
-                text={'Old Password'}
-                placeholder={'Password'}
+                text={applanguage.OldPass}
+                placeholder={applanguage.OldPass}
                 control={control}
                 name="password"
                 rules={{
-                  required: 'Password is required',
+                  required: applanguage.RequiredPassword,
                   minLength: {
                     value: 8,
-                    message: '*Password too short (minimum length is 8)',
+                    message: applanguage.PasswordMax,
                   },
                   maxLength: {
                     value: 16,
-                    message: '*Password too long (maximum length is 16)',
+                    message: applanguage.PasswordMin,
                   },
                 }}
                 keyboardType="default"
                 maxLength={20}
+
+                secureTextEntry={isVisible}
+                PIname={isVisible ? 'eye-off-outline' : 'eye-outline'}
+                onShowPass={() => setVisible(!isVisible)}
               />
               {errors.password && (
                 <Text
@@ -322,10 +330,14 @@ defaultValues:{
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
             }}>
             <Password
-             text={'New Password'}
+              text={applanguage.NewPass}
+              placeholder={applanguage.NewPass}
              password={true}
              onChangeText={onChangeText}
             value={text}
+            secureTextEntry={isVisible2}
+            PIname={isVisible2 ? 'eye-off-outline' : 'eye-outline'}
+            onShowPass={() => setVisible2(!isVisible2)}
               />
           </View>
 
@@ -334,7 +346,7 @@ defaultValues:{
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
             }}>
-            <CustomButton text={'Save'} onPress={handleSubmit(onSubmit)} />
+            <CustomButton text={applanguage.Save} onPress={handleSubmit(onSubmit)} />
           </View>
         </View>
       </ScrollView>

@@ -226,7 +226,7 @@ const renderScene = SceneMap({
               }
             />
             <TextInput
-              onFocus={() => setIsSearchBarVisible(true)}
+              onFocus={() => setIsSearchBarVisible(!isSearchBarVisible)}
               style={{
                 height:
                   w >= 768 && h >= 1024

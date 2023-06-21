@@ -35,6 +35,8 @@ const h = Dimensions.get('window').height;
 const LibraryHome = ({navigation}) => {
   const [showModal, setShowModal] = useState(false);
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [data,setData] = useState([])
   const toggleModal = () => {
@@ -55,17 +57,17 @@ const LibraryHome = ({navigation}) => {
   const data2 = [
     {
       id: '1',
-      label: 'Title',
+      label: applanguage.Title,
     },
     {
       id: '2',
-      label: 'Recent Activity',
+      label: applanguage.RecentActivity,
     },
   ]
 
   
   const sortData = () => {
-    if (selected === 'Title') {
+    if (selected === applanguage.Title) {
       const sortedData = [...data].sort((a, b) => {
         const titleA = a.title.toLowerCase();
         const titleB = b.title.toLowerCase();
@@ -75,20 +77,20 @@ const LibraryHome = ({navigation}) => {
         if (titleA > titleB) {
           return 1;
         }
-        setModalVisible(false);
         return 0;
       });
       setData(sortedData)
+      setModalVisible(false);
       
       // Use the sortedData as needed
-    } else if (selected === 'Recent Activity') {
+    } else if (selected === applanguage.RecentActivity) {
       const sortedData = [...data].sort((a, b) => {
         const dateA = new Date(a.updated_at);
         const dateB = new Date(b.updated_at);
         return dateB - dateA;
       });
-      setModalVisible(false);
       setData(sortedData)
+      setModalVisible(false);
       // Use the sortedData as needed
     }else{
       alert('Please Select Sort By')
@@ -176,7 +178,7 @@ const LibraryHome = ({navigation}) => {
                 {
                   color: Theme === 'dark' ? Color.White : Color.Black,
                 },
-              ]}>No Books Available</Text>
+              ]}>{applanguage.NoBookAvail}</Text>
             </View>
             }
          
@@ -224,7 +226,7 @@ const LibraryHome = ({navigation}) => {
                   color: Theme === 'dark' ? Color.White : Color.Black,
                 },
               ]}>
-              Sort By
+              {applanguage.SortBy}
             </Text>
           </View>
           <FlatList 
@@ -309,7 +311,7 @@ const LibraryHome = ({navigation}) => {
           <View style={{marginVertical: verticalScale(15)}}>
             <CustomButton 
             onPress={sortData} 
-            text={'Apply'} />
+            text={applanguage.Apply} />
           </View>
         </View>
       </Modal>

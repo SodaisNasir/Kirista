@@ -7,6 +7,9 @@ export const MODE = 'MODE'
 export const CHAPTERS = 'CHAPTERS'
 export const SEARCH_DATA  = 'SEARCH_DATA'
 export const BOOKMARK  = 'BOOKMARK'
+export const APPLANGUAGE  = 'APPLANGUAGE'
+export const GETLANGUAGE  = 'GETLANGUAGE'
+export const LANGUAGE  = 'LANGUAGE'
 
 
 const initialState = {
@@ -20,6 +23,9 @@ const initialState = {
   chapters: [],
   search_data: null,
   bookmark: [],
+  getlanguage: null,
+  applanguage: [],
+  language: null,
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -68,6 +74,21 @@ export const Reducer = (state = initialState, action) => {
             return {
               ...state,
               bookmark: action.payload,
+            }
+    case GETLANGUAGE:
+            return {
+              ...state,
+              getlanguage: action.payload,
+            }
+    case APPLANGUAGE:
+            return {
+              ...state,
+              applanguage: action.payload,
+            }
+    case LANGUAGE:
+            return {
+              ...state,
+              language: action.payload,
             }
 
     default:

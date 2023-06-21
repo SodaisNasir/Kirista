@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -22,14 +22,19 @@ import {Font} from '../utils/font';
 import Header from './Header';
 import {useFocusEffect} from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { getPerishCountry } from '../redux/actions/UserAction';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SelectCountry = ({navigation,route}) => {
   const Theme = useSelector(state => state.mode)
+  const [myData,setMyData] = useState([])
+
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      getPerishCountry(setMyData)
     }, []),
   );
   const {setPhoneNumber,setFlagImage,type,newType,setCountry} = route.params;
@@ -257,7 +262,7 @@ const SelectCountry = ({navigation,route}) => {
           ]}>
           <FlatList
             scrollEnabled={true}
-            data={DATA}
+            data={myData}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: moderateVerticalScale(100)}}
             renderItem={({item}) => (
@@ -360,11 +365,11 @@ const SelectCountry = ({navigation,route}) => {
                       </View>
                     </TouchableOpacity>
                   )}
-                  keyExtractor={item => item.id}
+                  keyExtractor={item => item.country}
                 />
               </View>
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.continent}
           />
         </View>
     </View>

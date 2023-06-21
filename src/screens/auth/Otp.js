@@ -28,6 +28,7 @@ import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {OTPMethod, register, sign_in, verify_Email_before_password} from '../../redux/actions/AuthAction';
+import IncorrectModal from '../../components/Modals/IncorrectModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -37,16 +38,17 @@ const OTP = ({navigation, route}) => {
   const {type, data, id,device} = route.params;
   const dispatch = useDispatch();
   const otp = useSelector((state) => state.otp)
+  const applanguage = useSelector(state => state.applanguage)
 
 
   const Theme = useSelector(state => state.mode)
   const [value, setValue] = useState();
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+  const [check, setCheck] = useState(false)
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
-
   const [time, setTime] = useState(5);
   useEffect(() => {
     const timer = time > 0 && setInterval(() => setTime(time - 1), 1000);
@@ -64,7 +66,8 @@ const OTP = ({navigation, route}) => {
         id: id
       });
     } else {
-      alert('Incorrect OTP!!');
+      // alert('Incorrect OTP!!');
+      setCheck(true)
     }
   };
 
@@ -80,7 +83,7 @@ const OTP = ({navigation, route}) => {
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{alignSelf: 'center', width: '95%'}}>
-          <AuthHeader text={'Email Verification'} />
+          <AuthHeader text={applanguage.EmailVerification} />
 
           <View
             style={{
@@ -92,7 +95,7 @@ const OTP = ({navigation, route}) => {
                 {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.LongText,
               ]}>
-              We have sent a one-time password to{' '}
+              {applanguage.OtpText}{' '}
               <Text
                 style={{
                   fontFamily: Font.Poppins700,
@@ -117,7 +120,7 @@ const OTP = ({navigation, route}) => {
                 {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.OtpText,
               ]}>
-              OTP {otp}
+              {applanguage.OTP} {otp}
             </Text>
 
             <View>
@@ -136,7 +139,7 @@ const OTP = ({navigation, route}) => {
                       fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                       fontFamily: Font.Poppins700,
                     }}>
-                    Resend
+                     {applanguage.Resend}
                   </Text>
                 </TouchableOpacity>
               ) : (
@@ -195,10 +198,16 @@ const OTP = ({navigation, route}) => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
             }}>
-            <CustomButton onPress={() => handleOtp()} text={'Continue'} />
+            <CustomButton onPress={() => handleOtp()} text={applanguage.Continue} />
           </View>
         </View>
       </ScrollView>
+      <IncorrectModal
+          text="Incorrect OTP!"
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </SafeAreaView>
   );
 };

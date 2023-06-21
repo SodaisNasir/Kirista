@@ -25,7 +25,7 @@ const h = Dimensions.get('window').height;
 
 const ResetPassword = ({navigation}) => {
   const dispatch = useDispatch()
-
+  const applanguage = useSelector(state => state.applanguage)
   const iosTab = w >= 820 && h >= 1180;
   const Theme = useSelector(state => state.mode)
   const [message,setMessage] = useState('')
@@ -50,7 +50,7 @@ const ResetPassword = ({navigation}) => {
       ]}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={{alignSelf: 'center', width: '90%'}}>
-          <AuthHeader text={'Reset Password'} />
+          <AuthHeader text={applanguage.ResetPassword} />
 
           <View
             style={{
@@ -62,8 +62,7 @@ const ResetPassword = ({navigation}) => {
                 {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.LongText,
               ]}>
-              Please enter your email address, and we will send you an OTP to
-              confirm it.
+              {applanguage.ResetPasswordText}
             </Text>
             <Text   style={[
                 {color: 'red'},
@@ -80,17 +79,20 @@ const ResetPassword = ({navigation}) => {
               control={control}
               name="email"
               rules={{
-                required: 'Email is required',
+                required: applanguage.RequiredEmail,
                 value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                message: 'Enter a valid email',
+                pattern: {
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  message: applanguage.ValidEmail,
+                },
               }}
               restyleBox={{
                 marginBottom:
                   w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(20),
               }}
-              text={'Email Address'}
-              placeholder={'Email Address'}
-              keyboardType={'email-address'}
+              text={applanguage.EmailAddress}
+              placeholder={applanguage.EmailAddress}
+              keyboardType="email-address"
             />
             {errors.email && (
               <Text style={styles.error}>{errors.email.message} </Text>
@@ -104,7 +106,7 @@ const ResetPassword = ({navigation}) => {
             }}>
             <CustomButton
               onPress={handleSubmit(handleNextButton)}
-              text={'Next'}
+              text={applanguage.Next}
             />
           </View>
         </View>

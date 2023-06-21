@@ -29,7 +29,8 @@ const Privacy = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
   const [data,setData] = useState('')
   const { width } = useWindowDimensions();
-
+  const applanguage = useSelector(state => state.applanguage)
+  const language = useSelector(state => state.language)
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -49,6 +50,7 @@ const type = 'Privacy'
       let myData = new FormData();
       
       myData.append('type',type);
+      myData.append('language',language);
 
       const response = await fetch(base_url, {
         body: myData,
@@ -85,7 +87,7 @@ const type = 'Privacy'
           barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
         <Header
-          text={'Privacy'}
+          text={applanguage.PrivacyPlain}
           AuthHeaderStyle={{
             height:
               Platform.OS == 'android'

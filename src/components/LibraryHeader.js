@@ -27,6 +27,8 @@ const h = Dimensions.get('window').height;
 const LibraryHeader = props => {
   const navigation = useNavigation();
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
 
   return (
     <SafeAreaView
@@ -49,7 +51,7 @@ const LibraryHeader = props => {
               color: Theme === 'dark' ? Color.White : Color.DarkTheme,
             },
           ]}>
-          Library
+          {applanguage.Library}
         </Text>
 
         <View
