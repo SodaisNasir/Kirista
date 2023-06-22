@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  ActivityIndicator,
+  Platform
 } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -24,6 +26,10 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '../../redux/actions/UserAction';
+import TickModal from '../../components/Modals/TickModal';
+import Loading from '../../components/Modals/Loading';
+import Loader from '../../components/Modals/Loader';
+import Permissions from 'react-native-permissions';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -31,14 +37,16 @@ const height = Dimensions.get('window').height;
 const EditProfile = ({navigation}) => {
   const dispatch = useDispatch()
   const applanguage = useSelector(state => state.applanguage)
+  const Theme = useSelector(state => state.mode)
+  const userData = useSelector(state => state.user_details)
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useSelector(state => state.mode)
-  const userData = useSelector(state => state.user_details)
   const [text, onChangeText] = useState('');
   const [isVisible, setVisible] = useState(true);
   const [isVisible2, setVisible2] = useState(true);
+  const [loader, setLoader] = useState(false);
+
 
   const {
     control,
@@ -65,48 +73,69 @@ defaultValues:{
   const tabPotrait = width >= 768 && height >= 1024;
   const [saveimage, setsaveimage] = useState();
   const [show, setShow] = useState(true);
-  const [phoneNumber, setPhoneNumber] = useState('+234');
-  const [flagImage, setFlagImage] = useState('32');
+  const [country, setCountry] = useState();
+  const [check, setCheck] = useState(false)
+
 
   const handlePhoneNumberButtonPress = () => {
-    navigation.navigate('SelectCountry', {
-      setPhoneNumber: setPhoneNumber,
-      setFlagImage: setFlagImage,
-      type: 'EditProfile'
+    navigation.navigate('FeaturedCountry', {
+      setCountry:setCountry
     });
   };
-  const photosave = () => {
-    let options = {
-      storageOptions: {
-        mediaType: 'photo',
-        path: 'image',
-        includeExtra: true,
-      },
-      selectionLimit: 1,
-    };
-
-    launchImageLibrary(options, res => {
-      if (res.didCancel) {
-        console.log('ez pz');
-      } else if (res.error) {
-        console.log('ez pz win');
-      } else if (res.customButton) {
-        alert(res.customButton);
+  const photosave = async () => {
+    let permissionType = Permissions.PERMISSIONS.IOS.PHOTO_LIBRARY;
+    if (Platform.OS === 'android') {
+      permissionType = Permissions.PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+    }
+  
+    try {
+      const status = await Permissions.check(permissionType);
+  
+      if (status === Permissions.RESULTS.GRANTED) {
+        let options = {
+          storageOptions: {
+            mediaType: 'photo',
+            path: 'image',
+            includeExtra: true,
+          },
+          selectionLimit: 1,
+        };
+  
+        launchImageLibrary(options, res => {
+          if (res.didCancel) {
+            console.log('ez pz');
+          } else if (res.error) {
+            console.log('ez pz win');
+          } else if (res.customButton) {
+            alert(res.customButton);
+          } else {
+            setsaveimage({
+              name: res.assets?.[0]?.fileName,
+              uri: res.assets?.[0]?.uri,
+              type: res.assets?.[0]?.type,
+            });
+            setShow(false);
+          }
+        });
       } else {
-        setsaveimage({
-          name: res.assets?.[0]?.fileName,
-          uri: res.assets?.[0]?.uri,
-          type: res.assets?.[0]?.type,
-        })
-        setShow(false);
+        const requestStatus = await Permissions.request(permissionType);
+  
+        if (requestStatus === Permissions.RESULTS.GRANTED) {
+          // Permission granted, proceed with launching the image library
+          // Code here is similar to the granted case in the above if statement
+        } else {
+          console.log('Permission denied');
+        }
       }
-    });
+    } catch (error) {
+      console.warn('Permission request error:', error);
+    }
   };
 
   const onSubmit = (data) => {
-    dispatch(updateProfile(data,userData,saveimage,text,navigation))
+    dispatch(updateProfile(data,userData,saveimage,text,navigation,country,setLoader,setCheck))
   }
-  return (
+  return  (
     <>
          <SafeAreaView
         style={{
@@ -219,8 +248,8 @@ defaultValues:{
                 placeholder={applanguage.PhoneNumber}
                 keyboardType={'numeric'}
                 text={applanguage.PhoneNumber}
-                flagImage={flagImage}
-                phoneNumber={phoneNumber}
+                flagImage={country ? country.flag_code : userData.data.flag_code}
+                phoneNumber={country ? country.country_code : userData.data.country_code}
                 phone={true}
                 // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
@@ -351,6 +380,17 @@ defaultValues:{
         </View>
       </ScrollView>
     </View>
+    <TickModal
+          text="Profile has been succesfully updated!"
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
+
+<Loader 
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
     </>
   );
 };

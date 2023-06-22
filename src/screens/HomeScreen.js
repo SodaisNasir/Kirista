@@ -84,61 +84,7 @@ const HomeScreen = () => {
       screen_name: 'RccgContinent',
     },
   ];
-  const books_data = [
-    {
-      id: 1,
-      title: 'Sunday Student',
-      manual: 'Manual',
-      image: require('../../src/assets/images/book1.png'),
-      year: '2023',
-      type: 'first',
-    },
-    {
-      id: 2,
-      title: 'Sunday School',
-      manual: 'Manual',
-      image: require('../../src/assets/images/book1.png'),
-      year: '2023',
-    },
 
-    {
-      id: 3,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-
-    {
-      id: 4,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-    {
-      id: 5,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../src/assets/images/book2.png'),
-      year: '2023',
-      type: 'first',
-    },
-    {
-      id: 6,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-    {
-      id: 7,
-      title: 'Sunday School ',
-      manual: 'Teachers Manual',
-      image: require('../../src/assets/images/book2.png'),
-      year: '2023',
-    },
-  ];
 
   useFocusEffect(
     useCallback(() => {
@@ -702,21 +648,6 @@ const HomeScreen = () => {
                 {applanguage.UpcomingEvents}
               </Text>
             </View>
-
-            {/* <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Home');
-            }}
-            style={{flexDirection: 'row'}}>
-            <Text style={styles.MoreText}>See all</Text>
-            <View style={{top: 1}}>
-              <Entypo
-                name="chevron-small-right"
-                size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
-                color={Color.Main}
-              />
-            </View>
-          </TouchableOpacity> */}
           </View>
           <View>
             {event.length > 0 ? (

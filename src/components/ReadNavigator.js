@@ -21,15 +21,13 @@ const ReadNavigator = props => {
   const Theme = props.newTheme != '' ? props.newTheme : heyTheme
 
 
-
-console.log('props.background', props.background)
   return (
     <View
       style={[
         styles.container,
         props.reStyle,
         {
-          backgroundColor: props.background ? props.background  : Theme === 'dark' ? Color.DarkTheme : Color.White,
+          backgroundColor: props.background && props.setShow ? props.background  : Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
       ]}>
       <View style={styles.BoxStyle}>
@@ -38,7 +36,7 @@ console.log('props.background', props.background)
             <FontAwesome5
               name="list-ul"
               size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-              color={props.background ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
+              color={props.background && props.setShow ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
             />
           </TouchableOpacity>
         {/* )} */}
@@ -49,13 +47,13 @@ console.log('props.background', props.background)
               <Feather
                 name="sun"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-                color={props.background ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
+                color={props.background && props.setShow ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
               />
             ) : (
               <Feather
                 name="moon"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-                color={props.background  ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
+                color={props.background && props.setShow ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
               />
             )}
           </TouchableOpacity>
@@ -67,7 +65,7 @@ console.log('props.background', props.background)
           <Feather
             name="settings"
             size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-            color={props.background  ? '#374957' : props.ChangeColor ? props.color : Theme === 'dark' ? '#fff' : '#374957'}
+            color={props.background && props.setShow  ? '#374957' : props.ChangeColor ? props.color : Theme === 'dark' ? '#fff' : '#374957'}
           />
         </TouchableOpacity>
       </View>

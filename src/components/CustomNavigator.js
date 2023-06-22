@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Dimensions,
   useColorScheme,
+  TouchableOpacity,
 } from 'react-native'
 import React from 'react'
 import {Color} from '../utils/Colors'
@@ -36,6 +37,9 @@ const CustomNavigator = (props) => {
           paddingBottom: moderateVerticalScale(5),
           marginVertical: verticalScale(20),
         }}>
+
+
+          <TouchableOpacity onPress={props.onPressLeft}>
         <View
           style={[
             styles.ArrowStyle,
@@ -49,6 +53,10 @@ const CustomNavigator = (props) => {
             color={Theme === 'dark' ? Color.White : Color.Black}
           />
         </View>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity onPress={props.onPressFresh}>
         <View
           style={[
             styles.LoadStyle,
@@ -62,6 +70,10 @@ const CustomNavigator = (props) => {
             color={Theme === 'dark' ? Color.White : Color.Black}
           />
         </View>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity onPress={props.onPressRight}>
         <View
           style={[
             styles.ArrowStyle,
@@ -75,6 +87,9 @@ const CustomNavigator = (props) => {
             color={Theme === 'dark' ? Color.White : Color.Black}
           />
         </View>
+          </TouchableOpacity>
+
+
       </View>
     </View>
   )

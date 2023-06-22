@@ -10,6 +10,9 @@ export const BOOKMARK  = 'BOOKMARK'
 export const APPLANGUAGE  = 'APPLANGUAGE'
 export const GETLANGUAGE  = 'GETLANGUAGE'
 export const LANGUAGE  = 'LANGUAGE'
+export const ALLBOOKMARK  = 'ALLBOOKMARK'
+export const EVENTBOOKMARK  = 'EVENTBOOKMARK'
+export const PARISHBOOKMARK  = 'PARISHBOOKMARK'
 
 
 const initialState = {
@@ -26,6 +29,9 @@ const initialState = {
   getlanguage: null,
   applanguage: [],
   language: null,
+  allbookmark: [],
+  eventbookmark: [],
+  parishbookmark: [],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -89,6 +95,21 @@ export const Reducer = (state = initialState, action) => {
             return {
               ...state,
               language: action.payload,
+            }
+    case ALLBOOKMARK:
+            return {
+              ...state,
+              allbookmark: action.payload,
+            }
+    case EVENTBOOKMARK:
+            return {
+              ...state,
+              eventbookmark: action.payload,
+            }
+    case PARISHBOOKMARK:
+            return {
+              ...state,
+              parishbookmark: action.payload,
             }
 
     default:

@@ -16,23 +16,35 @@ import CustomHeader from '../../components/CustomHeader';
 import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useState} from 'react';
-import {parish_by_id} from '../../redux/actions/UserAction';
+import {markData, parish_by_id} from '../../redux/actions/UserAction';
 import Loading from '../../components/Modals/Loading';
 import Map from '../../components/Map';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Share from 'react-native-share'
+import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { PARISHBOOKMARK } from '../../redux/reducer';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewParish = ({route}) => {
   const {id} = route.params;
-  const [data, setData] = useState('');
+  const dispatch = useDispatch()
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
+  const is_guest = useSelector(state => state.is_guest)
+
+  const parishbookmark = useSelector(state => state.parishbookmark)
+  const user_details = useSelector(state => state.user_details)
+  const [isChecked, setIsChecked] = useState(false);
+
+  console.log('data', data)
 
   useFocusEffect(
     useCallback(() => {
@@ -40,6 +52,46 @@ const ViewParish = ({route}) => {
     }, []),
   );
 
+  const shareBook = () => {
+    let shareImageBase64 = {
+      title: data.title,
+      url: `d`,
+      subject: 'Share Book Link', //  for email
+    }
+    Share.open(shareImageBase64).catch((error) => console.log(error))
+  }
+  useEffect(() => {
+    addBookmark()
+  },[parishbookmark,data])
+  
+  const addBookmark = () => {
+    const extrxtIds = parishbookmark.find((elm) => elm.id == data.id)
+    if(extrxtIds != null){
+      setIsChecked(true);
+    }else{
+      setIsChecked(false)
+    }
+  }
+
+  const type = 'parish'
+
+  const handleSubmit = async () => {
+    const findData = parishbookmark?.find((elm) => elm.id == data?.id)
+
+    if (findData) {
+      const updatedData = parishbookmark.filter((elm) => elm.id !== findData.id);
+      dispatch({type: PARISHBOOKMARK, payload: updatedData})
+      await AsyncStorage.setItem('parishbookmark', JSON.stringify(updatedData));
+      setIsChecked(false)
+      console.log('laraib =========>')
+    } else {
+      markData(type,data.id,user_details)
+      dispatch({type: PARISHBOOKMARK, payload: [...parishbookmark, data]})
+      console.log('laraib =========> Object not found in the array');
+      setIsChecked(true);
+      await AsyncStorage.setItem('parishbookmark', JSON.stringify([...parishbookmark, data]));
+    }
+  }
   return loading ? (
     <Loading />
   ) : (
@@ -57,7 +109,14 @@ const ViewParish = ({route}) => {
             marginTop: Platform.OS == 'ios' ? verticalScale(-20) : 0,
           },
         ]}>
-        <CustomHeader text={applanguage.ViewParish} shareicon={true} saveicon={true} />
+        <CustomHeader
+         text={applanguage.ViewParish}
+          shareicon={true}
+           saveicon={is_guest == true ? false : true}
+           shareOnPress={shareBook}
+           select={isChecked}
+           BookPress={handleSubmit}
+            />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
@@ -222,8 +281,6 @@ const ViewParish = ({route}) => {
             style={{
               height:
                 w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
-              // paddingHorizontal:
-              //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               marginVertical: verticalScale(15),
               borderRadius: scale(14),
               marginBottom: verticalScale(20),
@@ -237,19 +294,7 @@ const ViewParish = ({route}) => {
               style={{height: '100%', width: '100%'}}
             /> */}
 
-            {/* <MapView
-              initialRegion={{
-                latitude: 9.0765,
-                longitude: 7.3986,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-              showsUserLocation={false}
-              zoomEnabled={true}
-              // zoomControlEnabled={true}
-              provider={PROVIDER_GOOGLE}
-            /> */}
-            <Map />
+            <Map data={data.map} />
             
           </View>
           <View

@@ -13,7 +13,7 @@ export const Font = {
   GoBold400 : 'Gobold',
   GoBold300 : 'Gobold-Light',
   emoji: 'NotoColorEmoji-Regular',
-  arial: 'Arial',
-  roman: 'times-new-roman',
+  Arial: 'Arial',
+  Roman: 'times-new-roman',
   RomanBold: 'times-new-roman-bold',
 };

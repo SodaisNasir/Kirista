@@ -17,16 +17,26 @@ import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import CustomButton from '../../components/CustomButton';
 import {useFocusEffect} from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Share from 'react-native-share'
+import { useState } from 'react';
+import { markData } from '../../redux/actions/UserAction';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ALLBOOKMARK } from '../../redux/reducer';
+import { useEffect } from 'react';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewManual = ({navigation,route}) => {
+  const dispatch = useDispatch()
   const {item} = route.params
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
+  const is_guest = useSelector(state => state.is_guest)
+  const user_details = useSelector(state => state.user_details)
+  const allbookmark = useSelector(state => state.allbookmark)
+
 
   useFocusEffect(
     useCallback(() => {
@@ -34,6 +44,9 @@ const ViewManual = ({navigation,route}) => {
     }, []),
   );
 
+
+
+  const [isChecked, setIsChecked] = useState(false);
   const shareBook = (data) => {
     let shareImageBase64 = {
       title: 'Book',
@@ -41,6 +54,39 @@ const ViewManual = ({navigation,route}) => {
       subject: 'Share Book Link', //  for email
     }
     Share.open(shareImageBase64).catch((error) => console.log(error))
+  }
+const type = 'book'
+
+useEffect(() => {
+  addBookmark()
+},[allbookmark])
+
+const addBookmark = () => {
+  const extrxtIds = allbookmark.find((elm) => elm.id == item.id)
+  if(extrxtIds != null || undefined){
+    setIsChecked(true);
+  }else{
+    setIsChecked(false)
+  }
+}
+
+
+const handleSubmit = async () => {
+    const findData = allbookmark?.find((elm) => elm.id == item?.id)
+
+    if (findData) {
+      const updatedData = allbookmark.filter((elm) => elm.id !== findData.id);
+      dispatch({type: ALLBOOKMARK, payload: updatedData})
+      await AsyncStorage.setItem('allbookmark', JSON.stringify(updatedData));
+      setIsChecked(false)
+      console.log('laraib =========>')
+    } else {
+      markData(type,item.id,user_details)
+      dispatch({type: ALLBOOKMARK, payload: [...allbookmark, item]})
+      console.log('laraib =========> Object not found in the array');
+      setIsChecked(true);
+      await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
+    }
   }
   return (
     <>
@@ -61,8 +107,11 @@ const ViewManual = ({navigation,route}) => {
      
         <CustomHeader
          shareicon={true}
-        //  saveicon={true}
-          shareOnPress={shareBook} />
+         BookPress={handleSubmit}
+         saveicon={is_guest == true ? false : true}
+         shareOnPress={shareBook}
+         select={isChecked}
+           />
           <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.ImageViewStyle}>
           <Image

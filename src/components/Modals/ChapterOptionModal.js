@@ -163,7 +163,7 @@ const ChapterOptionModal = props => {
                 fontFamily: Font.Poppins600,
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
               }}
-              title={'Arial'}
+              title={props.fontTitle}
               onPress={props.toggleModalTwo}
             />
 
@@ -333,8 +333,8 @@ const ChapterOptionModal = props => {
         // tabButtonStyle={{alignItems:'flex-end',width:'100%'}}
         onPressTab={props.onPressTab}
         moonPress={props.moonPress}
-            show={props.show}
-            newTheme={props.newTheme}
+        show={props.show}
+        newTheme={props.newTheme}
         />
       </Modal>
     </View>

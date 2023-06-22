@@ -23,13 +23,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {IS_GUEST, LOGIN, USER_DETAILS} from '../../redux/reducer';
+import { skipGuest } from '../../redux/actions/AuthAction';
 
 
 const OverBoard = ({navigation}) => {
 
   const getlanguage = useSelector(state => state.getlanguage)
   const applanguage = useSelector(state => state.applanguage)
-
   const defaulLang = getlanguage != null ? getlanguage : 'EN'
 
   const [selectedLanguage, setselectedLanguage] = useState(defaulLang)
@@ -43,7 +43,7 @@ const OverBoard = ({navigation}) => {
 
 
  
-  const Dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
@@ -54,10 +54,9 @@ const OverBoard = ({navigation}) => {
   const fourInchLandscape = width <= 350 && height <= 600;
 
   const Theme = useSelector(state => state.mode)
+  const device = Platform.OS;
   const handelSkip = () => {
-    // navigation.navigate('BottomTabNavigator');
-    Dispatch({type: IS_GUEST, payload: true});
-    Dispatch({type: USER_DETAILS, payload: 'vvvvvvv'});
+    dispatch(skipGuest(device))
   };
   return (
     <View

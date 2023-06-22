@@ -46,6 +46,7 @@ import AdvWebView from '../components/AdvWebView';
 import RegionCountry from '../screens/RegionCountry';
 import Country from '../screens/Country';
 import { useSelector } from 'react-redux';
+import FeaturedCountry from '../components/FeaturedCountry';
 
 const Tab = createBottomTabNavigator();
 
@@ -319,6 +320,11 @@ function AllSettings() {
         component={Login}
         options={{animation: 'fade_from_bottom'}}
       />
+        <Stack.Screen
+          name="FeaturedCountry"
+          component={FeaturedCountry}
+          options={{animation: 'flip'}}
+        />
     </Stack.Navigator>
   );
 }

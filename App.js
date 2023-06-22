@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import LightSplash from './src/screens/auth/LightSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {APPLANGUAGE, BOOKMARK, GETLANGUAGE, LANGUAGE, MODE, USER_DETAILS} from './src/redux/reducer';
+import {ALLBOOKMARK, APPLANGUAGE, BOOKMARK, EVENTBOOKMARK, GETLANGUAGE, LANGUAGE, MODE, PARISHBOOKMARK, USER_DETAILS} from './src/redux/reducer';
 import {
   useColorScheme,
 } from 'react-native';
@@ -15,6 +15,7 @@ import Pidgin from './src/components/LanguageJson/Pidgin.json'
 import Spanish from './src/components/LanguageJson/Spanish.json'
 import Fula from './src/components/LanguageJson/Fula.json'
 import Portugese from './src/components/LanguageJson/Portugese.json'
+import OneSignal from 'react-native-onesignal'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,8 @@ const App = () => {
       dispatch({type: GETLANGUAGE, payload: cnvrtlng})
     } else{
        dispatch({type: APPLANGUAGE, payload: English})
-       dispatch({type: GETLANGUAGE, payload: 'English'})
+       dispatch({type: GETLANGUAGE, payload: 'EN'})
+       dispatch({type: LANGUAGE, payload: 'English'})
     }
   }
 
@@ -77,7 +79,33 @@ const App = () => {
   useEffect(() => {
     checkStatus();
     modeCheck()
-    // setLanguage()
+    // setLanguage() 
+    OneSignal.setAppId('54b7926e-9b1f-4ba6-810c-97520670236f')
+
+    OneSignal.promptForPushNotificationsWithUserResponse()
+
+    OneSignal.setNotificationWillShowInForegroundHandler(
+      (notificationReceivedEvent) => {
+        console.log(
+          'OneSignal: notification will show in foreground:',
+          notificationReceivedEvent,
+        )
+        let notification = notificationReceivedEvent.getNotification()
+        OneSignal.add
+        const data = notification.additionalData
+        console.log('data', data)
+        notificationReceivedEvent.complete(notification)
+      },
+    )
+
+    // OneSignal.setNotificationOpenedHandler((notification) => {})
+   
+    OneSignal.addSubscriptionObserver(async (event) => {
+      if (event.to.isSubscribed) {
+        const state = await OneSignal.getDeviceState()
+        await AsyncStorage.setItem('onesignaltoken', state.userId)
+      }
+    })
   }, []);
 
   useEffect(() => {
@@ -86,6 +114,9 @@ const App = () => {
 
   useEffect(() => {
     bookmarkData()
+    manualbookmarkData()
+    parishbookmarkData()
+    eventbookmarkData()
   }, [])
 
   const bookmarkData = async () => {
@@ -97,6 +128,34 @@ const App = () => {
       console.log('Monkey D. Luffy')
     }
   }
+  const manualbookmarkData = async () => {
+    const bookMark = await AsyncStorage.getItem('allbookmark')
+    const convertData = JSON.parse(bookMark)
+    if(convertData != null){
+      dispatch({type: ALLBOOKMARK, payload: convertData})
+    }else{
+      console.log('Monkey D. Luffy')
+    }
+  }
+  const parishbookmarkData = async () => {
+    const bookMark = await AsyncStorage.getItem('parishbookmark')
+    const convertData = JSON.parse(bookMark)
+    if(convertData != null){
+      dispatch({type: PARISHBOOKMARK, payload: convertData})
+    }else{
+      console.log('Monkey D. Luffy')
+    }
+  }
+  const eventbookmarkData = async () => {
+    const bookMark = await AsyncStorage.getItem('eventbookmark')
+    const convertData = JSON.parse(bookMark)
+    if(convertData != null){
+      dispatch({type: EVENTBOOKMARK, payload: convertData})
+    }else{
+      console.log('Monkey D. Luffy')
+    }
+  }
+
 
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode')

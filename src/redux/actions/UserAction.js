@@ -103,6 +103,7 @@ export const active_event = async (setEvent) => {
   }
 }
 export const event_by_id = async (setData, id,setLoading) => {
+
   setLoading(true)
   try {
     let base_url = `${base_Url}event/${id}`;
@@ -114,7 +115,6 @@ export const event_by_id = async (setData, id,setLoading) => {
 
     if (responseData.success.status === 200) {
       setLoading(false)
-     console.log('responseData in parish ==>', responseData)
      setData( responseData.success.data)
     } else {
       console.log('else error');
@@ -123,8 +123,9 @@ export const event_by_id = async (setData, id,setLoading) => {
     console.log('error', error)
   }
 }
-export const updateProfile = (data,userData,saveimage,text,navigation) => {
+export const updateProfile = (data,userData,saveimage,text,navigation,country,setLoader,setCheck) => {
   return async (dispatch) => {
+    setLoader(true)
     try {
 
       let base_url = `${base_Url}edituser/${userData.data.id}`;
@@ -147,7 +148,12 @@ export const updateProfile = (data,userData,saveimage,text,navigation) => {
         data.phonenumber != userData.data.phone_number &&
         myData.append('phone_number',data.phonenumber)
       }
-      myData.append('country',)
+
+      {
+        country != null &&
+        myData.append('country',country.country_name)
+      }
+      
       {
         saveimage &&
         myData.append('profile_image',saveimage)
@@ -165,17 +171,23 @@ export const updateProfile = (data,userData,saveimage,text,navigation) => {
         redirect: 'follow'
       });
       const responseData = await response.json();
-
       if (responseData.success.status === 200) {
+        setLoader(false)
         dispatch({type: USER_DETAILS, payload: responseData.success});
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
-        alert('Profile has been succesfully updated')
+        // alert('Profile has been succesfully updated')
+        setCheck(true)
+        setTimeout(() => {
+          setCheck(false)
+        }, 3000);
       } else {
         console.log('else error');
+        setLoader(false)
       }
       
     } catch (error) {
       console.log('error', error)
+      setLoader(false)
     }
   }
 }
@@ -366,5 +378,75 @@ export const getSearchData =  () => {
     }catch (error) {
       console.log('error', error)
     }
+  }
+}
+export const getfeaturedcountry = async (setData) => {
+  try {
+    let base_url = `${base_Url}country-featured`;
+  
+    const response = await fetch(base_url, {
+      method: 'GET',
+    });
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      setData(responseData.success.data)
+      }else{
+        console.log('first')
+      }
+     }catch (error) {
+    console.log('error', error)
+  }
+}
+export const getRCCData = async (setData,type,language,setLoader) => {
+  setLoader(true)
+  try {
+    let base_url = `${base_Url}show-about`;
+    let myData = new FormData();
+
+    myData.append('type', type);
+    myData.append('language', language);
+
+    const response = await fetch(base_url, {
+      body: myData,
+      method: 'post',
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      setData(responseData.success.data.description);
+      setLoader(false)
+    }else{
+      setLoader(false)
+    }
+  } catch (error) {
+    console.log('error', error);
+    setLoader(false)
+  }
+}
+export const markData = async (type,id,userData) => {
+  console.log('type,id,userData', type,id,userData)
+  try {
+    let base_url = `${base_Url}mark/${userData.data.id}`;
+    let myData = new FormData();
+
+    myData.append('type', type);
+    myData.append('type_id', id);
+
+    const response = await fetch(base_url, {
+      body: myData,
+      method: 'post',
+    });
+    
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      console.log(responseData.success);
+    }else{
+      console.log('first')
+    }
+  } catch (error) {
+    console.log('error', error);
   }
 }

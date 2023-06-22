@@ -29,7 +29,6 @@ const About = ({navigation}) => {
   const [data, setData] = useState('');
   const {width} = useWindowDimensions();
   const [Loading,setLoading] = useState(false)
-  console.log('language', language)
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -38,6 +37,10 @@ const About = ({navigation}) => {
     });
     getAbout();
   }, []);
+
+  console.log('data', data)
+
+
 
   const type = 'Kirista';
   const getAbout = async () => {
@@ -55,7 +58,6 @@ const About = ({navigation}) => {
       });
 
       const responseData = await response.json();
-      console.log('responseData', responseData)
 
       if (responseData.success.status === 200) {
         setData(responseData.success.data.description);
@@ -67,8 +69,9 @@ const About = ({navigation}) => {
     }
   };
 
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
   const source = {
-    html: data,
+    html: result,
   };
 
   return (
@@ -131,7 +134,7 @@ const About = ({navigation}) => {
                 size="large"
               />
             ) : (
-              <RenderHtml contentWidth={width} source={source} />
+              <RenderHtml contentWidth={width} source={source} customStyle={`p { color: red; }`} />
             )}
 
             {Theme === 'dark' ? (

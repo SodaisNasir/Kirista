@@ -123,7 +123,7 @@ const SettingsMore = () => {
                   },
                 ]}>
                 {/* Hello, Brethren. */}
-                {applanguage.Hello}, Brethren.
+                {applanguage.Hello},  {applanguage.Brethen}.
               </Text>
             )}
           </View>

@@ -61,7 +61,7 @@ const CustomInput = forwardRef((props, ref) => {3
               : fourInchPotrait
               ? verticalScale(52)
               : verticalScale(45),
-            backgroundColor: Theme
+            backgroundColor: Theme === 'dark'
               ? Color.DarkThemeInputBox
               : Color.InputBoxColor,
             borderRadius: tabPotrait ? scale(12) : scale(18),
@@ -80,17 +80,19 @@ const CustomInput = forwardRef((props, ref) => {3
             }}>
             <View
               style={{
-                width: tabPotrait ? scale(15) : scale(25),
-                height: tabPotrait ? verticalScale(10) : verticalScale(16),
+                // width: tabPotrait ? scale(15) : scale(25),
+                // height: tabPotrait ? verticalScale(10) : verticalScale(16),
                 flexDirection: 'row',
+                bottom:1
               }}>
-              <Image
+              {/* <Image
                 source={props.flagImage}
                 style={{
                   width: '100%',
                   height: '100%',
                 }}
-              />
+              /> */}
+              <Text style={{ fontSize: scale(20) }}>{props.flagImage}</Text>
             </View>
             <View style={{paddingHorizontal: moderateScale(5)}}>
               <Text

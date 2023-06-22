@@ -9,6 +9,7 @@ import {
   Dimensions,
   Image,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
@@ -19,20 +20,51 @@ import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import RenderHtml from 'react-native-render-html';
+import { useState } from 'react';
+import { getRCCData } from '../../../redux/actions/UserAction';
+import { useEffect } from 'react';
+import Loader from '../../../components/Modals/Loader';
 
 const W = Dimensions.get('window').width;
 const H = Dimensions.get('window').height;
 
 const RccgContinent = ({navigation}) => {
+  const Theme = useSelector(state => state.mode)
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const language = useSelector(state => state.language);
+  const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const type = 'RCCG Continent 2';
+
+
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
 
-  const Theme = useSelector(state => state.mode)
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  useEffect(() => {
+    getRCCData(setData,type,language,setLoader)
+  },[show])
+
+
+
+  const onSubmit = () => {
+    setShow(!show)
+    setLoader(true)
+    setTimeout(() => {
+      setLoader(false)
+    }, 2000);
+  }
+
+  let result =data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
+  const source = {
+    html: result,
+  };
   return (
     <>
      <SafeAreaView style={{ backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,}} />
@@ -46,7 +78,14 @@ const RccgContinent = ({navigation}) => {
         <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
 
       <Header text={'RCCG Continent 2'} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+     { loader ? 
+     <View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
+     <ActivityIndicator
+          size="large"
+          color={Theme === 'dark' ? Color.White : Color.Main}
+          />   
+          </View>
+        : <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:
@@ -76,511 +115,7 @@ const RccgContinent = ({navigation}) => {
             )}
           </View>
 
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-              }}>
-              RCCG Continent 2
-            </Text>
-          </View>
-          <View
-            style={{
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-              marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                textAlign: 'center',
-              }}>
-              This is currently in 22 countries, covering Northern Nigeria, West
-              and Central Africa. As more souls have been won to the Kingdom of
-              God, the Church's influence through the continental structure has
-              grown spiritually, economically, and politically.
-            </Text>
-          </View>
-          <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                textAlign: 'center',
-              }}>
-              Pastor E.A. Odeyemi
-            </Text>
-
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                textAlign: 'center',
-              }}>
-              (Continent 2 Overseer)
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                textAlign: 'center',
-                marginTop: verticalScale(20),
-              }}>
-              RCCG Northern Zone, Nigeria
-            </Text>
-          </View>
-          <View
-            style={{
-              // paddingVertical:
-              //   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-              marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                textAlign: 'center',
-              }}>
-              This is coordinated by the Continent 2 Overseer, whose
-              headquarters are in Abuja. It is divided into ten regions, which
-              are located in various geopolitical zones: Region 7-Yola, Region
-              8-Jos, Region 9-Kano, Region 10-Abuja, Region 16-Borno, Region
-              17-Bauchi, Region 18-Sokoto, Region 24-Lokoja, Region
-              28-Nassarawa, and Region 30-Kaduna. These Regions have a total
-              average attendance of 422,130 people and are made up of 68
-              Provinces, 893 Zones, 2,177 Areas, and 7,921 Parishes.
-            </Text>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme === 'dark' ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              width: '100%',
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(25),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-              }}>
-              RCCG West Africa Region I
-            </Text>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Coordinated by
-              </Text>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                Pastor James Dangoduro
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                (Deputy Continental Overseer- West Coast I)
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                It has its Regional Headquarters in Ghana. This Region, which
-                includes Ghana Provinces 1 and 2, is divided into 26 Zones, 22
-                Areas, and 105 Parishes, with a total average attendance of
-                6,910.
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme === 'dark' ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              width: '100%',
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-              }}>
-              RCCG West Africa Region II
-            </Text>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Coordinated by
-              </Text>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                Pastor J.O. Temitope
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                (Deputy Continental Overseer- West Coast I)
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                It has its Regional Headquarters in Ghana. This Region, which
-                includes Ghana Provinces 1 and 2, is divided into 26 Zones, 22
-                Areas, and 105 Parishes, with a total average attendance of
-                20,685.
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme === 'dark' ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-              }}>
-              RCCG West Africa Region III
-            </Text>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Coordinated by
-              </Text>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                Pastor J.O. Temitope
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                (Deputy Continental Overseer- West Coast I)
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                It has its Regional Headquarters in Ghana. This Region, which
-                includes Ghana Provinces 1 and 2, is divided into 26 Zones, 22
-                Areas, and 105 Parishes, with a total average attendance of
-                20,685.
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme === 'dark' ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-              }}>
-              RCCG West Africa Region IV
-            </Text>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Coordinated by
-              </Text>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                Pastor J.O. Temitope
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                (Deputy Continental Overseer- West Coast I)
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                It has its Regional Headquarters in Ghana. This Region, which
-                includes Ghana Provinces 1 and 2, is divided into 26 Zones, 22
-                Areas, and 105 Parishes, with a total average attendance of
-                20,685.
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme === 'dark' ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              width: '100%',
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-              }}>
-              RCCG Central Africa Region
-            </Text>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Coordinated by
-              </Text>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                Pastor Peter Akalamodu
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
-                (Deputy Continental Overseer- West Coast I)
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                It has its Regional Headquarters in Ghana. This Region, which
-                includes Ghana Provinces 1 and 2, is divided into 26 Zones, 22
-                Areas, and 105 Parishes, with a total average attendance of
-                20,685.
-              </Text>
-            </View>
-          </View>
+          <RenderHtml contentWidth={w} source={source} />
 
           <View
             style={{
@@ -614,7 +149,7 @@ const RccgContinent = ({navigation}) => {
               General Overseer, RCCG World Wide
             </Text>
           </View>
-
+{/* 
           <View
             style={{
               borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
@@ -622,21 +157,21 @@ const RccgContinent = ({navigation}) => {
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
             }}
-          />
-          <View
+          /> */}
+          {/* <View
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(25),
             }}>
             <CustomButton restyle={{width: '95%'}} text={'Read More'} />
-          </View>
+          </View> */}
         </View>
         <View
           style={{
-            height: verticalScale(95),
+            height: verticalScale(60),
           }}
         />
-      </ScrollView>
+      </ScrollView>}
       <View
         style={{
           position: 'absolute',
@@ -644,7 +179,11 @@ const RccgContinent = ({navigation}) => {
           width: '100%',
           backgroundColor: Color.White,
         }}>
-        <CustomNavigator />
+        <CustomNavigator 
+          onPressLeft={() => navigation.navigate('RccgStructure')}
+          onPressFresh={() => onSubmit()}
+          onPressRight={() => navigation.navigate('Rccg')}
+        />
       </View>
     </View>
     </>

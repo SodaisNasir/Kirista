@@ -107,7 +107,7 @@ const Login = ({navigation}) => {
               marginTop:
                 Platform.OS == 'ios' ? verticalScale(-5) : verticalScale(-10),
             }}>
-            {applanguage.Brethren}.
+            {applanguage.Brethen}.
           </Text>
         </View>
 

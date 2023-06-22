@@ -30,26 +30,32 @@ const FontModal = (props) => {
     {
       id: '1',
       label: 'Arial',
+      name: 'Arial'
     },
     {
       id: '2',
       label: 'Courier',
+      name: 'CourierPrime-Regular',
     },
     {
       id: '3',
       label: 'Georgia',
+      name: 'Georgia-Regular-font',
     },
     {
       id: '4',
       label: 'Lata',
+      name: 'Lato-Regular',
     },
     {
       id: '5',
       label: 'Papyrus',
+      name: 'papyrus'
     },
     {
       id: '6',
       label: 'Times New Roman',
+      name: 'times-new-roman',
     },
   ]
 
@@ -57,7 +63,7 @@ const FontModal = (props) => {
  const Theme = useSelector(state => state.mode)
 const onSubmit = (item) => {
   props.OptionSelect(false)
-  props.fontData(item.label)
+  props.fontData(item)
 }
   return (
       <Modal

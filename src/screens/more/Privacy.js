@@ -69,8 +69,9 @@ const type = 'Privacy'
       setLoading(false)
     }
   }
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
   const source = {
-    html: data
+    html: result,
   };
   return (
     <>
@@ -118,100 +119,12 @@ const type = 'Privacy'
       contentWidth={width}
       source={source}
     />
-            {/* <View style={{marginVertical: verticalScale(20)}}>
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme === 'dark' ? Color.White : Color.Black,
-                  },
-                ]}>
-                Privacy Policy
-              </Text>
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme === 'dark' ? Color.White : Color.Black,
-                  },
-                ]}>
-                INTRODUCTION
-              </Text>
-            </View>
-            <Text
-              style={[
-                styles.TextStyle,
-                {
-                  color: Theme === 'dark' ? Color.White : Color.Black,
-                },
-              ]}>
-              Kirista is dedicated to protecting your personal information and
-              informing you about how we use your information. This privacy
-              policy applies to your use of our services including our Mobile
-              App and services (collectively “Platform”). We operate this mobile
-              application, a digital reading platform that enables brethren read
-              RCCG books using a variety of electronic devices, software
-              applications, and other services.
-            </Text>
-            <Text
-              style={[
-                {
-                  marginTop: verticalScale(10),
-                  color: Theme === 'dark' ? Color.White : Color.Black,
-                },
-                styles.TextStyle,
-              ]}>
-              This Privacy Policy should be read in conjunction with the Terms
-              of Use and is integrated into the Terms of Use. All capitalized
-              proper nouns not defined in this Agreement will have the same
-              definitions and meanings as defined by the Terms of If you do not
-              agree to these Terms of Use, you should not review information
-              from this Mobile App. We have the total right to edit or delete
-              any content in this Mobile Platform, including this Agreement,
-              without notifying you.
-            </Text>
-            <Text
-              style={[
-                {
-                  marginTop: verticalScale(10),
-                  color: Theme === 'dark' ? Color.White : Color.Black,
-                },
-                styles.TextStyle,
-              ]}>
-              Kirista is dedicated to protecting your personal information and
-              informing you about how we use your information. This privacy
-              policy applies to your use of our services including our Mobile
-              App and services (collectively “Platform”). We operate this mobile
-              application, a digital reading platform that enables brethren read
-              RCCG books using a variety of electronic devices, software
-              applications, and other services.
-            </Text>
-            <Text
-              style={[
-                {
-                  marginTop: verticalScale(10),
-                  color: Theme === 'dark' ? Color.White : Color.Black,
-                },
-                styles.TextStyle,
-              ]}>
-              This Privacy Policy should be read in conjunction with the Terms
-              of Use and is integrated into the Terms of Use. All capitalized
-              proper nouns not defined in this Agreement will have the same
-              definitions and meanings as defined by the Terms of Use. This
-              Privacy Policy should be read in conjunction with the Terms of Use
-              and is integrated into the Terms of Use. All capitalized proper
-              nouns not defined in this Agreement will have the same definitions
-              and meanings as defined by the Terms of If you do not agree to
-              these Terms of Use, you should not review information from this
-              Mobile App. We have the total right to edit or delete any content
-              in this Mobile Platform, including this Agreement, without
-              notifying you.
-            </Text> */}
+           
           </View>
           
         </ScrollView>
         )}
-        <View
+        {/* <View
           style={{
             width: '100%',
             backgroundColor: Color.White,
@@ -220,7 +133,7 @@ const type = 'Privacy'
             bottom:0
           }}>
           <CustomNavigator />
-        </View>
+        </View> */}
       </View>
     </>
   );

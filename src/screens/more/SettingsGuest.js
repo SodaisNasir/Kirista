@@ -49,13 +49,17 @@ import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import BottomTab from '../../constant/BottomTab';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IS_GUEST, USER_DETAILS } from '../../redux/reducer';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsGuest = () => {
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,6 +71,11 @@ const SettingsGuest = () => {
       });
     }),
   );
+
+  const onSubmit =  () => {
+    dispatch({type: IS_GUEST, payload: false});
+    dispatch({type: USER_DETAILS, payload: null});
+  }
   return (
     <>
       <SafeAreaView
@@ -107,7 +116,7 @@ const SettingsGuest = () => {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => onSubmit()}
             style={styles.MainView}>
             <View
               style={[

@@ -36,6 +36,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 
+
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
@@ -43,6 +44,8 @@ const Readtwo = ({route}) => {
   const dispatch = useDispatch()
   const {id,bookData,chapterOne} = route.params
 
+  const systemFonts = [...defaultSystemFonts, 'times-new-roman', 'Arial','Lato-Regular','papyrus','Georgia-Regular-font.ttf','CourierPrime-Regular'];
+  
   const chapters = useSelector(state => state.chapters)
   const bookmark = useSelector(state => state.bookmark)
   const { width } = useWindowDimensions();
@@ -66,9 +69,9 @@ const Readtwo = ({route}) => {
   const [chapterData, setChapterData] = useState([])
   const [fontData, setFontData] = useState('')
   const [count, setCount] = useState(0)
+  const [show, setShow] = useState(false)
 
 
-  const systemFonts = [...defaultSystemFonts, 'Arial', 'times-new-roman-bold'];
   useFocusEffect(
     useCallback(() => {
       dispatch(getChapters(setData,id))
@@ -81,25 +84,26 @@ const Readtwo = ({route}) => {
   const handlepressone = () => {
     setBackgroundColor('#F5F5F5');
     setTextColor(Color.Black);
+    setShow(true)
   };
   const handlepresstwo = () => {
     setBackgroundColor('#F5EDD8');
     setTextColor(Color.Black);
+    setShow(true)
   };
   const handlepressthree = () => {
     setBackgroundColor('#E5F1FD');
     setTextColor(Color.Black);
+    setShow(true)
   };
   const handlepressfour = () => {
     setBackgroundColor('#DBE7E3');
     setTextColor(Color.Black);
+    setShow(true)
   };
   const handleClick = async () => {
     const extractData =  chapters?.find((item) => item.id == chapterData.id)
-    console.log('extractData', extractData)
     const findData = bookmark?.find((item) => item.id == extractData?.id)
-
-    console.log('findData', findData)
 
     if (findData) {
       const updatedData = bookmark.filter((item) => item.id !== findData.id);
@@ -137,11 +141,12 @@ const Readtwo = ({route}) => {
     addBookmark()
   },[chapterData,bookmark])
 
+
   let text = chapterData?.title;
   let text2 = chapterData?.description;
   let result = text?.replace("class='chap_title'",
-   `style='color:${backgroundColor != '' ? 'black' :  Theme === 'dark' ? Color.White : Color.Black}; font-family:${fontData}; font-size:${count + 20}px; font-weight:600;'`);
-   let result3 = text2?.replace("class='chap_description'", `style='color:${backgroundColor != '' ? 'black' : Theme === 'dark' ? Color.White : Color.Black}; font-family:${fontData}; font-size:${count + 15}px; font-weight:800;'`);
+   `style='color:${backgroundColor != '' && show ? 'black' :  Theme === 'dark' ? Color.White : Color.Black};font-family:${fontData?.name}; font-size:${count + 20}px; font-weight:600;'`);
+   let result3 = text2?.replace("class='chap_description'", `style='color:${backgroundColor != '' && show ? 'black' : Theme === 'dark' ? Color.White : Color.Black};font-family:${fontData?.name};  font-size:${count + 15}px; font-weight:600;'`);
   
   const title = {
     html: result
@@ -158,11 +163,11 @@ const Readtwo = ({route}) => {
         }}
       />
 
-      <View style={[styles.MainContainer, {backgroundColor: backgroundColor != '' ? backgroundColor : Theme === 'dark' ? Color.DarkTheme : Color.White,}]}>
+      <View style={[styles.MainContainer, {backgroundColor:  Theme === 'dark' ? Color.DarkTheme : Color.White,}]}>
         <View
           style={[
             {
-              backgroundColor: backgroundColor != '' ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             },
             styles.AuthHeaderStyle,
           ]}>
@@ -181,7 +186,7 @@ const Readtwo = ({route}) => {
               <AntDesign
                 name="arrowleft"
                 size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                color={backgroundColor != '' ? 'black' :  Theme === 'dark' ? Color.White : Color.Black}
+                color={Theme === 'dark' ? Color.White : Color.Black}
                 onPress={() => navigation.goBack()}
               />
             </View>
@@ -198,50 +203,37 @@ const Readtwo = ({route}) => {
           </View>
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{
+          backgroundColor: backgroundColor != '' && show ? backgroundColor : Theme === 'dark' ? Color.DarkTheme : Color.White,
+          height: '60%',
+          width: '100%'
+          }}>
           <View
             style={{
+              height: '100%',
+              width: '100%',
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-                backgroundColor: backgroundColor != '' ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor
+                backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.DarkTheme : Color.White
             }}>
             <View style={{marginVertical: verticalScale(20)}}>
-              {/* <Text
-                style={[
-                  {
-                    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(20),
-                  },
-
-                  styles.Title,
-                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
-                ]}>
-                {chapterData?.title}
-              </Text> */}
                <RenderHtml
                   contentWidth={width}
                   source={title}
-                  // tagsStyles={{p: {fontFamily:'Montserrat-Bold',lineHeight: 23}}} 
-                  // systemFonts={systemFonts}
-                  
+                  systemFonts={systemFonts}
                   />
             </View>
             <View style={{marginVertical: verticalScale(15)}}>
-              {/* <Text
-                style={[
-                  {fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15)},
-                  styles.TextStyle,
-                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
-                ]}>
-                {chapterData?.description}
-              </Text> */}
               <RenderHtml
                   contentWidth={width}
                   source={description}
+                  systemFonts={systemFonts}
                   />
             </View>
           </View>
-          <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}} />
+          <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} />
 
+        </ScrollView>
           <ChapterOptionModal
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}
@@ -271,6 +263,7 @@ const Readtwo = ({route}) => {
             show={showSvg}
             newTheme={tempMode}
             newCount={setCount}
+            fontTitle={fontData?.label}
           />
          
           <FontModal
@@ -294,24 +287,23 @@ const Readtwo = ({route}) => {
             setSelect={setSelect}
             selectOff={setModalThreeVisible}
           />
-        </ScrollView>
         <View
           style={{
             flex: 1,
             position: 'absolute',
             bottom: 0,
             width: '100%',
-            
           }}>
           <ReadNavigator
             onPressTab={() => {
               setModalThreeVisible(!isModalThreeVisible);
             }}
-            onPressModal={() => setModalVisible(true)}
-            moonPress={() => toggleIcon()}
+            onPressModal={() => (setModalVisible(true))}
+            moonPress={() => (toggleIcon(),setShow(!show))}
             show={showSvg}
             newTheme={tempMode}
-            background={backgroundColor}
+            // background={backgroundColor}
+            setShow={show}
           />
         </View>
       </View>

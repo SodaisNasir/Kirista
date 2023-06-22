@@ -24,6 +24,7 @@ import { useRef } from 'react';
 import IncorrectModal from '../../components/Modals/IncorrectModal';
 import { useFocusEffect } from '@react-navigation/native';
 import { getPerishCountry } from '../../redux/actions/UserAction';
+import Loader from '../../components/Modals/Loader';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -48,14 +49,16 @@ const SignUp = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
   const [isVisible, setVisible] = useState(true);
   const [isVisible2, setVisible2] = useState(true);
-  const [phoneNumber, setPhoneNumber] = useState('+234');
-  const [flagImage, setFlagImage] = useState(
-    require('../../assets/images/nig.png'),
-  );
+  const [loader, setLoader] = useState(false);
+  const [country, setCountry] = useState({
+    country_name: 'Nigeria',
+    country_code: '+234',
+    flag_code: '🇳🇬'
+  });
+
   const handlePhoneNumberButtonPress = () => {
-    navigation.navigate('SelectCountry', {
-      setPhoneNumber: setPhoneNumber,
-      setFlagImage: setFlagImage,
+    navigation.navigate('FeaturedCountry', {
+      setCountry:setCountry
     });
   };
 
@@ -79,7 +82,7 @@ const SignUp = ({navigation}) => {
 
   const onSubmit = data => {
     if (data.password == data.confirm_password) {
-      dispatch(register(data, device,setMessage,setCheck,phoneNumber,flagImage));
+      dispatch(register(data, device,setMessage,setCheck,country,setLoader));
     } else {
       setNotMatched(true);
     }
@@ -189,8 +192,8 @@ const SignUp = ({navigation}) => {
                 placeholder={applanguage.PhoneNumber}
                 keyboardType={'numeric'}
                 text={applanguage.PhoneNumber}
-                flagImage={flagImage}
-                phoneNumber={phoneNumber}
+                flagImage={country ? country.flag_code : '🇳🇬'}
+                phoneNumber={country ? country.country_code : '+234'}
                 phone={true}
                 // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
@@ -395,6 +398,11 @@ const SignUp = ({navigation}) => {
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
         />
+
+<Loader 
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
     </SafeAreaView>
   );
 };

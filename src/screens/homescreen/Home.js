@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -21,6 +21,7 @@ import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../components/Modals/Loading';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -35,12 +36,18 @@ const renderScene = SceneMap({
   LivingRoom: FifthRoute,
 });
 const Home = () => {
+  const [show,setShow] = useState(false)
+
+  useEffect(() => {
+    setShow(true)
+    setTimeout(() => {
+      setShow(false)
+    }, 500);
+  },[applanguage])
   const tabPotrait = w >= 768 && h >= 1024;
   const layout = useWindowDimensions();
   const applanguage = useSelector(state => state.applanguage)
-
   const [index, setIndex] = useState(0);
-
   const [routes] = useState([
     {key: 'Bedrooms', title: applanguage.Home, type: 'home'},
     {key: 'DiningRoom', title: applanguage.ParishFinder, type: 'finder'},
@@ -116,7 +123,9 @@ const Home = () => {
 
 
 
-  return (
+
+
+  return  (
     <>
       <SafeAreaView
         style={{
@@ -129,6 +138,8 @@ const Home = () => {
       />
 
       <HomeHeader />
+      {/* {show ? <Loading /> : */}
+      
       <View
         style={{
           flex: 1,
@@ -142,6 +153,7 @@ const Home = () => {
           initialLayout={{width: layout.width}}
         />
       </View>
+      {/* } */}
       <BottomTab activeHome={true} />
     </>
   );

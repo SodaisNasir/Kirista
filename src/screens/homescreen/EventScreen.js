@@ -21,39 +21,103 @@ import ImageModal from '../../components/Modals/ImageModal';
 import Map from '../../components/Map';
 import {useFocusEffect} from '@react-navigation/native';
 import Loading from '../../components/Modals/Loading';
-import { event_by_id } from '../../redux/actions/UserAction';
+import { event_by_id, markData } from '../../redux/actions/UserAction';
 import moment from 'moment/moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Share from 'react-native-share'
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
+import { EVENTBOOKMARK } from '../../redux/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const EventScreen = ({route, navigation}) => {
+  const {id} = route.params;
+  const dispatch = useDispatch()
+
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
-  const {id} = route.params;
-  const [data, setData] = useState('');
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
-
-  
+  const is_guest = useSelector(state => state.is_guest)
+  const eventbookmark = useSelector(state => state.eventbookmark)
+  const user_details = useSelector(state => state.user_details)
+  const [isChecked, setIsChecked] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
   useFocusEffect(
     useCallback(() => {
       event_by_id(setData, id, setLoading);
     }, []),
   );
+  const shareBook = (data) => {
+    let shareImageBase64 = {
+      title: data.title,
+      url: `d`,
+      subject: 'Share Book Link', //  for email
+    }
+    Share.open(shareImageBase64).catch((error) => console.log(error))
+  }
+  function openDeviceCalendar() {
+    const eventConfig = {
+      title: data.title,
+      startDate: data.start_date,
+      endDate: data.end_date,
+      location: data.address,
+      notes: data.about,
+    };
+  
+    AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+      .then(eventId => {
+        console.log('Event created with ID:', eventId);
+      })
+      .catch(error => {
+        console.warn('Event creation error:', error);
+      });
+  }
+  useEffect(() => {
+    addBookmark()
+  },[eventbookmark,data])
+  
+  const addBookmark = () => {
+    const extrxtIds = eventbookmark.find((elm) => elm.id == data.id)
+    if(extrxtIds != null){
+      setIsChecked(true);
+    }else{
+      setIsChecked(false)
+    }
+  }
+
+  const type = 'event'
+
+  const handleSubmit = async () => {
+    const findData = eventbookmark?.find((elm) => elm.id == data?.id)
+
+    if (findData) {
+      const updatedData = eventbookmark.filter((elm) => elm.id !== findData.id);
+      dispatch({type: EVENTBOOKMARK, payload: updatedData})
+      await AsyncStorage.setItem('eventbookmark', JSON.stringify(updatedData));
+      setIsChecked(false)
+      console.log('laraib =========>')
+    } else {
+      markData(type,data.id,user_details)
+      dispatch({type: EVENTBOOKMARK, payload: [...eventbookmark, data]})
+      console.log('laraib =========> Object not found in the array');
+      setIsChecked(true);
+      await AsyncStorage.setItem('eventbookmark', JSON.stringify([...eventbookmark, data]));
+    }
+  }
   return loading ? (
     <Loading />
   ) : (
@@ -67,10 +131,14 @@ const EventScreen = ({route, navigation}) => {
         },
       ]}>
         <CustomHeader
+        shareOnPress={shareBook}
+        calOnPress={openDeviceCalendar}
           // text={'View Event'}
           text={applanguage.View + ' ' + applanguage.Events}
           shareicon={true}
-          // saveicon={true}
+          select={isChecked}
+          BookPress={handleSubmit}
+          saveicon={is_guest == true ? false :  true}
           timeicon={true}
           AuthHeaderStyle={{
             // marginTop: Platform.OS = 'ios' ? verticalScale(-5) : 0,
@@ -167,10 +235,6 @@ const EventScreen = ({route, navigation}) => {
                   color: Theme === 'dark' ? Color.White : Color.TextColor2,
                 },
               ]}>
-              {/* The Abuja Special Holy Ghost Service is an annual gathering of the
-              church in the FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed ministers of God. */}
               {data.about}
             </Text>
           </View>
@@ -246,21 +310,7 @@ const EventScreen = ({route, navigation}) => {
             style={{height: '100%', width: '100%'}}
           />
 
-          {/* <MapView
-            style={{flex: 1}}
-            initialRegion={{
-              latitude: 9.0765,
-              longitude: 7.3986,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-            
-            showsUserLocation={false}
-            zoomEnabled={true}
-            // zoomControlEnabled={true}
-            provider={PROVIDER_GOOGLE}
-         
-            ></MapView> */}
+      
         </View>
 
         <View style={{height: verticalScale(40)}} />

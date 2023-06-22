@@ -34,7 +34,11 @@ const Language = ({navigation,route}) => {
   const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const [selected, setSelected] = useState();
+  const language = useSelector(state => state.language)
+  const [selected, setSelected] = useState(language);
+
+
+
   
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -90,14 +94,13 @@ const Language = ({navigation,route}) => {
   ];
 
   const handleLanguageSelect = async (language) => {
-    console.log('language', language)
+    setSelected(language.title)
     dispatch({type: GETLANGUAGE, payload: language.select})
     dispatch({type: LANGUAGE, payload: language.title})
     await AsyncStorage.setItem('language', JSON.stringify(language.select))
     await AsyncStorage.setItem('languagetitle', JSON.stringify(language.title))
     navigation.goBack();
     setSelectedLanguage(language.select)
-    // navigation.Params('setSelectedLanguage')(language)
   }
 
 
@@ -164,7 +167,7 @@ const Language = ({navigation,route}) => {
               borderWidth: scale(1.5),
               marginBottom: verticalScale(15),
             }}>
-            {selected == data.title ? (
+            {selected ===  data.title ? (
               <View
                 style={{
                   flex: 1,

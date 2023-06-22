@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {base_Url, token} from '../../utils/Url';
-import {USER_DETAILS} from '../reducer';
+import {IS_GUEST, USER_DETAILS} from '../reducer';
 import {OTP_SEND} from '../reducer';
 
 export const sign_in = (data,setCheck) => {
@@ -39,10 +39,11 @@ export const sign_in = (data,setCheck) => {
     }
   };
 };
-
-export const register =  (data, device,setEmail,setCheck,phoneNumber,flagImage) => {
+export const register =  (data, device,setEmail,setCheck,country,setLoader) => {
   return async dispatch => {
+    setLoader(true)
     try {
+     const notification_token = await AsyncStorage.getItem('onesignaltoken')
       let base_url = `${base_Url}register`;
       let myData = new FormData();
       
@@ -52,77 +53,38 @@ export const register =  (data, device,setEmail,setCheck,phoneNumber,flagImage) 
       myData.append('password_confirmation', data.confirm_password);
       myData.append('phone_number', data.phonenumber);
       myData.append('device', device);
+      myData.append('country', country.country_name);
+      myData.append('device_token', notification_token);
 
       const response = await fetch(base_url, {
         body: myData,
         method: 'post',
       });
 
-      console.log('response', response)
       const responseData = await response.json();
 
-      console.log('responseData', responseData)
-
-      if(responseData?.error.email){
+      if(responseData?.error?.email){
         setEmail(responseData?.error.email[0])
         setCheck(true)
-      }else if(responseData?.error.phone_number){
-        setEmail(responseData?.error.phone_number[0])
+        setLoader(false)
+      }else if(responseData?.error?.phone_number){
+        setEmail(responseData?.error?.phone_number[0])
         setCheck(true)
-      }else{
-        console.log('finee')
-      }
-
-      if (responseData?.success.status === 200) {
-        dispatch({type: USER_DETAILS, payload: responseData.success});
+        setLoader(false)
+      }else if (responseData?.success.status === 200) {
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
-        console.log('responseData register', responseData);
-        console.log('USER_DETAILS', USER_DETAILS)
+        setLoader(false)
+        dispatch({type: USER_DETAILS, payload: responseData.success});
       } else {
-        console.log('else error');
+        setLoader(false)
+         console.log('else error');
       }
     } catch (error) {
+      setLoader(false)
       console.log('catch error', error);
     }
   };
 };
-
-// export const verify_Email = (data, navigation, type, setTime) => {
-//   return async dispatch => {
-//     try {
-//       let base_url = `${base_Url}verify_Email`;
-//       let myData = new FormData();
-
-//       myData.append('token', token);
-//       myData.append('email', data.email);
-
-//       const response = await fetch(base_url, {
-//         method: 'post',
-//         body: myData,
-//       });
-//       const responseData = await response.json();
-
-//       if (responseData.status == true) {
-//         console.log('responseData', responseData);
-//         dispatch({type: OTP_SEND, payload: responseData.data.top});
-//         if (type == 'signup') {
-//           navigation.navigate('OTP', {
-//             type: type,
-//             data: data,
-//           });
-//         } else {
-//           console.log('===> V');
-//           setTime(600);
-//         }
-//       } else {
-//         console.log('else error');
-//       }
-//     } catch (error) {
-//       console.log('catch error', error);
-//     }
-//   };
-// };
-
 export const verify_Email_before_password =  (data,navigation,type,setTime) => {
   return async (dispatch) => {
     console.log('data', data.email)
@@ -168,8 +130,6 @@ export const verify_Email_before_password =  (data,navigation,type,setTime) => {
     }
   };
 };
-
-
 export const change_password = async (data,id,navigation,setCheck) => {
   try {
     let base_url = `${base_Url}resetpassword/${id}`;
@@ -200,7 +160,6 @@ export const change_password = async (data,id,navigation,setCheck) => {
     console.log('catch error', error);
   }
 };
-
 export const OTPMethod = (id) => {
     return async (dispatch) => {
     try {
@@ -222,3 +181,33 @@ export const OTPMethod = (id) => {
         console.log('error', error)
     }
 }}
+export const skipGuest = (device) => {
+  return async (dispatch) => {
+   try {
+    const notification_token = await AsyncStorage.getItem('onesignaltoken')
+    let baseUrl = `${base_Url}skip`
+    let myData = new FormData()
+
+    myData.append('device_name',device)
+    myData.append('device_token',notification_token)
+
+    const response = await fetch(baseUrl,{
+      body: myData,
+      method: 'post'
+    })
+
+    const responseData = await response.json()
+
+    if(responseData.success.status === 200){
+      dispatch({type: IS_GUEST, payload: true});
+      dispatch({type: USER_DETAILS, payload: 'guest'});
+      console.log('responseData',responseData)
+    }else{
+      console.log('else error')
+    }
+
+   } catch (error) {
+    console.log('error', error)
+   }
+  }
+}

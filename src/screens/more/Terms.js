@@ -70,8 +70,9 @@ const Terms = ({navigation}) => {
     }
   }
 
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
   const source = {
-    html: data
+    html: result,
   };
   return (
     < >

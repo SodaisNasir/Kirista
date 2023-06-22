@@ -24,6 +24,7 @@ import Advertisement from '../components/Advertisement';
 import SettingsGuest from '../screens/more/SettingsGuest';
 import Faq from '../screens/more/Faq';
 import BottomTabNavigator from './BottomTabNavigator';
+import FeaturedCountry from '../components/FeaturedCountry';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,11 @@ function AuthNavigator() {
         <Stack.Screen
           name="SignUp"
           component={SignUp}
+          options={{animation: 'flip'}}
+        />
+        <Stack.Screen
+          name="FeaturedCountry"
+          component={FeaturedCountry}
           options={{animation: 'flip'}}
         />
         <Stack.Screen

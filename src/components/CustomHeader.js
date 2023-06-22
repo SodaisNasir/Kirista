@@ -85,7 +85,7 @@ const CustomHeader = props => {
 
             //
           }}>
-          <TouchableOpacity style={styles.IconStyle}>
+          <TouchableOpacity style={styles.IconStyle} onPress={props.calOnPress}>
             {props.timeicon ? (
               <Time
                 height={
@@ -98,9 +98,9 @@ const CustomHeader = props => {
 
           <TouchableOpacity style={styles.IconStyle}>
             {props.saveicon ? (
-              <TouchableOpacity onPress={() => setIsChecked(!isChecked)}>
+              <TouchableOpacity onPress={props.BookPress}>
                 <MaterialCommunityIcons
-                  name={isChecked ? 'bookmark-plus' : 'bookmark-plus-outline'}
+                  name={props.select ? 'bookmark-plus' : 'bookmark-plus-outline'}
                   size={w >= 768 && h >= 1024 ? scale(15) : scale(25)}
                   color={Color.Main}
                   style={{

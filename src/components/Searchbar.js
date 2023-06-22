@@ -66,13 +66,15 @@ const Searchbar = () => {
 
 
   const handleSearch2 = text2 => {
-      const formattedQuery = text2.toLowerCase();
-      const filteredData = searchData.filter(item => {
-        return item.title.toLowerCase().includes(formattedQuery);
+      const formattedQuery = text2?.toLowerCase();
+      const filteredData = searchData?.filter(item => {
+        return item?.title?.toLowerCase().includes(formattedQuery);
       });
       setFilteredData2(filteredData);
       setSearchQuery2(text2);
   };
+
+  
   const showData = (item) => {
    
     if(item.type == 'parish'){
@@ -169,6 +171,9 @@ const renderScene = SceneMap({
           flex: 1,
           backgroundColor: Theme === 'dark' ? '#0A2142' : Color.HeaderColor,
         }}>
+          {
+            !show &&
+
         <View
           style={{
             height:
@@ -226,7 +231,7 @@ const renderScene = SceneMap({
               }
             />
             <TextInput
-              onFocus={() => setIsSearchBarVisible(!isSearchBarVisible)}
+              onFocus={() => setIsSearchBarVisible(true)}
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -297,6 +302,7 @@ const renderScene = SceneMap({
             </View>
           ) : null}
         </View>
+          }
         {isSearchBarVisible != true && searchQuery2 == '' ? (
           <View
             style={[
@@ -357,7 +363,7 @@ const renderScene = SceneMap({
                   resize={'cover'}
                   // manual="Convention"
                   TimeTrue={true}
-                  date={format(new Date(item?.start_date), 'MMMM d, yyyy')}
+                  date={format(new Date(item?.start_date.split(' ')[0]), 'MMMM d, yyyy')}
                   time={item?.start_time}
                   MainBoxRestyle={{
                     paddingBottom:
@@ -505,11 +511,141 @@ const renderScene = SceneMap({
             />
           </View>
         ) : (
+          <>
+             <View
+          style={{
+            height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(100)
+                  : verticalScale(100)
+                : w >= 768 && h >= 1024
+                ? verticalScale(70)
+                : w <= 450 && h <= 750
+                ? verticalScale(60)
+                : verticalScale(60),
+            paddingTop:
+              Platform.OS == 'ios'
+                ? 0
+                : w >= 768 && h >= 1024
+                ? moderateVerticalScale(25)
+                : moderateVerticalScale(35),
+            flexDirection: 'row',
+            paddingHorizontal: moderateScale(10),
+          }}>
+          {!isSearchBarVisible && searchQuery2 == '' ? (
+            <View
+              style={{
+                height: '100%',
+                justifyContent: 'center',
+                marginRight: scale(5),
+              }}>
+              <AntDesign
+                name="arrowleft"
+                size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                color={Theme === 'dark' ? Color.White : Color.Black}
+                onPress={() => navigation.goBack()}
+              />
+            </View>
+          ) : null}
+          <View
+            style={{
+              width: isSearchBarVisible ? '83%' : '90%',
+              height:
+                w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(37),
+              backgroundColor: Theme === 'dark' ? '#2B3642' : Color.White,
+              borderRadius: scale(25),
+              flexDirection: 'row',
+              paddingHorizontal: moderateScale(20),
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Search
+              height={
+                w >= 768 && h >= 1024 ? verticalScale(14) : verticalScale(20)
+              }
+              width={
+                w >= 768 && h >= 1024 ? verticalScale(16) : verticalScale(26)
+              }
+            />
+            <TextInput
+              onFocus={() => setShow(false)}
+              style={{
+                height:
+                  w >= 768 && h >= 1024
+                    ? verticalScale(37)
+                    : fourInchPotrait
+                    ? verticalScale(45)
+                    : w <= 450 && h <= 700
+                    ? '100%'
+                    : verticalScale(37),
+                width: '100%',
+                color: Theme === 'dark' ? '#fff' : '#000',
+                fontSize:
+                  w >= 768 && h >= 1024
+                    ? scale(8)
+                    : w >= 450 && h >= 700
+                    ? scale(10)
+                    : w <= 400 && h <= 650
+                    ? scale(10)
+                    : scale(14),
+                // fontFamily: Font.Inter500,
+                // top: fourInchPotrait ?  verticalScale(1.3) : 0, //fourInchPotrait ? verticalScale(20) :0,
+                left: iosTab ? scale(2) : 0,
+              }}
+              placeholder="Search"
+              placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
+              onChangeText={text => handleSearch2(text)}
+              value={searchQuery2}
+            />
+            {searchQuery2.length >= 1 && isSearchBarVisible ? (
+              <View
+                style={{
+                  alignSelf: 'center',
+                  position: 'absolute',
+                  right: scale(10),
+                }}>
+                <TouchableOpacity onPress={() => setSearchQuery2('')}>
+                  <Ionicons
+                    name="close-circle"
+                    size={tabPotrait ? scale(15) : 22}
+                    color={Theme === 'dark' ? '#B4B5B7' : '#B4B5B7'}
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : null}
+          </View>
+    
+          {isSearchBarVisible ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                // alignItems: 'center',
+                // alignItems:'flex-end'
+                // flexDirection: 'row',
+              }}>
+              <TouchableOpacity onPress={() => resetStatus()}>
+                <Text
+                  style={{
+                    color: Theme === 'dark' ? '#B5BCC6' : '#4D5C72',
+                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+                    fontFamily: Font.Poppins600,
+                    letterSpacing: 0.3,
+                  }}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : null}
+        </View>
           <View
             style={{
               flex: 1,
               backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             }}>
+              
             <View style={{flex: 1}}>
               <TabView
                 renderTabBar={renderTabBar}
@@ -517,9 +653,10 @@ const renderScene = SceneMap({
                 renderScene={renderScene}
                 onIndexChange={setIndex}
                 initialLayout={{width: layout.width}}
-              />
+                />
             </View>
           </View>
+                </>
         )}
       </View>
     </>
