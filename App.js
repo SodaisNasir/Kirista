@@ -123,10 +123,11 @@ const App = () => {
   const bookmarkData = async () => {
     const bookMark = await AsyncStorage.getItem('bookmark')
     const convertData = JSON.parse(bookMark)
+    console.log("=================>",convertData );
     if(convertData != null){
       dispatch({type: BOOKMARK, payload: convertData})
     }else{
-      console.log('Monkey D. Luffy')
+      console.log('Empty Book Marks')
     }
   }
   const manualbookmarkData = async () => {
@@ -135,7 +136,7 @@ const App = () => {
     if(convertData != null){
       dispatch({type: ALLBOOKMARK, payload: convertData})
     }else{
-      console.log('Monkey D. Luffy')
+      console.log('Empty all bookmark')
     }
   }
   const parishbookmarkData = async () => {
@@ -144,7 +145,7 @@ const App = () => {
     if(convertData != null){
       dispatch({type: PARISHBOOKMARK, payload: convertData})
     }else{
-      console.log('Monkey D. Luffy')
+      console.log('empty parish ')
     }
   }
   const eventbookmarkData = async () => {
@@ -153,7 +154,7 @@ const App = () => {
     if(convertData != null){
       dispatch({type: EVENTBOOKMARK, payload: convertData})
     }else{
-      console.log('Monkey D. Luffy')
+      console.log('emoty event books')
     }
   }
 

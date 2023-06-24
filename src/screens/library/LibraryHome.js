@@ -44,6 +44,11 @@ const isGuest = useSelector(state => state.is_guest);
 console.log("GUST IS  ============>",isGuest);
   const [isModalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState([]);
+  const savedBooks = useSelector(state=> state.allbookmark);
+  const savedParishes = useSelector(state=>state.parishbookmark);
+  const savedEvents = useSelector(state=>state.eventbookmark);
+  const libraryData = savedBooks.concat(savedEvents,savedParishes);
+  console.log("LIBRARY DATA ===>", libraryData);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -162,23 +167,28 @@ console.log("GUST IS  ============>",isGuest);
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
               }}>
-              {data.length > 0 ? (
-                data?.map(item => {
+              {libraryData.length > 0 ? (
+                libraryData?.map(item => {
+                  const nav = item?.address ? (item?.country ? "ViewParish" : "EventScreen")  :'ViewManual'
+                  const param = item?.address ? (item?.country ? {
+                    id: item.id,
+                  } : {id: item.id})  :{
+
+                    item: item,
+                  }
                   return (
                     <>
                       <DetailsCard
                         key={item?.id}
                         onPress={() =>
-                          navigation.navigate('ViewManual', {
-                            item: item,
-                          })
+                          navigation.navigate(nav,param)
                         }
-                        source={{uri: item?.cover_image}}
+                        source={{uri: item?.cover_image ? item?.cover_image : item.image}}
                         title={item?.title}
                         resize={'contain'}
                         manual={item?.category}
                         PlaceTrue={true}
-                        Place={item?.release_year}
+                        Place={item?.release_year ? item?.release_year : item?.address}
                         MainBoxRestyle={{
                           paddingBottom:
                             w >= 768 && h >= 1024
