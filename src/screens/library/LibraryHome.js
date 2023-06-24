@@ -11,6 +11,7 @@ import {
   useWindowDimensions,
   TouchableOpacity,
   ActivityIndicator,
+  LogBox,
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
 import LibraryHeader from '../../components/LibraryHeader';
@@ -29,6 +30,7 @@ import {getBooks} from '../../redux/actions/UserAction';
 import {useSelector} from 'react-redux';
 import CustomButton from '../../components/CustomButton';
 import Modal from 'react-native-modal';
+import AnimatedLottieView from 'lottie-react-native';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -38,7 +40,8 @@ const LibraryHome = ({navigation}) => {
   const [Loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode);
   const applanguage = useSelector(state => state.applanguage);
-
+const isGuest = useSelector(state => state.is_guest);
+console.log("GUST IS  ============>",isGuest);
   const [isModalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState([]);
   const toggleModal = () => {
@@ -137,8 +140,23 @@ const LibraryHome = ({navigation}) => {
                 : moderateVerticalScale(25),
           }}
         />
- 
-          <ScrollView showsVerticalScrollIndicator={false}>
+ {
+  isGuest ? <View style={{alignItems:'center', justifyContent:'center', height: Dimensions.get('window').height /2}}>
+    <AnimatedLottieView
+              style={{
+                height: verticalScale(100),
+              }}
+              source={require('../../components/Lootie/warning.json')}
+              autoPlay
+              loop
+              speed={0.7}
+            />
+    <Text style={{ color: Theme === 'dark'
+                              ?  Color.White :Color.DarkTextColor ,
+    fontFamily: Font.Poppins500,}}>{applanguage.Guestpromt}</Text>
+    
+    </View> :
+  <ScrollView showsVerticalScrollIndicator={false}>
             <View
               style={{
                 paddingHorizontal:
@@ -206,6 +224,8 @@ const LibraryHome = ({navigation}) => {
               )}
             </View>
           </ScrollView>
+ }
+          
        
         <Modal
           testID={'modal'}

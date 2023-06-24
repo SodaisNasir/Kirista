@@ -34,6 +34,10 @@ const Contact = () => {
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
   const applanguage = useSelector(state => state.applanguage)
+  const userData = useSelector(state => state.user_details)
+  console.log("=============================================");
+  console.log("USER DETAILS =======>",userData);
+  console.log("=============================================");
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
@@ -42,7 +46,11 @@ const Contact = () => {
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const [text, onChangeText] = useState('');
-  
+  const [country, setCountry] = useState({
+    country_name:  userData != "guest" ? userData?.data.country : '',
+    country_code: userData != "guest" ? userData?.data.country_code : '',
+    flag_code: userData != "guest" ? userData?.data.flag_code : ''
+  });
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -60,7 +68,7 @@ const Contact = () => {
   
       myData.append('name', data.fullname);
       myData.append('email', data.email);
-      myData.append('phone_number', data.phonenumber);
+      myData.append('phone_number', data.phone_number);
       myData.append('subject', data.subject);
       myData.append('message', text);
   
@@ -76,6 +84,11 @@ const Contact = () => {
         setTimeout(() => {
           navigation.goBack()
         }, 2000);
+      }else{
+        alert(responseData.error.message);
+        setTimeout(() => {
+          navigation.goBack()
+        }, 2000);
       }
 
     } catch (error) {
@@ -86,19 +99,15 @@ const Contact = () => {
   const onSubmit = data =>{
     if(data && text != ''){
       contactUs(data)
+
     }else{
       alert('Please fill the form')
     }
   }
-  const [phoneNumber, setPhoneNumber] = useState('+234');
-  const [flagImage, setFlagImage] = useState(
-    require('../../assets/images/nig.png'),
-  );
+
   const handlePhoneNumberButtonPress = () => {
-    navigation.navigate('SelectCountry', {
-      setPhoneNumber: setPhoneNumber,
-      setFlagImage: setFlagImage,
-      type: 'Contact'
+    navigation.navigate('FeaturedCountry', {
+      setCountry:setCountry
     });
   };
 
@@ -130,7 +139,7 @@ const Contact = () => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
               }}>
               <CustomInput
-              
+               defaultValue={userData != "guest" ? userData.data.name: ''}
               control={control}
                 name="fullname"
                 rules={{
@@ -185,6 +194,7 @@ const Contact = () => {
               }}>
               <CustomInput
                 control={control}
+                defaultValue={userData != "guest" ? userData.data.email: '' }
                 name="email"
                 rules={{
                   required: 'Email is required',
@@ -245,8 +255,8 @@ const Contact = () => {
                 keyboardType={'numeric'}
                 // flagImage={flagImage}
                 // phoneNumber={phoneNumber}
-                flagImage={flagImage}
-                phoneNumber={phoneNumber}
+                flagImage={country.flag_code}
+                phoneNumber={country.country_code}
                 phone={true}
                 // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
@@ -335,7 +345,7 @@ const Contact = () => {
                     ? moderateVerticalScale(60)
                     : moderateVerticalScale(100),
                   color: Theme === 'dark' ? Color.White : Color.TextColor,
-                  backgroundColor: Theme
+                  backgroundColor: Theme === 'dark' 
                     ? Color.DarkThemeInputBox
                     : Color.InputBoxColor,
                   borderRadius: tabPotrait ? scale(12) : scale(18),

@@ -8,24 +8,26 @@ export const sign_in = (data,setCheck) => {
     try {
       let base_url = `${base_Url}login`;
       let formdata = new FormData();
-
+     const notiToken =  await AsyncStorage.getItem('onesignaltoken')
       formdata.append(
         'token',
         token,
       );
       formdata.append('email', data.email);
       formdata.append('password', data.password);
-
+formdata.append("device_token",notiToken)
       const response = await fetch(base_url, {
         method: 'POST',
         body: formdata,
       });
+      console.log("=======================> LOGIN RESPONSE",response);
       const responseData = await response.json();
 
       console.log('responseData', responseData)
 
       if (responseData?.success?.status === 200) {
         dispatch({type: USER_DETAILS, payload: responseData.success});
+        dispatch({type: IS_GUEST, payload: false});
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
         console.log('responseData if for otpMEthod', responseData);
         console.log('USER_DETAILS', USER_DETAILS)
@@ -46,7 +48,9 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader) => {
      const notification_token = await AsyncStorage.getItem('onesignaltoken')
       let base_url = `${base_Url}register`;
       let myData = new FormData();
-      
+      console.log("=====================================");
+      console.log("DATA =>",data.full_name,data.email,data.password,data.confirm_password,device,country.country_name,notification_token);
+      console.log("=====================================");
       myData.append('name', data.full_name);
       myData.append('email', data.email);
       myData.append('password', data.password);
@@ -60,9 +64,10 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader) => {
         body: myData,
         method: 'post',
       });
-
+      console.log("=====================================");
+      console.log("RESP =>",response);
+      console.log("=====================================");
       const responseData = await response.json();
-
       if(responseData?.error?.email){
         setEmail(responseData?.error.email[0])
         setCheck(true)
@@ -210,4 +215,33 @@ export const skipGuest = (device) => {
     console.log('error', error)
    }
   }
+}
+
+export const LogOut = () => {
+return async dispatch => {
+  try {
+   const data =  await AsyncStorage.getItem('user_details')
+   const userData = JSON.parse(data);
+    let base_url = `${base_Url}logout-notify/${userData.data.id}`;
+    const response = await fetch(base_url, {
+      method: 'post',
+    });
+    
+    const responseData = await response.json();
+console.log("RESP DATA =>",responseData);
+    if (responseData.success.status === 200) {
+      await AsyncStorage.removeItem('user_details')
+      const data = await AsyncStorage.getItem('user_details');
+      const userData = JSON.parse(data);
+      console.log("ASYNC DATA =====>",userData);
+    dispatch({type: USER_DETAILS, payload: null})
+      console.log(responseData.success);
+    }else{
+      console.log('first')
+    }
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
 }

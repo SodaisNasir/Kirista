@@ -43,12 +43,22 @@ const ViewParish = ({route}) => {
   const parishbookmark = useSelector(state => state.parishbookmark)
   const user_details = useSelector(state => state.user_details)
   const [isChecked, setIsChecked] = useState(false);
+  const [location, setLocation] = useState([])
 
-  console.log('data', data)
+  const [cordinates, setCordinates] = useState(null);
+
+
+  // const mapProperty = () => {
+  //   let json = data.length > 0 && typeof data?.map === "string" ? JSON.parse(data?.map) : data?.map;
+  //   json = typeof json === "string" ? JSON.parse(json) : json;
+
+  //   setLocation(json)
+  //   return `${json.latitude} - ${json.longitude}`;
+  // };
 
   useFocusEffect(
     useCallback(() => {
-      parish_by_id(setData, id, setLoading);
+      parish_by_id(setData, id, setLoading,setCordinates);
     }, []),
   );
 
@@ -112,7 +122,7 @@ const ViewParish = ({route}) => {
         <CustomHeader
          text={applanguage.ViewParish}
           shareicon={true}
-           saveicon={is_guest == true ? false : true}
+           saveicon={!is_guest}
            shareOnPress={shareBook}
            select={isChecked}
            BookPress={handleSubmit}
@@ -274,7 +284,7 @@ const ViewParish = ({route}) => {
                 styles.LocationDetailsText,
                 {color: Theme === 'dark' ? Color.White : Color.TextColor2},
               ]}>
-              {data.address}
+             {data.address}
             </Text>
           </View>
           <View
@@ -293,9 +303,15 @@ const ViewParish = ({route}) => {
               source={require('../../assets/images/maps.png')}
               style={{height: '100%', width: '100%'}}
             /> */}
-
-            <Map data={data.map} />
-            
+          
+{
+              cordinates ? 
+              
+              <Map data={cordinates} />
+             : 
+             <ActivityIndicator size={30} color={'blue'} /> 
+              
+            }
           </View>
           <View
             style={{

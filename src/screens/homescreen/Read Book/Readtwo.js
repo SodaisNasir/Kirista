@@ -11,6 +11,7 @@ import {
   Platform,
   Button,
   Image,
+  LogBox,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Color} from '../../../utils/Colors';
@@ -35,6 +36,7 @@ import { BOOKMARK } from '../../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
+import IncorrectModal from '../../../components/Modals/IncorrectModal';
 
 
 const h = Dimensions.get('window').height;
@@ -48,8 +50,11 @@ const Readtwo = ({route}) => {
   
   const chapters = useSelector(state => state.chapters)
   const bookmark = useSelector(state => state.bookmark)
+  console.log("Book MARKS=========>",bookmark);
   const { width } = useWindowDimensions();
 
+
+  const isGuest = useSelector(state => state.is_guest)
   const [data,setData] = useState([])
   const navigation = useNavigation();
   const [tempMode,setTempMode] = useState('')
@@ -70,14 +75,13 @@ const Readtwo = ({route}) => {
   const [fontData, setFontData] = useState('')
   const [count, setCount] = useState(0)
   const [show, setShow] = useState(false)
-
-
+  const [check, setCheck] = useState(false)
+  const applanguage = useSelector(state => state.applanguage)
   useFocusEffect(
     useCallback(() => {
       dispatch(getChapters(setData,id))
     }, []),
   );
-
   useEffect(() => {
     getChaptersByID(setChapterData,select)
   }, [select])
@@ -102,21 +106,26 @@ const Readtwo = ({route}) => {
     setShow(true)
   };
   const handleClick = async () => {
-    const extractData =  chapters?.find((item) => item.id == chapterData.id)
-    const findData = bookmark?.find((item) => item.id == extractData?.id)
-
-    if (findData) {
-      const updatedData = bookmark.filter((item) => item.id !== findData.id);
-      dispatch({type: BOOKMARK, payload: updatedData})
-      await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
-      setisSelect(false)
-      console.log('laraib =========>')
-    } else {
-      dispatch({type: BOOKMARK, payload: [...bookmark, extractData]})
-      console.log('Object not found in the array');
-      setisSelect(true);
-      await AsyncStorage.setItem('bookmark', JSON.stringify([...bookmark, extractData]));
+    if(isGuest){
+     setCheck(true)
+    }else {
+      const extractData =  chapters?.find((item) => item.id == chapterData.id)
+      const findData = bookmark?.find((item) => item.id == extractData?.id)
+  
+      if (findData) {
+        const updatedData = bookmark.filter((item) => item.id !== findData.id);
+        dispatch({type: BOOKMARK, payload: updatedData})
+        await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
+        setisSelect(false)
+        console.log('laraib =========>')
+      } else {
+        dispatch({type: BOOKMARK, payload: [...bookmark, extractData]})
+        console.log('Object not found in the array');
+        setisSelect(true);
+        await AsyncStorage.setItem('bookmark', JSON.stringify([...bookmark, extractData]));
+      }
     }
+    
   };
   const toggleIcon = () => {
     if(showSvg == true){
@@ -135,8 +144,6 @@ const Readtwo = ({route}) => {
       setisSelect(false)
     }
   }
-
-
   useEffect(() => {
     addBookmark()
   },[chapterData,bookmark])
@@ -190,16 +197,15 @@ const Readtwo = ({route}) => {
                 onPress={() => navigation.goBack()}
               />
             </View>
-
-            <TouchableOpacity
-              onPress={handleClick}
-              style={{justifyContent: 'center'}}>
-              <Ionicons
-                name={isSelect == false ? 'bookmark-outline' : 'bookmark'}
-                size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
-                color={Color.Main}
-              />
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleClick}
+            style={{justifyContent: 'center'}}>
+            <Ionicons
+              name={isSelect == false ? 'bookmark-outline' : 'bookmark'}
+              size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
+              color={Color.Main}
+            />
+          </TouchableOpacity>
           </View>
         </View>
 
@@ -208,6 +214,12 @@ const Readtwo = ({route}) => {
           height: '60%',
           width: '100%'
           }}>
+          <IncorrectModal
+          text={applanguage.Guestpromt}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
           <View
             style={{
               height: '100%',

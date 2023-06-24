@@ -16,7 +16,7 @@ import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import {useLayoutEffect} from 'react';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import { useState } from 'react';
 import { base_Url } from '../../utils/Url';
 import { useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ const Terms = ({navigation}) => {
   const applanguage = useSelector(state => state.applanguage)
   const language = useSelector(state => state.language)
   const [Loading, setLoading] = useState(false);
-
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   const [data,setData] = useState('')
   const { width } = useWindowDimensions();
 
@@ -70,7 +70,7 @@ const Terms = ({navigation}) => {
     }
   }
 
-  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
   const source = {
     html: result,
   };
@@ -122,6 +122,7 @@ const Terms = ({navigation}) => {
             <RenderHtml
             contentWidth={width}
             source={source}
+            systemFonts={systemFonts}
              />
         </View>
   

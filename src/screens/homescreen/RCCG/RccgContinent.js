@@ -20,7 +20,7 @@ import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import { useState } from 'react';
 import { getRCCData } from '../../../redux/actions/UserAction';
 import { useEffect } from 'react';
@@ -38,7 +38,7 @@ const RccgContinent = ({navigation}) => {
   const [show, setShow] = useState(false);
   const [loader, setLoader] = useState(false);
   const type = 'RCCG Continent 2';
-
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
 
 
   useFocusEffect(
@@ -61,7 +61,7 @@ const RccgContinent = ({navigation}) => {
     }, 2000);
   }
 
-  let result =data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
+  let result =data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'};'>`)
   const source = {
     html: result,
   };
@@ -115,7 +115,7 @@ const RccgContinent = ({navigation}) => {
             )}
           </View>
 
-          <RenderHtml contentWidth={w} source={source} />
+          <RenderHtml contentWidth={w} source={source} systemFonts={systemFonts} />
 
           <View
             style={{

@@ -10,7 +10,7 @@ const Lalit = () => {
   const Theme = useSelector((state) => state.mode);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const [brightnessValue, setBrightnessValue] = useState(1);
+  const [brightnessValue, setBrightnessValue] = useState(0.5);
 
 
   useEffect(() => {

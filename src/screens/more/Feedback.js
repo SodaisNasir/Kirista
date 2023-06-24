@@ -79,17 +79,19 @@ const Feedback = ({navigation}) => {
       let myData = new FormData();
   
       myData.append('text', text);
-      myData.append('image', saveimage);
-  
+    { saveimage &&
+    myData.append('image', saveimage);
+}
       const response = await fetch(base_url, {
         method: 'post',
         body: myData,
       });
 
       const responseData = await response.json();
+      console.log('responseData', responseData);
       if(responseData.success.status === 200){
-        alert('Successfully Submited')
-        console.log('responseData', responseData.success.data)
+        alert('Thank you for your valuebale feedback')
+        
         setTimeout(() => {
           navigation.goBack()
         }, 2000);

@@ -10,7 +10,7 @@ export const Font = {
   Libre400 : 'LibreBaskerville-Regular',
   Inter700 : 'Inter-Bold',
   Inter500 : 'Inter-Medium',
-  GoBold400 : 'Gobold',
+  GoBold400 : 'Gobold-Regualr',
   GoBold300 : 'Gobold-Light',
   emoji: 'NotoColorEmoji-Regular',
   Arial: 'Arial',

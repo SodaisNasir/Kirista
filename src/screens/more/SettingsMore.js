@@ -50,6 +50,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {LOGIN, USER_DETAILS} from '../../redux/reducer';
 import BottomTab from '../../constant/BottomTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LogOut } from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -75,10 +76,7 @@ const SettingsMore = () => {
 
   const is_guest = useSelector(state => state.is_guest);
 
-  const logOut = async () => {
-    await AsyncStorage.removeItem('user_details')
-    dispatch({type: USER_DETAILS, payload: null})
-  }
+  
   return (
     <>
       <SafeAreaView
@@ -112,7 +110,7 @@ const SettingsMore = () => {
                     color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
-                Guest, Brethren.
+              {applanguage.Hello},  {applanguage.Brethen}
               </Text>
             ) : (
               <Text
@@ -132,7 +130,7 @@ const SettingsMore = () => {
           <View style={[styles.MainView]}>
             <TouchableOpacity
             activeOpacity={1}
-            onPress={() => is_guest ? navigation.navigate('Login') : console.log('asdf')}
+            onPress={() => is_guest ? dispatch({type: USER_DETAILS, payload: null}) : console.log('asdf')}
               style={[
                 styles.UserInfo,
                 {
@@ -239,7 +237,8 @@ const SettingsMore = () => {
                           }}>
                           ID:{' '}
                         </Text>
-                        IOS0000192
+                        {/* IOS0000192 */}
+                        {userData.data.new_id}
                       </Text>
                      </View>
                   )}
@@ -690,7 +689,7 @@ const SettingsMore = () => {
                   },
                 ]}>
                 <TouchableOpacity
-                  onPress={logOut}
+                  onPress={()=> dispatch(LogOut())}
                   style={[
                     styles.AllItems,
                     {

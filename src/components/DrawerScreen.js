@@ -22,7 +22,7 @@ import { useSelector } from 'react-redux'
 const DrawerScreen = (props) => {
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
-
+const isGuest = useSelector(state => state.is_guest)
   const color_condition = Theme === 'dark' ? Color.DarkThemeGreyText : Color.Black
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
@@ -156,7 +156,7 @@ const chapterData = props.chapterData
                 {applanguage.Chapters}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {!isGuest ?<TouchableOpacity
               style={{paddingHorizontal: moderateScale(5)}}
               onPress={() => HandleBookmark()}>
               <Text
@@ -171,7 +171,8 @@ const chapterData = props.chapterData
                 ]}>
                 {applanguage.Bookmarks}
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> : null }
+            
           </View>
           {chapter && <ChapterScreen selectOff={props.selectOff} data={chapterData} select={props.select}
             setSelect={props.setSelect} />}

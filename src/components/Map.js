@@ -10,6 +10,8 @@ import { Color } from '../utils/Colors'
 export default function Map({data}) {
 
 
+
+
   const [Pin, setPin] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -41,21 +43,21 @@ export default function Map({data}) {
 
   return (
     <View style={styles.MainContainer}>
-     {/* {data ? 
+     {data? 
      <MapView
         style={styles.mapStyle}
         showsUserLocation={false}
         zoomEnabled={true}
         initialRegion={{
-          latitude: data.split('-')[0],
-          longitude: data.split('-')[1],
+          latitude: parseFloat(data.latitude),
+          longitude:parseFloat(data.longitude),
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
         <Marker
           coordinate={{
-            latitude: data.split('-')[0],
-            longitude: data.split('-')[1],
+            latitude: parseFloat(data.latitude),
+          longitude:parseFloat(data.longitude),
           }}
           draggable={true}
           pinColor="red"
@@ -66,7 +68,7 @@ export default function Map({data}) {
                 size="large"
                 color={Color.Main}
               />
-              } */}
+              }
     </View>
   )
 }

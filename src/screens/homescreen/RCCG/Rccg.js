@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  useColorScheme,
   useWindowDimensions,
   Image,
   StatusBar,
@@ -14,13 +13,12 @@ import React, {useCallback, useState} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
-import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { getRCCData } from '../../../redux/actions/UserAction';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import { useEffect } from 'react';
 
 
@@ -33,7 +31,7 @@ const Rccg = ({navigation}) => {
   const [show, setShow] = useState(false);
   const [loader, setLoader] = useState(false);
   const type = 'RCCG';
-
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
 
   useFocusEffect(
     useCallback(() => {
@@ -53,7 +51,7 @@ const Rccg = ({navigation}) => {
     }, 2000);
   }
 
-  let result = data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
+  let result = data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'};'>`)
   const source = {
     html: result,
   };
@@ -145,7 +143,7 @@ const Rccg = ({navigation}) => {
                   alignSelf: 'center',
                 }}
               />
-                <RenderHtml contentWidth={w} source={source} />
+                <RenderHtml contentWidth={w} source={source}  systemFonts={systemFonts} />
               <View
                 style={{
                   alignItems: 'center',

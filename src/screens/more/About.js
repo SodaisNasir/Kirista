@@ -18,7 +18,7 @@ import {Font} from '../../utils/font';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {base_Url} from '../../utils/Url';
 import {useState} from 'react';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import {useSelector} from 'react-redux';
 
 const About = ({navigation}) => {
@@ -29,6 +29,9 @@ const About = ({navigation}) => {
   const [data, setData] = useState('');
   const {width} = useWindowDimensions();
   const [Loading,setLoading] = useState(false)
+
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
+
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -69,7 +72,7 @@ const About = ({navigation}) => {
     }
   };
 
-  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
   const source = {
     html: result,
   };
@@ -114,7 +117,7 @@ const About = ({navigation}) => {
             <Image
               resizeMode="contain"
               source={
-                Theme
+                Theme === 'dark'
                   ? require('../../assets/images/krista_about_dark.png')
                   : require('../../assets/images/krista_about.png')
               }
@@ -134,7 +137,7 @@ const About = ({navigation}) => {
                 size="large"
               />
             ) : (
-              <RenderHtml contentWidth={width} source={source} customStyle={`p { color: red; }`} />
+              <RenderHtml contentWidth={width} source={source} systemFonts={systemFonts} />
             )}
 
             {Theme === 'dark' ? (

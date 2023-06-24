@@ -14,6 +14,7 @@ import CustomButton from '../../../components/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { searchPerish } from '../../../redux/actions/UserAction'
+import IncorrectModal from '../../../components/Modals/IncorrectModal'
 
 const ParishFinder = () => {
   const navigation = useNavigation()
@@ -29,11 +30,15 @@ const ParishFinder = () => {
     require('../../../assets/images/nig.png'),
   );
 
+  const [message, setMessage] = useState('');
+  const [check, setCheck] = useState(false)
+
   const onSubmit = () => {
     if(country != '' && province != '' && region != ''){
-      searchPerish(country,province,region,navigation)
+      searchPerish(country,province,region,navigation,setMessage,setCheck)
     }else{
-      alert('Please Select All Three Fields!')
+      setMessage('Please Select All Three Fields!')
+      setCheck(true)
     }
   }
   return (
@@ -112,6 +117,13 @@ const ParishFinder = () => {
           />
         </View>
       </ScrollView>
+
+      <IncorrectModal
+          text={message}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </View>
         </>
   )

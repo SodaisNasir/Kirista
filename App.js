@@ -70,6 +70,7 @@ const App = () => {
   const checkStatus = async () => {
     const data = await AsyncStorage.getItem('user_details');
     const userData = JSON.parse(data);
+    console.log("ASYNC DATA =====>",userData);
     if (userData != null) {
       dispatch({type: USER_DETAILS, payload: userData});
     } else {

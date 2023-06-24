@@ -14,11 +14,10 @@ import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
-import CustomNavigator from '../../components/CustomNavigator';
 import { base_Url } from '../../utils/Url';
 import { useState } from 'react';
-import RenderHtml from 'react-native-render-html';
 import { useSelector } from 'react-redux';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 
 
 const w = Dimensions.get('window').width;
@@ -31,6 +30,7 @@ const Privacy = ({navigation}) => {
   const applanguage = useSelector(state => state.applanguage)
   const language = useSelector(state => state.language)
   const [Loading, setLoading] = useState(false);
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -69,7 +69,7 @@ const type = 'Privacy'
       setLoading(false)
     }
   }
-  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
   const source = {
     html: result,
   };
@@ -118,6 +118,7 @@ const type = 'Privacy'
               <RenderHtml
       contentWidth={width}
       source={source}
+      systemFonts={systemFonts}
     />
            
           </View>

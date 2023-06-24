@@ -18,6 +18,7 @@
   "NewAccount": "Create An Account",
   "PopularSearch": "Popular Searches",
   "Invalid": "Invalid email or pasword",
+  "Guestpromt" : "Please Sign up or Login to use this feature",
   "EditProfile": "Edit Profile",
   "ChangeImage": "Change Image",
   "Save": "Save",

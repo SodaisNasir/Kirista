@@ -18,7 +18,7 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {getChapters} from '../../../redux/actions/UserAction';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 
 
 const w = Dimensions.get('window').width;
@@ -30,6 +30,7 @@ const Readone = ({route}) => {
   const chapters = useSelector(state => state.chapters)
   const { width } = useWindowDimensions();
 
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   const {id,item} = route.params
   const [data,setData] = useState([])
 
@@ -44,9 +45,9 @@ const Readone = ({route}) => {
   let text = data?.title;
   let text2 = data?.description;
 
-  let result = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family:arial; font-size:20px; font-weight:bold;'`);
-  let result2 = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family:arial; font-size:14px; font-weight:bold;'`);
-  let result3 = text2?.replace("class='chap_description'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family:'LibreBaskerville-Regular'; font-size:15px; font-weight:600;'`);
+  let result = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '22px' : '20px'};'`);
+  let result2 = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '17px' : '15px'};'`);
+  let result3 = text2?.replace("class='chap_description'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '17px' : '15px'};'`);
   
   const heading = {
     html: result2
@@ -82,6 +83,7 @@ const Readone = ({route}) => {
           <RenderHtml
           contentWidth={width}
           source={heading}
+          systemFonts={systemFonts}
            /> } />
           {
             chapters ?

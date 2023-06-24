@@ -18,6 +18,7 @@
   "NewAccount": "Crear una cuenta",
   "PopularSearch": "Búsquedas populares",
   "Invalid": "Correo electrónico o contraseña no válidos",
+  "Guestpromt" : " Por favor, regístrate o inicia sesión para usar esta función.",
   "EditProfile": "Editar perfil",
   "ChangeImage": "Cambiar imagen",
   "Save": "Guardar",

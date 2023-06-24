@@ -63,7 +63,7 @@ export const parish = async (setData) => {
     console.log('error', error)
   }
 }
-export const parish_by_id = async (setData, id,setLoading) => {
+export const parish_by_id = async (setData, id,setLoading,setmap) => {
   setLoading(true)
   try {
     let base_url = `${base_Url}parish/${id}`;
@@ -74,8 +74,11 @@ export const parish_by_id = async (setData, id,setLoading) => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
+      console.log("====================");
+      console.log("====================>",JSON.parse(responseData.success.data["map"]));  
+      console.log("====================");
+      setmap(JSON.parse(responseData.success.data["map"]))
       setLoading(false)
-     console.log('responseData in parish ==>', responseData)
      setData( responseData.success.data)
     } else {
       console.log('else error');
@@ -102,7 +105,7 @@ export const active_event = async (setEvent) => {
     console.log('error', error)
   }
 }
-export const event_by_id = async (setData, id,setLoading) => {
+export const event_by_id = async (setData, id,setLoading,setmap) => {
 
   setLoading(true)
   try {
@@ -115,6 +118,10 @@ export const event_by_id = async (setData, id,setLoading) => {
 
     if (responseData.success.status === 200) {
       setLoading(false)
+      console.log("====================");
+      console.log("====================>",JSON.parse(responseData.success.data["map"]));  
+      console.log("====================");
+      setmap(JSON.parse(responseData.success.data["map"]))
      setData( responseData.success.data)
     } else {
       console.log('else error');
@@ -326,8 +333,7 @@ export const getPerishProvince = async (setData) => {
     console.log('error', error)
   }
 }
-export const searchPerish = async (country,province,region,navigation) => {
-  console.log('country,province,region', country,province,region)
+export const searchPerish = async (country,province,region,navigation,setMessage,setCheck) => {
   try {
     let base_url = `${base_Url}search-parish`;
     let myData = new FormData()
@@ -344,10 +350,9 @@ export const searchPerish = async (country,province,region,navigation) => {
     console.log('responseData', responseData)
 
     if(responseData?.error?.status === 400){
-      alert('Result not found')
-    }
-
-    if (responseData?.success?.status === 200) {
+      setMessage('Result not found')
+      setCheck(true)
+    }else if (responseData?.success?.status === 200) {
       // setData(responseData.success.data)
       navigation.navigate('ParishesResult',{
         data:responseData.success.data
@@ -436,6 +441,27 @@ export const markData = async (type,id,userData) => {
 
     const response = await fetch(base_url, {
       body: myData,
+      method: 'post',
+    });
+    
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      console.log(responseData.success);
+    }else{
+      console.log('first')
+    }
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+// /edit-notification/id
+
+export const editNotification = async (userData) => {
+
+  try {
+    let base_url = `${base_Url}edit-notification/${userData.data.id}`;
+    const response = await fetch(base_url, {
       method: 'post',
     });
     

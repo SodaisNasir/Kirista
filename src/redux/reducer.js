@@ -13,6 +13,7 @@ export const LANGUAGE  = 'LANGUAGE'
 export const ALLBOOKMARK  = 'ALLBOOKMARK'
 export const EVENTBOOKMARK  = 'EVENTBOOKMARK'
 export const PARISHBOOKMARK  = 'PARISHBOOKMARK'
+export const ISGUEST  = 'ISGUEST'
 
 
 const initialState = {
@@ -111,6 +112,11 @@ export const Reducer = (state = initialState, action) => {
               ...state,
               parishbookmark: action.payload,
             }
+          case ISGUEST:
+              return {
+                ...state,
+                isGuest: action.payload,
+              }
 
     default:
       return state;

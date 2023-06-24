@@ -21,7 +21,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { getRCCData } from '../../../redux/actions/UserAction';
 import { useState } from 'react';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import { useEffect } from 'react';
 
 const RccgStructure = ({navigation}) => {
@@ -33,7 +33,7 @@ const RccgStructure = ({navigation}) => {
   const [show, setShow] = useState(false);
   const [loader, setLoader] = useState(false);
   const type = 'RCCG Structure';
-
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -51,7 +51,9 @@ const RccgStructure = ({navigation}) => {
       setLoader(false)
     }, 2000);
   }
-  let result = data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};'>`)
+  let result = data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '8px' : '13px'};
+   margin-top:
+ ${w >= 768 && h >= 1024 ? '10px' : '15px'};'>`)
   const source = {
     html: result,
   };
@@ -96,7 +98,7 @@ const RccgStructure = ({navigation}) => {
             />
           </View>
 
-          <RenderHtml contentWidth={w} source={source} />
+          <RenderHtml contentWidth={w} source={source} systemFonts={systemFonts}/>
 
           <View
             style={{

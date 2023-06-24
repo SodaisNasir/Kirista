@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useColorScheme,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -40,6 +41,7 @@ const EventScreen = ({route, navigation}) => {
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState([]);
+  const [cordinates, setCordinates] = useState(null);
   const [loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
@@ -58,7 +60,7 @@ const EventScreen = ({route, navigation}) => {
   };
   useFocusEffect(
     useCallback(() => {
-      event_by_id(setData, id, setLoading);
+      event_by_id(setData, id, setLoading,setCordinates);
     }, []),
   );
   const shareBook = (data) => {
@@ -305,12 +307,19 @@ const EventScreen = ({route, navigation}) => {
             marginHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
-          <Image
+          {/* <Image
             source={require('../../assets/images/maps.png')}
             style={{height: '100%', width: '100%'}}
-          />
+          /> */}
 
-      
+{
+              cordinates ? 
+              
+              <Map data={cordinates} />
+             : 
+             <ActivityIndicator size={30} color={'blue'} /> 
+              
+            }
         </View>
 
         <View style={{height: verticalScale(40)}} />

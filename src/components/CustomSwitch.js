@@ -3,14 +3,19 @@ import React, {useState, useEffect} from 'react';
 import {Color} from '../utils/Colors';
 import { moderateScale } from 'react-native-size-matters';
 import { useSelector } from 'react-redux';
+import { editNotification } from '../redux/actions/UserAction';
 
 const CustomSwitch = props => {
   const Theme = useSelector(state => state.mode)
+
+  const userData =  useSelector(state => state.user_details)
   useEffect(() => {
     console.log(Theme);
   }, [Theme]);
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => {setIsEnabled(previousState => !previousState)
+    editNotification(userData);
+  };
 
   return (
     <View style={props.restyleSwitch}>

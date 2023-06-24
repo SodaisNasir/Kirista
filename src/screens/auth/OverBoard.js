@@ -27,6 +27,7 @@ import { skipGuest } from '../../redux/actions/AuthAction';
 
 
 const OverBoard = ({navigation}) => {
+  const Theme = useSelector(state => state.mode)
 
   const getlanguage = useSelector(state => state.getlanguage)
   const applanguage = useSelector(state => state.applanguage)
@@ -53,7 +54,6 @@ const OverBoard = ({navigation}) => {
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 350 && height <= 600;
 
-  const Theme = useSelector(state => state.mode)
   const device = Platform.OS;
   const handelSkip = () => {
     dispatch(skipGuest(device))
@@ -253,7 +253,7 @@ const OverBoard = ({navigation}) => {
                   fontSize: tabPotrait ? scale(15) : scale(20),
                   color: Theme === 'dark' ? Color.White : Color.Black,
                 }}>
-                {applanguage.Welcome}Brethren
+                {applanguage.Welcome}{applanguage.Brethen}
               </Text>
             </View>
             <View
