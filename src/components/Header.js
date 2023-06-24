@@ -25,13 +25,13 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 export default function Header(props) {
-  // const Theme = useColorScheme() === 'dark';
+  // const getTheme = useColorScheme() === 'dark';
   const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
   return (
     <View
       style={[
-        {backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor},
+        {backgroundColor: Theme  === 'dark' ? Color.ExtraViewDark : Color.HeaderColor},
         styles.AuthHeaderStyle,
         props.AuthHeaderStyle,
       ]}>
@@ -51,7 +51,7 @@ export default function Header(props) {
           <AntDesign
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-            color={Theme === 'dark' ? Color.White : Color.Black}
+            color={Theme  === 'dark'   ? Color.White : Color.Black}
           />
         </TouchableOpacity>
         <View
@@ -61,7 +61,7 @@ export default function Header(props) {
           }}>
           <Text
             style={[
-              {color: Theme === 'dark' ? Color.White : Color.Black},
+              {color: Theme  === 'dark'   ? Color.White : Color.Black},
               styles.WelcomeText,
               props.welcomeText,
             ]}>

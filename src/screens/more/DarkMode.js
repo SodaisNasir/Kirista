@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   useColorScheme,
+  Image,
 } from 'react-native';
 import {
   moderateScale,
@@ -20,36 +21,28 @@ import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch, useSelector } from 'react-redux';
-import { MODE } from '../../redux/reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {MODE} from '../../redux/reducer';
+import Modal from 'react-native-modal'
+const DarkMode = () => {
+  const getTheme = useColorScheme();
 
-const DarkMode = ({navigation}) => {
-  const getTheme = useColorScheme() === 'dark';
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const dispatch = useDispatch()
-  const Theme = useSelector(state => state.mode)
-  const applanguage = useSelector(state => state.applanguage)
-  const [selected, setSelected] = useState('');
+  const dispatch = useDispatch();
+  const Theme = useSelector(state => state.mode);
+  const applanguage = useSelector(state => state.applanguage);
+ const [selected, setSelected] = useState('');
 
-
-
+ 
   const modeCheck = async () => {
-    const getMode = await AsyncStorage.getItem('mode')
-    const cnvrtMode = JSON.parse(getMode)
-    setSelected(cnvrtMode)
-  }
+    const getMode = await AsyncStorage.getItem('mode');
+    const cnvrtMode = JSON.parse(getMode);
+    setSelected(cnvrtMode);
+  };
 
-useEffect(() => {
-  modeCheck()
-}, [])
-
-  useLayoutEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
+  useEffect(() => {
+    modeCheck();
   }, []);
 
   let DATA = [
@@ -67,7 +60,6 @@ useEffect(() => {
     },
   ];
 
-
   const Item = ({data}) => (
     <TouchableOpacity
       style={[
@@ -77,7 +69,10 @@ useEffect(() => {
         },
         styles.item,
       ]}
-      onPress={() => onSubmit(data)}>
+      // onPress={() => onSubmit(data)}
+      onPressIn={() => onSubmit(data)}
+      onPressOut={() => onSubmit(data)}
+      >
       <View
         style={{
           flexDirection: 'row',
@@ -139,9 +134,8 @@ useEffect(() => {
       <View
         style={[
           {
-            borderBottomColor: Theme === 'dark'
-              ? Color.DarkBorderColor
-              : Color.BorderColor,
+            borderBottomColor:
+              Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
           },
           styles.BorderBottom,
         ]}
@@ -149,51 +143,57 @@ useEffect(() => {
     </TouchableOpacity>
   );
 
-  const onSubmit = async (data) => {
-    setSelected(data.title)
+  const onSubmit = async data => {
+    setSelected(data.title);
     // dispatch({type: MODE, payload: data.title})
-    await AsyncStorage.setItem('mode', JSON.stringify(data.title))
+    await AsyncStorage.setItem('mode', JSON.stringify(data.title));
 
-    const onMode = 'dark'
-    const ofMode = 'light'
-  
+    const onMode = 'dark';
+    const ofMode = 'light';
 
-    if(data.title == applanguage.On){
-      dispatch({type: MODE, payload: onMode})
-    }else if(data.title == applanguage.Off){
-      dispatch({type: MODE, payload: ofMode})
-    }else if(data.title == applanguage.DeviceSettings){
-      dispatch({type: MODE, payload: getTheme})
-    }else{
-      console.log('vvvvvvv')
+    if (data.title == applanguage.On) {
+      dispatch({type: MODE, payload: onMode});
+    } else if (data.title == applanguage.Off) {
+      dispatch({type: MODE, payload: ofMode});
+    } else if (data.title == applanguage.DeviceSettings) {
+      dispatch({type: MODE, payload: getTheme});
+    } else {
+      console.log('vvvvvvv');
     }
-  }
+  };
+
+
+
+
   return (
     <>
-        <SafeAreaView
+      <SafeAreaView
         style={{
-          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor:
+            Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-    <SafeAreaView
-      style={[
-        styles.Container,
-        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
-      ]}>
-      <StatusBar
-        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
-      />
-      <Header text={applanguage.DarkMode}  />
-      <FlatList
-        scrollEnabled={false}
-        showsVerticalScrollIndicator={false}
-        data={DATA}
-        renderItem={({item}) => <Item data={item} />}
-        keyExtractor={item => item.id}
-        style={{marginTop: verticalScale(20)}}
-      />
-      <View style={{height: verticalScale(10)}} />
-    </SafeAreaView>
+      <SafeAreaView
+        style={[
+          styles.Container,
+          {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
+        ]}>
+        <StatusBar
+          backgroundColor={
+            Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor
+          }
+        />
+        <Header text={applanguage.DarkMode} />
+        <FlatList
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          data={DATA}
+          renderItem={({item}) => <Item data={item} />}
+          keyExtractor={item => item.id}
+          style={{marginTop: verticalScale(20)}}
+        />
+        <View style={{height: verticalScale(10)}} />
+      </SafeAreaView>
     </>
   );
 };
