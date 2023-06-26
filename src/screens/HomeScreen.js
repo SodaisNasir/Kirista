@@ -9,8 +9,6 @@ import {
   FlatList,
   Dimensions,
   Platform,
-  Linking,
-  ActivityIndicator,
 } from 'react-native';
 import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -646,7 +644,7 @@ const HomeScreen = () => {
                         title={item.title}
                         // title="West Coast 2 Regional"
                         // manual={item?.address}
-                        resize={'contain'}
+                        resize={'cover'}
                         TimeTrue={true}
                         time={item.start_time}
                         date={moment(data.start_date).format('MMM Do YY')}

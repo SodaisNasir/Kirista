@@ -26,7 +26,6 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const Theme = useColorScheme()
 
-  console.log('Theme', Theme)
 
   const setLanguage = async () => {
     const getLang = await AsyncStorage.getItem('language')
@@ -112,7 +111,7 @@ const App = () => {
   }, []);
   useEffect(() => {
     modeCheck()
-  }, [mode,Theme])
+  }, [mode,Theme,applanguage])
 
   useEffect(() => {
     setLanguage()
@@ -167,6 +166,8 @@ const App = () => {
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode')
     const cnvrtMode = JSON.parse(getMode)
+    
+    console.log('cnvrtMode', cnvrtMode,applanguage.DeviceSettings)
 
     const onMode = 'dark'
     const ofMode = 'light'

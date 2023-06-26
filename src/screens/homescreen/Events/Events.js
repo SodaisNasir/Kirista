@@ -23,7 +23,6 @@ const h = Dimensions.get('window').height;
 const Events = () => {
   const [event, setEvent] = useState([]);
 
-  const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
 
   useFocusEffect(
@@ -87,99 +86,7 @@ const Events = () => {
               />
             </View>
           )}
-          {/* <DetailsCard
-              onPress={() => navigation.navigate('EventScreen')}
-              source={require('../../../assets/images/event_1.png')}
-              title="West Coast 2 Regional"
-              manual="Convention"
-              resize={'cover'}
-              TimeTrue={true}
-              date={'November 09, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-            <DetailsCard
-              source={require('../../../assets/images/event_2.png')}
-              title="West Coast 3 Regional"
-              resize={'cover'}
-              manual="Convention"
-              TimeTrue={true}
-              date={'November 09, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-            <DetailsCard
-              source={require('../../../assets/images/event_3.png')}
-              title="West Coast 3 Regional"
-              resize={'cover'}
-              manual="Convention"
-              PlaceTrue={true}
-              TimeTrue={true}
-              date={'November 09, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-            <DetailsCard
-              source={require('../../../assets/images/EventScreenImage1.png')}
-              title="Abuja Special Holy Ghost"
-              resize={'cover'}
-              manual="Congress"
-              PlaceTrue={true}
-              // Place="Ghana"
-              TimeTrue={true}
-              date={'November 09, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            />
-            <DetailsCard
-              source={require('../../../assets/images/event_2.png')}
-              title="West Coast 3 Regional"
-              resize={'cover'}
-              manual="Convention"
-              TimeTrue={true}
-              date={'November 09, 2023'}
-              time={'4PM'}
-              MainBoxRestyle={{
-                paddingBottom:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                marginTop:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-                // backgroundColor:'red'
-                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-              }}
-            /> */}
+         
         </View>
       </ScrollView>
     </View>

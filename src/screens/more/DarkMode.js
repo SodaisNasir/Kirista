@@ -71,10 +71,7 @@ const DarkMode = () => {
         },
         styles.item,
       ]}
-      // onPress={() => onSubmit(data)}
-      onPressIn={() => onSubmit(data)}
-      onPressOut={() => onSubmit(data)}
-      >
+      onPress={() => onSubmit(data)}>
       <View
         style={{
           flexDirection: 'row',
