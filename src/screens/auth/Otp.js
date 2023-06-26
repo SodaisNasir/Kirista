@@ -172,7 +172,7 @@ const OTP = ({navigation, route}) => {
             renderCell={({index, symbol, isFocused}) => (
               <View
                 style={{
-                  backgroundColor: Theme
+                  backgroundColor: Theme === 'dark'
                     ? Color.DarkThemeInputBox
                     : Color.OtpBoxColor,
                   borderRadius: scale(16),
@@ -203,7 +203,7 @@ const OTP = ({navigation, route}) => {
         </View>
       </ScrollView>
       <IncorrectModal
-          text="Incorrect OTP!"
+          text={applanguage.IncorctOtp}
           onPress={() => setCheck(false)}
           onBackdropPress={() => setCheck(false)}
           isVisible={check}

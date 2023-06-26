@@ -77,54 +77,6 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
                 //   width: '0%',
                   padding:20
                 }}>
-                <Text
-                  style={{
-                    fontFamily:Font.Poppins700,
-                    color: Color.White,
-                    textTransform: 'uppercase',
-                    // fontSize: iosTab
-                    //   ? scale(7)
-                    //   : w >= 768 && h >= 1024
-                    //   ? scale(7)
-                    //   : w <= 350 && h <= 600
-                    //   ? scale(12)
-                    //   : w < 450 && h < 750
-                    //   ? scale(10)
-                    //   : scale(13),
-                    fontSize:scale(20),
-                    elevation: 5,
-                    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                    textShadowOffset: {width: -1, height: 1},
-                    textShadowRadius: 10,
-                  }}>
-                  {text_subText}
-                </Text>
-                <Text
-                  style={{
-                    color: Color.White,
-                    textTransform: 'uppercase',
-                    // fontSize: iosTab
-                    //   ? scale(7)
-                    //   : w >= 768 && h >= 1024
-                    //   ? scale(7)
-                    //   : w <= 350 && h <= 600
-                    //   ? scale(12)
-                    //   : w < 450 && h < 750
-                    //   ? scale(10)
-                    //   : scale(13),
-                    fontSize:scale(20),
-                    fontFamily:Font.Poppins700,
-                    elevation: 5,
-                    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                    textShadowOffset: {width: -1, height: 1},
-                    textShadowRadius: 10,
-                  }}>
-                  
-                   {live && 
-                    <Text style={{backgroundColor:'#8F4E04',marginRight:20}}>{'live'}</Text>
-                }
-                  {lastText}
-                </Text>
               </View>
             </View>
           </View>

@@ -31,6 +31,8 @@ const h = Dimensions.get('window').height;
 
 const Country = ({navigation,route}) => {
     const Theme = useSelector(state => state.mode)
+    const applanguage = useSelector(state => state.applanguage)
+
     const [data,setData] = useState([])
     useFocusEffect(
       useCallback(() => {
@@ -58,7 +60,7 @@ navigation.goBack();
       ]}>
       <View
         style={styles.backBox}>
-        <Header text={'Select Country'} DontGoBack={true} onPress={() => navigation.navigate('ParishFinder')}/>
+        <Header text={applanguage.SelectCountry} DontGoBack={true} onPress={() => navigation.navigate('ParishFinder')}/>
       </View>
         <View
           style={[

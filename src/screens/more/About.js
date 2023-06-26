@@ -41,7 +41,6 @@ const About = ({navigation}) => {
     getAbout();
   }, []);
 
-  console.log('data', data)
 
 
 

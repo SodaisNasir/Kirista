@@ -33,6 +33,8 @@ const FeaturedCountry = ({navigation,route}) => {
     const {setCountry} = route.params;
     const [data,setData] = useState([])
     const Theme = useSelector(state => state.mode)
+    const applanguage = useSelector(state => state.applanguage)
+
 
     const handlePhoneSelect = (country) => {  
         setCountry(country)
@@ -58,7 +60,7 @@ const FeaturedCountry = ({navigation,route}) => {
           ]}>
           <View
             style={styles.backBox}>
-            <Header text={'Select Country'} DontGoBack={true} onPress={() => navigation.navigate('ParishFinder')}/>
+            <Header text={applanguage.SelectCountry} DontGoBack={true} onPress={() => navigation.navigate('ParishFinder')}/>
           </View>
             <View
               style={[

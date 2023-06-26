@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   useColorScheme,
   useWindowDimensions,
+  ScrollView,
 } from 'react-native';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
@@ -41,7 +42,7 @@ const ChapterScreen = (props) => {
 
 
   return (
-    <View>
+    <ScrollView>
       {chapters?.map((Btn, index) => {
        const result = Btn?.title?.replace("class='chap_title'",`style='color:${Btn.id == props.select ? '#387DE5' : Theme === 'dark' ? Color.White : Color.Black }; font-family:lato; font-size:10px;'`)
        const title = {
@@ -80,7 +81,7 @@ const ChapterScreen = (props) => {
         )
       }
       )}
-    </View>
+    </ScrollView>
   );
 };
 

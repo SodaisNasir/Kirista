@@ -34,6 +34,8 @@ const DarkMode = () => {
   const applanguage = useSelector(state => state.applanguage);
  const [selected, setSelected] = useState('');
 
+ console.log('getTheme', getTheme)
+
  
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode');
@@ -151,12 +153,13 @@ const DarkMode = () => {
     const onMode = 'dark';
     const ofMode = 'light';
 
-    if (data.title == applanguage.On) {
+    if (data.title === applanguage.On) {
       dispatch({type: MODE, payload: onMode});
-    } else if (data.title == applanguage.Off) {
+    } else if (data.title === applanguage.Off) {
       dispatch({type: MODE, payload: ofMode});
-    } else if (data.title == applanguage.DeviceSettings) {
+    } else if (data.title === applanguage.DeviceSettings) {
       dispatch({type: MODE, payload: getTheme});
+      console.log('first')
     } else {
       console.log('vvvvvvv');
     }

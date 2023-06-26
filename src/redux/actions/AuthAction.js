@@ -90,9 +90,8 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader) => {
     }
   };
 };
-export const verify_Email_before_password =  (data,navigation,type,setTime) => {
+export const verify_Email_before_password =  (data,navigation,type,setTime,applanguage) => {
   return async (dispatch) => {
-    console.log('data', data.email)
     try {
       let base_url = `${base_Url}verifyemail`;
       let myData = new FormData();
@@ -110,7 +109,7 @@ export const verify_Email_before_password =  (data,navigation,type,setTime) => {
       console.log('responseData', responseData)
 
       if(responseData?.error?.message === 'Email Not Exit'){
-        setTime('Email Does Not Exist')
+        setTime(applanguage.EmailNotExt)
       }else{
         console.log('first')
       }

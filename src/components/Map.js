@@ -11,64 +11,40 @@ export default function Map({data}) {
 
 
 
-
   const [Pin, setPin] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
   })
 
-  const requestCameraPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Cool Photo App Camera Permission',
-          message:
-            'Cool Photo App needs access to your camera ' +
-            'so you can take awesome pictures.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera')
-      } else {
-        console.log('Camera permission denied')
-      }
-    } catch (err) {
-      console.warn(err)
-    }
-  }
+
 
   return (
     <View style={styles.MainContainer}>
-     {data? 
+     {/* {data != null ?  */}
      <MapView
         style={styles.mapStyle}
         showsUserLocation={false}
         zoomEnabled={true}
         initialRegion={{
-          latitude: parseFloat(data.latitude),
-          longitude:parseFloat(data.longitude),
+          latitude: parseFloat(data?.latitude) ? parseFloat(data?.latitude) : 37.78825,
+          longitude:parseFloat(data?.longitude) ? parseFloat(data?.longitude) : -122.4324,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
         <Marker
           coordinate={{
-            latitude: parseFloat(data.latitude),
-          longitude:parseFloat(data.longitude),
+            latitude: parseFloat(data?.latitude) ? parseFloat(data?.latitude) : 37.78825,
+            longitude:parseFloat(data?.longitude)? parseFloat(data?.longitude) : -122.4324,
           }}
-          draggable={true}
           pinColor="red"
           />
       </MapView>
-       :
+       {/* :
         <ActivityIndicator
                 size="large"
                 color={Color.Main}
               />
-              }
+} */}
     </View>
   )
 }

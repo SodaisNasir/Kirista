@@ -26,6 +26,7 @@ import Share from 'react-native-share'
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PARISHBOOKMARK } from '../../redux/reducer';
+import DoubleText from '../../components/Loader/DoubleText';
 
 
 const w = Dimensions.get('window').width;
@@ -102,9 +103,7 @@ const ViewParish = ({route}) => {
       await AsyncStorage.setItem('parishbookmark', JSON.stringify([...parishbookmark, data]));
     }
   }
-  return loading ? (
-    <Loading />
-  ) : (
+  return  (
     <>
       <SafeAreaView
         style={{
@@ -133,14 +132,24 @@ const ViewParish = ({route}) => {
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
+              {
+                data.image ?
             <View style={styles.ImageViewStyle}>
               <Image
                 resizeMode="contain"
-                // source={require('../../assets/images/parish.png')}
                 source={{uri: data.image}}
                 style={{height: '100%', width: '100%'}}
               />
             </View>
+            : 
+
+            <View style={styles.ImageViewStyle}>
+               <DoubleText height={ w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200)} />
+            </View>
+              }
+
+              {
+                data.title ?
             <View
               style={{
                 marginVertical:
@@ -154,7 +163,17 @@ const ViewParish = ({route}) => {
                 {data.title}
               </Text>
             </View>
+                : 
+                <View style={{
+                  marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                }}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+             </View>
+              }
 
+            {
+              data.country ?
             <View style={styles.DetailsViewStyle}>
               <Text
                 style={[
@@ -171,7 +190,18 @@ const ViewParish = ({route}) => {
                 {data.country}
               </Text>
             </View>
+            : 
+            <View style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+            }}>
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+         </View>
+            }
 
+              {
+                  data.region
+                ?
             <View style={styles.DetailsViewStyle}>
               <Text
                 style={[
@@ -188,24 +218,45 @@ const ViewParish = ({route}) => {
                 {data.region}
               </Text>
             </View>
+                :
+                <View style={{
+                  marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                }}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+             </View>
+              }
 
-            <View style={styles.DetailsViewStyle}>
-              <Text
-                style={[
-                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
-                  styles.LocationText,
-                ]}>
-                {applanguage.Province}:
-              </Text>
-              <Text
-                style={[
-                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
-                  styles.LocationDetailsText,
-                ]}>
-                {data.province}
-              </Text>
-            </View>
+              {
+                data.province
+                ?
+                <View style={styles.DetailsViewStyle}>
+                <Text
+                  style={[
+                    {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                    styles.LocationText,
+                  ]}>
+                  {applanguage.Province}:
+                </Text>
+                <Text
+                  style={[
+                    {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                    styles.LocationDetailsText,
+                  ]}>
+                  {data.province}
+                </Text>
+              </View>
+                :
+                <View style={{
+                  marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                }}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+             </View>
+              }
 
+         {data.about
+          ?
             <View
               style={{
                 marginBottom: verticalScale(20),
@@ -215,17 +266,18 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.AboutText,
                 ]}>
-                {/* The Redeemed Christian Church of God, Central Parish, is the
-              Continental Headquarters of RCCG Continent 2. It is a big
-              fellowship of families fitly knitted together in true love.
-              Situated in the heart of the Federal Capital Territory, Central
-              Parish is an architectural masterpiece that allows for comfort to
-              those that worship therein. Presided over by a team of Pastors
-              under the leadership of Pastor E.A. Odeyemi (Continent 2
-              Overseer). */}
+                
                 {data.about}
               </Text>
             </View>
+          :
+          <View style={{
+            marginVertical:
+              w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+          }}>
+          <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(120) : verticalScale(100)} />
+       </View>
+         }
           </View>
           <View
             style={{
@@ -233,8 +285,11 @@ const ViewParish = ({route}) => {
               height: verticalScale(25),
             }}
           />
-
-          <View
+          {
+            data.address
+            ?
+            <>
+            <View
             style={{
               // backgroundColor: 'purple',
               justifyContent: 'center',
@@ -287,6 +342,20 @@ const ViewParish = ({route}) => {
              {data.address}
             </Text>
           </View>
+            </>
+            :
+            <View style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                marginHorizontal: scale(20)
+            }}>
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+         </View>
+          }
+
+         
+          {
+                cordinates ? 
           <View
             style={{
               height:
@@ -303,16 +372,11 @@ const ViewParish = ({route}) => {
               source={require('../../assets/images/maps.png')}
               style={{height: '100%', width: '100%'}}
             /> */}
-          
-{
-              cordinates ? 
-              
               <Map data={cordinates} />
-             : 
-             <ActivityIndicator size={30} color={'blue'} /> 
-              
-            }
           </View>
+             : 
+             null
+            }
           <View
             style={{
               backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
@@ -327,7 +391,13 @@ const ViewParish = ({route}) => {
                 // marginVertical: verticalScale(10),
                 marginTop: verticalScale(15),
               }}>
-              <Text
+     
+
+
+              {
+                data.phone_number
+                ?
+                <Text
                 style={[
                   {
                     paddingHorizontal:
@@ -340,6 +410,14 @@ const ViewParish = ({route}) => {
                 ]}>
                {applanguage.Contact}
               </Text>
+              :
+              <View style={{
+                  marginHorizontal: scale(20),
+                  marginBottom:scale(10)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
             </View>
 
             <View
@@ -349,21 +427,47 @@ const ViewParish = ({route}) => {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               }}>
-              <Text
+
+            {
+                data.phone_number
+                ?
+                <Text
                 style={[
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.phone_number}
               </Text>
-              <Text
+              :
+              <View style={{
+                  // marginHorizontal: scale(20)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
+              {
+                data.email
+                ?
+
+                <Text
                 style={[
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
                 {data.email}
-              </Text>
-              <Text
+              </Text> 
+              :
+              <View style={{
+                  // marginHorizontal: scale(20),
+                  marginVertical: verticalScale(5)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
+              {
+                data.website
+                ?
+                <Text
                 onPress={() => Linking.openURL(data.website)}
                 style={[
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
@@ -371,6 +475,13 @@ const ViewParish = ({route}) => {
                 ]}>
                 {data.website}
               </Text>
+              :
+              <View style={{
+                  // marginHorizontal: scale(20)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
             </View>
           </View>
         </ScrollView>

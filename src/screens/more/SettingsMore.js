@@ -669,7 +669,7 @@ const SettingsMore = () => {
               alignSelf: 'center',
               height: verticalScale(40),
             }}>
-            <Text style={[styles.VersionText]}>Version 1.0.0</Text>
+            <Text style={[styles.VersionText]}>{applanguage.Version} 1.0.0</Text>
           </View>
           {is_guest ? null : (
             <>
@@ -701,7 +701,7 @@ const SettingsMore = () => {
                       height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                     />
 
-                    <Text style={[styles.LogoutTextStyle]}>Log out</Text>
+                    <Text style={[styles.LogoutTextStyle]}>{applanguage.LogOut}</Text>
                   </View>
                 </TouchableOpacity>
               </View>

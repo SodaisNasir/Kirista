@@ -37,7 +37,7 @@ const ParishFinder = () => {
     if(country != '' && province != '' && region != ''){
       searchPerish(country,province,region,navigation,setMessage,setCheck)
     }else{
-      setMessage('Please Select All Three Fields!')
+      setMessage(applanguage.SelectField)
       setCheck(true)
     }
   }

@@ -30,6 +30,7 @@ import TickModal from '../../components/Modals/TickModal';
 import Loading from '../../components/Modals/Loading';
 import Loader from '../../components/Modals/Loader';
 import Permissions from 'react-native-permissions';
+import { Font } from '../../utils/font';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -39,6 +40,8 @@ const EditProfile = ({navigation}) => {
   const applanguage = useSelector(state => state.applanguage)
   const Theme = useSelector(state => state.mode)
   const userData = useSelector(state => state.user_details)
+
+  console.log('userData', userData)
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -191,10 +194,25 @@ defaultValues:{
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(10) : moderateScale(15),
             }}>
-            <Tag
+            {/* <Tag
               // height={40}
               width={w >= 768 && h >= 1024 ? scale(65) : scale(140)}
-            />
+            /> */}
+            <View style={{
+              height: verticalScale(45),
+              width: w >= 768 && h >= 1024 ? scale(65) : scale(140),
+              backgroundColor: Color.Main,
+              borderRadius:10,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{
+                color: Color.White,
+                fontFamily: Font.Poppins500,
+                fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
+            }}>{applanguage.ChangeImage}</Text>
+            </View>
+            
           </TouchableOpacity>
         </View>
         <View

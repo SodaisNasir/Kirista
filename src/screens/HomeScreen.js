@@ -30,6 +30,8 @@ import {
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
+import SkeletonLoader from '../components/Loader/SkeletonLoader';
+import BannerLoader from '../components/Loader/BannerLoader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -55,7 +57,7 @@ const HomeScreen = () => {
       image2: require('../assets/images/redeemImgradiant.png'),
       image3: require('../assets/images/rccg_logo.png'),
       text: 'the redeemed christian church of god.',
-      text2: 'Read More  ',
+      text2: applanguage.ReadMore + '  ',
       color: '#28166f',
       screen_name: 'Rccg',
     },
@@ -66,7 +68,7 @@ const HomeScreen = () => {
       image3: require('../assets/images/rccg_logo.png'),
       text: 'rccg ',
       text_subText: 'structure',
-      text2: 'Read More  ',
+      text2: applanguage.ReadMore + '  ',
       color: '#00923f',
       type: 'ye',
       screen_name: 'RccgStructure',
@@ -78,7 +80,7 @@ const HomeScreen = () => {
       image3: require('../assets/images/rccg_logo.png'),
       text: 'rccg ',
       text_subText: 'continent 2',
-      text2: 'Read More  ',
+      text2: applanguage.ReadMore + '  ',
       color: '#e43f40',
       type: 'ye',
       screen_name: 'RccgContinent',
@@ -113,10 +115,11 @@ const HomeScreen = () => {
             styles.SwiperViewOne,
           ]}>
           <Swiper
-            autoplayTimeout={5}
-            autoplay={true}
-            showsButtons={false}
-            showsPagination={false}>
+             autoplayTimeout={5}
+             loop={true}
+             autoplay={true}
+             showsButtons={false}
+             showsPagination={false}>
             {forImage?.length > 0 ? (
               forImage?.map((item, index) => {
                 return (
@@ -124,8 +127,6 @@ const HomeScreen = () => {
                     <SwiperCard
                       key={index}
                       source={{uri: item.image}}
-                      text_subText={item?.title}
-                      lastText={item?.tag}
                       // live
                     />
                   </>
@@ -138,26 +139,9 @@ const HomeScreen = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                {/* <Text
-                  style={[
-                    styles.BigTextStyle,
-                    {
-                      color: Theme === 'dark' ? Color.White : Color.Black,
-                    },
-                  ]}>
-                  No Banners Available
-                </Text> */}
-                      <ActivityIndicator
-                  // style={{marginTop: '70%'}}
-                  color={Color.Main}
-                  size="large"
-                />
+               <BannerLoader />
               </View>
             )}
-            {/* <SwiperCard
-              source={{uri: forImage}}
-              text_subText="asdf is the live event my friend"
-            /> */}
           </Swiper>
         </View>
         <View style={{}}>
@@ -199,136 +183,135 @@ const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
             directionalLockEnabled={true}
             alwaysBounceVertical={false}>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              data={myData?.slice(0, 5)}
-              renderItem={({item, index}) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate('ViewManual', {
-                        item: item,
-                      })
-                    }>
-                    <View
-                      style={{
-                        height:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(80)
-                            : verticalScale(100),
-                        flexDirection: 'row',
-                        overflow: 'hidden',
-                        width:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(180)
-                            : verticalScale(250),
-                        // marginLeft: index == 0 ? scale(10) : 0,
-                        paddingLeft: 10,
-                      }}>
+              {myData.length > 0
+              ?
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                data={myData?.slice(0, 5)}
+                renderItem={({item, index}) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('ViewManual', {
+                          item: item,
+                        })
+                      }>
                       <View
                         style={{
-                          justifyContent: 'center',
-                          alignItems: 'flex-start',
-                        }}>
-                        <View
-                          style={{
-                            height:
-                              w >= 768 && h >= 1024 ? scale(60) : scale(100),
-                            width:
-                              w >= 768 && h >= 1024 ? scale(60) : scale(100),
-                          }}>
-                          <Image
-                            resizeMode="cover"
-                            style={{
-                              height: '100%',
-                              width: '100%',
-                            }}
-                            source={{uri: item?.cover_image}}
-                          />
-                        </View>
-                      </View>
-                      <View
-                        style={{
-                          marginVertical: verticalScale(20),
-                          marginLeft: scale(10),
+                          height:
+                            w >= 768 && h >= 1024
+                              ? verticalScale(80)
+                              : verticalScale(100),
+                          flexDirection: 'row',
+                          overflow: 'hidden',
+                          width:
+                            w >= 768 && h >= 1024
+                              ? verticalScale(180)
+                              : verticalScale(250),
+                          // marginLeft: index == 0 ? scale(10) : 0,
+                          paddingLeft: 10,
+                          margin:scale(-1)
                         }}>
                         <View
                           style={{
                             justifyContent: 'center',
+                            alignItems: 'flex-start',
                           }}>
-                          <Text
-                            style={[
-                              {
-                                color:
-                                  Theme === 'dark'
-                                    ? Color.White
-                                    : Color.DarkTextColor,
-                              },
-                              styles.BooksTitleStyle,
-                            ]}>
-                            {item?.title}
-                          </Text>
-                          <Text
-                            style={[
-                              styles.BooksTitleStyle,
-                              {
-                                color:
-                                  Theme === 'dark'
-                                    ? Color.White
-                                    : Color.DarkTextColor,
-                                marginTop:
-                                  Platform.OS == 'ios' ? 0 : verticalScale(-5),
-                              },
-                            ]}>
-                            {item?.category}
-                          </Text>
+                          <View
+                            style={{
+                              height:
+                                w >= 768 && h >= 1024 ? scale(60) : scale(80),
+                              width:
+                                w >= 768 && h >= 1024 ? scale(60) : scale(100),
+                            }}>
+                            <Image
+                              resizeMode="contain"
+                              style={{
+                                height: '100%',
+                                width: '100%',
+                              }}
+                              source={{uri: item?.cover_image}}
+                            />
+                          </View>
                         </View>
                         <View
                           style={{
-                            marginTop: tabPotrait
-                              ? verticalScale(1)
-                              : fourInchPotrait
-                              ? verticalScale(0.5)
-                              : verticalScale(2),
+                            marginVertical: verticalScale(20),
+                            marginLeft: scale(10),
                           }}>
-                          <Text style={styles.YearStyle}>
-                            {item?.release_year}
-                          </Text>
+                          <View
+                            style={{
+                              justifyContent: 'center',
+                            }}>
+                            <Text
+                              style={[
+                                {
+                                  color:
+                                    Theme === 'dark'
+                                      ? Color.White
+                                      : Color.DarkTextColor,
+                                },
+                                styles.BooksTitleStyle,
+                              ]}>
+                              {item?.title}
+                            </Text>
+                            <Text
+                              style={[
+                                styles.BooksTitleStyle,
+                                {
+                                  color:
+                                    Theme === 'dark'
+                                      ? Color.White
+                                      : Color.DarkTextColor,
+                                  marginTop:
+                                    Platform.OS == 'ios' ? 0 : verticalScale(-5),
+                                },
+                              ]}>
+                              {item?.category}
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              marginTop: tabPotrait
+                                ? verticalScale(1)
+                                : fourInchPotrait
+                                ? verticalScale(0.5)
+                                : verticalScale(2),
+                            }}>
+                            <Text style={styles.YearStyle}>
+                              {item?.release_year}
+                            </Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-              ListEmptyComponent={() => {
-                return (
-                  <View
-                    style={{
-                      height: verticalScale(60),
-                      width: scale(350),
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    {/* <Text
-                      style={[
-                        styles.BigTextStyle,
-                        {
-                          color: Theme === 'dark' ? Color.White : Color.Black,
-                        },
-                      ]}>
-                      No Books Available
-                    </Text> */}
-                  <ActivityIndicator
-                  // style={{marginTop: '70%'}}
-                  color={Color.Main}
-                  size="large"
-                />
-                  </View>
-                );
-              }}
-              key={Math.ceil(myData?.length / 2).toString()}
-              numColumns={Math.ceil(myData?.length / 2)}
-            />
+                    </TouchableOpacity>
+                  );
+                }}
+                // ListEmptyComponent={() => {
+                //   return (
+                //     <View
+                //       style={{
+                //         height: verticalScale(60),
+                //         width: scale(350),
+                //         justifyContent: 'center',
+                //         alignItems: 'center',
+                //       }}>
+                //     <ActivityIndicator
+                //     color={Color.Main}
+                //     size="large"
+                //   />
+                //     </View>
+                //   );
+                // }}
+                key={Math.ceil(myData?.length / 2).toString()}
+                numColumns={Math.ceil(myData?.length / 2)}
+              />
+              : 
+                <>
+              <SkeletonLoader />
+              <SkeletonLoader />
+                </>
+            }
           </ScrollView>
         </View>
         <View
@@ -444,7 +427,7 @@ const HomeScreen = () => {
                               fontFamily: Font.Poppins600,
                               color: Color.White,
                               textTransform: 'uppercase',
-                              maxWidth: '100%',
+                              maxWidth: '90%',
                               top: item.type == 'ye' ? scale(15) : scale(10),
                               fontSize: iosTab
                                 ? scale(7)
@@ -581,7 +564,7 @@ const HomeScreen = () => {
               />
             </TouchableOpacity>
           </View>
-          {data.length > 0 ? (
+          {data?.length > 0 ? (
             <>
               {data?.map((item, index) => {
                 return (
@@ -609,13 +592,11 @@ const HomeScreen = () => {
               })}
             </>
           ) : (
-            <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <ActivityIndicator
-                size="large"
-                color={Theme === 'dark' ? Color.DarkTheme : Color.White}
-              />
-            </View>
+            <View style={{marginBottom:5}}>
+            <SkeletonLoader />
+            <View style={{height: 0,marginVertical:5}} />
+            <SkeletonLoader />
+              </View>
           )}
         </View>
 
@@ -664,8 +645,8 @@ const HomeScreen = () => {
                         source={{uri: item.image}}
                         title={item.title}
                         // title="West Coast 2 Regional"
-                        manual={item?.address}
-                        resize={'cover'}
+                        // manual={item?.address}
+                        resize={'contain'}
                         TimeTrue={true}
                         time={item.start_time}
                         date={moment(data.start_date).format('MMM Do YY')}
@@ -678,17 +659,13 @@ const HomeScreen = () => {
                 })}
               </>
             ) : (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <ActivityIndicator
-                  size="large"
-                  color={Theme === 'dark' ? Color.DarkTheme : Color.White}
-                />
-              </View>
+              <View style={{
+                // flexDirection: ''
+              }}>
+              <SkeletonLoader />
+              <View style={{height: 0,marginVertical:5}} />
+              <SkeletonLoader />
+                </View>
             )}
           </View>
         </View>

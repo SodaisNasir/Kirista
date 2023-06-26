@@ -59,6 +59,7 @@ const CustomHeader = props => {
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
             color={Theme === 'dark' ? Color.White : Color.Black}
             onPress={() => navigation.goBack()}
+            // onPress={props.goPress}
           />
           <View
             style={{

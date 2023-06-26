@@ -14,14 +14,26 @@
 
   "Bookmarks": "Bookmarks",
   "NoBookMark": "No Bookmarks Available",
-  "NoBookAvail": "No Books Available",
-  "NewAccount": "Create An Account",
+  "NoBookAvail": "Nothing to show",
+  "NewAccount": "Create an account",
   "PopularSearch": "Popular Searches",
   "Invalid": "Invalid email or pasword",
   "Guestpromt" : "Please Sign up or Login to use this feature",
   "EditProfile": "Edit Profile",
   "ChangeImage": "Change Image",
   "Save": "Save",
+
+
+  "Version": "Version",
+  "SelectField": "Please Select All Three Fields!",
+  "LogOut": "Log out",
+  
+  
+  "Incorrect": "Incorrect",
+  "CompletePass": "Your password has been successfully updated!",
+  "IncorctOtp": "Incorrect OTP!",
+  "EmailNotExt": "Email does not exist",
+  "EmptyLib": "You dont have any item saved yet.",
 
 
   "OldPass": "Old Passowrd",

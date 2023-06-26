@@ -35,9 +35,7 @@ const Contact = () => {
   } = useForm({mode: 'all'});
   const applanguage = useSelector(state => state.applanguage)
   const userData = useSelector(state => state.user_details)
-  console.log("=============================================");
-  console.log("USER DETAILS =======>",userData);
-  console.log("=============================================");
+
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
@@ -48,10 +46,9 @@ const Contact = () => {
   const [text, onChangeText] = useState('');
   const [country, setCountry] = useState({
     country_name:  userData != "guest" ? userData?.data.country : '',
-    country_code: userData != "guest" ? userData?.data.country_code : '',
-    flag_code: userData != "guest" ? userData?.data.flag_code : ''
+    country_code: userData != "guest" ? userData?.data.country_code : '+234',
+    flag_code: userData != "guest" ? userData?.data.flag_code : '🇳🇬'
   });
-
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {

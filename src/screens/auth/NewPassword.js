@@ -190,7 +190,7 @@ const NewPassword = ({navigation,route}) => {
                 ref={(e) => (confirmPasswordRef.current = e)}
                 secureTextEntry={isVisible2}
                 PIname={isVisible2 ? 'eye-off-outline' : 'eye-outline'}
-                onShowPass={() => setVisible2(!isVisible)}
+                onShowPass={() => setVisible2(!isVisible2)}
               />
               {errors.confirm_password && (
                 <Text
@@ -225,7 +225,7 @@ const NewPassword = ({navigation,route}) => {
         </View>
       </ScrollView>
       <TickModal
-          text="Your password has been successfully updated!"
+          text={applanguage.CompletePass}
           onPress={() => setCheck(false)}
           onBackdropPress={() => setCheck(false)}
           isVisible={check}

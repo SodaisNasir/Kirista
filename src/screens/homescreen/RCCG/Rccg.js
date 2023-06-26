@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { getRCCData } from '../../../redux/actions/UserAction';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import { useEffect } from 'react';
+import DoubleText from '../../../components/Loader/DoubleText';
 
 
 const Rccg = ({navigation}) => {
@@ -32,7 +33,6 @@ const Rccg = ({navigation}) => {
   const [loader, setLoader] = useState(false);
   const type = 'RCCG';
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
-
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -74,14 +74,12 @@ const Rccg = ({navigation}) => {
         <Header
           text={'RCCG'}
         />
-       {loader ? 
-     <View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
-     <ActivityIndicator
-          size="large"
-          color={Theme === 'dark' ? Color.White : Color.Main}
-          />   
+       {/* {loader ? 
+          <View style={{flex:1,justifyContent: 'center',}}>
+          <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(250)} />
           </View>
-        :   <ScrollView showsVerticalScrollIndicator={false}>
+        :   */}
+         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               paddingHorizontal:
@@ -112,14 +110,22 @@ const Rccg = ({navigation}) => {
                 marginTop:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
               }}>
+                {
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(40) : verticalScale(30)} />
+                </View>
+
+               : 
               <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
-                  fontFamily: Font.Poppins700,
-                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
-                }}>
+              style={{
+                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+                fontFamily: Font.Poppins700,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
+              }}>
                 The Redeemed Christian Church of God
               </Text>
+            }
             </View>
 
             {/* Laraib The Great */}
@@ -143,7 +149,22 @@ const Rccg = ({navigation}) => {
                   alignSelf: 'center',
                 }}
               />
-                <RenderHtml contentWidth={w} source={source}  systemFonts={systemFonts} />
+              {
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(250)} />
+                </View>
+
+               : <RenderHtml contentWidth={w} source={source}  systemFonts={systemFonts} />
+              }
+
+{
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(50)} />
+                </View>
+
+               : 
               <View
                 style={{
                   alignItems: 'center',
@@ -170,6 +191,7 @@ const Rccg = ({navigation}) => {
                   General Overseer, RCCG World Wide
                 </Text>
               </View>
+              }
 
               <View
                 style={{
@@ -188,7 +210,8 @@ const Rccg = ({navigation}) => {
               height: verticalScale(55),
             }}
           />
-        </ScrollView>}
+        </ScrollView>
+        {/* } */}
         <View
           style={{
             position: 'absolute',

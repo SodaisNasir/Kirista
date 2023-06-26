@@ -19,6 +19,7 @@ import {getChapters} from '../../../redux/actions/UserAction';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
+import DoubleText from '../../../components/Loader/DoubleText';
 
 
 const w = Dimensions.get('window').width;
@@ -30,9 +31,11 @@ const Readone = ({route}) => {
   const chapters = useSelector(state => state.chapters)
   const { width } = useWindowDimensions();
 
+  
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   const {id,item} = route.params
-  const [data,setData] = useState([])
+  const [data,setData] = useState()
+  console.log('data', data)
 
   useFocusEffect(
     useCallback(() => {
@@ -80,14 +83,13 @@ const Readone = ({route}) => {
           barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
           <ReadHeader textshown={true} text={ 
+            data ?
           <RenderHtml
           contentWidth={width}
           source={heading}
           systemFonts={systemFonts}
-           /> } />
-          {
-            chapters ?
-
+           /> :  <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(15)} />} />
+          {data ?
         <ScrollView showsVerticalScrollIndicator={false}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -116,13 +118,6 @@ const Readone = ({route}) => {
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
               }}>
-              {/* <Text
-                style={[
-                  {color: Theme === 'dark' ? Color.White : Color.Black},
-                  styles.TextStyle,
-                ]}>
-                {chapters?.description}
-              </Text> */}
                <RenderHtml
                   contentWidth={width}
                   source={description}
@@ -132,24 +127,16 @@ const Readone = ({route}) => {
           </TouchableOpacity>
           <View style={{height: verticalScale(80)}} />
         </ScrollView> 
-        : <View
-        style={{
-          height: (h * 1) / 1.7,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={{
-          color: Theme === 'dark' ? Color.White : Color.Black,
-           fontFamily: Font.Inter500
-           }}>
-          No Chapters Available
-        </Text>
-      </View>
+        : 
+        <>
+        <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(40)} />
+        <View style={{height: 0,marginVertical:verticalScale(5)}} />
+        <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(400) : verticalScale(350)} />
+        </>
           }
-        <View
+        {/* <View
           style={{
             flex: 1,
-
             borderTopColor:
               w >= 768 && h >= 1024 ? Color.BorderColor : Color.White,
             borderTopWidth: w >= 768 && h >= 1024 ? 1 : 0,
@@ -159,26 +146,7 @@ const Readone = ({route}) => {
             bottom: 0,
             width: '100%',
           }}>
-          {/* <View
-            style={[
-              {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
-              styles.ChapterPageStyle,
-            ]}>
-            <View
-              style={[
-                {color: Theme === 'dark' ? Color.ExtraViewDark : Color.White},
-                styles.BoxStyle,
-              ]}>
-              <Text
-                style={[
-                  styles.ChapterPageText,
-                  {color: Theme === 'dark' ? Color.White : Color.Black},
-                ]}>
-                1 / 11
-              </Text>
-            </View>
-          </View> */}
-        </View>
+        </View> */}
       </View>
     </>
   );

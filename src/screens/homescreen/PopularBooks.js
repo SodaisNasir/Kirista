@@ -21,6 +21,7 @@ import DetailsCard from '../../components/Card/DetailsCard';
 import PopularBooksCard from '../../components/Card/PopularBooksCard';
 import { useSelector } from 'react-redux';
 import { getBooks } from '../../redux/actions/UserAction';
+import SkeletonLoader from '../../components/Loader/SkeletonLoader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -76,96 +77,52 @@ const PopularBooks = ({navigation}) => {
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
           }}>
-          
-          <FlatList 
-          showsHorizontalScrollIndicator={false}
-          data={myData}
-          renderItem={({item}) => {
-            return(
-              <PopularBooksCard
-              onPress={() => navigation.navigate('ViewManual',{
-                item: item
-              })}
-              source={{uri: item?.cover_image}}
-              title={item?.title}
-              manual={item?.category}
-              resize={'contain'}
-              PlaceTrue={true}
-              Place={item?.release_year}
-              MainBoxRestyle={{
-                borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-                borderBottomWidth: 1,
-                marginTop: verticalScale(15),
-                paddingBottom: verticalScale(15),
-              }}
+
+            {
+              myData.length > 0 ?
+              <FlatList 
+              showsHorizontalScrollIndicator={false}
+              data={myData}
+              renderItem={({item}) => {
+                return(
+                  <PopularBooksCard
+                  onPress={() => navigation.navigate('ViewManual',{
+                    item: item
+                  })}
+                  source={{uri: item?.cover_image}}
+                  title={item?.title}
+                  manual={item?.category}
+                  resize={'contain'}
+                  PlaceTrue={true}
+                  Place={item?.release_year}
+                  MainBoxRestyle={{
+                    borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
+                    borderBottomWidth: 1,
+                    marginTop: verticalScale(15),
+                    paddingBottom: verticalScale(15),
+                  }}
+                  />
+                  )
+              }
+    
+              }
               />
-              )
-          }
-
-          }
-          />
-          {/* <PopularBooksCard
-            onPress={() => navigation.navigate('ViewManual')}
-            source={require('../../assets/images/sunday_manual2.png')}
-            title="Sunday Student"
-            manual="Manual"
-            resize={'contain'}
-            PlaceTrue={true}
-            Place="2023"
-            MainBoxRestyle={{
-              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-              marginTop: verticalScale(15),
-              paddingBottom: verticalScale(15),
-            }}
-          />
-          <PopularBooksCard
-            onPress={() => navigation.navigate('ViewManual')}
-            source={require('../../assets/images/manual.png')}
-            title="Sunday School Teachers"
-            manual="Manual"
-            resize={'contain'}
-            PlaceTrue={true}
-            Place="2023"
-            MainBoxRestyle={{
-              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-              marginTop: verticalScale(15),
-              paddingBottom: verticalScale(15),
-            }}
-          />
-          <PopularBooksCard
-            onPress={() => navigation.navigate('ViewManual')}
-            source={require('../../assets/images/sunday_manual2.png')}
-            title="Sunday School Teachers"
-            manual="Manual"
-            resize={'contain'}
-            PlaceTrue={true}
-            Place="2023"
-            MainBoxRestyle={{
-              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-              marginTop: verticalScale(15),
-              paddingBottom: verticalScale(15),
-            }}
-          />
-          <PopularBooksCard
-            onPress={() => navigation.navigate('ViewManual')}
-            source={require('../../assets/images/manual.png')}
-            title="Sunday Student"
-            manual="Manual"
-            resize={'contain'}
-            PlaceTrue={true}
-            Place="2023"
-            MainBoxRestyle={{
-              borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-              borderBottomWidth: 1,
-              marginTop: verticalScale(15),
-              paddingBottom: verticalScale(15),
-            }}
-          /> */}
-
-          {/* <View style ={{height:verticalScale(75)}}/> */}
+                : 
+                <View style={{
+                  // flexDirection: '',
+                  marginTop:scale(20)
+                }}>
+                <SkeletonLoader />
+                <View style={{height: 0,marginVertical:5}} />
+                <SkeletonLoader />
+                <View style={{height: 0,marginVertical:5}} />
+                <SkeletonLoader />
+                <View style={{height: 0,marginVertical:5}} />
+                <SkeletonLoader />
+                  </View>
+            }
+          
+          
         </View>
       </View>
     </>

@@ -4,22 +4,27 @@ import { CHAPTERS, SEARCH_DATA, USER_DETAILS } from "../reducer";
 
 export const show_all_banner = async (setForImage) =>{
     try {
-        let base_url = `${base_Url}banner-active`;
+
+      const noti =await AsyncStorage.getItem("onesignaltoken");
+        let base_url = `${base_Url}banner-active/${noti}`;
   
         const response = await fetch(base_url, {
           method: 'GET',
         });
+       
         const responseData = await response.json();
-  
+        console.log("=================================");
+        console.log("BANNER DATA====>",responseData);
+        console.log("=================================");
         if (responseData.success.status === 200) {
-         console.log('responseData.success.data[0].app_page ==>', responseData.success.data)
+         console.log('', responseData.success.data)
          setForImage(responseData.success.data)
         //  setForLink( responseData.success.data[0].app_page)
         } else {
           console.log('else error');
         }
     } catch (error) {
-        console.log('error', error)
+        console.log('error in banner api', error)
     }
 }
 export const show_popup = async (setForImage, setForTitle,setForLink) =>{
@@ -257,13 +262,17 @@ export const getChapters =  (setData,id) => {
     }
   }
 }
-export const getFAQ = async (setData,setLoading) => {
+export const getFAQ = async (setData,setLoading,language) => {
   setLoading(true)
   try {
-    let base_url = `${base_Url}faq`;
-  
+    let base_url = `${base_Url}faq-language`;
+    let myData = new FormData()
+
+    myData.append('language',language)
+
     const response = await fetch(base_url, {
-      method: 'GET',
+      method: 'post',
+      body: myData
     });
     const responseData = await response.json();
 

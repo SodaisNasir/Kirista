@@ -25,6 +25,7 @@ import { useState } from 'react';
 import { getRCCData } from '../../../redux/actions/UserAction';
 import { useEffect } from 'react';
 import Loader from '../../../components/Modals/Loader';
+import DoubleText from '../../../components/Loader/DoubleText';
 
 const W = Dimensions.get('window').width;
 const H = Dimensions.get('window').height;
@@ -78,14 +79,15 @@ const RccgContinent = ({navigation}) => {
         <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
 
       <Header text={'RCCG Continent 2'} />
-     { loader ? 
+     {/* { loader ? 
      <View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
      <ActivityIndicator
           size="large"
           color={Theme === 'dark' ? Color.White : Color.Main}
           />   
           </View>
-        : <ScrollView showsVerticalScrollIndicator={false}>
+        : */}
+         <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:
@@ -115,7 +117,15 @@ const RccgContinent = ({navigation}) => {
             )}
           </View>
 
+          {
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(300) : verticalScale(250)} />
+                </View>
+
+               : 
           <RenderHtml contentWidth={w} source={source} systemFonts={systemFonts} />
+               }
 
           <View
             style={{
@@ -125,6 +135,12 @@ const RccgContinent = ({navigation}) => {
               alignSelf: 'center',
             }}
           />
+           {
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(25)} />
+                </View>
+               : 
           <View
             style={{
               alignItems: 'center',
@@ -149,6 +165,7 @@ const RccgContinent = ({navigation}) => {
               General Overseer, RCCG World Wide
             </Text>
           </View>
+           }
 {/* 
           <View
             style={{
@@ -171,7 +188,8 @@ const RccgContinent = ({navigation}) => {
             height: verticalScale(60),
           }}
         />
-      </ScrollView>}
+      </ScrollView>
+      {/* } */}
       <View
         style={{
           position: 'absolute',

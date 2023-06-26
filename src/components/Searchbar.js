@@ -52,6 +52,7 @@ const Searchbar = () => {
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
   const [index, setIndex] = useState(0);
 
 
@@ -120,9 +121,9 @@ const renderScene = SceneMap({
 });
 
   const [routes] = useState([
-    {key: 'Bedrooms', title: 'Books ', type: 'home'},
-    {key: 'DiningRoom', title: 'Parishes ', type: 'finder'},
-    {key: 'LivingRoom', title: 'Events '},
+    {key: 'Bedrooms', title: applanguage.Books + ' ', type: 'home'},
+    {key: 'DiningRoom', title: applanguage.Parishes + ' ', type: 'finder'},
+    {key: 'LivingRoom', title: applanguage.Events + ' '},
   ]);
 
   const renderTabBar = props => (
@@ -255,7 +256,7 @@ const renderScene = SceneMap({
                 // top: fourInchPotrait ?  verticalScale(1.3) : 0, //fourInchPotrait ? verticalScale(20) :0,
                 left: iosTab ? scale(2) : 0,
               }}
-              placeholder="Search"
+              placeholder={applanguage.Search}
               placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
               onChangeText={text => handleSearch2(text)}
               value={searchQuery2}
@@ -292,11 +293,11 @@ const renderScene = SceneMap({
                 <Text
                   style={{
                     color: Theme === 'dark' ? '#B5BCC6' : '#4D5C72',
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
                     fontFamily: Font.Poppins600,
                     letterSpacing: 0.3,
                   }}>
-                  Cancel
+              {applanguage.Cancel}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -317,7 +318,8 @@ const renderScene = SceneMap({
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                 fontFamily: Font.Poppins500,
               }}>
-              Popular Searches
+              {/* Popular Searches */}
+              {applanguage.PopularSearch}
             </Text>
             <View style={{flex: 1}}>
               <FlatList
@@ -593,7 +595,7 @@ const renderScene = SceneMap({
                 // top: fourInchPotrait ?  verticalScale(1.3) : 0, //fourInchPotrait ? verticalScale(20) :0,
                 left: iosTab ? scale(2) : 0,
               }}
-              placeholder="Search"
+              placeholder={applanguage.Search}
               placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
               onChangeText={text => handleSearch2(text)}
               value={searchQuery2}
@@ -630,11 +632,11 @@ const renderScene = SceneMap({
                 <Text
                   style={{
                     color: Theme === 'dark' ? '#B5BCC6' : '#4D5C72',
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(12),
+                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(10),
                     fontFamily: Font.Poppins600,
                     letterSpacing: 0.3,
                   }}>
-                  Cancel
+                   {applanguage.Cancel}
                 </Text>
               </TouchableOpacity>
             </View>

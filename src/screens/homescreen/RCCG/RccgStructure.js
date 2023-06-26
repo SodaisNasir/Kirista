@@ -23,6 +23,7 @@ import { getRCCData } from '../../../redux/actions/UserAction';
 import { useState } from 'react';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import { useEffect } from 'react';
+import DoubleText from '../../../components/Loader/DoubleText';
 
 const RccgStructure = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
@@ -69,19 +70,21 @@ const RccgStructure = ({navigation}) => {
       ]}>
         <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
       <Header text={'RCCG Structure'} />   
-    {loader ? 
+    {/* {loader ? 
      <View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
      <ActivityIndicator
           size="large"
           color={Theme === 'dark' ? Color.White : Color.Main}
           />   
           </View>
-        :    <ScrollView showsVerticalScrollIndicator={false}>
+        :  */}
+           <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(22),
           }}>
+
           <View
             style={{
               height:
@@ -97,9 +100,14 @@ const RccgStructure = ({navigation}) => {
               style={{height: '100%', width: '100%'}}
             />
           </View>
-
+{
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(300) : verticalScale(250)} />
+                </View>
+               :
           <RenderHtml contentWidth={w} source={source} systemFonts={systemFonts}/>
-
+}
           <View
             style={{
               borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
@@ -108,6 +116,12 @@ const RccgStructure = ({navigation}) => {
               alignSelf: 'center',
             }}
           />
+          {
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(25)} />
+                </View>
+               :
           <View
             style={{
               alignItems: 'center',
@@ -132,7 +146,7 @@ const RccgStructure = ({navigation}) => {
               General Overseer, RCCG World Wide
             </Text>
           </View>
-
+}
           {/* <View
             style={{
               borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
@@ -150,7 +164,8 @@ const RccgStructure = ({navigation}) => {
           </View> */}
         </View>
         <View style={{height: verticalScale(55)}} />
-      </ScrollView>}
+      </ScrollView>
+      {/* } */}
       <View
         style={{
           position: 'absolute',

@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   LogBox,
+  Image,
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
 import LibraryHeader from '../../components/LibraryHeader';
@@ -26,7 +27,6 @@ import {Color} from '../../utils/Colors';
 import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect} from '@react-navigation/native';
 import BottomTab from '../../constant/BottomTab';
-import {getBooks} from '../../redux/actions/UserAction';
 import {useSelector} from 'react-redux';
 import CustomButton from '../../components/CustomButton';
 import Modal from 'react-native-modal';
@@ -36,19 +36,19 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const LibraryHome = ({navigation}) => {
+
   const [showModal, setShowModal] = useState(false);
   const [Loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode);
   const applanguage = useSelector(state => state.applanguage);
-const isGuest = useSelector(state => state.is_guest);
-console.log("GUST IS  ============>",isGuest);
+  const isGuest = useSelector(state => state.is_guest);
   const [isModalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState([]);
   const savedBooks = useSelector(state=> state.allbookmark);
   const savedParishes = useSelector(state=>state.parishbookmark);
   const savedEvents = useSelector(state=>state.eventbookmark);
   const libraryData = savedBooks.concat(savedEvents,savedParishes);
-  console.log("LIBRARY DATA ===>", libraryData);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -59,7 +59,6 @@ console.log("GUST IS  ============>",isGuest);
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
-      getBooks(setData, setLoading);
     }, []),
   );
   const data2 = [
@@ -100,7 +99,7 @@ console.log("GUST IS  ============>",isGuest);
       setModalVisible(false);
       // Use the sortedData as needed
     } else {
-      alert('Please Select Sort By');
+      alert(applanguage.Sorting);
     }
   };
 
@@ -210,27 +209,39 @@ console.log("GUST IS  ============>",isGuest);
                   );
                 })
               ) : (
-                // <View
-                //   style={{
-                //     height: (h * 1) / 1.7,
-                //     justifyContent: 'center',
-                //     alignItems: 'center',
-                //   }}>
-                //   <Text
-                //     style={[
-                //       styles.BigTextStyle,
-                //       {
-                //         color: Theme === 'dark' ? Color.White : Color.Black,
-                //       },
-                //     ]}>
-                //     {applanguage.NoBookAvail}
-                //   </Text>
-                // </View>
-                <ActivityIndicator
-                style={{marginTop: '70%'}}
-                color={Color.Main}
-                size="large"
-              />
+                <View
+                  style={{
+                    height: (h * 1) / 1.4,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  
+                  
+                  <View style={{
+                    height: '45%',
+                    width: '100%',
+                  }}>
+                    <Image 
+                    style={{
+                      height: '100%',
+                      width: '100%'
+                    }}
+                    resizeMode='contain'
+                  source={require('../../assets/images/emptylibrary.png')}
+                  />
+                  </View>
+                  <Text
+                    style={[
+                      styles.BigTextStyle,
+                      {
+                        color: Theme === 'dark' ? Color.White : Color.Main,
+                      },
+                    ]}>
+                    {applanguage.EmptyLib}
+                    {/* You dont have any item saved yet. */}
+                  </Text>
+                </View>
+               
               )}
             </View>
           </ScrollView>
@@ -387,8 +398,9 @@ const styles = StyleSheet.create({
   BigTextStyle: {
     color: Color.DarkTextColor,
     fontFamily: Font.Poppins500,
-    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(18),
+    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
     textAlign: 'left',
+    top: scale(20)
   },
   SmallTextStyle: {
     color: Color.DarkTextColor,

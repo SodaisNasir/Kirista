@@ -106,18 +106,20 @@ const handleSubmit = async () => {
       ]}>
      
         <CustomHeader
+         goPress={() => navigation.goBack()}
          shareicon={true}
          BookPress={handleSubmit}
          saveicon={is_guest == true ? false : true}
          shareOnPress={shareBook}
          select={isChecked}
-           />
+          />
+
           <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.ImageViewStyle}>
           <Image
             resizeMode="contain"
             source={{uri: item?.cover_image}}
-            style={{height: '100%', width: '100%'}}
+            style={{height: '100%', width: '100%',borderRadius:scale(10)}}
           />
         </View>
         <View style={{marginTop: verticalScale(10)}}>
@@ -286,7 +288,7 @@ const handleSubmit = async () => {
         </View>
 
         <View style={{height: verticalScale(6)}}></View>
-      </ScrollView>
+          </ScrollView>
     </View>
     </>
   );
@@ -300,9 +302,10 @@ const styles = StyleSheet.create({
   },
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),
-
     marginTop: w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(5),
+    alignSelf: 'center',
+    width: '45%',
   },
   TextStyle: {
     fontFamily: Font.Poppins600,

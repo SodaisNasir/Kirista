@@ -23,6 +23,7 @@ import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {parish} from '../../redux/actions/UserAction';
 import { useSelector } from 'react-redux';
+import SkeletonLoader from '../../components/Loader/SkeletonLoader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -107,17 +108,18 @@ const FeaturedParishes = () => {
                 })}
               </>
             ) : (
-              <View
-                style={{
-                  marginTop: '70%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <ActivityIndicator
-                  size="large"
-                  color={Theme === 'dark' ? Color.White : Color.DarkTheme}
-                />
-              </View>
+              <View style={{
+                // flexDirection: '',
+                marginTop:scale(20)
+              }}>
+              <SkeletonLoader />
+              <View style={{height: 0,marginVertical:5}} />
+              <SkeletonLoader />
+              <View style={{height: 0,marginVertical:5}} />
+              <SkeletonLoader />
+              <View style={{height: 0,marginVertical:5}} />
+              <SkeletonLoader />
+                </View>
             )}
           </View>
           <View style={{height: verticalScale(75)}} />

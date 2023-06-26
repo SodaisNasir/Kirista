@@ -93,6 +93,16 @@ function AllHome() {
         component={HomeScreen}
         options={{animation: 'fade_from_bottom'}}
       />
+           <Stack.Screen
+        name="LibraryHome"
+        component={LibraryHome}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="LibraryHomeTwo"
+        component={LibraryHomeTwo}
+        options={{animation: 'fade_from_bottom'}}
+      />
           <Stack.Screen
         name="Language"
         component={Language}
@@ -239,6 +249,11 @@ function LibraryStack() {
       <Stack.Screen
         name="LibraryHomeTwo"
         component={LibraryHomeTwo}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="ViewManual"
+        component={ViewManual}
         options={{animation: 'fade_from_bottom'}}
       />
     </Stack.Navigator>

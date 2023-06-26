@@ -17,6 +17,7 @@ import {Font} from '../../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {getFAQ} from '../../redux/actions/UserAction';
 import {useSelector} from 'react-redux';
+import DoubleText from '../../components/Loader/DoubleText';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -24,6 +25,7 @@ const h = Dimensions.get('window').height;
 const Faq = ({navigation}) => {
   const Theme = useSelector(state => state.mode);
   const applanguage = useSelector(state => state.applanguage);
+  const language = useSelector(state => state.language);
 
   const [Loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -35,7 +37,7 @@ const Faq = ({navigation}) => {
         display: 'none',
       },
     })
-    getFAQ(setData, setLoading)
+    getFAQ(setData, setLoading,language)
   }, []);
 
   const onSubmit = id => {
@@ -67,7 +69,20 @@ const Faq = ({navigation}) => {
         <Header text={applanguage.FAQ} />
 
         {Loading ? (
-          <ActivityIndicator style={{marginTop:'70%'}} color={Color.Main} size="large" />
+            <View style={{
+              // flexDirection: '',
+              marginTop:scale(20),
+              marginHorizontal: scale(20),
+              borderRadius:8
+            }}>
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+            <View style={{height: 0,marginVertical:5}} />
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)} />
+            <View style={{height: 0,marginVertical:5}} />
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+            <View style={{height: 0,marginVertical:5}} />
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+              </View>
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
             <View

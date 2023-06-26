@@ -22,9 +22,9 @@ const App = () => {
   const user_details = useSelector(state => state.user_details);
   const getlanguage = useSelector(state => state.getlanguage)
   const applanguage = useSelector(state => state.applanguage)
+  const mode = useSelector(state => state.mode)
   const [loading, setLoading] = useState(true);
-  const Theme = useColorScheme() === 'dark';
-
+  const Theme = useColorScheme()
 
   const setLanguage = async () => {
     const getLang = await AsyncStorage.getItem('language')
@@ -79,7 +79,7 @@ const App = () => {
   };
   useEffect(() => {
     checkStatus();
-    modeCheck()
+  
     // setLanguage() 
     OneSignal.setAppId('54b7926e-9b1f-4ba6-810c-97520670236f')
 
@@ -108,6 +108,9 @@ const App = () => {
       }
     })
   }, []);
+  useEffect(() => {
+    modeCheck()
+  }, [mode,Theme])
 
   useEffect(() => {
     setLanguage()
@@ -166,15 +169,16 @@ const App = () => {
     const onMode = 'dark'
     const ofMode = 'light'
   
-
-    if(cnvrtMode == 'On'){
+    if(cnvrtMode === applanguage.On){
       dispatch({type: MODE, payload: onMode})
-    }else if(cnvrtMode == 'Off'){
+    }else if(cnvrtMode === applanguage.Off){
       dispatch({type: MODE, payload: ofMode})
-    }else if(cnvrtMode == 'Device Settings'){
+    }else if(cnvrtMode === applanguage.DeviceSettings){
       dispatch({type: MODE, payload: Theme})
+      console.log('Theme', Theme)
     }else{
       console.log('vvvvvvv')
+      dispatch({type: MODE, payload: ofMode})
     }
   }
   return (

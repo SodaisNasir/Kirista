@@ -30,6 +30,8 @@ import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import { EVENTBOOKMARK } from '../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
+import BannerLoader from '../../components/Loader/BannerLoader';
+import DoubleText from '../../components/Loader/DoubleText';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -120,9 +122,7 @@ const EventScreen = ({route, navigation}) => {
       await AsyncStorage.setItem('eventbookmark', JSON.stringify([...eventbookmark, data]));
     }
   }
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <>
     <SafeAreaView style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <View
@@ -135,7 +135,6 @@ const EventScreen = ({route, navigation}) => {
         <CustomHeader
         shareOnPress={shareBook}
         calOnPress={openDeviceCalendar}
-          // text={'View Event'}
           text={applanguage.View + ' ' + applanguage.Events}
           shareicon={true}
           select={isChecked}
@@ -167,17 +166,29 @@ const EventScreen = ({route, navigation}) => {
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
-          <TouchableOpacity
-            onPress={() => {
-              setShowModal(toggleModal(true));
-            }}
-            style={styles.ImageViewStyle}>
+            {
+             data.image ?
+
+              <TouchableOpacity
+              onPress={() => {
+                setShowModal(toggleModal(true));
+              }}
+              style={styles.ImageViewStyle}>
             <Image
               resizeMode="contain"
               source={{uri: data.image}}
               style={{height: '100%', width: '100%'}}
-            />
+              />
           </TouchableOpacity>
+          : 
+          <View style={styles.ImageViewStyle}>
+            <BannerLoader />
+          </View>  
+          
+          }
+
+          {data.title ?
+            <>
           <View
             style={{
               marginTop:
@@ -193,7 +204,6 @@ const EventScreen = ({route, navigation}) => {
               {data.title}
             </Text>
           </View>
-
           <View style={styles.DetailsViewStyle}>
             <Text
               style={[
@@ -225,7 +235,14 @@ const EventScreen = ({route, navigation}) => {
               {data.start_time} - {data.end_time}
             </Text>
           </View>
+            </>
+          : 
+          <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(40)} />
+          }
 
+
+        {data.about
+        ?
           <View
             style={{
               marginVertical: verticalScale(10),
@@ -240,6 +257,13 @@ const EventScreen = ({route, navigation}) => {
               {data.about}
             </Text>
           </View>
+        :
+        <View style={{marginVertical: verticalScale(5)}}>
+        <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(100) : verticalScale(80)} />
+        </View>
+        }
+
+
         </View>
         <View
           style={{
@@ -266,6 +290,8 @@ const EventScreen = ({route, navigation}) => {
             {applanguage.Location}
           </Text>
         </View>
+
+        {data.address ?
         <View
           style={{
             marginTop: verticalScale(5),
@@ -294,6 +320,13 @@ const EventScreen = ({route, navigation}) => {
             {data.address}
           </Text>
         </View>
+          :
+          <View style={{marginVertical: verticalScale(5),marginHorizontal:scale(20)}}>
+          <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(40)} />
+          </View>
+        }
+          {
+            cordinates ? 
         <View
           style={{
             height:
@@ -307,20 +340,12 @@ const EventScreen = ({route, navigation}) => {
             marginHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
-          {/* <Image
-            source={require('../../assets/images/maps.png')}
-            style={{height: '100%', width: '100%'}}
-          /> */}
-
-{
-              cordinates ? 
               
               <Map data={cordinates} />
-             : 
-             <ActivityIndicator size={30} color={'blue'} /> 
-              
-            }
         </View>
+             : 
+              null
+            }
 
         <View style={{height: verticalScale(40)}} />
 

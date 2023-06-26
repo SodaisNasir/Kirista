@@ -40,7 +40,7 @@ const ResetPassword = ({navigation}) => {
 
 
   const handleNextButton = (data) => {
-    dispatch(verify_Email_before_password(data,navigation,type,setMessage))
+    dispatch(verify_Email_before_password(data,navigation,type,setMessage,applanguage))
    };
   return (
     <SafeAreaView

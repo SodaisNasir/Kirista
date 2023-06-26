@@ -68,7 +68,7 @@ const OverBoard = ({navigation}) => {
          <StatusBar  translucent={true} backgroundColor={'transparent'} barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'} />
       <ImageBackground
         source={
-          Theme
+          Theme === 'dark'
             ? require('../../assets/images/overboard_dark.png')
             : width >= 768 && height >= 1024
             ? require('../../assets/images/Overboard_tab.png')
@@ -179,7 +179,7 @@ const OverBoard = ({navigation}) => {
                 }}>
                 <Image
                   source={
-                    Theme
+                    Theme === 'dark'
                       ? require('../../assets/images/continent2_dark.png')
                       : require('../../assets/images/continent2.png')
                   }
