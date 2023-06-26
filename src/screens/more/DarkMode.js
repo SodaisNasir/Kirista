@@ -33,9 +33,11 @@ const DarkMode = () => {
   const Theme = useSelector(state => state.mode);
   const applanguage = useSelector(state => state.applanguage);
  const [selected, setSelected] = useState('');
+ const mode = useSelector(state => state.mode)
 
- console.log('getTheme', getTheme)
-
+ useEffect(() => {
+  modeCheck()
+}, [mode,Theme])
  
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode');
@@ -43,9 +45,7 @@ const DarkMode = () => {
     setSelected(cnvrtMode);
   };
 
-  useEffect(() => {
-    modeCheck();
-  }, []);
+
 
   let DATA = [
     {

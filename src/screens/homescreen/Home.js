@@ -5,7 +5,6 @@ import {
   View,
   SafeAreaView,
   Dimensions,
-  useColorScheme,
   useWindowDimensions,
   StatusBar,
 } from 'react-native';
@@ -13,15 +12,15 @@ import {Color} from '../../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import HomeHeader from '../../components/HomeHeader';
 import {Font} from '../../utils/font';
-
 import BottomTab from '../../constant/BottomTab';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-
 import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFocusEffect } from '@react-navigation/native';
 import Loading from '../../components/Modals/Loading';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -37,16 +36,30 @@ const renderScene = SceneMap({
 });
 const Home = () => {
   const [show,setShow] = useState(false)
+  const applanguage = useSelector(state => state.applanguage)
+  const Theme = useSelector(state => state.mode)
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+  const iosTab = w >= 820 && h >= 1180;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     setShow(true)
+  //     setTimeout(() => {
+  //       setShow(false)
+  //     }, 500);
+  //   },[])
+  // )
 
-  useEffect(() => {
-    setShow(true)
-    setTimeout(() => {
-      setShow(false)
-    }, 500);
-  },[applanguage])
+  // useEffect(() => {
+  //   setShow(true)
+  //   setTimeout(() => {
+  //     setShow(false)
+  //   }, 500);
+  // },[applanguage])
   const tabPotrait = w >= 768 && h >= 1024;
   const layout = useWindowDimensions();
-  const applanguage = useSelector(state => state.applanguage)
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'Bedrooms', title: applanguage.Home, type: 'home'},
@@ -115,11 +128,8 @@ const Home = () => {
       />
     </View>
   );
-  const width = useWindowDimensions().width;
-  const height = useWindowDimensions().height;
-  const iosTab = w >= 820 && h >= 1180;
-  const fourInchPotrait = w <= 350 && h <= 600;
-  const Theme = useSelector(state => state.mode)
+
+ 
 
 
 

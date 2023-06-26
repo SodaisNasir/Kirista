@@ -26,6 +26,8 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const Theme = useColorScheme()
 
+  console.log('Theme', Theme)
+
   const setLanguage = async () => {
     const getLang = await AsyncStorage.getItem('language')
     const cnvrtlng = JSON.parse(getLang)
