@@ -24,7 +24,7 @@ const Advertisement = () => {
   const [forImage, setForImage] = useState();
   const [forTitle, setForTitle] = useState();
   const [forLink, setForLink] = useState();
-  
+
   useFocusEffect(
     useCallback(() => {
       show_popup(setForImage, setForTitle, setForLink);
@@ -62,6 +62,12 @@ const Advertisement = () => {
       });
     }),
   );
+  
+const onSubmit = () => {
+  navigation.navigate('AdvWebView', {
+    link: forLink,
+  })
+}
   return (
     <View style={styles.container}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
@@ -164,11 +170,12 @@ const Advertisement = () => {
               marginBottom: w >= 768 && h >= 1024 ? '16%' : scale(10),
             }}>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('AdvWebView', {
-                  link: forLink,
-                })
-              }
+              // onPress={() =>
+              //   navigation.navigate('AdvWebView', {
+              //     link: forLink,
+              //   })
+              // }
+              onPress={onSubmit}
               style={[
                 {
                   height: w >= 768 && h >= 1024 ? verticalScale(40) : '55%',

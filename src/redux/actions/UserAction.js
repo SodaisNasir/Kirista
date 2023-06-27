@@ -37,10 +37,10 @@ export const show_popup = async (setForImage, setForTitle,setForLink) =>{
         const responseData = await response.json();
   
         if (responseData.success.status === 200) {
-         console.log('responseData.success.data[0].app_page ==>', responseData)
-         setForImage( responseData.success.data[0].image)
-         setForTitle( responseData.success.data[0].title)
-         setForLink( responseData.success.data[0].app_page)
+         console.log('responseData.success.data[0].app_page ==>', responseData.success.data)
+         setForImage(responseData.success.data[0].image)
+         setForTitle(responseData.success.data[0].title)
+         setForLink(responseData.success.data[0].app_page)
        
         } else {
           console.log('else error');
@@ -288,12 +288,16 @@ export const getFAQ = async (setData,setLoading,language) => {
     setLoading(false)
   }
 }
-export const getPerishRegion = async (setData) => {
+export const getPerishRegion = async (setData,dataType) => {
   try {
-    let base_url = `${base_Url}region`;
+    let base_url = `${base_Url}region-country`;
+    let myData = new FormData()
+
+    myData.append('country',dataType)
   
     const response = await fetch(base_url, {
-      method: 'GET',
+      method: 'post',
+      body: myData
     });
     const responseData = await response.json();
 
@@ -324,12 +328,16 @@ export const getPerishCountry = async (setData) => {
     console.log('error', error)
   }
 }
-export const getPerishProvince = async (setData) => {
+export const getPerishProvince = async (setData,dataType) => {
   try {
-    let base_url = `${base_Url}province`;
-  
+    let base_url = `${base_Url}province-region`;
+    let myData = new FormData()
+
+    myData.append('region',dataType)
+
     const response = await fetch(base_url, {
-      method: 'GET',
+      method: 'post',
+      body: myData
     });
     const responseData = await response.json();
 

@@ -166,21 +166,15 @@ const App = () => {
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode')
     const cnvrtMode = JSON.parse(getMode)
-    
-    console.log('cnvrtMode', cnvrtMode,applanguage.DeviceSettings)
-
     const onMode = 'dark'
     const ofMode = 'light'
-  
-    if(cnvrtMode === applanguage.On){
+    if(cnvrtMode === 'on'){
       dispatch({type: MODE, payload: onMode})
-    }else if(cnvrtMode === applanguage.Off){
+    }else if(cnvrtMode === 'off'){
       dispatch({type: MODE, payload: ofMode})
-    }else if(cnvrtMode === applanguage.DeviceSettings){
+    }else if(cnvrtMode === 'device setting'){
       dispatch({type: MODE, payload: Theme})
-      console.log('Theme', Theme)
     }else{
-      console.log('vvvvvvv')
       dispatch({type: MODE, payload: ofMode})
     }
   }

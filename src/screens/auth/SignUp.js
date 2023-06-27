@@ -47,6 +47,7 @@ const SignUp = ({navigation}) => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
+  const language = useSelector(state => state.language)
   const [isVisible, setVisible] = useState(true);
   const [isVisible2, setVisible2] = useState(true);
   const [loader, setLoader] = useState(false);
@@ -55,6 +56,7 @@ const SignUp = ({navigation}) => {
     country_code: '+234',
     flag_code: '🇳🇬'
   });
+
 
   const handlePhoneNumberButtonPress = () => {
     navigation.navigate('FeaturedCountry', {
@@ -82,7 +84,7 @@ const SignUp = ({navigation}) => {
 
   const onSubmit = data => {
     if (data.password == data.confirm_password) {
-      dispatch(register(data, device,setMessage,setCheck,country,setLoader));
+      dispatch(register(data, device,setMessage,setCheck,country,setLoader,language));
     } else {
       setNotMatched(true);
     }
@@ -174,12 +176,12 @@ const SignUp = ({navigation}) => {
                 onPress={handlePhoneNumberButtonPress}
                 control={control}
                 name="phonenumber"
-                maxLength={16}
+                maxLength={14}
                 rules={{
                   required: applanguage.RequiredPhone,
                   message: applanguage.Phonemessage,
                   maxLength: {
-                    value: 15,
+                    value: 14,
                     message: applanguage.ValidPhone,
                   },
                 }}

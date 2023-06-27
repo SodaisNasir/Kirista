@@ -41,16 +41,14 @@ formdata.append("device_token",notiToken)
     }
   };
 };
-export const register =  (data, device,setEmail,setCheck,country,setLoader) => {
+export const register =  (data, device,setEmail,setCheck,country,setLoader,language) => {
   return async dispatch => {
     setLoader(true)
     try {
      const notification_token = await AsyncStorage.getItem('onesignaltoken')
       let base_url = `${base_Url}register`;
       let myData = new FormData();
-      console.log("=====================================");
-      console.log("DATA =>",data.full_name,data.email,data.password,data.confirm_password,device,country.country_name,notification_token);
-      console.log("=====================================");
+
       myData.append('name', data.full_name);
       myData.append('email', data.email);
       myData.append('password', data.password);
@@ -59,15 +57,15 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader) => {
       myData.append('device', device);
       myData.append('country', country.country_name);
       myData.append('device_token', notification_token);
+      myData.append('language', language);
 
       const response = await fetch(base_url, {
         body: myData,
         method: 'post',
       });
-      console.log("=====================================");
-      console.log("RESP =>",response);
-      console.log("=====================================");
+
       const responseData = await response.json();
+
       if(responseData?.error?.email){
         setEmail(responseData?.error.email[0])
         setCheck(true)
@@ -76,7 +74,7 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader) => {
         setEmail(responseData?.error?.phone_number[0])
         setCheck(true)
         setLoader(false)
-      }else if (responseData?.success.status === 200) {
+      }else if (responseData?.success?.status === 200) {
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
         setLoader(false)
         dispatch({type: USER_DETAILS, payload: responseData.success});

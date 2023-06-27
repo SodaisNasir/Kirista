@@ -35,6 +35,8 @@ const DarkMode = () => {
  const [selected, setSelected] = useState('');
  const mode = useSelector(state => state.mode)
 
+ console.log('selected', selected)
+
  useEffect(() => {
   modeCheck()
 }, [mode,Theme])
@@ -42,7 +44,8 @@ const DarkMode = () => {
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode');
     const cnvrtMode = JSON.parse(getMode);
-    setSelected(cnvrtMode);
+    const uplodadData = cnvrtMode != null ? cnvrtMode : 'off'
+    setSelected(uplodadData);
   };
 
 
@@ -51,14 +54,17 @@ const DarkMode = () => {
     {
       id: '1',
       title: applanguage.Off,
+      name: 'off'
     },
     {
       id: '2',
       title: applanguage.On,
+      name: 'on'
     },
     {
       id: '3',
       title: applanguage.DeviceSettings,
+      name: 'device setting'
     },
   ];
 
@@ -109,7 +115,7 @@ const DarkMode = () => {
               borderWidth: scale(1.5),
               marginBottom: verticalScale(15),
             }}>
-            {selected == data.title ? (
+            {selected == data.name ? (
               <View
                 style={{
                   flex: 1,
@@ -143,18 +149,18 @@ const DarkMode = () => {
   );
 
   const onSubmit = async data => {
-    setSelected(data.title);
+    setSelected(data.name);
     // dispatch({type: MODE, payload: data.title})
-    await AsyncStorage.setItem('mode', JSON.stringify(data.title));
+    await AsyncStorage.setItem('mode', JSON.stringify(data.name));
 
     const onMode = 'dark';
     const ofMode = 'light';
 
-    if (data.title === applanguage.On) {
+    if (data.name === 'on') {
       dispatch({type: MODE, payload: onMode});
-    } else if (data.title === applanguage.Off) {
+    } else if (data.name === 'off') {
       dispatch({type: MODE, payload: ofMode});
-    } else if (data.title === applanguage.DeviceSettings) {
+    } else if (data.name === 'device setting') {
       dispatch({type: MODE, payload: getTheme});
       console.log('first')
     } else {

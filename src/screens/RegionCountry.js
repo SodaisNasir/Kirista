@@ -20,15 +20,11 @@ import {
 import Header from '../components/Header';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
-import ReadNavigator from '../components/ReadNavigator';
 import { useSelector } from 'react-redux';
 import { getPerishCountry, getPerishProvince, getPerishRegion } from '../redux/actions/UserAction';
 
 const RegionCountry = ({navigation,route}) => {
-    const {type,setSelectedLanguage} = route.params
-
-  
-  
+    const {type,setSelectedLanguage,dataType} = route.params
     const Theme = useSelector(state => state.mode)
     const w = useWindowDimensions().width;
     const h = useWindowDimensions().height;
@@ -42,26 +38,20 @@ const RegionCountry = ({navigation,route}) => {
         },
       });
       if(type == 'region'){
-        getPerishRegion(setData)
+        getPerishRegion(setData,dataType)
       }else if(type == 'province'){
-        getPerishProvince(setData)
+        getPerishProvince(setData,dataType)
       }else{
         getPerishCountry(setData)
       }
     }, []);
-
     
-  
-
-  
     const handleLanguageSelect = (item) => {
       const nameC = type == 'region' ? item.region : type == 'province' ? item.province : item.country
       navigation.goBack();
       setSelectedLanguage(nameC)
       setSelected(nameC)
     }
-  
-  
   
     const Item = ({data}) => (
       <TouchableOpacity
@@ -165,7 +155,6 @@ const RegionCountry = ({navigation,route}) => {
             backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
-        {/* <StatusBar backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor }/> */}
       <View
         style={[
           {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
@@ -174,16 +163,7 @@ const RegionCountry = ({navigation,route}) => {
         ]}>
        
         <Header text={type == 'province' ? 'Province' : type == 'region' ? 'Region' : 'Country'}  />
-         {/* AuthHeaderStyle={{
-              
-              height:
-              Platform.OS == 'android' ? verticalScale(100) :
-                w >= 768 && h >= 1024
-                  ? verticalScale(50)
-                  : w <= 450 && h <= 750
-                  ? verticalScale(65)
-                  : verticalScale(30),
-            }}/> */}
+
         <FlatList
           scrollEnabled={true}
           showsVerticalScrollIndicator={false}

@@ -7,7 +7,6 @@ import { Font } from '../utils/font';
 import { Color } from '../utils/Colors';
 const AdvWebView = ({route,navigation}) => {
     const { link } = route.params;
-    console.log('link', link)
  return(
     <SafeAreaView  style={{ flex: 1 }}>
       <StatusBar translucent={false}/>
@@ -15,7 +14,7 @@ const AdvWebView = ({route,navigation}) => {
       <Fontisto name='close-a' size={scale(18)} color='#fff' onPress={() => navigation.goBack()}/>
       <Text style={styles.Text}>{link}</Text>
       </View>
-     <WebView source={{ uri: 'https://reactnative.dev/' }} onLoad={console.log('loading')}/>
+     <WebView source={{ uri: link }} onLoad={console.log('loading')}/>
      </SafeAreaView>
      )
 }

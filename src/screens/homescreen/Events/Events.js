@@ -50,18 +50,18 @@ const Events = () => {
           {event.length > 0 ? (
             <>
               {event?.map((item, index) => {
+                console.log('item.start_time', item.start_time)
                 return (
-                  index < 4 && (
                     <DetailsCard
                       key={item.id}
                       data={item}
                       onPress={() => {
                         navigation.navigate('EventScreen', {id: item.id});
                       }}
+                      title={item.title}
+                      manual={item.country}
                       source={{uri: item.image}}
-                      manual={item.title}
-                      // title="West Coast 2 Regional"
-                      resize={'cover'}
+                      resize={'contain'}
                       TimeTrue={true}
                       date={moment(item.start_date).format('MMM Do YY')}
                       time={item.start_time}
@@ -69,7 +69,7 @@ const Events = () => {
                         marginTop: verticalScale(12),
                       }}
                     />
-                  )
+                  
                 );
               })}
             </>

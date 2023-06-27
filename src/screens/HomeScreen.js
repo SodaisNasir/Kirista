@@ -97,6 +97,8 @@ const HomeScreen = () => {
   );
   const imageUrl =
     'https://images.unsplash.com/photo-1526045612212-70caf35c14df';
+
+
   return (
     <View
       style={{
@@ -113,23 +115,27 @@ const HomeScreen = () => {
             styles.SwiperViewOne,
           ]}>
           <Swiper
-             autoplayTimeout={5}
-             loop={true}
-             autoplay={true}
-             showsButtons={false}
-             showsPagination={false}>
-            {forImage?.length > 0 ? (
+          key={forImage?.length}
+            autoplayTimeout={5}
+            autoplay={true}
+            showsButtons={false}
+            showsPagination={false}>
+              {forImage?.length > 0 ? (
               forImage?.map((item, index) => {
+                console.log('item', item)
                 return (
                   <>
+                  <TouchableOpacity activeOpacity={0.7}>
                     <SwiperCard
-                      key={index}
+                      key={item.id}
                       source={{uri: item.image}}
                       // live
-                    />
+                      />
+                  </TouchableOpacity>
                   </>
                 );
               })
+              
             ) : (
               <View
                 style={{
@@ -142,6 +148,8 @@ const HomeScreen = () => {
             )}
           </Swiper>
         </View>
+
+
         <View style={{}}>
           <View
             style={{
@@ -644,7 +652,7 @@ const HomeScreen = () => {
                         title={item.title}
                         // title="West Coast 2 Regional"
                         // manual={item?.address}
-                        resize={'cover'}
+                        resize={'contain'}
                         TimeTrue={true}
                         time={item.start_time}
                         date={moment(data.start_date).format('MMM Do YY')}

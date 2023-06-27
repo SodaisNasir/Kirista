@@ -87,6 +87,7 @@ const ParishFinder = () => {
             <SelectDropdown
               onPress={() => navigation.navigate('regioncountry',{
                 type:'region',
+                dataType: country,
                 setSelectedLanguage:setRegion
               })}
               text={applanguage.Region}
@@ -101,7 +102,8 @@ const ParishFinder = () => {
             <SelectDropdown
               onPress={() => navigation.navigate('regioncountry',{
                 type:'province',
-                setSelectedLanguage:setProvince
+                setSelectedLanguage:setProvince,
+                dataType: region,
               })}
               text={applanguage.Province}
               title={province != '' ? province : applanguage.SelectProvince}
