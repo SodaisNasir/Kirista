@@ -21,12 +21,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomNavigator from '../../components/CustomNavigator';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewBanner = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -35,30 +36,28 @@ const ViewBanner = ({navigation}) => {
   
   return (
     <>
-       <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
-    <View style={[{backgroundColor: Theme? Color.DarkTheme : Color.White,flex:1}]}>
+       <SafeAreaView style={{backgroundColor:Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <View style={[{backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,flex:1}]}>
     <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : '#F1F6FD'}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : '#F1F6FD'}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
-      <View style={{height: '100%', backgroundColor: Theme? Color.DarkTheme : Color.White}}>
-        <Header AuthHeaderStyle={{
+      <View style={{height: '100%', backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White}}>
+        <Header
+         AuthHeaderStyle={{
               height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
                   ? verticalScale(80)
-                  : verticalScale(100)
+                  : verticalScale(60)
                 : w >= 768 && h >= 1024
                 ? verticalScale(65)
                 : w <= 450 && h <= 750
                 ? verticalScale(50)
                 : verticalScale(40),
-                paddingTop:
-                Platform.OS == 'ios' ? moderateVerticalScale(0) :
-                w >= 768 && h >= 1024
-                  ? moderateVerticalScale(20)
-                  : moderateVerticalScale(25),
-        }}/>
+                paddingTop: 0
+        }}
+        />
         <ScrollView>
 
         <View style={styles.Container}>
@@ -82,13 +81,13 @@ const ViewBanner = ({navigation}) => {
           </View>
 
           <View style={{marginVertical: verticalScale(15)}}>
-            <Text style={[{color: Theme ? Color.White : Color.DarkTextColor,},styles.BoldText]}>
+            <Text style={[{color: Theme === 'dark' ? Color.White : Color.DarkTextColor,},styles.BoldText]}>
               Abuja Special Holy Ghost Congress
             </Text>
           </View>
 
           <View style={{marginVertical: verticalScale(0)}}>
-            <Text style={[{color: Theme ? Color.White : Color.TextColor2},styles.LightText]}>
+            <Text style={[{color: Theme === 'dark' ? Color.White : Color.TextColor2},styles.LightText]}>
               The Abuja Special Holy Ghost Service is an annual gathering of the
               church in the FCT and environs where prayers are offered for the
               country and the church in particular. Ministering is Pastor E.A.

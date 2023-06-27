@@ -13,19 +13,22 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AttachCircle from '../assets/icons/attach-circle.svg';
+import { useSelector } from 'react-redux';
 
 const AttachButton = props => {
-  const Theme = useColorScheme() === 'dark';
+ const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [isVisible, setVisible] = useState(false);
+  const applanguage = useSelector(state => state.applanguage)
+
   return (
     <View style={props.restyleBox}>
       <Text
         style={[
           {
             fontFamily: Font.Poppins400,
-            color: Theme ? '#838C9A' : '#C6CAD1',
+            color: Theme === 'dark' ? '#838C9A' : '#C6CAD1',
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
             marginBottom: 2,
           },
@@ -35,7 +38,7 @@ const AttachButton = props => {
       <View
         style={{
           height: w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(45),
-          backgroundColor: Theme
+          backgroundColor: Theme === 'dark'
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
           borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
@@ -52,9 +55,9 @@ const AttachButton = props => {
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
             fontFamily: Font.Poppins400,
             width: '80%',
-            color: Theme ? Color.DarkThemeInputText : '#C6CAD1',
+            color: Theme === 'dark' ? Color.DarkThemeInputText : '#C6CAD1',
           }}>
-          Screenshot Upload
+          {applanguage.ScreenShotUpload}
         </Text>
 
         {/* }}>

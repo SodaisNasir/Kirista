@@ -21,19 +21,25 @@ import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
+import { useDispatch, useSelector } from 'react-redux';
+import { GETLANGUAGE, LANGUAGE } from '../../redux/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Language = ({navigation,route}) => {
-  const Type = route.params.type
-  console.log('Type ====>',Type)
-  const Provence = Type == 'Provence';
-  const Region = Type == 'Region'
-  const handleSubmit = () => {
-    navigation.goBack();
-  };
-  const Theme = useColorScheme() === 'dark';
+  const {type,setSelectedLanguage,} = route.params
+  const Provence = type == 'Provence';
+  const Region = type == 'Region'
+  const dispatch = useDispatch()
+
+  const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const [selected, setSelected] = useState();
+  const language = useSelector(state => state.language)
+  const [selected, setSelected] = useState(language);
+
+
+
+  
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -47,40 +53,57 @@ const Language = ({navigation,route}) => {
       id: '1',
       title: Provence ?  'Province 1' : Region ? 'Region 1' : 'English',
       Short: '(EN)',
+      select : 'EN'
     },
     {
       id: '2',
       title: Provence ?  'Province 2' : Region ? 'Region 2' : 'Hausa',
       Short: '(HA)',
+      select : 'HA'
     },
     {
       id: '3',
       title: Provence ?  'Province 3' : Region ? 'Region 3' : 'Français',
       Short: '(FR)',
+      select : 'FR'
     },
     {
       id: '4',
       title: Provence ?  'Province 4' : Region ? 'Region 4' : 'Português',
       Short:  '(PO)',
+      select : 'PO'
     },
     {
       id: '5',
       title: Provence ?  'Province 5' : Region ? 'Region 5' : 'Pidgin',
       Short:  '(PN)',
+      select : 'PN'
     },
     {
       id: '6',
       title: Provence ?  'Province 6' : Region ? 'Region 6' : 'Fula',
       Short: '(FU)',
+      select : 'FU'
     },
     {
       id: '7',
       title: Provence ?  'Province 7' : Region ? 'Region 7' : 'Español',
       Short: '(ES)',
+      select : 'ES'
     },
   ];
 
-  const [option, setOption] = useState(null);
+  const handleLanguageSelect = async (language) => {
+    setSelected(language.title)
+    dispatch({type: GETLANGUAGE, payload: language.select})
+    dispatch({type: LANGUAGE, payload: language.title})
+    await AsyncStorage.setItem('language', JSON.stringify(language.select))
+    await AsyncStorage.setItem('languagetitle', JSON.stringify(language.title))
+    navigation.goBack();
+    setSelectedLanguage(language.select)
+  }
+
+
 
   const Item = ({data}) => (
     <TouchableOpacity
@@ -95,9 +118,7 @@ const Language = ({navigation,route}) => {
         },
         // styles.item,
       ]}
-      onPress={() => [setSelected(data.title), setTimeout(() => {
-        navigation.goBack()
-      }, 1000)]}>
+      onPress={() => handleLanguageSelect(data)}>
       <View
         style={{
           flexDirection: 'row',
@@ -115,7 +136,7 @@ const Language = ({navigation,route}) => {
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
                 styles.title,
               ]}>
@@ -124,7 +145,7 @@ const Language = ({navigation,route}) => {
                 style={[
                   {
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   },
                   styles.Short,
                 ]}>
@@ -146,7 +167,7 @@ const Language = ({navigation,route}) => {
               borderWidth: scale(1.5),
               marginBottom: verticalScale(15),
             }}>
-            {selected == data.title ? (
+            {selected ===  data.title ? (
               <View
                 style={{
                   flex: 1,
@@ -170,7 +191,7 @@ const Language = ({navigation,route}) => {
       <View
         style={[
           {
-            borderBottomColor: Theme
+            borderBottomColor: Theme === 'dark'
               ? Color.DarkBorderColor
               : Color.BorderColor,
           },
@@ -183,13 +204,13 @@ const Language = ({navigation,route}) => {
     <>
     <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      {/* <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor }/> */}
+      {/* <StatusBar backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor }/> */}
     <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
         styles.Container,
       ]}>

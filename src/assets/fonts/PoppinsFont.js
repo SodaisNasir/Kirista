@@ -11,5 +11,13 @@ export const Font = {
     Inter700 : 'Inter-Bold',
     Inter500 : 'Inter-Medium',
     GoBold400 : 'Gobold',
-    GoBold300 : 'Gobold-Light'
+    GoBold300 : 'Gobold-Light',
+    Arial: 'Arial',
+    Papyrus: 'papyrus',
+    Lato: 'Lato-Regular',
+    Roman: 'times-new-roman',
+    Georgia: 'Georgia-Regular-font',
+    RomanBold: 'times-new-roman-bold',
+    Courier: 'CourierPrime-Regular',
+
   };

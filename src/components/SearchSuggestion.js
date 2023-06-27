@@ -20,16 +20,17 @@ import PersonSvg from '../assets/icons/person_outline.svg'
 import PersonDark from '../assets/icons/person_dark.svg'
 import {Font} from '../utils/font'
 import {Color} from '../utils/Colors'
+import { useSelector } from 'react-redux'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 const SearchSuggestion = () => {
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useSelector(state => state.mode)
   return (
     <SafeAreaView
       style={{
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(0),
       }}>
@@ -45,7 +46,7 @@ const SearchSuggestion = () => {
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8),
               flexDirection: 'row',
             }}>
-            {Theme ? (
+            {Theme === 'dark' ? (
               <BookDark
                 height={
                   w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)
@@ -64,7 +65,7 @@ const SearchSuggestion = () => {
             <View style={{paddingHorizontal: moderateScale(10)}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
                 Sunday Student Manual
@@ -78,7 +79,7 @@ const SearchSuggestion = () => {
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8),
               flexDirection: 'row',
             }}>
-            {Theme ? (
+            {Theme === 'dark' ? (
               <BookDark
                 height={
                   w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)
@@ -97,7 +98,7 @@ const SearchSuggestion = () => {
             <View style={{paddingHorizontal: moderateScale(10)}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
                 Sunday Student Manual
@@ -111,7 +112,7 @@ const SearchSuggestion = () => {
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8),
               flexDirection: 'row',
             }}>
-            {Theme ? (
+            {Theme === 'dark' ? (
               <HouseDark
                 height={
                   w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)
@@ -130,7 +131,7 @@ const SearchSuggestion = () => {
             <View style={{paddingHorizontal: moderateScale(10)}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
                 School of Disciple
@@ -144,7 +145,7 @@ const SearchSuggestion = () => {
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8),
               flexDirection: 'row',
             }}>
-            {Theme ? (
+            {Theme === 'dark' ? (
               <HouseDark
                 height={
                   w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)
@@ -163,7 +164,7 @@ const SearchSuggestion = () => {
             <View style={{paddingHorizontal: moderateScale(10)}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
                 RCCG Central Parish{' '}
@@ -177,7 +178,7 @@ const SearchSuggestion = () => {
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8),
               flexDirection: 'row',
             }}>
-            {Theme ? (
+            {Theme === 'dark' ? (
               <PersonDark
                 height={
                   w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)
@@ -196,7 +197,7 @@ const SearchSuggestion = () => {
             <View style={{paddingHorizontal: moderateScale(10)}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
                 Pastor E.A. Adeboye
@@ -210,7 +211,7 @@ const SearchSuggestion = () => {
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(8),
               flexDirection: 'row',
             }}>
-            {Theme ? (
+            {Theme === 'dark' ? (
               <CalendarDark
                 height={
                   w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(20)
@@ -228,7 +229,7 @@ const SearchSuggestion = () => {
             <View style={{paddingHorizontal: moderateScale(10)}}>
               <Text
                 style={[
-                  {color: Theme ? Color.White : Color.DarkTextColor},
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
                 Sunday Student Manual

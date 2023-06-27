@@ -13,12 +13,13 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SelectDropdown = props => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   return (
     <View>
@@ -35,7 +36,7 @@ const SelectDropdown = props => {
         onPress={props.onPress}
         style={[
           {
-            backgroundColor: Theme
+            backgroundColor: Theme === 'dark'
               ? Color.DarkThemeInputBox
               : Color.InputBoxColor,
           },
@@ -67,7 +68,7 @@ const SelectDropdown = props => {
         <Entypo
           name="chevron-down"
           size={w >= 768 && h >= 1024 ? scale(17) : scale(24)}
-          color={Theme ? Color.White : Color.Black}
+          color={Theme === 'dark' ? Color.White : Color.Black}
         />
       </TouchableOpacity>
     </View>

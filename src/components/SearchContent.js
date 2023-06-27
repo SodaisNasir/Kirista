@@ -14,13 +14,14 @@ import {Font} from '../utils/font'
 import {Color} from '../utils/Colors'
 import DetailsCard from './Card/DetailsCard'
 import {useNavigation} from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
 export default function SearchContent() {
   const navigation = useNavigation()
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useSelector(state => state.mode)
   // const data = [
   //   {
   //     id: 1,
@@ -62,7 +63,7 @@ export default function SearchContent() {
   // ];
   return (
     <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      style={{flex: 1, backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White}}>
       <View
         style={{
           paddingHorizontal:
@@ -82,7 +83,7 @@ export default function SearchContent() {
             marginTop:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
             // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
           }}
         />
@@ -99,7 +100,7 @@ export default function SearchContent() {
             marginTop:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
             // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
           }}
         />
@@ -116,7 +117,7 @@ export default function SearchContent() {
             marginTop:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
             // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
           }}
         />
@@ -134,7 +135,7 @@ export default function SearchContent() {
             marginTop:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
             // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
           }}
         />
@@ -152,7 +153,7 @@ export default function SearchContent() {
             marginTop:
               w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
             // backgroundColor:'red'
-            borderBottomColor: Theme ? Color.DarkBorder : Color.BorderColor,
+            borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
             borderBottomWidth: 1,
           }}
         />

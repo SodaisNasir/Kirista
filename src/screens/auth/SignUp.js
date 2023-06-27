@@ -6,34 +6,98 @@ import {
   useWindowDimensions,
   ScrollView,
   StatusBar,
+  StyleSheet,
+  Dimensions,
+  Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {Color} from '../../utils/Colors';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import PhoneInput from '../../components/PhoneInput';
-import Password from '../../components/Password';
-import {useDispatch} from 'react-redux';
-import {LOGIN} from '../../redux/reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {useForm} from 'react-hook-form';
+import {register} from '../../redux/actions/AuthAction';
+import { useRef } from 'react';
+import IncorrectModal from '../../components/Modals/IncorrectModal';
+import { useFocusEffect } from '@react-navigation/native';
+import { getPerishCountry } from '../../redux/actions/UserAction';
+import Loader from '../../components/Modals/Loader';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const SignUp = ({navigation}) => {
-  const Dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const applanguage = useSelector(state => state.applanguage)
+
+  const fourInchPotrait = width <= 350 && height <= 600;
+  const fourInchLandscape = width <= 600 && height <= 350;
+  const tabPotrait = width >= 768 && height >= 1024;
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: {errors, isValid},
+  } = useForm({mode: 'all'});
+
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useColorScheme() === 'dark';
-  const [email, setEmail] = useState(null);
+  const Theme = useSelector(state => state.mode)
+  const language = useSelector(state => state.language)
+  const [isVisible, setVisible] = useState(true);
+  const [isVisible2, setVisible2] = useState(true);
+  const [loader, setLoader] = useState(false);
+  const [country, setCountry] = useState({
+    country_name: 'Nigeria',
+    country_code: '+234',
+    flag_code: '🇳🇬'
+  });
+
+
+  const handlePhoneNumberButtonPress = () => {
+    navigation.navigate('FeaturedCountry', {
+      setCountry:setCountry
+    });
+  };
+
+  // const onSubmit = (data) => {
+  //   if (data.password == data.confirm_password) {
+  //     // dispatch(verify_Email(data,navigation,type))
+  //     navigation.navigate('OTP',{
+  //       type: type,
+  //       data: data
+  //   })
+
+  //   } else {
+  //     alert('password is not same')
+  //   }
+  // };
+
+  const device = Platform.OS;
+  const [notMatched, setNotMatched] = useState(false);
+  const [message, setMessage] = useState('');
+  const [check, setCheck] = useState(false)
+
+  const onSubmit = data => {
+    if (data.password == data.confirm_password) {
+      dispatch(register(data, device,setMessage,setCheck,country,setLoader,language));
+    } else {
+      setNotMatched(true);
+    }
+  };
+  const confirmPasswordRef = useRef()
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
-      <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} />
+      <StatusBar backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -58,9 +122,9 @@ const SignUp = ({navigation}) => {
               style={{
                 fontFamily: Font.Poppins700,
                 fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(25),
-                color: Theme ? Color.White : Color.Black,
+                color: Theme === 'dark' ? Color.White : Color.Black,
               }}>
-              Create Account
+              {applanguage.CreateAccount}
             </Text>
           </View>
 
@@ -74,15 +138,33 @@ const SignUp = ({navigation}) => {
                 paddingVertical:
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
-              <CustomInput text={'Full Name'} placeholder={'Full Name'} />
-            </View>
+              <CustomInput
+                control={control}
+                name="full_name"
+                rules={{
+                  required: applanguage.FullNameReq,
+                  message: applanguage.EnterFullName,
+                }}
+                text={applanguage.FullName}
+                placeholder={applanguage.FullName}
+                // keyboardType={'email-address'}
+              />
 
-            <View
-              style={{
-                paddingVertical:
-                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
-              }}>
-              <PhoneInput text={'Phone Number'} />
+              {errors.full_name && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.full_name.message}{' '}
+                </Text>
+              )}
             </View>
 
             <View
@@ -91,13 +173,47 @@ const SignUp = ({navigation}) => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
               <CustomInput
-                onChangeText={txt => {
-                  console.log('text ==>', email);
-                  setEmail(txt);
+                onPress={handlePhoneNumberButtonPress}
+                control={control}
+                name="phonenumber"
+                maxLength={14}
+                rules={{
+                  required: applanguage.RequiredPhone,
+                  message: applanguage.Phonemessage,
+                  maxLength: {
+                    value: 14,
+                    message: applanguage.ValidPhone,
+                  },
                 }}
-                text={'Email Address'}
-                placeholder={'Email'}
+                // restyleBox={{
+                //   marginBottom:
+                //     w >= 768 && h >= 1024
+                //       ? verticalScale(15)
+                //       : verticalScale(15),
+                // }}
+                placeholder={applanguage.PhoneNumber}
+                keyboardType={'numeric'}
+                text={applanguage.PhoneNumber}
+                flagImage={country ? country.flag_code : '🇳🇬'}
+                phoneNumber={country ? country.country_code : '+234'}
+                phone={true}
+                // onChange = value.replace(/(\d{3})(?=\d)/g, '$1 ')
               />
+              {errors.phonenumber && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.phonenumber.message}{' '}
+                </Text>
+              )}
             </View>
 
             <View
@@ -105,22 +221,145 @@ const SignUp = ({navigation}) => {
                 paddingVertical:
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
-              <Password text={'Password'} />
+              <CustomInput
+                control={control}
+                name="email"
+                rules={{
+                  required: applanguage.RequiredEmail,
+                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  pattern: {
+                    value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                    message: applanguage.ValidEmail,
+                  },
+                }}
+                text={applanguage.EmailAddress}
+                placeholder={applanguage.EmailAddress}
+                keyboardType="email-address"
+              />
+              {errors.email && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.email.message}{' '}
+                </Text>
+              )}
             </View>
 
+            <View
+              style={{
+                paddingVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
+              }}>
+              <CustomInput
+                password={true}
+                text={applanguage.Password}
+                placeholder={applanguage.Password}
+                control={control}
+                name="password"
+                rules={{
+                  required: applanguage.RequiredPassword,
+                  minLength: {
+                    value: 8,
+                    message: applanguage.PasswordMax,
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: applanguage.PasswordMin,
+                  },
+                }}
+                keyboardType="default"
+                maxLength={20}
+                onSubmitEditing={() => confirmPasswordRef.current.focus()}
+                secureTextEntry={isVisible}
+                PIname={isVisible ? 'eye-off-outline' : 'eye-outline'}
+                onShowPass={() => setVisible(!isVisible)}
+              />
+              {errors.password && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.password.message}
+                </Text>
+              )}
+            </View>
+            <View
+              style={{
+                paddingVertical:
+                  w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
+              }}>
+              <CustomInput
+                password={true}
+                text={applanguage.ConfirmPassword}
+                placeholder={applanguage.ConfirmPassword}
+                control={control}
+                name="confirm_password"
+                rules={{
+                  required: applanguage.RequiredConfirmPassword,
+                  minLength: {
+                    value: 8,
+                    message: applanguage.ConfirmPasswordMax,
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: applanguage.ConfirmPasswordMin,
+                  },
+                  validate: {
+                    positive: (value) =>
+                      value === watch('password') || applanguage.PasswordMatch,
+                  },
+                }}
+                keyboardType="default"
+                maxLength={20}
+                ref={(e) => (confirmPasswordRef.current = e)}
+                secureTextEntry={isVisible2}
+                PIname={isVisible2 ? 'eye-off-outline' : 'eye-outline'}
+                onShowPass={() => setVisible2(!isVisible2)}
+              />
+              {errors.confirm_password && (
+                <Text
+                  style={[
+                    {
+                      fontSize: tabPotrait
+                        ? verticalScale(11)
+                        : fourInchLandscape
+                        ? scale(12)
+                        : scale(14),
+                    },
+                    styles.error,
+                  ]}>
+                  {errors.confirm_password.message}{' '}
+                </Text>
+              )}
+            </View>
             <View
               style={{
                 paddingVertical:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
               <CustomButton
-                onPress={() => navigation.navigate('Login')}
+                onPress={handleSubmit(onSubmit)}
                 // onPress={() =>
                 //   email != null
                 //     ? Dispatch({type: LOGIN, payload: email})
                 //     : alert('Complete the form')
                 // }
-                text={'Sign Up'}
+                text={applanguage.SignUp}
               />
             </View>
 
@@ -135,27 +374,51 @@ const SignUp = ({navigation}) => {
               }}>
               <Text
                 style={{
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   fontFamily: Font.Poppins500,
                   fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                 }}>
-                If you have an account,{' '}
+                {applanguage.SignUpText}, {' '}
                 <Text
                   onPress={() => navigation.navigate('Login')}
                   style={{
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                     fontFamily: Font.Poppins700,
                   }}>
-                  Sign in
+                  {applanguage.SignIn}
                 </Text>
               </Text>
             </View>
           </View>
         </View>
       </ScrollView>
+
+      <IncorrectModal
+          text={message}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
+
+<Loader 
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  error: {
+    color: 'red',
+    alignSelf: 'flex-start',
+    // marginLeft: scale(25),
+    marginTop: 5,
+    fontFamily: Font.Inter500,
+    marginBottom: -20,
+    paddingHorizontal: verticalScale(10),
+  },
+});
 
 export default SignUp;

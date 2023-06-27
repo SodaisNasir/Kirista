@@ -1,11 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
   Dimensions,
-  useColorScheme,
   useWindowDimensions,
   StatusBar,
 } from 'react-native';
@@ -13,13 +12,15 @@ import {Color} from '../../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import HomeHeader from '../../components/HomeHeader';
 import {Font} from '../../utils/font';
-
 import BottomTab from '../../constant/BottomTab';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-
 import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFocusEffect } from '@react-navigation/native';
+import Loading from '../../components/Modals/Loading';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -34,21 +35,41 @@ const renderScene = SceneMap({
   LivingRoom: FifthRoute,
 });
 const Home = () => {
+  const [show,setShow] = useState(false)
+  const applanguage = useSelector(state => state.applanguage)
+  const Theme = useSelector(state => state.mode)
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+  const iosTab = w >= 820 && h >= 1180;
+  const fourInchPotrait = w <= 350 && h <= 600;
+  
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     setShow(true)
+  //     setTimeout(() => {
+  //       setShow(false)
+  //     }, 500);
+  //   },[])
+  // )
+
+  // useEffect(() => {
+  //   setShow(true)
+  //   setTimeout(() => {
+  //     setShow(false)
+  //   }, 500);
+  // },[applanguage])
   const tabPotrait = w >= 768 && h >= 1024;
   const layout = useWindowDimensions();
-
   const [index, setIndex] = useState(0);
-
   const [routes] = useState([
-    {key: 'Bedrooms', title: 'Home', type: 'home'},
-    {key: 'DiningRoom', title: 'Parish Finder', type: 'finder'},
-    {key: 'LivingRoom', title: 'Events'},
+    {key: 'Bedrooms', title: applanguage.Home, type: 'home'},
+    {key: 'DiningRoom', title: applanguage.ParishFinder, type: 'finder'},
+    {key: 'LivingRoom', title: applanguage.Events},
   ]);
   const renderTabBar = props => (
     <View
       style={{
         flexDirection: 'row',
-       
       }}>
       <TabBar
         {...props}
@@ -81,14 +102,13 @@ const Home = () => {
             <View
               style={[
                 {
-                  
                   backgroundColor: focused ? Color.Main : 'transparent',
                   height:
                     w >= 768 && h >= 1024
                       ? verticalScale(1.7)
                       : verticalScale(2.2),
                   width: w >= 768 && h >= 1024 ? scale(11) : scale(20),
-                  bottom: tabPotrait? 2 : 0,
+                  bottom: tabPotrait ? 2 : 0,
                   marginLeft:
                     route.type == 'home'
                       ? w >= 768 && h >= 1024
@@ -108,31 +128,32 @@ const Home = () => {
       />
     </View>
   );
-  const width = useWindowDimensions().width;
-  const height = useWindowDimensions().height;
-  console.log(w, h);
-  const iosTab = w >= 820 && h >= 1180;
-  const fourInchPotrait = w <= 350 && h <= 600;
-  const Theme = useColorScheme() === 'dark';
+
+ 
 
 
-  return (
+
+
+
+  return  (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
 
       <HomeHeader />
+      {/* {show ? <Loading /> : */}
+      
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.ExtraViewDark : '#F1F6FD',
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : '#F1F6FD',
         }}>
         <TabView
           renderTabBar={renderTabBar}
@@ -142,6 +163,7 @@ const Home = () => {
           initialLayout={{width: layout.width}}
         />
       </View>
+      {/* } */}
       <BottomTab activeHome={true} />
     </>
   );

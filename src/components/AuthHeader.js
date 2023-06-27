@@ -5,12 +5,13 @@ import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-mat
 import {Font} from './../utils/font';
 import {Color} from './../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const AuthHeader = props => {
-  const Theme = useColorScheme() === 'dark';
+ const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
   return (
     <View style={styles.AuthHeaderStyle}>
@@ -18,7 +19,7 @@ const AuthHeader = props => {
         <AntDesign
           name="arrowleft"
           size={w >= 768 && h >= 1024 ? scale(18) : scale(24)}
-          color={  Theme ? Color.White : Color.Black}
+          color={  Theme === 'dark' ? Color.White : Color.Black}
           onPress={() => navigation.goBack()}
         />
       </View>
@@ -27,7 +28,7 @@ const AuthHeader = props => {
           //   height: '12%',
           justifyContent: 'center',
         }}>
-        <Text style={[{color: Theme? Color.White:Color.Black},styles.WelcomeText]}>{props.text}</Text>
+        <Text style={[{color: Theme === 'dark' ? Color.White:Color.Black},styles.WelcomeText]}>{props.text}</Text>
       </View>
     </View>
   );

@@ -20,12 +20,13 @@ import {useNavigation} from '@react-navigation/native';
 import Time from '../assets/icons/time.svg';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CustomHeader = props => {
   const navigation = useNavigation();
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const [isChecked, setIsChecked] = useState(false);
   const iosTab = w >= 820 && h >= 1180;
 
@@ -35,7 +36,7 @@ const CustomHeader = props => {
         styles.AuthHeaderStyle,
         props.AuthHeaderStyle,
         {
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         },
       ]}>
       <View
@@ -57,8 +58,9 @@ const CustomHeader = props => {
           <AntDesign
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-            color={Theme ? Color.White : Color.Black}
+            color={Theme === 'dark' ? Color.White : Color.Black}
             onPress={() => navigation.goBack()}
+            // onPress={props.goPress}
           />
           <View
             style={{
@@ -69,7 +71,7 @@ const CustomHeader = props => {
               style={[
                 styles.WelcomeText,
                 {
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
               ]}>
               {props.text}
@@ -85,7 +87,7 @@ const CustomHeader = props => {
 
             //
           }}>
-          <TouchableOpacity style={styles.IconStyle}>
+          <TouchableOpacity style={styles.IconStyle} onPress={props.calOnPress}>
             {props.timeicon ? (
               <Time
                 height={
@@ -98,9 +100,9 @@ const CustomHeader = props => {
 
           <TouchableOpacity style={styles.IconStyle}>
             {props.saveicon ? (
-              <TouchableOpacity onPress={() => setIsChecked(!isChecked)}>
+              <TouchableOpacity onPress={props.BookPress}>
                 <MaterialCommunityIcons
-                  name={isChecked ? 'bookmark-plus' : 'bookmark-plus-outline'}
+                  name={props.select ? 'bookmark-plus' : 'bookmark-plus-outline'}
                   size={w >= 768 && h >= 1024 ? scale(15) : scale(25)}
                   color={Color.Main}
                   style={{
@@ -111,7 +113,7 @@ const CustomHeader = props => {
             ) : null}
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.IconStyle}>
+          <TouchableOpacity style={styles.IconStyle} onPress={props.shareOnPress}>
             {props.shareicon ? (
               <FontAwesome
                 name="share-square-o"

@@ -19,17 +19,19 @@ import {Color} from './../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import Share from '../assets/icons/share.svg';
 import ShareDark from '../assets/icons/share_dark.svg';
+import { useDispatch, useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 export default function Header(props) {
-  const Theme = useColorScheme() === 'dark';
+  // const getTheme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
   return (
     <View
       style={[
-        {backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor},
+        {backgroundColor: Theme  === 'dark' ? Color.ExtraViewDark : Color.HeaderColor},
         styles.AuthHeaderStyle,
         props.AuthHeaderStyle,
       ]}>
@@ -49,7 +51,7 @@ export default function Header(props) {
           <AntDesign
             name="arrowleft"
             size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-            color={Theme ? Color.White : Color.Black}
+            color={Theme  === 'dark'   ? Color.White : Color.Black}
           />
         </TouchableOpacity>
         <View
@@ -59,7 +61,7 @@ export default function Header(props) {
           }}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.Black},
+              {color: Theme  === 'dark'   ? Color.White : Color.Black},
               styles.WelcomeText,
               props.welcomeText,
             ]}>
@@ -69,7 +71,7 @@ export default function Header(props) {
       </View>
       <TouchableOpacity>
         {props.shareicon ? (
-          Theme ? (
+          Theme === 'dark' ? (
             <ShareDark
               height={
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(23)

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useColorScheme,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -20,39 +21,125 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import ImageModal from '../../components/Modals/ImageModal';
 import Map from '../../components/Map';
 import {useFocusEffect} from '@react-navigation/native';
+import Loading from '../../components/Modals/Loading';
+import { event_by_id, markData } from '../../redux/actions/UserAction';
+import moment from 'moment/moment';
+import { useDispatch, useSelector } from 'react-redux';
+import Share from 'react-native-share'
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
+import { EVENTBOOKMARK } from '../../redux/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
+import BannerLoader from '../../components/Loader/BannerLoader';
+import DoubleText from '../../components/Loader/DoubleText';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const EventScreen = ({navigation}) => {
+const EventScreen = ({route, navigation}) => {
+  const {id} = route.params;
+  const dispatch = useDispatch()
+
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
-  const Theme = useColorScheme() === 'dark';
-  
+  const [data, setData] = useState([]);
+  const [cordinates, setCordinates] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+  const is_guest = useSelector(state => state.is_guest)
+  const eventbookmark = useSelector(state => state.eventbookmark)
+  const user_details = useSelector(state => state.user_details)
+  const [isChecked, setIsChecked] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  useFocusEffect(
+    useCallback(() => {
+      event_by_id(setData, id, setLoading,setCordinates);
+    }, []),
+  );
+  const shareBook = (data) => {
+    let shareImageBase64 = {
+      title: data.title,
+      url: `d`,
+      subject: 'Share Book Link', //  for email
+    }
+    Share.open(shareImageBase64).catch((error) => console.log(error))
+  }
+  function openDeviceCalendar() {
+    const eventConfig = {
+      title: data.title,
+      startDate: data.start_date,
+      endDate: data.end_date,
+      location: data.address,
+      notes: data.about,
+    };
+  
+    AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+      .then(eventId => {
+        console.log('Event created with ID:', eventId);
+      })
+      .catch(error => {
+        console.warn('Event creation error:', error);
+      });
+  }
+  useEffect(() => {
+    addBookmark()
+  },[eventbookmark,data])
+  
+  const addBookmark = () => {
+    const extrxtIds = eventbookmark.find((elm) => elm.id == data.id)
+    if(extrxtIds != null){
+      setIsChecked(true);
+    }else{
+      setIsChecked(false)
+    }
+  }
+
+  const type = 'event'
+
+  const handleSubmit = async () => {
+    const findData = eventbookmark?.find((elm) => elm.id == data?.id)
+
+    if (findData) {
+      const updatedData = eventbookmark.filter((elm) => elm.id !== findData.id);
+      dispatch({type: EVENTBOOKMARK, payload: updatedData})
+      await AsyncStorage.setItem('eventbookmark', JSON.stringify(updatedData));
+      setIsChecked(false)
+      console.log('laraib =========>')
+    } else {
+      markData(type,data.id,user_details)
+      dispatch({type: EVENTBOOKMARK, payload: [...eventbookmark, data]})
+      console.log('laraib =========> Object not found in the array');
+      setIsChecked(true);
+      await AsyncStorage.setItem('eventbookmark', JSON.stringify([...eventbookmark, data]));
+    }
+  }
   return (
     <>
-    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <SafeAreaView style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <View
       style={[
         styles.Container,
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
       ]}>
         <CustomHeader
-          text={'View Event'}
+        shareOnPress={shareBook}
+        calOnPress={openDeviceCalendar}
+          text={applanguage.View + ' ' + applanguage.Events}
           shareicon={true}
-          saveicon={true}
+          select={isChecked}
+          BookPress={handleSubmit}
+          saveicon={is_guest == true ? false :  true}
           timeicon={true}
           AuthHeaderStyle={{
             // marginTop: Platform.OS = 'ios' ? verticalScale(-5) : 0,
@@ -79,17 +166,29 @@ const EventScreen = ({navigation}) => {
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
-          <TouchableOpacity
-            onPress={() => {
-              setShowModal(toggleModal(true));
-            }}
-            style={styles.ImageViewStyle}>
+            {
+             data.image ?
+
+              <TouchableOpacity
+              onPress={() => {
+                setShowModal(toggleModal(true));
+              }}
+              style={styles.ImageViewStyle}>
             <Image
               resizeMode="contain"
-              source={require('../../assets/images/EventScreenImage1.png')}
+              source={{uri: data.image}}
               style={{height: '100%', width: '100%'}}
-            />
+              />
           </TouchableOpacity>
+          : 
+          <View style={styles.ImageViewStyle}>
+            <BannerLoader />
+          </View>  
+          
+          }
+
+          {data.title ?
+            <>
           <View
             style={{
               marginTop:
@@ -99,26 +198,25 @@ const EventScreen = ({navigation}) => {
               style={[
                 styles.TextStyle,
                 {
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
               ]}>
-              Abuja Special Holy Ghost Congress
+              {data.title}
             </Text>
           </View>
-
           <View style={styles.DetailsViewStyle}>
             <Text
               style={[
                 styles.DateText,
                 {
-                  color: Theme ? '#828C9B' : Color.TextColor2,
+                  color: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
-              June 22, 2023 - June 24, 2023
+              {moment(data.start_date).format("MMM Do YY")} -  {moment(data.end_date).format("MMM Do YY")}
             </Text>
             <View
               style={{
-                backgroundColor: Theme ? '#828C9B' : Color.TextColor2,
+                backgroundColor: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 borderRadius: 100,
                 width: scale(3),
                 height: scale(3),
@@ -131,13 +229,20 @@ const EventScreen = ({navigation}) => {
               style={[
                 styles.DateText,
                 {
-                  color: Theme ? '#828C9B' : Color.TextColor2,
+                  color: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
-              4PM -7PM WAT
+              {data.start_time} - {data.end_time}
             </Text>
           </View>
+            </>
+          : 
+          <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(40)} />
+          }
 
+
+        {data.about
+        ?
           <View
             style={{
               marginVertical: verticalScale(10),
@@ -146,21 +251,25 @@ const EventScreen = ({navigation}) => {
               style={[
                 styles.AboutText,
                 {
-                  color: Theme ? Color.White : Color.TextColor2,
+                  color: Theme === 'dark' ? Color.White : Color.TextColor2,
                 },
               ]}>
-              The Abuja Special Holy Ghost Service is an annual gathering of the
-              church in the FCT and environs where prayers are offered for the
-              country and the church in particular. Ministering is Pastor E.A.
-              Adeboye and other anointed ministers of God.
+              {data.about}
             </Text>
           </View>
+        :
+        <View style={{marginVertical: verticalScale(5)}}>
+        <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(100) : verticalScale(80)} />
+        </View>
+        }
+
+
         </View>
         <View
           style={{
             height: verticalScale(25),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-          }}></View>
+            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+          }} />
 
         <View
           style={{
@@ -172,15 +281,17 @@ const EventScreen = ({navigation}) => {
           <Text
             style={[
               {
-                color: Theme ? Color.White : Color.Black,
+                color: Theme === 'dark' ? Color.White : Color.Black,
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               },
               styles.LocationBigText,
             ]}>
-            Location
+            {applanguage.Location}
           </Text>
         </View>
+
+        {data.address ?
         <View
           style={{
             marginTop: verticalScale(5),
@@ -191,25 +302,31 @@ const EventScreen = ({navigation}) => {
               {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-                color: Theme ? Color.White : Color.TextColor2,
+                color: Theme === 'dark' ? Color.White : Color.TextColor2,
               },
               styles.LocationText,
             ]}>
-            Keiffi
+            {data.location}
           </Text>
           <Text
             style={[
               {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-                color: Theme ? Color.White : Color.TextColor2,
+                color: Theme === 'dark' ? Color.White : Color.TextColor2,
               },
               styles.LocationDetailsText,
             ]}>
-            KM 23, Auta-Gurku Village, Abuja-Keffi Expressway, Nasarawa State,
-            Nigeria.
+            {data.address}
           </Text>
         </View>
+          :
+          <View style={{marginVertical: verticalScale(5),marginHorizontal:scale(20)}}>
+          <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(50) : verticalScale(40)} />
+          </View>
+        }
+          {
+            cordinates ? 
         <View
           style={{
             height:
@@ -223,27 +340,12 @@ const EventScreen = ({navigation}) => {
             marginHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
-          <Image
-            source={require('../../assets/images/maps.png')}
-            style={{height: '100%', width: '100%'}}
-          />
-
-          {/* <MapView
-            style={{flex: 1}}
-            initialRegion={{
-              latitude: 9.0765,
-              longitude: 7.3986,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-            
-            showsUserLocation={false}
-            zoomEnabled={true}
-            // zoomControlEnabled={true}
-            provider={PROVIDER_GOOGLE}
-         
-            ></MapView> */}
+              
+              <Map data={cordinates} />
         </View>
+             : 
+              null
+            }
 
         <View style={{height: verticalScale(40)}} />
 

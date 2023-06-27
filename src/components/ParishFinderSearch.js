@@ -1,86 +1,40 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { FlatList,View,useColorScheme,StyleSheet, Dimensions } from "react-native";
+import { FlatList,View,useColorScheme,StyleSheet, Dimensions, SafeAreaView } from "react-native";
 import DetailsCard from './Card/DetailsCard';
 import { moderateScale, verticalScale } from "react-native-size-matters";
 import { Color } from "../utils/Colors";
+import { useSelector } from "react-redux";
+import NoResult from "./NoResult";
 
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-const ParishFinderSearch = () => {
-  const Navigation = useNavigation()
-  const Theme = useColorScheme() == 'dark'
-  const data = [
-    {
-      id: 1,
-      title: 'RCCG',
-      manual: 'Central Parish',
-      image: require('../assets/images/parishsmall_1.png'),
-      detail: 'Abuja',
-     
-    },
-  
-    {
-      id: 2,
-      title: 'RCCG',
-      manual: 'Precious Ambassadors',
-      image: require('../assets/images/parishsmall_2.png'),
-      detail: 'Ghana',
-      
-      
-    },
-  
-    {
-      id: 3,
-      title: 'RCCG',
-      manual: 'Salvation Centre',
-      image: require('../assets/images/parishsmall_3.png'),
-      detail: 'Togo',
-      
+const ParishFinderSearch = ({data}) => {
+  const navigation = useNavigation()
+  const Theme = useSelector(state => state.mode)
+  const newData = data != null ? [data] : data
 
-    },
-    {
-      id: 4,
-      title: 'RCCG',
-      manual: 'Salvation Centre',
-      image: require('../assets/images/parishsmall_3.png'),
-      detail: 'Banjul',
-     
-    },
-    {
-      id: 5,
-      title: 'RCCG',
-      manual: 'Precious Ambassadors',
-      image: require('../assets/images/parishsmall_2.png'),
-      detail: '2023',
-      
-    },
-    {
-      id: 6,
-      title: 'RCCG',
-      manual: 'Salvation Centre',
-      image: require('../assets/images/parishsmall_3.png'),
-      detail: 'Togo',
-     
-    },
-  ];
+ 
     return(
-        <View style={{flex: 1, paddingHorizontal: moderateScale(20)}}>
+        <SafeAreaView style={{flex: 1, paddingHorizontal: moderateScale(20)}}>
         <FlatList
-          data={data}
+          data={newData}
           showsVerticalScrollIndicator={false}
-          renderItem={({item}) => (
-            <DetailsCard
-              source={item.image}
-              title={item.title}
+          renderItem={({item}) => {
+            return(
+              <DetailsCard
+              onPress={() => {
+                navigation.navigate('ViewParish', {
+                  id: item.id,
+                });
+              }}
+              source={{uri: item?.image}}
+              title={item?.title}
               resize={'contain'}
-              manual={item.manual}
+              // manual="Central Parish"
               PlaceTrue={true}
-
-              Place={item.detail}
-
-              
+              Place={item?.country}
               MainBoxRestyle={{
                 paddingBottom:
                   w >= 768 && h >= 1024
@@ -90,17 +44,29 @@ const ParishFinderSearch = () => {
                   w >= 768 && h >= 1024
                     ? verticalScale(10)
                     : verticalScale(15),
-                borderBottomColor: Theme
-                  ? Color.DarkBorder
-                  : Color.BorderColor,
-                borderBottomWidth: 1,
+                // backgroundColor:'red'
+                borderBottomColor: Theme === 'dark'
+                ? Color.DarkBorder
+                : Color.BorderColor,
+              borderBottomWidth: 1,
               }}
-            />
+            /> 
+            )
+          }
+          }
+          // keyExtractor={item => item.id.toString()}
+          ListEmptyComponent={() =>(
+            <View  style={{
+              height: (h * 1) / 1.7,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+      
+            <NoResult />
+            </View>
           )}
-          keyExtractor={item => item.id.toString()}
-          ListEmptyComponent={() => <NoResult />}
         />
-        </View>
+        </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({

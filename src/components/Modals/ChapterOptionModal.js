@@ -1,45 +1,43 @@
 import React, {useState, useEffect} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   StyleSheet,
   Text,
   View,
   useWindowDimensions,
-  FlatList,
   TouchableOpacity,
-  Image,
-  useColorScheme,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
-import CustomButton from '../CustomButton';
-import {useNavigation} from '@react-navigation/native';
 import SelectDropdown from '../SelectDropdown';
 import LeftRight from '../../assets/icons/left-right.svg';
 import LeftRightDark from '../../assets/icons/leftright_dark.svg';
 import UpDown from '../../assets/icons/up-down.svg';
 import UpDownDark from '../../assets/icons/upright_dark.svg';
 import ReadNavigator from '../ReadNavigator';
-import FontModal from './FontModal';
 import Sun from '../../assets/icons/sun_light.svg';
 import Sun_light from '../../assets/icons/sun_one.svg';
 import SwiperBrightness from './SwiperBrightness';
+import { useSelector } from 'react-redux';
 
 const ChapterOptionModal = props => {
   const [count, setCount] = useState(0);
-  const Theme = useColorScheme() === 'dark';
-  const [selected, setSelected] = useState();
-  const navigation = useNavigation();
+  const heyTheme = useSelector(state => state.mode)
+  const Theme = props.newTheme != '' ? props.newTheme : heyTheme
+
 
   const incrementCount = () => {
     setCount(count + 1);
+    props.newCount(count + 1)
   };
   const decrementCount = () => {
-    setCount(count - 1);
+    if(count <= 0 ){
+        console.log('first')
+    }else{
+      setCount(count - 1);
+      props.newCount(count - 1)
+    }
   };
 
   const w = useWindowDimensions().width;
@@ -60,7 +58,7 @@ const ChapterOptionModal = props => {
         <View
           style={[
             {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             },
@@ -153,21 +151,20 @@ const ChapterOptionModal = props => {
 
             <SelectDropdown
               RestyleSelectBox={{
-                backgroundColor: Theme ? '#748194' : Color.FontOptionInput,
+                backgroundColor: Theme === 'dark' ? '#748194' : Color.FontOptionInput,
               }}
               RestyleGeneralText={{
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 fontFamily: Font.Poppins600,
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(15),
               }}
-              title={'Arial'}
+              title={props.fontTitle}
               onPress={props.toggleModalTwo}
             />
 
           <View
             style={{
-              justifyContent:
-                w >= 768 && h >= 1024 ? 'space-around' : 'space-between',
+              justifyContent: 'center',
               flexDirection: 'row',
               borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(18),
               marginVertical:
@@ -178,27 +175,27 @@ const ChapterOptionModal = props => {
               paddingHorizontal: moderateScale(10),
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
-              backgroundColor: Theme
+              backgroundColor: Theme === 'dark'
                 ? Color.FontBoxColorDark
                 : Color.FontBoxColor,
             }}>
             <View
               style={{
-                borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-                backgroundColor: Theme ? Color.ExtraViewDark : '#F5F5F5',
+                borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(15),
+                backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : '#F5F5F5',
                 flexDirection: 'row',
                 height:
-                  w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
+                  w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(45),
                 alignItems: 'center',
-                width: w >= 768 && h >= 1024 ? '45%' : '45%',
-                justifyContent: 'center',
+                width: w >= 768 && h >= 1024 ? '90%' : '90%',
+                justifyContent: 'space-evenly',
               }}>
               <TouchableOpacity onPress={decrementCount}>
                 <Text
                   style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
+                    fontSize: w >= 768 && h >= 1024 ? scale(14) : scale(17),
                     fontFamily: Font.Poppins600,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     paddingHorizontal: moderateScale(10),
                   }}>
                   A⁻
@@ -206,7 +203,7 @@ const ChapterOptionModal = props => {
               </TouchableOpacity>
               <View
                 style={{
-                  backgroundColor: Theme ? '#243d63' : '#E2E9F3',
+                  backgroundColor: Theme === 'dark' ? '#243d63' : '#E2E9F3',
                   // paddingHorizontal: moderateScale(10),
                   borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
                   justifyContent: 'center',
@@ -216,13 +213,13 @@ const ChapterOptionModal = props => {
                   height : iosTab? verticalScale(25) : null,
                   // height:
                   // w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(40),
-                   width: iosTab? scale(25) : scale(30)
+                  //  width: iosTab? scale(25) : scale(30)
                 }}>
                 <Text
                   style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
+                    fontSize: w >= 768 && h >= 1024 ? scale(14) : scale(18),
                     fontFamily: Font.Inter700,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     textAlignVertical: 'center',
                     textAlign: 'center',
                     
@@ -233,9 +230,9 @@ const ChapterOptionModal = props => {
               <TouchableOpacity onPress={incrementCount}>
                 <Text
                   style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(15),
+                    fontSize: w >= 768 && h >= 1024 ? scale(14) : scale(17),
                     fontFamily: Font.Poppins600,
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     paddingHorizontal: moderateScale(10),
                   }}>
                   A⁺
@@ -243,7 +240,7 @@ const ChapterOptionModal = props => {
               </TouchableOpacity>
             </View>
 
-            <View
+            {/* <View
               style={{
                 flexDirection: 'row',
                 height:
@@ -251,7 +248,7 @@ const ChapterOptionModal = props => {
                 alignItems: 'center',
                 justifyContent: 'space-evenly',
                 borderRadius: w >= 768 && h >= 1024 ? scale(8) : scale(12),
-                backgroundColor: Theme ? Color.ExtraViewDark : '#F5F5F5',
+                backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : '#F5F5F5',
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(18),
                 // height:
@@ -263,13 +260,13 @@ const ChapterOptionModal = props => {
                   paddingHorizontal: moderateScale(10),
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderRightColor: Theme
+                  borderRightColor: Theme === 'dark'
                     ? Color.ExtraViewDark
                     : Color.BorderColor,
                   borderRightWidth: 1,
                   marginVertical: verticalScale(5),
                 }}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <LeftRightDark
                     height={
                       w >= 768 && h >= 1024
@@ -297,7 +294,7 @@ const ChapterOptionModal = props => {
                   justifyContent: 'center',
                   marginVertical: 5,
                 }}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <UpDownDark
                     height={
                       w >= 768 && h >= 1024
@@ -317,7 +314,7 @@ const ChapterOptionModal = props => {
                   />
                 )}
               </View>
-            </View>
+            </View> */}
           </View>
         </View>
 
@@ -329,6 +326,9 @@ const ChapterOptionModal = props => {
         DontShowMenu={true}
         // tabButtonStyle={{alignItems:'flex-end',width:'100%'}}
         onPressTab={props.onPressTab}
+        moonPress={props.moonPress}
+        show={props.show}
+        newTheme={props.newTheme}
         />
       </Modal>
     </View>

@@ -5,28 +5,47 @@ import {
   Text,
   View,
   useWindowDimensions,
-  useColorScheme,
 } from 'react-native'
-import React from 'react'
-import HomeHeader from '../../../components/HomeHeader'
+import React,{useState} from 'react'
 import {Color} from '../../../utils/Colors'
-import {Font} from '../../../utils/font'
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters'
-import CustomInput from '../../../components/CustomInput'
 import SelectDropdown from '../../../components/SelectDropdown'
 import CustomButton from '../../../components/CustomButton'
-import SelectRegion from './SelectRegion'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { searchPerish } from '../../../redux/actions/UserAction'
+import IncorrectModal from '../../../components/Modals/IncorrectModal'
+
 const ParishFinder = () => {
   const navigation = useNavigation()
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
   const w = useWindowDimensions()
   const h = useWindowDimensions()
+  const [phoneNumber, setPhoneNumber] = useState('+234');
+  const [country, setCountry] = useState('');
+  const [region, setRegion] = useState('');
+  const [province, setProvince] = useState('');
+  const [flagImage, setFlagImage] = useState(
+    require('../../../assets/images/nig.png'),
+  );
+
+  const [message, setMessage] = useState('');
+  const [check, setCheck] = useState(false)
+
+  const onSubmit = () => {
+    if(country != '' && province != '' && region != ''){
+      searchPerish(country,province,region,navigation,setMessage,setCheck)
+    }else{
+      setMessage(applanguage.SelectField)
+      setCheck(true)
+    }
+  }
   return (
     <>
-       <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+       <SafeAreaView style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
     <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White}}>
+      style={{flex: 1, backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White}}>
         {/* <HomeHeader
           ParishRestyle={{color: Color.Main, fontFamily: Font.Poppins700}}
           ParishUnderLineStyle={{
@@ -50,9 +69,14 @@ const ParishFinder = () => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('SelectCountry')}
-              text={'Country'}
-              title={'Select Country'}
+              onPress={() => navigation.navigate('Country',{
+                  setPhoneNumber: setPhoneNumber,
+                  setFlagImage: setFlagImage,
+                  setCountry: setCountry,
+                  newType: 'country'
+              })}
+              text={applanguage.Country}
+              title={country != '' ? country : applanguage.SelectCountry}
             />
           </View>
           <View
@@ -61,9 +85,13 @@ const ParishFinder = () => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('Language',{type:'Region'})}
-              text={'Region'}
-              title={'Select Region'}
+              onPress={() => navigation.navigate('regioncountry',{
+                type:'region',
+                dataType: country,
+                setSelectedLanguage:setRegion
+              })}
+              text={applanguage.Region}
+              title={region != '' ? region : applanguage.SelectRegion}
             />
           </View>
           <View
@@ -72,20 +100,32 @@ const ParishFinder = () => {
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(10),
             }}>
             <SelectDropdown
-              onPress={() => navigation.navigate('Language',{type:'Provence'})}
-              text={'Province'}
-              title={'Select Province'}
+              onPress={() => navigation.navigate('regioncountry',{
+                type:'province',
+                setSelectedLanguage:setProvince,
+                dataType: region,
+              })}
+              text={applanguage.Province}
+              title={province != '' ? province : applanguage.SelectProvince}
             />
           </View>
           <CustomButton
-            onPress={() => navigation.navigate('ParishesResult')}
-            text={'Search'}
+            onPress={onSubmit}
+            // onPress={() => navigation.navigate('ParishesResult')}
+            text={applanguage.Search}
             stylz={{
               marginTop: verticalScale(25),
             }}
           />
         </View>
       </ScrollView>
+
+      <IncorrectModal
+          text={message}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </View>
         </>
   )

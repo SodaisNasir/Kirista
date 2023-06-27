@@ -7,347 +7,161 @@ import {
   SafeAreaView,
   ScrollView,
   Dimensions,
-  useColorScheme,
+  ActivityIndicator,
   StatusBar,
-  Platform,
 } from 'react-native';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Header from '../../components/Header';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {getFAQ} from '../../redux/actions/UserAction';
+import {useSelector} from 'react-redux';
+import DoubleText from '../../components/Loader/DoubleText';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Faq = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
-  const [expanded1, setExpanded1] = useState(false);
-  const [expanded2, setExpanded2] = useState(false);
-  const [expanded3, setExpanded3] = useState(false);
-  const [expanded4, setExpanded4] = useState(false);
-  const [expanded5, setExpanded5] = useState(false);
+  const Theme = useSelector(state => state.mode);
+  const applanguage = useSelector(state => state.applanguage);
+  const language = useSelector(state => state.language);
+
+  const [Loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [select, setSelect] = useState('');
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
-    });
+    })
+    getFAQ(setData, setLoading,language)
   }, []);
 
-  const handlePress1 = () => {
-    setExpanded1(!expanded1);
+  const onSubmit = id => {
+    if (select == id) {
+      setSelect('');
+    } else {
+      setSelect(id);
+    }
   };
-  const handlePress2 = () => {
-    setExpanded2(!expanded2);
-  };
-  const handlePress3 = () => {
-    setExpanded3(!expanded3);
-  };
-  const handlePress4 = () => {
-    setExpanded4(!expanded4);
-  };
-  const handlePress5 = () => {
-    setExpanded5(!expanded5);
-  };
-
   return (
     <>
-    <SafeAreaView style={{backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
-    <View
-      style={{flex: 1, backgroundColor: Theme ? Color.DarkTheme : Color.White,
-      }}>
-      <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+      <SafeAreaView
+        style={{
+          backgroundColor:
+            Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
       />
-        <Header text={'FAQ'} /> 
-         {/* AuthHeaderStyle={{
-            height:
-              w >= 768 && h >= 1024
-                ? verticalScale(50)
-                : w <= 450 && h <= 750
-                ? verticalScale(65)
-                : verticalScale(30),
-          }} */}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={[
-            styles.MainBox,
-            {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
-            },
-          ]}>
-          <View style={{marginVertical: verticalScale(15)}}>
-            <TouchableOpacity
-              style={[
-                styles.BoxStyle,
-                {
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
-                },
-              ]}
-              onPress={handlePress1}>
-              <View style={{width: '75%'}}>
-                <Text
-                  style={[
-                    styles.InnerText,
-                    {
-                      color: Theme ? Color.White : Color.DarkTheme,
-                    },
-                  ]}>
-                  How can I download Kirista app?
-                </Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <AntDesign
-                  name={'minus'}
-                  size={24}
-                  color={Theme ? Color.White : Color.Black}
-                />
-              </View>
-            </TouchableOpacity>
-            {expanded1 && (
-              <View
-                style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
-                  borderRadius: scale(16),
-                  paddingHorizontal: 5,
-                  marginTop: verticalScale(10),
-                }}>
-                <Text
-                  style={[
-                    styles.ExpandedText,
-                    {
-                      color: Theme ? Color.White : Color.DarkTheme,
-                    },
-                  ]}>
-                  Kirista is a mobile application that provides brethren with
-                  access to a library of books that they can read on their
-                  devices.
-                </Text>
-              </View>
-            )}
-          </View>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
+        }}>
+        <StatusBar
+          backgroundColor={
+            Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor
+          }
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
+        />
+        <Header text={applanguage.FAQ} />
 
-          <View style={{marginVertical: verticalScale(15)}}>
-            <TouchableOpacity
+        {Loading ? (
+            <View style={{
+              // flexDirection: '',
+              marginTop:scale(20),
+              marginHorizontal: scale(20),
+              borderRadius:8
+            }}>
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+            <View style={{height: 0,marginVertical:5}} />
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)} />
+            <View style={{height: 0,marginVertical:5}} />
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+            <View style={{height: 0,marginVertical:5}} />
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+              </View>
+        ) : (
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View
               style={[
-                styles.BoxStyle,
+                styles.MainBox,
                 {
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
+                  backgroundColor:
+                    Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
-              ]}
-              onPress={handlePress2}>
-              <View style={{width: '75%'}}>
-                <Text
-                  style={[
-                    styles.InnerText,
-                    {
-                      color: Theme ? Color.White : Color.Black,
-                    },
-                  ]}>
-                  What is the goal of Kirista App?
-                </Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <AntDesign
-                  name={'minus'}
-                  size={24}
-                  color={Theme ? Color.White : Color.Black}
-                />
-              </View>
-            </TouchableOpacity>
-            {expanded2 && (
-              <View
-                style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
-                  borderRadius: scale(16),
-                  paddingHorizontal: 5,
-                  marginTop: verticalScale(10),
-                }}>
-                <Text
-                  style={[
-                    styles.ExpandedText,
-                    {
-                      color: Theme ? Color.White : Color.DarkTheme,
-                    },
-                  ]}>
-                  Kirista is a mobile application that provides brethren with
-                  access to a library of books that they can read on their
-                  devices.
-                </Text>
-              </View>
-            )}
-          </View>
-
-          <View style={{marginVertical: verticalScale(15)}}>
-            <TouchableOpacity
-              style={[
-                styles.BoxStyle,
-                {
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
-                },
-              ]}
-              onPress={handlePress3}>
-              <View style={{width: '75%'}}>
-                <Text
-                  style={[
-                    styles.InnerText,
-                    {
-                      color: Theme ? Color.White : Color.Black,
-                    },
-                  ]}>
-                  How can I download Kirista app?
-                </Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <AntDesign
-                  name={'minus'}
-                  size={24}
-                  color={Theme ? Color.White : Color.Black}
-                />
-              </View>
-            </TouchableOpacity>
-            {expanded3 && (
-              <View
-                style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
-                  borderRadius: scale(16),
-                  paddingHorizontal: 5,
-                  marginTop: verticalScale(10),
-                }}>
-                <Text
-                  style={[
-                    styles.ExpandedText,
-                    {
-                      color: Theme ? Color.White : Color.DarkTheme,
-                    },
-                  ]}>
-                  Kirista is a mobile application that provides brethren with
-                  access to a library of books that they can read on their
-                  devices.
-                </Text>
-              </View>
-            )}
-          </View>
-
-          <View style={{marginVertical: verticalScale(15)}}>
-            <TouchableOpacity
-              style={[
-                styles.BoxStyle,
-                {
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
-                },
-              ]}
-              onPress={handlePress4}>
-              <View style={{width: '75%'}}>
-                <Text
-                  style={[
-                    styles.InnerText,
-                    {
-                      color: Theme ? Color.White : Color.Black,
-                    },
-                  ]}>
-                  Are the books on Kirista app really free?
-                </Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <AntDesign
-                  name={'minus'}
-                  size={24}
-                  color={Theme ? Color.White : Color.Black}
-                />
-              </View>
-            </TouchableOpacity>
-            {expanded4 && (
-              <View
-                style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
-                  borderRadius: scale(16),
-                  paddingHorizontal: 5,
-                  marginTop: verticalScale(10),
-                }}>
-                <Text
-                  style={[
-                    styles.ExpandedText,
-                    {
-                      color: Theme ? Color.White : Color.DarkTheme,
-                    },
-                  ]}>
-                  Kirista is a mobile application that provides brethren with
-                  access to a library of books that they can read on their
-                  devices.
-                </Text>
-              </View>
-            )}
-          </View>
-
-          <View style={{marginVertical: verticalScale(15)}}>
-            <TouchableOpacity
-              style={[
-                styles.BoxStyle,
-                {
-                  backgroundColor: Theme
-                    ? Color.ExtraViewDark
-                    : Color.HeaderColor,
-                },
-              ]}
-              onPress={handlePress5}>
-              <View style={{width: '75%'}}>
-                <Text
-                  style={[
-                    styles.InnerText,
-                    {
-                      color: Theme ? Color.White : Color.Black,
-                    },
-                  ]}>
-                  What types of books are available on Kirista app?
-                </Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <AntDesign
-                  name={'minus'}
-                  size={24}
-                  color={Theme ? Color.White : Color.Black}
-                />
-              </View>
-            </TouchableOpacity>
-            {expanded5 && (
-              <View
-                style={{
-                  backgroundColor: Theme ? Color.Black : Color.White,
-                  borderRadius: scale(16),
-                  paddingHorizontal: 5,
-                  marginTop: verticalScale(10),
-                }}>
-                <Text
-                  style={[
-                    styles.ExpandedText,
-                    {
-                      color: Theme ? Color.White : Color.DarkTheme,
-                    },
-                  ]}>
-                  Kirista is a mobile application that provides brethren with
-                  access to a library of books that they can read on their
-                  devices.
-                </Text>
-              </View>
-            )}
-          </View>
-
-          <View style={{height: verticalScale(10)}} />
-        </View>
-      </ScrollView>
-    </View>
+              ]}>
+              {data?.map(item => {
+                return (
+                  <>
+                    <View style={{marginBottom: verticalScale(15)}}>
+                      <TouchableOpacity
+                        style={[
+                          styles.BoxStyle,
+                          {
+                            backgroundColor:
+                              Theme === 'dark'
+                                ? Color.ExtraViewDark
+                                : Color.HeaderColor,
+                          },
+                        ]}
+                        onPress={() => onSubmit(item.id)}>
+                        <View style={{width: '75%'}}>
+                          <Text
+                            style={[
+                              styles.InnerText,
+                              {
+                                color:
+                                  Theme === 'dark'
+                                    ? Color.White
+                                    : Color.DarkTheme,
+                              },
+                            ]}>
+                            {item?.question}
+                          </Text>
+                        </View>
+                        <View style={{flex: 1, alignItems: 'flex-end'}}>
+                          <AntDesign
+                            name={'minus'}
+                            size={24}
+                            color={Theme === 'dark' ? Color.White : Color.Black}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                      {item?.id == select && (
+                        <View
+                          style={{
+                            backgroundColor:
+                              Theme === 'dark' ? Color.Black : Color.White,
+                            borderRadius: scale(16),
+                            paddingHorizontal: 5,
+                            marginTop: verticalScale(10),
+                          }}>
+                          <Text
+                            style={[
+                              styles.ExpandedText,
+                              {
+                                color:
+                                  Theme === 'dark'
+                                    ? Color.White
+                                    : Color.DarkTheme,
+                              },
+                            ]}>
+                            {item?.answer}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                  </>
+                );
+              })}
+              <View style={{height: verticalScale(10)}} />
+            </View>
+          </ScrollView>
+        )}
+      </View>
     </>
   );
 };

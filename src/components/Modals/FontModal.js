@@ -16,6 +16,7 @@ import {Color} from '../../utils/Colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import CustomButton from '../CustomButton'
 import {useNavigation} from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const FontModal = (props) => {
   // const toggleModal = () => {
@@ -29,31 +30,41 @@ const FontModal = (props) => {
     {
       id: '1',
       label: 'Arial',
+      name: 'Arial'
     },
     {
       id: '2',
       label: 'Courier',
+      name: 'CourierPrime-Regular',
     },
     {
       id: '3',
       label: 'Georgia',
+      name: 'Georgia-Regular-font',
     },
     {
       id: '4',
       label: 'Lata',
+      name: 'Lato-Regular',
     },
     {
       id: '5',
       label: 'Papyrus',
+      name: 'papyrus'
     },
     {
       id: '6',
       label: 'Times New Roman',
+      name: 'times-new-roman',
     },
   ]
 
-  const Theme = useColorScheme() === 'dark'
-
+  
+ const Theme = useSelector(state => state.mode)
+const onSubmit = (item) => {
+  props.OptionSelect(false)
+  props.fontData(item)
+}
   return (
       <Modal
         testID={'modal'}
@@ -74,7 +85,7 @@ const FontModal = (props) => {
                 w >= 768 && h >= 1024 ? scale(20) : scale(22),
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.White,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.White,
             },
             styles.modalView,
           ]}>
@@ -91,7 +102,7 @@ const FontModal = (props) => {
               style={[
                 {
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
-                  color: Theme ? Color.White : Color.DarkTextColor,
+                  color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
                 styles.BigTextStyle,
               ]}>
@@ -106,7 +117,9 @@ const FontModal = (props) => {
                 <View style={{}}>
                   <TouchableOpacity
                     style={{marginTop: verticalScale(12)}}
-                    onPress={props.OptionSelect}>
+                    // onPress={props.OptionSelect}
+                    onPress={() => onSubmit(item)}
+                    >
                     <View
                       style={{
                         flexDirection: 'row',
@@ -121,7 +134,7 @@ const FontModal = (props) => {
                             {
                               fontSize:
                                 w >= 768 && h >= 1024 ? scale(8) : scale(16),
-                              color: Theme ? Color.White : Color.DarkTextColor,
+                              color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                             },
                             styles.SmallTextStyle,
                           ]}>

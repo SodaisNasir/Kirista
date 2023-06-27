@@ -17,6 +17,7 @@ import {Color} from '../../utils/Colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import CustomButton from '../CustomButton'
 import {useNavigation} from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -26,7 +27,7 @@ const FilterModal = (props) => {
   const height = useWindowDimensions().height
   const [selected, setSelected] = useState()
   const navigation = useNavigation()
-  const Theme = useColorScheme() === 'dark'
+  const Theme = useSelector(state => state.mode)
   const data = [
     {
       id: '1',
@@ -52,7 +53,7 @@ const FilterModal = (props) => {
           style={[
             styles.modalView,
             {
-              backgroundColor: Theme ? Color.DarkTheme : Color.White,
+              backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
               paddingHorizontal:
                 width >= 768 && height >= 1024 ? scale(25) : scale(20),
             },
@@ -65,7 +66,7 @@ const FilterModal = (props) => {
               style={[
                 styles.BigTextStyle,
                 {
-                  color: Theme ? Color.White : Color.Black,
+                  color: Theme === 'dark' ? Color.White : Color.Black,
                 },
               ]}>
               Sort By
@@ -73,13 +74,13 @@ const FilterModal = (props) => {
           </View>
 
           <FlatList
-            data={data}
+            data={props.data}
             renderItem={({item}) => {
               return (
                 <View style={{}}>
                   <TouchableOpacity
                     style={{marginBottom: verticalScale(10)}}
-                    onPress={() => setSelected(item.id)}>
+                    onPress={props.selectPress}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -91,7 +92,7 @@ const FilterModal = (props) => {
                             styles.SmallTextStyle,
                             styles.BigTextStyle,
                             {
-                              color: Theme ? Color.White : Color.Black,
+                              color: Theme === 'dark' ? Color.White : Color.Black,
                             },
                           ]}>
                           {item.label}
@@ -118,7 +119,7 @@ const FilterModal = (props) => {
                             borderWidth: scale(1.5),
                             marginBottom: verticalScale(15),
                           }}>
-                          {selected == item.id ? (
+                          {props.selected == item.id ? (
                             <View
                               style={{
                                 flex: 1,
@@ -136,7 +137,7 @@ const FilterModal = (props) => {
                                     width >= 768 && height >= 1024
                                       ? verticalScale(7)
                                       : verticalScale(10),
-                                  backgroundColor: Color.Black,
+                                  backgroundColor:  Color.Black,
                                   borderRadius: scale(50),
                                 }}
                               />

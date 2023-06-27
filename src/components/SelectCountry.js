@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   useColorScheme,
   Dimensions,
+  StatusBar
 } from 'react-native';
 import {
   moderateScale,
@@ -20,16 +21,43 @@ import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import Header from './Header';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { getPerishCountry } from '../redux/actions/UserAction';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const SelectCountry = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+const SelectCountry = ({navigation,route}) => {
+  const Theme = useSelector(state => state.mode)
+  const [myData,setMyData] = useState([])
+
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      getPerishCountry(setMyData)
     }, []),
   );
+  const {setPhoneNumber,setFlagImage,type,newType,setCountry} = route.params;
+  const handlePhoneSelect = (code,flag,country) => {  
+
+    if(type){
+      navigation.navigate(type)
+      setPhoneNumber(code)
+      setFlagImage(flag)
+    }else if(newType){
+      navigation.goBack();
+      setPhoneNumber(code)
+      setFlagImage(flag)
+      setCountry(country)
+    }  else{
+      navigation.goBack();
+      setPhoneNumber(code)
+      setFlagImage(flag)
+    }
+      
+
+  }
+
   const DATA = [
     {
       id: '1',
@@ -215,12 +243,13 @@ const SelectCountry = ({navigation}) => {
   ];
   return (
     <>
-    <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <SafeAreaView style={{backgroundColor:Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <StatusBar backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
     <View
       style={[
         styles.Container,
 
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
       ]}>
       <View
         style={styles.backBox}>
@@ -228,12 +257,12 @@ const SelectCountry = ({navigation}) => {
       </View>
         <View
           style={[
-            {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+            {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
             styles.MainBox,
           ]}>
           <FlatList
             scrollEnabled={true}
-            data={DATA}
+            data={myData}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: moderateVerticalScale(100)}}
             renderItem={({item}) => (
@@ -241,7 +270,7 @@ const SelectCountry = ({navigation}) => {
                 style={[
                   {
                     marginTop: verticalScale(5),
-                    borderBottomColor: Theme
+                    borderBottomColor: Theme === 'dark'
                       ? Color.DarkBorderColor
                       : Color.BorderColor,
                   },
@@ -249,7 +278,7 @@ const SelectCountry = ({navigation}) => {
                 <View
                   style={{
                     marginTop: verticalScale(10),
-                    borderBottomColor: Theme
+                    borderBottomColor: Theme === 'dark'
                       ? Color.DarkBorderColor
                       : Color.BorderColor,
                     borderBottomWidth: 1,
@@ -263,7 +292,7 @@ const SelectCountry = ({navigation}) => {
                       styles.title,
 
                       {
-                        color: Theme
+                        color: Theme === 'dark'
                           ? Color.DarkThemText2
                           : Color.DarkTextColor,
                       },
@@ -274,14 +303,15 @@ const SelectCountry = ({navigation}) => {
 
                 <FlatList
                   style={{
-                    borderBottomColor: Theme
+                    borderBottomColor: Theme === 'dark'
                       ? Color.DarkBorderColor
                       : Color.BorderColor,
                     borderBottomWidth: 1,
                   }}
                   data={item.countries}
                   renderItem={({item}) => (
-                    <TouchableOpacity>
+                    <TouchableOpacity 
+                      onPress={() => handlePhoneSelect(item.code,item.flag,item.country)}>
                       <View
                         style={{
                           justifyContent: 'space-between',
@@ -290,7 +320,7 @@ const SelectCountry = ({navigation}) => {
                         <View style={{marginVertical: verticalScale(5)}}>
                           <Text
                             style={[
-                              {color: Theme ? Color.White : Color.Black},
+                              {color: Theme === 'dark' ? Color.White : Color.Black},
 
                               styles.CountryStyle,
                             ]}>
@@ -321,7 +351,7 @@ const SelectCountry = ({navigation}) => {
                             <Text
                               style={[
                                 {
-                                  color: Theme
+                                  color: Theme === 'dark'
                                     ? Color.White
                                     : Color.DarkTextColor,
                                 },
@@ -335,11 +365,11 @@ const SelectCountry = ({navigation}) => {
                       </View>
                     </TouchableOpacity>
                   )}
-                  keyExtractor={item => item.id}
+                  keyExtractor={item => item.country}
                 />
               </View>
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.continent}
           />
         </View>
     </View>

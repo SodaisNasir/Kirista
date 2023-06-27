@@ -26,11 +26,11 @@ const PhoneInput = props => {
   const fourInchPotrait = w <= 350 && h <= 600;
   const fourInchLandscape = w <= 600 && h <= 350;
   return (
-    <View>
+    <View style={props.restyleBox}>
       <Text
         style={{
           fontFamily: Font.Poppins500,
-          color: Theme ? Color.DarkThemText2 : Color.BoldTextColor,
+          color: Theme === 'dark' ? Color.DarkThemText2 : Color.BoldTextColor,
           fontSize: tabPotrait
             ? verticalScale(11)
             : fourInchLandscape
@@ -46,7 +46,7 @@ const PhoneInput = props => {
             : fourInchPotrait
             ? verticalScale(52)
             : verticalScale(45),
-          backgroundColor: Theme
+          backgroundColor: Theme === 'dark'
             ? Color.DarkThemeInputBox
             : Color.InputBoxColor,
 
@@ -55,46 +55,48 @@ const PhoneInput = props => {
           marginTop: verticalScale(2),
           flexDirection: 'row',
         }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SelectCountry')}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <View
+        {props.phone == 'true' ? (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SelectCountry')}
             style={{
-              width: tabPotrait ? scale(15) : scale(25),
-              height: tabPotrait ? verticalScale(10) : verticalScale(16),
               flexDirection: 'row',
+              alignItems: 'center',
             }}>
-            <Image
-              source={require('../assets/images/nig.png')}
+            <View
               style={{
-                width: '100%',
-                height: '100%',
-              }}
-            />
-          </View>
-          <View style={{paddingHorizontal: moderateScale(5)}}>
-            <Text
-              style={{
-                color: Theme ? Color.White : Color.TextColor,
-                fontFamily:Font.Inter500,
-                fontSize: tabPotrait
-                  ? verticalScale(11)
-                  : fourInchLandscape
-                  ? scale(12)
-                  : scale(14),
+                width: tabPotrait ? scale(15) : scale(25),
+                height: tabPotrait ? verticalScale(10) : verticalScale(16),
+                flexDirection: 'row',
               }}>
-              +234
-            </Text>
-          </View>
-          <AntDesign
-            name="down"
-            size={tabPotrait ? scale(11) : scale(16)}
-            color={Theme ? Color.White : Color.Black}
-          />
-        </TouchableOpacity>
+              <Image
+                source={require('../assets/images/nig.png')}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            </View>
+            <View style={{paddingHorizontal: moderateScale(5)}}>
+              <Text
+                style={{
+                  color: Theme === 'dark' ? Color.White : Color.TextColor,
+                  fontFamily: Font.Inter500,
+                  fontSize: tabPotrait
+                    ? verticalScale(11)
+                    : fourInchLandscape
+                    ? scale(12)
+                    : scale(14),
+                }}>
+                +234
+              </Text>
+            </View>
+            <AntDesign
+              name="down"
+              size={tabPotrait ? scale(11) : scale(16)}
+              color={Theme === 'dark' ? Color.White : Color.Black}
+            />
+          </TouchableOpacity>
+        ) : null}
 
         <TextInput
           placeholder={'Phone Number'}
@@ -107,9 +109,9 @@ const PhoneInput = props => {
               : fourInchLandscape
               ? scale(12)
               : scale(14),
-              fontFamily:Font.Inter500,
+            fontFamily: Font.Inter500,
             paddingLeft: moderateScale(5),
-            color: Theme ? Color.DarkThemeInputText : Color.TextColor,
+            color: Theme === 'dark' ? Color.DarkThemeInputText : Color.TextColor,
             // top: fourInchPotrait
             //   ? scale(2.5)
             //   : fourInchLandscape

@@ -7,7 +7,8 @@ import {
   useColorScheme,
   useWindowDimensions,
   Image,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
@@ -17,34 +18,73 @@ import CustomButton from '../../../components/CustomButton';
 import Header from '../../../components/Header';
 import CustomNavigator from '../../../components/CustomNavigator';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { getRCCData } from '../../../redux/actions/UserAction';
+import { useState } from 'react';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
+import { useEffect } from 'react';
+import DoubleText from '../../../components/Loader/DoubleText';
 
 const RccgStructure = ({navigation}) => {
+  const Theme = useSelector(state => state.mode)
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const language = useSelector(state => state.language);
+  const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const type = 'RCCG Structure';
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
-  const Theme = useColorScheme() === 'dark';
-  const w = useWindowDimensions().width;
-  const h = useWindowDimensions().height;
+  useEffect(() => {
+    getRCCData(setData,type,language,setLoader)
+  },[show])
+
+
+  const onSubmit = () => {
+    setShow(!show)
+    setLoader(true)
+    setTimeout(() => {
+      setLoader(false)
+    }, 2000);
+  }
+  let result = data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '8px' : '13px'};
+   margin-top:
+ ${w >= 768 && h >= 1024 ? '10px' : '15px'};'>`)
+  const source = {
+    html: result,
+  };
   return (
     <>
-    <SafeAreaView style={{ backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,}} />
+    <SafeAreaView style={{ backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,}} />
        <View
       style={[
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
           flex: 1,
         },
       ]}>
-        <StatusBar backgroundColor={ Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
+        <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
       <Header text={'RCCG Structure'} />   
-      <ScrollView showsVerticalScrollIndicator={false}>
+    {/* {loader ? 
+     <View style={{flex:1,justifyContent: 'center',alignItems: 'center'}}>
+     <ActivityIndicator
+          size="large"
+          color={Theme === 'dark' ? Color.White : Color.Main}
+          />   
+          </View>
+        :  */}
+           <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(22),
           }}>
+
           <View
             style={{
               height:
@@ -60,948 +100,28 @@ const RccgStructure = ({navigation}) => {
               style={{height: '100%', width: '100%'}}
             />
           </View>
-
+{
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(300) : verticalScale(250)} />
+                </View>
+               :
+          <RenderHtml contentWidth={w} source={source} systemFonts={systemFonts}/>
+}
           <View
             style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-
-              marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(15),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 1
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-              }}>
-              Nigeria, North Africa (Ethiopia)
-            </Text>
-          </View>
-          <View
-            style={{
-              marginVertical:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continental Overseer{''}
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                - Pastor J.O. Obayemi
-              </Text>
-            </Text>
-
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textAlign: 'center',
-              }}>
-              Deputy Continental Overseer {''}
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                - Pastor Tosin Macauley
-              </Text>
-            </Text>
-          </View>
-
-          <View
-            style={{
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-              marginBottom:
-                w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Assistant Continental Overseers
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Pastor Sunday Akande
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Pastor Kalu Ndukwe
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Pastor Margaret Daramola
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Pastor Tunde Oduwole
-            </Text>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(25),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 2
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Abuja, Northern Nigeria, West Africa 1 (Ghana), West Africa 2
-              (Cote D'ivoire), West Africa 3 (Gambia), Central Africa (Cameroun)
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor E.A. Odeyemi
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Deputy Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor James Dagunduro
-                </Text>
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Assistant Continental Overseers
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Pastor Peter Akalamudo (Cameroun)
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Pastor Peter Akalamudo (Cameroun)
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Pastor Emmanuel Kalejaiye (Gambia)
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Pastor John Temitope (Cote D' Ivoire)
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Pastor Christopher Oni
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins500,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Pastor Dele Olowookere
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 3
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Lagos, Southwest Nigeria, Middle East Region 1 & 2
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor J.F Odesola
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 4
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Southern Africa 1 (Zambia), Southern Africa 2 (South Africa)
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Ayo Adeloye
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 5
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              East Africa 1 (Kenya), East Africa 2 (Kenya)
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Peter Amenkhienan
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Deputy Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Prince ObasiIke
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 6
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              North America (USA, Canada), South America (Brazil), Central
-              America (Honduras), Caribbean
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor James Fadel
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Deputy Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Femi Olawale
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 7
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Asia 1 (Bangladesh), Asia 2 (Malaysia)
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Remi Akintunde
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Deputy Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Kola Olaade
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 8
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Australia, Oceania & South Pacific
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Wole Haastrup
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Deputy Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Ibukun Williams
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Continent 9
-            </Text>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Europe 1 (Netherlands), Europe 2 (Spain), Europe 3 (Sweden), UK &
-              Ireland
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                }}>
-                Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Dele Olowu
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Deputy Continental Overseer {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Leke Sanusi
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.White : Color.Black,
-              borderWidth: 1,
-              borderStyle: 'dashed',
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
-            }}
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: verticalScale(15),
-              paddingVertical:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            }}>
-            <Text
-              style={{
-                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
-              }}>
-              Intercontinental Departments
-            </Text>
-            <View
-              style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(10),
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Intercontinental Evangelist {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor J.T Kalejaiye
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Intercontinental Youth Pastor {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Belemina Obunge
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Intercontinental Prayer Coordinator {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Peter Olawale
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Intercontinental Music Director {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Kunle Ajayi
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Intercontinental Financial Controller {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Joseph Adeyokunnu
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Intercontinental CSR Coordinator {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Idowu Iluyomade
-                </Text>
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                  fontFamily: Font.Poppins700,
-                  color: Theme ? Color.White : Color.DarkTextColor,
-                  textAlign: 'center',
-                }}>
-                Intercontinental Security Director {''}
-                <Text
-                  style={{
-                    fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(13),
-                    fontFamily: Font.Poppins500,
-                    color: Theme ? Color.White : Color.DarkTextColor,
-                  }}>
-                  - Pastor Oke Mofunaya
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
               borderWidth: 1,
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
             }}
           />
+          {
+                loader ?
+                <View style={{flex:1,justifyContent: 'center',}}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(25)} />
+                </View>
+               :
           <View
             style={{
               alignItems: 'center',
@@ -1013,7 +133,7 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                 fontFamily: Font.Poppins500,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               Pastor E.A. Adeboye
             </Text>
@@ -1021,30 +141,31 @@ const RccgStructure = ({navigation}) => {
               style={{
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(14),
                 fontFamily: Font.Poppins700,
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
               }}>
               General Overseer, RCCG World Wide
             </Text>
           </View>
-
-          <View
+}
+          {/* <View
             style={{
-              borderColor: Theme ? Color.DarkBorderColor : Color.BorderColor,
+              borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
               borderWidth: 1,
               width: w >= 768 && h >= 1024 ? '70%' : '100%',
               alignSelf: 'center',
             }}
-          />
-          <View
+          /> */}
+          {/* <View
             style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
             }}>
             <CustomButton restyle={{width: '95%'}} text={'Read More'} />
-          </View>
+          </View> */}
         </View>
-        <View style={{height: verticalScale(95)}} />
+        <View style={{height: verticalScale(55)}} />
       </ScrollView>
+      {/* } */}
       <View
         style={{
           position: 'absolute',
@@ -1052,7 +173,11 @@ const RccgStructure = ({navigation}) => {
           width: '100%',
           backgroundColor: Color.White,
         }}>
-        <CustomNavigator />
+        <CustomNavigator 
+          onPressLeft={() => navigation.navigate('Rccg')}
+          onPressFresh={() => onSubmit()}
+          onPressRight={() => navigation.navigate('RccgContinent')}
+        />
       </View>
     </View>
     </>

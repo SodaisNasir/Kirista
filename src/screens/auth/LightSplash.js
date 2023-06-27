@@ -10,26 +10,25 @@ import {
   ScrollView,
 } from 'react-native';
 import {Color} from '../../utils/Colors';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const LightSplash = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+const LightSplash = () => {
+  const Theme = useSelector(state => state.mode)
 
-  setTimeout(() => {
-    navigation.navigate('OverBoard');
-  }, 3000);
+
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
       <StatusBar
-        backgroundColor={Theme ? Color.DarkTheme : Color.White}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -43,7 +42,7 @@ const LightSplash = ({navigation}) => {
         <View
           style={{
             height: '40%',
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             justifyContent: 'flex-end',
             alignItems: 'center',
           }}>
@@ -52,7 +51,7 @@ const LightSplash = ({navigation}) => {
               height: w >= 768 && h >= 1024 ? '25%' : '40%',
               width: '70%',
             }}>
-            {Theme ? (
+            {Theme === 'dark' ? (
               <Image
                 resizeMode="contain"
                 style={{
@@ -76,7 +75,7 @@ const LightSplash = ({navigation}) => {
         <View
           style={{
             height: '54%',
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             justifyContent: 'flex-end',
             alignItems: 'center',
           }}>
@@ -89,7 +88,7 @@ const LightSplash = ({navigation}) => {
               style={{
                 fontFamily: Font.Poppins500,
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
-                color: Theme ? Color.White : Color.Black,
+                color: Theme === 'dark' ? Color.White : Color.Black,
                 position: 'absolute',
                 left: w >= 768 && h >= 1024 ? scale(130) : scale(115),
                 textAlign: 'center',
@@ -97,7 +96,7 @@ const LightSplash = ({navigation}) => {
               }}>
               Powered by
             </Text> */}
-            {Theme ? (
+            {Theme === 'dark' ? (
               <Image
                 resizeMode={'contain'}
                 style={{

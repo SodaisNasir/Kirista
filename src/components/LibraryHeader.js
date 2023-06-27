@@ -19,13 +19,16 @@ import {Font} from './../utils/font';
 import {Color} from './../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import FilterList from '../assets/icons/filter_list.svg';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const LibraryHeader = props => {
   const navigation = useNavigation();
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+
 
   return (
     <SafeAreaView
@@ -33,22 +36,22 @@ const LibraryHeader = props => {
         styles.AuthHeaderStyle,
         props.AuthHeaderStyle,
         {
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         },
       ]}>
       <StatusBar
-        backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-        barStyle={Theme ? 'light-content' : 'dark-content'}
+        backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+        barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
       <View style={styles.NavigatorStyle}>
         <Text
           style={[
             styles.WelcomeText,
             {
-              color: Theme ? Color.White : Color.DarkTheme,
+              color: Theme === 'dark' ? Color.White : Color.DarkTheme,
             },
           ]}>
-          Library
+          {applanguage.Library}
         </Text>
 
         <View

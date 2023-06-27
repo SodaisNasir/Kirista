@@ -17,59 +17,127 @@ import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import CustomButton from '../../components/CustomButton';
 import {useFocusEffect} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import Share from 'react-native-share'
+import { useState } from 'react';
+import { markData } from '../../redux/actions/UserAction';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ALLBOOKMARK } from '../../redux/reducer';
+import { useEffect } from 'react';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ViewManual = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+const ViewManual = ({navigation,route}) => {
+  const dispatch = useDispatch()
+  const {item} = route.params
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+  const is_guest = useSelector(state => state.is_guest)
+  const user_details = useSelector(state => state.user_details)
+  const allbookmark = useSelector(state => state.allbookmark)
+
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
 
+
+
+  const [isChecked, setIsChecked] = useState(false);
+  const shareBook = (data) => {
+    let shareImageBase64 = {
+      title: 'Book',
+      url: `d`,
+      subject: 'Share Book Link', //  for email
+    }
+    Share.open(shareImageBase64).catch((error) => console.log(error))
+  }
+const type = 'book'
+
+useEffect(() => {
+  addBookmark()
+},[allbookmark])
+
+const addBookmark = () => {
+  const extrxtIds = allbookmark.find((elm) => elm.id == item.id)
+  if(extrxtIds != null || undefined){
+    setIsChecked(true);
+  }else{
+    setIsChecked(false)
+  }
+}
+
+
+const handleSubmit = async () => {
+    const findData = allbookmark?.find((elm) => elm.id == item?.id)
+
+    if (findData) {
+      const updatedData = allbookmark.filter((elm) => elm.id !== findData.id);
+      dispatch({type: ALLBOOKMARK, payload: updatedData})
+      await AsyncStorage.setItem('allbookmark', JSON.stringify(updatedData));
+      setIsChecked(false)
+      console.log('laraib =========>')
+    } else {
+      markData(type,item.id,user_details)
+      dispatch({type: ALLBOOKMARK, payload: [...allbookmark, item]})
+      console.log('laraib =========> Object not found in the array');
+      setIsChecked(true);
+      await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
+    }
+  }
   return (
     <>
     <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-      <StatusBar barStyle={Theme ? 'light-content' : 'dark-content' } backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}/>
+      <StatusBar barStyle={Theme === 'dark' ? 'light-content' : 'dark-content' } backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
     <View
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
           marginTop:Platform.OS == 'ios' && w <= 450 && h <= 750 ? 0 : Platform.OS == 'ios' ? verticalScale(-20) : 0
           
         },
         styles.Container,
       ]}>
      
-        <CustomHeader shareicon={true} saveicon={true} />
+        <CustomHeader
+         goPress={() => navigation.goBack()}
+         shareicon={true}
+         BookPress={handleSubmit}
+         saveicon={is_guest == true ? false : true}
+         shareOnPress={shareBook}
+         select={isChecked}
+          />
+
           <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.ImageViewStyle}>
           <Image
             resizeMode="contain"
-            source={require('../../assets/images/manual.png')}
-            style={{height: '100%', width: '100%'}}
+            source={{uri: item?.cover_image}}
+            style={{height: '100%', width: '100%',borderRadius:scale(10)}}
           />
         </View>
         <View style={{marginTop: verticalScale(10)}}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TextStyle,
             ]}>
-            Sunday School Student
+            {/* Sunday School Student */}
+            {item?.title}
           </Text>
-          <Text
+          {/* <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TextStyle,
             ]}>
             Manual
-          </Text>
+          </Text> */}
         </View>
 
         <View
@@ -80,8 +148,11 @@ const ViewManual = ({navigation}) => {
             paddingHorizontal: verticalScale(20),
           }}>
           <CustomButton
-            onPress={() => navigation.navigate('Readone')}
-            text={'Read'}
+            onPress={() => navigation.navigate('Readone',{
+              id: item?.id,
+              item:item
+            })}
+            text={applanguage.Read}
           />
         </View>
 
@@ -90,7 +161,7 @@ const ViewManual = ({navigation}) => {
         <View
           style={{
             height: verticalScale(18),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -102,7 +173,7 @@ const ViewManual = ({navigation}) => {
             alignSelf: 'center',
             height:
               w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(120),
-            backgroundColor: Theme ? Color.DarkTheme : Color.White,
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
             // height: verticalScale(80),
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(20),
@@ -116,13 +187,13 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Language</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>{applanguage.LanguagePlain}</Text>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BoldDetailTextStyle,
               ]}>
-              English
+               {item?.language}
             </Text>
           </View>
           <View
@@ -134,13 +205,13 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Category</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>{applanguage.Category}</Text>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BoldDetailTextStyle,
               ]}>
-              Manual
+              {item?.category}
             </Text>
           </View>
           <View
@@ -150,20 +221,20 @@ const ViewManual = ({navigation}) => {
               justifyContent: 'center',
               flex: 1,
             }}>
-            <Text style={[styles.DetailTextStyle,{color:Theme ? '#fff' : '#D1D2D4'}]}>Released</Text>
+            <Text style={[styles.DetailTextStyle,{color:Theme === 'dark' ? '#fff' : '#D1D2D4'}]}>{applanguage.Released}</Text>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                 styles.BoldDetailTextStyle,
               ]}>
-              2023
+               {item?.release_year}
             </Text>
           </View>
         </View>
         <View
           style={{
             height: verticalScale(18),
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+            backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
           }}
         />
 
@@ -171,7 +242,7 @@ const ViewManual = ({navigation}) => {
           style={{
             height: verticalScale(70),
             justifyContent: 'center',
-            borderBottomColor: Theme
+            borderBottomColor: Theme === 'dark'
               ? Color.DarkBorderColor
               : Color.BorderColor,
             borderBottomWidth: 1,
@@ -179,17 +250,17 @@ const ViewManual = ({navigation}) => {
           }}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.AuthorText,
             ]}>
-            Author
+            {applanguage.Author}
           </Text>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.AuthorNameText,
             ]}>
-            Pastor E.A. Adeboye
+           {item?.author}
           </Text>
         </View>
 
@@ -199,24 +270,25 @@ const ViewManual = ({navigation}) => {
             marginVertical: verticalScale(15),
           }}>
           <Text
-            style={[styles.About, {color: Theme ? Color.White : Color.Black}]}>
-            About
+            style={[styles.About, {color: Theme === 'dark' ? Color.White : Color.Black}]}>
+            {applanguage.About}
           </Text>
 
           <Text
             style={[
               styles.AboutText,
-              {color: Theme ? Color.White : Color.Black},
+              {color: Theme === 'dark' ? Color.White : Color.Black},
             ]}>
-            This Sunday School year is expected to be a year of firm and
+            {/* This Sunday School year is expected to be a year of firm and
             dedicated study. This year's manual is a compilation of sound
             biblical doctrines. Our personal goal should be to study the Bible
-            to discover the treasures in it.
+            to discover the treasures in it. */}
+            {item?.about}
           </Text>
         </View>
 
         <View style={{height: verticalScale(6)}}></View>
-      </ScrollView>
+          </ScrollView>
     </View>
     </>
   );
@@ -230,14 +302,17 @@ const styles = StyleSheet.create({
   },
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),
-
     marginTop: w >= 768 && h >= 1024 ? verticalScale(15) : verticalScale(15),
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(5),
+    alignSelf: 'center',
+    width: '45%',
   },
   TextStyle: {
     fontFamily: Font.Poppins600,
     textAlign: 'center',
     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(16),
+    width: '80%',
+    alignSelf: 'center'
   },
   DetailTextStyle: {
     fontFamily: Font.Poppins400,

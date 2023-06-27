@@ -18,20 +18,21 @@ import {
 } from 'react-native-size-matters';
 import {Font} from '../utils/font';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const Tab =  w >= 768 && h >= 1024 ;
 
 const Dropdown = (data) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
 
   const [Dropdown, setDropdown] = useState(false);
 
   const ShowDropdown = () => {
     setDropdown(!Dropdown);
   };
-  console.log('data ===>', data)
+
 
   return (
     <>
@@ -48,7 +49,7 @@ const Dropdown = (data) => {
         onPress={ShowDropdown}
         style={[
           {
-            backgroundColor: Theme
+            backgroundColor: Theme === 'dark'
               ? Color.DarkThemeInputBox
               : Color.InputBoxColor,
           },
@@ -63,38 +64,38 @@ const Dropdown = (data) => {
         <Entypo
           name={Dropdown == false ? 'chevron-down' : `chevron-up`}
           size={Tab ? scale(17) : scale(24)}
-          color={Theme ? Color.White : Color.Black}
+          color={Theme === 'dark' ? Color.White : Color.Black}
         />
       </TouchableOpacity>
       {Dropdown && (
-        <View style={[styles.DropDownBox,{borderColor: Theme ? Color.White : Color.Black,}]}>
-          <View style={[styles.DropdownInsideBox,{ borderColor:Theme ? '#fff' : Color.Black,}]}>
+        <View style={[styles.DropDownBox,{borderColor: Theme === 'dark' ? Color.White : Color.Black,}]}>
+          <View style={[styles.DropdownInsideBox,{ borderColor:Theme === 'dark' ? '#fff' : Color.Black,}]}>
             <TextInput style={styles.TextInput} placeholder="Type here..." />
             <Ionicons
               name="search"
               size={Tab ? scale(15) : scale(20)}
-              color={Theme ? Color.White : Color.Black}
+              color={Theme === 'dark' ? Color.White : Color.Black}
             />
           </View>
           <View style={{paddingHorizontal: moderateScale(15),}}>
-            <Text style={[styles.Please,{ color:Theme ? Color.White : Color.Black,}]}>Please select</Text>
-            <Text style={[styles.Heading,{color:Theme ? Color.InputBoxColor : '#202125'}]}>{data.Heading1}</Text>
-            <Text style={[styles.Heading,{color:Theme ? Color.InputBoxColor : '#202125'}]}>{data.Heading2}</Text>
-            <Text style={[styles.Heading,{color:Theme ? Color.InputBoxColor : '#202125'}]}>{data.Heading3}</Text>
+            <Text style={[styles.Please,{ color:Theme === 'dark' ? Color.White : Color.Black,}]}>Please select</Text>
+            <Text style={[styles.Heading,{color:Theme === 'dark' ? Color.InputBoxColor : '#202125'}]}>{data.Heading1}</Text>
+            <Text style={[styles.Heading,{color:Theme === 'dark' ? Color.InputBoxColor : '#202125'}]}>{data.Heading2}</Text>
+            <Text style={[styles.Heading,{color:Theme === 'dark' ? Color.InputBoxColor : '#202125'}]}>{data.Heading3}</Text>
 
-            {/* <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {data.itemOne1}</Text> */}
-           {/*  <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.itemOne2}</Text>
-            <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.itemOne3}</Text> */}
+            {/* <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {data.itemOne1}</Text> */}
+           {/*  <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.itemOne2}</Text>
+            <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.itemOne3}</Text> */}
 
-            {/* <Text style={[styles.Heading,{color:Theme ? Color.InputBoxColor : '#202125'}]}>{props.Heading2}</Text>
-            <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.ItemTwo1}</Text>
-            <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.ItemTwo2}</Text>
-            <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.ItemTwo3}</Text>
+            {/* <Text style={[styles.Heading,{color:Theme === 'dark' ? Color.InputBoxColor : '#202125'}]}>{props.Heading2}</Text>
+            <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.ItemTwo1}</Text>
+            <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.ItemTwo2}</Text>
+            <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.ItemTwo3}</Text>
 
-            <Text style={[styles.Heading,{color:Theme ? Color.InputBoxColor : '#202125'}]}>{props.Heading3}</Text>
-            <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.ItemThree1}</Text>
-            <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.ItemThree2}</Text>
-            <Text style={[styles.Title,{color:Theme ? Color.White : Color.BlackText}]}>• {props.ItemThree3}</Text> */}
+            <Text style={[styles.Heading,{color:Theme === 'dark' ? Color.InputBoxColor : '#202125'}]}>{props.Heading3}</Text>
+            <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.ItemThree1}</Text>
+            <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.ItemThree2}</Text>
+            <Text style={[styles.Title,{color:Theme === 'dark' ? Color.White : Color.BlackText}]}>• {props.ItemThree3}</Text> */}
           </View>
         </View>
       )}

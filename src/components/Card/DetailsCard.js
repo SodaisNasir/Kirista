@@ -9,19 +9,18 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-const DetailsCard = (props, {data}) => {
+const DetailsCard = props => {
   const fourInchPotrait = w <= 350 && h <= 600;
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   const iosTab = w >= 820 && h >= 1180;
 
-  const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -68,7 +67,7 @@ const DetailsCard = (props, {data}) => {
           }}>
           <Text
             style={[
-              {color: Theme ? Color.White : Color.DarkTextColor},
+              {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TitleStyle,
             ]}>
             {props.title}
@@ -76,7 +75,7 @@ const DetailsCard = (props, {data}) => {
           <Text
             style={[
               {
-                color: Theme ? Color.White : Color.DarkTextColor,
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 marginTop:
                 Platform.OS == 'ios'
                   ? 0
@@ -140,7 +139,6 @@ const styles = StyleSheet.create({
       fontFamily: Font.Poppins600,
   },
   DateStyle: {
-    // bottom: verticalScale(7),
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),

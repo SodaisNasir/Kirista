@@ -1,44 +1,50 @@
 import React, {useState} from 'react'
-import {StyleSheet, View, Text, Image, PermissionsAndroid} from 'react-native'
+import {StyleSheet, View, Text, Image, PermissionsAndroid, ActivityIndicator} from 'react-native'
+
 import {Marker} from 'react-native-maps'
 import MapView, {PROVIDER_GOOGLE, Callout} from 'react-native-maps'
+import { Color } from '../utils/Colors'
 
 
 
-export default function Map() {
+export default function Map({data}) {
+
+
+
   const [Pin, setPin] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
   })
 
+
+
   return (
     <View style={styles.MainContainer}>
-      <MapView
+     {/* {data != null ?  */}
+     <MapView
+        style={styles.mapStyle}
         showsUserLocation={false}
         zoomEnabled={true}
-        // zoomControlEnabled={true}
-        provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: parseFloat(data?.latitude) ? parseFloat(data?.latitude) : 37.78825,
+          longitude:parseFloat(data?.longitude) ? parseFloat(data?.longitude) : -122.4324,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
         <Marker
-          coordinate={Pin}
-          draggable={true}
-          pinColor="red"
-          onDragStart={(e) => {
-            console.log('helo map', e.nativeEvent.coordinate)
+          coordinate={{
+            latitude: parseFloat(data?.latitude) ? parseFloat(data?.latitude) : 37.78825,
+            longitude:parseFloat(data?.longitude)? parseFloat(data?.longitude) : -122.4324,
           }}
-          onDragEnd={(e) => {
-            setPin({
-              latitude: e.nativeEvent.coordinate.latitude,
-              longitude: e.nativeEvent.coordinate.longitude,
-            })
-            console.log('helo map')
-          }} />
+          pinColor="red"
+          />
       </MapView>
+       {/* :
+        <ActivityIndicator
+                size="large"
+                color={Color.Main}
+              />
+} */}
     </View>
   )
 }

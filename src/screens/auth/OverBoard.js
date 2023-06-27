@@ -12,7 +12,7 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import React from 'react';
+import React,{useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
 import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
@@ -21,10 +21,30 @@ import CustomSmallButton from '../../components/CustomSmallButton';
 import InvertCustomButton from '../../components/InvertCustomButtom';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Color} from '../../utils/Colors';
-import {useDispatch} from 'react-redux';
-import {IS_GUEST, LOGIN} from '../../redux/reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {IS_GUEST, LOGIN, USER_DETAILS} from '../../redux/reducer';
+import { skipGuest } from '../../redux/actions/AuthAction';
+
+
 const OverBoard = ({navigation}) => {
-  const Dispatch = useDispatch();
+  const Theme = useSelector(state => state.mode)
+
+  const getlanguage = useSelector(state => state.getlanguage)
+  const applanguage = useSelector(state => state.applanguage)
+  const defaulLang = getlanguage != null ? getlanguage : 'EN'
+
+  const [selectedLanguage, setselectedLanguage] = useState(defaulLang)
+
+  const handleLanguageButtonPress = () => {
+    navigation.navigate('Language', {
+      type : 'Language',
+      setSelectedLanguage: setselectedLanguage,
+    });
+  };
+
+
+ 
+  const dispatch = useDispatch();
 
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
@@ -34,23 +54,21 @@ const OverBoard = ({navigation}) => {
   const fourInchPotrait = width <= 350 && height <= 600;
   const fourInchLandscape = width <= 350 && height <= 600;
 
-  console.log(width, height);
-  const Theme = useColorScheme() === 'dark';
+  const device = Platform.OS;
   const handelSkip = () => {
-    navigation.navigate('BottomTabNavigator');
-    Dispatch({type: IS_GUEST, payload: true});
+    dispatch(skipGuest(device))
   };
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: Theme ? Color.DarkTheme : Color.White,
+        backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
-         {/* <StatusBar backgroundColor={Theme ? Color.DarkTheme : Color.White} barStyle={Theme ? 'light-content' : 'dark-content'} /> */}
-         <StatusBar translucent={true} backgroundColor={'transparent'} />
+         {/* <StatusBar backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White} barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'} /> */}
+         <StatusBar  translucent={true} backgroundColor={'transparent'} barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'} />
       <ImageBackground
         source={
-          Theme
+          Theme === 'dark'
             ? require('../../assets/images/overboard_dark.png')
             : width >= 768 && height >= 1024
             ? require('../../assets/images/Overboard_tab.png')
@@ -74,9 +92,7 @@ const OverBoard = ({navigation}) => {
                 marginHorizontal:scale(8)
               }}>
               <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Language',{type:'Language'});
-                }}
+                onPress={handleLanguageButtonPress}
                 style={{
                   paddingHorizontal:moderateScale(15),
                   // paddingVertical:moderateVerticalScale(10),
@@ -102,7 +118,7 @@ const OverBoard = ({navigation}) => {
                         top: verticalScale(1),
                       },
                     ]}>
-                    EN
+                    {selectedLanguage}
                   </Text>
                   <AntDesign
                     name="down"
@@ -125,7 +141,7 @@ const OverBoard = ({navigation}) => {
                     fontSize: tabPotrait ? scale(9) : scale(15),
                     top: tabPotrait ? scale(0) : Platform.OS == 'ios' ?  scale(7) : scale(5),
                   }}>
-                  Skip
+                  {applanguage.Skip}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -159,11 +175,11 @@ const OverBoard = ({navigation}) => {
                   borderWidth: scale(2),
                   borderColor: Color.Main,
                   borderRadius: scale(10),
-                  padding: Theme ? 0 : 3,
+                  padding: Theme === 'dark' ? 0 : 3,
                 }}>
                 <Image
                   source={
-                    Theme
+                    Theme === 'dark'
                       ? require('../../assets/images/continent2_dark.png')
                       : require('../../assets/images/continent2.png')
                   }
@@ -171,7 +187,7 @@ const OverBoard = ({navigation}) => {
                     width: '100%',
                     height: '100%',
                   }}
-                  resizeMode={Theme ? 'cover' : 'contain'}
+                  resizeMode={Theme === 'dark' ? 'cover' : 'contain'}
                 />
               </View>
               <View
@@ -219,10 +235,10 @@ const OverBoard = ({navigation}) => {
                 alignSelf: 'center',
                 marginTop: verticalScale(20),
               }}>
-              <CustomSmallButton text={'#Parishes'} />
-              <CustomSmallButton text={'#Books'} />
-              <CustomSmallButton text={'#Events'} />
-              <CustomSmallButton text={'#More'} />
+              <CustomSmallButton text={`#${applanguage.Parishes}`} />
+              <CustomSmallButton text={`#${applanguage.Books}`} />
+              <CustomSmallButton text={`#${applanguage.Events}`} />
+              <CustomSmallButton text={`#${applanguage.More}`} />
             </View>
 
             <View
@@ -235,9 +251,9 @@ const OverBoard = ({navigation}) => {
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: tabPotrait ? scale(15) : scale(20),
-                  color: Theme ? Color.White : Color.Black,
+                  color: Theme === 'dark' ? Color.White : Color.Black,
                 }}>
-                Welcome, Brethren.
+                {applanguage.Welcome}{applanguage.Brethen}
               </Text>
             </View>
             <View
@@ -248,7 +264,7 @@ const OverBoard = ({navigation}) => {
               }}>
               <View style={{marginTop: verticalScale(4)}}>
                 <CustomButton
-                  text={'Create an account'}
+                  text={applanguage.NewAccount}
                   onPress={() => navigation.navigate('SignUp')}
                 />
               </View>
@@ -261,7 +277,7 @@ const OverBoard = ({navigation}) => {
                     : verticalScale(10),
                 }}>
                 <InvertCustomButton
-                  text={'Sign In'}
+                  text={applanguage.SignIn}
                   onPress={() => navigation.navigate('Login')}
                 />
               </View>
@@ -293,23 +309,23 @@ const OverBoard = ({navigation}) => {
                   fontFamily: Font.Poppins500,
                 }}>
                 {' '}
-                By continuing, you agree the{' '}
+                {applanguage.Terms}{' '}
                 <Text
                   onPress={() => navigation.navigate('Terms')}
                   style={[
                     styles.term,
                     tabPotrait ? {fontSize: scale(7)} : {fontSize: scale(10)},
                   ]}>
-                  Terms of Use
+                  {applanguage.OfUse}
                 </Text>
-                <Text style={{color: Color.BoldTextColor}}> and </Text>
+                <Text style={{color: Color.BoldTextColor}}> {applanguage.And} </Text>
                 <Text
                   onPress={() => navigation.navigate('Privacy')}
                   style={[
                     styles.term,
                     tabPotrait ? {fontSize: scale(7)} : {fontSize: scale(10)},
                   ]}>
-                  Privacy Policy
+                  {applanguage.Privacy}
                 </Text>
               </Text>
             </View>

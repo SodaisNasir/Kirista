@@ -16,14 +16,17 @@ import {scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import {useFocusEffect} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ParishesResult = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+const ParishesResult = ({navigation,route}) => {
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+  const {data} = route.params;
 
-  const data = [
+  const data2 = [
     {
       id: 1,
       title: 'RCCG',
@@ -79,15 +82,15 @@ const ParishesResult = ({navigation}) => {
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
     <View
       style={[
         styles.Container,
-        {backgroundColor: Theme ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0},
       ]}>
-      <Header text={'Result'} AuthHeaderStyle={{
+      <Header text={applanguage.Result} AuthHeaderStyle={{
         paddingTop:0,
         // height:verticalScale(60)
       }}/>
@@ -97,7 +100,9 @@ const ParishesResult = ({navigation}) => {
         renderItem={({item}) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate('ViewParish')}
+              onPress={() => navigation.navigate('ViewParish',{
+                id:item.id
+              })}
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -126,7 +131,7 @@ const ParishesResult = ({navigation}) => {
                       height: '100%',
                       width: '100%',
                     }}
-                    source={item.image}
+                    source={{uri: item?.image}}
                   />
                 </View>
               </View>
@@ -143,21 +148,21 @@ const ParishesResult = ({navigation}) => {
                     style={[
                       styles.TitleStyle,
                       {
-                        color: Theme ? '#fff' : Color.DarkTextColor,
+                        color: Theme === 'dark' ? '#fff' : Color.DarkTextColor,
                         marginTop: verticalScale(5),
                       },
                     ]}>
-                    {item.title}
+                    {item?.region}
                   </Text>
                   <Text
                     style={[
                       {
-                        color: Theme ? '#fff' : Color.DarkTextColor,
+                        color: Theme === 'dark' ? '#fff' : Color.DarkTextColor,
                         marginTop:  Platform.OS == 'ios' ? verticalScale(-5) :  verticalScale(-10),
                       },
                       styles.TitleStyle,
                     ]}>
-                    {item.manual}
+                    {item?.title}
                   </Text>
                 {/* </View> */}
                 {/* <View
@@ -167,7 +172,7 @@ const ParishesResult = ({navigation}) => {
                     justifyContent: 'center',
                     right: scale(2),
                   }}> */}
-                <Text style={styles.CountryStyle}>{item.country}</Text>
+                <Text style={styles.CountryStyle}>{item?.country}</Text>
                 {/* </View> */}
               </View>
             </TouchableOpacity>

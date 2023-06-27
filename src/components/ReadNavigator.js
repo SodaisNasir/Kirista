@@ -11,17 +11,15 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
+import { useSelector } from 'react-redux';
+
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ReadNavigator = props => {
-  const Theme = useColorScheme() === 'dark';
+  const heyTheme = useSelector(state => state.mode)
+  const Theme = props.newTheme != '' ? props.newTheme : heyTheme
 
-  const [showSvg, setShowSvg] = useState(false);
-
-  const toggleIcon = () => {
-    setShowSvg(!showSvg);
-  };
 
   return (
     <View
@@ -29,7 +27,7 @@ const ReadNavigator = props => {
         styles.container,
         props.reStyle,
         {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: props.background && props.setShow ? props.background  : Theme === 'dark' ? Color.DarkTheme : Color.White,
         },
       ]}>
       <View style={styles.BoxStyle}>
@@ -38,24 +36,24 @@ const ReadNavigator = props => {
             <FontAwesome5
               name="list-ul"
               size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-              color={Theme ? '#fff' : '#374957'}
+              color={props.background && props.setShow ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
             />
           </TouchableOpacity>
         {/* )} */}
 
         {/* {props.DontShowMoon ? null : ( */}
-          <TouchableOpacity onPress={toggleIcon} style={styles.tabButton}>
-            {showSvg ? (
+          <TouchableOpacity onPress={props.moonPress} style={styles.tabButton}>
+            {props.show ? (
               <Feather
                 name="sun"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-                color={Theme ? '#fff' : '#374957'}
+                color={props.background && props.setShow ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
               />
             ) : (
               <Feather
                 name="moon"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}
-                color={Theme ? '#fff' : '#374957'}
+                color={props.background && props.setShow ? '#374957' : Theme === 'dark' ? '#fff' : '#374957'}
               />
             )}
           </TouchableOpacity>
@@ -67,7 +65,7 @@ const ReadNavigator = props => {
           <Feather
             name="settings"
             size={w >= 768 && h >= 1024 ? scale(15) : scale(18)}
-            color={props.ChangeColor ? props.color : Theme ? '#fff' : '#374957'}
+            color={props.background && props.setShow  ? '#374957' : props.ChangeColor ? props.color : Theme === 'dark' ? '#fff' : '#374957'}
           />
         </TouchableOpacity>
       </View>

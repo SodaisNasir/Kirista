@@ -10,6 +10,7 @@ import {
   useColorScheme,
   StatusBar,
   Linking,
+  Platform,
 } from 'react-native';
 import React, {useState, useCallback} from 'react';
 import {
@@ -46,16 +47,21 @@ import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {LOGIN} from '../../redux/reducer';
+import {LOGIN, USER_DETAILS} from '../../redux/reducer';
 import BottomTab from '../../constant/BottomTab';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LogOut } from '../../redux/actions/AuthAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const SettingsMore = () => {
   const [email, setEmail] = useState(null);
-  const Dispatch = useDispatch();
-  const Theme = useColorScheme() === 'dark';
+  const userData = useSelector(state => state.user_details)
+  const applanguage = useSelector(state => state.applanguage)
+
+  const dispatch = useDispatch();
+  const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,28 +75,30 @@ const SettingsMore = () => {
   );
 
   const is_guest = useSelector(state => state.is_guest);
+
+  
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-          barStyle={Theme ? 'light-content' : 'dark-content'}
+          backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
 
         <View
           style={[
             styles.HeaderStyle,
             {
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             },
           ]}>
           <View style={styles.WelcomeView}>
@@ -99,20 +107,21 @@ const SettingsMore = () => {
                 style={[
                   styles.WelcomeText,
                   {
-                    color: Theme ? Color.White : Color.Black,
+                    color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
-                Guest, Brethren.
+              {applanguage.Hello},  {applanguage.Brethen}
               </Text>
             ) : (
               <Text
                 style={[
                   styles.WelcomeText,
                   {
-                    color: Theme ? Color.White : Color.Black,
+                    color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
-                Hello, Brethren.
+                {/* Hello, Brethren. */}
+                {applanguage.Hello},  {applanguage.Brethen}.
               </Text>
             )}
           </View>
@@ -121,11 +130,11 @@ const SettingsMore = () => {
           <View style={[styles.MainView]}>
             <TouchableOpacity
             activeOpacity={1}
-            onPress={() => is_guest ? navigation.navigate('Login') : console.log('asdf')}
+            onPress={() => is_guest ? dispatch({type: USER_DETAILS, payload: null}) : console.log('asdf')}
               style={[
                 styles.UserInfo,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.ImageAndText}>
@@ -134,6 +143,18 @@ const SettingsMore = () => {
                     width: w >= 768 && h >= 1024 ? scale(30) : scale(55),
                     height: w >= 768 && h >= 1024 ? scale(30) : scale(55),
                   }}>
+                    {
+                      userData?.data?.profile_image != null ?
+                      <Image
+                    source={{uri: userData?.data?.profile_image}}
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                      borderRadius: scale(100),
+                    }}
+                    resizeMode="contain"
+                  />
+                      :
                   <Image
                     source={
                       is_guest
@@ -147,6 +168,7 @@ const SettingsMore = () => {
                     }}
                     resizeMode="contain"
                   />
+                    }
                 </View>
 
                 <View
@@ -161,23 +183,23 @@ const SettingsMore = () => {
                         style={[
                           styles.UserNameText,
                           {
-                            color: Theme ? Color.White : Color.DarkTextColor,
+                            color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                             fontFamily: Font.Poppins700,
                             alignSelf: 'flex-start',
                           },
                         ]}>
-                        Sign in
+                        {applanguage.SignIn}
                       </Text>
                       <Text
                         style={[
                           styles.UserInfoText,
                           {
-                            color: Theme ? Color.White : Color.Black,
+                            color: Theme === 'dark' ? Color.White : Color.Black,
                           },
                         ]}>
                         <Text
                           style={{
-                            color: Theme ? Color.White : Color.Black,
+                            color: Theme === 'dark' ? Color.White : Color.Black,
                             fontFamily: Font.Poppins700,
                             fontSize:
                               w >= 768 && h >= 1024 ? scale(8) : scale(11),
@@ -193,28 +215,30 @@ const SettingsMore = () => {
                         style={[
                           styles.UserNameText,
                           {
-                            color: Theme ? Color.White : Color.DarkTextColor,
+                            color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                           },
                         ]}>
-                        Mary David
+                        {/* Mary David */}
+                        {userData.data.name}
                       </Text>
                       <Text
                         style={[
                           styles.UserInfoText,
                           {
-                            color: Theme ? Color.White : Color.Black,
+                            color: Theme === 'dark' ? Color.White : Color.Black,
                           },
                         ]}>
                         <Text
                           style={{
-                            color: Theme ? Color.White : Color.Black,
+                            color: Theme === 'dark' ? Color.White : Color.Black,
                             fontFamily: Font.Poppins700,
                             fontSize:
                               w >= 768 && h >= 1024 ? scale(8) : scale(11),
                           }}>
                           ID:{' '}
                         </Text>
-                        IOS0000192
+                        {/* IOS0000192 */}
+                        {userData.data.new_id}
                       </Text>
                      </View>
                   )}
@@ -241,7 +265,7 @@ const SettingsMore = () => {
           <View
             style={{
               height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             }}
           />
           <View style={styles.MainView}>
@@ -250,11 +274,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <AboutDark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -268,10 +292,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  About
+                  {applanguage.About}
                 </Text>
               </View>
 
@@ -290,17 +314,17 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View
                 style={[
                   styles.IconAndText,
                   {
-                    color: Theme ? Color.White : Color.DarkTextColor,
+                    color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                   },
                 ]}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <LanguageDark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -314,10 +338,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.DarkTextColor,
+                      color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                     },
                   ]}>
-                  Language
+                  {applanguage.Language}
                 </Text>
               </View>
 
@@ -333,11 +357,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={[styles.IconAndText]}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Notification_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -351,10 +375,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Notifications
+                  {applanguage.Notifications}
                 </Text>
               </View>
 
@@ -365,11 +389,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Dark_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -382,10 +406,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  DarkMode
+                 {applanguage.DarkMode} 
                 </Text>
               </View>
 
@@ -401,7 +425,7 @@ const SettingsMore = () => {
           <View
             style={{
               height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             }}
           />
           <View style={[styles.MainView]}>
@@ -410,11 +434,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Faq_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -426,10 +450,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  FAQ
+                  {applanguage.FAQ} 
                 </Text>
               </View>
 
@@ -446,11 +470,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Terms_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -464,10 +488,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Terms
+                  {applanguage.TermsPlain}
                 </Text>
               </View>
 
@@ -484,11 +508,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Privacy_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -502,10 +526,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Privacy
+                  {applanguage.PrivacyPlain}
                 </Text>
               </View>
 
@@ -521,7 +545,7 @@ const SettingsMore = () => {
           <View
             style={{
               height: verticalScale(20),
-              backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             }}
           />
 
@@ -531,11 +555,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Feedback_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -549,10 +573,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Feedback
+                  {applanguage.Feedback}
                 </Text>
               </View>
 
@@ -570,11 +594,11 @@ const SettingsMore = () => {
               style={[
                 styles.AllItems,
                 {
-                  backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
               <View style={styles.IconAndText}>
-                {Theme ? (
+                {Theme === 'dark' ? (
                   <Call_dark
                     height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                   />
@@ -588,10 +612,10 @@ const SettingsMore = () => {
                   style={[
                     styles.TextStyle,
                     {
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                     },
                   ]}>
-                  Contact
+                  {applanguage.Contact}
                 </Text>
               </View>
 
@@ -645,14 +669,14 @@ const SettingsMore = () => {
               alignSelf: 'center',
               height: verticalScale(40),
             }}>
-            <Text style={[styles.VersionText]}>Version 1.0.0</Text>
+            <Text style={[styles.VersionText]}>{applanguage.Version} 1.0.0</Text>
           </View>
           {is_guest ? null : (
             <>
               <View
                 style={{
                   height: verticalScale(20),
-                  backgroundColor: Theme
+                  backgroundColor: Theme === 'dark'
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
                 }}
@@ -661,15 +685,15 @@ const SettingsMore = () => {
                 style={[
                   styles.MainView,
                   {
-                    backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                    backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                   },
                 ]}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('OverBoard')}
+                  onPress={()=> dispatch(LogOut())}
                   style={[
                     styles.AllItems,
                     {
-                      backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                      backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                     },
                   ]}>
                   <View style={styles.IconAndText}>
@@ -677,14 +701,14 @@ const SettingsMore = () => {
                       height={w >= 768 && h >= 1024 ? scale(16) : scale(18)}
                     />
 
-                    <Text style={[styles.LogoutTextStyle]}>Log out</Text>
+                    <Text style={[styles.LogoutTextStyle]}>{applanguage.LogOut}</Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <View
                 style={{
                   height: verticalScale(20),
-                  backgroundColor: Theme
+                  backgroundColor: Theme === 'dark'
                     ? Color.ExtraViewDark
                     : Color.HeaderColor,
                 }}

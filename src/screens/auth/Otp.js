@@ -26,21 +26,30 @@ import {
 import {Font} from '../../utils/font';
 import {Color} from '../../utils/Colors';
 import AuthHeader from '../../components/AuthHeader';
+import {useDispatch, useSelector} from 'react-redux';
+import {OTPMethod, register, sign_in, verify_Email_before_password} from '../../redux/actions/AuthAction';
+import IncorrectModal from '../../components/Modals/IncorrectModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const CELL_COUNT = 4;
-const OTP = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
-  const [value, setValue] = useState('');
+const OTP = ({navigation, route}) => {
+  const {type, data, id,device} = route.params;
+  const dispatch = useDispatch();
+  const otp = useSelector((state) => state.otp)
+  const applanguage = useSelector(state => state.applanguage)
+
+
+  const Theme = useSelector(state => state.mode)
+  const [value, setValue] = useState();
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+  const [check, setCheck] = useState(false)
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
-
-  const [time, setTime] = useState(600);
+  const [time, setTime] = useState(5);
   useEffect(() => {
     const timer = time > 0 && setInterval(() => setTime(time - 1), 1000);
     return () => clearInterval(timer);
@@ -50,15 +59,31 @@ const OTP = ({navigation}) => {
   const seconds = time % 60;
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
+  const handleOtp = () => {
+    if (otp == value) {
+      navigation.navigate('NewPassword', {
+        data: data,
+        id: id
+      });
+    } else {
+      // alert('Incorrect OTP!!');
+      setCheck(true)
+    }
+  };
+
+  const resendOtp = () => {
+      dispatch(verify_Email_before_password(data,navigation, 'resend' ,setTime))
+ }
+
   return (
     <SafeAreaView
       style={[
-        {backgroundColor: Theme ? Color.DarkTheme : Color.White},
+        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
         styles.Container,
       ]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{alignSelf: 'center', width: '95%'}}>
-          <AuthHeader text={'Email Verification'} />
+          <AuthHeader text={applanguage.EmailVerification} />
 
           <View
             style={{
@@ -67,17 +92,18 @@ const OTP = ({navigation}) => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.LongText,
               ]}>
-              We have sent a one-time password to{' '}
+              {applanguage.OtpText}{' '}
               <Text
                 style={{
                   fontFamily: Font.Poppins700,
                   fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(12),
-                  color: Theme ? Color.DarkThemText2 : Color.TextColor,
+                  color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor,
                 }}>
-                maryjames@rccg.com
+                {/* maryjames@rccg.com */}
+                {data?.email}
               </Text>
             </Text>
           </View>
@@ -91,10 +117,10 @@ const OTP = ({navigation}) => {
             }}>
             <Text
               style={[
-                {color: Theme ? Color.DarkThemText2 : Color.TextColor},
+                {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.OtpText,
               ]}>
-              OTP
+              {applanguage.OTP} {otp}
             </Text>
 
             <View>
@@ -106,20 +132,20 @@ const OTP = ({navigation}) => {
                     alignItems: 'center',
                     borderRadius: scale(10),
                   }}
-                  onPress={() => setTime(600)}>
+                  onPress={resendOtp}>
                   <Text
                     style={{
-                      color: Theme ? Color.White : Color.Black,
+                      color: Theme === 'dark' ? Color.White : Color.Black,
                       fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                       fontFamily: Font.Poppins700,
                     }}>
-                    Resend
+                     {applanguage.Resend}
                   </Text>
                 </TouchableOpacity>
               ) : (
                 <Text
                   style={{
-                    color: Theme ? Color.White : Color.Black,
+                    color: Theme === 'dark' ? Color.White : Color.Black,
                     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
                     alignSelf: 'center',
                     fontFamily: Font.Poppins700,
@@ -137,7 +163,7 @@ const OTP = ({navigation}) => {
             rootStyle={[
               styles.codeFieldRoot,
               {
-                color: Theme ? Color.White : Color.Black,
+                color: Theme === 'dark' ? Color.White : Color.Black,
                 borderRadius: scale(16),
               },
             ]}
@@ -146,7 +172,7 @@ const OTP = ({navigation}) => {
             renderCell={({index, symbol, isFocused}) => (
               <View
                 style={{
-                  backgroundColor: Theme
+                  backgroundColor: Theme === 'dark'
                     ? Color.DarkThemeInputBox
                     : Color.OtpBoxColor,
                   borderRadius: scale(16),
@@ -154,10 +180,12 @@ const OTP = ({navigation}) => {
                 <Text
                   key={index}
                   style={[
-                    {color: Theme ? Color.White : Color.Black},
+                    {color: Theme === 'dark' ? Color.White : Color.Black},
                     styles.cell,
                     isFocused && styles.focusCell,
-                    Platform.OS == 'ios' ?  {lineHeight:verticalScale(30)} : {textAlignVertical:'center'}
+                    Platform.OS == 'ios'
+                      ? {lineHeight: verticalScale(30)}
+                      : {textAlignVertical: 'center'},
                   ]}
                   onLayout={getCellOnLayoutHandler(index)}>
                   {symbol || (isFocused ? <Cursor /> : null)}
@@ -170,13 +198,16 @@ const OTP = ({navigation}) => {
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(25),
             }}>
-            <CustomButton
-              onPress={() => navigation.navigate('NewPassword')}
-              text={'Continue'}
-            />
+            <CustomButton onPress={() => handleOtp()} text={applanguage.Continue} />
           </View>
         </View>
       </ScrollView>
+      <IncorrectModal
+          text={applanguage.IncorctOtp}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </SafeAreaView>
   );
 };

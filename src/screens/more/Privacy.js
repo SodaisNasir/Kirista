@@ -2,50 +2,95 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
   Dimensions,
-  useColorScheme,
+  ActivityIndicator,
   StatusBar,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import React, {useLayoutEffect} from 'react';
 import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
-import CustomNavigator from '../../components/CustomNavigator';
+import { base_Url } from '../../utils/Url';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Privacy = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
+  const [data,setData] = useState('')
+  const { width } = useWindowDimensions();
+  const applanguage = useSelector(state => state.applanguage)
+  const language = useSelector(state => state.language)
+  const [Loading, setLoading] = useState(false);
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
         display: 'none',
       },
     });
+    getPrivacy()
   }, []);
+
+
+const type = 'Privacy'
+  const getPrivacy = async () => {
+    setLoading(true)
+    try {
+
+      let base_url = `${base_Url}show-about`;
+      let myData = new FormData();
+      
+      myData.append('type',type);
+      myData.append('language',language);
+
+      const response = await fetch(base_url, {
+        body: myData,
+        method: 'post',
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success.status === 200) {
+        setData(responseData.success.data.description)
+        setLoading(false)
+      }
+      
+    } catch (error) {
+      console.log('error', error)
+      setLoading(false)
+    }
+  }
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
+  const source = {
+    html: result,
+  };
   return (
     <>
       <SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-          barStyle={Theme ? 'light-content' : 'dark-content'}
+          backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
         <Header
-          text={'Privacy'}
+          text={applanguage.PrivacyPlain}
           AuthHeaderStyle={{
             height:
               Platform.OS == 'android'
@@ -59,113 +104,37 @@ const Privacy = ({navigation}) => {
                 : verticalScale(45),
           }}
         />
+         {Loading ? (
+          <ActivityIndicator style={{marginTop:'70%'}} color={Color.Main} size="large" />
+        ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={[
               styles.Container,
               {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
+                backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
               },
             ]}>
-            <View style={{marginVertical: verticalScale(20)}}>
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                Privacy Policy
-              </Text>
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {
-                    color: Theme ? Color.White : Color.Black,
-                  },
-                ]}>
-                INTRODUCTION
-              </Text>
-            </View>
-            <Text
-              style={[
-                styles.TextStyle,
-                {
-                  color: Theme ? Color.White : Color.Black,
-                },
-              ]}>
-              Kirista is dedicated to protecting your personal information and
-              informing you about how we use your information. This privacy
-              policy applies to your use of our services including our Mobile
-              App and services (collectively “Platform”). We operate this mobile
-              application, a digital reading platform that enables brethren read
-              RCCG books using a variety of electronic devices, software
-              applications, and other services.
-            </Text>
-            <Text
-              style={[
-                {
-                  marginTop: verticalScale(10),
-                  color: Theme ? Color.White : Color.Black,
-                },
-                styles.TextStyle,
-              ]}>
-              This Privacy Policy should be read in conjunction with the Terms
-              of Use and is integrated into the Terms of Use. All capitalized
-              proper nouns not defined in this Agreement will have the same
-              definitions and meanings as defined by the Terms of If you do not
-              agree to these Terms of Use, you should not review information
-              from this Mobile App. We have the total right to edit or delete
-              any content in this Mobile Platform, including this Agreement,
-              without notifying you.
-            </Text>
-            <Text
-              style={[
-                {
-                  marginTop: verticalScale(10),
-                  color: Theme ? Color.White : Color.Black,
-                },
-                styles.TextStyle,
-              ]}>
-              Kirista is dedicated to protecting your personal information and
-              informing you about how we use your information. This privacy
-              policy applies to your use of our services including our Mobile
-              App and services (collectively “Platform”). We operate this mobile
-              application, a digital reading platform that enables brethren read
-              RCCG books using a variety of electronic devices, software
-              applications, and other services.
-            </Text>
-            <Text
-              style={[
-                {
-                  marginTop: verticalScale(10),
-                  color: Theme ? Color.White : Color.Black,
-                },
-                styles.TextStyle,
-              ]}>
-              This Privacy Policy should be read in conjunction with the Terms
-              of Use and is integrated into the Terms of Use. All capitalized
-              proper nouns not defined in this Agreement will have the same
-              definitions and meanings as defined by the Terms of Use. This
-              Privacy Policy should be read in conjunction with the Terms of Use
-              and is integrated into the Terms of Use. All capitalized proper
-              nouns not defined in this Agreement will have the same definitions
-              and meanings as defined by the Terms of If you do not agree to
-              these Terms of Use, you should not review information from this
-              Mobile App. We have the total right to edit or delete any content
-              in this Mobile Platform, including this Agreement, without
-              notifying you.
-            </Text>
+              <RenderHtml
+      contentWidth={width}
+      source={source}
+      systemFonts={systemFonts}
+    />
+           
           </View>
+          
         </ScrollView>
-        <View
+        )}
+        {/* <View
           style={{
             width: '100%',
             backgroundColor: Color.White,
             justifyContent: 'center',
+            position:Loading ? 'absolute' : 'relative',
+            bottom:0
           }}>
           <CustomNavigator />
-        </View>
+        </View> */}
       </View>
     </>
   );

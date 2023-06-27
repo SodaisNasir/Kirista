@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const SearchBarScreen = () => {
+  const Theme = useSelector(state => state.mode)
   return (
     <View
     style={{
@@ -12,7 +14,7 @@ const SearchBarScreen = () => {
     <View
       style={[
         styles.searchContainer,
-        {backgroundColor: Theme ? '#2B3642' : '#f0f0f0'},
+        {backgroundColor: Theme === 'dark' ? '#2B3642' : '#f0f0f0'},
       ]}>
       <View
         style={{
@@ -23,12 +25,12 @@ const SearchBarScreen = () => {
         <MaterialIcons
           name="search"
           size={24}
-          color={Theme ? '#4E545A' : '#387DE5'}
+          color={Theme === 'dark' ? '#4E545A' : '#387DE5'}
         />
         <TextInput
-          style={[styles.searchInput, {color: Theme ? '#fff' : '#000'}]}
+          style={[styles.searchInput, {color: Theme === 'dark' ? '#fff' : '#000'}]}
           placeholder="Search"
-          placeholderTextColor={Theme ? '#555E68' : '#CDD1D7'}
+          placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
           onSubmitEditing={() => console.log(searchInputValue)}
           onChangeText={text => setSearchQuery(text)}
           value={searchQuery}
@@ -39,7 +41,7 @@ const SearchBarScreen = () => {
           <Ionicons
             name="close-circle"
             size={24}
-            color={Theme ? '#B4B5B7' : 'black'}
+            color={Theme === 'dark' ? '#B4B5B7' : 'black'}
           />
         </TouchableOpacity>
       )}
@@ -49,7 +51,7 @@ const SearchBarScreen = () => {
         <Text
           style={[
             styles.closeButtonText,
-            {color: Theme ? '#B5BCC6' : 'black'},
+            {color: Theme === 'dark' ? '#B5BCC6' : 'black'},
           ]}>
           Cancle
         </Text>

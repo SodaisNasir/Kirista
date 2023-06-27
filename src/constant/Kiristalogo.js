@@ -8,12 +8,13 @@ import {
 } from 'react-native';
 import React from 'react';
 import {verticalScale} from 'react-native-size-matters';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Kiristalogo = () => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
   return (
     <View
       style={{
@@ -26,7 +27,7 @@ const Kiristalogo = () => {
       <Image
         resizeMode={'contain'}
         source={
-          Theme
+          Theme === 'dark'
             ? require('../assets/images/krista_main_dark.png')
             : require('../assets/images/krista_main.png')
         }

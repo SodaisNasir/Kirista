@@ -2,52 +2,98 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
   Dimensions,
-  useColorScheme,
   StatusBar,
   Platform,
+  useWindowDimensions,
+  ActivityIndicator,
+
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
-import CustomNavigator from '../../components/CustomNavigator';
-import {useFocusEffect} from '@react-navigation/native';
 import {useLayoutEffect} from 'react';
+import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
+import { useState } from 'react';
+import { base_Url } from '../../utils/Url';
+import { useSelector } from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Terms = ({navigation}) => {
-  const Theme = useColorScheme() === 'dark';
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+  const language = useSelector(state => state.language)
+  const [Loading, setLoading] = useState(false);
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
+  const [data,setData] = useState('')
+  const { width } = useWindowDimensions();
 
-  useLayoutEffect(
-    useCallback(() => {
-      navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
-    }, []),
-  );
+  useLayoutEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    })
+    getTerms()
+  }, []);
+  const type = 'Terms'
+  const getTerms = async () => {
+    setLoading(true)
+    try {
+
+      let base_url = `${base_Url}show-about`;
+      let myData = new FormData();
+      
+      myData.append('type',type);
+      myData.append('language',language);
+
+      const response = await fetch(base_url, {
+        body: myData,
+        method: 'post',
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success.status === 200) {
+        setData(responseData.success.data.description)
+        setLoading(false)
+      }
+      
+    } catch (error) {
+      console.log('error', error)
+      setLoading(false)
+    }
+  }
+
+  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
+  const source = {
+    html: result,
+  };
   return (
-    <>
-      <SafeAreaView
+    < >
+<SafeAreaView
         style={{
-          backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
-        <StatusBar backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor }/>
-      <View
+        <StatusBar backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor }/>
+
+        <View
         style={{
           flex: 1,
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
+          backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
         <StatusBar
-          backgroundColor={Theme ? Color.ExtraViewDark : Color.HeaderColor}
-          barStyle={Theme ? 'light-content' : 'dark-content'}
+          backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+          barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
         <Header
-          text={'Terms'}
+          text={applanguage.TermsPlain}
           AuthHeaderStyle={{
             height:
               Platform.OS == 'android'
@@ -61,62 +107,32 @@ const Terms = ({navigation}) => {
                 : verticalScale(45),
           }}
         />
-        <ScrollView showsVerticalScrollIndicator={false}>
+         {Loading ? (
+          <ActivityIndicator style={{marginTop:'70%'}} color={Color.Main} size="large" />
+        ) : (
+          <ScrollView showsVerticalScrollIndicator={false}>
           <View
-            style={[
-              styles.Container,
-              {
-                backgroundColor: Theme ? Color.DarkTheme : Color.White,
-              },
-            ]}>
-            <View style={{marginVertical: verticalScale(12)}}>
-              <Text
-                style={[
-                  styles.TextStyle,
-                  {color: Theme ? Color.White : Color.DarkTextColor},
-                ]}>
-                Terms of Use
-              </Text>
-            </View>
-            <Text
               style={[
-                styles.TextStyle,
+                styles.Container,
                 {
-                  color: Theme ? Color.White : Color.Black,
+                  backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
                 },
               ]}>
-              This platform is powered by RCCG Africa Continent 2 and developed
-              by IDC Platforms Limited ("we", "us" or "our"). The use, content
-              and information available on this Mobile App shall be subject to
-              acceptance of and compliance with the terms and conditions set
-              forth in these terms of use and elsewhere on this Mobile App. The
-              terms "you," "your", "yours", "member" "members" and "yourself"
-              refer to all visitors/members to this Mobile App. Your agreement
-              to comply with and be bound by these Terms of Use is deemed to
-              occur upon your first use of the Mobile App.
-            </Text>
-            <Text
-              style={[
-                styles.TextStyle,
-                {
-                  color: Theme ? Color.White : Color.Black,
-                },
-              ]}>
-              If you do not agree to these Terms of Use, you should not review
-              information from this Mobile App. We have the total right to edit
-              or delete any content in this Mobile Platform, including this
-              Agreement, without notifying you.
-            </Text>
-          </View>
-        </ScrollView>
-        <View
-          style={{
-            width: '100%',
-            backgroundColor: Color.White,
-          }}>
-          <CustomNavigator />
+  
+            <RenderHtml
+            contentWidth={width}
+            source={source}
+            systemFonts={systemFonts}
+             />
         </View>
-      </View>
+  
+          </ScrollView>
+        )}
+       
+
+
+</View>
+     
     </>
   );
 };

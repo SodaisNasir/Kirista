@@ -7,6 +7,8 @@ import {
   Dimensions,
   useColorScheme,
   Platform,
+  Linking,
+  ActivityIndicator,
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -14,222 +16,284 @@ import CustomHeader from '../../components/CustomHeader';
 import {Color} from '../../utils/Colors';
 import {verticalScale, scale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {useFocusEffect} from '@react-navigation/native';
+import {useCallback, useState} from 'react';
+import {markData, parish_by_id} from '../../redux/actions/UserAction';
+import Loading from '../../components/Modals/Loading';
+import Map from '../../components/Map';
+import { useDispatch, useSelector } from 'react-redux';
+import Share from 'react-native-share'
+import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { PARISHBOOKMARK } from '../../redux/reducer';
+import DoubleText from '../../components/Loader/DoubleText';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ViewParish = () => {
-  const Theme = useColorScheme() === 'dark';
-  return (
+const ViewParish = ({route}) => {
+  const {id} = route.params;
+  const dispatch = useDispatch()
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const Theme = useSelector(state => state.mode)
+  const applanguage = useSelector(state => state.applanguage)
+  const is_guest = useSelector(state => state.is_guest)
+
+  const parishbookmark = useSelector(state => state.parishbookmark)
+  const user_details = useSelector(state => state.user_details)
+  const [isChecked, setIsChecked] = useState(false);
+  const [location, setLocation] = useState([])
+
+  const [cordinates, setCordinates] = useState(null);
+
+
+  // const mapProperty = () => {
+  //   let json = data.length > 0 && typeof data?.map === "string" ? JSON.parse(data?.map) : data?.map;
+  //   json = typeof json === "string" ? JSON.parse(json) : json;
+
+  //   setLocation(json)
+  //   return `${json.latitude} - ${json.longitude}`;
+  // };
+
+  useFocusEffect(
+    useCallback(() => {
+      parish_by_id(setData, id, setLoading,setCordinates);
+    }, []),
+  );
+
+  const shareBook = () => {
+    let shareImageBase64 = {
+      title: data.title,
+      url: `d`,
+      subject: 'Share Book Link', //  for email
+    }
+    Share.open(shareImageBase64).catch((error) => console.log(error))
+  }
+  useEffect(() => {
+    addBookmark()
+  },[parishbookmark,data])
+  
+  const addBookmark = () => {
+    const extrxtIds = parishbookmark.find((elm) => elm.id == data.id)
+    if(extrxtIds != null){
+      setIsChecked(true);
+    }else{
+      setIsChecked(false)
+    }
+  }
+
+  const type = 'parish'
+
+  const handleSubmit = async () => {
+    const findData = parishbookmark?.find((elm) => elm.id == data?.id)
+
+    if (findData) {
+      const updatedData = parishbookmark.filter((elm) => elm.id !== findData.id);
+      dispatch({type: PARISHBOOKMARK, payload: updatedData})
+      await AsyncStorage.setItem('parishbookmark', JSON.stringify(updatedData));
+      setIsChecked(false)
+      console.log('laraib =========>')
+    } else {
+      markData(type,data.id,user_details)
+      dispatch({type: PARISHBOOKMARK, payload: [...parishbookmark, data]})
+      console.log('laraib =========> Object not found in the array');
+      setIsChecked(true);
+      await AsyncStorage.setItem('parishbookmark', JSON.stringify([...parishbookmark, data]));
+    }
+  }
+  return  (
     <>
-       <SafeAreaView style={{backgroundColor:Theme ? Color.ExtraViewDark : Color.HeaderColor}}/>
-       <View
-      style={[
-        styles.Container,
-        {
-          backgroundColor: Theme ? Color.DarkTheme : Color.White,
-          marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0
-        },
-      ]}>
-        <CustomHeader text={'View Parish'} shareicon={true} saveicon={true}/>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            paddingHorizontal:
-              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-          }}>
-          <View style={styles.ImageViewStyle}>
-            <Image
-              resizeMode="contain"
-              source={require('../../assets/images/parish.png')}
-              style={{height: '100%', width: '100%'}}
+      <SafeAreaView
+        style={{
+          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+        }}
+      />
+      <View
+        style={[
+          styles.Container,
+          {
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
+            marginTop: Platform.OS == 'ios' ? verticalScale(-20) : 0,
+          },
+        ]}>
+        <CustomHeader
+         text={applanguage.ViewParish}
+          shareicon={true}
+           saveicon={!is_guest}
+           shareOnPress={shareBook}
+           select={isChecked}
+           BookPress={handleSubmit}
             />
-          </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+            }}>
+              {
+                data.image ?
+            <View style={styles.ImageViewStyle}>
+              <Image
+                resizeMode="contain"
+                source={{uri: data.image}}
+                style={{height: '100%', width: '100%'}}
+              />
+            </View>
+            : 
+
+            <View style={styles.ImageViewStyle}>
+               <DoubleText height={ w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200)} />
+            </View>
+              }
+
+              {
+                data.title ?
+            <View
+              style={{
+                marginVertical:
+                  w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+              }}>
+              <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
+                  styles.TextStyle,
+                ]}>
+                {data.title}
+              </Text>
+            </View>
+                : 
+                <View style={{
+                  marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                }}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+             </View>
+              }
+
+            {
+              data.country ?
+            <View style={styles.DetailsViewStyle}>
+              <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.LocationText,
+                ]}>
+                {applanguage.Country}:
+              </Text>
+              <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.LocationDetailsText,
+                ]}>
+                {data.country}
+              </Text>
+            </View>
+            : 
+            <View style={{
               marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
             }}>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.DarkTextColor},
-                styles.TextStyle,
-              ]}>
-              RCCG Central Parish
-            </Text>
-          </View>
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+         </View>
+            }
 
-          <View style={styles.DetailsViewStyle}>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationText,
-              ]}>
-              Country:
-            </Text>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationDetailsText,
-              ]}>
-              Nigeria
-            </Text>
-          </View>
+              {
+                  data.region
+                ?
+            <View style={styles.DetailsViewStyle}>
+              <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.LocationText,
+                ]}>
+                {applanguage.Region}:
+              </Text>
+              <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.LocationDetailsText,
+                ]}>
+                {data.region}
+              </Text>
+            </View>
+                :
+                <View style={{
+                  marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                }}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+             </View>
+              }
 
-          <View style={styles.DetailsViewStyle}>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationText,
-              ]}>
-              Region:
-            </Text>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationDetailsText,
-              ]}>
-              Region 10 Abuja
-            </Text>
-          </View>
+              {
+                data.province
+                ?
+                <View style={styles.DetailsViewStyle}>
+                <Text
+                  style={[
+                    {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                    styles.LocationText,
+                  ]}>
+                  {applanguage.Province}:
+                </Text>
+                <Text
+                  style={[
+                    {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                    styles.LocationDetailsText,
+                  ]}>
+                  {data.province}
+                </Text>
+              </View>
+                :
+                <View style={{
+                  marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                }}>
+                <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+             </View>
+              }
 
-          <View style={styles.DetailsViewStyle}>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationText,
-              ]}>
-              Province:{' '}
-            </Text>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationDetailsText,
-              ]}>
-              FCT 2{' '}
-            </Text>
+         {data.about
+          ?
+            <View
+              style={{
+                marginBottom: verticalScale(20),
+              }}>
+              <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.AboutText,
+                ]}>
+                
+                {data.about}
+              </Text>
+            </View>
+          :
+          <View style={{
+            marginVertical:
+              w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+          }}>
+          <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(120) : verticalScale(100)} />
+       </View>
+         }
           </View>
-
           <View
             style={{
-              marginBottom: verticalScale(20),
-            }}>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.AboutText,
-              ]}>
-              The Redeemed Christian Church of God, Central Parish, is the
-              Continental Headquarters of RCCG Continent 2. It is a big
-              fellowship of families fitly knitted together in true love.
-              Situated in the heart of the Federal Capital Territory, Central
-              Parish is an architectural masterpiece that allows for comfort to
-              those that worship therein. Presided over by a team of Pastors
-              under the leadership of Pastor E.A. Odeyemi (Continent 2
-              Overseer).
-            </Text>
-          </View>
-        </View>
-        <View
-          style={{
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-            height: verticalScale(25),
-          }}></View>
-
-        <View
-          style={{
-            // backgroundColor: 'purple',
-            justifyContent: 'center',
-            // marginVertical: verticalScale(15),
-            marginTop: verticalScale(15),
-          }}>
-          <Text
-            style={[
-              {
-                paddingHorizontal:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-              },
-              styles.LocationBigText,
-              {color: Theme ? Color.White : Color.DarkTextColor},
-            ]}>
-            Location
-          </Text>
-        </View>
-        <View
-          style={{
-            marginTop: verticalScale(5),
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={[
-              {
-                paddingHorizontal:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-              },
-              styles.LocationText,
-              {color: Theme ? Color.White : Color.TextColor2},
-            ]}>
-            Abuja
-          </Text>
-          <Text
-            style={[
-              {
-                paddingHorizontal:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-              },
-              styles.LocationDetailsText,
-              {color: Theme ? Color.White : Color.TextColor2},
-            ]}>
-            1249 Aminu Kano Cres, Wuse 904101, Abuja, Federal Capital Territory,
-            Nigeria.
-          </Text>
-        </View>
-        <View
-          style={{
-            height:
-              w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
-            // paddingHorizontal:
-            //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            marginVertical: verticalScale(15),
-            borderRadius: scale(14),
-            marginBottom: verticalScale(20),
-            overflow: 'hidden',
-            marginHorizontal:
-              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-          }}>
-          <Image
-            source={require('../../assets/images/maps.png')}
-            style={{height: '100%', width: '100%'}}
-          />
-
-          {/* <MapView
-            style={{flex: 1}}
-            initialRegion={{
-              latitude: 9.0765,
-              longitude: 7.3986,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+              height: verticalScale(25),
             }}
-            
-            showsUserLocation={false}
-            zoomEnabled={true}
-            // zoomControlEnabled={true}
-            provider={PROVIDER_GOOGLE}
-         
-            ></MapView> */}
-        </View>
-        <View
-          style={{
-            backgroundColor: Theme ? Color.ExtraViewDark : Color.HeaderColor,
-            height: verticalScale(25),
-          }}></View>
-
-        <View style={{height: verticalScale(150)}}>
-          <View
+          />
+          {
+            data.address
+            ?
+            <>
+            <View
             style={{
+              // backgroundColor: 'purple',
               justifyContent: 'center',
-              // marginVertical: verticalScale(10),
+              // marginVertical: verticalScale(15),
               marginTop: verticalScale(15),
             }}>
             <Text
@@ -241,44 +305,187 @@ const ViewParish = () => {
                       : verticalScale(20),
                 },
                 styles.LocationBigText,
-                {color: Theme ? Color.White : Color.DarkTextColor},
+                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               ]}>
-              Contact
+               {applanguage.Location}
             </Text>
           </View>
-
           <View
             style={{
-              // height: verticalScale(80),
+              marginTop: verticalScale(5),
               justifyContent: 'center',
-              paddingHorizontal:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationDetailsText,
+                {
+                  paddingHorizontal:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(25)
+                      : verticalScale(20),
+                },
+                styles.LocationText,
+                {color: Theme === 'dark' ? Color.White : Color.TextColor2},
               ]}>
-              +234 705 469 4807
+              {data.location}
             </Text>
             <Text
               style={[
-                {color: Theme ? Color.White : Color.TextColor2},
+                {
+                  paddingHorizontal:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(25)
+                      : verticalScale(20),
+                },
                 styles.LocationDetailsText,
+                {color: Theme === 'dark' ? Color.White : Color.TextColor2},
               ]}>
-              info@rccgcentralparish.org
-            </Text>
-            <Text
-              style={[
-                {color: Theme ? Color.White : Color.TextColor2},
-                styles.LocationDetailsText,
-              ]}>
-              www.rccgcentralparish.org
+             {data.address}
             </Text>
           </View>
-        </View>
-      </ScrollView>
-    </View>
+            </>
+            :
+            <View style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(20),
+                marginHorizontal: scale(20)
+            }}>
+            <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(55) : verticalScale(45)} />
+         </View>
+          }
+
+         
+          {
+                cordinates ? 
+          <View
+            style={{
+              height:
+                w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(180),
+              marginVertical: verticalScale(15),
+              borderRadius: scale(14),
+              marginBottom: verticalScale(20),
+              overflow: 'hidden',
+              marginHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+                backgroundColor: 'pink'
+            }}>
+            {/* <Image
+              source={require('../../assets/images/maps.png')}
+              style={{height: '100%', width: '100%'}}
+            /> */}
+              <Map data={cordinates} />
+          </View>
+             : 
+             null
+            }
+          <View
+            style={{
+              backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+              height: verticalScale(25),
+            }}
+          />
+
+          <View style={{height: verticalScale(150)}}>
+            <View
+              style={{
+                justifyContent: 'center',
+                // marginVertical: verticalScale(10),
+                marginTop: verticalScale(15),
+              }}>
+     
+
+
+              {
+                data.phone_number
+                ?
+                <Text
+                style={[
+                  {
+                    paddingHorizontal:
+                      w >= 768 && h >= 1024
+                        ? verticalScale(25)
+                        : verticalScale(20),
+                  },
+                  styles.LocationBigText,
+                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
+                ]}>
+               {applanguage.Contact}
+              </Text>
+              :
+              <View style={{
+                  marginHorizontal: scale(20),
+                  marginBottom:scale(10)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
+            </View>
+
+            <View
+              style={{
+                // height: verticalScale(80),
+                justifyContent: 'center',
+                paddingHorizontal:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              }}>
+
+            {
+                data.phone_number
+                ?
+                <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.LocationDetailsText,
+                ]}>
+                {data.phone_number}
+              </Text>
+              :
+              <View style={{
+                  // marginHorizontal: scale(20)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
+              {
+                data.email
+                ?
+
+                <Text
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.LocationDetailsText,
+                ]}>
+                {data.email}
+              </Text> 
+              :
+              <View style={{
+                  // marginHorizontal: scale(20),
+                  marginVertical: verticalScale(5)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
+              {
+                data.website
+                ?
+                <Text
+                onPress={() => Linking.openURL(data.website)}
+                style={[
+                  {color: Theme === 'dark' ? Color.White : Color.TextColor2},
+                  styles.LocationDetailsText,
+                ]}>
+                {data.website}
+              </Text>
+              :
+              <View style={{
+                  // marginHorizontal: scale(20)
+              }}>
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(30) : verticalScale(20)} />
+           </View>
+                }
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     </>
   );
 };
