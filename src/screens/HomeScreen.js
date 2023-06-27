@@ -439,7 +439,7 @@ const HomeScreen = () => {
                               fontFamily: Font.Poppins600,
                               color: Color.White,
                               textTransform: 'uppercase',
-                              // maxWidth: '90%',
+                              maxWidth: '90%',
                               top: item.type == 'ye' ? scale(15) : scale(8),
                               fontSize: iosTab
                                 ? scale(7)

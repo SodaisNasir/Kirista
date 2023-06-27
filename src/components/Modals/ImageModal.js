@@ -37,7 +37,7 @@ const ImageModal = props => {
               styles.image,
             ]}
             resizeMode="stretch"
-            source={require('../../assets/images/modalimg.png')}
+            source={{uri : props.uri}}
           />
         </View>
       </Modal>

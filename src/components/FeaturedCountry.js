@@ -24,6 +24,7 @@ import { useSelector } from 'react-redux';
 import { Font } from '../utils/font';
 import { Color } from '../utils/Colors';
 import Header from './Header';
+import DoubleText from './Loader/DoubleText';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -113,76 +114,105 @@ const FeaturedCountry = ({navigation,route}) => {
                 )}
                 keyExtractor={item => item.continent}
               /> */}
-               <FlatList
-                      style={{
-                        borderBottomColor: Theme === 'dark'
-                          ? Color.DarkBorderColor
-                          : Color.BorderColor,
-                        borderBottomWidth: 1,
-                      }}
-                      data={data}
-                      renderItem={({item}) => (
-                        <TouchableOpacity 
-                          onPress={() => handlePhoneSelect(item)}>
-                          <View
-                            style={{
-                              justifyContent: 'space-between',
-                              flexDirection: 'row',
-                            }}>
-                            <View style={{marginVertical: verticalScale(5)}}>
-                              <Text
-                                style={[
-                                  {color: Theme === 'dark' ? Color.White : Color.Black},
-    
-                                  styles.CountryStyle,
-                                ]}>
-                                {item.country_name}
-                              </Text>
-                            </View>
-    
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                marginVertical: verticalScale(5),
-                                width: '30%',
-                                justifyContent: 'flex-end'
-                              }}>
-                              <View
-                                style={{
-                                //   width:
-                                //     w >= 768 && h >= 1024 ? scale(20) : scale(30),
-                                //   height:
-                                //     w >= 768 && h >= 1024
-                                //       ? verticalScale(15)
-                                //       : verticalScale(20),
-                                flex: 1,
-                                  marginHorizontal:
-                                    w >= 768 && h >= 1024 ? scale(5) : scale(10),
-                                    
-                                }}>
-                                <Text style={{ fontSize: 20 }}>{item.flag_code}</Text>
-                              </View>
-    
-                              <View>
-                                <Text
-                                  style={[
-                                    {
-                                      color: Theme === 'dark'
-                                        ? Color.White
-                                        : Color.DarkTextColor,
-                                    },
-    
-                                    styles.CodeStyle,
-                                  ]}>
-                                  {item.country_code}
-                                </Text>
-                              </View>
-                            </View>
-                          </View>
-                        </TouchableOpacity>
-                      )}
-                      keyExtractor={item => item.id}
-                    />
+              {
+                data?.length > 0
+                ?
+                <FlatList
+                       style={{
+                         borderBottomColor: Theme === 'dark'
+                           ? Color.DarkBorderColor
+                           : Color.BorderColor,
+                         borderBottomWidth: 1,
+                       }}
+                       data={data}
+                       renderItem={({item}) => (
+                         <TouchableOpacity 
+                           onPress={() => handlePhoneSelect(item)}>
+                           <View
+                             style={{
+                               justifyContent: 'space-between',
+                               flexDirection: 'row',
+                             }}>
+                             <View style={{marginVertical: verticalScale(5)}}>
+                               <Text
+                                 style={[
+                                   {color: Theme === 'dark' ? Color.White : Color.Black},
+     
+                                   styles.CountryStyle,
+                                 ]}>
+                                 {item.country_name}
+                               </Text>
+                             </View>
+     
+                             <View
+                               style={{
+                                 flexDirection: 'row',
+                                 marginVertical: verticalScale(5),
+                                 width: '30%',
+                                 justifyContent: 'flex-end'
+                               }}>
+                               <View
+                                 style={{
+                                 //   width:
+                                 //     w >= 768 && h >= 1024 ? scale(20) : scale(30),
+                                 //   height:
+                                 //     w >= 768 && h >= 1024
+                                 //       ? verticalScale(15)
+                                 //       : verticalScale(20),
+                                 flex: 1,
+                                   marginHorizontal:
+                                     w >= 768 && h >= 1024 ? scale(5) : scale(10),
+                                     
+                                 }}>
+                                 <Text style={{ fontSize: 20 }}>{item.flag_code}</Text>
+                               </View>
+     
+                               <View>
+                                 <Text
+                                   style={[
+                                     {
+                                       color: Theme === 'dark'
+                                         ? Color.White
+                                         : Color.DarkTextColor,
+                                     },
+     
+                                     styles.CodeStyle,
+                                   ]}>
+                                   {item.country_code}
+                                 </Text>
+                               </View>
+                             </View>
+                           </View>
+                         </TouchableOpacity>
+                       )}
+                       keyExtractor={item => item.id}
+                     />
+                     : 
+                     <>
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(45) : verticalScale(35)} />
+                     <View style={{height: 0,marginVertical: verticalScale(5)}} />
+                     </>
+              }
             </View>
         </View>
         </>

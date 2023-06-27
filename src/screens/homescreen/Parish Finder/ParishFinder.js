@@ -35,7 +35,7 @@ const ParishFinder = () => {
 
   const onSubmit = () => {
     if(country != '' && province != '' && region != ''){
-      searchPerish(country,province,region,navigation,setMessage,setCheck)
+      searchPerish(country,province,region,navigation,setMessage,setCheck,applanguage)
     }else{
       setMessage(applanguage.SelectField)
       setCheck(true)

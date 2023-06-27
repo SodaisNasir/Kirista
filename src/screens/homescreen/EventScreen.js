@@ -358,6 +358,7 @@ const EventScreen = ({route, navigation}) => {
           onRequestClose={() => setModalVisible(false)}
           OptionSelect={() => setModalVisible(false)}
           onPressClose={() => setModalVisible(false)}
+          uri={data.image}
         />
       </ScrollView>
     </View>

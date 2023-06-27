@@ -301,6 +301,8 @@ export const getPerishRegion = async (setData,dataType) => {
       method: 'post',
       body: myData
     });
+
+    console.log('response', response)
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
@@ -352,7 +354,7 @@ export const getPerishProvince = async (setData,dataType) => {
     console.log('error', error)
   }
 }
-export const searchPerish = async (country,province,region,navigation,setMessage,setCheck) => {
+export const searchPerish = async (country,province,region,navigation,setMessage,setCheck,applanguage) => {
   try {
     let base_url = `${base_Url}search-parish`;
     let myData = new FormData()
@@ -366,10 +368,9 @@ export const searchPerish = async (country,province,region,navigation,setMessage
       body:myData
     });
     const responseData = await response.json();
-    console.log('responseData', responseData)
 
     if(responseData?.error?.status === 400){
-      setMessage('Result not found')
+      setMessage(applanguage.NofounD)
       setCheck(true)
     }else if (responseData?.success?.status === 200) {
       // setData(responseData.success.data)
@@ -474,8 +475,6 @@ export const markData = async (type,id,userData) => {
     console.log('error', error);
   }
 }
-// /edit-notification/id
-
 export const editNotification = async (userData) => {
 
   try {
