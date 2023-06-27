@@ -27,7 +27,7 @@ export const show_all_banner = async (setForImage) =>{
         console.log('error in banner api', error)
     }
 }
-export const show_popup = async (setForImage, setForTitle,setForLink) =>{
+export const show_popup = async (setForImage, setForTitle,setForLink,setData) =>{
     try {
         let base_url = `${base_Url}popup-active`;
   
@@ -38,6 +38,7 @@ export const show_popup = async (setForImage, setForTitle,setForLink) =>{
   
         if (responseData.success.status === 200) {
          console.log('responseData.success.data[0].app_page ==>', responseData.success.data)
+         setData(responseData.success.data[0])
          setForImage(responseData.success.data[0].image)
          setForTitle(responseData.success.data[0].title)
          setForLink(responseData.success.data[0].app_page)

@@ -25,9 +25,13 @@ const Advertisement = () => {
   const [forTitle, setForTitle] = useState();
   const [forLink, setForLink] = useState();
 
+  const [data,setData] = useState()
+
+  console.log('data', data.book_name)
+
   useFocusEffect(
     useCallback(() => {
-      show_popup(setForImage, setForTitle, setForLink);
+      show_popup(setForImage, setForTitle, setForLink,setData);
     }, []),
   );
 
@@ -64,9 +68,15 @@ const Advertisement = () => {
   );
   
 const onSubmit = () => {
-  navigation.navigate('AdvWebView', {
-    link: forLink,
-  })
+  if(data?.book_name !=  null){
+    navigation.navigate('ViewManual', {
+      item: data,
+    })
+  }else{
+    navigation.navigate('AdvWebView', {
+      link: data?.app_page,
+    })
+  }
 }
   return (
     <View style={styles.container}>
@@ -146,7 +156,7 @@ const onSubmit = () => {
                   // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
                 }}
                 // source={require('../assets/images/ad_book.png')}
-                source={{uri: forImage}}
+                source={{uri: data.image}}
               />
             </View>
             <View style={{maxWidth: '50%', alignSelf: 'center'}}>
@@ -157,7 +167,7 @@ const onSubmit = () => {
                   color: Color.White,
                   fontFamily: Font.Poppins600,
                 }}>
-                {forTitle}
+                {data.title}
               </Text>
             </View>
           </View>

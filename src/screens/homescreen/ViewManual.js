@@ -37,6 +37,8 @@ const ViewManual = ({navigation,route}) => {
   const user_details = useSelector(state => state.user_details)
   const allbookmark = useSelector(state => state.allbookmark)
 
+  console.log('item', item)
+
 
   useFocusEffect(
     useCallback(() => {
