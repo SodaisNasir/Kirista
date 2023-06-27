@@ -42,6 +42,8 @@ const Home = () => {
   const height = useWindowDimensions().height;
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600;
+
+  console.log('applanguage', applanguage.ParishFinder)
   
   // useFocusEffect(
   //   useCallback(() => {
@@ -52,20 +54,28 @@ const Home = () => {
   //   },[])
   // )
 
-  // useEffect(() => {
-  //   setShow(true)
-  //   setTimeout(() => {
-  //     setShow(false)
-  //   }, 500);
-  // },[applanguage])
+  useEffect(() => {
+    setShow(true)
+    setTimeout(() => {
+      setShow(false)
+    }, 500);
+  },[applanguage])
   const tabPotrait = w >= 768 && h >= 1024;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
+  const [routes, setRoutes] = useState([
     {key: 'Bedrooms', title: applanguage.Home, type: 'home'},
     {key: 'DiningRoom', title: applanguage.ParishFinder, type: 'finder'},
     {key: 'LivingRoom', title: applanguage.Events},
   ]);
+
+  useEffect(() => {
+    setRoutes([
+      {key: 'Bedrooms', title: applanguage.Home, type: 'home'},
+      {key: 'DiningRoom', title: applanguage.ParishFinder, type: 'finder'},
+      {key: 'LivingRoom', title: applanguage.Events},
+    ])
+  },[applanguage])
   const renderTabBar = props => (
     <View
       style={{
@@ -129,12 +139,6 @@ const Home = () => {
     </View>
   );
 
- 
-
-
-
-
-
   return  (
     <>
       <SafeAreaView
@@ -148,7 +152,6 @@ const Home = () => {
       />
 
       <HomeHeader />
-      {/* {show ? <Loading /> : */}
       
       <View
         style={{
@@ -163,7 +166,6 @@ const Home = () => {
           initialLayout={{width: layout.width}}
         />
       </View>
-      {/* } */}
       <BottomTab activeHome={true} />
     </>
   );

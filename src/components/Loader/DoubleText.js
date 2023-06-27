@@ -26,7 +26,7 @@ const DoubleText = (props) => {
     const iosTab = w >= 820 && h >= 1180;
     const fourInchPotrait = w <= 380 && h <= 630;
   return (
-    <SkeletonPlaceholder borderRadius={4} marginTop={10}>
+    <SkeletonPlaceholder borderRadius={4} marginTop={10}  backgroundColor={Theme === 'dark' ? '#0a21424d' : '#E1E9EE'}>
     <SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
       <SkeletonPlaceholder.Item 
                             width={'100%'} 

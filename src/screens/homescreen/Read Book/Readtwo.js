@@ -12,6 +12,8 @@ import {
   Button,
   Image,
   LogBox,
+  ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Color} from '../../../utils/Colors';
@@ -50,7 +52,6 @@ const Readtwo = ({route}) => {
   
   const chapters = useSelector(state => state.chapters)
   const bookmark = useSelector(state => state.bookmark)
-  console.log("Book MARKS=========>",bookmark);
   const { width } = useWindowDimensions();
 
 
@@ -69,7 +70,7 @@ const Readtwo = ({route}) => {
 
   const [textColor, setTextColor] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [select, setSelect] = useState(chapterOne)
+  const [select, setSelect] = useState()
   const [isSelect, setisSelect] = useState(false);
   const [chapterData, setChapterData] = useState([])
   const [fontData, setFontData] = useState('')
@@ -77,6 +78,10 @@ const Readtwo = ({route}) => {
   const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
   const applanguage = useSelector(state => state.applanguage)
+
+
+
+
   useFocusEffect(
     useCallback(() => {
       dispatch(getChapters(setData,id))
@@ -161,7 +166,45 @@ const Readtwo = ({route}) => {
   const description = {
     html: result3
   };
-  
+
+
+  const [loading, setLoading] = useState(false);
+const [mydata, setmyData] = useState([]);
+const [page, setPage] = useState(1);
+const [hasMoreData, setHasMoreData] = useState(true);
+
+
+
+const fetchData = async () => {
+  try {
+    setLoading(true);
+
+    // Fetch more data here based on the current page value
+
+    // Update the data state by appending the newly fetched data
+    setmyData((prevData) => [...prevData, ...chapters]);
+
+    // Increment the page number for the next fetch
+    setPage((prevPage) => prevPage + 1);
+
+    // Check if more data is available
+    setHasMoreData(chapters.length > 0);
+
+    setLoading(false);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchData();
+}, []);
+const loadMoreData = () => {
+  if (!loading && hasMoreData) {
+    fetchData();
+  }
+};
   return (
     <>
       <SafeAreaView
@@ -208,44 +251,87 @@ const Readtwo = ({route}) => {
           </TouchableOpacity>
           </View>
         </View>
+        <IncorrectModal
+        text={applanguage.Guestpromt}
+        onPress={() => setCheck(false)}
+        onBackdropPress={() => setCheck(false)}
+        isVisible={check}
+      />
 
         <ScrollView showsVerticalScrollIndicator={false} style={{
           backgroundColor: backgroundColor != '' && show ? backgroundColor : Theme === 'dark' ? Color.DarkTheme : Color.White,
           height: '60%',
           width: '100%'
           }}>
-          <IncorrectModal
-          text={applanguage.Guestpromt}
-          onPress={() => setCheck(false)}
-          onBackdropPress={() => setCheck(false)}
-          isVisible={check}
-        />
-          <View
-            style={{
-              height: '100%',
-              width: '100%',
-              paddingHorizontal:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-                backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.DarkTheme : Color.White
-            }}>
-            <View style={{marginVertical: verticalScale(20)}}>
-               <RenderHtml
-                  contentWidth={width}
-                  source={title}
-                  systemFonts={systemFonts}
-                  />
-            </View>
-            <View style={{marginVertical: verticalScale(15)}}>
+                  <View
+          style={{
+            height: '100%',
+            width: '100%',
+            paddingHorizontal:
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.DarkTheme : Color.White
+          }}>
+            {
+              select ?
+              <>
+              <View style={{marginVertical: verticalScale(20)}}>
               <RenderHtml
-                  contentWidth={width}
-                  source={description}
-                  systemFonts={systemFonts}
-                  />
-            </View>
-          </View>
+                 contentWidth={width}
+                 source={title}
+                 systemFonts={systemFonts}
+                 />
+           </View>
+           <View style={{marginVertical: verticalScale(15)}}>
+             <RenderHtml
+                 contentWidth={width}
+                 source={description}
+                 systemFonts={systemFonts}
+                 />
+           </View>
+                 </>
+
+              :
+           
+          
+  chapters.map((item) => {
+    let text = item?.title;
+let text2 = item?.description;
+let result = text?.replace("class='chap_title'",
+`style='color:${backgroundColor != '' && show ? 'black' :  Theme === 'dark' ? Color.White : Color.Black};font-family:${fontData?.name}; font-size:${count + 20}px; font-weight:600;'`);
+let result3 = text2?.replace("class='chap_description'", `style='color:${backgroundColor != '' && show ? 'black' : Theme === 'dark' ? Color.White : Color.Black};font-family:${fontData?.name};  font-size:${count + 15}px; font-weight:600;'`);
+
+const title = {
+html: result
+};
+const description = {
+html: result3
+};
+      return(
+        <>
+<View style={{marginVertical: verticalScale(20)}}>
+   <RenderHtml
+      contentWidth={width}
+      source={title}
+      systemFonts={systemFonts}
+      />
+</View>
+<View style={{marginVertical: verticalScale(15)}}>
+  <RenderHtml
+      contentWidth={width}
+      source={description}
+      systemFonts={systemFonts}
+      />
+</View>
+</>
+    )
+  })
+  
+          }
+        </View>
           <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} />
 
         </ScrollView>
+
           <ChapterOptionModal
             isVisible={isModalVisible}
             onBackdropPress={() => setModalVisible(false)}

@@ -13,11 +13,8 @@ export const show_all_banner = async (setForImage) =>{
         });
        
         const responseData = await response.json();
-        console.log("=================================");
-        console.log("BANNER DATA====>",responseData);
-        console.log("=================================");
+
         if (responseData.success.status === 200) {
-         console.log('', responseData.success.data)
          setForImage(responseData.success.data)
         //  setForLink( responseData.success.data[0].app_page)
         } else {
@@ -27,21 +24,25 @@ export const show_all_banner = async (setForImage) =>{
         console.log('error in banner api', error)
     }
 }
-export const show_popup = async (setForImage, setForTitle,setForLink,setData) =>{
+export const show_popup = async (setForImage, setForTitle,setForLink,setData,Device) =>{
     try {
         let base_url = `${base_Url}popup-active`;
-  
+        let myData = new FormData()
+
+        myData.append('platform',Device)
+
         const response = await fetch(base_url, {
-          method: 'GET',
+          method: 'post',
+          body: myData,
         });
         const responseData = await response.json();
   
         if (responseData.success.status === 200) {
          console.log('responseData.success.data[0].app_page ==>', responseData.success.data)
-         setData(responseData.success.data[0])
-         setForImage(responseData.success.data[0].image)
-         setForTitle(responseData.success.data[0].title)
-         setForLink(responseData.success.data[0].app_page)
+         setData(responseData.success.data)
+        //  setForImage(responseData.success.data[0].image)
+        //  setForTitle(responseData.success.data[0].title)
+        //  setForLink(responseData.success.data[0].app_page)
        
         } else {
           console.log('else error');

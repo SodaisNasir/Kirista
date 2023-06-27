@@ -35,7 +35,7 @@ const Readone = ({route}) => {
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   const {id,item} = route.params
   const [data,setData] = useState()
-  console.log('data', data)
+  console.log('id', id)
 
   useFocusEffect(
     useCallback(() => {

@@ -98,6 +98,12 @@ const HomeScreen = () => {
   const imageUrl =
     'https://images.unsplash.com/photo-1526045612212-70caf35c14df';
 
+    const onSubmit = (item) => {
+      navigation.navigate('AdvWebView', {
+        link: item?.app_page,
+      })
+    }
+
 
   return (
     <View
@@ -122,10 +128,9 @@ const HomeScreen = () => {
             showsPagination={false}>
               {forImage?.length > 0 ? (
               forImage?.map((item, index) => {
-                console.log('item', item)
                 return (
                   <>
-                  <TouchableOpacity activeOpacity={0.7}>
+                  <TouchableOpacity activeOpacity={0.7} onPress={() => onSubmit(item)}>
                     <SwiperCard
                       key={item.id}
                       source={{uri: item.image}}
@@ -250,6 +255,7 @@ const HomeScreen = () => {
                               justifyContent: 'center',
                             }}>
                             <Text
+                            numberOfLines={2}
                               style={[
                                 {
                                   color:
@@ -433,8 +439,8 @@ const HomeScreen = () => {
                               fontFamily: Font.Poppins600,
                               color: Color.White,
                               textTransform: 'uppercase',
-                              maxWidth: '90%',
-                              top: item.type == 'ye' ? scale(15) : scale(10),
+                              // maxWidth: '90%',
+                              top: item.type == 'ye' ? scale(15) : scale(8),
                               fontSize: iosTab
                                 ? scale(7)
                                 : w >= 768 && h >= 1024
@@ -740,8 +746,9 @@ const styles = StyleSheet.create({
   },
 
   BooksTitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(13),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
     fontFamily: Font.Poppins600,
+    maxWidth: '80%',
   },
   BigTextStyle: {
     color: Color.DarkTextColor,

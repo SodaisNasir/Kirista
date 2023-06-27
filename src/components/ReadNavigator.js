@@ -43,7 +43,7 @@ const ReadNavigator = props => {
 
         {/* {props.DontShowMoon ? null : ( */}
           <TouchableOpacity onPress={props.moonPress} style={styles.tabButton}>
-            {props.show ? (
+            {props.show || Theme === 'dark' ? (
               <Feather
                 name="sun"
                 size={w >= 768 && h >= 1024 ? scale(15) : scale(24)}

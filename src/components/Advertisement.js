@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   StatusBar,
+  Platform
 } from 'react-native';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import React, {useState, useEffect} from 'react';
@@ -27,11 +28,10 @@ const Advertisement = () => {
 
   const [data,setData] = useState()
 
-  console.log('data', data.book_name)
-
+const deviceData = Platform.OS
   useFocusEffect(
     useCallback(() => {
-      show_popup(setForImage, setForTitle, setForLink,setData);
+      show_popup(setForImage, setForTitle, setForLink,setData,deviceData);
     }, []),
   );
 
@@ -70,7 +70,7 @@ const Advertisement = () => {
 const onSubmit = () => {
   if(data?.book_name !=  null){
     navigation.navigate('ViewManual', {
-      item: data,
+      item: data.book,
     })
   }else{
     navigation.navigate('AdvWebView', {
@@ -84,7 +84,7 @@ const onSubmit = () => {
       <ImageBackground
         blurRadius={14}
         // source={require('../assets/images/ad_book_tablet.png')}
-        source={{uri: forImage}}
+        source={{uri: data?.image}}
         style={styles.ImageBackground}>
         <View
           style={[
@@ -156,7 +156,7 @@ const onSubmit = () => {
                   // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
                 }}
                 // source={require('../assets/images/ad_book.png')}
-                source={{uri: data.image}}
+                source={{uri: data?.image}}
               />
             </View>
             <View style={{maxWidth: '50%', alignSelf: 'center'}}>
@@ -167,7 +167,7 @@ const onSubmit = () => {
                   color: Color.White,
                   fontFamily: Font.Poppins600,
                 }}>
-                {data.title}
+                {data?.title}
               </Text>
             </View>
           </View>

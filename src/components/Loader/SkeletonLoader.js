@@ -28,7 +28,7 @@ const SkeletonLoader = () => {
     const iosTab = w >= 820 && h >= 1180;
     const fourInchPotrait = w <= 380 && h <= 630;
   return (
-    <SkeletonPlaceholder borderRadius={4} marginTop={20}>
+    <SkeletonPlaceholder borderRadius={4} marginTop={20}  backgroundColor={Theme === 'dark' ? '#0a21424d' : '#E1E9EE'}>
     <SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
       <SkeletonPlaceholder.Item width={w >= 768 && h >= 1024
                               ? verticalScale(170)
