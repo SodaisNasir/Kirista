@@ -3,9 +3,10 @@ import {base_Url, token} from '../../utils/Url';
 import {IS_GUEST, USER_DETAILS} from '../reducer';
 import {OTP_SEND} from '../reducer';
 
-export const sign_in = (data,setCheck) => {
+export const sign_in = (data,setCheck,setLoader) => {
   return async (dispatch) => {
     try {
+      setLoader(true);
       let base_url = `${base_Url}login`;
       let formdata = new FormData();
      const notiToken =  await AsyncStorage.getItem('onesignaltoken')
@@ -31,9 +32,11 @@ formdata.append("device_token",notiToken)
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
         console.log('responseData if for otpMEthod', responseData);
         console.log('USER_DETAILS', USER_DETAILS)
+        setLoader(false);
       } else {
         console.log('else error');
         setCheck(true)
+        setLoader(false);
       }
     } catch (error) {
       console.log('catch error', error);
@@ -77,6 +80,7 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader,langu
       }else if (responseData?.success?.status === 200) {
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
         setLoader(false)
+        console.log("user data ==>",responseData.success);
         dispatch({type: USER_DETAILS, payload: responseData.success});
       } else {
         setLoader(false)
@@ -214,9 +218,10 @@ export const skipGuest = (device) => {
   }
 }
 
-export const LogOut = () => {
+export const LogOut = (setloader) => {
 return async dispatch => {
   try {
+    setloader(true);
    const data =  await AsyncStorage.getItem('user_details')
    const userData = JSON.parse(data);
     let base_url = `${base_Url}logout-notify/${userData.data.id}`;
@@ -232,9 +237,11 @@ console.log("RESP DATA =>",responseData);
       const userData = JSON.parse(data);
       console.log("ASYNC DATA =====>",userData);
     dispatch({type: USER_DETAILS, payload: null})
+    setloader(false);
       console.log(responseData.success);
     }else{
       console.log('first')
+      setloader(false);
     }
   } catch (error) {
     console.log('error', error);

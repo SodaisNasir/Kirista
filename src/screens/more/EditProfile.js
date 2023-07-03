@@ -46,6 +46,7 @@ const EditProfile = ({navigation}) => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [text, onChangeText] = useState('');
+  const [password, onChangePassword] = useState('');
   const [isVisible, setVisible] = useState(true);
   const [isVisible2, setVisible2] = useState(true);
   const [loader, setLoader] = useState(false);
@@ -60,7 +61,7 @@ defaultValues:{
   full_name: userData.data.name,
   phonenumber: userData.data.phone_number,
   email: userData.data.email,
-  password: userData.password,
+  // password: userData.password,
 }
 });
 
@@ -136,7 +137,16 @@ defaultValues:{
   };
 
   const onSubmit = (data) => {
-    dispatch(updateProfile(data,userData,saveimage,text,navigation,country,setLoader,setCheck))
+    if(password != ''){
+      if(password == userData.password){
+        dispatch(updateProfile(data,userData,saveimage,text,navigation,country,setLoader,setCheck))
+      }else{
+        alert("Incorrect Old Password")
+      }
+      
+    }else{
+      dispatch(updateProfile(data,userData,saveimage,userData.password,navigation,country,setLoader,setCheck))
+    }
   }
   return  (
     <>
@@ -325,13 +335,13 @@ defaultValues:{
               )}
           </View>
 
-          <View
+          {/* <View
               style={{
                 paddingVertical:
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
               }}>
               <CustomInput
-                password={true}
+                // password={true}
                 text={applanguage.OldPass}
                 placeholder={applanguage.OldPass}
                 control={control}
@@ -369,7 +379,23 @@ defaultValues:{
                   {errors.password.message}
                 </Text>
               )}
-            </View>
+            </View> */}
+            <View
+            style={{
+              marginVertical:
+                w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
+            }}>
+            <Password
+              text={applanguage.OldPass}
+              placeholder={applanguage.OldPass}
+             password={true}
+             onChangeText={onChangePassword}
+            value={password}
+            secureTextEntry={true}
+            // PIname={isVisible2 ? 'eye-off-outline' : 'eye-outline'}
+            // onShowPass={() => setVisible2(!isVisible2)}
+              />
+          </View>
 
           <View
             style={{

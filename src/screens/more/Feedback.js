@@ -25,6 +25,8 @@ import AttachButton from '../../components/AttachButton';
 import {launchImageLibrary} from 'react-native-image-picker';
 import { base_Url } from '../../utils/Url';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Modals/Loader';
+import Header from '../../components/Header';
 
 const Feedback = ({navigation}) => {
   const user_details = useSelector(state => state.user_details)
@@ -35,6 +37,8 @@ const Feedback = ({navigation}) => {
   const [text, onChangeText] = useState('');
   const [saveimage, setsaveimage] = useState();
   const [show, setShow] = useState(true);
+  const [loader, setLoader] = useState(false);
+
 
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
@@ -72,9 +76,9 @@ const Feedback = ({navigation}) => {
     });
   };
 
-  const feedbackApi = async () => {
+  const feedbackApi = async (setLoader) => {
     try {
-
+setLoader(true);
       let base_url = `${base_Url}feedback/${user_details.data.id}`;
       let myData = new FormData();
   
@@ -90,6 +94,7 @@ const Feedback = ({navigation}) => {
       const responseData = await response.json();
       console.log('responseData', responseData);
       if(responseData.success.status === 200){
+        setLoader(true);
         alert('Thank you for your valuebale feedback')
         
         setTimeout(() => {
@@ -98,13 +103,14 @@ const Feedback = ({navigation}) => {
       }
       
     } catch (error) {
+      setLoader(true);
       console.log('error', error)
     }
   }
 
   const  onSumbit = () => {
     if(text != ''){
-      feedbackApi()
+      feedbackApi(setLoader)
     }else{
       alert('Please fill the form')
     }
@@ -128,7 +134,21 @@ const Feedback = ({navigation}) => {
         backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
-      <CustomHeader text={applanguage.Feedback} AuthHeaderStyle={{
+      <Header text={applanguage.Feedback}
+      AuthHeaderStyle={{
+            height:
+              Platform.OS == 'android'
+                ? verticalScale(80)
+                : w >= 768 && h >= 1024
+                ? verticalScale(70)
+                : w >= 768 && h >= 1024
+                ? verticalScale(65)
+                : w <= 450 && h <= 750
+                ? verticalScale(50)
+                : verticalScale(45),
+          }}
+      />
+      {/* <CustomHeader text={applanguage.Feedback} AuthHeaderStyle={{
          height:
          Platform.OS == 'android'
            ? w >= 768 && h >= 1024
@@ -144,7 +164,7 @@ const Feedback = ({navigation}) => {
              ? moderateVerticalScale(30)
              : moderateVerticalScale(25),
        
-      }}/>
+      }}/> */}
       <View
         style={{
           paddingHorizontal:
@@ -208,8 +228,13 @@ const Feedback = ({navigation}) => {
                text={applanguage.Send} />
             </View>
           </View>
+
         </KeyboardAvoidingView>
       </View>
+      <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/>
     </View>
     </>
   );

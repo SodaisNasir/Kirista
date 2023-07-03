@@ -141,6 +141,7 @@ export const updateProfile = (data,userData,saveimage,text,navigation,country,se
   return async (dispatch) => {
     setLoader(true)
     try {
+      console.log("new password =>", text);
 
       let base_url = `${base_Url}edituser/${userData.data.id}`;
 
@@ -475,7 +476,7 @@ export const markData = async (type,id,userData) => {
     console.log('error', error);
   }
 }
-export const editNotification = async (userData) => {
+export const editNotification =  async (userData) => {
 
   try {
     let base_url = `${base_Url}edit-notification/${userData.data.id}`;
@@ -486,6 +487,13 @@ export const editNotification = async (userData) => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
+      const user = await AsyncStorage.getItem('user_details');
+      console.log("USER DATA ====>",user);
+      let userData = JSON.parse(user);
+      console.log("DATA ====>",userData.data.notification_status);
+      userData.data.notification_status = responseData.success.data
+      await AsyncStorage.setItem('user_details',JSON.stringify(userData))
+      // dispatch({type: USER_DETAILS, payload: userData});
       console.log(responseData.success);
     }else{
       console.log('first')
@@ -493,4 +501,5 @@ export const editNotification = async (userData) => {
   } catch (error) {
     console.log('error', error);
   }
+  
 }

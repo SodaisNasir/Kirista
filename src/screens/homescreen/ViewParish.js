@@ -14,7 +14,7 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomHeader from '../../components/CustomHeader';
 import {Color} from '../../utils/Colors';
-import {verticalScale, scale} from 'react-native-size-matters';
+import {verticalScale, scale, moderateVerticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useState} from 'react';
@@ -125,6 +125,25 @@ const ViewParish = ({route}) => {
            shareOnPress={shareBook}
            select={isChecked}
            BookPress={handleSubmit}
+           AuthHeaderStyle={{
+            height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(80)
+                  : verticalScale(60)
+                : w >= 768 && h >= 1024
+                ? verticalScale(70)
+                : w <= 450 && h <= 750
+                ? verticalScale(60)
+                : verticalScale(40),
+            justifyContent: 'center',
+            paddingTop:
+              Platform.OS == 'android'
+                ? moderateVerticalScale(20)
+                : w >= 768 && h >= 1024
+                ? moderateVerticalScale(25)
+                : moderateVerticalScale(25),
+          }}
             />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View

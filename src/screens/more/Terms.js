@@ -20,6 +20,7 @@ import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import { useState } from 'react';
 import { base_Url } from '../../utils/Url';
 import { useSelector } from 'react-redux';
+import DoubleText from '../../components/Loader/DoubleText';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -108,7 +109,21 @@ const Terms = ({navigation}) => {
           }}
         />
          {Loading ? (
-          <ActivityIndicator style={{marginTop:'70%'}} color={Color.Main} size="large" />
+     <View style={{
+      // flexDirection: '',
+      marginTop:scale(20),
+      marginHorizontal: scale(20),
+      borderRadius:8
+    }}>
+    <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+    <View style={{height: 0,marginVertical:5}} />
+    <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)} />
+    <View style={{height: 0,marginVertical:5}} />
+    <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+    <View style={{height: 0,marginVertical:5}} />
+    <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(60)}/>
+    
+      </View>
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
           <View

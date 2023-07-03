@@ -34,7 +34,7 @@ const deviceData = Platform.OS
       show_popup(setForImage, setForTitle, setForLink,setData,deviceData);
     }, []),
   );
-
+console.log("AD DATA =>",data);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [seconds, setSeconds] = useState(3);
@@ -43,7 +43,7 @@ const deviceData = Platform.OS
     let timerId;
 
     const decrementTimer = () => {
-      if (seconds > 0) {
+      if (seconds > 1) {
         setSeconds(prevSeconds => prevSeconds - 1);
       } else {
         setSeconds(null);

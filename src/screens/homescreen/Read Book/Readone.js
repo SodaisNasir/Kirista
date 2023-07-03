@@ -20,6 +20,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import DoubleText from '../../../components/Loader/DoubleText';
+import Loader from '../../../components/Modals/Loader';
 
 
 const w = Dimensions.get('window').width;
@@ -30,7 +31,7 @@ const Readone = ({route}) => {
   const dispatch = useDispatch()
   const chapters = useSelector(state => state.chapters)
   const { width } = useWindowDimensions();
-
+  const [loader, setLoader] = useState(false);
   
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   const {id,item} = route.params
@@ -94,6 +95,7 @@ const Readone = ({route}) => {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
+              setLoader(true);
               navigation.navigate('Readtwo',{
                 id:id,
                 bookData:item,
@@ -147,6 +149,10 @@ const Readone = ({route}) => {
             width: '100%',
           }}>
         </View> */}
+             <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
       </View>
     </>
   );

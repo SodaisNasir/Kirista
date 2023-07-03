@@ -22,7 +22,9 @@ const ReadNavigator = props => {
 
 
   return (
-    <View
+    
+    props.modalVisible && 
+   ( <View
       style={[
         styles.container,
         props.reStyle,
@@ -69,7 +71,7 @@ const ReadNavigator = props => {
           />
         </TouchableOpacity>
       </View>
-    </View>
+    </View>)
   );
 };
 

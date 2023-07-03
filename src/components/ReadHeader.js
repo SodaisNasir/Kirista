@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     paddingTop:
       w >= 768 && h >= 1024
         ? moderateVerticalScale(25)
-        : moderateVerticalScale(25),
+        : moderateVerticalScale(70),
   },
   WelcomeText: {
     fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),

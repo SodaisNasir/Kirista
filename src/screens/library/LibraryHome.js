@@ -43,12 +43,14 @@ const LibraryHome = ({navigation}) => {
   const applanguage = useSelector(state => state.applanguage);
   const isGuest = useSelector(state => state.is_guest);
   const [isModalVisible, setModalVisible] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const savedBooks = useSelector(state=> state.allbookmark);
   const savedParishes = useSelector(state=>state.parishbookmark);
   const savedEvents = useSelector(state=>state.eventbookmark);
-  const libraryData = savedBooks.concat(savedEvents,savedParishes);
-
+  const libraryData = savedBooks.concat(savedEvents,savedParishes)
+  console.log("============================================");
+  console.log("==>", libraryData);
+  console.log("============================================");
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -56,8 +58,25 @@ const LibraryHome = ({navigation}) => {
   const height = useWindowDimensions().height;
   const [selected, setSelected] = useState('');
 
+const sortByTitle = () =>{
+  console.log("hello");
+
+ libraryData.sort(((a , b) =>{
+if (a.title > b.title) {
+  return 1
+} else {
+  
+return -1  
+}
+  }))
+  setData(libraryData);
+  console.log("SORTED LIBRARY ===>",libraryData)
+}
+
+
   useFocusEffect(
     useCallback(() => {
+      setData(null);
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
@@ -74,20 +93,8 @@ const LibraryHome = ({navigation}) => {
 
   const sortData = () => {
     if (selected === applanguage.Title) {
-      const sortedData = [...data].sort((a, b) => {
-        const titleA = a.title.toLowerCase();
-        const titleB = b.title.toLowerCase();
-        if (titleA < titleB) {
-          return -1;
-        }
-        if (titleA > titleB) {
-          return 1;
-        }
-        return 0;
-      });
-      setData(sortedData);
+      sortByTitle();
       setModalVisible(false);
-
       // Use the sortedData as needed
     } else if (selected === applanguage.RecentActivity) {
       const sortedData = [...data].sort((a, b) => {
@@ -122,14 +129,17 @@ const LibraryHome = ({navigation}) => {
         />
         <LibraryHeader
           onPress={() => {
-            setShowModal(toggleModal(true));
+            toggleModal(true);
           }}
           AuthHeaderStyle={{
             height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
                   ? verticalScale(80)
-                  : verticalScale(80)
+                  : 
+                  w <= 450 && h <= 750 ? 
+                  verticalScale(120):
+                  verticalScale(100)
                 : w >= 768 && h >= 1024
                 ? verticalScale(70)
                 : w <= 450 && h <= 750
@@ -138,7 +148,7 @@ const LibraryHome = ({navigation}) => {
             justifyContent: 'center',
             paddingTop:
               Platform.OS == 'android'
-                ? moderateVerticalScale(30)
+                ? moderateVerticalScale(60)
                 : w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
                 : moderateVerticalScale(25),
@@ -166,49 +176,50 @@ const LibraryHome = ({navigation}) => {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
               }}>
-              {libraryData.length > 0 ? (
-                libraryData?.map(item => {
-                  const nav = item?.address ? (item?.country ? "ViewParish" : "EventScreen")  :'ViewManual'
-                  const param = item?.address ? (item?.country ? {
-                    id: item.id,
-                  } : {id: item.id})  :{
+              <FlatList
+              data={data ? data : libraryData}
+              renderItem={({item}) => {
+                const nav = item?.address ? (item?.country ? "ViewParish" : "EventScreen")  :'ViewManual'
+                const param = item?.address ? (item?.country ? {
+                  id: item.id,
+                } : {id: item.id})  :{
 
-                    item: item,
-                  }
-                  return (
-                    <>
-                      <DetailsCard
-                        key={item?.id}
-                        onPress={() =>
-                          navigation.navigate(nav,param)
-                        }
-                        source={{uri: item?.cover_image ? item?.cover_image : item.image}}
-                        title={item?.title}
-                        resize={'contain'}
-                        manual={item?.category}
-                        PlaceTrue={true}
-                        Place={item?.release_year ? item?.release_year : item?.address}
-                        MainBoxRestyle={{
-                          paddingBottom:
-                            w >= 768 && h >= 1024
-                              ? verticalScale(10)
-                              : verticalScale(15),
-                          marginTop:
-                            w >= 768 && h >= 1024
-                              ? verticalScale(10)
-                              : verticalScale(15),
-                          // backgroundColor:'red'
-                          borderBottomColor:
-                            Theme === 'dark'
-                              ? Color.DarkBorder
-                              : Color.BorderColor,
-                          borderBottomWidth: 1,
-                        }}
-                      />
-                    </>
-                  );
-                })
-              ) : (
+                  item: item,
+                }
+                return (
+                  <>
+                    <DetailsCard
+                      key={item?.id}
+                      onPress={() =>
+                        navigation.navigate(nav,param)
+                      }
+                      source={{uri: item?.cover_image ? item?.cover_image : item.image}}
+                      title={item?.title}
+                      resize={'contain'}
+                      manual={item?.category}
+                      PlaceTrue={true}
+                      Place={item?.release_year ? item?.release_year : item?.address}
+                      MainBoxRestyle={{
+                        paddingBottom:
+                          w >= 768 && h >= 1024
+                            ? verticalScale(10)
+                            : verticalScale(15),
+                        marginTop:
+                          w >= 768 && h >= 1024
+                            ? verticalScale(10)
+                            : verticalScale(15),
+                        // backgroundColor:'red'
+                        borderBottomColor:
+                          Theme === 'dark'
+                            ? Color.DarkBorder
+                            : Color.BorderColor,
+                        borderBottomWidth: 1,
+                      }}
+                    />
+                  </>
+                );
+              }}
+              ListEmptyComponent={(
                 <View
                   style={{
                     height: (h * 1) / 1.4,
@@ -243,6 +254,8 @@ const LibraryHome = ({navigation}) => {
                 </View>
                
               )}
+              
+              />
             </View>
           </ScrollView>
  }

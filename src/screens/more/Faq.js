@@ -9,6 +9,7 @@ import {
   Dimensions,
   ActivityIndicator,
   StatusBar,
+  Platform,
 } from 'react-native';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Header from '../../components/Header';
@@ -66,7 +67,20 @@ const Faq = ({navigation}) => {
           }
           barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
         />
-        <Header text={applanguage.FAQ} />
+        <Header text={applanguage.FAQ} 
+        AuthHeaderStyle={{
+          height:
+            Platform.OS == 'android'
+              ? verticalScale(80)
+              : w >= 768 && h >= 1024
+              ? verticalScale(70)
+              : w >= 768 && h >= 1024
+              ? verticalScale(65)
+              : w <= 450 && h <= 750
+              ? verticalScale(50)
+              : verticalScale(45),
+        }}
+        />
 
         {Loading ? (
             <View style={{

@@ -57,19 +57,23 @@ const PopularBooks = ({navigation}) => {
         <Header
           text={applanguage.PopularBooks}
           AuthHeaderStyle={{
-            marginTop: Platform.OS == 'ios' ? verticalScale(-25) : 0,
             height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
-                  ? verticalScale(65)
-                  : verticalScale(80)
+                  ? verticalScale(80)
+                  : verticalScale(60)
                 : w >= 768 && h >= 1024
                 ? verticalScale(70)
                 : w <= 450 && h <= 750
-                ? verticalScale(50)
-                : verticalScale(50),
-    paddingTop:  w >= 768 && h >= 1024 ? moderateVerticalScale(7) :moderateVerticalScale(10)
-
+                ? verticalScale(60)
+                : verticalScale(40),
+            justifyContent: 'center',
+            paddingTop:
+              Platform.OS == 'android'
+                ? moderateVerticalScale(20)
+                : w >= 768 && h >= 1024
+                ? moderateVerticalScale(25)
+                : moderateVerticalScale(25),
           }}
         />
         <View

@@ -37,7 +37,7 @@
   "EmptyLib": "You dont have any item saved yet.",
 
 
-  "OldPass": "Old Passowrd",
+  "OldPass": "Old Password",
   "NewPass": "New Password",
   "Sorting": "Please Select Sort By",
 
@@ -145,6 +145,7 @@
   "Chapters": "Chapters",
   "PoupularSearches": "Popular Searches",
   "NoResult": "No result found",
+  "Result" : "Result",
   "Cancel": "Cancel",
   "ReadMore": "Read More",
   "SortBy": "Sort By",

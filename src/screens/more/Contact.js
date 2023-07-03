@@ -7,6 +7,7 @@ import {
   View,
   TextInput,
   Text,
+  Platform,
 } from 'react-native';
 import React, {useLayoutEffect, useEffect} from 'react';
 import CustomInput from '../../components/CustomInput';
@@ -26,6 +27,7 @@ import {useForm} from 'react-hook-form';
 import { useState } from 'react';
 import { base_Url } from '../../utils/Url';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Modals/Loader';
 
 const Contact = () => {
   const {
@@ -35,7 +37,7 @@ const Contact = () => {
   } = useForm({mode: 'all'});
   const applanguage = useSelector(state => state.applanguage)
   const userData = useSelector(state => state.user_details)
-
+console.log("user DATA ====>", userData?.data);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
@@ -49,6 +51,9 @@ const Contact = () => {
     country_code: userData != "guest" ? userData?.data.country_code : '+234',
     flag_code: userData != "guest" ? userData?.data.flag_code : '🇳🇬'
   });
+
+  const [loader, setLoader] = useState(false);
+
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -57,9 +62,9 @@ const Contact = () => {
     });
   }, []);
 
-  const contactUs = async (data) => {
+  const contactUs = async (data,setLoader) => {
     try {
-      
+      setLoader(true);
       let base_url = `${base_Url}contact`;
       let myData = new FormData();
   
@@ -73,19 +78,22 @@ const Contact = () => {
         method: 'post',
         body: myData,
       });
-
+console.log("response ===>",response);
       const responseData = await response.json();
+      console.log("responseData ===>",responseData);
       if(responseData.success.status === 200){
         alert('Successfully Submited')
         console.log('responseData', responseData.success.data)
         setTimeout(() => {
           navigation.goBack()
         }, 2000);
+        setLoader(false);
       }else{
         alert(responseData.error.message);
         setTimeout(() => {
           navigation.goBack()
         }, 2000);
+        setLoader(false);
       }
 
     } catch (error) {
@@ -95,7 +103,7 @@ const Contact = () => {
  
   const onSubmit = data =>{
     if(data && text != ''){
-      contactUs(data)
+      contactUs(data,setLoader)
 
     }else{
       alert('Please fill the form')
@@ -121,7 +129,20 @@ const Contact = () => {
           flex: 1,
           backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
-        <Header text={applanguage.Contact} />
+        <Header text={applanguage.Contact}
+        AuthHeaderStyle={{
+          height:
+            Platform.OS == 'android'
+              ? verticalScale(80)
+              : w >= 768 && h >= 1024
+              ? verticalScale(70)
+              : w >= 768 && h >= 1024
+              ? verticalScale(65)
+              : w <= 450 && h <= 750
+              ? verticalScale(50)
+              : verticalScale(45),
+        }}
+        />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
@@ -229,6 +250,7 @@ const Contact = () => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
               }}>
               <CustomInput
+              defaultValue={userData.data.phone_number}
                 onPress={handlePhoneNumberButtonPress}
                 control={control}
                 name="phonenumber"
@@ -368,6 +390,10 @@ const Contact = () => {
             </View>
           </View>
         </ScrollView>
+        <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/>
       </View>
     </>
   );

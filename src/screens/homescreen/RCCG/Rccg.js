@@ -8,9 +8,10 @@ import {
   Image,
   StatusBar,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
-import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
+import {verticalScale, scale, moderateScale, moderateVerticalScale} from 'react-native-size-matters';
 import {Color} from '../../../utils/Colors';
 import {Font} from '../../../utils/font';
 import Header from '../../../components/Header';
@@ -73,6 +74,25 @@ const Rccg = ({navigation}) => {
 
         <Header
           text={'RCCG'}
+          AuthHeaderStyle={{
+            height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(80)
+                  : verticalScale(90)
+                : w >= 768 && h >= 1024
+                ? verticalScale(70)
+                : w <= 450 && h <= 750
+                ? verticalScale(60)
+                : verticalScale(40),
+            justifyContent: 'center',
+            paddingTop:
+              Platform.OS == 'android'
+                ? moderateVerticalScale(50)
+                : w >= 768 && h >= 1024
+                ? moderateVerticalScale(25)
+                : moderateVerticalScale(25),
+          }}
         />
        {/* {loader ? 
           <View style={{flex:1,justifyContent: 'center',}}>

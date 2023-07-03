@@ -147,27 +147,27 @@ const styles = StyleSheet.create({
     //     ? 'flex-end'
     //     : null,
     // paddingTop: Platform.OS == 'android' ? moderateVerticalScale(20) : 0,
-    height:
-      Platform.OS == 'android'
-        ? w >= 768 && h >= 1024
-          ? verticalScale(80)
-          : verticalScale(80)
-          : w >= 768 && h >= 1024
-          ? verticalScale(75)
-          : w <= 450 && h <= 750
-          ? verticalScale(50)
-          : verticalScale(45),
+    // height:
+    //   Platform.OS == 'android'
+    //     ? w >= 768 && h >= 1024
+    //       ? verticalScale(80)
+    //       : verticalScale(80)
+    //       : w >= 768 && h >= 1024
+    //       ? verticalScale(75)
+    //       : w <= 450 && h <= 750
+    //       ? verticalScale(50)
+    //       : verticalScale(45),
           
-    justifyContent:
-      Platform.OS == 'android'
-        ? 'center'
-        : w <= 450 && h <= 750
-        ? 'center'
-        : null,
-    paddingTop:
-      w >= 768 && h >= 1024
-        ? moderateVerticalScale(20)
-        : moderateVerticalScale(10),
+    // justifyContent:
+    //   Platform.OS == 'android'
+    //     ? 'center'
+    //     : w <= 450 && h <= 750
+    //     ? 'center'
+    //     : null,
+    // paddingTop:
+    //   w >= 768 && h >= 1024
+    //     ? moderateVerticalScale(20)
+    //     : moderateVerticalScale(10),
   },
 
   NavigatorStyle: {

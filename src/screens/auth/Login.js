@@ -23,6 +23,7 @@ import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import { sign_in } from '../../redux/actions/AuthAction';
 import IncorrectModal from '../../components/Modals/IncorrectModal';
+import Loader from '../../components/Modals/Loader';
 
 
 
@@ -55,7 +56,7 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState(null);
   const [check, setCheck] = useState(false)
   const [isVisible, setVisible] = useState(true);
-
+  const [loader, setLoader] = useState(false);
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -63,7 +64,7 @@ const Login = ({navigation}) => {
   );
 
   const onSubmit = data => {
-    dispatch(sign_in(data,setCheck));
+    dispatch(sign_in(data,setCheck,setLoader));
   };
   return (
     <SafeAreaView
@@ -272,6 +273,10 @@ const Login = ({navigation}) => {
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
         />
+        <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
     </SafeAreaView>
   );
 };

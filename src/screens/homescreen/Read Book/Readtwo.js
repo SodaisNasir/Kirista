@@ -77,6 +77,8 @@ const Readtwo = ({route}) => {
   const [count, setCount] = useState(0)
   const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
+const [bottomModal, setBottomModal] = useState(false);
+
   const applanguage = useSelector(state => state.applanguage)
 
 
@@ -308,7 +310,8 @@ html: result3
 };
       return(
         <>
-<View style={{marginVertical: verticalScale(20)}}>
+        <TouchableOpacity onPress={()=> setBottomModal(!bottomModal)}>
+        <View style={{marginVertical: verticalScale(20)}}>
    <RenderHtml
       contentWidth={width}
       source={title}
@@ -322,6 +325,8 @@ html: result3
       systemFonts={systemFonts}
       />
 </View>
+        </TouchableOpacity>
+
 </>
     )
   })
@@ -396,6 +401,7 @@ html: result3
             onPressTab={() => {
               setModalThreeVisible(!isModalThreeVisible);
             }}
+            modalVisible={bottomModal}
             onPressModal={() => (setModalVisible(true))}
             moonPress={() => (toggleIcon(),setShow(!show))}
             show={showSvg}
@@ -440,7 +446,7 @@ const styles = StyleSheet.create({
         ? 10
         : w >= 768 && h >= 1024
         ? moderateVerticalScale(30)
-        : moderateVerticalScale(35),
+        : moderateVerticalScale(70),
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,

@@ -252,6 +252,16 @@ function LibraryStack() {
         options={{animation: 'fade_from_bottom'}}
       />
       <Stack.Screen
+        name="ViewParish"
+        component={ViewParish}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="EventScreen"
+        component={EventScreen}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
         name="ViewManual"
         component={ViewManual}
         options={{animation: 'fade_from_bottom'}}

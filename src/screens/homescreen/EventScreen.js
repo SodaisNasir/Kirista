@@ -142,22 +142,23 @@ const EventScreen = ({route, navigation}) => {
           saveicon={is_guest == true ? false :  true}
           timeicon={true}
           AuthHeaderStyle={{
-            // marginTop: Platform.OS = 'ios' ? verticalScale(-5) : 0,
+            height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(80)
+                  : verticalScale(60)
+                : w >= 768 && h >= 1024
+                ? verticalScale(70)
+                : w <= 450 && h <= 750
+                ? verticalScale(60)
+                : verticalScale(40),
+            justifyContent: 'center',
             paddingTop:
-            Platform.OS == 'ios' ? 0 :  w >= 768 && h >= 1024
-        ? moderateVerticalScale(20)
-        : moderateVerticalScale(10),
-        height:
-        Platform.OS == 'android'
-          ? w >= 768 && h >= 1024
-            ? verticalScale(80)
-            : verticalScale(80)
-            : w >= 768 && h >= 1024
-            ? verticalScale(65)
-            : w <= 450 && h <= 750
-            ? verticalScale(50)
-            : verticalScale(30),
-            
+              Platform.OS == 'android'
+                ? moderateVerticalScale(20)
+                : w >= 768 && h >= 1024
+                ? moderateVerticalScale(25)
+                : moderateVerticalScale(25),
           }}
         />
       <ScrollView showsVerticalScrollIndicator={false}>

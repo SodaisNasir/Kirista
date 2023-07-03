@@ -12,7 +12,7 @@ import {
 import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../../utils/font';
 import Header from '../../components/Header';
 import {useFocusEffect} from '@react-navigation/native';
@@ -90,10 +90,27 @@ const ParishesResult = ({navigation,route}) => {
         styles.Container,
         {backgroundColor: Theme === 'dark' ? Color.DarkTheme : '#fff',marginTop:Platform.OS == 'ios' ? verticalScale(-20) : 0},
       ]}>
-      <Header text={applanguage.Result} AuthHeaderStyle={{
-        paddingTop:0,
-        // height:verticalScale(60)
-      }}/>
+      <Header text={applanguage.Result}  AuthHeaderStyle={{
+            height:
+              Platform.OS == 'android'
+                ? w >= 768 && h >= 1024
+                  ? verticalScale(80)
+                  : verticalScale(60)
+                : w >= 768 && h >= 1024
+                ? verticalScale(70)
+                : w <= 450 && h <= 750
+                ? verticalScale(60)
+                : verticalScale(40),
+            justifyContent: 'center',
+            paddingTop:
+              Platform.OS == 'android'
+                ? moderateVerticalScale(20)
+
+                : w >= 768 && h >= 1024
+                ? moderateVerticalScale(25)
+                : moderateVerticalScale(25),
+          }}
+      />
       <FlatList
         showsVerticalScrollIndicator={false}
         data={data}

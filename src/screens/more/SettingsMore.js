@@ -51,6 +51,7 @@ import {LOGIN, USER_DETAILS} from '../../redux/reducer';
 import BottomTab from '../../constant/BottomTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LogOut } from '../../redux/actions/AuthAction';
+import Loader from '../../components/Modals/Loader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -59,7 +60,7 @@ const SettingsMore = () => {
   const [email, setEmail] = useState(null);
   const userData = useSelector(state => state.user_details)
   const applanguage = useSelector(state => state.applanguage)
-
+  const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const Theme = useSelector(state => state.mode)
   const navigation = useNavigation();
@@ -689,7 +690,7 @@ const SettingsMore = () => {
                   },
                 ]}>
                 <TouchableOpacity
-                  onPress={()=> dispatch(LogOut())}
+                  onPress={()=> dispatch(LogOut(setLoader))}
                   style={[
                     styles.AllItems,
                     {
@@ -715,7 +716,10 @@ const SettingsMore = () => {
               />
             </>
           )}
-
+     <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
           {/* <View style={{height: verticalScale(90)}}></View> */}
         </ScrollView>
       </View>
@@ -745,9 +749,12 @@ const styles = StyleSheet.create({
         ? 'center'
         : null,
     paddingTop:
+    Platform.OS == 'android' ?
       w >= 768 && h >= 1024
         ? moderateVerticalScale(20)
-        : moderateVerticalScale(25),
+        : moderateVerticalScale(50): 
+        w >= 768 && h >= 1024 ? moderateVerticalScale(20)
+        : moderateVerticalScale(25) ,
   },
   WelcomeView: {
     marginBottom: w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(8),
