@@ -36,7 +36,6 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const LibraryHome = ({navigation}) => {
-
   const [showModal, setShowModal] = useState(false);
   const [Loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode);
@@ -44,13 +43,13 @@ const LibraryHome = ({navigation}) => {
   const isGuest = useSelector(state => state.is_guest);
   const [isModalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState(null);
-  const savedBooks = useSelector(state=> state.allbookmark);
-  const savedParishes = useSelector(state=>state.parishbookmark);
-  const savedEvents = useSelector(state=>state.eventbookmark);
-  const libraryData = savedBooks.concat(savedEvents,savedParishes)
-  console.log("============================================");
-  console.log("==>", libraryData);
-  console.log("============================================");
+  const savedBooks = useSelector(state => state.allbookmark);
+  const savedParishes = useSelector(state => state.parishbookmark);
+  const savedEvents = useSelector(state => state.eventbookmark);
+  const libraryData = savedBooks.concat(savedEvents, savedParishes);
+  console.log('============================================');
+  console.log('==>', libraryData);
+  console.log('============================================');
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -58,21 +57,19 @@ const LibraryHome = ({navigation}) => {
   const height = useWindowDimensions().height;
   const [selected, setSelected] = useState('');
 
-const sortByTitle = () =>{
-  console.log("hello");
+  const sortByTitle = () => {
+    console.log('hello');
 
- libraryData.sort(((a , b) =>{
-if (a.title > b.title) {
-  return 1
-} else {
-  
-return -1  
-}
-  }))
-  setData(libraryData);
-  console.log("SORTED LIBRARY ===>",libraryData)
-}
-
+    libraryData.sort((a, b) => {
+      if (a.title > b.title) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    setData(libraryData);
+    console.log('SORTED LIBRARY ===>', libraryData);
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -135,11 +132,10 @@ return -1
             height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
-                  ? verticalScale(80)
-                  : 
-                  w <= 450 && h <= 750 ? 
-                  verticalScale(120):
-                  verticalScale(100)
+                  ? verticalScale(70)
+                  : w <= 450 && h <= 750
+                  ? verticalScale(110)
+                  : verticalScale(100)
                 : w >= 768 && h >= 1024
                 ? verticalScale(70)
                 : w <= 450 && h <= 750
@@ -148,15 +144,23 @@ return -1
             justifyContent: 'center',
             paddingTop:
               Platform.OS == 'android'
-                ? moderateVerticalScale(60)
-                : w >= 768 && h >= 1024
-                ? moderateVerticalScale(25)
-                : moderateVerticalScale(25),
+                ? w >= 768 && h >= 1024
+                  ? moderateVerticalScale(40)
+                  : w <= 450 && h <= 750
+                  ? moderateVerticalScale(50)
+                  : moderateVerticalScale(60)
+                : // ? moderateVerticalScale(25)
+                  moderateVerticalScale(25),
           }}
         />
- {
-  isGuest ? <View style={{alignItems:'center', justifyContent:'center', height: Dimensions.get('window').height /2}}>
-    <AnimatedLottieView
+        {isGuest ? (
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: Dimensions.get('window').height / 2,
+            }}>
+            <AnimatedLottieView
               style={{
                 height: verticalScale(100),
               }}
@@ -165,102 +169,115 @@ return -1
               loop
               speed={0.7}
             />
-    <Text style={{ color: Theme === 'dark'
-                              ?  Color.White :Color.DarkTextColor ,
-    fontFamily: Font.Poppins500,}}>{applanguage.Guestpromt}</Text>
-    
-    </View> :
-  <ScrollView showsVerticalScrollIndicator={false}>
+            <Text
+              style={{
+                color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
+                fontFamily: Font.Poppins500,
+              }}>
+              {applanguage.Guestpromt}
+            </Text>
+          </View>
+        ) : (
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View
               style={{
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
               }}>
               <FlatList
-              data={data ? data : libraryData}
-              renderItem={({item}) => {
-                const nav = item?.address ? (item?.country ? "ViewParish" : "EventScreen")  :'ViewManual'
-                const param = item?.address ? (item?.country ? {
-                  id: item.id,
-                } : {id: item.id})  :{
-
-                  item: item,
-                }
-                return (
-                  <>
-                    <DetailsCard
-                      key={item?.id}
-                      onPress={() =>
-                        navigation.navigate(nav,param)
-                      }
-                      source={{uri: item?.cover_image ? item?.cover_image : item.image}}
-                      title={item?.title}
-                      resize={'contain'}
-                      manual={item?.category}
-                      PlaceTrue={true}
-                      Place={item?.release_year ? item?.release_year : item?.address}
-                      MainBoxRestyle={{
-                        paddingBottom:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(10)
-                            : verticalScale(15),
-                        marginTop:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(10)
-                            : verticalScale(15),
-                        // backgroundColor:'red'
-                        borderBottomColor:
-                          Theme === 'dark'
-                            ? Color.DarkBorder
-                            : Color.BorderColor,
-                        borderBottomWidth: 1,
-                      }}
-                    />
-                  </>
-                );
-              }}
-              ListEmptyComponent={(
-                <View
-                  style={{
-                    height: (h * 1) / 1.4,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  
-                  
-                  <View style={{
-                    height: '45%',
-                    width: '100%',
-                  }}>
-                    <Image 
+                data={data ? data : libraryData}
+                renderItem={({item}) => {
+                  const nav = item?.address
+                    ? item?.country
+                      ? 'ViewParish'
+                      : 'EventScreen'
+                    : 'ViewManual';
+                  const param = item?.address
+                    ? item?.country
+                      ? {
+                          id: item.id,
+                        }
+                      : {id: item.id}
+                    : {
+                        item: item,
+                      };
+                  return (
+                    <>
+                      <DetailsCard
+                        key={item?.id}
+                        onPress={() => navigation.navigate(nav, param)}
+                        source={{
+                          uri: item?.cover_image
+                            ? item?.cover_image
+                            : item.image,
+                        }}
+                        title={item?.title}
+                        resize={'contain'}
+                        manual={item?.category}
+                        PlaceTrue={true}
+                        Place={
+                          item?.release_year
+                            ? item?.release_year
+                            : item?.address
+                        }
+                        MainBoxRestyle={{
+                          paddingBottom:
+                            w >= 768 && h >= 1024
+                              ? verticalScale(10)
+                              : verticalScale(15),
+                          marginTop:
+                            w >= 768 && h >= 1024
+                              ? verticalScale(10)
+                              : verticalScale(15),
+                          // backgroundColor:'red'
+                          borderBottomColor:
+                            Theme === 'dark'
+                              ? Color.DarkBorder
+                              : Color.BorderColor,
+                          borderBottomWidth: 1,
+                        }}
+                      />
+                    </>
+                  );
+                }}
+                ListEmptyComponent={
+                  <View
                     style={{
-                      height: '100%',
-                      width: '100%'
-                    }}
-                    resizeMode='contain'
-                  source={require('../../assets/images/emptylibrary.png')}
-                  />
+                      height: (h * 1) / 1.4,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <View
+                      style={{
+                        height: '45%',
+                        width: '100%',
+                      }}>
+                      <Image
+                        style={{
+                          height: '100%',
+                          width: '100%',
+                        }}
+                        resizeMode="contain"
+                        source={require('../../assets/images/emptylibrary.png')}
+                      />
+                    </View>
+                    <Text
+                      style={[
+                        styles.BigTextStyle,
+                        {
+                          color: Theme === 'dark' ? Color.White : Color.Main,
+                        },
+                      ]}>
+                      {applanguage.EmptyLib}
+                      {/* You dont have any item saved yet. */}
+                    </Text>
                   </View>
-                  <Text
-                    style={[
-                      styles.BigTextStyle,
-                      {
-                        color: Theme === 'dark' ? Color.White : Color.Main,
-                      },
-                    ]}>
-                    {applanguage.EmptyLib}
-                    {/* You dont have any item saved yet. */}
-                  </Text>
-                </View>
-               
-              )}
-              
+                }
               />
             </View>
           </ScrollView>
- }
-          
-       
+        )}
+
         <Modal
           testID={'modal'}
           style={styles.modalStyling}
@@ -413,7 +430,7 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
     textAlign: 'left',
-    top: scale(20)
+    top: scale(20),
   },
   SmallTextStyle: {
     color: Color.DarkTextColor,

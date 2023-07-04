@@ -31,7 +31,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
           justifyContent: 'center',
           paddingVertical: verticalScale(10),
           height:
-            w >= 768 && h >= 1024 ? verticalScale(110) : verticalScale(140),
+            w >= 768 && h >= 1024 ? verticalScale(200) : w <= 450 && h <= 750 ? verticalScale(170) :verticalScale(150),
           width: '90%',
           marginRight:
             w >= 768 && h >= 1024 ? verticalScale(8) : verticalScale(0),
@@ -46,7 +46,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
             height: verticalScale(500),
           }}>
           <Image
-            resizeMode="contain"
+            resizeMode={w >= 768 && h >= 1024 ? "center" : "contain"}
             style={{
               height: '100%',
               width: '100%',

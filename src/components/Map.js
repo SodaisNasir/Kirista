@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {StyleSheet, View, Text, Image, PermissionsAndroid, ActivityIndicator} from 'react-native'
 
 import {Marker} from 'react-native-maps'
-import MapView, {PROVIDER_GOOGLE, Callout} from 'react-native-maps'
+import MapView, {PROVIDER_DEFAULT, Callout} from 'react-native-maps'
 import { Color } from '../utils/Colors'
 
 
@@ -22,6 +22,7 @@ export default function Map({data}) {
     <View style={styles.MainContainer}>
      {/* {data != null ?  */}
      <MapView
+     provider={PROVIDER_DEFAULT}
         style={styles.mapStyle}
         showsUserLocation={false}
         zoomEnabled={true}

@@ -217,8 +217,8 @@ const HomeScreen = () => {
                           overflow: 'hidden',
                           width:
                             w >= 768 && h >= 1024
-                              ? verticalScale(180)
-                              : verticalScale(250),
+                              ? scale(290)
+                              : scale(250),
                           // marginLeft: index == 0 ? scale(10) : 0,
                           paddingLeft: 10,
                           margin:scale(-1)
@@ -730,7 +730,7 @@ const styles = StyleSheet.create({
   SwiperViewOne: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: w >= 768 && h >= 1024 ? verticalScale(110) : verticalScale(150),
+    height: w >= 768 && h >= 1024 ? verticalScale(200) :w <= 450 && h <= 750 ? verticalScale(190) : verticalScale(150) ,
   },
   SwiperViewTwo: {
     alignItems: 'center',
