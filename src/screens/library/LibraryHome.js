@@ -60,14 +60,13 @@ const LibraryHome = ({navigation}) => {
   const sortByTitle = () => {
 
     libraryData.sort((a, b) => {
-      if (a.title > b.title) {
+      if (a?.title > b?.title) {
         return 1;
       } else {
         return -1;
       }
     });
     setData(libraryData);
-    console.log('SORTED LIBRARY ===>', libraryData);
   };
 
   useFocusEffect(
