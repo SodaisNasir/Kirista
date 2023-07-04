@@ -30,12 +30,13 @@ const h = Dimensions.get('window').height;
 
 const ViewManual = ({navigation,route}) => {
   const dispatch = useDispatch()
-  const {item} = route.params
+  const {item,htmlContent} = route.params
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
   const is_guest = useSelector(state => state.is_guest)
   const user_details = useSelector(state => state.user_details)
   const allbookmark = useSelector(state => state.allbookmark)
+  console.log('htmlContent', htmlContent)
 
   useFocusEffect(
     useCallback(() => {
@@ -49,7 +50,7 @@ const ViewManual = ({navigation,route}) => {
   const shareBook = (data) => {
     let shareImageBase64 = {
       title: 'Book',
-      url: `d`,
+      url: `Monkey D. Luffy`,
       subject: 'Share Book Link', //  for email
     }
     Share.open(shareImageBase64).catch((error) => console.log(error))
@@ -69,7 +70,6 @@ const addBookmark = () => {
   }
 }
 
-
 const handleSubmit = async () => {
     const findData = allbookmark?.find((elm) => elm.id == item?.id)
 
@@ -86,7 +86,7 @@ const handleSubmit = async () => {
       setIsChecked(true);
       await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
     }
-  }
+}
   return (
     <>
     <SafeAreaView

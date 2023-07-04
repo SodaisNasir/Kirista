@@ -24,7 +24,7 @@ export const show_all_banner = async (setForImage) =>{
         console.log('error in banner api', error)
     }
 }
-export const show_popup = async (setForImage, setForTitle,setForLink,setData,Device) =>{
+export const show_popup = async (setData,Device) =>{
     try {
         let base_url = `${base_Url}popup-active`;
         let myData = new FormData()
@@ -38,12 +38,7 @@ export const show_popup = async (setForImage, setForTitle,setForLink,setData,Dev
         const responseData = await response.json();
   
         if (responseData.success.status === 200) {
-         console.log('responseData.success.data[0].app_page ==>', responseData.success.data)
-         setData(responseData.success.data)
-        //  setForImage(responseData.success.data[0].image)
-        //  setForTitle(responseData.success.data[0].title)
-        //  setForLink(responseData.success.data[0].app_page)
-       
+         setData(responseData.success.data)   
         } else {
           console.log('else error');
         }
@@ -452,7 +447,6 @@ export const getRCCData = async (setData,type,language,setLoader) => {
   }
 }
 export const markData = async (type,id,userData) => {
-  console.log('type,id,userData', type,id,userData)
   try {
     let base_url = `${base_Url}mark/${userData.data.id}`;
     let myData = new FormData();
@@ -502,4 +496,25 @@ export const editNotification =  async (userData) => {
     console.log('error', error);
   }
   
+}
+export const sendReadBok = async (id) => {
+  try {
+    const noti =await AsyncStorage.getItem("onesignaltoken");
+    let base_url = `${base_Url}read-book/${id}/${noti}`;
+
+    const response = await fetch(base_url, {
+      // body: myData,
+      method: 'post',
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      console.log('vvvvv')
+    }else{
+      console.log('eeeee')
+    }
+  } catch (error) {
+    console.log('error', error);
+  }
 }

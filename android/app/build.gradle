@@ -285,6 +285,7 @@ if (isNewArchitectureEnabled()) {
     // Otherwise we fallback to a prebuilt .aar bundled in the NPM package.
     // This will be applied to all the imported transtitive dependency.
     configurations.all {
+        exclude group: 'com.facebook.react', module: 'react-native-gesture-handler'
         resolutionStrategy.dependencySubstitution {
             substitute(module("com.facebook.react:react-native"))
                     .using(project(":ReactAndroid"))

@@ -58,7 +58,6 @@ const LibraryHome = ({navigation}) => {
   const [selected, setSelected] = useState('');
 
   const sortByTitle = () => {
-    console.log('hello');
 
     libraryData.sort((a, b) => {
       if (a.title > b.title) {
@@ -132,6 +131,11 @@ const LibraryHome = ({navigation}) => {
             height:
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
+                  ? verticalScale(80)
+                  : 
+                  w <= 450 && h <= 750 ? 
+                   verticalScale(120):
+                  verticalScale(100)
                   ? verticalScale(70)
                   : w <= 450 && h <= 750
                   ? verticalScale(110)

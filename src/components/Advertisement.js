@@ -22,19 +22,14 @@ import { useSelector } from 'react-redux';
 const Advertisement = () => {
   const navigation = useNavigation();
   const applanguage = useSelector(state => state.applanguage)
-  const [forImage, setForImage] = useState();
-  const [forTitle, setForTitle] = useState();
-  const [forLink, setForLink] = useState();
-
   const [data,setData] = useState()
 
 const deviceData = Platform.OS
   useFocusEffect(
     useCallback(() => {
-      show_popup(setForImage, setForTitle, setForLink,setData,deviceData);
+      show_popup(setData,deviceData);
     }, []),
   );
-console.log("AD DATA =>",data);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [seconds, setSeconds] = useState(3);
@@ -70,9 +65,14 @@ console.log("AD DATA =>",data);
 const onSubmit = () => {
   if(data?.book_name !=  null){
     navigation.navigate('ViewManual', {
-      item: data.book,
+      item: data?.book,
     })
-  }else{
+  }
+  // else if (data){
+
+  // }
+  
+  else{
     navigation.navigate('AdvWebView', {
       link: data?.app_page,
     })

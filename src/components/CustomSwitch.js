@@ -9,11 +9,10 @@ const CustomSwitch = props => {
   const Theme = useSelector(state => state.mode)
 
   const userData =  useSelector(state => state.user_details)
-  console.log("userData ==========>",userData.data.notification_status);
   useEffect(() => {
     console.log(Theme);
   }, [Theme]);
-  const [isEnabled, setIsEnabled] = useState(userData.data.notification_status == "Active" ?  true : false);
+  const [isEnabled, setIsEnabled] = useState(userData?.data?.notification_status == "Active" ?  true : false);
   const toggleSwitch = () => {setIsEnabled(previousState => !previousState)
     editNotification(userData);
   };

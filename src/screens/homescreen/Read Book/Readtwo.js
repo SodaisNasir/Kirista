@@ -15,7 +15,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Color} from '../../../utils/Colors';
 import {
   verticalScale,
@@ -31,39 +31,28 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontModal from '../../../components/Modals/FontModal';
 import ReadNavigator from '../../../components/ReadNavigator';
-import {useCallback} from 'react';
-import {getChapters, getChaptersByID} from '../../../redux/actions/UserAction';
-import {useDispatch, useSelector} from 'react-redux';
-import {BOOKMARK} from '../../../redux/reducer';
+import { useCallback } from 'react';
+import { getChapters, getChaptersByID, sendReadBok } from '../../../redux/actions/UserAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { BOOKMARK } from '../../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
 import RenderHtml, {defaultSystemFonts} from 'react-native-render-html';
 import IncorrectModal from '../../../components/Modals/IncorrectModal';
-import WebView from 'react-native-webview';
+
 
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
 const Readtwo = ({route}) => {
-  const dispatch = useDispatch();
-  const {id, bookData, chapterOne} = route.params;
-
-  const systemFonts = [
-    ...defaultSystemFonts,
-    'times-new-roman',
-    'Arial',
-    'Lato-Regular',
-    'papyrus',
-    'Georgia-Regular-font.ttf',
-    'CourierPrime-Regular',
-  ];
-
-  const chapters = useSelector(state => state.chapters);
-  const bookmark = useSelector(state => state.bookmark);
-  const {width} = useWindowDimensions();
-
-  const isGuest = useSelector(state => state.is_guest);
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch()
+  const {id,bookData,chapterOne} = route.params
+  const systemFonts = [...defaultSystemFonts, 'times-new-roman', 'Arial','Lato-Regular','papyrus','Georgia-Regular-font.ttf','CourierPrime-Regular'];
+  const chapters = useSelector(state => state.chapters)
+  const bookmark = useSelector(state => state.bookmark)
+  const { width } = useWindowDimensions();
+  const isGuest = useSelector(state => state.is_guest)
+  const [data,setData] = useState([])
   const navigation = useNavigation();
   const [tempMode, setTempMode] = useState('');
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
@@ -74,22 +63,25 @@ const Readtwo = ({route}) => {
   const modeCheck = useSelector(state => state.mode);
   const Theme = tempMode != '' ? tempMode : modeCheck;
   const [backgroundColor, setBackgroundColor] = useState('');
-
   const [textColor, setTextColor] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
   const [select, setSelect] = useState();
   const [isSelect, setisSelect] = useState(false);
-  const [chapterData, setChapterData] = useState([]);
-  const [fontData, setFontData] = useState('');
-  const [count, setCount] = useState(0);
-  const [show, setShow] = useState(false);
-  const [check, setCheck] = useState(false);
+  const [chapterData, setChapterData] = useState([])
+  const [fontData, setFontData] = useState('Arial')
+  const [count, setCount] = useState(0)
+  const [show, setShow] = useState(false)
+  const [check, setCheck] = useState(false)
   const [bottomModal, setBottomModal] = useState(false);
+  const applanguage = useSelector(state => state.applanguage)
 
-  const applanguage = useSelector(state => state.applanguage);
+
+
 
   useFocusEffect(
     useCallback(() => {
+      dispatch(getChapters(setData,id))
+      sendReadBok(id)
       dispatch(getChapters(setData, id));
     }, []),
   );
@@ -225,12 +217,26 @@ const Readtwo = ({route}) => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+
   const loadMoreData = () => {
     if (!loading && hasMoreData) {
       fetchData();
+    }
+  };
+
+  const doubleTapRef = useRef(null);
+  const doubleTapDelay = 300; // Adjust the delay between taps (in milliseconds)
+
+  const handleDoubleTap = () => {
+    clearTimeout(doubleTapRef.current);
+    setBottomModal(!bottomModal);
+  };
+
+  const handleSingleTap = () => {
+    if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
+      handleDoubleTap();
+    } else {
+      doubleTapRef.current = new Date().getTime();
     }
   };
   return (
@@ -291,17 +297,10 @@ const Readtwo = ({route}) => {
           isVisible={check}
         />
 
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{
-            backgroundColor:
-              backgroundColor != '' && show
-                ? backgroundColor
-                : Theme === 'dark'
-                ? Color.DarkTheme
-                : Color.White,
-            height: '60%',
-            width: '100%',
+        <ScrollView showsVerticalScrollIndicator={false} style={{
+          backgroundColor: backgroundColor != '' && show ? backgroundColor : Theme === 'dark' ? Color.DarkTheme : Color.White,
+          height: bottomModal ? '60%' : '100%',
+          width: '100%',
           }}>
           <View
             style={{
@@ -371,7 +370,10 @@ const Readtwo = ({route}) => {
                 return (
                   <>
                     <TouchableOpacity
-                      onPress={() => setBottomModal(!bottomModal)}>
+                    // activeOpacity={0.6}
+                      // onPress={() => setBottomModal(!bottomModal)}
+                      onPress={() => handleSingleTap()}
+                      >
                       <View style={{marginVertical: verticalScale(20)}}>
                         <RenderHtml
                           contentWidth={width}

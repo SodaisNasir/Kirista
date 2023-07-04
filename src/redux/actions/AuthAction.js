@@ -230,14 +230,13 @@ return async dispatch => {
     });
     
     const responseData = await response.json();
-console.log("RESP DATA =>",responseData);
-    if (responseData.success.status === 200) {
+
+    if (responseData?.success?.status === 200) {
       await AsyncStorage.removeItem('user_details')
       const data = await AsyncStorage.getItem('user_details');
       const userData = JSON.parse(data);
-      console.log("ASYNC DATA =====>",userData);
-    dispatch({type: USER_DETAILS, payload: null})
-    setloader(false);
+      dispatch({type: USER_DETAILS, payload: null})
+      setloader(false);
       console.log(responseData.success);
     }else{
       console.log('first')

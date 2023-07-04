@@ -31,6 +31,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import SkeletonLoader from '../components/Loader/SkeletonLoader';
 import BannerLoader from '../components/Loader/BannerLoader';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNFS from 'react-native-fs';
+
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
@@ -104,6 +107,34 @@ const HomeScreen = () => {
       })
     }
 
+    const [htmlContent, setHtmlContent] = useState('');
+    const handleClick = async (item) => {
+      try {
+             // Access the item's properties
+      const { id, title, author, cover_image, about } = item;
+
+      // Perform the desired action with the item's properties
+      // console.log('Clicked item:', { id, title, author, cover_image });
+
+      // Example: Save the 'about' content to a file
+      const filePath = `${RNFS.DocumentDirectoryPath}/about.txt`;
+      await RNFS.writeFile(filePath, about, 'utf8');
+
+      // Save the file path in AsyncStorage
+  
+        // Save the image data in AsyncStorage
+        await AsyncStorage.setItem('filePath', filePath);
+        setHtmlContent(item);
+        navigation.navigate('ViewManual', {
+          item: item,
+        })
+
+  
+        // Update the state or perform other actions
+      } catch (error) {
+        console.error('Error handling click event:', error);
+      }
+    };
 
   return (
     <View
@@ -202,11 +233,13 @@ const HomeScreen = () => {
                 renderItem={({item, index}) => {
                   return (
                     <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate('ViewManual', {
-                          item: item,
-                        })
-                      }>
+                    onPress={() => handleClick(item)}
+                      // onPress={() =>
+                      //   navigation.navigate('ViewManual', {
+                      //     item: item,
+                      //   })
+                      // }
+                      >
                       <View
                         style={{
                           height:
@@ -299,22 +332,6 @@ const HomeScreen = () => {
                     </TouchableOpacity>
                   );
                 }}
-                // ListEmptyComponent={() => {
-                //   return (
-                //     <View
-                //       style={{
-                //         height: verticalScale(60),
-                //         width: scale(350),
-                //         justifyContent: 'center',
-                //         alignItems: 'center',
-                //       }}>
-                //     <ActivityIndicator
-                //     color={Color.Main}
-                //     size="large"
-                //   />
-                //     </View>
-                //   );
-                // }}
                 key={Math.ceil(myData?.length / 2).toString()}
                 numColumns={Math.ceil(myData?.length / 2)}
               />

@@ -61,7 +61,7 @@ const FontModal = (props) => {
 
   
  const Theme = useSelector(state => state.mode)
-const onSubmit = (item) => {
+  const onSubmit = (item) => {
   props.OptionSelect(false)
   props.fontData(item)
 }
