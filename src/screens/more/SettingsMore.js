@@ -723,7 +723,7 @@ const SettingsMore = () => {
           {/* <View style={{height: verticalScale(90)}}></View> */}
         </ScrollView>
       </View>
-      <BottomTab activeMore={true} />
+      <BottomTab activeMore={true} homePress={() => navigation.navigate('Home')}/>
     </>
   );
 };

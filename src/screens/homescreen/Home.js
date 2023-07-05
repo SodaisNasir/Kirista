@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,23 +18,34 @@ import HomeScreen from '../HomeScreen';
 import Parisher from '../homescreen/Parish Finder/ParishFinder';
 import Event from '../homescreen/Events/Events';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Loading from '../../components/Modals/Loading';
 
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const ThirdRoute = () => <HomeScreen />;
-const FourthRoute = () => <Parisher />;
-const FifthRoute = () => <Event />;
+// const ThirdRoute = () => <HomeScreen scrollViewRef={scrollViewRef} />;
+// const FourthRoute = () => <Parisher />;
+// const FifthRoute = () => <Event />;
 
-const renderScene = SceneMap({
-  Bedrooms: ThirdRoute,
-  DiningRoom: FourthRoute,
-  LivingRoom: FifthRoute,
-});
+// const renderScene = SceneMap({
+//   Bedrooms: ThirdRoute,
+//   DiningRoom: FourthRoute,
+//   LivingRoom: FifthRoute,
+// });
 const Home = () => {
+
+  const ThirdRoute = () => <HomeScreen scrollViewRef={scrollViewRef} />;
+  const FourthRoute = () => <Parisher />;
+  const FifthRoute = () => <Event />;
+  
+  const renderScene = SceneMap({
+    Bedrooms: ThirdRoute,
+    DiningRoom: FourthRoute,
+    LivingRoom: FifthRoute,
+  });
+
   const [show,setShow] = useState(false)
   const applanguage = useSelector(state => state.applanguage)
   const Theme = useSelector(state => state.mode)
@@ -42,17 +53,8 @@ const Home = () => {
   const height = useWindowDimensions().height;
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 350 && h <= 600;
+  const Navigation = useNavigation()
 
-  console.log('applanguage', applanguage.ParishFinder)
-  
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     setShow(true)
-  //     setTimeout(() => {
-  //       setShow(false)
-  //     }, 500);
-  //   },[])
-  // )
 
   useEffect(() => {
     setShow(true)
@@ -138,7 +140,26 @@ const Home = () => {
       />
     </View>
   );
+  const scrollViewRef = useRef(null);
 
+  const handleScrollToTop = () => {
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+  };
+
+  const doubleTapRef = useRef(null)
+  const doubleTapDelay = 300; // Adjust the delay between taps (in milliseconds)
+
+
+
+  const handleSingleTap = () => {
+    if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
+      clearTimeout(doubleTapRef.current);
+      handleScrollToTop()
+    } else {
+      doubleTapRef.current = new Date().getTime();
+      Navigation.navigate('Home')
+    }
+  };
   return  (
     <>
       <SafeAreaView
@@ -151,7 +172,7 @@ const Home = () => {
         barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
       />
 
-      <HomeHeader />
+      <HomeHeader laraPress={() => handleScrollToTop()} />
       
       <View
         style={{
@@ -166,7 +187,9 @@ const Home = () => {
           initialLayout={{width: layout.width}}
         />
       </View>
-      <BottomTab activeHome={true} />
+      <BottomTab activeHome={true} onPress={() => {
+        Navigation.navigate('Home')
+        handleScrollToTop()}}  />
     </>
   );
 };

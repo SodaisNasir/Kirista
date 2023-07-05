@@ -63,7 +63,7 @@ const RccgContinent = ({navigation}) => {
     }, 2000);
   }
 
-  let result =data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'};'>`)
+  let result =data?.length > 0 && data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'};'>`)
   const source = {
     html: result,
   };
@@ -113,7 +113,7 @@ const RccgContinent = ({navigation}) => {
             paddingHorizontal:
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(22),
           }}>
-          <View
+          {/* <View
             style={{
               alignItems: 'center',
               height: H * 0.1,
@@ -135,7 +135,7 @@ const RccgContinent = ({navigation}) => {
                 style={{height: '100%', width: '100%'}}
               />
             )}
-          </View>
+          </View> */}
 
           {
                 loader ?
@@ -149,13 +149,14 @@ const RccgContinent = ({navigation}) => {
 
           <View
             style={{
-              borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
-              borderWidth: 1,
-              width: w >= 768 && h >= 1024 ? '70%' : '100%',
-              alignSelf: 'center',
+              // borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,
+              // borderWidth: 1,
+              // width: w >= 768 && h >= 1024 ? '70%' : '100%',
+              // alignSelf: 'center',
+              height: verticalScale(20)
             }}
           />
-           {
+           {/* {
                 loader ?
                 <View style={{flex:1,justifyContent: 'center',}}>
                 <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(25)} />
@@ -185,7 +186,7 @@ const RccgContinent = ({navigation}) => {
               General Overseer, RCCG World Wide
             </Text>
           </View>
-           }
+           } */}
 {/* 
           <View
             style={{

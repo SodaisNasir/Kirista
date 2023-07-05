@@ -35,10 +35,12 @@ const HomeHeader = props => {
       <View style={{}}>
         <View
           style={[styles.HeaderBox,props.HeaderBox]}>
+            <TouchableOpacity activeOpacity={0.8} onPress={props.laraPress}>
+
           <View
             style={{
               height:
-                w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(60),
+              w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(60),
               width: w >= 766 && h >= 1024 ? scale(80) : scale(130),
               right: scale(5),
               marginTop: verticalScale(15),
@@ -46,13 +48,14 @@ const HomeHeader = props => {
             <Image
               source={
                 Theme === 'dark'
-                  ? require('../assets/images/krista_main_dark.png')
-                  : require('../assets/images/krista_main.png')
+                ? require('../assets/images/krista_main_dark.png')
+                : require('../assets/images/krista_main.png')
               }
               resizeMode="contain"
               style={{height: '100%', width: '100%'}}
-            />
+              />
           </View>
+              </TouchableOpacity>
           <View
             style={{
               justifyContent: 'center',

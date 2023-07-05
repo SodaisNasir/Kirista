@@ -53,9 +53,8 @@ const RccgStructure = ({navigation}) => {
       setLoader(false)
     }, 2000);
   }
-  let result = data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '8px' : '13px'};
-   margin-top:
- ${w >= 768 && h >= 1024 ? '10px' : '15px'};'>`)
+  let result = data?.length > 0 && data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '8px' : '13px'};
+   margin-top:${w >= 768 && h >= 1024 ? '10px' : '15px'};'>`)
   const source = {
     html: result,
   };
@@ -105,7 +104,7 @@ const RccgStructure = ({navigation}) => {
             w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(22),
           }}>
 
-          <View
+          {/* <View
             style={{
               height:
                 w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100),
@@ -119,7 +118,7 @@ const RccgStructure = ({navigation}) => {
               source={require('../../../assets/images/rccg_logo.png')}
               style={{height: '100%', width: '100%'}}
             />
-          </View>
+          </View> */}
 {
                 loader ?
                 <View style={{flex:1,justifyContent: 'center',}}>

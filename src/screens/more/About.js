@@ -71,7 +71,7 @@ const About = ({navigation}) => {
     }
   };
 
-  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
+  let result = data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
   const source = {
     html: result,
   };
@@ -113,7 +113,7 @@ const About = ({navigation}) => {
               marginTop:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(0),
             }}>
-            <Image
+            {/* <Image
               resizeMode="contain"
               source={
                 Theme === 'dark'
@@ -129,7 +129,7 @@ const About = ({navigation}) => {
                 alignSelf: 'center',
                 marginBottom: w >= 768 && h >= 1024 ? verticalScale(5) : 0,
               }}
-            />
+            /> */}
             {Loading ? (
               <ActivityIndicator
               color={Theme === 'dark' ? Color.White : Color.DarkTheme}
@@ -139,7 +139,7 @@ const About = ({navigation}) => {
               <RenderHtml contentWidth={width} source={source} systemFonts={systemFonts} />
             )}
 
-            {Theme === 'dark' ? (
+            {/* {Theme === 'dark' ? (
               <View
                 style={{
                   height: verticalScale(80),
@@ -176,9 +176,9 @@ const About = ({navigation}) => {
                   />
                 </View>
               </View>
-            ) : null}
+            ) : null} */}
 
-            <View style={{top: w >= 768 && h >= 1024 ? scale(10) : scale(5)}}>
+            {/* <View style={{top: w >= 768 && h >= 1024 ? scale(10) : scale(5)}}>
               <View style={{alignSelf: 'center'}}>
                 <Text
                   style={{
@@ -263,7 +263,7 @@ const About = ({navigation}) => {
                   style={{left: scale(1)}}
                 />
               </View>
-            </View>
+            </View> */}
           </View>
           {/* <View style={{height: verticalScale(10)}} /> */}
         </ScrollView>

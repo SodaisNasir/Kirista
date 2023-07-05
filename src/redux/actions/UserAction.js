@@ -1,8 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { base_Url } from "../../utils/Url";
-import { CHAPTERS, SEARCH_DATA, USER_DETAILS } from "../reducer";
+import { ACTIVE_BOOKS, ACTIVE_EVENT, BANNER_DATA, CHAPTERS, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
 
-export const show_all_banner = async (setForImage) =>{
+export const show_all_banner =  () =>{
+  return async (dispatch) => {
+
     try {
 
       const noti =await AsyncStorage.getItem("onesignaltoken");
@@ -15,7 +17,7 @@ export const show_all_banner = async (setForImage) =>{
         const responseData = await response.json();
 
         if (responseData.success.status === 200) {
-         setForImage(responseData.success.data)
+         dispatch({type: BANNER_DATA, payload: responseData.success.data})
         //  setForLink( responseData.success.data[0].app_page)
         } else {
           console.log('else error');
@@ -23,6 +25,7 @@ export const show_all_banner = async (setForImage) =>{
     } catch (error) {
         console.log('error in banner api', error)
     }
+  }
 }
 export const show_popup = async (setData,Device) =>{
     try {
@@ -46,24 +49,25 @@ export const show_popup = async (setData,Device) =>{
         console.log('error', error)
     }
 } 
-export const parish = async (setData) => {
-  try {
-    let base_url = `${base_Url}parish-active`;
+export const parish =  () => {
+  return async (dispatch) => {
+    try {
+      let base_url = `${base_Url}parish-active`;
   
-    const response = await fetch(base_url, {
-      method: 'GET',
-    });
+      const response = await fetch(base_url, {
+        method: 'GET',
+      });
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
-     console.log('responseData in parish ==>', responseData)
-     setData( responseData.success.data)
+     dispatch({type: PARISH_DATA, payload: responseData.success.data})
     } else {
       console.log('else error');
     }
   } catch (error) {
     console.log('error', error)
   }
+}
 }
 export const parish_by_id = async (setData, id,setLoading,setmap) => {
   setLoading(true)
@@ -89,22 +93,24 @@ export const parish_by_id = async (setData, id,setLoading,setmap) => {
     console.log('error', error)
   }
 }
-export const active_event = async (setEvent) => {
-  try {
-    let base_url = `${base_Url}event-active`;
+export const active_event =  () => {
+  return async (dispatch) => {
+    try {
+      let base_url = `${base_Url}event-active`;
+    
+      const response = await fetch(base_url, {
+        method: 'GET',
+      });
+      const responseData = await response.json();
   
-    const response = await fetch(base_url, {
-      method: 'GET',
-    });
-    const responseData = await response.json();
-
-    if (responseData.success.status === 200) {
-     setEvent(responseData.success.data)
-    } else {
-      console.log('else error');
+      if (responseData.success.status === 200) {
+       dispatch({type: ACTIVE_EVENT, payload: responseData.success.data})
+      } else {
+        console.log('else error');
+      }
+    } catch (error) {
+      console.log('error', error)
     }
-  } catch (error) {
-    console.log('error', error)
   }
 }
 export const event_by_id = async (setData, id,setLoading,setmap) => {
@@ -201,23 +207,25 @@ export const updateProfile = (data,userData,saveimage,text,navigation,country,se
     }
   }
 }
-export const getBooks = async (setData) => {
-  try {
-    let base_url = `${base_Url}book-active`;
-  
+export const getBooks =  () => {
+  return async (dispatch) => {
+    try {
+      let base_url = `${base_Url}book-active`;
+      
     const response = await fetch(base_url, {
       method: 'GET',
     });
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
-      setData(responseData.success.data)
-      }else{
-        console.log('first')
-      }
-     }catch (error) {
+      dispatch({type: ACTIVE_BOOKS, payload: responseData.success.data})
+    }else{
+      console.log('first')
+    }
+  }catch (error) {
     console.log('error', error)
   }
+}
 }
 export const getChaptersByID = async (setData,id) => {
   try {

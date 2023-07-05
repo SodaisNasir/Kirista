@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions, StyleSheet,useColorScheme,Pressable,Image, Platform} from 'react-native';
+import {View, Text, Dimensions, StyleSheet,useColorScheme,TouchableOpacity,Image, Platform} from 'react-native';
 
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -25,7 +25,7 @@ const BottomTab = props => {
         {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
         props.BottomTabRestyle
       ]}>
-      <Pressable onPress={() => Navigation.navigate('Home')} style={styles.Boxes}>
+      <TouchableOpacity onPress={props.homePress} style={styles.Boxes} activeOpacity={0.9}>
         <Image
           style={styles.Img}
         source={
@@ -39,8 +39,8 @@ const BottomTab = props => {
           ]}>
           {applanguage.Home}
         </Text>
-      </Pressable>
-      <Pressable onPress={() => Navigation.navigate('Library')} style={styles.Boxes}>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => Navigation.navigate('Library')} style={styles.Boxes} activeOpacity={0.9}>
       <Image
         style={styles.Img}
         source={
@@ -54,8 +54,8 @@ const BottomTab = props => {
           ]}>
           {applanguage.Library}
         </Text>
-      </Pressable>
-      <Pressable onPress={() => Navigation.navigate('More')} style={styles.Boxes}>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => Navigation.navigate('More')} style={styles.Boxes} activeOpacity={0.9}>
       <Image
       style={styles.Img}
         source={
@@ -69,7 +69,7 @@ const BottomTab = props => {
           ]}>
           {applanguage.More}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
   },
   Boxes:{
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    padding:18
   },
   Name:{
     fontFamily: Font.Poppins600,

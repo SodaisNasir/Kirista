@@ -593,10 +593,10 @@ const SettingsGuest = () => {
             }}
           />
 
-          <View style={{height: verticalScale(90)}}></View>
+          <View style={{height: verticalScale(90)}}/>
         </ScrollView>
       </View>
-      <BottomTab activeMore={true} />
+      <BottomTab activeMore={true} homePress={() => navigation.navigate('Home')}/>
     </>
   );
 };

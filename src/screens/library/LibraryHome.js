@@ -48,8 +48,9 @@ const LibraryHome = ({navigation}) => {
   const savedEvents = useSelector(state => state.eventbookmark);
   const libraryData = savedBooks.concat(savedEvents, savedParishes);
   console.log('============================================');
-  console.log('==>', libraryData);
+  console.log('==> laraib', libraryData);
   console.log('============================================');
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -397,7 +398,7 @@ const LibraryHome = ({navigation}) => {
           </View>
         </Modal>
       </SafeAreaView>
-      <BottomTab activeLibary={true} />
+      <BottomTab activeLibary={true} homePress={() => navigation.navigate('Home')} />
     </>
   );
 };

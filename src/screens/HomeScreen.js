@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,7 @@ import {
   FlatList,
   Dimensions,
   Platform,
+  Linking 
 } from 'react-native';
 import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -33,22 +34,24 @@ import BannerLoader from '../components/Loader/BannerLoader';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNFS from 'react-native-fs';
+import RenderHTML, { defaultSystemFonts } from 'react-native-render-html';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const HomeScreen = () => {
+const HomeScreen = ({scrollViewRef}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const Theme = useSelector(state => state.mode);
   const applanguage = useSelector(state => state.applanguage);
 
+  const bannerData = useSelector(state => state.bannerData);
+  const parishData = useSelector(state => state.parishData);
+  const activeEvents = useSelector(state => state.activeEvents);
+  const activeBooks = useSelector(state => state.activeBooks);
+  const rccgData = useSelector(state => state.rccgData);
+console.log('rccgData', rccgData)
   const tabPotrait = w >= 768 && h >= 1024;
-  const [forImage, setForImage] = useState([]);
-  const [data, setData] = useState([]);
-  const [event, setEvent] = useState([]);
-  const [myData, setMyData] = useState([]);
-
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
   const image_data = [
@@ -87,24 +90,34 @@ const HomeScreen = () => {
       screen_name: 'RccgContinent',
     },
   ];
+  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
 
 
   useFocusEffect(
     useCallback(() => {
-      show_all_banner(setForImage);
-      parish(setData);
-      active_event(setEvent);
-      getBooks(setMyData);
+      // show_all_banner(setForImage);
+      // parish(setData);
+      // active_event(setEvent);
+      // getBooks(setMyData);
       dispatch(getSearchData());
     }, []),
   );
-  const imageUrl =
-    'https://images.unsplash.com/photo-1526045612212-70caf35c14df';
 
-    const onSubmit = (item) => {
-      navigation.navigate('AdvWebView', {
-        link: item?.app_page,
-      })
+    const onSubmit = async (item) => {
+      // navigation.navigate('AdvWebView', {
+      //   link: item?.app_page,
+      // })
+      const url = item?.app_page
+
+      // Checking if the link is supported
+      const supported = await Linking.canOpenURL(url);
+    
+      if (supported) {
+        // Opening the link in the in-app browser
+        await Linking.openURL(url);
+      } else {
+        console.log(`Cannot open URL: ${url}`);
+      }
     }
 
     const [htmlContent, setHtmlContent] = useState('');
@@ -136,13 +149,24 @@ const HomeScreen = () => {
       }
     };
 
+    const handleSubmit = (type) => {
+      if(type === 'RCCG'){
+        console.log('first')
+        navigation.navigate('Rccg')
+      }else if(type === 'RCCG Continent 2'){
+        navigation.navigate('RccgContinent')
+      }else{
+        navigation.navigate('RccgStructure')
+      }
+    }
+
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
         <View
           style={[
             {
@@ -152,13 +176,13 @@ const HomeScreen = () => {
             styles.SwiperViewOne,
           ]}>
           <Swiper
-          key={forImage?.length}
+          key={bannerData?.length}
             autoplayTimeout={5}
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-              {forImage?.length > 0 ? (
-              forImage?.map((item, index) => {
+              {bannerData?.length > 0 ? (
+              bannerData?.map((item, index) => {
                 return (
                   <>
                   <TouchableOpacity activeOpacity={0.7} onPress={() => onSubmit(item)}>
@@ -225,11 +249,11 @@ const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
             directionalLockEnabled={true}
             alwaysBounceVertical={false}>
-              {myData.length > 0
+              {activeBooks.length > 0
               ?
               <FlatList
                 showsHorizontalScrollIndicator={false}
-                data={myData?.slice(0, 5)}
+                data={activeBooks?.slice(0, 20)}
                 renderItem={({item, index}) => {
                   return (
                     <TouchableOpacity
@@ -332,8 +356,8 @@ const HomeScreen = () => {
                     </TouchableOpacity>
                   );
                 }}
-                key={Math.ceil(myData?.length / 2).toString()}
-                numColumns={Math.ceil(myData?.length / 2)}
+                key={Math.ceil(activeBooks?.length / 2).toString()}
+                numColumns={Math.ceil(activeBooks?.length / 2)}
               />
               : 
                 <>
@@ -352,11 +376,15 @@ const HomeScreen = () => {
             styles.SwiperViewTwo,
           ]}>
           <FlatList
-            data={image_data}
+            data={rccgData}
             showsHorizontalScrollIndicator={false}
             horizontal
             renderItem={({item}) => {
+              const title = {
+                html: item.description
+                }
               return (
+                <TouchableOpacity onPress={() => handleSubmit(item.type)}>
                 <View
                   style={{
                     justifyContent: 'center',
@@ -381,10 +409,11 @@ const HomeScreen = () => {
                       height: '100%',
                       width: '100%',
                       position: 'absolute',
+                      zIndex:99
                     }}
-                    source={item.image}
+                    source={{uri: item.image}}
                   />
-                  <Image
+                  {/* <Image
                     resizeMode="cover"
                     style={{
                       height: '100%',
@@ -392,7 +421,7 @@ const HomeScreen = () => {
                       position: 'absolute',
                     }}
                     source={item.image2}
-                  />
+                  /> */}
                   <View
                     style={{
                       height: '100%',
@@ -429,14 +458,14 @@ const HomeScreen = () => {
                             top: w >= 768 && h >= 1024 ? scale(15) : scale(20),
                             overflow: 'hidden',
                           }}>
-                          <Image
+                          {/* <Image
                             resizeMode="contain"
                             style={{
                               height: '100%',
                               width: '100%',
                             }}
                             source={item.image3}
-                          />
+                          /> */}
                         </View>
                       </View>
                       <View
@@ -509,10 +538,8 @@ const HomeScreen = () => {
                             width: '100%',
                             marginVertical: verticalScale(2),
                           }}>
-                          <TouchableOpacity
-                            onPress={() =>
-                              navigation.navigate(item.screen_name)
-                            }
+                          <View
+                            
                             style={{
                               flexDirection: 'row',
                             }}>
@@ -543,15 +570,17 @@ const HomeScreen = () => {
                               color={'white'}
                               // style={{bottom: 2, right: 3}}
                             />
-                          </TouchableOpacity>
+                          </View>
                         </View>
                       </View>
                     </View>
                   </View>
                 </View>
+                </TouchableOpacity>
               );
             }}
           />
+          
         </View>
 
         <View
@@ -593,9 +622,9 @@ const HomeScreen = () => {
               />
             </TouchableOpacity>
           </View>
-          {data?.length > 0 ? (
+          {parishData?.length > 0 ? (
             <>
-              {data?.map((item, index) => {
+              {parishData?.map((item, index) => {
                 return (
                   index < 3 && (
                     <DetailsCard
@@ -660,9 +689,9 @@ const HomeScreen = () => {
             </View>
           </View>
           <View>
-            {event.length > 0 ? (
+            {activeEvents.length > 0 ? (
               <>
-                {event?.map((item, index) => {
+                {activeEvents?.map((item, index) => {
                   return (
                     index < 4 && (
                       <DetailsCard
@@ -678,7 +707,7 @@ const HomeScreen = () => {
                         resize={'contain'}
                         TimeTrue={true}
                         time={item.start_time}
-                        date={moment(data.start_date).format('MMM Do YY')}
+                        date={moment(item.start_date).format('MMM Do YY')}
                         MainBoxRestyle={{
                           marginTop: verticalScale(12),
                         }}

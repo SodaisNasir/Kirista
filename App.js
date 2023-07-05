@@ -16,15 +16,19 @@ import Spanish from './src/components/LanguageJson/Spanish.json'
 import Fula from './src/components/LanguageJson/Fula.json'
 import Portugese from './src/components/LanguageJson/Portugese.json'
 import OneSignal from 'react-native-onesignal'
+import { active_event, getBooks, getSearchData, parish, show_all_banner } from './src/redux/actions/UserAction';
+import { get_rccgData } from './src/redux/actions/AuthAction';
 
 const App = () => {
   const dispatch = useDispatch();
   const user_details = useSelector(state => state.user_details);
   const getlanguage = useSelector(state => state.getlanguage)
   const applanguage = useSelector(state => state.applanguage)
+  const language = useSelector(state => state.language)
   const mode = useSelector(state => state.mode)
   const [loading, setLoading] = useState(true);
   const Theme = useColorScheme()
+
 
 
   const setLanguage = async () => {
@@ -115,6 +119,11 @@ const App = () => {
 
   useEffect(() => {
     setLanguage()
+      dispatch(show_all_banner());
+      dispatch(parish());
+      dispatch(active_event());
+      dispatch(getBooks());
+      dispatch(get_rccgData(language));
   }, [getlanguage])
 
   useEffect(() => {

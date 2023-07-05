@@ -29,8 +29,8 @@ const h = Dimensions.get('window').height;
 const PopularBooks = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
+  const myData = useSelector(state => state.activeBooks);
 
-  const [myData,setMyData] = useState([])
 
  
   useFocusEffect(
@@ -38,7 +38,6 @@ const PopularBooks = ({navigation}) => {
       navigation
         .getParent()
         ?.setOptions({tabBarStyle: {display: 'none', backgroundColor: 'red'}});
-        getBooks(setMyData)
     }, []),
   );
 

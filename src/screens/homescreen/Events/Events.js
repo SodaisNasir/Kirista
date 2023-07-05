@@ -21,13 +21,12 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const Events = () => {
-  const [event, setEvent] = useState([]);
+  const event = useSelector(state => state.activeEvents);
 
   const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => {
-      active_event(setEvent);
     }, []),
   );
   const Theme = useSelector(state => state.mode)

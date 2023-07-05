@@ -32,6 +32,8 @@ const Readone = ({route}) => {
   const chapters = useSelector(state => state.chapters)
   const { width } = useWindowDimensions();
   const [loader, setLoader] = useState(false);
+
+  console.log('chapters', chapters)
   
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   const {id,item} = route.params
@@ -48,6 +50,7 @@ const Readone = ({route}) => {
   const navigation = useNavigation();
   let text = data?.title;
   let text2 = data?.description;
+
 
   let result = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '22px' : '20px'};'`);
   let result2 = text?.replace("class='chap_title'", `style='color:${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '17px' : '15px'};'`);
@@ -95,7 +98,7 @@ const Readone = ({route}) => {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              setLoader(true);
+              // setLoader(true);
               navigation.navigate('Readtwo',{
                 id:id,
                 bookData:item,
@@ -149,10 +152,10 @@ const Readone = ({route}) => {
             width: '100%',
           }}>
         </View> */}
-             <Loader
+             {/* <Loader
    onBackdropPress={() => setLoader(false)}
    isVisible={loader}
-/> 
+/>  */}
       </View>
     </>
   );

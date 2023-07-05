@@ -86,6 +86,7 @@ const handleSubmit = async () => {
       setIsChecked(true);
       await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
     }
+    
 }
   return (
     <>

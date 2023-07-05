@@ -15,6 +15,13 @@ export const EVENTBOOKMARK = 'EVENTBOOKMARK';
 export const PARISHBOOKMARK = 'PARISHBOOKMARK';
 export const ISGUEST = 'ISGUEST';
 
+export const BANNER_DATA = 'BANNER_DATA';
+export const PARISH_DATA = 'PARISH_DATA';
+export const ACTIVE_EVENT = 'ACTIVE_EVENT';
+export const ACTIVE_BOOKS = 'ACTIVE_BOOKS';
+export const RCCG_DATA  = 'RCCG_DATA';
+
+
 const initialState = {
   userEmail: null,
   perishData: [],
@@ -32,6 +39,12 @@ const initialState = {
   allbookmark: [],
   eventbookmark: [],
   parishbookmark: [],
+
+  bannerData: [],
+  parishData: [],
+  activeEvents: [],
+  activeBooks: [],
+  rccgData: [],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -115,6 +128,31 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         isGuest: action.payload,
+      };
+    case BANNER_DATA:
+      return {
+        ...state,
+        bannerData: action.payload,
+      };
+    case PARISH_DATA:
+      return {
+        ...state,
+        parishData: action.payload,
+      };
+    case ACTIVE_EVENT:
+      return {
+        ...state,
+        activeEvents: action.payload,
+      };
+    case ACTIVE_BOOKS:
+      return {
+        ...state,
+        activeBooks: action.payload,
+      };
+    case RCCG_DATA:
+      return {
+        ...state,
+        rccgData: action.payload,
       };
 
     default:

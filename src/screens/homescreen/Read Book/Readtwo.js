@@ -15,7 +15,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {Color} from '../../../utils/Colors';
 import {
   verticalScale,
@@ -39,7 +39,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
 import RenderHtml, {defaultSystemFonts} from 'react-native-render-html';
 import IncorrectModal from '../../../components/Modals/IncorrectModal';
-
+import { Reader, ReaderProvider, useReader } from '@epubjs-react-native/core';
+import { useFileSystem } from '@epubjs-react-native/file-system';
+import RNFS from 'react-native-fs';
+// import base64 from 'react-native-base64'
+import { parseString } from 'react-native-xml2js';
 
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
@@ -50,7 +54,7 @@ const Readtwo = ({route}) => {
   const systemFonts = [...defaultSystemFonts, 'times-new-roman', 'Arial','Lato-Regular','papyrus','Georgia-Regular-font.ttf','CourierPrime-Regular'];
   const chapters = useSelector(state => state.chapters)
   const bookmark = useSelector(state => state.bookmark)
-  const { width } = useWindowDimensions();
+  const { width,height } = useWindowDimensions();
   const isGuest = useSelector(state => state.is_guest)
   const [data,setData] = useState([])
   const navigation = useNavigation();
@@ -72,22 +76,27 @@ const Readtwo = ({route}) => {
   const [count, setCount] = useState(0)
   const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
+  const [chapNo, setChapNo] = useState()
   const [bottomModal, setBottomModal] = useState(false);
   const applanguage = useSelector(state => state.applanguage)
 
+  console.log('chapNo', chapNo)
 
 
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(getChapters(setData,id))
-      sendReadBok(id)
-      dispatch(getChapters(setData, id));
-    }, []),
-  );
-  useEffect(() => {
-    getChaptersByID(setChapterData, select);
-  }, [select]);
+
+
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(getChapters(setData,id))
+  //     sendReadBok(id)
+  //     dispatch(getChapters(setData, id));
+  //   }, []),
+  // );
+  // useEffect(() => {
+  //   getChaptersByID(setChapterData, select);
+  // }, [select]);
   const handlepressone = () => {
     setBackgroundColor('#F5F5F5');
     setTextColor(Color.Black);
@@ -152,9 +161,9 @@ const Readtwo = ({route}) => {
       setisSelect(false);
     }
   };
-  useEffect(() => {
-    addBookmark();
-  }, [chapterData, bookmark]);
+  // useEffect(() => {
+  //   addBookmark();
+  // }, [chapterData, bookmark]);
 
   let text = chapterData?.title;
   let text2 = chapterData?.description;
@@ -190,55 +199,31 @@ const Readtwo = ({route}) => {
     html: result3,
   };
 
-  const [loading, setLoading] = useState(false);
-  const [mydata, setmyData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [hasMoreData, setHasMoreData] = useState(true);
+  const onFontSubmit = (item) => { 
+    setSecondModalVisible(false)
+    setFontData(item)
+   }
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
+  useEffect(() => {
+    // Replace this with the URL of the EPUB file
+    const epubUrl = 'https://kirista.s3.amazonaws.com/epub/1688533069.epub';
+  
+    // Replace this with the path to the file where you want to save the data
+    const filePath = RNFS.DocumentDirectoryPath + '/data.epub';
+  
+    // Download the EPUB file and save it to a local file
+    RNFS.downloadFile({
+      fromUrl: epubUrl,
+      toFile: filePath,
+    })
+      .promise.then(() => {
+        console.log('EPUB file saved successfully!');
+      })
+      .catch((error) => {
+        console.error('Failed to save EPUB file:', error);
+      });
+  }, []);
 
-      // Fetch more data here based on the current page value
-
-      // Update the data state by appending the newly fetched data
-      setmyData(prevData => [...prevData, ...chapters]);
-
-      // Increment the page number for the next fetch
-      setPage(prevPage => prevPage + 1);
-
-      // Check if more data is available
-      setHasMoreData(chapters.length > 0);
-
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setLoading(false);
-    }
-  };
-
-
-  const loadMoreData = () => {
-    if (!loading && hasMoreData) {
-      fetchData();
-    }
-  };
-
-  const doubleTapRef = useRef(null);
-  const doubleTapDelay = 300; // Adjust the delay between taps (in milliseconds)
-
-  const handleDoubleTap = () => {
-    clearTimeout(doubleTapRef.current);
-    setBottomModal(!bottomModal);
-  };
-
-  const handleSingleTap = () => {
-    if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
-      handleDoubleTap();
-    } else {
-      doubleTapRef.current = new Date().getTime();
-    }
-  };
   return (
     <>
       <SafeAreaView
@@ -296,18 +281,18 @@ const Readtwo = ({route}) => {
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
         />
-
+{/* 
         <ScrollView showsVerticalScrollIndicator={false} style={{
           backgroundColor: backgroundColor != '' && show ? backgroundColor : Theme === 'dark' ? Color.DarkTheme : Color.White,
           height: bottomModal ? '60%' : '100%',
           width: '100%',
-          }}>
+          }}> */}
           <View
             style={{
               height: '100%',
               width: '100%',
-              paddingHorizontal:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              // paddingHorizontal:
+              //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               backgroundColor:
                 backgroundColor != '' && show
                   ? backgroundColor
@@ -315,88 +300,13 @@ const Readtwo = ({route}) => {
                   ? Color.DarkTheme
                   : Color.White,
             }}>
-            {select ? (
-              <>
-                <View style={{marginVertical: verticalScale(20)}}>
-                  <RenderHtml
-                    contentWidth={width}
-                    source={title}
-                    systemFonts={systemFonts}
-                  />
-                </View>
-                <View style={{marginVertical: verticalScale(15)}}>
-                  <RenderHtml
-                    contentWidth={width}
-                    source={description}
-                    systemFonts={systemFonts}
-                  />
-                </View>
-              </>
-            ) : (
-              chapters.map(item => {
-                let text = item?.title;
-                let text2 = item?.description;
-                let result = text?.replace(
-                  "class='chap_title'",
-                  `style='color:${
-                    backgroundColor != '' && show
-                      ? 'black'
-                      : Theme === 'dark'
-                      ? Color.White
-                      : Color.Black
-                  };font-family:${fontData?.name}; font-size:${
-                    count + 20
-                  }px; font-weight:600;'`,
-                );
-                let result3 = text2?.replace(
-                  "class='chap_description'",
-                  `style='color:${
-                    backgroundColor != '' && show
-                      ? 'black'
-                      : Theme === 'dark'
-                      ? Color.White
-                      : Color.Black
-                  };font-family:${fontData?.name};  font-size:${
-                    count + 15
-                  }px; font-weight:600;'`,
-                );
+               <ReaderProvider >
 
-                const title = {
-                  html: result,
-                };
-                const description ={
-                  html: result3,
-                };
-                return (
-                  <>
-                    <TouchableOpacity
-                    // activeOpacity={0.6}
-                      // onPress={() => setBottomModal(!bottomModal)}
-                      onPress={() => handleSingleTap()}
-                      >
-                      <View style={{marginVertical: verticalScale(20)}}>
-                        <RenderHtml
-                          contentWidth={width}
-                          source={title}
-                          systemFonts={systemFonts}
-                        />
-                      </View>
-                      <View style={{marginVertical: verticalScale(0)}}>
-                        <RenderHtml
-                          contentWidth={width}
-                          source={description}
-                          systemFonts={systemFonts}
-                        
-                        />
-                      </View>
-                    </TouchableOpacity>
-                  </>
-                );
-              })
-            )}
+              <Faltu {...{setBottomModal, bottomModal, Theme,count,setChapNo,chapNo,fontData}} />
+               </ReaderProvider>
           </View>
           {/* <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} /> */}
-        </ScrollView>
+        {/* </ScrollView> */}
 
         <ChapterOptionModal
           isVisible={isModalVisible}
@@ -434,8 +344,9 @@ const Readtwo = ({route}) => {
           // swipeDirection="down"
           onSwipeComplete={() => setSecondModalVisible(false)}
           onRequestClose={() => setSecondModalVisible(false)}
-          OptionSelect={setSecondModalVisible}
-          fontData={setFontData}
+          onFontSubmit={onFontSubmit}
+          // OptionSelect={setSecondModalVisible}
+          // fontData={setFontData}
         />
 
         <DrawerScreen
@@ -449,6 +360,27 @@ const Readtwo = ({route}) => {
           setSelect={setSelect}
           selectOff={setModalThreeVisible}
         />
+        <View
+          style={{
+            // borderTopColor:
+            //   w >= 768 && h >= 1024 ? Color.BorderColor : Color.White,
+            // borderTopWidth: w >= 768 && h >= 1024 ? 1 : 0,
+            paddingHorizontal: moderateScale(10),
+            // paddingVertical: 24,
+            position: 'absolute',
+            bottom: 10,
+            width: '100%',
+            height: verticalScale(30),
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+            paddingRight: scale(20)
+          }}>
+            <Text style={{
+               fontFamily: Font.Libre400,
+               fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
+               color: Theme === 'dark' ? Color.White : Color.Black
+            }}>{(chapNo ? chapNo?.start?.displayed?.page : 1) + '/' + (chapNo ? chapNo?.start?.displayed?.total : 1)}</Text>
+        </View>
         {bottomModal && (
           <View
             style={{
@@ -567,3 +499,184 @@ const styles = StyleSheet.create({
     fontFamily: Font.Poppins600,
   },
 });
+
+const Faltu = ({setBottomModal,bottomModal, Theme,count,setChapNo,chapNo,fontData}) => {
+  const { width,height } = useWindowDimensions();
+  const [tempMode, setTempMode] = useState('');
+  const modeCheck = useSelector(state => state.mode);
+  const [backgroundColor, setBackgroundColor] = useState('');
+  const [show, setShow] = useState(false)
+  // const [bottomModal, setBottomModal] = useState(false);
+  const [term, setTerm] = React.useState('');
+  const { search, searchResults, getLocations, getMeta, goNext, getCurrentLocation, goPrevious, currentLocation, goToLocation, changeFontFamily, changeFontSize, changeTheme } = useReader();
+  const doubleTapRef = useRef(null)
+  const doubleTapDelay = 300; // Adjust the delay between taps (in milliseconds)
+
+  const handleDoubleTap = () => {
+    clearTimeout(doubleTapRef.current);
+    setBottomModal(!bottomModal);
+  };
+
+  // const handleSingleTap = () => {
+  //   if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
+  //     handleDoubleTap();
+  //   } else {
+  //     doubleTapRef.current = new Date().getTime();
+  //   }
+  // };
+  const handleSingleTap = useCallback(() => {
+    setBottomModal(!bottomModal);
+  }, [bottomModal]);
+
+  // const heyData = () => {
+  //   RNFS.readFile(filePath, 'base64')
+  //   .then((data) => {
+  //     const decodedData = Buffer.from(data, 'base64').toString('utf8');
+
+  //     parseString(decodedData, (err, result) => {
+  //       if (err) {
+  //         console.error('Failed to parse EPUB data:', err);
+  //       } else {
+  //         const htmlContent = result.package.spine[0].itemref.map(item => {
+  //           const id = item.$.idref;
+  //           const itemData = result.package.manifest[0].item.find(i => i.$.id === id);
+  //           const href = itemData.$.href;
+  //           const html = result.package.manifest[0].item.find(i => i.$.id === href);
+
+  //           return html._;
+  //         });
+
+  //         console.log('HTML content:', htmlContent);
+  //       }
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.error('Failed to read EPUB file:', error);
+  //   });
+  // }
+
+  // useEffect(() => {
+  //   heyData()
+  // }, [])
+
+  const filePath = RNFS.DocumentDirectoryPath + '/data.epub';
+
+  console.log('filePath', filePath)
+  return (
+  <ReaderProvider>
+                
+              <Semexy {...{setChapNo,chapNo,fontData}}/>  
+    <Reader
+      src={filePath}
+      width={width}
+      height={height}
+      fileSystem={useFileSystem}
+      onDoublePress={()  => handleSingleTap()}
+      defaultTheme={ {
+        "p": {
+            "background-color": `${backgroundColor != '' && show
+            ? backgroundColor
+            : Theme === 'dark'
+            ? Color.DarkTheme
+            : Color.White}`,
+            // "font-size": "15px",
+            // 'font-family':`${fontData?.name}`,
+            //  'font-size':`${count + 15}px`,
+            //  'font-weight':600,
+        },
+        "h1": {
+            "color": `${
+              backgroundColor != '' && show
+                ? 'black'
+                : Theme === 'dark'
+                ? Color.White
+                : Color.Black
+            }`,
+            // "font-size": "15px"
+        },
+        "h2": {
+            "color": `${
+              backgroundColor != '' && show
+                ? 'black'
+                : Theme === 'dark'
+                ? Color.White
+                : Color.Black
+            }`,
+            // "font-size": "15px"
+        },
+        "h3": {
+            "color": `${
+              backgroundColor != '' && show
+                ? 'black'
+                : Theme === 'dark'
+                ? Color.White
+                : Color.Black
+            }`,
+            // "font-size": "15px"
+        },
+        "div": {
+            "color": `${
+              backgroundColor != '' && show
+                ? 'black'
+                : Theme === 'dark'
+                ? Color.White
+                : Color.Black
+            }`,
+            // "font-size": "15px"
+        },
+
+        "*": {
+            "background-color": `${backgroundColor != '' && show
+            ? backgroundColor
+            : Theme === 'dark'
+            ? Color.DarkTheme
+            : Color.White}`,
+            "color":`${
+              backgroundColor != '' && show
+                ? 'black'
+                : Theme === 'dark'
+                ? Color.White
+                : Color.Black
+            }`,
+            "font-size": `${count + 15}px`,
+            'font-family':`${fontData?.name}`,
+        },
+        "body": {
+            "background": `${backgroundColor != '' && show
+            ? backgroundColor
+            : Theme === 'dark'
+            ? Color.DarkTheme
+            : Color.White}`,
+            // "font-size": "15px"
+        }
+      }}
+      />
+      </ReaderProvider>
+      );
+}
+
+const Semexy =  React.memo(({setChapNo,chapNo,fontData}) => {
+  const { search, searchResults, getLocations, getMeta, goNext, getCurrentLocation, goPrevious, currentLocation, goToLocation, changeFontFamily, changeFontSize, changeTheme } = useReader();
+  const [vv,setVV] = useState('')
+  const metadata = currentLocation;
+  const lygetMeta = getMeta();
+  // const vvgetCurrentLocation = getCurrentLocation();
+
+  const vvgetCurrentLocation = getCurrentLocation()
+  
+  console.log('metadata', metadata)
+  
+  
+  useEffect(() => {
+  setChapNo(vvgetCurrentLocation);
+  }, []);
+
+useEffect(() => {
+  goToLocation(vvgetCurrentLocation?.end?.cfi)
+  console.log('laraib ==========>')
+}, [vv]);
+
+useEffect(() => {
+  changeTheme('dark')
+}, [])
+})

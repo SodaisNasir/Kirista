@@ -52,7 +52,7 @@ const Rccg = ({navigation}) => {
     }, 2000);
   }
 
-  let result = data?.length > 0 && data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'};'>`)
+  let result = data?.length > 0 && data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'}; '>`).replace('class="ql-align-center"', 'style="text-align: center;"')
   const source = {
     html: result,
   };
@@ -105,7 +105,7 @@ const Rccg = ({navigation}) => {
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(22),
             }}>
-            <View
+            {/* <View
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -146,7 +146,7 @@ const Rccg = ({navigation}) => {
                 The Redeemed Christian Church of God
               </Text>
             }
-            </View>
+            </View> */}
 
             {/* Laraib The Great */}
 
@@ -178,7 +178,8 @@ const Rccg = ({navigation}) => {
                : <RenderHtml contentWidth={w} source={source}  systemFonts={systemFonts} />
               }
 
-{
+<View style={{height: verticalScale(20)}} />
+{/* {
                 loader ?
                 <View style={{flex:1,justifyContent: 'center',}}>
                 <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(60) : verticalScale(50)} />
@@ -211,7 +212,7 @@ const Rccg = ({navigation}) => {
                   General Overseer, RCCG World Wide
                 </Text>
               </View>
-              }
+              } */}
 
               <View
                 style={{

@@ -61,10 +61,14 @@ const FontModal = (props) => {
 
   
  const Theme = useSelector(state => state.mode)
-  const onSubmit = (item) => {
-  props.OptionSelect(false)
-  props.fontData(item)
-}
+
+//   const onSubmit = (item) => {
+//   props.OptionSelect(false)
+//   props.fontData(item)
+//   // props.changeFont('monospace')
+//   //  onPress={() => goToLocation("epubcfi(/6/6!/4/2[pgepubid00492]/40[pgepubid00602]/6[pgepubid00603]/14/38/1:1)")}
+// }
+
   return (
       <Modal
         testID={'modal'}
@@ -118,7 +122,7 @@ const FontModal = (props) => {
                   <TouchableOpacity
                     style={{marginTop: verticalScale(12)}}
                     // onPress={props.OptionSelect}
-                    onPress={() => onSubmit(item)}
+                    onPress={() => props.onFontSubmit(item)}
                     >
                     <View
                       style={{

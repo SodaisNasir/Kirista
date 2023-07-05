@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {base_Url, token} from '../../utils/Url';
-import {IS_GUEST, USER_DETAILS} from '../reducer';
+import {IS_GUEST, RCCG_DATA, USER_DETAILS} from '../reducer';
 import {OTP_SEND} from '../reducer';
 
 export const sign_in = (data,setCheck,setLoader) => {
@@ -248,3 +248,31 @@ return async dispatch => {
 }
 
 }
+
+export const get_rccgData = (language) => {
+  return async dispatch => {
+    try {
+      let base_url = `${base_Url}about`;
+      let myData = new FormData()
+
+      myData.append('language',language)
+
+      const response = await fetch(base_url, {
+        method: 'post',
+        body:myData
+      });
+      
+      const responseData = await response.json();
+      console.log('responseData ===>', responseData)
+  
+      if (responseData?.success?.status === 200) {
+        dispatch({type: RCCG_DATA, payload: responseData.success.data})
+      }else{
+        console.log('first =====>')
+      }
+    } catch (error) {
+      console.log('error =====>', error);
+    }
+  }
+  
+  }

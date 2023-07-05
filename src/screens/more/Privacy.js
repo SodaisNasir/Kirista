@@ -70,7 +70,7 @@ const type = 'Privacy'
       setLoading(false)
     }
   }
-  let result = data?.replace("<p>",`<p style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
+  let result = data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500}; font-size: ${w >= 768 && h >= 1024 ? '15px' : '15px'};'>`)
   const source = {
     html: result,
   };
