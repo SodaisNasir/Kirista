@@ -52,7 +52,10 @@ const Rccg = ({navigation}) => {
     }, 2000);
   }
 
-  let result = data?.length > 0 && data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'}; '>`).replace('class="ql-align-center"', 'style="text-align: center;"')
+  let result = data?.length > 0 && data?.replace(/<div(.*?)>/gi, `<div style='color: ${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'}; text-align: center;'>`);
+  // const result2 = data?.length > 0 && data.replace('class=\\"ql-align-center\\"', 'style="text-align: center; background-color: red;"');
+  // console.log('result2', result);
+  
   const source = {
     html: result,
   };

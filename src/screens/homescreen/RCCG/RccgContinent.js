@@ -63,7 +63,7 @@ const RccgContinent = ({navigation}) => {
     }, 2000);
   }
 
-  let result =data?.length > 0 && data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'};'>`)
+  let result =data?.length > 0 && data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'}; text-align: center;'>`)
   const source = {
     html: result,
   };

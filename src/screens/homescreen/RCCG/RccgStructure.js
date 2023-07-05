@@ -54,7 +54,7 @@ const RccgStructure = ({navigation}) => {
     }, 2000);
   }
   let result = data?.length > 0 && data?.replace(/<div(.*?)>/gi,`<div style='color: ${Theme === 'dark' ? Color.White : Color.Black};font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '8px' : '13px'};
-   margin-top:${w >= 768 && h >= 1024 ? '10px' : '15px'};'>`)
+   margin-top:${w >= 768 && h >= 1024 ? '10px' : '15px'}; text-align: center;'>`)
   const source = {
     html: result,
   };
