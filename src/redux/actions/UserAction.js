@@ -4,7 +4,6 @@ import { ACTIVE_BOOKS, ACTIVE_EVENT, BANNER_DATA, CHAPTERS, PARISH_DATA, SEARCH_
 
 export const show_all_banner =  () =>{
   return async (dispatch) => {
-
     try {
 
       const noti =await AsyncStorage.getItem("onesignaltoken");
@@ -17,6 +16,7 @@ export const show_all_banner =  () =>{
         const responseData = await response.json();
 
         if (responseData.success.status === 200) {
+          await AsyncStorage.setItem('bannerData', JSON.stringify(responseData.success.data));
          dispatch({type: BANNER_DATA, payload: responseData.success.data})
         //  setForLink( responseData.success.data[0].app_page)
         } else {
@@ -28,17 +28,18 @@ export const show_all_banner =  () =>{
   }
 }
 export const show_popup = async (setData,Device) =>{
-    try {
-        let base_url = `${base_Url}popup-active`;
-        let myData = new FormData()
-
-        myData.append('platform',Device)
-
+  let base_url = `${base_Url}popup-active`;
+  let myData = new FormData()
+  
+  myData.append('platform',Device)
+  
+  try {
         const response = await fetch(base_url, {
           method: 'post',
           body: myData,
         });
         const responseData = await response.json();
+        console.log('responseData', responseData)
   
         if (responseData.success.status === 200) {
          setData(responseData.success.data)   
@@ -46,7 +47,7 @@ export const show_popup = async (setData,Device) =>{
           console.log('else error');
         }
     } catch (error) {
-        console.log('error', error)
+        console.log('error ===>', error)
     }
 } 
 export const parish =  () => {
@@ -60,6 +61,7 @@ export const parish =  () => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
+      await AsyncStorage.setItem('parishData', JSON.stringify(responseData.success.data));
      dispatch({type: PARISH_DATA, payload: responseData.success.data})
     } else {
       console.log('else error');
@@ -104,6 +106,7 @@ export const active_event =  () => {
       const responseData = await response.json();
   
       if (responseData.success.status === 200) {
+        await AsyncStorage.setItem('eventData', JSON.stringify(responseData.success.data));
        dispatch({type: ACTIVE_EVENT, payload: responseData.success.data})
       } else {
         console.log('else error');
@@ -218,12 +221,13 @@ export const getBooks =  () => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
+      await AsyncStorage.setItem('bookData', JSON.stringify(responseData.success.data));
       dispatch({type: ACTIVE_BOOKS, payload: responseData.success.data})
     }else{
       console.log('first')
     }
   }catch (error) {
-    console.log('error', error)
+    console.log('error boooks', error)
   }
 }
 }
@@ -257,14 +261,14 @@ export const getChapters =  (setData,id) => {
       const responseData = await response.json();
       
       if (responseData.success.status === 200) {
-        setData(responseData.success.data[0])
+        setData(responseData.success.data)
         dispatch({type: CHAPTERS, payload: responseData.success.data})
         
       }else{
         console.log('first')
       }
     }catch (error) {
-      console.log('error', error)
+      console.log('error laraib ====>', error)
     }
   }
 }

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import LightSplash from './src/screens/auth/LightSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ALLBOOKMARK, APPLANGUAGE, BOOKMARK, EVENTBOOKMARK, GETLANGUAGE, LANGUAGE, MODE, PARISHBOOKMARK, USER_DETAILS} from './src/redux/reducer';
+import {ACTIVE_BOOKS, ACTIVE_EVENT, ALLBOOKMARK, APPLANGUAGE, BANNER_DATA, BOOKMARK, EVENTBOOKMARK, GETLANGUAGE, LANGUAGE, MODE, PARISHBOOKMARK, PARISH_DATA, RCCG_DATA, USER_DETAILS} from './src/redux/reducer';
 import {
   useColorScheme,
 } from 'react-native';
@@ -115,15 +115,15 @@ const App = () => {
   }, []);
   useEffect(() => {
     modeCheck()
+    getbannerData()
+    getbookData()
+    getparishData()
+    geteventData()
+    getrccgData()
   }, [mode,Theme,applanguage])
 
   useEffect(() => {
-    setLanguage()
-      dispatch(show_all_banner());
-      dispatch(parish());
-      dispatch(active_event());
-      dispatch(getBooks());
-      dispatch(get_rccgData(language));
+      setLanguage()
   }, [getlanguage])
 
   useEffect(() => {
@@ -170,8 +170,6 @@ const App = () => {
       console.log('emoty event books')
     }
   }
-
-
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode')
     const cnvrtMode = JSON.parse(getMode)
@@ -185,6 +183,51 @@ const App = () => {
       dispatch({type: MODE, payload: Theme})
     }else{
       dispatch({type: MODE, payload: ofMode})
+    }
+  }
+  const getbannerData = async () => {
+    const bannerData = await AsyncStorage.getItem('bannerData')
+    const cnvrtbannerData = JSON.parse(bannerData)
+    if(cnvrtbannerData != null){
+      dispatch({type: BANNER_DATA, payload: cnvrtbannerData})
+    }else{
+      dispatch(show_all_banner());
+    }
+  }
+  const getbookData = async () => {
+    const bookData = await AsyncStorage.getItem('bookData')
+    const cnvrtbookData = JSON.parse(bookData)
+    if(cnvrtbookData != null){
+      dispatch({type: ACTIVE_BOOKS, payload: cnvrtbookData})
+    }else{
+      dispatch(getBooks());
+    }
+  }
+  const getparishData = async () => {
+    const parishData = await AsyncStorage.getItem('parishData')
+    const cnvrtparishData = JSON.parse(parishData)
+    if(cnvrtparishData != null){
+      dispatch({type: PARISH_DATA, payload: cnvrtparishData})
+    }else{
+      dispatch(parish());
+    }
+  }
+  const geteventData = async () => {
+    const eventData = await AsyncStorage.getItem('eventData')
+    const cnvrteventData = JSON.parse(eventData)
+    if(cnvrteventData != null){
+      dispatch({type: ACTIVE_EVENT, payload: cnvrteventData})
+    }else{
+      dispatch(active_event());
+    }
+  }
+  const getrccgData = async () => {
+    const rccgData = await AsyncStorage.getItem('rccgData')
+    const cnvrtrccgData = JSON.parse(rccgData)
+    if(cnvrtrccgData != null){
+      dispatch({type: RCCG_DATA, payload: cnvrtrccgData})
+    }else{
+      dispatch(get_rccgData(language));
     }
   }
   return (

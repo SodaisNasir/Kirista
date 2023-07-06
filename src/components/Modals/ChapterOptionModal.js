@@ -30,6 +30,7 @@ const ChapterOptionModal = props => {
   const incrementCount = () => {
     setCount(count + 1);
     props.newCount(count + 1)
+    props.changeFontSize()
   };
   const decrementCount = () => {
     if(count <= 0 ){
@@ -37,6 +38,7 @@ const ChapterOptionModal = props => {
     }else{
       setCount(count - 1);
       props.newCount(count - 1)
+      props.changeFontSize()
     }
   };
 

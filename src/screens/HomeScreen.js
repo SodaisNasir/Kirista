@@ -35,6 +35,8 @@ import BannerLoader from '../components/Loader/BannerLoader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNFS from 'react-native-fs';
 import RenderHTML, { defaultSystemFonts } from 'react-native-render-html';
+import { get_rccgData } from '../redux/actions/AuthAction';
+import { useEffect } from 'react';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -44,13 +46,14 @@ const HomeScreen = ({scrollViewRef}) => {
   const navigation = useNavigation();
   const Theme = useSelector(state => state.mode);
   const applanguage = useSelector(state => state.applanguage);
+  const language = useSelector(state => state.language)
 
   const bannerData = useSelector(state => state.bannerData);
   const parishData = useSelector(state => state.parishData);
   const activeEvents = useSelector(state => state.activeEvents);
   const activeBooks = useSelector(state => state.activeBooks);
   const rccgData = useSelector(state => state.rccgData);
-console.log('rccgData', rccgData)
+
   const tabPotrait = w >= 768 && h >= 1024;
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
@@ -95,10 +98,11 @@ console.log('rccgData', rccgData)
 
   useFocusEffect(
     useCallback(() => {
-      // show_all_banner(setForImage);
-      // parish(setData);
-      // active_event(setEvent);
-      // getBooks(setMyData);
+      dispatch(show_all_banner());
+      dispatch(parish());
+      dispatch(active_event());
+      dispatch(getBooks());
+      dispatch(get_rccgData(language));
       dispatch(getSearchData());
     }, []),
   );
@@ -159,6 +163,10 @@ console.log('rccgData', rccgData)
         navigation.navigate('RccgStructure')
       }
     }
+
+
+
+
 
   return (
     <View

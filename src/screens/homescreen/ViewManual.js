@@ -20,10 +20,12 @@ import {useFocusEffect} from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import Share from 'react-native-share'
 import { useState } from 'react';
-import { markData } from '../../redux/actions/UserAction';
+import { getChapters, markData } from '../../redux/actions/UserAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALLBOOKMARK } from '../../redux/reducer';
 import { useEffect } from 'react';
+import RNFS from 'react-native-fs';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -36,15 +38,99 @@ const ViewManual = ({navigation,route}) => {
   const is_guest = useSelector(state => state.is_guest)
   const user_details = useSelector(state => state.user_details)
   const allbookmark = useSelector(state => state.allbookmark)
-  console.log('htmlContent', htmlContent)
+  const [data,setData] = useState()
 
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      dispatch(getChapters(setData,item.id))
     }, []),
   );
+  // useEffect(() => {
+  //   const epubUrl = item.ebook_url;
+  //   const filePath = RNFS.DocumentDirectoryPath   + '/data.epub';
+  //   RNFS.downloadFile({
+  //     fromUrl: epubUrl,
+  //     toFile: filePath,
+  //   })
+  //     .promise.then((success) => {
+  //       console.log('EPUB file saved successfully!',success);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Failed to save EPUB file:', error);
+  //     });
+  // }, [item.ebook_url]);
 
-
+  // useEffect(() => {
+  //   const downloadFile = (url, filePath) => {
+  //     return new Promise((resolve, reject) => {
+  //       // Check if the file already exists
+  //       RNFS.exists(filePath)
+  //         .then(exists => {
+  //           if (exists) {
+  //             // File already exists, resolve immediately
+  //             console.log('first')
+  //             resolve();
+  //           } else {
+  //             // File doesn't exist, start the download
+  //             RNFS.downloadFile({
+  //               fromUrl: url,
+  //               toFile: filePath,
+  //             }).promise
+  //               .then(res => {
+  //                 console.log('File downloaded successfully!', res);
+    
+  //                 // Read the saved file and log its contents
+  //                 RNFS.readFile(filePath, 'utf8')
+  //                   .then(data => {
+  //                     console.log('File contents:', data);
+  //                   })
+  //                   .catch(error => {
+  //                     console.error('Failed to read file:', error);
+  //                   });
+    
+  //                 resolve();
+  //               })
+  //               .catch(error => {
+  //                 console.error('Failed to download file:', error);
+  //                 reject(error);
+  //               });
+  //           }
+  //         })
+  //         .catch(error => {
+  //           console.error('Failed to check file existence:', error);
+  //           reject(error);
+  //         });
+  //     });
+  //   };
+    
+    
+  //   // Usage
+  //   const downloadFiles = async () => {
+  //     const items = [
+  //       { ebook_url: 'https://kirista.s3.amazonaws.com/epub/1688622448.epub' },
+  //       { ebook_url: 'https://kirista.s3.amazonaws.com/epub/1688533069.epub' },
+  //       // Add more items as needed
+  //     ];
+    
+  //     for (const item of items) {
+  //       const epubUrl = item.ebook_url;
+  //       const filePath = RNFS.DocumentDirectoryPath + '/data.epub';
+    
+  //       try {
+  //        await downloadFile(epubUrl, filePath);
+         
+  //       } catch (error) {
+  //         // Handle error if necessary
+  //         console.log('error', error)
+  //       }
+  //     }
+  //   };
+    
+  //   // Call the downloadFiles function to start downloading multiple files
+  //   downloadFiles();
+    
+  // }, [])
 
   const [isChecked, setIsChecked] = useState(false);
   const shareBook = (data) => {
@@ -88,6 +174,7 @@ const handleSubmit = async () => {
     }
     
 }
+
   return (
     <>
     <SafeAreaView
@@ -167,10 +254,17 @@ const handleSubmit = async () => {
             paddingHorizontal: verticalScale(20),
           }}>
           <CustomButton
-            onPress={() => navigation.navigate('Readone',{
-              id: item?.id,
-              item:item
+            // onPress={() => navigation.navigate('Readone',{
+            //   id: item?.id,
+            //   item:item
+            // })}
+            onPress={() => navigation.navigate('Readtwo',{
+              id:item?.id,
+              bookData:item,
+              chapterOne: 1,
+              url: item.ebook_url
             })}
+              
             text={applanguage.Read}
           />
         </View>

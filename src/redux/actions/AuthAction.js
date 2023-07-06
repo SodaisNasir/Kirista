@@ -266,6 +266,7 @@ export const get_rccgData = (language) => {
       console.log('responseData ===>', responseData)
   
       if (responseData?.success?.status === 200) {
+        await AsyncStorage.setItem('rccgData', JSON.stringify(responseData.success.data));
         dispatch({type: RCCG_DATA, payload: responseData.success.data})
       }else{
         console.log('first =====>')

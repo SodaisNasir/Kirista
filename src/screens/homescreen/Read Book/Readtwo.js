@@ -34,7 +34,7 @@ import ReadNavigator from '../../../components/ReadNavigator';
 import { useCallback } from 'react';
 import { getChapters, getChaptersByID, sendReadBok } from '../../../redux/actions/UserAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { BOOKMARK } from '../../../redux/reducer';
+import { BOOKMARK, CHAPTERS } from '../../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
 import RenderHtml, {defaultSystemFonts} from 'react-native-render-html';
@@ -42,15 +42,18 @@ import IncorrectModal from '../../../components/Modals/IncorrectModal';
 import { Reader, ReaderProvider, useReader } from '@epubjs-react-native/core';
 import { useFileSystem } from '@epubjs-react-native/file-system';
 import RNFS from 'react-native-fs';
+import LaraibCard from '../../../components/Card/LaraibCard';
+import WebView from 'react-native-webview';
 // import base64 from 'react-native-base64'
-import { parseString } from 'react-native-xml2js';
+// import { parseString } from 'react-native-xml2js';
+// import HtmlFile from '../../../../and'
 
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
 const Readtwo = ({route}) => {
   const dispatch = useDispatch()
-  const {id,bookData,chapterOne} = route.params
+  const {id,bookData,chapterOne,url} = route.params
   const systemFonts = [...defaultSystemFonts, 'times-new-roman', 'Arial','Lato-Regular','papyrus','Georgia-Regular-font.ttf','CourierPrime-Regular'];
   const chapters = useSelector(state => state.chapters)
   const bookmark = useSelector(state => state.bookmark)
@@ -76,46 +79,71 @@ const Readtwo = ({route}) => {
   const [count, setCount] = useState(0)
   const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
+  const [loader, setLoader] = useState(true)
   const [chapNo, setChapNo] = useState()
   const [bottomModal, setBottomModal] = useState(false);
   const applanguage = useSelector(state => state.applanguage)
 
-  console.log('chapNo', chapNo)
+console.log('backgroundColor', backgroundColor != '' && show
+? backgroundColor
+: Theme === 'dark'
+? Color.DarkTheme
+: Color.White)
 
 
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(getChapters(setData,id))
+      sendReadBok(id)
+      
+      setTimeout(() => {
+        setLoader(false)
+        callWebViewFunction()
+        loadXMLDoc()
+      }, 3000);
+    }, []),
+  );
+  useEffect(() => {
+    getChaptersByID(setChapterData, select);
+  }, [select]);
 
+  const changeTheme = (color) => {
+    const functionName = 'changeTheme';
+    const functionArguments = [color ? color : Theme === 'dark'
+    ? Color.DarkTheme
+    : Color.White ]; // Optional function arguments
 
+          console.log('functionArguments', functionArguments)
 
+    const injectedJavaScript = `
+      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    `;
+    webViewRef.current.injectJavaScript(injectedJavaScript);
+  };
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(getChapters(setData,id))
-  //     sendReadBok(id)
-  //     dispatch(getChapters(setData, id));
-  //   }, []),
-  // );
-  // useEffect(() => {
-  //   getChaptersByID(setChapterData, select);
-  // }, [select]);
   const handlepressone = () => {
     setBackgroundColor('#F5F5F5');
     setTextColor(Color.Black);
     setShow(true);
+    changeTheme('#F5F5F5')
   };
   const handlepresstwo = () => {
     setBackgroundColor('#F5EDD8');
     setTextColor(Color.Black);
     setShow(true);
+    changeTheme('#F5EDD8')
   };
   const handlepressthree = () => {
     setBackgroundColor('#E5F1FD');
     setTextColor(Color.Black);
     setShow(true);
+    changeTheme('#E5F1FD')
   };
   const handlepressfour = () => {
     setBackgroundColor('#DBE7E3');
     setTextColor(Color.Black);
     setShow(true);
+    changeTheme('#DBE7E3')
   };
   const handleClick = async () => {
     if (isGuest) {
@@ -161,68 +189,192 @@ const Readtwo = ({route}) => {
       setisSelect(false);
     }
   };
-  // useEffect(() => {
-  //   addBookmark();
-  // }, [chapterData, bookmark]);
-
-  let text = chapterData?.title;
-  let text2 = chapterData?.description;
-  let result = text?.replace(
-    "class='chap_title'",
-    `style='color:${
-      backgroundColor != '' && show
-        ? 'black'
-        : Theme === 'dark'
-        ? Color.White
-        : Color.Black
-    };font-family:${fontData?.name}; font-size:${
-      count + 20
-    }px; font-weight:600;'`,
-  );
-  let result3 = text2?.replace(
-    "class='chap_description'",
-    `style='color:${
-      backgroundColor != '' && show
-        ? 'black'
-        : Theme === 'dark'
-        ? Color.White
-        : Color.Black
-    };font-family:${fontData?.name};  font-size:${
-      count + 15
-    }px; font-weight:600;'`,
-  );
-
-  const title = {
-    html: result,
-  };
-  const description = {
-    html: result3,
-  };
+  useEffect(() => {
+    addBookmark();
+  }, [chapterData, bookmark]);
 
   const onFontSubmit = (item) => { 
     setSecondModalVisible(false)
     setFontData(item)
    }
 
+  // useEffect(() => {
+  //   // Replace this with the URL of the EPUB file
+  //   const epubUrl = url;
+  
+  //   // Replace this with the path to the file where you want to save the data
+  //   const filePath = RNFS.DocumentDirectoryPath   + '/data.epub';
+  
+  //   // Download the EPUB file and save it to a local file
+  //   RNFS.downloadFile({
+  //     fromUrl: epubUrl,
+  //     toFile: filePath,
+  //   })
+  //     .promise.then(() => {
+  //       console.log('EPUB file saved successfully!');
+  //     })
+  //     .catch((error) => {
+  //       console.error('Failed to save EPUB file:', error);
+  //     });
+  // }, [url]);
+
+
+
+  
+  const filePath = RNFS.DocumentDirectoryPath + '/data.epub';
+  const doubleTapRef = useRef(null)
+  const doubleTapDelay = 300; // Adjust the delay between taps (in milliseconds)
+
+  const handleDoubleTap = () => {
+    clearTimeout(doubleTapRef.current);
+    setBottomModal(!bottomModal);
+  };
+
+  const handleSingleTap = () => {
+    if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
+      handleDoubleTap();
+    } else {
+      doubleTapRef.current = new Date().getTime();
+    }
+  };
+
+  // const [data3, setData3] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [isBookCompleted, setIsBookCompleted] = useState(false);
   useEffect(() => {
-    // Replace this with the URL of the EPUB file
-    const epubUrl = 'https://kirista.s3.amazonaws.com/epub/1688533069.epub';
-  
-    // Replace this with the path to the file where you want to save the data
-    const filePath = RNFS.DocumentDirectoryPath + '/data.epub';
-  
-    // Download the EPUB file and save it to a local file
-    RNFS.downloadFile({
-      fromUrl: epubUrl,
-      toFile: filePath,
-    })
-      .promise.then(() => {
-        console.log('EPUB file saved successfully!');
-      })
-      .catch((error) => {
-        console.error('Failed to save EPUB file:', error);
-      });
+    // Fetch initial data
+    fetchData();
   }, []);
+  
+  const fetchData = () => {
+    // Simulated API call or data retrieval logic
+    // Replace this with your actual data-fetching logic
+    
+    // Assuming you are getting the data in batches of 10
+    // const newData = Array.from({ length: 10 }, (_, index) => `Item ${index + 1}`);
+
+    const newData = data.slice((page - 1) * 10, page * 10);
+    
+    // Simulate a delay for demonstration purposes
+    setTimeout(() => {
+      setData((prevData) => [...prevData, ...newData]);
+      setIsLoading(false);
+  
+      // Check if the last item has been reached
+      if ((page - 1) * 10 >= data.length) {
+        setIsBookCompleted(true);
+      }else{
+        console.log('first')
+      }
+    }, 1000);
+    // setTimeout(() => {
+    //   setData((prevData) => [...prevData, ...newData]); 
+    //   setIsLoading(false);
+    // }, 500);
+  };
+  const renderFooter = () => {
+    // Display a loading indicator at the bottom of the list while data is being fetched
+    if (!isLoading) return null;
+    
+    if (pageCount > 0) {
+      return (
+        <View style={{ paddingVertical: 20, marginBottom: 20 }}>
+          <Text>{`Total Pages: ${pageCount}`}</Text>
+        </View>
+      );
+    }
+    return null;
+  };
+  
+  const handleLoadMore = () => {
+    // Prevent loading more data if the book is completed
+    if (!isLoading && !isBookCompleted) {
+      setIsLoading(true);
+      setPage((prevPage) => prevPage + 1);
+      fetchData();
+    }
+  };
+
+  const flatListRef = useRef(null);
+
+  const handleScrollToTitle = (title) => {
+    const index = data.findIndex((item) => item.title === title);
+    if (index !== -1) {
+      flatListRef.current.scrollToIndex({ index, animated: true });
+    }
+  };
+  const [pageCount, setPageCount] = useState(0);
+
+  useEffect(() => {
+    calculatePageCount();
+  }, [pageCount]);
+
+  const calculatePageCount = () => {
+    if (flatListRef.current && width && height) {
+      const itemWidth =  scale(200)
+      const itemHeight =    verticalScale(300)
+
+      const itemsPerRow = Math.floor(width / itemWidth);
+      const rowsPerPage = Math.floor(height / itemHeight);
+
+      const totalItems = data.length;
+      const totalPages = Math.ceil(totalItems / (itemsPerRow * rowsPerPage));
+
+      console.log('parseInt(totalPages)', parseInt(totalPages))
+      setPageCount(parseInt(totalPages));
+    }else{
+      console.log('sdfddgdg')
+    }
+  };
+
+  const webViewRef = useRef(null);
+
+  const callWebViewFunction = () => {
+    const functionName = 'loadXMLDoc';
+    const functionArguments = []; // Optional function arguments
+
+    const injectedJavaScript = `
+      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    `;
+    webViewRef.current.injectJavaScript(injectedJavaScript);
+  };
+ 
+  const loadXMLDoc = () => {
+    const functionName = 'loadXMLDoc';
+    const functionArguments = [119]; // Optional function arguments
+
+    console.log('functionArguments', functionArguments)
+
+    const injectedJavaScript = `
+      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    `;
+    webViewRef.current.injectJavaScript(injectedJavaScript);
+  };
+  
+  const changeFontSize = () => {
+    const functionName = 'changeFontSize';
+    const functionArguments = [count]; // Optional function arguments
+
+    console.log('functionArguments', functionArguments)
+
+    const injectedJavaScript = `
+      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    `;
+    webViewRef.current.injectJavaScript(injectedJavaScript);
+  };
+  // const [weebCount,setWebCount] = useState(0)
+  // useEffect(
+  //   () => {
+  //     if(weebCount === 0){
+        
+        
+  //       // setWebCount(1)
+  //     }else{
+  //       console.log('vvv 2')
+  //     }
+  //   },[]
+  // )
 
   return (
     <>
@@ -280,7 +432,10 @@ const Readtwo = ({route}) => {
           onPress={() => setCheck(false)}
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
-        />
+          />
+    {/* <TouchableOpacity onPress={() => handleSingleTap()}> */}
+
+
 {/* 
         <ScrollView showsVerticalScrollIndicator={false} style={{
           backgroundColor: backgroundColor != '' && show ? backgroundColor : Theme === 'dark' ? Color.DarkTheme : Color.White,
@@ -289,25 +444,74 @@ const Readtwo = ({route}) => {
           }}> */}
           <View
             style={{
-              height: '100%',
+              height: bottomModal ? '100%' : '100%',
               width: '100%',
-              // paddingHorizontal:
-              //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-              backgroundColor:
-                backgroundColor != '' && show
-                  ? backgroundColor
-                  : Theme === 'dark'
-                  ? Color.DarkTheme
-                  : Color.White,
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              backgroundColor:   backgroundColor != '' && show
+              ? backgroundColor
+              : Theme === 'dark'
+              ? Color.DarkTheme
+              : Color.White,
+                  bottom: scale(60),
             }}>
-               <ReaderProvider >
+              {/* <TouchableOpacity onPress={() => handleSingleTap()}> */}
 
-              <Faltu {...{setBottomModal, bottomModal, Theme,count,setChapNo,chapNo,fontData}} />
-               </ReaderProvider>
-          </View>
+
+            {/* {
+              loader ?
+              <ActivityIndicator size={'large'} color={'red'} />
+              : */}
+
+          <WebView 
+          ref={webViewRef}
+          // source={'../../../assets/Testing.html'}
+          // source={{ html : '' }}
+          // source={{filePath:'../../../../android/Testing.html'}}
+          onLoad={console.log('loading')}
+          style={{ flex: bottomModal ? 1 : 0.87,
+          marginBottom: 50,
+          backgroundColor:   backgroundColor != '' && show
+          ? backgroundColor
+          : Theme === 'dark'
+          ? Color.DarkTheme
+          : Color.White
+        }}
+          originWhitelist={['*']}
+          source={{
+            uri: 'file:///android_asset/Index.html'
+          }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          />
+        {/* } */}
+          {/* </TouchableOpacity> */}
+              {/* <FlatList
+              ref={flatListRef}
+              data={data}
+              renderItem={({item}) => <LaraibCard
+              item={item}
+              backgroundColor={backgroundColor}
+              show={show}
+              fontData={fontData}
+              count={count}
+              Theme={Theme}
+              handleSingleTap={handleSingleTap}
+              />}
+              keyExtractor={(item, index) => index.toString()}
+              showsVerticalScrollIndicator={false}
+              ListFooterComponent={renderFooter}
+              onEndReached={handleLoadMore}
+              onEndReachedThreshold={0.1}
+              /> */}
+               {/* <ReaderProvider >
+              <Faltu {...{setBottomModal, bottomModal, Theme,count,setChapNo,chapNo,fontData,filePath}} />
+               </ReaderProvider> */}
           {/* <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} /> */}
-        {/* </ScrollView> */}
+          </View>
 
+        {/* </ScrollView> */}
+    {/* </TouchableOpacity> */}
         <ChapterOptionModal
           isVisible={isModalVisible}
           onBackdropPress={() => setModalVisible(false)}
@@ -336,6 +540,7 @@ const Readtwo = ({route}) => {
           newTheme={tempMode}
           newCount={setCount}
           fontTitle={fontData?.label}
+          changeFontSize={changeFontSize}
         />
 
         <FontModal
@@ -345,8 +550,8 @@ const Readtwo = ({route}) => {
           onSwipeComplete={() => setSecondModalVisible(false)}
           onRequestClose={() => setSecondModalVisible(false)}
           onFontSubmit={onFontSubmit}
-          // OptionSelect={setSecondModalVisible}
-          // fontData={setFontData}
+          OptionSelect={setSecondModalVisible}
+          fontData={setFontData}
         />
 
         <DrawerScreen
@@ -360,7 +565,7 @@ const Readtwo = ({route}) => {
           setSelect={setSelect}
           selectOff={setModalThreeVisible}
         />
-        <View
+        {/* <View
           style={{
             // borderTopColor:
             //   w >= 768 && h >= 1024 ? Color.BorderColor : Color.White,
@@ -380,20 +585,20 @@ const Readtwo = ({route}) => {
                fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14),
                color: Theme === 'dark' ? Color.White : Color.Black
             }}>{(chapNo ? chapNo?.start?.displayed?.page : 1) + '/' + (chapNo ? chapNo?.start?.displayed?.total : 1)}</Text>
-        </View>
-        {bottomModal && (
+        </View> */}
           <View
             style={{
               flex: 1,
               position: 'absolute',
               bottom: 0,
               width: '100%',
+              backgroundColor: 'red'
             }}>
             <ReadNavigator
               onPressTab={() => {
                 setModalThreeVisible(!isModalThreeVisible);
               }}
-              modalVisible={bottomModal}
+              modalVisible={!bottomModal}
               onPressModal={() => setModalVisible(true)}
               moonPress={() => (toggleIcon(), setShow(!show))}
               show={showSvg}
@@ -402,7 +607,6 @@ const Readtwo = ({route}) => {
               setShow={show}
             />
           </View>
-        )}
       </View>
     </>
   );
@@ -500,7 +704,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Faltu = ({setBottomModal,bottomModal, Theme,count,setChapNo,chapNo,fontData}) => {
+const Faltu = ({setBottomModal,bottomModal, Theme,count,setChapNo,chapNo,fontData,filePath}) => {
   const { width,height } = useWindowDimensions();
   const [tempMode, setTempMode] = useState('');
   const modeCheck = useSelector(state => state.mode);
@@ -559,9 +763,8 @@ const Faltu = ({setBottomModal,bottomModal, Theme,count,setChapNo,chapNo,fontDat
   //   heyData()
   // }, [])
 
-  const filePath = RNFS.DocumentDirectoryPath + '/data.epub';
+  
 
-  console.log('filePath', filePath)
   return (
   <ReaderProvider>
                 
@@ -650,6 +853,7 @@ const Faltu = ({setBottomModal,bottomModal, Theme,count,setChapNo,chapNo,fontDat
             // "font-size": "15px"
         }
       }}
+      
       />
       </ReaderProvider>
       );
@@ -657,24 +861,22 @@ const Faltu = ({setBottomModal,bottomModal, Theme,count,setChapNo,chapNo,fontDat
 
 const Semexy =  React.memo(({setChapNo,chapNo,fontData}) => {
   const { search, searchResults, getLocations, getMeta, goNext, getCurrentLocation, goPrevious, currentLocation, goToLocation, changeFontFamily, changeFontSize, changeTheme } = useReader();
-  const [vv,setVV] = useState('')
   const metadata = currentLocation;
   const lygetMeta = getMeta();
   // const vvgetCurrentLocation = getCurrentLocation();
 
   const vvgetCurrentLocation = getCurrentLocation()
   
-  console.log('metadata', metadata)
   
   
   useEffect(() => {
   setChapNo(vvgetCurrentLocation);
-  }, []);
+  }, [vvgetCurrentLocation]);
 
 useEffect(() => {
   goToLocation(vvgetCurrentLocation?.end?.cfi)
   console.log('laraib ==========>')
-}, [vv]);
+}, []);
 
 useEffect(() => {
   changeTheme('dark')

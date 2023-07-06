@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StatusBar,
   useWindowDimensions,
+  Alert,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import ReadHeader from '../../../components/ReadHeader';
@@ -21,6 +22,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import DoubleText from '../../../components/Loader/DoubleText';
 import Loader from '../../../components/Modals/Loader';
+import { useEffect } from 'react';
+import RNFS from 'react-native-fs';
+import { unzip } from 'react-native-zip-archive';
 
 
 const w = Dimensions.get('window').width;
@@ -32,13 +36,9 @@ const Readone = ({route}) => {
   const chapters = useSelector(state => state.chapters)
   const { width } = useWindowDimensions();
   const [loader, setLoader] = useState(false);
-
-  console.log('chapters', chapters)
-  
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
   const {id,item} = route.params
   const [data,setData] = useState()
-  console.log('id', id)
 
   useFocusEffect(
     useCallback(() => {
@@ -68,6 +68,59 @@ const Readone = ({route}) => {
   const description = {
     html: result3
   };
+//   useEffect(() => {
+//     const filePath = RNFS.DocumentDirectoryPath + '/data.epub';
+
+//     RNFS.readFile(filePath, 'base64') // Read the file as a base64-encoded binary buffer
+//       .then((contents) => {
+//         // Here, you can access the contents of the file
+//         // console.log('File contents:', contents);
+//       })
+//       .catch((error) => {
+//         console.error('Failed to read file:', error);
+//       });
+//   }, []);
+
+
+//  useEffect(() => {
+//     const epubUrl = 'https://kirista.s3.amazonaws.com/epub/1688533069.epub';
+
+//     const extractEpubContents = async () => {
+//       try {
+//         const zipPath = `${RNFS.DocumentDirectoryPath}/data.epub`;
+//         const unzipPath = RNFS.DocumentDirectoryPath;
+
+//         const downloadOptions = {
+//           fromUrl: epubUrl,
+//           toFile: zipPath,
+//         };
+
+//         await RNFS.downloadFile(downloadOptions).promise;
+
+//         await unzip(zipPath, unzipPath);
+
+//         const extractedFiles = await RNFS.readDir(unzipPath);
+
+//         extractedFiles.forEach(async (file) => {
+//           if (file.isFile()) {
+//             const filePath = `${unzipPath}/${file.name}`;
+//             const fileData = await RNFS.readFile(filePath, 'utf8');
+
+//             console.log('File Name: ==>', file.name);
+//             console.log('File Contents: ==>', fileData);
+//             console.log('-----------------------------------');
+//           }
+//         });
+
+//         console.log('EPUB file extracted successfully!');
+//       } catch (error) {
+//         console.error('Failed to extract EPUB file:', error);
+//         Alert.alert('Extraction Failed', 'Failed to extract EPUB file.');
+//       }
+//     };
+
+//     extractEpubContents();
+//   }, []);
 
 
   return (

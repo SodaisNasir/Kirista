@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head></head>
+<body>
+    
+    <!-- <button onclick="changeFontSize()">+</button> -->
+    <button onclick="changeTheme('red','white')">Change background</button>
+    <div id="book"></div>
+    <!-- <button onclick="loadXMLDoc(115)">test</button> -->
+    <div id="page" style="position: fixed; bottom: 0;right: 0;background-color: aliceblue;"></div>
+</body>
+
+<script  type="text/javascript">
+
+
+function loadXMLDoc(bookid) {
+
+   const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+            const data = JSON.parse(this.responseText);
+            const dataArray = (data.success.data)
+            dataArray.forEach(row => {
+                console.log(row.id)
+                document.getElementById('book').innerHTML += row.description
+            });
+            
+        }
+    xhttp.open("GET", "https://sassolution.org/kirista/api/book-chapter/"+bookid, true);
+    xhttp.send();
+
+}
+
+
+
+
+var hei =  window.innerHeight;
+var currentposition = 1
+var lastScrollTop = 0;
+var Height = window.innerHeight;
+
+showScrollTop = () =>{
+    const currentScrollPosition = window.pageYOffset+1;
+    t = document.getElementById('book').clientHeight;
+    document.getElementById('page').innerHTML = parseInt(currentScrollPosition/hei)+1+"/"+parseInt(t/Height)
+
+  }
+window.addEventListener('scroll', showScrollTop)
+
+function Goto(index){
+    document.getElementById(index).scrollIntoView({behavior: 'smooth'});
+}
+
+function changeTheme(backgroundcolor){
+    
+    document.getElementById('book').style.background = backgroundcolor
+    document.getElementById('page').style.background = backgroundcolor
+
+    
+}
+
+var font = 12;
+
+function changeFontSize(size){
+    font = font + size;
+    document.getElementById('book').style.fontSize = size+"px"
+}
+
+</script>
