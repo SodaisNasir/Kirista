@@ -104,7 +104,7 @@ const EventScreen = ({route, navigation}) => {
   }
 
   const type = 'event'
-
+console.log('data.start_time', data.end_time)
   const handleSubmit = async () => {
     const findData = eventbookmark?.find((elm) => elm.id == data?.id)
 

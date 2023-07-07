@@ -62,9 +62,14 @@ const LibraryHeader = props => {
               w >= 768 && h >= 1024 ? verticalScale(18) : verticalScale(25),
             alignSelf: 'center',
           }}>
-          <TouchableOpacity onPress={props.onPress}>
-            <FilterList width={'100%'} height={'100%'} />
-          </TouchableOpacity>
+            {
+             !props.show ?
+                <TouchableOpacity onPress={props.onPress}>
+                <FilterList width={'100%'} height={'100%'} />
+                </TouchableOpacity>
+            
+        : null  
+        }
         </View>
       </View>
     </SafeAreaView>

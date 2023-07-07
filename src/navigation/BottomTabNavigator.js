@@ -47,6 +47,7 @@ import RegionCountry from '../screens/RegionCountry';
 import Country from '../screens/Country';
 import { useSelector } from 'react-redux';
 import FeaturedCountry from '../components/FeaturedCountry';
+import ViewBookTitle from '../screens/homescreen/Read Book/ViewBookTitle';
 
 const Tab = createBottomTabNavigator();
 
@@ -73,6 +74,10 @@ const BottomTabNavigator = () => {
       <Tab.Screen
         name="More"
         component={AllSettings}
+      />
+      <Tab.Screen
+        name="ViewBookTitle"
+        component={ViewBookTitle}
       />
     </Tab.Navigator>
      </NavigationContainer>
@@ -117,6 +122,10 @@ function AllHome() {
         name="Country"
         component={Country}
         options={{animation: 'fade_from_bottom'}}
+      />
+            <Tab.Screen
+        name="ViewBookTitle"
+        component={ViewBookTitle}
       />
       <Stack.Screen
         name="HomeScreen"
@@ -266,6 +275,10 @@ function LibraryStack() {
         component={ViewManual}
         options={{animation: 'fade_from_bottom'}}
       />
+            <Tab.Screen
+        name="ViewBookTitle"
+        component={ViewBookTitle}
+      />
     </Stack.Navigator>
   );
 }
@@ -289,6 +302,10 @@ function AllSettings() {
         name="Terms"
         component={Terms}
         options={{animation: 'fade_from_bottom'}}
+      />
+            <Tab.Screen
+        name="ViewBookTitle"
+        component={ViewBookTitle}
       />
       <Stack.Screen
         name="ViewManual"

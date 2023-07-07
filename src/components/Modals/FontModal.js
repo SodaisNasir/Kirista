@@ -30,27 +30,32 @@ const FontModal = (props) => {
     {
       id: '1',
       label: 'Arial',
-      name: 'Arial'
+      name: 'arial',
+      // name: 'Arial',
     },
     {
       id: '2',
       label: 'Courier',
-      name: 'CourierPrime-Regular',
+      name: 'courier',
+      // name: 'CourierPrime-Regular',
     },
     {
       id: '3',
       label: 'Georgia',
-      name: 'Georgia-Regular-font',
+      name: 'georgia',
+      // name: 'Georgia-Regular-font',
     },
     {
       id: '4',
-      label: 'Lata',
-      name: 'Lato-Regular',
+      label: 'Lato',
+      name: 'lato',
+      // name: 'Lato-Regular',
     },
     {
       id: '5',
       label: 'Papyrus',
-      name: 'papyrus'
+      name: 'papyrus',
+      // name: 'papyrus',
     },
     {
       id: '6',

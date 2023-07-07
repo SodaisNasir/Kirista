@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { base_Url } from "../../utils/Url";
-import { ACTIVE_BOOKS, ACTIVE_EVENT, BANNER_DATA, CHAPTERS, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
+import { ACTIVE_BOOKS, ACTIVE_EVENT, BANNER_DATA, CHAPTERS, LOADER, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
 
 export const show_all_banner =  () =>{
   return async (dispatch) => {
+    dispatch({type: LOADER, payload: true})
     try {
 
       const noti =await AsyncStorage.getItem("onesignaltoken");
@@ -18,12 +19,13 @@ export const show_all_banner =  () =>{
         if (responseData.success.status === 200) {
           await AsyncStorage.setItem('bannerData', JSON.stringify(responseData.success.data));
          dispatch({type: BANNER_DATA, payload: responseData.success.data})
-        //  setForLink( responseData.success.data[0].app_page)
+         dispatch({type: LOADER, payload: false})
         } else {
-          console.log('else error');
+          dispatch({type: LOADER, payload: false})
         }
     } catch (error) {
         console.log('error in banner api', error)
+        dispatch({type: LOADER, payload: false})
     }
   }
 }
@@ -52,6 +54,7 @@ export const show_popup = async (setData,Device) =>{
 } 
 export const parish =  () => {
   return async (dispatch) => {
+    dispatch({type: LOADER, payload: true})
     try {
       let base_url = `${base_Url}parish-active`;
   
@@ -63,11 +66,13 @@ export const parish =  () => {
     if (responseData.success.status === 200) {
       await AsyncStorage.setItem('parishData', JSON.stringify(responseData.success.data));
      dispatch({type: PARISH_DATA, payload: responseData.success.data})
+     dispatch({type: LOADER, payload: false})
     } else {
-      console.log('else error');
+      dispatch({type: LOADER, payload: false})
     }
   } catch (error) {
     console.log('error', error)
+    dispatch({type: LOADER, payload: false})
   }
 }
 }
@@ -97,6 +102,7 @@ export const parish_by_id = async (setData, id,setLoading,setmap) => {
 }
 export const active_event =  () => {
   return async (dispatch) => {
+    dispatch({type: LOADER, payload: true})
     try {
       let base_url = `${base_Url}event-active`;
     
@@ -108,11 +114,12 @@ export const active_event =  () => {
       if (responseData.success.status === 200) {
         await AsyncStorage.setItem('eventData', JSON.stringify(responseData.success.data));
        dispatch({type: ACTIVE_EVENT, payload: responseData.success.data})
+       dispatch({type: LOADER, payload: false})
       } else {
-        console.log('else error');
+        dispatch({type: LOADER, payload: false})
       }
     } catch (error) {
-      console.log('error', error)
+      dispatch({type: LOADER, payload: false})
     }
   }
 }
@@ -198,6 +205,9 @@ export const updateProfile = (data,userData,saveimage,text,navigation,country,se
         setCheck(true)
         setTimeout(() => {
           setCheck(false)
+        }, 2000);
+        setTimeout(() => {
+          navigation.goBack()
         }, 3000);
       } else {
         console.log('else error');
@@ -212,6 +222,7 @@ export const updateProfile = (data,userData,saveimage,text,navigation,country,se
 }
 export const getBooks =  () => {
   return async (dispatch) => {
+    dispatch({type: LOADER, payload: true})
     try {
       let base_url = `${base_Url}book-active`;
       
@@ -223,11 +234,13 @@ export const getBooks =  () => {
     if (responseData.success.status === 200) {
       await AsyncStorage.setItem('bookData', JSON.stringify(responseData.success.data));
       dispatch({type: ACTIVE_BOOKS, payload: responseData.success.data})
+      dispatch({type: LOADER, payload: false})
     }else{
-      console.log('first')
+      dispatch({type: LOADER, payload: false})
     }
   }catch (error) {
     console.log('error boooks', error)
+    dispatch({type: LOADER, payload: false})
   }
 }
 }
@@ -508,6 +521,30 @@ export const editNotification =  async (userData) => {
     console.log('error', error);
   }
   
+}
+export const downloadBook = async (id) => {
+  try {
+   const userData = await AsyncStorage.getItem('user_details')
+   const cnvrtData = JSON.parse(userData)
+
+    const noti =await AsyncStorage.getItem("onesignaltoken");
+    let base_url = `${base_Url}download/${id}/${cnvrtData.data.id}`;
+
+    const response = await fetch(base_url, {
+      // body: myData,
+      method: 'post',
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.success.status === 200) {
+      console.log('downloadBook ====>',responseData.success)
+    }else{
+      console.log('else error downloadBook ====>')
+    }
+  } catch (error) {
+    console.log('error downloadBook ====>', error);
+  }
 }
 export const sendReadBok = async (id) => {
   try {

@@ -22,7 +22,7 @@ import SwiperBrightness from './SwiperBrightness';
 import { useSelector } from 'react-redux';
 
 const ChapterOptionModal = props => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(22);
   const heyTheme = useSelector(state => state.mode)
   const Theme = props.newTheme != '' ? props.newTheme : heyTheme
 

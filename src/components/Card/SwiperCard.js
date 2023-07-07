@@ -39,6 +39,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
           overflow: 'hidden',
           margin: 5,
           borderRadius: scale(20),
+          bottom: scale(8)
         }}>
         <View
           style={{

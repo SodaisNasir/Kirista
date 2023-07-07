@@ -224,13 +224,16 @@ return async dispatch => {
     setloader(true);
    const data =  await AsyncStorage.getItem('user_details')
    const userData = JSON.parse(data);
+console.log('userData.data.id', userData.data.id)
     let base_url = `${base_Url}logout-notify/${userData.data.id}`;
+
     const response = await fetch(base_url, {
       method: 'post',
     });
+
     
     const responseData = await response.json();
-
+console.log('responseData', responseData)
     if (responseData?.success?.status === 200) {
       await AsyncStorage.removeItem('user_details')
       const data = await AsyncStorage.getItem('user_details');
@@ -239,7 +242,7 @@ return async dispatch => {
       setloader(false);
       console.log(responseData.success);
     }else{
-      console.log('first')
+      console.log('else error')
       setloader(false);
     }
   } catch (error) {

@@ -21,6 +21,9 @@ export const ACTIVE_EVENT = 'ACTIVE_EVENT';
 export const ACTIVE_BOOKS = 'ACTIVE_BOOKS';
 export const RCCG_DATA  = 'RCCG_DATA';
 
+export const CHAPTERMARK = 'CHAPTERMARK'
+export const LOADER = 'LOADER'
+
 
 const initialState = {
   userEmail: null,
@@ -45,6 +48,8 @@ const initialState = {
   activeEvents: [],
   activeBooks: [],
   rccgData: [],
+  chaptermark: [],
+  loader: false,
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -153,6 +158,16 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         rccgData: action.payload,
+      };
+    case CHAPTERMARK:
+      return {
+        ...state,
+        chaptermark: action.payload,
+      };
+    case LOADER:
+      return {
+        ...state,
+        loader: action.payload,
       };
 
     default:

@@ -105,7 +105,8 @@ const LibraryHome = ({navigation}) => {
       alert(applanguage.Sorting);
     }
   };
-
+console.log('data', data)
+console.log('libraryData', libraryData)
   return (
     <>
       <SafeAreaView
@@ -156,6 +157,8 @@ const LibraryHome = ({navigation}) => {
                 : // ? moderateVerticalScale(25)
                   moderateVerticalScale(25),
           }}
+          show={isGuest}
+          noGuest={data ? data : libraryData.length >= 0 ? libraryData : false}
         />
         {isGuest ? (
           <View

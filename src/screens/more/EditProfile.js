@@ -41,7 +41,6 @@ const EditProfile = ({navigation}) => {
   const Theme = useSelector(state => state.mode)
   const userData = useSelector(state => state.user_details)
 
-  console.log('userData', userData)
 
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;

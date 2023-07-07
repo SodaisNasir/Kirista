@@ -20,7 +20,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import Share from 'react-native-share'
 import { useState } from 'react';
-import { getChapters, markData } from '../../redux/actions/UserAction';
+import { downloadBook, getChapters, markData } from '../../redux/actions/UserAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALLBOOKMARK } from '../../redux/reducer';
 import { useEffect } from 'react';
@@ -158,7 +158,6 @@ const addBookmark = () => {
 
 const handleSubmit = async () => {
     const findData = allbookmark?.find((elm) => elm.id == item?.id)
-
     if (findData) {
       const updatedData = allbookmark.filter((elm) => elm.id !== findData.id);
       dispatch({type: ALLBOOKMARK, payload: updatedData})
@@ -171,6 +170,7 @@ const handleSubmit = async () => {
       console.log('laraib =========> Object not found in the array');
       setIsChecked(true);
       await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
+      downloadBook(item?.id)
     }
     
 }
@@ -258,12 +258,18 @@ const handleSubmit = async () => {
             //   id: item?.id,
             //   item:item
             // })}
-            onPress={() => navigation.navigate('Readtwo',{
+            onPress={() => navigation.navigate('ViewBookTitle',{
               id:item?.id,
               bookData:item,
               chapterOne: 1,
               url: item.ebook_url
             })}
+            // onPress={() => navigation.navigate('Readtwo',{
+            //   id:item?.id,
+            //   bookData:item,
+            //   chapterOne: 1,
+            //   url: item.ebook_url
+            // })}
               
             text={applanguage.Read}
           />

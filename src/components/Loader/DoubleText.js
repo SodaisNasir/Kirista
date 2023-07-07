@@ -29,7 +29,7 @@ const DoubleText = (props) => {
     <SkeletonPlaceholder borderRadius={4} marginTop={10}  backgroundColor={Theme === 'dark' ? '#0a21424d' : '#E1E9EE'}>
     <SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
       <SkeletonPlaceholder.Item 
-                            width={'100%'} 
+                            width={props.nwidth ? props.nwidth : '100%'} 
                             height={props.height}
                               />
     </SkeletonPlaceholder.Item>

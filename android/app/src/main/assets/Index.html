@@ -3,30 +3,46 @@
 <head></head>
 <body>
     
-    <!-- <button onclick="changeFontSize()">+</button> -->
-    <button onclick="changeTheme('red','white')">Change background</button>
+   
     <div id="book"></div>
-    <!-- <button onclick="loadXMLDoc(115)">test</button> -->
     <div id="page" style="position: fixed; bottom: 0;right: 0;background-color: aliceblue;"></div>
 </body>
 
 <script  type="text/javascript">
 
 
-function loadXMLDoc(bookid) {
+async function loadXMLDoc(bookid) {
 
-   const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-            const data = JSON.parse(this.responseText);
-            const dataArray = (data.success.data)
-            dataArray.forEach(row => {
-                console.log(row.id)
-                document.getElementById('book').innerHTML += row.description
-            });
-            
-        }
-    xhttp.open("GET", "https://sassolution.org/kirista/api/book-chapter/"+bookid, true);
-    xhttp.send();
+if (localStorage.hasOwnProperty(bookid)) {
+    console.log("start")
+     var data = await JSON.parse(localStorage.getItem(bookid));
+     const dataArray = (data.success.data)
+         new Promise(function() {
+             dataArray.forEach(row => {
+             console.log(row.id)
+             document.getElementById('book').innerHTML += row.description 
+             })
+         }).then(
+            window.ReactNativeWebView.postMessage('loader,'+ 0)
+         ).then(SaveBook(bookid))
+}else{
+
+ const xhttp = new XMLHttpRequest();
+ xhttp.onload = function() {
+         const data = JSON.parse(this.responseText);
+         const dataArray = (data.success.data)
+          new Promise(function() {
+             dataArray.forEach(row => {
+             console.log(row.id)
+             document.getElementById('book').innerHTML += row.description 
+             })
+         }).then(
+             window.ReactNativeWebView.postMessage('loader,'+ 0)
+         ).then(SaveBook(bookid))
+     }
+ xhttp.open("GET", "https://sassolution.org/kirista/api/book-chapter/"+bookid, true);
+ xhttp.send();
+}
 
 }
 
@@ -41,7 +57,7 @@ var Height = window.innerHeight;
 showScrollTop = () =>{
     const currentScrollPosition = window.pageYOffset+1;
     t = document.getElementById('book').clientHeight;
-    document.getElementById('page').innerHTML = parseInt(currentScrollPosition/hei)+1+"/"+parseInt(t/Height)
+    document.getElementById('page').innerHTML = parseInt(currentScrollPosition/hei)+1+"/"+parseInt(t/hei)
 
   }
 window.addEventListener('scroll', showScrollTop)
@@ -50,10 +66,16 @@ function Goto(index){
     document.getElementById(index).scrollIntoView({behavior: 'smooth'});
 }
 
-function changeTheme(backgroundcolor){
+function changeTheme(colors){
+    document.getElementById('book').style.background = colors
+    document.getElementById('page').style.background = colors
     
-    document.getElementById('book').style.background = backgroundcolor
-    document.getElementById('page').style.background = backgroundcolor
+}
+
+function changeFontColor(colors){
+    
+    document.getElementById('book').style.color = colors
+    document.getElementById('page').style.color = colors
 
     
 }
@@ -63,6 +85,65 @@ var font = 12;
 function changeFontSize(size){
     font = font + size;
     document.getElementById('book').style.fontSize = size+"px"
+    // window.ReactNativeWebView.postMessage('Data from WebView / Website');
+    // alert('test')
+
+    
+}
+
+function BookMark(){
+    const currentScrollPosition = window.pageYOffset+1;
+    const lengthElement = document.getElementsByClassName('chap_description').length
+    window.ReactNativeWebView.postMessage('bookmark,'+currentScrollPosition);
+
+    // for(var i=1; i<lengthElement-1; i++){
+    //     const j = i+1;
+    //         const element = document.getElementById(i);
+    //         const element2 = document.getElementById(j);
+    //         if(currentScrollPosition > element.offsetTop && currentScrollPosition < element2.offsetTop){
+    //             window.ReactNativeWebView.postMessage(currentScrollPosition);
+               
+    //     }
+    // }
+}
+
+function GotoIndex(OffSet){
+    window.scrollTo(0, OffSet);
+}
+
+function SaveBook(bookid){
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+            if(this.status == 200){
+               const data = this.responseText;
+               localStorage.setItem(bookid, data);
+            }
+          
+    }
+    xhttp.open("GET", "https://sassolution.org/kirista/api/book-chapter/"+bookid, true);
+    xhttp.send();
+}
+
+function ChangefontFamily(name){
+    if(name == 'lato'){
+        document.getElementById("book").style.fontFamily =   "'Lato', sans-serif";
+        document.getElementById("book").style.fontStyle  = 'italic';
+    }else if(name == 'papyrus'){
+        document.getElementById("book").style.fontFamily =  "papyrus";
+        document.getElementById("book").style.fontStyle  = 'normal';
+    }else if(name == 'times-new-roman'){
+        document.getElementById("book").style.fontFamily =  "Times New Roman";
+        document.getElementById("book").style.fontStyle  = 'initial';
+    }else if(name == 'georgia'){
+        document.getElementById("book").style.fontFamily =  "Georgia";
+        document.getElementById("book").style.fontStyle  = 'normal';
+    }else if(name == 'arial'){
+        document.getElementById("book").style.fontFamily =  "Arial";
+        document.getElementById("book").style.fontStyle  = 'normal';
+    }else if(name == 'courier'){
+        document.getElementById("book").style.fontFamily =  "Courier";
+        document.getElementById("book").style.fontStyle  = 'normal';
+    }
 }
 
 </script>

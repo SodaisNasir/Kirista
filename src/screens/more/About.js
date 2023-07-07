@@ -20,6 +20,7 @@ import {base_Url} from '../../utils/Url';
 import {useState} from 'react';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import {useSelector} from 'react-redux';
+import DoubleText from '../../components/Loader/DoubleText';
 
 const About = ({navigation}) => {
   const Theme = useSelector(state => state.mode);
@@ -131,10 +132,29 @@ const About = ({navigation}) => {
               }}
             /> */}
             {Loading ? (
-              <ActivityIndicator
-              color={Theme === 'dark' ? Color.White : Color.DarkTheme}
-                size="large"
-              />
+                 <View style={{flex:1,backgroundColor: Theme === 'dark'
+                 ? Color.DarkTheme
+                 : Color.White}}>
+                  <View style={{
+                    marginTop:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(15),
+                  }}>
+                  <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(65) : verticalScale(80)} />
+               </View>
+                  {/* <View style={{
+                    marginTop:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
+                  }}>
+                  <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80)} />
+               </View> */}
+                  <View style={{
+                    marginVertical:
+                    w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
+                  }}>
+                  <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(280) : verticalScale(320)} />
+               </View>
+              
+                  </View>
             ) : (
               <RenderHtml contentWidth={width} source={source} systemFonts={systemFonts} />
             )}

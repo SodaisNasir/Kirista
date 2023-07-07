@@ -26,13 +26,15 @@ const ChapterScreen = (props) => {
   const chapters = useSelector(state => state.chapters)
   const dispatch = useDispatch() 
 
+
   // const extractData = chapters?.find((item) => item.id == props.select)
 
   const onSubmit = async (item) => {
     props.setSelect(item.id)
-    setTimeout(() => {
+    props.goToLoc(item.ref)
+    // setTimeout(() => {
       props.selectOff(false)
-    }, 1000);
+  //   }, 1000);
   }
 
   // useEffect(() => {
@@ -44,6 +46,7 @@ const ChapterScreen = (props) => {
   return (
     <ScrollView>
       {chapters?.map((Btn, index) => {
+        console.log('Btn.ref', Btn.ref)
        const result = Btn?.title?.replace("class='chap_title'",`style='color:${Btn.id == props.select ? '#387DE5' : Theme === 'dark' ? Color.White : Color.Black }; font-family:lato; font-size:10px;'`)
        const title = {
            html: result

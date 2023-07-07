@@ -175,8 +175,8 @@ const chapterData = props.chapterData
             
           </View>
           {chapter && <ChapterScreen selectOff={props.selectOff} data={chapterData} select={props.select}
-            setSelect={props.setSelect} />}
-          {bookmark && <BookmarkScreen book_id={chapterData[0]?.books_id} />}
+            setSelect={props.setSelect} goToLoc={props.goToLoc} />}
+          {bookmark && <BookmarkScreen book_id={chapterData[0]?.books_id} bookMarkPress={props.bookMarkPress} />}
         </SafeAreaView>
       </Modal>
     // </SafeAreaView>

@@ -19,7 +19,7 @@ import { BOOKMARK } from '../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RenderHtml from 'react-native-render-html';
 
-const BookmarkScreen = ({book_id}) => {
+const BookmarkScreen = ({book_id,bookMarkPress}) => {
   const { width } = useWindowDimensions();
   const dispatch = useDispatch()
   const bookmark = useSelector(state => state.bookmark)
@@ -42,7 +42,7 @@ const BookmarkScreen = ({book_id}) => {
   }
 
   const deleteBookmark = async (elm) => {
-    const updatedData = bookmark.filter((item) => item.id !== elm.id);
+    const updatedData = bookmark.filter((item) => item.scroll_id !== elm.scroll_id);
     dispatch({type: BOOKMARK, payload: updatedData})
     await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
   }
@@ -57,12 +57,13 @@ const BookmarkScreen = ({book_id}) => {
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         // style={{height: '100%'}}
-        renderItem={({item}) =>{
-          const result = item?.title?.replace("class='chap_title'",`style='color:${Theme === 'dark' ? Color.White : Color.Black }; font-family:lato; font-size:${w >= 768 && h >= 1024 ? "8px" : '12px'};'`)
-          const title = {
-              html: result
-              }
+        renderItem={({item,index}) =>{
+          // const result = item?.title?.replace("class='chap_title'",`style='color:${Theme === 'dark' ? Color.White : Color.Black }; font-family:lato; font-size:${w >= 768 && h >= 1024 ? "8px" : '12px'};'`)
+          // const title = {
+          //     html: result
+          //     }
           return(
+            <TouchableOpacity onPress={() => bookMarkPress(item.scroll_id)} activeOpacity={0.8}>
           <View
           style={{
             width: '100%',
@@ -76,7 +77,7 @@ const BookmarkScreen = ({book_id}) => {
               borderBottomWidth:1,
   
           }}>
-            <View style={{
+            {/* <View style={{
               marginLeft:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
@@ -84,8 +85,8 @@ const BookmarkScreen = ({book_id}) => {
                   contentWidth={width}
                   source={title}
                   />
-                  </View>
-          {/* <Text
+                  </View> */}
+          <Text
             style={{
               fontFamily: Font.Poppins600,
               color: Theme === 'dark' ? Color.White : Color.Black,
@@ -93,8 +94,8 @@ const BookmarkScreen = ({book_id}) => {
               marginLeft:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            {item?.title}
-          </Text> */}
+            {item?.mark_name ? item?.mark_name :   index + 1}
+          </Text>
           <Text
             style={{
               fontFamily: Font.Poppins500,
@@ -103,9 +104,10 @@ const BookmarkScreen = ({book_id}) => {
               marginLeft:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            {item?.created_at.split('T')[0]}
+            {item?.created_at}
           </Text>
         </View>
+            </TouchableOpacity>
         )}
           }
         renderHiddenItem={({item}) => (
@@ -120,7 +122,9 @@ const BookmarkScreen = ({book_id}) => {
           //   </TouchableOpacity>
           // </View>
           <View style={styles.rowBack}>
-          <TouchableOpacity style={styles.IconBox} onPress={() => deleteBookmark(item)}>
+          <TouchableOpacity  style={styles.IconBox} 
+          onPress={() => deleteBookmark(item)}
+          >
               <MaterialCommunityIcons
                 name="delete"
                 size={w >= 768 && h >= 1024 ? scale(20) : scale(28)}
