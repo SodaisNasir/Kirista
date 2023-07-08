@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { scale } from 'react-native-size-matters'
 import { Font } from '../../../utils/font'
+import { useEffect } from 'react'
+import { ID } from '../../../redux/reducer'
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewBookTitle = ({route,navigation}) => {
     const dispatch = useDispatch()
-  const {
-    id,
+    const {
+      id,
     bookData,
     chapterOne,
     url
@@ -23,6 +25,9 @@ const ViewBookTitle = ({route,navigation}) => {
   const user_details = useSelector(state => state.user_details)
   const allbookmark = useSelector(state => state.allbookmark)
   const [data,setData] = useState()
+  useEffect(() => {
+    dispatch({type: ID, payload: bookData?.id});
+  },[])
   return (
     <>
         <SafeAreaView

@@ -46,6 +46,7 @@ const HomeScreen = ({scrollViewRef}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const Theme = useSelector(state => state.mode);
+  const chapters = useSelector(state => state.chapters);
   const applanguage = useSelector(state => state.applanguage);
   const language = useSelector(state => state.language)
   const bannerData = useSelector(state => state.bannerData);

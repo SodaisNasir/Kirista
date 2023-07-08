@@ -6,7 +6,7 @@
    <div id="chapterback" style="width:100%;height:100px;background: #F1F6FD;position: fixed;top: 0;left: 0; color: #797b7f; padding-left: 20px;padding-top: 30px;"><h2 id="chapter" style="margin-top: 50px;">Chapter 1</h2></div>
 
   <!-- <button style="margin-top:100px" onclick="loadXMLDoc(124)">test</button> -->
-    <div id="book"  style="padding-left: 20px;padding-right: 20px;padding-top: 80px;"></div>
+    <div id="book"  style="padding-left: 20px;padding-right: 20px;padding-top: 110px;"></div>
     <div id="page" style="position: fixed; bottom: 0;right: 0;background-color: aliceblue;"></div>
 </body>
 
@@ -29,7 +29,7 @@ if (localStorage.hasOwnProperty(bookid)) {
              document.getElementById('book').innerHTML += row.description 
              })
          }).then(
-             console.log('test')
+            window.ReactNativeWebView.postMessage('loader,'+0)
          ).then(SaveBook(bookid))
 }else{
 
@@ -46,14 +46,13 @@ if (localStorage.hasOwnProperty(bookid)) {
              document.getElementById('book').innerHTML += row.description 
              })
          }).then(
-             alert('test')
+             window.ReactNativeWebView.postMessage('loader,'+0)
          ).then(SaveBook(bookid))
          
      }
  xhttp.open("GET", "https://sassolution.org/kirista/api/book-chapter/"+bookid, true);
  xhttp.send();
 }
-
 }
 
 var eleemtnnumber = 1;
@@ -248,9 +247,10 @@ function ChangefontFamily(name){
 function Header(type){
     if(type == 'block'){
         document.getElementById('chapterback').style.display = type
+        document.getElementById('book').style.paddingTop  = '110px'
     }else if(type == 'none'){
         document.getElementById('chapterback').style.display = type
-        document.getElementById('chapterback').style.height = '0px'
+        document.getElementById('book').style.paddingTop  = '0px'
     }
     
 }

@@ -20,13 +20,19 @@ const ChapterScreen = (props) => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   // const Theme = useColorScheme() === 'dark';
+  const id = useSelector((state) => state.id)
   const { width } = useWindowDimensions();
   const Theme = useSelector(state => state.mode)
   const myData = props.data
-  const chapters = useSelector(state => state.chapters)
   const dispatch = useDispatch() 
-
-
+  const chapters = useSelector(state => state.chapters)
+  console.log('chapters', chapters)
+  const getData = chapters.filter((item) => item.books_id == id)
+  // console.log('getData', getData)
+  const updatedData = chapters.flatMap(item => item);
+  // console.log('updatedData', updatedData)
+const newvv = chapters.map(item => item.books_id)
+console.log('newvv', newvv)
   // const extractData = chapters?.find((item) => item.id == props.select)
 
   const onSubmit = async (item) => {
@@ -45,7 +51,7 @@ const ChapterScreen = (props) => {
 
   return (
     <ScrollView>
-      {chapters?.map((Btn, index) => {
+      {getData?.map((Btn, index) => {
         console.log('Btn.ref', Btn.ref)
        const result = Btn?.title?.replace("class='chap_title'",`style='color:${Btn.id == props.select ? '#387DE5' : Theme === 'dark' ? Color.White : Color.Black }; font-family:lato; font-size:10px;'`)
        const title = {

@@ -24,6 +24,7 @@ export const RCCG_DATA  = 'RCCG_DATA';
 export const CHAPTERMARK = 'CHAPTERMARK'
 export const LOADER = 'LOADER'
 export const  ADVERTISMENT = 'ADVERTISMENT'
+export const  ID = 'ID'
 
 
 const initialState = {
@@ -34,7 +35,7 @@ const initialState = {
   user_details: null,
   otp: null,
   mode: null,
-  chapters: [],
+  chapters: null,
   search_data: null,
   bookmark: [],
   getlanguage: null,
@@ -52,6 +53,7 @@ const initialState = {
   chaptermark: [],
   loader: false,
   Advertisement: null,
+  id: null,
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -175,6 +177,11 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         Advertisement: action.payload,
+      };
+    case ID:
+      return {
+        ...state,
+        id: action.payload,
       };
 
     default:

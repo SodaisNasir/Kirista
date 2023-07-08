@@ -95,8 +95,8 @@ const Readtwo = ({route}) => {
   console.log('id', id)
   useFocusEffect(
     useCallback(() => {
-      dispatch(getChapters(setData,123,chapters))
-      sendReadBok(123)
+      dispatch(getChapters(setData,id,chapters))
+      sendReadBok(id)
       setTimeout(() => {
       // setLoader(false)
       loadXMLDoc()
@@ -406,7 +406,7 @@ const Readtwo = ({route}) => {
   };
   const loadXMLDoc = () => {
     const functionName = 'loadXMLDoc';
-    const functionArguments = [123]; // Optional function arguments
+    const functionArguments = [id]; // Optional function arguments
 
 
     const injectedJavaScript = `
@@ -458,7 +458,7 @@ const Readtwo = ({route}) => {
   };
   const SaveBookID = () => {
     const functionName = 'SaveBook';
-    const functionArguments = [123]; // Optional function arguments
+    const functionArguments = [id]; // Optional function arguments
 
     const injectedJavaScript = `
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
@@ -544,7 +544,9 @@ const formattedDate = `${year}-${month}-${day}`;
     console.log('type', type)
     console.log('============>')
     if(type == 'loader'){
-   setLoader(false)
+      setTimeout(() => {
+        setLoader(false)
+      }, 3000);
     } else if(type == 'bookmark'){
       setChapNo(newData)
       const extractData = bookmark?.filter(item => item.books_id === id);
@@ -709,7 +711,7 @@ const formattedDate = `${year}-${month}-${day}`;
 
 
             {
-              !loader ?
+              loader ?
               // <ActivityIndicator size={'large'} color={'red'} />
              <View style={{flex:1,backgroundColor: Theme === 'dark'
              ? Color.DarkTheme
@@ -718,7 +720,7 @@ const formattedDate = `${year}-${month}-${day}`;
                 marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(15),
               }}>
-              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(65) : verticalScale(80)} />
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100)} />
            </View>
               <View style={{
                 marginTop:
@@ -730,7 +732,7 @@ const formattedDate = `${year}-${month}-${day}`;
                 marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
               }}>
-              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(220) : verticalScale(250)} />
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(400) : verticalScale(500)} />
            </View>
           
               </View>
@@ -878,7 +880,6 @@ const formattedDate = `${year}-${month}-${day}`;
               position: 'absolute',
               bottom: 0,
               width: '100%',
-              backgroundColor: 'red'
             }}>
             <ReadNavigator
               onPressTab={() => {
