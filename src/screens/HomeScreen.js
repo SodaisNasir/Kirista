@@ -9,7 +9,7 @@ import {
   FlatList,
   Dimensions,
   Platform,
-  Linking 
+  Linking,
 } from 'react-native';
 import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -34,10 +34,11 @@ import BannerLoader from '../components/Loader/BannerLoader';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNFS from 'react-native-fs';
-import RenderHTML, { defaultSystemFonts } from 'react-native-render-html';
-import { get_rccgData } from '../redux/actions/AuthAction';
-import { useEffect } from 'react';
+import RenderHTML, {defaultSystemFonts} from 'react-native-render-html';
+import {get_rccgData} from '../redux/actions/AuthAction';
+import {useEffect} from 'react';
 import DoubleText from '../components/Loader/DoubleText';
+import FastImage from 'react-native-fast-image';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -48,7 +49,7 @@ const HomeScreen = ({scrollViewRef}) => {
   const Theme = useSelector(state => state.mode);
   const chapters = useSelector(state => state.chapters);
   const applanguage = useSelector(state => state.applanguage);
-  const language = useSelector(state => state.language)
+  const language = useSelector(state => state.language);
   const bannerData = useSelector(state => state.bannerData);
   const parishData = useSelector(state => state.parishData);
   const activeEvents = useSelector(state => state.activeEvents);
@@ -98,7 +99,6 @@ const HomeScreen = ({scrollViewRef}) => {
   ];
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
 
-
   useFocusEffect(
     useCallback(() => {
       dispatch(show_all_banner());
@@ -109,59 +109,58 @@ const HomeScreen = ({scrollViewRef}) => {
       dispatch(getSearchData());
     }, []),
   );
-    const onSubmit = async (item) => {
-      // navigation.navigate('AdvWebView', {
-      //   link: item?.app_page,
-      // })
-      const url = item?.app_page
+  const onSubmit = async item => {
+    // navigation.navigate('AdvWebView', {
+    //   link: item?.app_page,
+    // })
+    const url = item?.app_page;
 
-      // Checking if the link is supported
-      const supported = await Linking.canOpenURL(url);
-    
-      if (supported) {
-        // Opening the link in the in-app browser
-        await Linking.openURL(url);
-      } else {
-        console.log(`Cannot open URL: ${url}`);
-      }
+    // Checking if the link is supported
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      // Opening the link in the in-app browser
+      await Linking.openURL(url);
+    } else {
+      console.log(`Cannot open URL: ${url}`);
     }
-    const handleClick = async (item) => {
-      try {
-             // Access the item's properties
-      const { id, title, author, cover_image, about } = item;
+  };
+  const handleClick = async item => {
+    try {
+      // Access the item's properties
+      const {id, title, author, cover_image, about} = item;
 
       // Perform the desired action with the item's properties
       // console.log('Clicked item:', { id, title, author, cover_image });
 
       // Example: Save the 'about' content to a file
-      const filePath = `${RNFS.DocumentDirectoryPath}/about.txt`;
-      await RNFS.writeFile(filePath, about, 'utf8');
+      // const filePath = `${RNFS.DocumentDirectoryPath}/about.txt`;
+      // await RNFS.writeFile(filePath, about, 'utf8');
 
       // Save the file path in AsyncStorage
-  
-        // Save the image data in AsyncStorage
-        await AsyncStorage.setItem('filePath', filePath);
-        setHtmlContent(item);
-        navigation.navigate('ViewManual', {
-          item: item,
-        })
 
-  
-        // Update the state or perform other actions
-      } catch (error) {
-        console.error('Error handling click event:', error);
-      }
-    };
-    const handleSubmit = (type) => {
-      if(type === 'RCCG'){
-        console.log('first')
-        navigation.navigate('Rccg')
-      }else if(type === 'RCCG Continent 2'){
-        navigation.navigate('RccgContinent')
-      }else{
-        navigation.navigate('RccgStructure')
-      }
+      // Save the image data in AsyncStorage
+      // await AsyncStorage.setItem('filePath', filePath);
+      setHtmlContent(item);
+      navigation.navigate('ViewManual', {
+        item: item,
+      });
+
+      // Update the state or perform other actions
+    } catch (error) {
+      console.error('Error handling click event:', error);
     }
+  };
+  const handleSubmit = type => {
+    if (type === 'RCCG') {
+      console.log('first');
+      navigation.navigate('Rccg');
+    } else if (type === 'RCCG Continent 2') {
+      navigation.navigate('RccgContinent');
+    } else {
+      navigation.navigate('RccgStructure');
+    }
+  };
   return (
     <View
       style={{
@@ -178,26 +177,27 @@ const HomeScreen = ({scrollViewRef}) => {
             styles.SwiperViewOne,
           ]}>
           <Swiper
-          key={bannerData?.length}
+            key={bannerData?.length}
             autoplayTimeout={5}
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-              {bannerData?.length > 0 && !loader ? (
+            {bannerData?.length > 0 && !loader ? (
               bannerData?.map((item, index) => {
                 return (
                   <>
-                  <TouchableOpacity activeOpacity={0.7} onPress={() => onSubmit(item)}>
-                    <SwiperCard
-                      key={item.id}
-                      source={{uri: item.image}}
-                      // live
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={() => onSubmit(item)}>
+                      <SwiperCard
+                        key={item.id}
+                        source={item.image}
+                        // live
                       />
-                  </TouchableOpacity>
+                    </TouchableOpacity>
                   </>
                 );
               })
-              
             ) : (
               <View
                 style={{
@@ -205,12 +205,11 @@ const HomeScreen = ({scrollViewRef}) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-               <BannerLoader />
+                <BannerLoader />
               </View>
             )}
           </Swiper>
         </View>
-
 
         <View style={{}}>
           <View
@@ -242,7 +241,6 @@ const HomeScreen = ({scrollViewRef}) => {
                 name="chevron-small-right"
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                 color={Color.Main}
-                // style={{top:verticalScale(1)}}
               />
             </TouchableOpacity>
           </View>
@@ -251,21 +249,15 @@ const HomeScreen = ({scrollViewRef}) => {
             showsHorizontalScrollIndicator={false}
             directionalLockEnabled={true}
             alwaysBounceVertical={false}>
-              {activeBooks.length > 0 && !loader
-              ?
+            {activeBooks.length > 0 && !loader ? (
               <FlatList
                 showsHorizontalScrollIndicator={false}
                 data={activeBooks?.slice(0, 20)}
                 renderItem={({item, index}) => {
                   return (
                     <TouchableOpacity
-                    onPress={() => handleClick(item)}
-                      // onPress={() =>
-                      //   navigation.navigate('ViewManual', {
-                      //     item: item,
-                      //   })
-                      // }
-                      >
+                      onPress={() => handleClick(item)}
+                    >
                       <View
                         style={{
                           height:
@@ -275,12 +267,10 @@ const HomeScreen = ({scrollViewRef}) => {
                           flexDirection: 'row',
                           overflow: 'hidden',
                           width:
-                            w >= 768 && h >= 1024
-                              ? scale(290)
-                              : scale(250),
+                            w >= 768 && h >= 1024 ? scale(200) : scale(250),
                           // marginLeft: index == 0 ? scale(10) : 0,
                           paddingLeft: 10,
-                          margin:scale(-1)
+                          margin: scale(-1),
                         }}>
                         <View
                           style={{
@@ -290,23 +280,24 @@ const HomeScreen = ({scrollViewRef}) => {
                           <View
                             style={{
                               height:
-                                w >= 768 && h >= 1024 ? scale(60) : scale(80),
+                                w >= 768 && h >= 1024 ? scale(50) : scale(80),
                               width:
                                 w >= 768 && h >= 1024 ? scale(60) : scale(100),
                             }}>
-                            <Image
-                              resizeMode="contain"
-                              style={{
-                                height: '100%',
-                                width: '100%',
+                            <FastImage
+                              style={{height: '100%', width: '100%'}}
+                              source={{
+                                uri: item?.cover_image,
+                                priority: FastImage.priority.normal,
                               }}
-                              source={{uri: item?.cover_image}}
+                              resizeMode={FastImage.resizeMode.contain}
                             />
                           </View>
                         </View>
                         <View
                           style={{
-                            marginVertical: verticalScale(20),
+                            // marginVertical: verticalScale(20),
+                            marginTop: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
                             marginLeft: scale(10),
                           }}>
                           <View
@@ -314,7 +305,7 @@ const HomeScreen = ({scrollViewRef}) => {
                               justifyContent: 'center',
                             }}>
                             <Text
-                            numberOfLines={2}
+                              numberOfLines={2}
                               style={[
                                 {
                                   color:
@@ -335,7 +326,9 @@ const HomeScreen = ({scrollViewRef}) => {
                                       ? Color.White
                                       : Color.DarkTextColor,
                                   marginTop:
-                                    Platform.OS == 'ios' ? 0 : verticalScale(-5),
+                                    Platform.OS == 'ios'
+                                      ? 0
+                                      : verticalScale(-5),
                                 },
                               ]}>
                               {item?.category}
@@ -361,12 +354,12 @@ const HomeScreen = ({scrollViewRef}) => {
                 key={Math.ceil(activeBooks?.length / 2).toString()}
                 numColumns={Math.ceil(activeBooks?.length / 2)}
               />
-              : 
-                <>
-              <SkeletonLoader />
-              <SkeletonLoader />
-                </>
-            }
+            ) : (
+              <>
+                <SkeletonLoader />
+                <SkeletonLoader />
+              </>
+            )}
           </ScrollView>
         </View>
         <View
@@ -377,16 +370,14 @@ const HomeScreen = ({scrollViewRef}) => {
             },
             styles.SwiperViewTwo,
           ]}>
-            {
-              rccgData.length > 0 && !loader
-              ?
-              <FlatList
-                data={rccgData}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                renderItem={({item}) => {
-                  return (
-                    <TouchableOpacity onPress={() => handleSubmit(item.type)}>
+          {rccgData.length > 0 && !loader ? (
+            <FlatList
+              data={rccgData}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              renderItem={({item}) => {
+                return (
+                  <TouchableOpacity onPress={() => handleSubmit(item.type)}>
                     <View
                       style={{
                         justifyContent: 'center',
@@ -405,7 +396,7 @@ const HomeScreen = ({scrollViewRef}) => {
                         margin: 5,
                         marginLeft: item.id == 1 ? scale(20) : scale(8),
                       }}>
-                      <Image
+                      {/* <Image
                         resizeMode="cover"
                         style={{
                           height: '100%',
@@ -414,6 +405,19 @@ const HomeScreen = ({scrollViewRef}) => {
                           zIndex:99
                         }}
                         source={{uri: item.image}}
+                      /> */}
+                      <FastImage
+                        style={{
+                          height: '100%',
+                          width: '100%',
+                          position: 'absolute',
+                          zIndex: 99,
+                        }}
+                        source={{
+                          uri: item.image,
+                          priority: FastImage.priority.normal,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
                       />
                       {/* <Image
                         resizeMode="cover"
@@ -457,7 +461,8 @@ const HomeScreen = ({scrollViewRef}) => {
                                 width:
                                   w >= 768 && h >= 1024 ? scale(30) : scale(65),
                                 borderRadius: 100,
-                                top: w >= 768 && h >= 1024 ? scale(15) : scale(20),
+                                top:
+                                  w >= 768 && h >= 1024 ? scale(15) : scale(20),
                                 overflow: 'hidden',
                               }}>
                               {/* <Image
@@ -515,7 +520,8 @@ const HomeScreen = ({scrollViewRef}) => {
                                   fontFamily: Font.Poppins600,
                                   color: Color.White,
                                   textTransform: 'uppercase',
-                                  top: item.type == 'ye' ? scale(15) : scale(10),
+                                  top:
+                                    item.type == 'ye' ? scale(15) : scale(10),
                                   fontSize: iosTab
                                     ? scale(7)
                                     : w >= 768 && h >= 1024
@@ -541,7 +547,6 @@ const HomeScreen = ({scrollViewRef}) => {
                                 marginVertical: verticalScale(2),
                               }}>
                               <View
-                                
                                 style={{
                                   flexDirection: 'row',
                                 }}>
@@ -578,41 +583,42 @@ const HomeScreen = ({scrollViewRef}) => {
                         </View>
                       </View>
                     </View>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-              :
-
-              <View
-               style={{
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          ) : (
+            <View
+              style={{
                 width: '90%',
                 paddingVertical: verticalScale(10),
                 // paddingLeft: scale(15),
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                // justifyContent: 'space-between',
                 overflow: 'hidden',
-                }}>
-                  
-              <DoubleText height={w >= 768 && h >= 1024
-                            ? verticalScale(110)
-                            : verticalScale(90)}
-                            nwidth={ w >= 768 && h >= 1024 ? scale(115) : scale(190)}
-                            />
-                            <View style={{height: '100%',width: '3%'}} />
-              <DoubleText height={w >= 768 && h >= 1024
-                            ? verticalScale(110)
-                            : verticalScale(90)}
-                            nwidth={ w >= 768 && h >= 1024 ? scale(115) : scale(190)}
-                            />
+                // backgroundColor:'red',
+                // marginVertical: w >= 768 && h >= 1024 ? verticalScale(30) : 0
+              }}>
+              <DoubleText
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(110) : verticalScale(90)
+                }
+                nwidth={w >= 768 && h >= 1024 ? scale(115) : scale(190)}
+              />
+              <View style={{height: '100%', width: '3%'}} />
+              <DoubleText
+                height={
+                  w >= 768 && h >= 1024 ? verticalScale(110) : verticalScale(90)
+                }
+                nwidth={w >= 768 && h >= 1024 ? scale(115) : scale(190)}
+              />
               {/* <DoubleText height={w >= 768 && h >= 1024
                             ? verticalScale(110)
                             : verticalScale(90)}
                             nwidth={ w >= 768 && h >= 1024 ? scale(115) : scale(190)}
                             /> */}
-                </View>
-            }
-          
+            </View>
+          )}
         </View>
 
         <View
@@ -627,7 +633,7 @@ const HomeScreen = ({scrollViewRef}) => {
               flexDirection: 'row',
               marginTop: verticalScale(15),
             }}>
-            <View style={{}}>
+            <View>
               <Text
                 style={[
                   {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
@@ -654,7 +660,7 @@ const HomeScreen = ({scrollViewRef}) => {
               />
             </TouchableOpacity>
           </View>
-          {parishData?.length > 0 && !loader ?  (
+          {parishData?.length > 0 && !loader ? (
             <>
               {parishData?.map((item, index) => {
                 return (
@@ -667,7 +673,7 @@ const HomeScreen = ({scrollViewRef}) => {
                           id: item.id,
                         });
                       }}
-                      source={{uri: item.image}}
+                      source={item?.image}
                       title={item.title}
                       manual={item.country}
                       resize={'contain'}
@@ -682,11 +688,11 @@ const HomeScreen = ({scrollViewRef}) => {
               })}
             </>
           ) : (
-            <View style={{marginBottom:5}}>
-            <SkeletonLoader />
-            <View style={{height: 0,marginVertical:5}} />
-            <SkeletonLoader />
-              </View>
+            <View style={{marginBottom: 5}}>
+              <SkeletonLoader />
+              <View style={{height: 0, marginVertical: 5}} />
+              <SkeletonLoader />
+            </View>
           )}
         </View>
 
@@ -732,11 +738,11 @@ const HomeScreen = ({scrollViewRef}) => {
                         onPress={() => {
                           navigation.navigate('EventScreen', {id: item.id});
                         }}
-                        source={{uri: item.image}}
+                        source={item?.image}
                         title={item.title}
                         // title="West Coast 2 Regional"
                         // manual={item?.address}
-                        resize={'contain'}
+                        // resize={'contain'}
                         TimeTrue={true}
                         time={item.start_time}
                         date={moment(item.start_date).format('MMM Do YY')}
@@ -749,13 +755,16 @@ const HomeScreen = ({scrollViewRef}) => {
                 })}
               </>
             ) : (
-              <View style={{
-                // flexDirection: ''
-              }}>
-              <SkeletonLoader />
-              <View style={{height: 0,marginVertical:5}} />
-              <SkeletonLoader />
-                </View>
+              <View
+                style={
+                  {
+                    // flexDirection: ''
+                  }
+                }>
+                <SkeletonLoader />
+                <View style={{height: 0, marginVertical: 5}} />
+                <SkeletonLoader />
+              </View>
             )}
           </View>
         </View>
@@ -808,13 +817,17 @@ const styles = StyleSheet.create({
   SwiperViewOne: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: w >= 768 && h >= 1024 ? verticalScale(200) :w <= 450 && h <= 750 ? verticalScale(190) : verticalScale(150) ,
-    
+    height:
+      w >= 768 && h >= 1024
+        ? verticalScale(200)
+        : w <= 450 && h <= 750
+        ? verticalScale(190)
+        : verticalScale(150),
   },
   SwiperViewTwo: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: w >= 768 && h >= 1024 ? verticalScale(105) : verticalScale(160),
+    height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(160),
   },
 
   YearStyle: {

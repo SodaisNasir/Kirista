@@ -60,7 +60,7 @@ const Events = () => {
                       }}
                       title={item.title}
                       manual={item.country}
-                      source={{uri: item.image}}
+                      source={item.image}
                       resize={'contain'}
                       TimeTrue={true}
                       date={moment(item.start_date).format('MMM Do, YYYY.')}

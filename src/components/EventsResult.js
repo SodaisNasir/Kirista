@@ -27,7 +27,7 @@ const EventsResult = ({data}) => {
         onPress={() => {
           navigation.navigate('EventScreen', {id: item.id});
         }}
-        source={{uri: item?.image}}
+        source={item?.image}
         title={item?.title}
         resize={'cover'}
         // manual="Convention"

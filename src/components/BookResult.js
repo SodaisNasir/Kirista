@@ -28,7 +28,7 @@ const BookResult = ({data}) => {
         onPress={() => navigation.navigate('ViewManual',{
           item:item
         })}
-        source={{uri: item?.cover_image}}
+        source={item?.cover_image}
         title={item?.title}
         resize={'contain'}
         // manual="Teachers Man.."

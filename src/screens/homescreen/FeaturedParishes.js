@@ -96,7 +96,7 @@ const FeaturedParishes = () => {
                           id: item.id,
                         });
                       }}
-                      source={{uri: item.image}}
+                      source={item.image}
                       // title="RCCG"
                       manual={item.title}
                       resize={'contain'}

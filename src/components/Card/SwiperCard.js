@@ -16,6 +16,7 @@ import {Font} from '../../utils/font';
 import {scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import { useSelector } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -46,7 +47,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
             width: '100%',
             height: verticalScale(500),
           }}>
-          <Image
+          {/* <Image
             resizeMode={w >= 768 && h >= 1024 ? "center" : "contain"}
             style={{
               height: '100%',
@@ -54,7 +55,15 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
               position: 'absolute',
             }}
             source={source}
-          />
+          /> */}
+           <FastImage
+                style={{height: '100%', width: '100%', position: 'absolute'}}
+                source={{
+                  uri: source,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
         </View>
         <View
           style={{

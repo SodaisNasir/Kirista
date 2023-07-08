@@ -13,6 +13,7 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Color} from '../../utils/Colors';
 import {Font} from '../../utils/font';
 import { useSelector } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -45,14 +46,25 @@ const DetailsCard = props => {
           ]
           //
         }>
-        <Image
+        {/* <Image
           resizeMode={props.resize}
           style={{
             height: '100%',
             width: '100%',
           }}
           source={props.source}
-        />
+        /> */}
+         <FastImage
+                   style={{
+                    height: '100%',
+                    width: '100%'
+                  }}
+                source={{
+                  uri: props.source,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
       </View>
       <View
         style={{

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   StatusBar,
-  Platform
+  Platform,
 } from 'react-native';
 import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 import React, {useState, useEffect} from 'react';
@@ -17,19 +17,20 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
 import {show_popup} from '../redux/actions/UserAction';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 const Advertisement = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const applanguage = useSelector(state => state.applanguage)
-  const Advertisement = useSelector(state => state.Advertisement)
-  const [data,setData] = useState()
-console.log('Advertisement', Advertisement?.image)
-const deviceData = Platform.OS
+  const applanguage = useSelector(state => state.applanguage);
+  const Advertisement = useSelector(state => state.Advertisement);
+  const [data, setData] = useState();
+  console.log('Advertisement', Advertisement?.image);
+  const deviceData = Platform.OS;
   useFocusEffect(
     useCallback(() => {
-      dispatch(show_popup(setData,deviceData))
+      dispatch(show_popup(setData, deviceData));
     }, []),
   );
   const w = useWindowDimensions().width;
@@ -63,23 +64,22 @@ const deviceData = Platform.OS
       });
     }),
   );
-  
-const onSubmit = () => {
-  if(Advertisement?.book_name !=  null){
-    navigation.navigate('ViewManual', {
-      item: Advertisement?.book,
-    })
-  }
-  // else if (data){
 
-  // }
-  
-  else{
-    navigation.navigate('AdvWebView', {
-      link: Advertisement?.app_page,
-    })
-  }
-}
+  const onSubmit = () => {
+    if (Advertisement?.book_name != null) {
+      navigation.navigate('ViewManual', {
+        item: Advertisement?.book,
+      });
+    }
+    // else if (data){
+
+    // }
+    else {
+      navigation.navigate('AdvWebView', {
+        link: Advertisement?.app_page,
+      });
+    }
+  };
   return (
     <View style={styles.container}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
@@ -105,7 +105,6 @@ const onSubmit = () => {
               width: '100%',
             }}>
             <TouchableOpacity
-              // opacity={0.1}
               disabled={seconds > 0 ? true : false}
               onPress={() => navigation.navigate('HomeScreen')}
               style={[
@@ -144,21 +143,20 @@ const onSubmit = () => {
             }}>
             <View
               style={{
-                height: w >= 768 && h >= 1024 ? scale(130) : '70%',
+                height: w >= 768 && h >= 1024 ? '75%' : '70%',
                 marginBottom: verticalScale(15),
                 borderRadius: scale(20),
+                width: w >= 768 && h >= 1024 ? '70%' : '80%',
+                alignSelf: 'center',
+                overflow: 'hidden',
               }}>
-              <Image
-                resizeMode="contain"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  borderRadius: scale(20),
-
-                  // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
+              <FastImage
+                style={{height: '100%', width: '100%', borderRadius: scale(20)}}
+                source={{
+                  uri: Advertisement?.image,
+                  priority: FastImage.priority.normal,
                 }}
-                // source={require('../assets/images/ad_book.png')}
-                source={{uri: Advertisement?.image}}
+                resizeMode={FastImage.resizeMode.contain}
               />
             </View>
             <View style={{maxWidth: '50%', alignSelf: 'center'}}>

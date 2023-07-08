@@ -334,7 +334,7 @@ const renderScene = SceneMap({
                         id: item.id,
                       });
                     }}
-                    source={{uri: item?.image}}
+                    source={item?.image}
                     title={item?.title}
                     resize={'contain'}
                     // manual="Central Parish"
@@ -360,7 +360,7 @@ const renderScene = SceneMap({
                   onPress={() => {
                     navigation.navigate('EventScreen', {id: item.id});
                   }}
-                  source={{uri: item?.image}}
+                  source={item?.image}
                   title={item?.title}
                   resize={'cover'}
                   // manual="Convention"
@@ -386,7 +386,7 @@ const renderScene = SceneMap({
                 onPress={() => navigation.navigate('ViewManual',{
                   item:item
                 })}
-                source={{uri: item?.cover_image}}
+                source={item?.cover_image}
                 title={item?.title}
                 resize={'contain'}
                 // manual="Teachers Man.."

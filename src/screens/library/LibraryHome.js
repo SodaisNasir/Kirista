@@ -213,11 +213,11 @@ console.log('libraryData', libraryData)
                       <DetailsCard
                         key={item?.id}
                         onPress={() => navigation.navigate(nav, param)}
-                        source={{
-                          uri: item?.cover_image
+                        source={
+                         item?.cover_image
                             ? item?.cover_image
-                            : item.image,
-                        }}
+                            : item.image
+                        }
                         title={item?.title}
                         resize={'contain'}
                         manual={item?.category}

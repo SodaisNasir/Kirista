@@ -29,7 +29,7 @@ const ParishFinderSearch = ({data}) => {
                   id: item.id,
                 });
               }}
-              source={{uri: item?.image}}
+              source={item?.image}
               title={item?.title}
               resize={'contain'}
               // manual="Central Parish"

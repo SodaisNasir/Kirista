@@ -71,7 +71,7 @@ export default function SearchContent() {
         }}>
         <DetailsCard
           onPress={() => navigation.navigate('SearchResult')}
-          source={require('../assets/images/manual.png')}
+          // source={require('../assets/images/manual.png')}
           title="Sunday Student"
           resize={'contain'}
           manual="Manual"
@@ -88,7 +88,7 @@ export default function SearchContent() {
           }}
         />
         <DetailsCard
-          source={require('../assets/images/parishsmall_1.png')}
+          // source={require('../assets/images/parishsmall_1.png')}
           title="RCCG"
           resize={'contain'}
           manual="Precious Ambassadors "
@@ -105,7 +105,7 @@ export default function SearchContent() {
           }}
         />
         <DetailsCard
-          source={require('../assets/images/EventScreenImage1.png')}
+          // source={require('../assets/images/EventScreenImage1.png')}
           title="RCCG"
           resize={'cover'}
           manual="Precious Ambassadors "
@@ -123,7 +123,7 @@ export default function SearchContent() {
         />
 
         <DetailsCard
-          source={require('../assets/images/parishsmall_3.png')}
+          // source={require('../assets/images/parishsmall_3.png')}
           title="RCCG"
           resize={'contain'}
           manual="Precious Ambassadors "
@@ -141,7 +141,7 @@ export default function SearchContent() {
         />
 
         <DetailsCard
-          source={require('../assets/images/sunday_manual2.png')}
+          // source={require('../assets/images/sunday_manual2.png')}
           title="RCCG"
           resize={'contain'}
           manual="Precious Ambassadors "
