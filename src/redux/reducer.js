@@ -35,7 +35,7 @@ const initialState = {
   user_details: null,
   otp: null,
   mode: null,
-  chapters: null,
+  chapters: [],
   search_data: null,
   bookmark: [],
   getlanguage: null,

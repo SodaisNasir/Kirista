@@ -282,27 +282,18 @@ export const getChapters =  (setData,id,chapters) => {
         setData(responseData.success.data)
         // dispatch({type: CHAPTERS, payload: responseData.success.data})
         const getCid = chapters.find((item) => item.books_id == id)
-        console.log('getCid', getCid)
         if(getCid){
           const updatedData = chapters.filter(item => item.books_id != id);
-          const ibjmap = responseData.success.data.flatMap(obj => obj)
-          const newvv = updatedData.flatMap(obj => obj)
-
-          // dispatch({type: CHAPTERS, payload: [updatedData, ...ibjmap]});
-          // await AsyncStorage.setItem('chapters', JSON.stringify([updatedData, ...ibjmap]));
-          console.log('first')
+          dispatch({type: CHAPTERS, payload: [updatedData, ...responseData.success.data]});
+          await AsyncStorage.setItem('chapters', JSON.stringify([updatedData, ...responseData.success.data]));
         }else{
-          const vvv = chapters.flatMap(obj => obj)
-          const ibjmap = responseData.success.data.flatMap(obj => obj)
-          console.log('ibjmap', ibjmap)
-          dispatch({type: CHAPTERS, payload: [...vvv, ibjmap]});
+          dispatch({type: CHAPTERS, payload: [...chapters, responseData.success.data]});
           console.log('Object not found in the array');
-          // await AsyncStorage.setItem(
-          //   'chapters',
-          //   JSON.stringify([...vvv, ibjmap]),
-          // );
+          await AsyncStorage.setItem(
+            'chapters',
+            JSON.stringify([...chapters, responseData.success.data]),
+          );
         }
-        //  const extractData = chapters?.filter(item => item.books_id === id);
         
       }else{
         console.log('first')

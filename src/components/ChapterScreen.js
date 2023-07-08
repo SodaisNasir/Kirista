@@ -26,14 +26,15 @@ const ChapterScreen = (props) => {
   const myData = props.data
   const dispatch = useDispatch() 
   const chapters = useSelector(state => state.chapters)
-  console.log('chapters', chapters)
-  const getData = chapters.filter((item) => item.books_id == id)
-  // console.log('getData', getData)
-  const updatedData = chapters.flatMap(item => item);
+  const singleArray = chapters.flat();
+  const getData = singleArray.filter((item) => item.books_id == id)
+  // const updatedData = chapters.flatMap(item => item);
   // console.log('updatedData', updatedData)
-const newvv = chapters.map(item => item.books_id)
-console.log('newvv', newvv)
+// const newvv = chapters.map(item => item.books_id)
+// console.log('newvv', newvv)
   // const extractData = chapters?.find((item) => item.id == props.select)
+  // const objects = chapters.filter(item => typeof item === 'object');
+  // console.log('larasib ===>',  objects);
 
   const onSubmit = async (item) => {
     props.setSelect(item.id)

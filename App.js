@@ -122,8 +122,7 @@ const deviceData = Platform.OS
     getparishData()
     geteventData()
     getrccgData()
-    // dispatch(show_popup(setData,deviceData));
-    
+    chapterData()
   }, [mode,Theme,applanguage])
 
   useEffect(() => {
@@ -146,6 +145,15 @@ const deviceData = Platform.OS
       dispatch({type: BOOKMARK, payload: convertData})
     }else{
       console.log('Empty Book Marks')
+    }
+  }
+  const chapterData = async () => {
+    const chapterData = await AsyncStorage.getItem('chapters')
+    const convertData = JSON.parse(chapterData)
+    if(convertData != null){
+      dispatch({type: BOOKMARK, payload: convertData})
+    }else{
+      console.log('Empty Chapters')
     }
   }
   const getPopupData = async () => {

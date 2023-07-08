@@ -32,6 +32,8 @@ const h = Dimensions.get('window').height;
 
 const ViewManual = ({navigation,route}) => {
   const dispatch = useDispatch()
+  const chapters = useSelector(state => state.chapters)
+
   const {item,htmlContent} = route.params
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
@@ -43,7 +45,7 @@ const ViewManual = ({navigation,route}) => {
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
-      dispatch(getChapters(setData,item.id))
+      // dispatch(getChapters(setData,item.id))
     }, []),
   );
   // useEffect(() => {
@@ -172,7 +174,7 @@ const handleSubmit = async () => {
       await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
       downloadBook(item?.id)
     }
-    
+    dispatch(getChapters(setData,item?.id,chapters))
 }
 
   return (
