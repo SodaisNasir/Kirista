@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { base_Url } from "../../utils/Url";
-import { ACTIVE_BOOKS, ACTIVE_EVENT, BANNER_DATA, CHAPTERS, LOADER, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
+import { ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, BANNER_DATA, CHAPTERS, LOADER, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
 
 export const show_all_banner =  () =>{
   return async (dispatch) => {
@@ -29,28 +29,33 @@ export const show_all_banner =  () =>{
     }
   }
 }
-export const show_popup = async (setData,Device) =>{
-  let base_url = `${base_Url}popup-active`;
-  let myData = new FormData()
-  
-  myData.append('platform',Device)
-  
-  try {
-        const response = await fetch(base_url, {
-          method: 'post',
-          body: myData,
-        });
-        const responseData = await response.json();
-        console.log('responseData', responseData)
-  
-        if (responseData.success.status === 200) {
-         setData(responseData.success.data)   
-        } else {
-          console.log('else error');
-        }
-    } catch (error) {
-        console.log('error ===>', error)
-    }
+export const show_popup =  (setData,Device) =>{
+  return async (dispatch) => {
+    let base_url = `${base_Url}popup-active`;
+    let myData = new FormData()
+    
+    myData.append('platform',Device)
+    
+    try {
+          const response = await fetch(base_url, {
+            method: 'post',
+            body: myData,
+          });
+          const responseData = await response.json();
+          console.log('responseData', responseData)
+    
+          if (responseData.success.status === 200) {
+           setData(responseData.success.data)   
+           dispatch({type:ADVERTISMENT, payload: responseData.success.data})
+          await  AsyncStorage.setItem('adv', JSON.stringify(responseData.success.data))
+          } else {
+            console.log('else error');
+          }
+      } catch (error) {
+          console.log('error ===>', error)
+      }
+  }
+ 
 } 
 export const parish =  () => {
   return async (dispatch) => {
@@ -262,7 +267,7 @@ export const getChaptersByID = async (setData,id) => {
     console.log('error', error)
   }
 }
-export const getChapters =  (setData,id) => {
+export const getChapters =  (setData,id,chapters) => {
   return async (dispatch) => {
 
     try {
@@ -276,6 +281,8 @@ export const getChapters =  (setData,id) => {
       if (responseData.success.status === 200) {
         setData(responseData.success.data)
         dispatch({type: CHAPTERS, payload: responseData.success.data})
+
+        //  const extractData = chapters?.filter(item => item.books_id === id);
         
       }else{
         console.log('first')

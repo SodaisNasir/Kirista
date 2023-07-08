@@ -2,9 +2,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head></head>
 <body>
-    
    
-    <div id="book"></div>
+   <div id="chapterback" style="width:100%;height:100px;background: #F1F6FD;position: fixed;top: 0;left: 0; color: #797b7f; padding-left: 20px;padding-top: 30px;"><h2 id="chapter" style="margin-top: 50px;">Chapter 1</h2></div>
+
+  <!-- <button style="margin-top:100px" onclick="loadXMLDoc(124)">test</button> -->
+    <div id="book"  style="padding-left: 20px;padding-right: 20px;padding-top: 80px;"></div>
     <div id="page" style="position: fixed; bottom: 0;right: 0;background-color: aliceblue;"></div>
 </body>
 
@@ -17,13 +19,17 @@ if (localStorage.hasOwnProperty(bookid)) {
     console.log("start")
      var data = await JSON.parse(localStorage.getItem(bookid));
      const dataArray = (data.success.data)
+
+         let i =0;
          new Promise(function() {
              dataArray.forEach(row => {
              console.log(row.id)
+             i++;   
+             document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 
              })
          }).then(
-            window.ReactNativeWebView.postMessage('loader,'+ 0)
+             console.log('test')
          ).then(SaveBook(bookid))
 }else{
 
@@ -31,14 +37,18 @@ if (localStorage.hasOwnProperty(bookid)) {
  xhttp.onload = function() {
          const data = JSON.parse(this.responseText);
          const dataArray = (data.success.data)
+         let i =0;
           new Promise(function() {
              dataArray.forEach(row => {
+             i++;    
              console.log(row.id)
+             document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 
              })
          }).then(
-             window.ReactNativeWebView.postMessage('loader,'+ 0)
+             alert('test')
          ).then(SaveBook(bookid))
+         
      }
  xhttp.open("GET", "https://sassolution.org/kirista/api/book-chapter/"+bookid, true);
  xhttp.send();
@@ -46,6 +56,71 @@ if (localStorage.hasOwnProperty(bookid)) {
 
 }
 
+var eleemtnnumber = 1;
+var backagain = 0;
+function Chapping(type){
+        console.log(type)
+        if(type == 'down'){
+            const lengthElement = document.getElementsByClassName('chap_description').length
+            const currentScrollPosition = window.pageYOffset;
+            t = document.getElementById(eleemtnnumber).offsetTop;
+            if(eleemtnnumber < lengthElement ){
+                 var j = eleemtnnumber+1;
+                 var t2 = document.getElementById(j).offsetTop;
+
+                 if(currentScrollPosition >=t && currentScrollPosition <= t2){
+                    console.log(t+" > "+currentScrollPosition+" > "+t2)
+                    eleemtnnumber++
+                    backagain =0;
+                    var v = 'tittle'+eleemtnnumber
+                    console.log(document.getElementById(v).innerText)
+                    // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
+                    document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
+                        
+               
+                
+                }
+            }
+           
+    }else if(type == 'up'){
+        
+            const lengthElement = document.getElementsByClassName('chap_description').length
+            let currentScrollPosition = window.pageYOffset;
+            const l = lengthElement -1;
+          
+            const postitionbefore1 = document.getElementById(l).offsetTop;
+           
+            if(currentScrollPosition < postitionbefore1){
+                
+                t = document.getElementById(eleemtnnumber).offsetTop;
+                var j = eleemtnnumber-1;
+                if(eleemtnnumber > 1){
+                var t2 = 0;
+                t2 = document.getElementById(j).offsetTop;
+                currentScrollPosition = currentScrollPosition +20
+                
+                    if(currentScrollPosition > t2 && currentScrollPosition < t){
+                        console.log(t+" > "+currentScrollPosition+" > "+t2)
+                        eleemtnnumber--
+                        var v = 'tittle'+eleemtnnumber+1
+                         // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
+                       document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
+                        
+                    }
+                 }else if (eleemtnnumber == 1){
+                    if(currentScrollPosition < t  && backagain ==0){
+                        console.log(t+" > "+currentScrollPosition+" > "+t2)
+                        backagain = 1;
+                        var v = 'tittle'+eleemtnnumber
+                         // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
+                        document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
+                        
+                    }
+                 }
+            }
+            
+    }
+}
 
 
 
@@ -57,9 +132,18 @@ var Height = window.innerHeight;
 showScrollTop = () =>{
     const currentScrollPosition = window.pageYOffset+1;
     t = document.getElementById('book').clientHeight;
-    document.getElementById('page').innerHTML = parseInt(currentScrollPosition/hei)+1+"/"+parseInt(t/hei)
-
-  }
+     document.getElementById('page').innerHTML = parseInt(currentScrollPosition/hei)+1+"/"+parseInt(t/Height)
+    
+    var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+    if (st > lastScrollTop) {
+        Chapping('down')
+    } else if (st < lastScrollTop) {
+        Chapping('up')
+    } // else was horizontal scroll
+    lastScrollTop = st <= 0 ? 0 : st;
+ 
+    
+}
 window.addEventListener('scroll', showScrollTop)
 
 function Goto(index){
@@ -76,7 +160,18 @@ function changeFontColor(colors){
     
     document.getElementById('book').style.color = colors
     document.getElementById('page').style.color = colors
+    
+}
 
+function changeHeaderFontColor(colors){
+    
+    document.getElementById('chapterback').style.color = colors
+        
+}
+
+function changeHeaderBackground(colors){
+    
+    document.getElementById('chapterback').style.background = colors
     
 }
 
@@ -145,5 +240,18 @@ function ChangefontFamily(name){
         document.getElementById("book").style.fontStyle  = 'normal';
     }
 }
-
+// function CloseHeader(){
+    
+//     document.getElementById('chapterback').style.display = 'None'
+    
+// }
+function Header(type){
+    if(type == 'block'){
+        document.getElementById('chapterback').style.display = type
+    }else if(type == 'none'){
+        document.getElementById('chapterback').style.display = type
+        document.getElementById('chapterback').style.height = '0px'
+    }
+    
+}
 </script>

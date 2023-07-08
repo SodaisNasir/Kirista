@@ -4,8 +4,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import LightSplash from './src/screens/auth/LightSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ACTIVE_BOOKS, ACTIVE_EVENT, ALLBOOKMARK, APPLANGUAGE, BANNER_DATA, BOOKMARK, EVENTBOOKMARK, GETLANGUAGE, LANGUAGE, MODE, PARISHBOOKMARK, PARISH_DATA, RCCG_DATA, USER_DETAILS} from './src/redux/reducer';
+import {ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, ALLBOOKMARK, APPLANGUAGE, BANNER_DATA, BOOKMARK, EVENTBOOKMARK, GETLANGUAGE, LANGUAGE, MODE, PARISHBOOKMARK, PARISH_DATA, RCCG_DATA, USER_DETAILS} from './src/redux/reducer';
 import {
+  Platform,
   useColorScheme,
 } from 'react-native';
 import English from './src/components/LanguageJson/English.json'
@@ -16,7 +17,7 @@ import Spanish from './src/components/LanguageJson/Spanish.json'
 import Fula from './src/components/LanguageJson/Fula.json'
 import Portugese from './src/components/LanguageJson/Portugese.json'
 import OneSignal from 'react-native-onesignal'
-import { active_event, getBooks, getSearchData, parish, show_all_banner } from './src/redux/actions/UserAction';
+import { active_event, getBooks, getSearchData, parish, show_all_banner, show_popup } from './src/redux/actions/UserAction';
 import { get_rccgData } from './src/redux/actions/AuthAction';
 
 const App = () => {
@@ -29,7 +30,8 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const Theme = useColorScheme()
 
-
+const [data,setData] = useState('')
+const deviceData = Platform.OS
 
   const setLanguage = async () => {
     const getLang = await AsyncStorage.getItem('language')
@@ -120,6 +122,8 @@ const App = () => {
     getparishData()
     geteventData()
     getrccgData()
+    // dispatch(show_popup(setData,deviceData));
+    
   }, [mode,Theme,applanguage])
 
   useEffect(() => {
@@ -131,6 +135,7 @@ const App = () => {
     manualbookmarkData()
     parishbookmarkData()
     eventbookmarkData()
+    getPopupData()
   }, [])
 
   const bookmarkData = async () => {
@@ -142,6 +147,15 @@ const App = () => {
     }else{
       console.log('Empty Book Marks')
     }
+  }
+  const getPopupData = async () => {
+  const popData  = await AsyncStorage.getItem('adv')
+  const cnvrtData = JSON.parse(popData)
+  if(cnvrtData){
+    dispatch({type:ADVERTISMENT, payload: cnvrtData})
+  }else{
+    console.log('MOnkey D. Luffy')
+  }
   }
   const manualbookmarkData = async () => {
     const bookMark = await AsyncStorage.getItem('allbookmark')

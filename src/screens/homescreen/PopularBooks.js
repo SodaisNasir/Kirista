@@ -22,6 +22,7 @@ import PopularBooksCard from '../../components/Card/PopularBooksCard';
 import { useSelector } from 'react-redux';
 import { getBooks } from '../../redux/actions/UserAction';
 import SkeletonLoader from '../../components/Loader/SkeletonLoader';
+import BooksCard from '../../components/Card/BooksCard';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -76,10 +77,13 @@ const PopularBooks = ({navigation}) => {
           }}
         />
         <View
-          style={{
-            paddingHorizontal:
-              w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-          }}>
+          // style={{
+          //   paddingHorizontal:
+          //     w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+          // }}
+          >
+
+           
 
             {
               myData.length > 0 ?
@@ -88,23 +92,17 @@ const PopularBooks = ({navigation}) => {
               data={myData}
               renderItem={({item}) => {
                 return(
-                  <PopularBooksCard
+                  <TouchableOpacity  
                   onPress={() => navigation.navigate('ViewManual',{
                     item: item
-                  })}
-                  source={{uri: item?.cover_image}}
+                  })}>
+                  <BooksCard 
+                  uri={item?.cover_image}
                   title={item?.title}
                   manual={item?.category}
-                  resize={'contain'}
-                  PlaceTrue={true}
-                  Place={item?.release_year}
-                  MainBoxRestyle={{
-                    borderBottomColor: Theme === 'dark' ? Color.DarkBorder : Color.BorderColor,
-                    borderBottomWidth: 1,
-                    marginTop: verticalScale(15),
-                    paddingBottom: verticalScale(15),
-                  }}
+                  year={item?.release_year}
                   />
+                  </TouchableOpacity>
                   )
               }
     

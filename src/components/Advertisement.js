@@ -17,17 +17,19 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
 import {show_popup} from '../redux/actions/UserAction';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Advertisement = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const applanguage = useSelector(state => state.applanguage)
+  const Advertisement = useSelector(state => state.Advertisement)
   const [data,setData] = useState()
-
+console.log('Advertisement', Advertisement?.image)
 const deviceData = Platform.OS
   useFocusEffect(
     useCallback(() => {
-      show_popup(setData,deviceData);
+      dispatch(show_popup(setData,deviceData))
     }, []),
   );
   const w = useWindowDimensions().width;
@@ -63,9 +65,9 @@ const deviceData = Platform.OS
   );
   
 const onSubmit = () => {
-  if(data?.book_name !=  null){
+  if(Advertisement?.book_name !=  null){
     navigation.navigate('ViewManual', {
-      item: data?.book,
+      item: Advertisement?.book,
     })
   }
   // else if (data){
@@ -74,7 +76,7 @@ const onSubmit = () => {
   
   else{
     navigation.navigate('AdvWebView', {
-      link: data?.app_page,
+      link: Advertisement?.app_page,
     })
   }
 }
@@ -84,7 +86,7 @@ const onSubmit = () => {
       <ImageBackground
         blurRadius={14}
         // source={require('../assets/images/ad_book_tablet.png')}
-        source={{uri: data?.image}}
+        source={{uri: Advertisement?.image}}
         style={styles.ImageBackground}>
         <View
           style={[
@@ -156,7 +158,7 @@ const onSubmit = () => {
                   // width: w >= 768 && h >= 1024 ? scale(7) : verticalScale(180),
                 }}
                 // source={require('../assets/images/ad_book.png')}
-                source={{uri: data?.image}}
+                source={{uri: Advertisement?.image}}
               />
             </View>
             <View style={{maxWidth: '50%', alignSelf: 'center'}}>
@@ -167,7 +169,7 @@ const onSubmit = () => {
                   color: Color.White,
                   fontFamily: Font.Poppins600,
                 }}>
-                {data?.title}
+                {Advertisement?.title}
               </Text>
             </View>
           </View>

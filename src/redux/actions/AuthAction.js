@@ -214,6 +214,8 @@ export const skipGuest = (device) => {
 
    } catch (error) {
     console.log('error', error)
+    dispatch({type: IS_GUEST, payload: true});
+    dispatch({type: USER_DETAILS, payload: 'guest'});
    }
   }
 }

@@ -36,7 +36,7 @@ const ReadHeader = props => {
   return (
     <View
       style={[
-        {backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor},
+        {backgroundColor: props.background},
         styles.AuthHeaderStyle,
       ]}>
       <View

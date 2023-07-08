@@ -43,11 +43,9 @@ import IncorrectModal from '../../../components/Modals/IncorrectModal';
 import { Reader, ReaderProvider, useReader } from '@epubjs-react-native/core';
 import { useFileSystem } from '@epubjs-react-native/file-system';
 import RNFS from 'react-native-fs';
-import LaraibCard from '../../../components/Card/LaraibCard';
 import WebView from 'react-native-webview';
 import moment from 'moment';
 import BookMarkModal from '../../../components/Modals/BookMarkModal';
-import SkeletonLoader from '../../../components/Loader/SkeletonLoader';
 import DoubleText from '../../../components/Loader/DoubleText';
 import ReadHeader from '../../../components/ReadHeader';
 // import base64 from 'react-native-base64'
@@ -92,12 +90,13 @@ const Readtwo = ({route}) => {
   const [markModal, setMarkModal] = useState(false)
   const [tapShow, setTapShow] = useState(false)
   const [email, setEmail] = useState(null);
+  const [numbers, setNumbers] = useState('');
   const webViewRef = useRef(null);
-
+  console.log('id', id)
   useFocusEffect(
     useCallback(() => {
-      dispatch(getChapters(setData,id))
-      sendReadBok(id)
+      dispatch(getChapters(setData,123,chapters))
+      sendReadBok(123)
       setTimeout(() => {
       // setLoader(false)
       loadXMLDoc()
@@ -116,9 +115,9 @@ const Readtwo = ({route}) => {
       console.log('loader false effecdt')
     }
   }, [loader])
-  useEffect(() => {
-    getChaptersByID(setChapterData, select);
-  }, [select]);
+  // useEffect(() => {
+  //   getChaptersByID(setChapterData, select);
+  // }, [select]);
   // useEffect(() => {
   //   changeTheme(Theme)
   //   changeFontColor(Theme)
@@ -210,11 +209,15 @@ const Readtwo = ({route}) => {
       setShowSvg(!showSvg);
       changeTheme('light');
       changeFontColor('light');
+      changeHeaderFontColor('#797B7F')
+      changeHeaderBackground(Color.White)
     } else {
       setTempMode('dark');
       setShowSvg(!showSvg);
       changeTheme('dark');
       changeFontColor('dark');
+      changeHeaderFontColor(Color.White)
+      changeHeaderBackground(Color.DarkTheme)
     }
    
   };
@@ -271,6 +274,11 @@ const Readtwo = ({route}) => {
     clearTimeout(doubleTapRef.current);
     setTapShow(true)
     setBottomModal(!bottomModal);
+    changeHeaderBackground(Theme === 'dark'
+    ? Color.DarkTheme
+    : Color.HeaderColor)
+    Header('none')
+    changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
   };
 
   const handleSingleTap = () => {
@@ -285,6 +293,11 @@ const Readtwo = ({route}) => {
       setBottomModal(!bottomModal)
       clearTimeout(doubleTapRef.current);
       setTapShow(false)
+      Header('block')
+      changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
+      changeHeaderBackground(Theme === 'dark'
+      ? Color.DarkTheme
+      : Color.HeaderColor)
     // } else {
     //   doubleTapRef.current = new Date().getTime();
     // }
@@ -393,7 +406,7 @@ const Readtwo = ({route}) => {
   };
   const loadXMLDoc = () => {
     const functionName = 'loadXMLDoc';
-    const functionArguments = [id]; // Optional function arguments
+    const functionArguments = [123]; // Optional function arguments
 
 
     const injectedJavaScript = `
@@ -445,7 +458,7 @@ const Readtwo = ({route}) => {
   };
   const SaveBookID = () => {
     const functionName = 'SaveBook';
-    const functionArguments = [id]; // Optional function arguments
+    const functionArguments = [123]; // Optional function arguments
 
     const injectedJavaScript = `
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
@@ -455,6 +468,37 @@ const Readtwo = ({route}) => {
   const GotoIndex = (id) => {
     const functionName = 'GotoIndex';
     const functionArguments = [id]; // Optional function arguments
+
+    const injectedJavaScript = `
+      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    `;
+    webViewRef?.current.injectJavaScript(injectedJavaScript);
+    setModalThreeVisible(false)
+  };
+  const changeHeaderBackground = (color) => {
+    const functionName = 'changeHeaderBackground';
+    const functionArguments = [color]; // Optional function arguments
+
+    const injectedJavaScript = `
+      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    `;
+    webViewRef?.current.injectJavaScript(injectedJavaScript);
+    setModalThreeVisible(false)
+  };
+  const changeHeaderFontColor = (color) => {
+    const functionName = 'changeHeaderFontColor';
+    const functionArguments = [color]; // Optional function arguments
+
+    const injectedJavaScript = `
+      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    `;
+    webViewRef?.current.injectJavaScript(injectedJavaScript);
+    setModalThreeVisible(false)
+  };
+  const Header = (type) => {
+    console.log('type', type)
+    const functionName = 'Header';
+    const functionArguments = [type]; // Optional function arguments
 
     const injectedJavaScript = `
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
@@ -492,13 +536,13 @@ const day = String(currentDate.getDate()).padStart(2, '0');
 const formattedDate = `${year}-${month}-${day}`;
 
   const  onMessage = async (item) =>{
-    console.log('============>')
-    console.log('onMessage',item)
-    console.log('============>')
     const newData = item.nativeEvent.data.split(',')[1]
     const type = item.nativeEvent.data.split(',')[0]
-
+    
+    console.log('============>')
+    console.log('onMessage',newData)
     console.log('type', type)
+    console.log('============>')
     if(type == 'loader'){
    setLoader(false)
     } else if(type == 'bookmark'){
@@ -523,8 +567,10 @@ const formattedDate = `${year}-${month}-${day}`;
           setMarkModal(false)
         }
       
+  }else if(type == 'chapter'){
+    setNumbers(newData)
   }else{
-    console.log('first')
+    console.log('onMessage else')
   }
 }
 
@@ -603,7 +649,10 @@ const formattedDate = `${year}-${month}-${day}`;
             </View>
         </View>
               :
-              <ReadHeader textshown={true} text={'Chapter 01'} />
+              // <ReadHeader 
+              // background={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
+              // textshown={true} text={'Chapter 01'} />
+              null
          
             }
         <IncorrectModal
@@ -645,10 +694,10 @@ const formattedDate = `${year}-${month}-${day}`;
           <View
           onTouchStart={() => handleSingleTap()}
             style={{
-              height: bottomModal ? '90%' : '100%',
+              height: bottomModal ? '100%' : '100%',
               width: '100%',
-              paddingHorizontal:
-                w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
+              // paddingHorizontal:
+              //   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               backgroundColor:   backgroundColor != '' && show
               ? backgroundColor
               : Theme === 'dark'
@@ -660,7 +709,7 @@ const formattedDate = `${year}-${month}-${day}`;
 
 
             {
-              loader ?
+              !loader ?
               // <ActivityIndicator size={'large'} color={'red'} />
              <View style={{flex:1,backgroundColor: Theme === 'dark'
              ? Color.DarkTheme
@@ -741,7 +790,7 @@ const formattedDate = `${year}-${month}-${day}`;
                {/* <ReaderProvider >
               <Faltu {...{setBottomModal, bottomModal, Theme,count,setChapNo,chapNo,fontData,filePath}} />
                </ReaderProvider> */}
-          <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} />
+          {/* <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} /> */}
           </View>
 
         {/* </ScrollView> */}

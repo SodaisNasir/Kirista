@@ -23,6 +23,7 @@ export const RCCG_DATA  = 'RCCG_DATA';
 
 export const CHAPTERMARK = 'CHAPTERMARK'
 export const LOADER = 'LOADER'
+export const  ADVERTISMENT = 'ADVERTISMENT'
 
 
 const initialState = {
@@ -50,6 +51,7 @@ const initialState = {
   rccgData: [],
   chaptermark: [],
   loader: false,
+  Advertisement: null,
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -168,6 +170,11 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         loader: action.payload,
+      };
+    case ADVERTISMENT:
+      return {
+        ...state,
+        Advertisement: action.payload,
       };
 
     default:

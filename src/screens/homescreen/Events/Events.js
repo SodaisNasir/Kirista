@@ -16,6 +16,7 @@ import DetailsCard from '../../../components/Card/DetailsCard';
 import {active_event} from '../../../redux/actions/UserAction';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import SkeletonLoader from '../../../components/Loader/SkeletonLoader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -44,7 +45,7 @@ const Events = () => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
-            marginTop: verticalScale(10),
+            // marginTop: verticalScale(10),
           }}>
           {event.length > 0 ? (
             <>
@@ -62,7 +63,7 @@ const Events = () => {
                       source={{uri: item.image}}
                       resize={'contain'}
                       TimeTrue={true}
-                      date={moment(item.start_date).format('MMM Do YY')}
+                      date={moment(item.start_date).format('MMM Do, YYYY.')}
                       time={item.start_time}
                       MainBoxRestyle={{
                         marginTop: verticalScale(12),
@@ -73,20 +74,23 @@ const Events = () => {
               })}
             </>
           ) : (
-            <View
-              style={{
-                marginTop: '70%',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <ActivityIndicator
-                size="large"
-                color={Theme === 'dark' ? Color.White : Color.DarkTheme}
-              />
-            </View>
+            <View style={{
+              // flexDirection: ''
+            }}>
+            <SkeletonLoader />
+            <View style={{height: 0,marginVertical:5}} />
+            <SkeletonLoader />
+            <View style={{height: 0,marginVertical:5}} />
+            <SkeletonLoader />
+            <View style={{height: 0,marginVertical:5}} />
+            <SkeletonLoader />
+            <View style={{height: 0,marginVertical:5}} />
+            <SkeletonLoader />
+              </View>
           )}
          
         </View>
+        <View style={{height: verticalScale(10)}} />
       </ScrollView>
     </View>
   );
