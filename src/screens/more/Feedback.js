@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
+  Keyboard,
 } from 'react-native';
 import React, {useLayoutEffect, useState} from 'react';
 import {Color} from '../../utils/Colors';
@@ -148,62 +150,58 @@ setLoader(true);
                 : verticalScale(45),
           }}
       />
-      {/* <CustomHeader text={applanguage.Feedback} AuthHeaderStyle={{
-         height:
-         Platform.OS == 'android'
-           ? w >= 768 && h >= 1024
-             ? verticalScale(85)
-             : verticalScale(110)
-           : w >= 768 && h >= 1024
-           ? verticalScale(80)
-           : w <= 450 && h <= 750
-           ? verticalScale(60)
-           : verticalScale(60),
-           paddingTop:
-           w >= 768 && h >= 1024
-             ? moderateVerticalScale(30)
-             : moderateVerticalScale(25),
-       
-      }}/> */}
-      <View
-        style={{
-          paddingHorizontal:
-            w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-        }}>
-        <View style={{height: '60%', width: '100%'}}>
+     <ScrollView  style={{height: '100%',width: '100%'}}>
+
+        {/* <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}> */}
           <View
             style={{
-              flex: 1,
-              width: '100%',
-              paddingTop: moderateVerticalScale(10),
-              paddingLeft: moderateScale(10),
-              paddingRight: moderateScale(30),
+              paddingHorizontal:
+                w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
             }}>
-            <TextInput
-              multiline={true}
-              placeholder={applanguage.FeedbackBrief}
-              placeholderTextColor={Theme === 'dark' ? '#404F64' : '#C6CAD1'}
-              style={[
-                {
-                  fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
-                  fontFamily: Font.Poppins400,
-                  // alignItems: 'center',
-                  // justifyContent: 'center',
-                  color: Theme === 'dark' ? Color.DarkThemeInputText : Color.TextColor,
-                  // flex: 1,
-                  // textAlignVertical: 'top',
-                },
-              ]}
-              onChangeText={onChangeText}
-              value={text}
-            />
-          </View>
-        </View>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <View style={{height: verticalScale(400)}}>
+              <View
+                style={{
+                 flex:1,
+                 marginTop: scale(10)
+                  // paddingTop: moderateVerticalScale(10),
+                  // paddingLeft: moderateScale(10),
+                  // paddingRight: moderateScale(30),
+                  
+                }}>
+                <TextInput
+                  multiline={true}
+                  placeholder={applanguage.FeedbackBrief}
+                  placeholderTextColor={Theme === 'dark' ? '#404F64' : '#C6CAD1'}
+                  style={
+                    {
+                      // fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                      // fontFamily: Font.Poppins400,
+                      // paddingTop: scale(10),
+                      // alignItems: 'center',
+                      // justifyContent: 'center',
+                      // color: Theme === 'dark' ? Color.DarkThemeInputText : Color.TextColor,
+                      //  flex: 1,
+                      //  textAlignVertical: 'top',
+                      // textAlignVertical: 'center'
+                      flex: 1,
+                      paddingRight: scale(15),
+                      color: Theme === 'dark' ? Color.DarkThemeInputText : Color.TextColor,
+                      fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(14),
+                      fontFamily: Font.Poppins400,
+                      paddingTop: scale(10),
+                      textAlignVertical: 'top',
+                      maxWidth: '90%'
+                    }
+                  }
+                  onChangeText={onChangeText}
+                  value={text}
+                />
+              </View>
+            </View>
           <View
             style={{
-              height: '40%',
+              height: verticalScale(200),
             }}>
             <TouchableOpacity
               activeOpacity={0.8}
@@ -219,18 +217,18 @@ setLoader(true);
 
             <View
               style={{
-                marginVertical:
-                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(35),
+                marginTop:
+                  w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
               <CustomButton 
-              // onPress={() => navigation.goBack()}
               onPress={onSumbit}
                text={applanguage.Send} />
             </View>
           </View>
 
-        </KeyboardAvoidingView>
       </View>
+        {/* </KeyboardAvoidingView> */}
+     </ScrollView>
       <Loader
    onBackdropPress={() => setLoader(false)}
    isVisible={loader}

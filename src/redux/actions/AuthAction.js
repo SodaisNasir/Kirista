@@ -204,12 +204,13 @@ export const skipGuest = (device) => {
 
     const responseData = await response.json()
 
-    if(responseData.success.status === 200){
+    if(responseData?.success?.status === 200){
       dispatch({type: IS_GUEST, payload: true});
       dispatch({type: USER_DETAILS, payload: 'guest'});
-      console.log('responseData',responseData)
     }else{
       console.log('else error')
+      dispatch({type: IS_GUEST, payload: true});
+      dispatch({type: USER_DETAILS, payload: 'guest'});
     }
 
    } catch (error) {

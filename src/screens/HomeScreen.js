@@ -10,6 +10,7 @@ import {
   Dimensions,
   Platform,
   Linking,
+  RefreshControl,
 } from 'react-native';
 import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
@@ -25,20 +26,20 @@ import {
   getSearchData,
   parish,
   show_all_banner,
+  BackHandler
 } from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
 import SkeletonLoader from '../components/Loader/SkeletonLoader';
 import BannerLoader from '../components/Loader/BannerLoader';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import RNFS from 'react-native-fs';
-import RenderHTML, {defaultSystemFonts} from 'react-native-render-html';
 import {get_rccgData} from '../redux/actions/AuthAction';
-import {useEffect} from 'react';
 import DoubleText from '../components/Loader/DoubleText';
 import FastImage from 'react-native-fast-image';
+import { useEffect } from 'react';
+import NetInfo from '@react-native-community/netinfo';
+import { WebView } from 'react-native-webview';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -47,7 +48,6 @@ const HomeScreen = ({scrollViewRef}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const Theme = useSelector(state => state.mode);
-  const chapters = useSelector(state => state.chapters);
   const applanguage = useSelector(state => state.applanguage);
   const language = useSelector(state => state.language);
   const bannerData = useSelector(state => state.bannerData);
@@ -56,104 +56,55 @@ const HomeScreen = ({scrollViewRef}) => {
   const activeBooks = useSelector(state => state.activeBooks);
   const rccgData = useSelector(state => state.rccgData);
   const loader = useSelector(state => state.loader);
-  const [htmlContent, setHtmlContent] = useState('');
   const tabPotrait = w >= 768 && h >= 1024;
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
+  const [isConnected, setIsConnected] = useState(false);
 
-  const image_data = [
-    {
-      id: 1,
-      image: require('../assets/images/list.jpg'),
-      image2: require('../assets/images/redeemImgradiant.png'),
-      image3: require('../assets/images/rccg_logo.png'),
-      text: 'the redeemed christian church of god.',
-      text2: applanguage.ReadMore + '  ',
-      color: '#28166f',
-      screen_name: 'Rccg',
-    },
-    {
-      id: 2,
-      image: require('../assets/images/list2.jpg'),
-      image2: require('../assets/images/redeemImgradiant.png'),
-      image3: require('../assets/images/rccg_logo.png'),
-      text: 'rccg ',
-      text_subText: 'structure',
-      text2: applanguage.ReadMore + '  ',
-      color: '#00923f',
-      type: 'ye',
-      screen_name: 'RccgStructure',
-    },
-    {
-      id: 3,
-      image: require('../assets/images/list3.jpg'),
-      image2: require('../assets/images/redeemImgradiant.png'),
-      image3: require('../assets/images/rccg_logo.png'),
-      text: 'rccg ',
-      text_subText: 'continent 2',
-      text2: applanguage.ReadMore + '  ',
-      color: '#e43f40',
-      type: 'ye',
-      screen_name: 'RccgContinent',
-    },
-  ];
-  const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected);
+    });
+  
+    // Clean up the subscription when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(show_all_banner());
-      dispatch(parish());
-      dispatch(active_event());
-      dispatch(getBooks());
-      dispatch(get_rccgData(language));
-      dispatch(getSearchData());
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(show_all_banner());
+  //     dispatch(parish());
+  //     dispatch(active_event());
+  //     dispatch(getBooks());
+  //     dispatch(get_rccgData(language));
+  //     dispatch(getSearchData());
+  //   }, [isConnected]),
+  // );
   const onSubmit = async item => {
-    // navigation.navigate('AdvWebView', {
-    //   link: item?.app_page,
-    // })
+
     const url = item?.app_page;
 
     // Checking if the link is supported
     const supported = await Linking.canOpenURL(url);
 
     if (supported) {
-      // Opening the link in the in-app browser
-      await Linking.openURL(url);
+      // await Linking.openURL(url);
+      navigation.navigate('CusWebView', {
+        link: url,
+      });
     } else {
       console.log(`Cannot open URL: ${url}`);
     }
   };
-  const handleClick = async item => {
-    try {
-      // Access the item's properties
-      const {id, title, author, cover_image, about} = item;
-
-      // Perform the desired action with the item's properties
-      // console.log('Clicked item:', { id, title, author, cover_image });
-
-      // Example: Save the 'about' content to a file
-      // const filePath = `${RNFS.DocumentDirectoryPath}/about.txt`;
-      // await RNFS.writeFile(filePath, about, 'utf8');
-
-      // Save the file path in AsyncStorage
-
-      // Save the image data in AsyncStorage
-      // await AsyncStorage.setItem('filePath', filePath);
-      setHtmlContent(item);
+  const handleClick =  item => {
       navigation.navigate('ViewManual', {
         item: item,
       });
-
-      // Update the state or perform other actions
-    } catch (error) {
-      console.error('Error handling click event:', error);
-    }
   };
   const handleSubmit = type => {
     if (type === 'RCCG') {
-      console.log('first');
       navigation.navigate('Rccg');
     } else if (type === 'RCCG Continent 2') {
       navigation.navigate('RccgContinent');
@@ -161,13 +112,46 @@ const HomeScreen = ({scrollViewRef}) => {
       navigation.navigate('RccgStructure');
     }
   };
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    dispatch(show_all_banner());
+    dispatch(parish());
+    dispatch(active_event());
+    dispatch(getBooks());
+    dispatch(get_rccgData(language));
+    dispatch(getSearchData());
+    // Add your refresh logic here
+    // For example, make an API call or fetch new data
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000); // Simulating a delay of 2 seconds before refreshing is completed
+  };
+//   const webViewRef = useRef()
+//   const handleBackButtonPress = () => {
+//     try {
+//         webViewRef.current?.goBack()
+//     } catch (err) {
+//         console.log("[handleBackButtonPress] Error : ", err.message)
+//     }
+// }
+
+// useEffect(() => {
+//     BackHandler.addEventListener("hardwareBackPress", handleBackButtonPress)
+//     return () => {
+//         BackHandler.removeEventListener("hardwareBackPress", handleBackButtonPress)
+//     };
+// }, []);
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
-      <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
+      <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef} refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }>
         <View
           style={[
             {
@@ -297,12 +281,13 @@ const HomeScreen = ({scrollViewRef}) => {
                         <View
                           style={{
                             // marginVertical: verticalScale(20),
-                            marginTop: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(20),
+                            marginTop: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(13),
                             marginLeft: scale(10),
                           }}>
                           <View
                             style={{
-                              justifyContent: 'center',
+                              // justifyContent: 'center',
+                              flex:1
                             }}>
                             <Text
                               numberOfLines={2}
@@ -312,12 +297,14 @@ const HomeScreen = ({scrollViewRef}) => {
                                     Theme === 'dark'
                                       ? Color.White
                                       : Color.DarkTextColor,
+                                      paddingTop: scale(5)
                                 },
                                 styles.BooksTitleStyle,
                               ]}>
                               {item?.title}
+                              {/* Sunday School Teachers Manual */}
                             </Text>
-                            <Text
+                            {/* <Text
                               style={[
                                 styles.BooksTitleStyle,
                                 {
@@ -332,15 +319,16 @@ const HomeScreen = ({scrollViewRef}) => {
                                 },
                               ]}>
                               {item?.category}
-                            </Text>
+                            </Text> */}
                           </View>
                           <View
                             style={{
-                              marginTop: tabPotrait
-                                ? verticalScale(1)
-                                : fourInchPotrait
-                                ? verticalScale(0.5)
-                                : verticalScale(2),
+                              flex:0.5,
+                              // marginTop: tabPotrait
+                              //   ? verticalScale(1)
+                              //   : fourInchPotrait
+                              //   ? verticalScale(0.5)
+                              //   : verticalScale(2),
                             }}>
                             <Text style={styles.YearStyle}>
                               {item?.release_year}
@@ -370,7 +358,7 @@ const HomeScreen = ({scrollViewRef}) => {
             },
             styles.SwiperViewTwo,
           ]}>
-          {rccgData.length > 0 && !loader ? (
+          {rccgData.length > 0  && !loader ? (
             <FlatList
               data={rccgData}
               showsHorizontalScrollIndicator={false}
@@ -660,7 +648,7 @@ const HomeScreen = ({scrollViewRef}) => {
               />
             </TouchableOpacity>
           </View>
-          {parishData?.length > 0 && !loader ? (
+          {parishData?.length > 0 && !loader  ? (
             <>
               {parishData?.map((item, index) => {
                 return (
@@ -671,6 +659,7 @@ const HomeScreen = ({scrollViewRef}) => {
                       onPress={() => {
                         navigation.navigate('ViewParish', {
                           id: item.id,
+                          item: item
                         });
                       }}
                       source={item?.image}
@@ -736,7 +725,7 @@ const HomeScreen = ({scrollViewRef}) => {
                         key={item.id}
                         data={item}
                         onPress={() => {
-                          navigation.navigate('EventScreen', {id: item.id});
+                          navigation.navigate('EventScreen', {id: item.id,item:item});
                         }}
                         source={item?.image}
                         title={item.title}
@@ -833,14 +822,14 @@ const styles = StyleSheet.create({
   YearStyle: {
     color: Color.BoldTextColor,
     fontFamily: Font.Poppins500,
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(10),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(11),
     right: w >= 768 && h >= 1024 ? scale(1) : 0,
   },
 
   BooksTitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(12),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(15),
     fontFamily: Font.Poppins600,
-    maxWidth: '80%',
+    maxWidth: '90%',
   },
   BigTextStyle: {
     color: Color.DarkTextColor,

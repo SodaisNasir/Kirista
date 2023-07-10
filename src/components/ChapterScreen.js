@@ -53,7 +53,6 @@ const ChapterScreen = (props) => {
   return (
     <ScrollView>
       {getData?.map((Btn, index) => {
-        console.log('Btn.ref', Btn.ref)
        const result = Btn?.title?.replace("class='chap_title'",`style='color:${Btn.id == props.select ? '#387DE5' : Theme === 'dark' ? Color.White : Color.Black }; font-family:lato; font-size:10px;'`)
        const title = {
            html: result

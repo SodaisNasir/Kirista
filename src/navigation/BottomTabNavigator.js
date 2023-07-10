@@ -48,6 +48,7 @@ import Country from '../screens/Country';
 import { useSelector } from 'react-redux';
 import FeaturedCountry from '../components/FeaturedCountry';
 import ViewBookTitle from '../screens/homescreen/Read Book/ViewBookTitle';
+import CusWebView from '../components/CusWebView';
 
 const Tab = createBottomTabNavigator();
 
@@ -101,6 +102,11 @@ function AllHome() {
            <Stack.Screen
         name="LibraryHome"
         component={LibraryHome}
+        options={{animation: 'fade_from_bottom'}}
+      />
+           <Stack.Screen
+        name="CusWebView"
+        component={CusWebView}
         options={{animation: 'fade_from_bottom'}}
       />
       <Stack.Screen

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { base_Url } from "../../utils/Url";
-import { ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, BANNER_DATA, CHAPTERS, LOADER, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
+import { ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, ALLBOOKMARK, BANNER_DATA, CHAPTERS, EVENTBOOKMARK, GETLIBRARYDATA, LOADER, PARISHBOOKMARK, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
 
 export const show_all_banner =  () =>{
   return async (dispatch) => {
@@ -59,6 +59,7 @@ export const show_popup =  (setData,Device) =>{
 } 
 export const parish =  () => {
   return async (dispatch) => {
+    console.log('first')
     dispatch({type: LOADER, payload: true})
     try {
       let base_url = `${base_Url}parish-active`;
@@ -69,6 +70,7 @@ export const parish =  () => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
+      console.log('responseData.success.data', responseData.success.data)
       await AsyncStorage.setItem('parishData', JSON.stringify(responseData.success.data));
      dispatch({type: PARISH_DATA, payload: responseData.success.data})
      dispatch({type: LOADER, payload: false})
@@ -81,7 +83,7 @@ export const parish =  () => {
   }
 }
 }
-export const parish_by_id = async (setData, id,setLoading,setmap) => {
+export const parish_by_id = async (setData, id,setLoading,setmap,item) => {
   setLoading(true)
   try {
     let base_url = `${base_Url}parish/${id}`;
@@ -97,12 +99,13 @@ export const parish_by_id = async (setData, id,setLoading,setmap) => {
       console.log("====================");
       setmap(JSON.parse(responseData.success.data["map"]))
       setLoading(false)
-     setData( responseData.success.data)
+     setData(responseData.success.data)
     } else {
       console.log('else error');
     }
   } catch (error) {
     console.log('error', error)
+    
   }
 }
 export const active_event =  () => {
@@ -281,7 +284,10 @@ export const getChapters =  (setData,id,chapters) => {
       if (responseData.success.status === 200) {
         setData(responseData.success.data)
         // dispatch({type: CHAPTERS, payload: responseData.success.data})
-        const getCid = chapters.find((item) => item.books_id == id)
+        // const getCid = chapters.find((item) => item.books_id == id)
+        const singleArray = chapters.flat();
+        const getCid = singleArray.find((item) => item.books_id == id)
+
         if(getCid){
           const updatedData = chapters.filter(item => item.books_id != id);
           dispatch({type: CHAPTERS, payload: [updatedData, ...responseData.success.data]});
@@ -583,5 +589,38 @@ export const sendReadBok = async (id) => {
     }
   } catch (error) {
     console.log('error', error);
+  }
+}
+export const getLibraryData =  (userData,setData) => {
+  return async (dispatch) => {
+    try {
+      let base_url = `${base_Url}show-mark/${userData.data.id}`;
+  
+      const response = await fetch(base_url, {
+        method: 'get',
+      });
+      
+      const responseData = await response.json();
+  
+      if (responseData.success.status === 200) {
+        // dispatch({type:GETLIBRARYDATA, payload: responseData.success.data})
+        // console.log(responseData.success.data);
+        const bookData = responseData.success.data.filter((item) => item.type == 'book')
+        dispatch({type: ALLBOOKMARK, payload: bookData})
+        await AsyncStorage.setItem('allbookmark', JSON.stringify(bookData));
+
+        const parishData = responseData.success.data.filter((item) => item.type == 'parish')
+        dispatch({type: PARISHBOOKMARK, payload: parishData})
+        await AsyncStorage.setItem('parishbookmark', JSON.stringify(parishData));
+
+        const eventData = responseData.success.data.filter((item) => item.type == 'event')
+        dispatch({type: EVENTBOOKMARK, payload: eventData})
+        await AsyncStorage.setItem('eventbookmark', JSON.stringify(eventData));
+      }else{
+        console.log('first')
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 }

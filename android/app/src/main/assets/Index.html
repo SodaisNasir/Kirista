@@ -6,8 +6,9 @@
    <div id="chapterback" style="width:100%;height:100px;background: #F1F6FD;position: fixed;top: 0;left: 0; color: #797b7f; padding-left: 20px;padding-top: 30px;"><h2 id="chapter" style="margin-top: 50px;">Chapter 1</h2></div>
 
   <!-- <button style="margin-top:100px" onclick="loadXMLDoc(124)">test</button> -->
+    <!-- <div id="free"  style="height: 70px;"></div> -->
     <div id="book"  style="padding-left: 20px;padding-right: 20px;padding-top: 110px;"></div>
-    <div id="page" style="position: fixed; bottom: 0;right: 0;background-color: aliceblue;"></div>
+    <div id="page" style="position: fixed; bottom: 0;right: 0;background-color: aliceblue;margin-bottom: 30px;margin-right: 10px"></div>
 </body>
 
 <script  type="text/javascript">
@@ -66,12 +67,13 @@ function Chapping(type){
             if(eleemtnnumber < lengthElement ){
                  var j = eleemtnnumber+1;
                  var t2 = document.getElementById(j).offsetTop;
-
+                
                  if(currentScrollPosition >=t && currentScrollPosition <= t2){
                     console.log(t+" > "+currentScrollPosition+" > "+t2)
                     eleemtnnumber++
                     backagain =0;
-                    var v = 'tittle'+eleemtnnumber
+                    var valu = eleemtnnumber -1
+                    var v = 'tittle'+(valu)
                     console.log(document.getElementById(v).innerText)
                     // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
                     document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
@@ -99,16 +101,18 @@ function Chapping(type){
                 currentScrollPosition = currentScrollPosition +20
                 
                     if(currentScrollPosition > t2 && currentScrollPosition < t){
-                        console.log(t+" > "+currentScrollPosition+" > "+t2)
+                     
                         eleemtnnumber--
-                        var v = 'tittle'+eleemtnnumber+1
+                       
+                        var v = 'tittle'+(eleemtnnumber+1)
+                        console.log( "cccc"+v)
                          // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
                        document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
                         
                     }
                  }else if (eleemtnnumber == 1){
                     if(currentScrollPosition < t  && backagain ==0){
-                        console.log(t+" > "+currentScrollPosition+" > "+t2)
+                        console.log(eleemtnnumber)
                         backagain = 1;
                         var v = 'tittle'+eleemtnnumber
                          // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
@@ -140,8 +144,6 @@ showScrollTop = () =>{
         Chapping('up')
     } // else was horizontal scroll
     lastScrollTop = st <= 0 ? 0 : st;
- 
-    
 }
 window.addEventListener('scroll', showScrollTop)
 
@@ -152,26 +154,20 @@ function Goto(index){
 function changeTheme(colors){
     document.getElementById('book').style.background = colors
     document.getElementById('page').style.background = colors
-    
+
 }
 
 function changeFontColor(colors){
-    
     document.getElementById('book').style.color = colors
     document.getElementById('page').style.color = colors
-    
 }
 
 function changeHeaderFontColor(colors){
-    
     document.getElementById('chapterback').style.color = colors
-        
 }
 
 function changeHeaderBackground(colors){
-    
     document.getElementById('chapterback').style.background = colors
-    
 }
 
 var font = 12;
@@ -181,8 +177,6 @@ function changeFontSize(size){
     document.getElementById('book').style.fontSize = size+"px"
     // window.ReactNativeWebView.postMessage('Data from WebView / Website');
     // alert('test')
-
-    
 }
 
 function BookMark(){
@@ -202,7 +196,11 @@ function BookMark(){
 }
 
 function GotoIndex(OffSet){
-    window.scrollTo(0, OffSet);
+    // window.scrollTo(0, OffSet);
+    window.scrollTo({
+  top: OffSet,
+  behavior: 'smooth',
+  })
 }
 
 function SaveBook(bookid){
@@ -252,6 +250,5 @@ function Header(type){
         document.getElementById('chapterback').style.display = type
         document.getElementById('book').style.paddingTop  = '0px'
     }
-    
 }
 </script>

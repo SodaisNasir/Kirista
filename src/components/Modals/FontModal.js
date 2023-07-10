@@ -19,13 +19,9 @@ import {useNavigation} from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 
 const FontModal = (props) => {
-  // const toggleModal = () => {
-  //   setModalVisible(!isModalVisible)
-  // }
+
   const w = useWindowDimensions().width
   const h = useWindowDimensions().height
-  const [selected, setSelected] = useState()
-  const navigation = useNavigation()
   const data = [
     {
       id: '1',
@@ -67,12 +63,7 @@ const FontModal = (props) => {
   
  const Theme = useSelector(state => state.mode)
 
-//   const onSubmit = (item) => {
-//   props.OptionSelect(false)
-//   props.fontData(item)
-//   // props.changeFont('monospace')
-//   //  onPress={() => goToLocation("epubcfi(/6/6!/4/2[pgepubid00492]/40[pgepubid00602]/6[pgepubid00603]/14/38/1:1)")}
-// }
+
 
   return (
       <Modal

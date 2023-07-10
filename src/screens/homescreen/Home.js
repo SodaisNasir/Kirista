@@ -188,7 +188,7 @@ const Home = () => {
         />
       </View>
       <BottomTab activeHome={true} onPress={() => {
-        Navigation.navigate('Home')
+        Navigation.navigate(handleSingleTap)
         handleScrollToTop()}}  />
     </>
   );

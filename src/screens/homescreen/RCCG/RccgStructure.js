@@ -135,7 +135,7 @@ const RccgStructure = ({navigation}) => {
               alignSelf: 'center',
             }}
           />
-          {
+          {/* {
                 loader ?
                 <View style={{flex:1,justifyContent: 'center',}}>
                 <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(25)} />
@@ -165,7 +165,7 @@ const RccgStructure = ({navigation}) => {
               General Overseer, RCCG World Wide
             </Text>
           </View>
-}
+} */}
           {/* <View
             style={{
               borderColor: Theme === 'dark' ? Color.DarkBorderColor : Color.BorderColor,

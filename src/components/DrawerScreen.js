@@ -113,7 +113,6 @@ const chapterData = props.chapterData
                   styles.topText,
                   {fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(14)},
                   {color: Theme === 'dark' ? Color.White : Color.DarkTheme,lineHeight : verticalScale(18)},
-                  
                 ]}>
                 {/* Student Manual */}
                 {bookData?.category}

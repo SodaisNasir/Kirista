@@ -50,13 +50,12 @@ const Events = () => {
           {event.length > 0 ? (
             <>
               {event?.map((item, index) => {
-                console.log('item.start_time', item.start_time)
                 return (
                     <DetailsCard
                       key={item.id}
                       data={item}
                       onPress={() => {
-                        navigation.navigate('EventScreen', {id: item.id});
+                        navigation.navigate('EventScreen', {id: item.id,item: item});
                       }}
                       title={item.title}
                       manual={item.country}

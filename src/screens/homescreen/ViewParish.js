@@ -9,6 +9,7 @@ import {
   Platform,
   Linking,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -33,9 +34,9 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const ViewParish = ({route}) => {
-  const {id} = route.params;
+  const {id,item} = route.params;
   const dispatch = useDispatch()
-  const [data, setData] = useState([]);
+  const [setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
@@ -56,16 +57,15 @@ const ViewParish = ({route}) => {
   //   setLocation(json)
   //   return `${json.latitude} - ${json.longitude}`;
   // };
-
   useFocusEffect(
     useCallback(() => {
-      parish_by_id(setData, id, setLoading,setCordinates);
+      parish_by_id(setData, id, setLoading,setCordinates,item);
+      setCordinates(JSON.parse(item["map"]))
     }, []),
   );
-
   const shareBook = () => {
     let shareImageBase64 = {
-      title: data.title,
+      title: item.title,
       url: `d`,
       subject: 'Share Book Link', //  for email
     }
@@ -73,10 +73,11 @@ const ViewParish = ({route}) => {
   }
   useEffect(() => {
     addBookmark()
-  },[parishbookmark,data])
+  },[parishbookmark,item])
   
   const addBookmark = () => {
-    const extrxtIds = parishbookmark.find((elm) => elm.id == data.id)
+    const extrxtIds = parishbookmark.find((elm) => elm.id == item.id)
+    console.log('extrxtIds', extrxtIds)
     if(extrxtIds != null){
       setIsChecked(true);
     }else{
@@ -87,20 +88,23 @@ const ViewParish = ({route}) => {
   const type = 'parish'
 
   const handleSubmit = async () => {
-    const findData = parishbookmark?.find((elm) => elm.id == data?.id)
+    const findData = parishbookmark?.find((elm) => elm.id == item?.id)
 
     if (findData) {
       const updatedData = parishbookmark.filter((elm) => elm.id !== findData.id);
       dispatch({type: PARISHBOOKMARK, payload: updatedData})
       await AsyncStorage.setItem('parishbookmark', JSON.stringify(updatedData));
       setIsChecked(false)
+      markData(type,item.id,user_details,ToastAndroid)
       console.log('laraib =========>')
+      ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
     } else {
-      markData(type,data.id,user_details)
-      dispatch({type: PARISHBOOKMARK, payload: [...parishbookmark, data]})
+      markData(type,item.id,user_details,ToastAndroid)
+      dispatch({type: PARISHBOOKMARK, payload: [...parishbookmark, item]})
       console.log('laraib =========> Object not found in the array');
       setIsChecked(true);
-      await AsyncStorage.setItem('parishbookmark', JSON.stringify([...parishbookmark, data]));
+      await AsyncStorage.setItem('parishbookmark', JSON.stringify([...parishbookmark, item]));
+      ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
     }
   }
   return  (
@@ -152,11 +156,11 @@ const ViewParish = ({route}) => {
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
               {
-                data.image ?
+                item?.image ?
             <View style={styles.ImageViewStyle}>
               <Image
                 resizeMode="contain"
-                source={{uri: data.image}}
+                source={{uri: item?.image}}
                 style={{height: '100%', width: '100%'}}
               />
             </View>
@@ -168,7 +172,7 @@ const ViewParish = ({route}) => {
               }
 
               {
-                data.title ?
+                item.title ?
             <View
               style={{
                 marginVertical:
@@ -179,7 +183,7 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
                   styles.TextStyle,
                 ]}>
-                {data.title}
+                {item.title}
               </Text>
             </View>
                 : 
@@ -192,7 +196,7 @@ const ViewParish = ({route}) => {
               }
 
             {
-              data.country ?
+              item.country ?
             <View style={styles.DetailsViewStyle}>
               <Text
                 style={[
@@ -206,7 +210,7 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
-                {data.country}
+                {item.country}
               </Text>
             </View>
             : 
@@ -219,7 +223,7 @@ const ViewParish = ({route}) => {
             }
 
               {
-                  data.region
+                  item.region
                 ?
             <View style={styles.DetailsViewStyle}>
               <Text
@@ -234,7 +238,7 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
-                {data.region}
+                {item.region}
               </Text>
             </View>
                 :
@@ -247,7 +251,7 @@ const ViewParish = ({route}) => {
               }
 
               {
-                data.province
+                item.province
                 ?
                 <View style={styles.DetailsViewStyle}>
                 <Text
@@ -262,7 +266,7 @@ const ViewParish = ({route}) => {
                     {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                     styles.LocationDetailsText,
                   ]}>
-                  {data.province}
+                  {item.province}
                 </Text>
               </View>
                 :
@@ -274,7 +278,7 @@ const ViewParish = ({route}) => {
              </View>
               }
 
-         {data.about
+         {item.about
           ?
             <View
               style={{
@@ -286,7 +290,7 @@ const ViewParish = ({route}) => {
                   styles.AboutText,
                 ]}>
                 
-                {data.about}
+                {item.about}
               </Text>
             </View>
           :
@@ -305,7 +309,7 @@ const ViewParish = ({route}) => {
             }}
           />
           {
-            data.address
+            item.address
             ?
             <>
             <View
@@ -345,7 +349,7 @@ const ViewParish = ({route}) => {
                 styles.LocationText,
                 {color: Theme === 'dark' ? Color.White : Color.TextColor2},
               ]}>
-              {data.location}
+              {item.location}
             </Text>
             <Text
               style={[
@@ -358,7 +362,7 @@ const ViewParish = ({route}) => {
                 styles.LocationDetailsText,
                 {color: Theme === 'dark' ? Color.White : Color.TextColor2},
               ]}>
-             {data.address}
+             {item.address}
             </Text>
           </View>
             </>
@@ -414,7 +418,7 @@ const ViewParish = ({route}) => {
 
 
               {
-                data.phone_number
+                item.phone_number
                 ?
                 <Text
                 style={[
@@ -448,14 +452,14 @@ const ViewParish = ({route}) => {
               }}>
 
             {
-                data.phone_number
+                item.phone_number
                 ?
                 <Text
                 style={[
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
-                {data.phone_number}
+                {item.phone_number}
               </Text>
               :
               <View style={{
@@ -465,7 +469,7 @@ const ViewParish = ({route}) => {
            </View>
                 }
               {
-                data.email
+                item.email
                 ?
 
                 <Text
@@ -473,7 +477,7 @@ const ViewParish = ({route}) => {
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
-                {data.email}
+                {item.email}
               </Text> 
               :
               <View style={{
@@ -484,15 +488,15 @@ const ViewParish = ({route}) => {
            </View>
                 }
               {
-                data.website
+                item.website
                 ?
                 <Text
-                onPress={() => Linking.openURL(data.website)}
+                onPress={() => Linking.openURL(item.website)}
                 style={[
                   {color: Theme === 'dark' ? Color.White : Color.TextColor2},
                   styles.LocationDetailsText,
                 ]}>
-                {data.website}
+                {item.website}
               </Text>
               :
               <View style={{

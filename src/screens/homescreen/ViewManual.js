@@ -7,7 +7,8 @@ import {
   Dimensions,
   useColorScheme,
   StatusBar,
-  Platform
+  Platform,
+  ToastAndroid
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -22,7 +23,7 @@ import Share from 'react-native-share'
 import { useState } from 'react';
 import { downloadBook, getChapters, markData } from '../../redux/actions/UserAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ALLBOOKMARK } from '../../redux/reducer';
+import { ALLBOOKMARK, ID } from '../../redux/reducer';
 import { useEffect } from 'react';
 import RNFS from 'react-native-fs';
 
@@ -33,7 +34,6 @@ const h = Dimensions.get('window').height;
 const ViewManual = ({navigation,route}) => {
   const dispatch = useDispatch()
   const chapters = useSelector(state => state.chapters)
-
   const {item,htmlContent} = route.params
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
@@ -46,6 +46,7 @@ const ViewManual = ({navigation,route}) => {
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
       // dispatch(getChapters(setData,item.id))
+      
     }, []),
   );
   // useEffect(() => {
@@ -144,19 +145,21 @@ const ViewManual = ({navigation,route}) => {
     Share.open(shareImageBase64).catch((error) => console.log(error))
   }
 const type = 'book'
-
 useEffect(() => {
   addBookmark()
 },[allbookmark])
-
 const addBookmark = () => {
-  const extrxtIds = allbookmark.find((elm) => elm.id == item.id)
+  const extrxtIds = allbookmark.find((elm) => elm.id  == item.id)
   if(extrxtIds != null || undefined){
     setIsChecked(true);
   }else{
     setIsChecked(false)
   }
 }
+useEffect(() => {
+  dispatch({type: ID, payload: item.id});
+  dispatch(getChapters(setData,item.id,chapters))
+},[])
 
 const handleSubmit = async () => {
     const findData = allbookmark?.find((elm) => elm.id == item?.id)
@@ -164,17 +167,19 @@ const handleSubmit = async () => {
       const updatedData = allbookmark.filter((elm) => elm.id !== findData.id);
       dispatch({type: ALLBOOKMARK, payload: updatedData})
       await AsyncStorage.setItem('allbookmark', JSON.stringify(updatedData));
+      markData(type,item.id,user_details)
       setIsChecked(false)
-      console.log('laraib =========>')
+      ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
     } else {
       markData(type,item.id,user_details)
-      dispatch({type: ALLBOOKMARK, payload: [...allbookmark, item]})
       console.log('laraib =========> Object not found in the array');
-      setIsChecked(true);
+      dispatch({type: ALLBOOKMARK, payload: [...allbookmark, item]})
       await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
       downloadBook(item?.id)
+      setIsChecked(true);
+      ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
     }
-    dispatch(getChapters(setData,item?.id,chapters))
+    
 }
 
   return (
@@ -260,18 +265,18 @@ const handleSubmit = async () => {
             //   id: item?.id,
             //   item:item
             // })}
-            onPress={() => navigation.navigate('ViewBookTitle',{
-              id:item?.id,
-              bookData:item,
-              chapterOne: 1,
-              url: item.ebook_url
-            })}
-            // onPress={() => navigation.navigate('Readtwo',{
+            // onPress={() => navigation.navigate('ViewBookTitle',{
             //   id:item?.id,
             //   bookData:item,
             //   chapterOne: 1,
             //   url: item.ebook_url
             // })}
+            onPress={() => navigation.navigate('Readtwo',{
+              id:item?.id,
+              bookData:item,
+              chapterOne: 1,
+              url: item.ebook_url
+            })}
               
             text={applanguage.Read}
           />

@@ -25,6 +25,7 @@ export const CHAPTERMARK = 'CHAPTERMARK'
 export const LOADER = 'LOADER'
 export const  ADVERTISMENT = 'ADVERTISMENT'
 export const  ID = 'ID'
+export const  GETLIBRARYDATA = 'GETLIBRARYDATA'
 
 
 const initialState = {
@@ -44,7 +45,6 @@ const initialState = {
   allbookmark: [],
   eventbookmark: [],
   parishbookmark: [],
-
   bannerData: [],
   parishData: [],
   activeEvents: [],
@@ -54,6 +54,7 @@ const initialState = {
   loader: false,
   Advertisement: null,
   id: null,
+  getlibrarydata: [],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -182,6 +183,11 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         id: action.payload,
+      };
+    case GETLIBRARYDATA:
+      return {
+        ...state,
+        getlibrarydata: action.payload,
       };
 
     default:

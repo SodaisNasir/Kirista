@@ -22,7 +22,7 @@ import Header from '../../components/Header';
 import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {parish} from '../../redux/actions/UserAction';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SkeletonLoader from '../../components/Loader/SkeletonLoader';
 
 const w = Dimensions.get('window').width;
@@ -30,15 +30,16 @@ const h = Dimensions.get('window').height;
 
 const FeaturedParishes = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   // console.log('data sadf', data[0].id)
   const Theme = useSelector(state => state.mode)
   const applanguage = useSelector(state => state.applanguage)
-
+  const parishData = useSelector(state => state.parishData)
 
   useFocusEffect(
     useCallback(() => {
-      parish(setData);
+      dispatch(parish(setData))
     }, []),
   );
   return (
@@ -84,9 +85,9 @@ const FeaturedParishes = () => {
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               marginTop: verticalScale(10),
             }}>
-            {data.length > 0 ? (
+            {parishData.length > 0 ? (
               <>
-                {data?.map(item => {
+                {parishData?.map(item => {
                   return (
                     <DetailsCard
                       key={item.id}
@@ -94,6 +95,7 @@ const FeaturedParishes = () => {
                       onPress={() => {
                         navigation.navigate('ViewParish', {
                           id: item.id,
+                          item:item
                         });
                       }}
                       source={item.image}

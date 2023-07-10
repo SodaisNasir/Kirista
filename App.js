@@ -17,8 +17,9 @@ import Spanish from './src/components/LanguageJson/Spanish.json'
 import Fula from './src/components/LanguageJson/Fula.json'
 import Portugese from './src/components/LanguageJson/Portugese.json'
 import OneSignal from 'react-native-onesignal'
-import { active_event, getBooks, getSearchData, parish, show_all_banner, show_popup } from './src/redux/actions/UserAction';
+import { active_event, getBooks, getLibraryData, getSearchData, parish, show_all_banner, show_popup } from './src/redux/actions/UserAction';
 import { get_rccgData } from './src/redux/actions/AuthAction';
+import NetInfo from '@react-native-community/netinfo';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,19 @@ const App = () => {
   const mode = useSelector(state => state.mode)
   const [loading, setLoading] = useState(true);
   const Theme = useColorScheme()
+  const [isConnected, setIsConnected] = useState(false);
+
+
+useEffect(() => {
+  const unsubscribe = NetInfo.addEventListener(state => {
+    setIsConnected(state.isConnected);
+  });
+
+  // Clean up the subscription when the component unmounts
+  return () => {
+    unsubscribe();
+  };
+}, []);
 
 const [data,setData] = useState('')
 const deviceData = Platform.OS
@@ -77,7 +91,6 @@ const deviceData = Platform.OS
   const checkStatus = async () => {
     const data = await AsyncStorage.getItem('user_details');
     const userData = JSON.parse(data);
-    console.log("ASYNC DATA =====>",userData);
     if (userData != null) {
       dispatch({type: USER_DETAILS, payload: userData});
     } else {
@@ -123,11 +136,12 @@ const deviceData = Platform.OS
     geteventData()
     getrccgData()
     chapterData()
-  }, [mode,Theme,applanguage])
+    dispatch(getLibraryData(user_details))
+  }, [mode,Theme,applanguage,isConnected])
 
   useEffect(() => {
       setLanguage()
-  }, [getlanguage])
+  }, [getlanguage,isConnected])
 
   useEffect(() => {
     bookmarkData()
@@ -135,7 +149,7 @@ const deviceData = Platform.OS
     parishbookmarkData()
     eventbookmarkData()
     getPopupData()
-  }, [])
+  }, [isConnected])
 
   const bookmarkData = async () => {
     const bookMark = await AsyncStorage.getItem('bookmark')

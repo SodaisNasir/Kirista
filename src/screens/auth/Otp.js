@@ -120,7 +120,7 @@ const OTP = ({navigation, route}) => {
                 {color: Theme === 'dark' ? Color.DarkThemText2 : Color.TextColor},
                 styles.OtpText,
               ]}>
-              {applanguage.OTP} {otp}
+              {applanguage.OTP}
             </Text>
 
             <View>

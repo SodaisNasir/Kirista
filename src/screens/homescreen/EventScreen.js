@@ -10,6 +10,7 @@ import {
   useColorScheme,
   Platform,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -37,12 +38,10 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const EventScreen = ({route, navigation}) => {
-  const {id} = route.params;
+  const {id,item} = route.params;
   const dispatch = useDispatch()
-
   const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
-  const [data, setData] = useState([]);
   const [cordinates, setCordinates] = useState(null);
   const [loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode)
@@ -51,6 +50,7 @@ const EventScreen = ({route, navigation}) => {
   const eventbookmark = useSelector(state => state.eventbookmark)
   const user_details = useSelector(state => state.user_details)
   const [isChecked, setIsChecked] = useState(false);
+  const [ setData] = useState(item);
 
   useFocusEffect(
     useCallback(() => {
@@ -62,29 +62,31 @@ const EventScreen = ({route, navigation}) => {
   };
   useFocusEffect(
     useCallback(() => {
+      setCordinates(JSON.parse(item["map"]))
       event_by_id(setData, id, setLoading,setCordinates);
     }, []),
   );
   const shareBook = (data) => {
     let shareImageBase64 = {
       title: data.title,
-      url: `d`,
+      url: `Monkey D. Luffy`,
       subject: 'Share Book Link', //  for email
     }
     Share.open(shareImageBase64).catch((error) => console.log(error))
   }
   function openDeviceCalendar() {
     const eventConfig = {
-      title: data.title,
-      startDate: data.start_date,
-      endDate: data.end_date,
-      location: data.address,
-      notes: data.about,
+      title: item.title,
+      startDate: item.start_date.split(' ')[0] + 'T09:30:45.000000Z',
+      endDate: item.end_date.split(' ')[0] + 'T09:30:45.000000Z',
+      location: item.address,
+      notes: item.about,
     };
   
     AddCalendarEvent.presentEventCreatingDialog(eventConfig)
       .then(eventId => {
         console.log('Event created with ID:', eventId);
+        ToastAndroid.show('Event added successfully', ToastAndroid.LONG)
       })
       .catch(error => {
         console.warn('Event creation error:', error);
@@ -92,10 +94,10 @@ const EventScreen = ({route, navigation}) => {
   }
   useEffect(() => {
     addBookmark()
-  },[eventbookmark,data])
+  },[eventbookmark,item])
   
   const addBookmark = () => {
-    const extrxtIds = eventbookmark.find((elm) => elm.id == data.id)
+    const extrxtIds = eventbookmark.find((elm) => elm.id == item.id)
     if(extrxtIds != null){
       setIsChecked(true);
     }else{
@@ -104,9 +106,9 @@ const EventScreen = ({route, navigation}) => {
   }
 
   const type = 'event'
-console.log('data.start_time', data.end_time)
+
   const handleSubmit = async () => {
-    const findData = eventbookmark?.find((elm) => elm.id == data?.id)
+    const findData = eventbookmark?.find((elm) => elm.id == item?.id)
 
     if (findData) {
       const updatedData = eventbookmark.filter((elm) => elm.id !== findData.id);
@@ -114,12 +116,15 @@ console.log('data.start_time', data.end_time)
       await AsyncStorage.setItem('eventbookmark', JSON.stringify(updatedData));
       setIsChecked(false)
       console.log('laraib =========>')
+      markData(type,item.id,user_details)
+      ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
     } else {
-      markData(type,data.id,user_details)
-      dispatch({type: EVENTBOOKMARK, payload: [...eventbookmark, data]})
+      markData(type,item.id,user_details)
+      dispatch({type: EVENTBOOKMARK, payload: [...eventbookmark, item]})
       console.log('laraib =========> Object not found in the array');
       setIsChecked(true);
-      await AsyncStorage.setItem('eventbookmark', JSON.stringify([...eventbookmark, data]));
+      await AsyncStorage.setItem('eventbookmark', JSON.stringify([...eventbookmark, item]));
+      ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
     }
   }
   return (
@@ -168,7 +173,7 @@ console.log('data.start_time', data.end_time)
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
             {
-             data.image ?
+             item.image ?
 
               <TouchableOpacity
               onPress={() => {
@@ -177,7 +182,7 @@ console.log('data.start_time', data.end_time)
               style={styles.ImageViewStyle}>
             <Image
               resizeMode="contain"
-              source={{uri: data.image}}
+              source={{uri: item.image}}
               style={{height: '100%', width: '100%'}}
               />
           </TouchableOpacity>
@@ -188,7 +193,7 @@ console.log('data.start_time', data.end_time)
           
           }
 
-          {data.title ?
+          {item.title ?
             <>
           <View
             style={{
@@ -202,7 +207,7 @@ console.log('data.start_time', data.end_time)
                   color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 },
               ]}>
-              {data.title}
+              {item.title}
             </Text>
           </View>
           <View style={styles.DetailsViewStyle}>
@@ -213,7 +218,7 @@ console.log('data.start_time', data.end_time)
                   color: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
-              {moment(data.start_date).format("MMM Do YY")} -  {moment(data.end_date).format("MMM Do YY")}
+              {moment(item.start_date).format("MMM Do YY")} -  {moment(item.end_date).format("MMM Do YY")}
             </Text>
             <View
               style={{
@@ -233,7 +238,7 @@ console.log('data.start_time', data.end_time)
                   color: Theme === 'dark' ? '#828C9B' : Color.TextColor2,
                 },
               ]}>
-              {data.start_time} - {data.end_time}
+              {item.start_time} - {item.end_time}
             </Text>
           </View>
             </>
@@ -242,7 +247,7 @@ console.log('data.start_time', data.end_time)
           }
 
 
-        {data.about
+        {item.about
         ?
           <View
             style={{
@@ -255,7 +260,7 @@ console.log('data.start_time', data.end_time)
                   color: Theme === 'dark' ? Color.White : Color.TextColor2,
                 },
               ]}>
-              {data.about}
+              {item.about}
             </Text>
           </View>
         :
@@ -292,7 +297,7 @@ console.log('data.start_time', data.end_time)
           </Text>
         </View>
 
-        {data.address ?
+        {item.address ?
         <View
           style={{
             marginTop: verticalScale(5),
@@ -307,7 +312,7 @@ console.log('data.start_time', data.end_time)
               },
               styles.LocationText,
             ]}>
-            {data.location}
+            {item.location}
           </Text>
           <Text
             style={[
@@ -318,7 +323,7 @@ console.log('data.start_time', data.end_time)
               },
               styles.LocationDetailsText,
             ]}>
-            {data.address}
+            {item.address}
           </Text>
         </View>
           :
@@ -342,7 +347,7 @@ console.log('data.start_time', data.end_time)
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
               
-              <Map data={cordinates} />
+              <Map item={cordinates} />
         </View>
              : 
               null
@@ -359,7 +364,7 @@ console.log('data.start_time', data.end_time)
           onRequestClose={() => setModalVisible(false)}
           OptionSelect={() => setModalVisible(false)}
           onPressClose={() => setModalVisible(false)}
-          uri={data.image}
+          uri={item.image}
         />
       </ScrollView>
     </View>

@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
   LogBox,
   Image,
+  ToastAndroid
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
 import LibraryHeader from '../../components/LibraryHeader';
@@ -27,18 +28,22 @@ import {Color} from '../../utils/Colors';
 import DetailsCard from '../../components/Card/DetailsCard';
 import {useFocusEffect} from '@react-navigation/native';
 import BottomTab from '../../constant/BottomTab';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import CustomButton from '../../components/CustomButton';
 import Modal from 'react-native-modal';
 import AnimatedLottieView from 'lottie-react-native';
+import { getLibraryData } from '../../redux/actions/UserAction';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const LibraryHome = ({navigation}) => {
+  const dispatch = useDispatch()
+  // const libData = useSelector(state => state.getlibrarydata);
   const [showModal, setShowModal] = useState(false);
   const [Loading, setLoading] = useState(false);
   const Theme = useSelector(state => state.mode);
+  const user_details = useSelector(state => state.user_details);
   const applanguage = useSelector(state => state.applanguage);
   const isGuest = useSelector(state => state.is_guest);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -47,13 +52,10 @@ const LibraryHome = ({navigation}) => {
   const savedParishes = useSelector(state => state.parishbookmark);
   const savedEvents = useSelector(state => state.eventbookmark);
   const libraryData = savedBooks.concat(savedEvents, savedParishes);
-  console.log('============================================');
-  console.log('==> laraib', libraryData);
-  console.log('============================================');
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
   const [selected, setSelected] = useState('');
@@ -73,7 +75,10 @@ const LibraryHome = ({navigation}) => {
   useFocusEffect(
     useCallback(() => {
       setData(null);
+      // dispatch()
+      
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      dispatch(getLibraryData(user_details))
     }, []),
   );
   const data2 = [
@@ -86,7 +91,6 @@ const LibraryHome = ({navigation}) => {
       label: applanguage.RecentActivity,
     },
   ];
-
   const sortData = () => {
     if (selected === applanguage.Title) {
       sortByTitle();
@@ -105,8 +109,7 @@ const LibraryHome = ({navigation}) => {
       alert(applanguage.Sorting);
     }
   };
-console.log('data', data)
-console.log('libraryData', libraryData)
+
   return (
     <>
       <SafeAreaView
@@ -203,10 +206,12 @@ console.log('libraryData', libraryData)
                     ? item?.country
                       ? {
                           id: item.id,
+                          item: item
                         }
-                      : {id: item.id}
+                      : {id: item.id,item: item}
                     : {
                         item: item,
+                        
                       };
                   return (
                     <>

@@ -26,7 +26,6 @@ const Advertisement = () => {
   const applanguage = useSelector(state => state.applanguage);
   const Advertisement = useSelector(state => state.Advertisement);
   const [data, setData] = useState();
-  console.log('Advertisement', Advertisement?.image);
   const deviceData = Platform.OS;
   useFocusEffect(
     useCallback(() => {

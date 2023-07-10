@@ -23,21 +23,20 @@ const BookmarkScreen = ({book_id,bookMarkPress}) => {
   const { width } = useWindowDimensions();
   const dispatch = useDispatch()
   const bookmark = useSelector(state => state.bookmark)
+  const id = useSelector((state) => state.id)
   const applanguage = useSelector(state => state.applanguage)
   const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const [data,setData] = useState([])
-  const DATA = [
-    {Number: '5', Date: 'Feb 16th , 2023.'},
-    {Number: '6', Date: 'Feb 16th , 2023.'},
-  ];
+  console.log('data', data)
+  console.log('bookmark', bookmark)
+
   useEffect(() => {
     getNewData()
   },[bookmark])
-
   const getNewData = () => {
-    const filterMatchIdData = bookmark.filter((item) => item.books_id == book_id)
+    const filterMatchIdData = bookmark.filter((item) => item.books_id == id)
     setData(filterMatchIdData)
   }
 
@@ -46,7 +45,6 @@ const BookmarkScreen = ({book_id,bookMarkPress}) => {
     dispatch({type: BOOKMARK, payload: updatedData})
     await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
   }
-
  
   return (
    <View style={{flex:1}}>

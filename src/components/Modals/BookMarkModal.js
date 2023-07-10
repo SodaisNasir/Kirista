@@ -45,7 +45,9 @@ const BookMarkModal = (props) => {
       justifyContent: 'flex-start',
     }}>
     <View style={[styles.ModalMain,{
-      backgroundColor: Color.White
+      backgroundColor: Theme === 'dark'
+      ? Color.DarkTheme
+      : Color.White
     }]}>
       <ScrollView style={{flex:1}} contentContainerStyle={{flex:1}}>
         <Text style={{
