@@ -46,6 +46,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
           style={{
             width: '100%',
             height: verticalScale(500),
+            
           }}>
           {/* <Image
             resizeMode={w >= 768 && h >= 1024 ? "center" : "contain"}
@@ -54,10 +55,10 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
               width: '100%',
               position: 'absolute',
             }}
-            source={source}
+            source={{uri :source}}
           /> */}
            <FastImage
-                style={{height: '100%', width: '100%', position: 'absolute'}}
+                style={{height: '100%', width: '100%',  position: 'absolute',backgroundColor: 'pink'}}
                 source={{
                   uri: source,
                   priority: FastImage.priority.normal,

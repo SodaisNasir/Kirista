@@ -5,7 +5,6 @@ import {
   View,
   Image,
   Dimensions,
-  useColorScheme,
   StatusBar,
   Platform,
   ToastAndroid
@@ -25,7 +24,6 @@ import { downloadBook, getChapters, markData } from '../../redux/actions/UserAct
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALLBOOKMARK, ID } from '../../redux/reducer';
 import { useEffect } from 'react';
-import RNFS from 'react-native-fs';
 
 
 const w = Dimensions.get('window').width;

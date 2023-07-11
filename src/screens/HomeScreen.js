@@ -61,6 +61,7 @@ const HomeScreen = ({scrollViewRef}) => {
   const [refreshing, setRefreshing] = useState(false);
 
 
+
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
@@ -87,13 +88,13 @@ const HomeScreen = ({scrollViewRef}) => {
     const url = item?.app_page;
     const supported = await Linking.canOpenURL(url);
 
-    if (supported) {
+    // if (supported) {
       navigation.navigate('CusWebView', {
         link: url,
       });
-    } else {
-      console.log(`Cannot open URL: ${url}`);
-    }
+    // } else {
+    //   console.log(`Cannot open URL: ${url}`);
+    // }
   };
   const handleClick =  item => {
       navigation.navigate('ViewManual', {
@@ -145,8 +146,9 @@ const HomeScreen = ({scrollViewRef}) => {
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-            {bannerData?.length > 0 && !loader ? (
+            {!loader ? (
               bannerData?.map((item, index) => {
+                console.log('bannerData',item?.image)
                 return (
                   <>
                     <TouchableOpacity
