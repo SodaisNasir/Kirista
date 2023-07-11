@@ -21,10 +21,6 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import DoubleText from '../../../components/Loader/DoubleText';
-import Loader from '../../../components/Modals/Loader';
-import { useEffect } from 'react';
-import RNFS from 'react-native-fs';
-import { unzip } from 'react-native-zip-archive';
 
 
 const w = Dimensions.get('window').width;

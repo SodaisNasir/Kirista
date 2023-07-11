@@ -16,22 +16,18 @@ export const sign_in = (data,setCheck,setLoader) => {
       );
       formdata.append('email', data.email);
       formdata.append('password', data.password);
-formdata.append("device_token",notiToken)
+      formdata.append("device_token",notiToken)
       const response = await fetch(base_url, {
         method: 'POST',
         body: formdata,
       });
-      console.log("=======================> LOGIN RESPONSE",response);
-      const responseData = await response.json();
 
-      console.log('responseData', responseData)
+      const responseData = await response.json();
 
       if (responseData?.success?.status === 200) {
         dispatch({type: USER_DETAILS, payload: responseData.success});
         dispatch({type: IS_GUEST, payload: false});
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
-        console.log('responseData if for otpMEthod', responseData);
-        console.log('USER_DETAILS', USER_DETAILS)
         setLoader(false);
       } else {
         console.log('else error');
@@ -80,7 +76,7 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader,langu
       }else if (responseData?.success?.status === 200) {
         await AsyncStorage.setItem('user_details', JSON.stringify(responseData.success));
         setLoader(false)
-        console.log("user data ==>",responseData.success);
+        
         dispatch({type: USER_DETAILS, payload: responseData.success});
       } else {
         setLoader(false)
@@ -105,10 +101,10 @@ export const verify_Email_before_password =  (data,navigation,type,setTime,appla
         body: myData,
       });
 
-      console.log('response', response)
+
       const responseData = await response.json();
 
-      console.log('responseData', responseData)
+
 
       if(responseData?.error?.message === 'Email Not Exit'){
         setTime(applanguage.EmailNotExt)
@@ -220,7 +216,6 @@ export const skipGuest = (device) => {
    }
   }
 }
-
 export const LogOut = (setloader) => {
 return async dispatch => {
   try {
@@ -254,7 +249,6 @@ console.log('responseData', responseData)
 }
 
 }
-
 export const get_rccgData = (language) => {
   return async dispatch => {
     try {
@@ -282,4 +276,4 @@ export const get_rccgData = (language) => {
     }
   }
   
-  }
+}

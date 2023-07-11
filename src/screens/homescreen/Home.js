@@ -187,9 +187,7 @@ const Home = () => {
           initialLayout={{width: layout.width}}
         />
       </View>
-      <BottomTab activeHome={true} onPress={() => {
-        Navigation.navigate(handleSingleTap)
-        handleScrollToTop()}}  />
+      <BottomTab activeHome={true} homePress={() => handleSingleTap()}  />
     </>
   );
 };

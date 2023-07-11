@@ -24,8 +24,8 @@ export const show_all_banner =  () =>{
           dispatch({type: LOADER, payload: false})
         }
     } catch (error) {
+      dispatch({type: LOADER, payload: false})
         console.log('error in banner api', error)
-        dispatch({type: LOADER, payload: false})
     }
   }
 }
@@ -70,7 +70,6 @@ export const parish =  () => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
-      console.log('responseData.success.data', responseData.success.data)
       await AsyncStorage.setItem('parishData', JSON.stringify(responseData.success.data));
      dispatch({type: PARISH_DATA, payload: responseData.success.data})
      dispatch({type: LOADER, payload: false})
@@ -94,9 +93,6 @@ export const parish_by_id = async (setData, id,setLoading,setmap,item) => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
-      console.log("====================");
-      console.log("====================>",JSON.parse(responseData.success.data["map"]));  
-      console.log("====================");
       setmap(JSON.parse(responseData.success.data["map"]))
       setLoading(false)
      setData(responseData.success.data)

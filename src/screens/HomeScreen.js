@@ -26,7 +26,6 @@ import {
   getSearchData,
   parish,
   show_all_banner,
-  BackHandler
 } from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
@@ -38,7 +37,6 @@ import DoubleText from '../components/Loader/DoubleText';
 import FastImage from 'react-native-fast-image';
 import { useEffect } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import { WebView } from 'react-native-webview';
 
 
 const w = Dimensions.get('window').width;
@@ -60,6 +58,8 @@ const HomeScreen = ({scrollViewRef}) => {
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
   const [isConnected, setIsConnected] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
@@ -85,12 +85,9 @@ const HomeScreen = ({scrollViewRef}) => {
   const onSubmit = async item => {
 
     const url = item?.app_page;
-
-    // Checking if the link is supported
     const supported = await Linking.canOpenURL(url);
 
     if (supported) {
-      // await Linking.openURL(url);
       navigation.navigate('CusWebView', {
         link: url,
       });
@@ -112,8 +109,6 @@ const HomeScreen = ({scrollViewRef}) => {
       navigation.navigate('RccgStructure');
     }
   };
-  const [refreshing, setRefreshing] = useState(false);
-
   const handleRefresh = () => {
     setRefreshing(true);
     dispatch(show_all_banner());
@@ -122,27 +117,11 @@ const HomeScreen = ({scrollViewRef}) => {
     dispatch(getBooks());
     dispatch(get_rccgData(language));
     dispatch(getSearchData());
-    // Add your refresh logic here
-    // For example, make an API call or fetch new data
     setTimeout(() => {
       setRefreshing(false);
-    }, 2000); // Simulating a delay of 2 seconds before refreshing is completed
+    }, 2000);
   };
-//   const webViewRef = useRef()
-//   const handleBackButtonPress = () => {
-//     try {
-//         webViewRef.current?.goBack()
-//     } catch (err) {
-//         console.log("[handleBackButtonPress] Error : ", err.message)
-//     }
-// }
 
-// useEffect(() => {
-//     BackHandler.addEventListener("hardwareBackPress", handleBackButtonPress)
-//     return () => {
-//         BackHandler.removeEventListener("hardwareBackPress", handleBackButtonPress)
-//     };
-// }, []);
   return (
     <View
       style={{
@@ -297,7 +276,7 @@ const HomeScreen = ({scrollViewRef}) => {
                                     Theme === 'dark'
                                       ? Color.White
                                       : Color.DarkTextColor,
-                                      paddingTop: scale(5)
+                                      paddingTop: fourInchPotrait ? 0 : scale(5)
                                 },
                                 styles.BooksTitleStyle,
                               ]}>
@@ -827,7 +806,7 @@ const styles = StyleSheet.create({
   },
 
   BooksTitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : scale(15),
+    fontSize: w >= 768 && h >= 1024 ? scale(7) : w <= 380 && h <= 630 ? scale(13) : scale(15),
     fontFamily: Font.Poppins600,
     maxWidth: '90%',
   },

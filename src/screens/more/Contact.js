@@ -37,7 +37,6 @@ const Contact = () => {
   } = useForm({mode: 'all'});
   const applanguage = useSelector(state => state.applanguage)
   const userData = useSelector(state => state.user_details)
-console.log("user DATA ====>", userData?.data);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const Theme = useSelector(state => state.mode)
@@ -46,6 +45,7 @@ console.log("user DATA ====>", userData?.data);
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const [text, onChangeText] = useState('');
+
   const [country, setCountry] = useState({
     country_name:  userData != "guest" ? userData?.data.country : '',
     country_code: userData != "guest" ? userData?.data.country_code : '+234',
@@ -161,9 +161,9 @@ console.log("response ===>",response);
               control={control}
                 name="fullname"
                 rules={{
-                  required: 'Full name is required',
+                  required: applanguage.FullNameReq,
                   value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                  message: 'Enter a full name',
+                  message: applanguage.EnterFullName,
                 }}
                 // onChangeText={txt => {
                 //   console.log('text ==>', email);
@@ -215,9 +215,9 @@ console.log("response ===>",response);
                 defaultValue={userData != "guest" ? userData.data.email: '' }
                 name="email"
                 rules={{
-                  required: 'Email is required',
+                  required: applanguage.RequiredEmail,
                   value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                  message: 'Enter a valid email',
+                  message: applanguage.ValidEmail,
                 }}
                 // onChangeText={txt => {
                 //   console.log('text ==>', email);
@@ -250,17 +250,17 @@ console.log("response ===>",response);
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
               }}>
               <CustomInput
-              defaultValue={userData.data.phone_number}
+              defaultValue={userData?.data?.phone_number}
                 onPress={handlePhoneNumberButtonPress}
                 control={control}
                 name="phonenumber"
                 maxLength={16}
                 rules={{
-                  required: 'Phone number is required',
-                  message: 'Please enter your phone number',
+                  required: applanguage.RequiredPhone,
+                  message: applanguage.Phonemessage,
                   maxLength: {
                     value: 15,
-                    message: 'Please enter a valid phone number',
+                    message: applanguage.ValidPhone,
                   },
                 }}
                 // restyleBox={{
