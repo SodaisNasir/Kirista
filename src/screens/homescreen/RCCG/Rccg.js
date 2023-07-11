@@ -52,7 +52,7 @@ const Rccg = ({navigation}) => {
     }, 2000);
   }
   
-  const result = data?.length > 0 && data?.replace(/class=.?"ql-align-center.?"/g, 'style="text-align: center;"').replace(/<div class=['|"]about_text['|"]>/, `<div style='color: ${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '7px' : '12px'};'>`);
+  const result = data?.length > 0 && data?.replace(/class=.?"ql-align-center.?"/g, 'style="text-align: center;"').replace(/<div class=['|"]about_text['|"]>/, `<div style='color: ${Theme === 'dark' ? Color.White : Color.Black}; font-family: ${Font.Poppins500} ; font-size: ${w >= 768 && h >= 1024 ? '20px' : '12px'};'>`);
   
   const source = {
     html: result,

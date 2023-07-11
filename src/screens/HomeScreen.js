@@ -148,7 +148,6 @@ const HomeScreen = ({scrollViewRef}) => {
             showsPagination={false}>
             {!loader ? (
               bannerData?.map((item, index) => {
-                console.log('bannerData',item?.image)
                 return (
                   <>
                     <TouchableOpacity
@@ -594,6 +593,7 @@ const HomeScreen = ({scrollViewRef}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+              marginBottom: scale(4)
           }}>
           <View
             style={{

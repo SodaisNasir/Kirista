@@ -49,6 +49,8 @@ const ViewParish = ({route}) => {
 
   const [cordinates, setCordinates] = useState(null);
 
+  console.log('cordinates',cordinates);
+
 
   // const mapProperty = () => {
   //   let json = data.length > 0 && typeof data?.map === "string" ? JSON.parse(data?.map) : data?.map;
@@ -378,7 +380,7 @@ const ViewParish = ({route}) => {
 
          
           {
-                cordinates ? 
+                cordinates?.latitude > 1 ? 
           <View
             style={{
               height:

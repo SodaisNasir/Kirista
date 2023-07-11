@@ -91,7 +91,7 @@ const DetailsCard = props => {
                 marginTop:
                 Platform.OS == 'ios'
                   ? 0
-                  : verticalScale(-7),
+                  : w >= 768 && h >= 1024 ? scale(-1) : verticalScale(-7),
               },
               styles.TitleStyle,
             ]}>

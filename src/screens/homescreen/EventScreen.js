@@ -332,7 +332,7 @@ const EventScreen = ({route, navigation}) => {
           </View>
         }
           {
-            cordinates ? 
+            cordinates?.latitude > 1 ? 
         <View
           style={{
             height:

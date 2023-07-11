@@ -397,7 +397,7 @@ const Readtwo = ({route}) => {
   }
   const doubleBack = () => {
     navigation.goBack()
-    navigation.goBack()
+    // navigation.goBack()
   }
 
   return (
@@ -526,13 +526,13 @@ const Readtwo = ({route}) => {
                 marginTop:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
               }}>
-              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(70) : verticalScale(80)} />
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(80)} />
            </View>
               <View style={{
                 marginVertical:
                 w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
               }}>
-              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(400) : verticalScale(500)} />
+              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(500) : verticalScale(500)} />
            </View>
           
               </View>

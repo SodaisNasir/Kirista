@@ -58,7 +58,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
             source={{uri :source}}
           /> */}
            <FastImage
-                style={{height: '100%', width: '100%',  position: 'absolute',backgroundColor: 'pink'}}
+                style={{height: '100%', width: '100%',  position: 'absolute'}}
                 source={{
                   uri: source,
                   priority: FastImage.priority.normal,
