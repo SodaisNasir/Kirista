@@ -18,7 +18,11 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../utils/font';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation, useFocusEffect, StackActions} from '@react-navigation/native';
+import {
+  useNavigation,
+  useFocusEffect,
+  StackActions,
+} from '@react-navigation/native';
 import DetailsCard from '../components/Card/DetailsCard';
 import Swiper from 'react-native-swiper';
 import {
@@ -36,12 +40,11 @@ import BannerLoader from '../components/Loader/BannerLoader';
 import {get_rccgData} from '../redux/actions/AuthAction';
 import DoubleText from '../components/Loader/DoubleText';
 import FastImage from 'react-native-fast-image';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import NetInfo from '@react-native-community/netinfo';
 import Advertisement from '../components/Advertisement';
-import { ADVMODAL } from '../redux/reducer';
+import {ADVMODAL} from '../redux/reducer';
 import NoInternetModal from '../components/Modals/NoInternetModal';
-
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -70,12 +73,13 @@ const HomeScreen = ({scrollViewRef}) => {
   const h = useWindowDimensions().height;
   const [seconds, setSeconds] = useState(3);
 
+  const IOS = Platform.OS == 'ios';
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
     });
-  
+
     // Clean up the subscription when the component unmounts
     return () => {
       unsubscribe();
@@ -103,22 +107,21 @@ const HomeScreen = ({scrollViewRef}) => {
     }, [isConnected]),
   );
   const onSubmit = async item => {
-
     const url = item?.app_page;
     const supported = await Linking.canOpenURL(url);
 
     // if (supported) {
-      navigation.navigate('CusWebView', {
-        link: url,
-      });
+    navigation.navigate('CusWebView', {
+      link: url,
+    });
     // } else {
     //   console.log(`Cannot open URL: ${url}`);
     // }
   };
-  const handleClick =  item => {
-      navigation.navigate('ViewManual', {
-        item: item,
-      });
+  const handleClick = item => {
+    navigation.navigate('ViewManual', {
+      item: item,
+    });
   };
   const handleSubmit = type => {
     if (type === 'RCCG') {
@@ -130,20 +133,20 @@ const HomeScreen = ({scrollViewRef}) => {
     }
   };
   const handleRefresh = () => {
-    if(isConnected){
+    if (isConnected) {
       setRefreshing(true);
       dispatch(show_all_banner());
       dispatch(parish());
-    dispatch(active_event());
-    dispatch(getBooks());
-    dispatch(get_rccgData(language));
-    dispatch(getSearchData());
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }else{
-    setInternet(true)
-  }
+      dispatch(active_event());
+      dispatch(getBooks());
+      dispatch(get_rccgData(language));
+      dispatch(getSearchData());
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 2000);
+    } else {
+      setInternet(true);
+    }
   };
   useFocusEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,7 +158,6 @@ const HomeScreen = ({scrollViewRef}) => {
       });
     }),
   );
-
 
   useEffect(() => {
     let timerId;
@@ -175,15 +177,15 @@ const HomeScreen = ({scrollViewRef}) => {
     return () => clearTimeout(timerId);
   }, [seconds]);
 
-  const offmodal =() => {
-    dispatch({type:ADVMODAL, payload: false})
-  }
-    const onMdlSubmit = () => {
+  const offmodal = () => {
+    dispatch({type: ADVMODAL, payload: false});
+  };
+  const onMdlSubmit = () => {
     if (advertisement?.book_name != null) {
       navigation.navigate('ViewManual', {
         item: advertisement?.book,
       });
-    }else {
+    } else {
       navigation.navigate('AdvWebView', {
         link: advertisement?.app_page,
       });
@@ -226,21 +228,24 @@ const HomeScreen = ({scrollViewRef}) => {
         flex: 1,
         backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
-        <NoInternetModal
+      <NoInternetModal
         isVisible={internet}
         onBackdropPress={() => setInternet(false)}
-        />
-           <Advertisement
-       isVisible={advmodal}
+      />
+      <Advertisement
+        isVisible={advmodal}
         skipPress={() => offmodal()}
         //  backdropOpacity={() => offmodal()}
-          Advertisement={advertisement}
-          applanguage={applanguage}
-          seconds={seconds}
-          onPress={onMdlSubmit}
-          />
-        
-      <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef} refreshControl={
+        Advertisement={advertisement}
+        applanguage={applanguage}
+        seconds={seconds}
+        onPress={onMdlSubmit}
+      />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        ref={scrollViewRef}
+        refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>
         <View
@@ -330,9 +335,7 @@ const HomeScreen = ({scrollViewRef}) => {
                 data={activeBooks?.slice(0, 6)}
                 renderItem={({item, index}) => {
                   return (
-                    <TouchableOpacity
-                      onPress={() => handleClick(item)}
-                    >
+                    <TouchableOpacity onPress={() => handleClick(item)}>
                       <View
                         style={{
                           height:
@@ -359,26 +362,39 @@ const HomeScreen = ({scrollViewRef}) => {
                               width:
                                 w >= 768 && h >= 1024 ? scale(60) : scale(100),
                             }}>
-                            <FastImage
-                              style={{height: '100%', width: '100%'}}
-                              source={{
-                                uri: item?.cover_image,
-                                priority: FastImage.priority.normal,
-                              }}
-                              resizeMode={FastImage.resizeMode.contain}
-                            />
+                            {IOS ? (
+                              <Image
+                                style={{height: '100%', width: '100%'}}
+                                source={{
+                                  uri: item?.cover_image,
+                                }}
+                                resizeMode="contain"
+                              />
+                            ) : (
+                              <FastImage
+                                style={{height: '100%', width: '100%'}}
+                                source={{
+                                  uri: item?.cover_image,
+                                  priority: FastImage.priority.normal,
+                                }}
+                                resizeMode={FastImage.resizeMode.contain}
+                              />
+                            )}
                           </View>
                         </View>
                         <View
                           style={{
                             // marginVertical: verticalScale(20),
-                            marginTop: w >= 768 && h >= 1024 ? verticalScale(10) : verticalScale(13),
+                            marginTop:
+                              w >= 768 && h >= 1024
+                                ? verticalScale(10)
+                                : verticalScale(13),
                             marginLeft: scale(10),
                           }}>
                           <View
                             style={{
                               // justifyContent: 'center',
-                              flex:1
+                              flex: 1,
                             }}>
                             <Text
                               numberOfLines={2}
@@ -388,7 +404,7 @@ const HomeScreen = ({scrollViewRef}) => {
                                     Theme === 'dark'
                                       ? Color.White
                                       : Color.DarkTextColor,
-                                      paddingTop: fourInchPotrait ? 0 : scale(5)
+                                  paddingTop: fourInchPotrait ? 0 : scale(5),
                                 },
                                 styles.BooksTitleStyle,
                               ]}>
@@ -414,7 +430,7 @@ const HomeScreen = ({scrollViewRef}) => {
                           </View>
                           <View
                             style={{
-                              flex:0.5,
+                              flex: 0.5,
                               // marginTop: tabPotrait
                               //   ? verticalScale(1)
                               //   : fourInchPotrait
@@ -449,7 +465,7 @@ const HomeScreen = ({scrollViewRef}) => {
             },
             styles.SwiperViewTwo,
           ]}>
-          {rccgData.length > 0  && !loader ? (
+          {rccgData.length > 0 && !loader ? (
             <FlatList
               data={rccgData}
               showsHorizontalScrollIndicator={false}
@@ -485,7 +501,18 @@ const HomeScreen = ({scrollViewRef}) => {
                         }}
                         source={{uri: item.image}}
                       /> */}
-                      <FastImage
+                      {IOS ? (
+                         <Image
+                         resizeMode="cover"
+                         style={{
+                           height: '100%',
+                           width: '100%',
+                           position: 'absolute',
+                         }}
+                         source={item.image2}
+                       /> 
+                      ) : (
+                        <FastImage
                         style={{
                           height: '100%',
                           width: '100%',
@@ -498,15 +525,8 @@ const HomeScreen = ({scrollViewRef}) => {
                         }}
                         resizeMode={FastImage.resizeMode.cover}
                       />
-                      {/* <Image
-                        resizeMode="cover"
-                        style={{
-                          height: '100%',
-                          width: '100%',
-                          position: 'absolute',
-                        }}
-                        source={item.image2}
-                      /> */}
+                      )}
+                      
                       <View
                         style={{
                           height: '100%',
@@ -704,7 +724,7 @@ const HomeScreen = ({scrollViewRef}) => {
           style={{
             paddingHorizontal:
               w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-              marginBottom: scale(4)
+            marginBottom: scale(4),
           }}>
           <View
             style={{
@@ -740,7 +760,7 @@ const HomeScreen = ({scrollViewRef}) => {
               />
             </TouchableOpacity>
           </View>
-          {parishData?.length > 0 && !loader  ? (
+          {parishData?.length > 0 && !loader ? (
             <>
               {parishData?.map((item, index) => {
                 return (
@@ -751,7 +771,7 @@ const HomeScreen = ({scrollViewRef}) => {
                       onPress={() => {
                         navigation.navigate('ViewParish', {
                           id: item.id,
-                          item: item
+                          item: item,
                         });
                       }}
                       source={item?.image}
@@ -812,13 +832,16 @@ const HomeScreen = ({scrollViewRef}) => {
               <>
                 {activeEvents?.map((item, index) => {
                   return (
-                    index < 5 && (
-                      item?.featured === 'YES' &&
+                    index < 5 &&
+                    item?.featured === 'YES' && (
                       <DetailsCard
                         key={item.id}
                         data={item}
                         onPress={() => {
-                          navigation.navigate('EventScreen', {id: item.id,item:item});
+                          navigation.navigate('EventScreen', {
+                            id: item.id,
+                            item: item,
+                          });
                         }}
                         source={item?.image}
                         title={item.title}
@@ -852,7 +875,6 @@ const HomeScreen = ({scrollViewRef}) => {
         </View>
         <View style={{height: verticalScale(10)}} />
       </ScrollView>
-   
     </View>
   );
 };
@@ -921,7 +943,12 @@ const styles = StyleSheet.create({
   },
 
   BooksTitleStyle: {
-    fontSize: w >= 768 && h >= 1024 ? scale(7) : w <= 380 && h <= 630 ? scale(13) : scale(15),
+    fontSize:
+      w >= 768 && h >= 1024
+        ? scale(7)
+        : w <= 380 && h <= 630
+        ? scale(13)
+        : scale(15),
     fontFamily: Font.Poppins600,
     maxWidth: '90%',
   },

@@ -93,9 +93,12 @@
 		<string>fonts/Gobold-Regular.ttf</string>
 		<string>fonts/LibreBaskerville-Bold.ttf</string>
 		<string>fonts/LibreBaskerville-Regular.ttf</string>
-
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>remote-notification</string>
+    </array>
 </dict>
 </plist>

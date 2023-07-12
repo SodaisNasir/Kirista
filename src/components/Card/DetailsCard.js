@@ -21,6 +21,7 @@ const DetailsCard = props => {
   const fourInchPotrait = w <= 350 && h <= 600;
   const Theme = useSelector(state => state.mode)
   const iosTab = w >= 820 && h >= 1180;
+  const IOS = Platform.OS == 'ios';
 
   return (
     <TouchableOpacity
@@ -46,25 +47,29 @@ const DetailsCard = props => {
           ]
           //
         }>
-        {/* <Image
-          resizeMode={props.resize}
-          style={{
-            height: '100%',
-            width: '100%',
-          }}
-          source={props.source}
-        /> */}
-         <FastImage
-                   style={{
-                    height: '100%',
-                    width: '100%'
-                  }}
-                source={{
-                  uri: props.source,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+          {IOS ? (
+            <Image
+            resizeMode='contain'
+            style={{
+              height: '100%',
+              width: '100%',
+            }}
+            source={props.source}
+          /> 
+          ) : (
+            <FastImage
+            style={{
+             height: '100%',
+             width: '100%'
+           }}
+         source={{
+           uri: props.source,
+           priority: FastImage.priority.normal,
+         }}
+         resizeMode={FastImage.resizeMode.contain}
+       />
+          )}
+           
       </View>
       <View
         style={{
@@ -75,7 +80,7 @@ const DetailsCard = props => {
         <View
           style={{
             justifyContent: 'flex-end',
-            top: Platform.OS === 'ios' ? null : verticalScale(10),
+            top: IOS ? null : verticalScale(10),
           }}>
           <Text
             style={[
@@ -89,7 +94,7 @@ const DetailsCard = props => {
               {
                 color: Theme === 'dark' ? Color.White : Color.DarkTextColor,
                 marginTop:
-                Platform.OS == 'ios'
+                IOS
                   ? 0
                   : w >= 768 && h >= 1024 ? scale(-1) : verticalScale(-7),
               },
@@ -103,7 +108,7 @@ const DetailsCard = props => {
             right:
               w >= 768 && h >= 1024
                 ? scale(0)
-                : Platform.OS === 'ios'
+                : IOS
                 ? scale(0)
                 : scale(0),
             paddingTop: iosTab
@@ -112,7 +117,7 @@ const DetailsCard = props => {
               ? moderateScale(12)
               : fourInchPotrait
               ? moderateScale(0)
-              : Platform.OS === 'ios'
+              : IOS
               ? moderateScale(12)
               : moderateScale(5),
           }}>

@@ -25,7 +25,7 @@ import { ADVMODAL } from '../redux/reducer';
 const Advertisement = (props) => {
   // const navigation = useNavigation();
   // const dispatch = useDispatch();
-
+  const IOS = Platform.OS == 'ios';
   const Advertisement = props.Advertisement
 const seconds = props.seconds
   const applanguage = props.applanguage
@@ -147,6 +147,15 @@ const seconds = props.seconds
                 alignSelf: 'center',
                 overflow: 'hidden',
               }}>
+                {IOS ? (
+                   <Image
+                   style={{height: '100%', width: '100%', borderRadius: scale(20)}}
+                   source={{
+                     uri: Advertisement?.image,
+                   }}
+                   resizeMode={'contain'}
+                 />
+                ) : (
               <FastImage
                 style={{height: '100%', width: '100%', borderRadius: scale(20)}}
                 source={{
@@ -155,6 +164,7 @@ const seconds = props.seconds
                 }}
                 resizeMode={FastImage.resizeMode.contain}
               />
+                )}
             </View>
             <View style={{maxWidth: '50%', alignSelf: 'center'}}>
               <Text

@@ -25,6 +25,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
   const fourInchPotrait = w <= 380 && h <= 630;
   // const Theme = useColorScheme() === 'dark';
   const Theme = useSelector(state => state.mode)
+  const IOS = Platform.OS == 'ios';
   return (
     <>
       <View
@@ -48,23 +49,26 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
             height: verticalScale(500),
             
           }}>
-          {/* <Image
-            resizeMode={w >= 768 && h >= 1024 ? "center" : "contain"}
-            style={{
-              height: '100%',
-              width: '100%',
-              position: 'absolute',
-            }}
-            source={{uri :source}}
-          /> */}
-           <FastImage
-                style={{height: '100%', width: '100%',  position: 'absolute'}}
-                source={{
-                  uri: source,
-                  priority: FastImage.priority.normal,
+            {IOS ? (
+              <Image
+                resizeMode="contain"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  position: 'absolute',
                 }}
-                resizeMode={FastImage.resizeMode.contain}
+                source={{uri :source}}
               />
+            ) : (
+            <FastImage
+                 style={{height: '100%', width: '100%',  position: 'absolute'}}
+                 source={{
+                   uri: source,
+                   priority: FastImage.priority.normal,
+                 }}
+                 resizeMode={FastImage.resizeMode.contain}
+               />
+            )}
         </View>
         <View
           style={{
