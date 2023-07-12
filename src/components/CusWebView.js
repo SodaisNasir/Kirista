@@ -1,19 +1,43 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, SafeAreaView, StatusBar, View, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { Font } from '../utils/font';
 import { Color } from '../utils/Colors';
+import CustomNavigator from './CustomNavigator';
 
 const CusWebView = ({ route, navigation }) => {
   const { link } = route.params;
   const [isLoading, setLoading] = useState(true);
+const {data, setData} = useState()
+console.log('link', link)
+const webviewRef = useRef(null);
 
   const handleLoadEnd = () => {
     setLoading(false);
   };
 
+
+  const onShouldStartLoadWithRequest = (request) => {
+    const { url, navigationType } = request;
+
+    if (navigationType === 'click') {
+      // Handle link clicks within the WebView
+      webviewRef.current.loadRequest(request); // Load the clicked URL within the WebView
+      return false; // Prevent the URL from loading externally
+    }
+
+    return true; // Allow the WebView to handle other types of navigation
+  };
+
+  const refresh = () => {
+    webviewRef.current.reload();
+  };
+
+  const goBack = () => {
+    webviewRef.current.goBack();
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent={false} />
@@ -22,7 +46,11 @@ const CusWebView = ({ route, navigation }) => {
       </View>
       <WebView
         source={{ uri: link }}
+        ref={webviewRef}
         onLoadEnd={handleLoadEnd}
+        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        setSupportMultipleWindows={false}
+        originWhitelist={['*']} // Whitelist all URLs
       />
       {isLoading && (
         <View style={styles.loadingContainer}>
@@ -33,6 +61,18 @@ const CusWebView = ({ route, navigation }) => {
           />
         </View>
       )}
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            backgroundColor: Color.White,
+          }}>
+          <CustomNavigator
+          onPressLeft={goBack}
+          onPressFresh={refresh}
+           forwrd={true}/>
+        </View>
     </SafeAreaView>
   );
 };

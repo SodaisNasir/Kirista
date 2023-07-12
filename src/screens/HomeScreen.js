@@ -11,13 +11,14 @@ import {
   Platform,
   Linking,
   RefreshControl,
+  useWindowDimensions,
 } from 'react-native';
 import {Color} from '../utils/Colors';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {Font} from '../utils/font';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
+import {useNavigation, useFocusEffect, StackActions} from '@react-navigation/native';
 import DetailsCard from '../components/Card/DetailsCard';
 import Swiper from 'react-native-swiper';
 import {
@@ -37,6 +38,9 @@ import DoubleText from '../components/Loader/DoubleText';
 import FastImage from 'react-native-fast-image';
 import { useEffect } from 'react';
 import NetInfo from '@react-native-community/netinfo';
+import Advertisement from '../components/Advertisement';
+import { ADVMODAL } from '../redux/reducer';
+import NoInternetModal from '../components/Modals/NoInternetModal';
 
 
 const w = Dimensions.get('window').width;
@@ -59,7 +63,12 @@ const HomeScreen = ({scrollViewRef}) => {
   const fourInchPotrait = w <= 380 && h <= 630;
   const [isConnected, setIsConnected] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-
+  const [internet, setInternet] = useState(false);
+  const advmodal = useSelector(state => state.advmodal);
+  const advertisement = useSelector(state => state.Advertisement);
+  const w = useWindowDimensions().width;
+  const h = useWindowDimensions().height;
+  const [seconds, setSeconds] = useState(3);
 
 
   useEffect(() => {
@@ -74,15 +83,25 @@ const HomeScreen = ({scrollViewRef}) => {
   }, []);
 
   // useFocusEffect(
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
   //   useCallback(() => {
-  //     dispatch(show_all_banner());
-  //     dispatch(parish());
-  //     dispatch(active_event());
-  //     dispatch(getBooks());
-  //     dispatch(get_rccgData(language));
-  //     dispatch(getSearchData());
-  //   }, [isConnected]),
+  //     navigation.getParent()?.setOptions({
+  //       tabBarStyle: {
+  //         display: 'none',
+  //       },
+  //     });
+  //   }),
   // );
+  useFocusEffect(
+    useCallback(() => {
+      // dispatch(show_all_banner());
+      // dispatch(parish());
+      // dispatch(active_event());
+      // dispatch(getBooks());
+      // dispatch(get_rccgData(language));
+      dispatch(getSearchData());
+    }, [isConnected]),
+  );
   const onSubmit = async item => {
 
     const url = item?.app_page;
@@ -111,9 +130,10 @@ const HomeScreen = ({scrollViewRef}) => {
     }
   };
   const handleRefresh = () => {
-    setRefreshing(true);
-    dispatch(show_all_banner());
-    dispatch(parish());
+    if(isConnected){
+      setRefreshing(true);
+      dispatch(show_all_banner());
+      dispatch(parish());
     dispatch(active_event());
     dispatch(getBooks());
     dispatch(get_rccgData(language));
@@ -121,14 +141,105 @@ const HomeScreen = ({scrollViewRef}) => {
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
+  }else{
+    setInternet(true)
+  }
   };
+  useFocusEffect(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: 'none',
+        },
+      });
+    }),
+  );
 
+
+  useEffect(() => {
+    let timerId;
+
+    const decrementTimer = () => {
+      if (seconds > 1) {
+        setSeconds(prevSeconds => prevSeconds - 1);
+      } else {
+        setSeconds(null);
+      }
+    };
+
+    timerId = setTimeout(() => {
+      decrementTimer();
+    }, 1000);
+
+    return () => clearTimeout(timerId);
+  }, [seconds]);
+
+  const offmodal =() => {
+    dispatch({type:ADVMODAL, payload: false})
+  }
+    const onMdlSubmit = () => {
+    if (advertisement?.book_name != null) {
+      navigation.navigate('ViewManual', {
+        item: advertisement?.book,
+      });
+    }else {
+      navigation.navigate('AdvWebView', {
+        link: advertisement?.app_page,
+      });
+    }
+  };
+  // useEffect(() => {
+  //   // Add a listener to handle deep linking when the component mounts
+  //   Linking.addEventListener('url', handleDeepLink);
+
+  //   // Remove the listener when the component unmounts
+  //   return () => {
+  //     Linking.removeEventListener('url', handleDeepLink);
+  //   };
+  // }, []);
+
+  // const handleDeepLink = (event) => {
+  //   const { path, queryParams } = Linking.parse(event.url);
+
+  //   // Check the path and queryParams to determine which screen to navigate to
+  //   if (path === '/some/path') {
+  //     // Replace 'SomeScreen' with the name of the screen you want to navigate to
+  //     navigateToScreen('SomeScreen', queryParams);
+  //   }
+  //   // Add more conditions for other paths/screens as needed
+  // };
+
+  // const navigateToScreen = (screenName, params) => {
+  //   const resetAction = StackActions.reset({
+  //     index: 0,
+  //     actions: [navigation.navigate({ routeName: screenName, params })],
+  //   });
+
+  //   // Replace 'YourStackNavigator' with the name of your stack navigator
+  //   // Make sure your navigator is wrapped in a navigation container
+  //   navigation.dispatch(resetAction);
+  // };
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
       }}>
+        <NoInternetModal
+        isVisible={internet}
+        onBackdropPress={() => setInternet(false)}
+        />
+           <Advertisement
+       isVisible={advmodal}
+        skipPress={() => offmodal()}
+        //  backdropOpacity={() => offmodal()}
+          Advertisement={advertisement}
+          applanguage={applanguage}
+          seconds={seconds}
+          onPress={onMdlSubmit}
+          />
+        
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef} refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>
@@ -146,7 +257,7 @@ const HomeScreen = ({scrollViewRef}) => {
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
-            {!loader ? (
+            {bannerData?.length > 0 && !loader ? (
               bannerData?.map((item, index) => {
                 return (
                   <>
@@ -216,7 +327,7 @@ const HomeScreen = ({scrollViewRef}) => {
             {activeBooks.length > 0 && !loader ? (
               <FlatList
                 showsHorizontalScrollIndicator={false}
-                data={activeBooks?.slice(0, 20)}
+                data={activeBooks?.slice(0, 6)}
                 renderItem={({item, index}) => {
                   return (
                     <TouchableOpacity
@@ -633,7 +744,7 @@ const HomeScreen = ({scrollViewRef}) => {
             <>
               {parishData?.map((item, index) => {
                 return (
-                  index < 3 && (
+                  index < 4 && (
                     <DetailsCard
                       key={item.id}
                       data={item}
@@ -701,7 +812,8 @@ const HomeScreen = ({scrollViewRef}) => {
               <>
                 {activeEvents?.map((item, index) => {
                   return (
-                    index < 4 && (
+                    index < 5 && (
+                      item?.featured === 'YES' &&
                       <DetailsCard
                         key={item.id}
                         data={item}
@@ -740,6 +852,7 @@ const HomeScreen = ({scrollViewRef}) => {
         </View>
         <View style={{height: verticalScale(10)}} />
       </ScrollView>
+   
     </View>
   );
 };

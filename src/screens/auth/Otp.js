@@ -29,6 +29,7 @@ import AuthHeader from '../../components/AuthHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {OTPMethod, register, sign_in, verify_Email_before_password} from '../../redux/actions/AuthAction';
 import IncorrectModal from '../../components/Modals/IncorrectModal';
+import Loader from '../../components/Modals/Loader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -50,6 +51,8 @@ const OTP = ({navigation, route}) => {
     setValue,
   });
   const [time, setTime] = useState(5);
+  const [loader, setLoader] = useState(false);
+
   useEffect(() => {
     const timer = time > 0 && setInterval(() => setTime(time - 1), 1000);
     return () => clearInterval(timer);
@@ -58,21 +61,26 @@ const OTP = ({navigation, route}) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
   const handleOtp = () => {
     if (otp == value) {
-      navigation.navigate('NewPassword', {
-        data: data,
-        id: id
-      });
+      setLoader(true)
+
+      setTimeout(() => {
+        setLoader(false)
+        navigation.navigate('NewPassword', {
+          data: data,
+          id: id
+        });
+      }, 2000);
     } else {
       // alert('Incorrect OTP!!');
+      setLoader(false)
       setCheck(true)
     }
   };
 
   const resendOtp = () => {
-      dispatch(verify_Email_before_password(data,navigation, 'resend' ,setTime))
+      dispatch(verify_Email_before_password(data,navigation, 'resend' ,setTime,setLoader))
  }
 
   return (
@@ -208,6 +216,10 @@ const OTP = ({navigation, route}) => {
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
         />
+        <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
     </SafeAreaView>
   );
 };

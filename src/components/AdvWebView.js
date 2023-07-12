@@ -12,7 +12,7 @@ const AdvWebView = ({route,navigation}) => {
       <StatusBar translucent={false}/>
       <View style={styles.Row}>
       <Fontisto name='close-a' size={scale(18)} color='#fff' onPress={() => navigation.goBack()}/>
-      <Text style={styles.Text}>{link}</Text>
+      {/* <Text style={styles.Text}>{link}</Text> */}
       </View>
      <WebView source={{ uri: link }} onLoad={console.log('loading')}/>
      </SafeAreaView>

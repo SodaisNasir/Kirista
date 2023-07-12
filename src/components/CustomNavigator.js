@@ -72,8 +72,10 @@ const CustomNavigator = (props) => {
         </View>
           </TouchableOpacity>
 
+{
+  !props.forwrd ?
 
-          <TouchableOpacity onPress={props.onPressRight}>
+  <TouchableOpacity onPress={props.onPressRight}>
         <View
           style={[
             styles.ArrowStyle,
@@ -85,9 +87,24 @@ const CustomNavigator = (props) => {
             name="chevron-forward"
             size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
             color={Theme === 'dark' ? Color.White : Color.Black}
-          />
+            />
         </View>
           </TouchableOpacity>
+          :  <View
+          style={{
+            borderRadius: w >= 768 && h >= 1024 ? scale(4) : scale(8),
+    height: w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30),
+    width: w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+          }}>
+          {/* <Ionicons
+            name="chevron-forward"
+            size={w >= 768 && h >= 1024 ? scale(12) : scale(17)}
+            color={Theme === 'dark' ? Color.White : Color.Black}
+            /> */}
+        </View>
+          }
 
 
       </View>

@@ -20,6 +20,8 @@ import OneSignal from 'react-native-onesignal'
 import { active_event, getBooks, getLibraryData, getSearchData, parish, show_all_banner, show_popup } from './src/redux/actions/UserAction';
 import { get_rccgData } from './src/redux/actions/AuthAction';
 import NetInfo from '@react-native-community/netinfo';
+import {Provider as StoreProvider} from 'react-redux'
+import store from './src/redux/store'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ const App = () => {
   const [isConnected, setIsConnected] = useState(false);
 
 
-useEffect(() => {
+  useEffect(() => {
   const unsubscribe = NetInfo.addEventListener(state => {
     setIsConnected(state.isConnected);
   });
@@ -43,10 +45,8 @@ useEffect(() => {
     unsubscribe();
   };
 }, []);
-
-const [data,setData] = useState('')
-const deviceData = Platform.OS
-
+  const [data,setData] = useState('')
+  const deviceData = Platform.OS
   const setLanguage = async () => {
     const getLang = await AsyncStorage.getItem('language')
     const cnvrtlng = JSON.parse(getLang)
@@ -82,12 +82,9 @@ const deviceData = Platform.OS
        dispatch({type: LANGUAGE, payload: 'English'})
     }
   }
-
-
   setTimeout(() => {
     setLoading(false);
   }, 3000);
-
   const checkStatus = async () => {
     const data = await AsyncStorage.getItem('user_details');
     const userData = JSON.parse(data);
@@ -142,15 +139,14 @@ const deviceData = Platform.OS
   useEffect(() => {
       setLanguage()
   }, [getlanguage,isConnected])
-
   useEffect(() => {
     bookmarkData()
     manualbookmarkData()
     parishbookmarkData()
     eventbookmarkData()
     getPopupData()
+    dispatch(show_popup(deviceData));
   }, [isConnected])
-
   const bookmarkData = async () => {
     const bookMark = await AsyncStorage.getItem('bookmark')
     const convertData = JSON.parse(bookMark)
@@ -267,16 +263,18 @@ const deviceData = Platform.OS
     }
   }
   return (
+  
     <>
       {loading ? (
         <LightSplash />
-      ) : (
-        <>
+        ) : (
+          <>
           {user_details == null && <AuthNavigator />}
           {user_details != null && <BottomTabNavigator />}
         </>
       )}
-    </>
+      </>
+    
   );
 };
 

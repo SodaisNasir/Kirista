@@ -24,6 +24,7 @@ import { downloadBook, getChapters, markData } from '../../redux/actions/UserAct
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ALLBOOKMARK, ID } from '../../redux/reducer';
 import { useEffect } from 'react';
+import TickModal from '../../components/Modals/TickModal';
 
 
 const w = Dimensions.get('window').width;
@@ -134,6 +135,9 @@ const ViewManual = ({navigation,route}) => {
   // }, [])
 
   const [isChecked, setIsChecked] = useState(false);
+  const [check, setCheck] = useState(false)
+  const [msg, setMsg] = useState('')
+
   const shareBook = (data) => {
     let shareImageBase64 = {
       title: 'Book',
@@ -167,7 +171,9 @@ const handleSubmit = async () => {
       await AsyncStorage.setItem('allbookmark', JSON.stringify(updatedData));
       markData(type,item.id,user_details)
       setIsChecked(false)
-      ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
+      // ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
+      setMsg(applanguage.RemoveBook)
+      setCheck(true)
     } else {
       markData(type,item.id,user_details)
       console.log('laraib =========> Object not found in the array');
@@ -175,7 +181,9 @@ const handleSubmit = async () => {
       await AsyncStorage.setItem('allbookmark', JSON.stringify([...allbookmark, item]));
       downloadBook(item?.id)
       setIsChecked(true);
-      ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
+      setMsg(applanguage.SaveBook)
+      setCheck(true)
+      // ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
     }
     
 }
@@ -413,6 +421,13 @@ const handleSubmit = async () => {
 
         <View style={{height: verticalScale(6)}}></View>
           </ScrollView>
+
+          <TickModal
+          text={msg}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </View>
     </>
   );

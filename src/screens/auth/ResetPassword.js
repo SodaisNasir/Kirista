@@ -19,6 +19,7 @@ import CustomInput from '../../components/CustomInput';
 import {useForm} from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { verify_Email_before_password } from '../../redux/actions/AuthAction';
+import Loader from '../../components/Modals/Loader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -29,6 +30,8 @@ const ResetPassword = ({navigation}) => {
   const iosTab = w >= 820 && h >= 1180;
   const Theme = useSelector(state => state.mode)
   const [message,setMessage] = useState('')
+  const [loader, setLoader] = useState(false);
+
 
   const {
     control,
@@ -40,7 +43,7 @@ const ResetPassword = ({navigation}) => {
 
 
   const handleNextButton = (data) => {
-    dispatch(verify_Email_before_password(data,navigation,type,setMessage,applanguage))
+    dispatch(verify_Email_before_password(data,navigation,type,setMessage,applanguage,setLoader))
    };
   return (
     <SafeAreaView
@@ -111,6 +114,10 @@ const ResetPassword = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+      <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
     </SafeAreaView>
   );
 };

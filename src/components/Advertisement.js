@@ -19,69 +19,65 @@ import {useCallback} from 'react';
 import {show_popup} from '../redux/actions/UserAction';
 import {useDispatch, useSelector} from 'react-redux';
 import FastImage from 'react-native-fast-image';
+import Modal from 'react-native-modal';
+import { ADVMODAL } from '../redux/reducer';
 
-const Advertisement = () => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const applanguage = useSelector(state => state.applanguage);
-  const Advertisement = useSelector(state => state.Advertisement);
-  const [data, setData] = useState();
-  const deviceData = Platform.OS;
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(show_popup(setData, deviceData));
-    }, []),
-  );
+const Advertisement = (props) => {
+  // const navigation = useNavigation();
+  // const dispatch = useDispatch();
+
+  const Advertisement = props.Advertisement
+const seconds = props.seconds
+  const applanguage = props.applanguage
+  // const advmodal = useSelector(state => state.advmodal);
+  // const [data, setData] = useState();
+  // const deviceData = Platform.OS;
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(show_popup(deviceData));
+  //   }, []),
+  // );
+
+  // useFocusEffect(
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   useCallback(() => {
+  //     navigation.getParent()?.setOptions({
+  //       tabBarStyle: {
+  //         display: 'none',
+  //       },
+  //     });
+  //   }),
+  // );
+
+  // const onSubmit = () => {
+  //   if (Advertisement?.book_name != null) {
+  //     navigation.navigate('ViewManual', {
+  //       item: Advertisement?.book,
+  //     });
+  //   }else {
+  //     navigation.navigate('AdvWebView', {
+  //       link: Advertisement?.app_page,
+  //     });
+  //   }
+  // };
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const [seconds, setSeconds] = useState(3);
-
-  useEffect(() => {
-    let timerId;
-
-    const decrementTimer = () => {
-      if (seconds > 1) {
-        setSeconds(prevSeconds => prevSeconds - 1);
-      } else {
-        setSeconds(null);
-      }
-    };
-
-    timerId = setTimeout(() => {
-      decrementTimer();
-    }, 1000);
-
-    return () => clearTimeout(timerId);
-  }, [seconds]);
-  useFocusEffect(
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useCallback(() => {
-      navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: 'none',
-        },
-      });
-    }),
-  );
-
-  const onSubmit = () => {
-    if (Advertisement?.book_name != null) {
-      navigation.navigate('ViewManual', {
-        item: Advertisement?.book,
-      });
-    }
-    // else if (data){
-
-    // }
-    else {
-      navigation.navigate('AdvWebView', {
-        link: Advertisement?.app_page,
-      });
-    }
-  };
   return (
+    <>
+    <StatusBar translucent={true} backgroundColor={'transparent'} />
+    <Modal 
+    isVisible={props.isVisible}
+    backdropOpacity={props.backdropOpacity}
+    style={{
+      margin: 0,
+      flex:1
+    }}
+    animationIn="slideInDown" // Set the animationIn property to slideInDown
+    // animationInTiming={400} // Adjust the animationInTiming value as needed
+    animationOut="slideOutUp" // Set the animationOut property to slideOutUp
+    // animationOutTiming={400} // Adjust the animationOutTiming value as needed
+    >
     <View style={styles.container}>
-      <StatusBar translucent={true} backgroundColor={'transparent'} />
       <ImageBackground
         blurRadius={14}
         // source={require('../assets/images/ad_book_tablet.png')}
@@ -105,7 +101,9 @@ const Advertisement = () => {
             }}>
             <TouchableOpacity
               disabled={seconds > 0 ? true : false}
-              onPress={() => navigation.navigate('HomeScreen')}
+              // onPress={() => navigation.navigate('HomeScreen')}
+              // onPress={() => dispatch({type:ADVMODAL, payload: false})}
+              onPress={props.skipPress}
               style={[
                 {
                   borderRadius: w >= 768 && h >= 1024 ? scale(12) : scale(18),
@@ -184,7 +182,8 @@ const Advertisement = () => {
               //     link: forLink,
               //   })
               // }
-              onPress={onSubmit}
+              // onPress={onSubmit}
+              onPress={props.onPress}
               style={[
                 {
                   height: w >= 768 && h >= 1024 ? verticalScale(40) : '55%',
@@ -212,8 +211,9 @@ const Advertisement = () => {
           </View>
         </View>
       </ImageBackground>
-      {/* </Modal> */}
     </View>
+    </Modal>
+    </>
   );
 };
 

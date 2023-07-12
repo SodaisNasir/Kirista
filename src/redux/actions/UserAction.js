@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { base_Url } from "../../utils/Url";
-import { ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, ALLBOOKMARK, BANNER_DATA, CHAPTERS, EVENTBOOKMARK, GETLIBRARYDATA, LOADER, PARISHBOOKMARK, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
+import { ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, ADVMODAL, ALLBOOKMARK, BANNER_DATA, CHAPTERS, EVENTBOOKMARK, GETLIBRARYDATA, LOADER, PARISHBOOKMARK, PARISH_DATA, SEARCH_DATA, USER_DETAILS } from "../reducer";
 
 export const show_all_banner =  () =>{
   return async (dispatch) => {
@@ -29,7 +29,7 @@ export const show_all_banner =  () =>{
     }
   }
 }
-export const show_popup =  (setData,Device) =>{
+export const show_popup =  (Device) =>{
   return async (dispatch) => {
     let base_url = `${base_Url}popup-active`;
     let myData = new FormData()
@@ -42,17 +42,23 @@ export const show_popup =  (setData,Device) =>{
             body: myData,
           });
           const responseData = await response.json();
-          console.log('responseData', responseData)
-    
-          if (responseData.success.status === 200) {
-           setData(responseData.success.data)   
+
+          console.log('responseData ==>', responseData)
+           if (responseData?.error?.message == 'Active Popup not found'){
+            // navigation.navigate('HomeScreen')
+            dispatch({type:ADVMODAL, payload: false})
+          }
+          if(responseData?.success?.status === 200) {
+            dispatch({type:ADVMODAL, payload: true})
            dispatch({type:ADVERTISMENT, payload: responseData.success.data})
           await  AsyncStorage.setItem('adv', JSON.stringify(responseData.success.data))
           } else {
             console.log('else error');
+            dispatch({type:ADVMODAL, payload: false})
           }
       } catch (error) {
           console.log('error ===>', error)
+          dispatch({type:ADVMODAL, payload: false})
       }
   }
  
@@ -123,6 +129,7 @@ export const active_event =  () => {
         dispatch({type: LOADER, payload: false})
       }
     } catch (error) {
+      console.log('error active_event', error)
       dispatch({type: LOADER, payload: false})
     }
   }
@@ -201,6 +208,7 @@ export const updateProfile = (data,userData,saveimage,text,navigation,country,se
         redirect: 'follow'
       });
       const responseData = await response.json();
+      console.log('responseData', responseData)
       if (responseData.success.status === 200) {
         setLoader(false)
         dispatch({type: USER_DETAILS, payload: responseData.success});
@@ -464,7 +472,7 @@ export const getfeaturedcountry = async (setData) => {
     console.log('error', error)
   }
 }
-export const getRCCData = async (setData,type,language,setLoader) => {
+export const getRCCData = async (setData,type,language,setLoader,setTitle) => {
   setLoader(true)
   try {
     let base_url = `${base_Url}show-about`;
@@ -481,6 +489,7 @@ export const getRCCData = async (setData,type,language,setLoader) => {
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
+      setTitle(responseData.success.data.text)
       setData(responseData.success.data.description);
       setLoader(false)
     }else{

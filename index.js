@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native'
+import {AppRegistry,View} from 'react-native'
 import App from './App'
 import React from 'react'
 import {Provider as StoreProvider} from 'react-redux'

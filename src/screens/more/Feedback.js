@@ -29,6 +29,7 @@ import { base_Url } from '../../utils/Url';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/Modals/Loader';
 import Header from '../../components/Header';
+import TickModal from '../../components/Modals/TickModal';
 
 const Feedback = ({navigation}) => {
   const user_details = useSelector(state => state.user_details)
@@ -40,6 +41,9 @@ const Feedback = ({navigation}) => {
   const [saveimage, setsaveimage] = useState();
   const [show, setShow] = useState(true);
   const [loader, setLoader] = useState(false);
+  const [internet, setInternet] = useState(false);
+  const [msg, setMsg] = useState('')
+console.log('saveimage', saveimage)
 
 
   useLayoutEffect(() => {
@@ -94,14 +98,16 @@ setLoader(true);
       });
 
       const responseData = await response.json();
-      console.log('responseData', responseData);
-      if(responseData.success.status === 200){
+  
+      if(responseData?.success?.status === 200){
+        setMsg(applanguage.ThanksFB)
+        setInternet(true)
         setLoader(true);
-        alert('Thank you for your valuebale feedback')
-        
         setTimeout(() => {
           navigation.goBack()
         }, 2000);
+      }else{
+        console.log('first')
       }
       
     } catch (error) {
@@ -212,7 +218,11 @@ setLoader(true);
                 paddingVertical:
                   w >= 768 && h >= 1024 ? verticalScale(0) : verticalScale(10),
               }}>
-              <AttachButton text={applanguage.Upload} />
+              <AttachButton 
+              text={applanguage.Upload}
+              sstext={saveimage != null ? applanguage.Uploaded : applanguage.ScreenShotUpload}
+              img={saveimage?.uri}
+               />
             </TouchableOpacity>
 
             <View
@@ -233,6 +243,12 @@ setLoader(true);
    onBackdropPress={() => setLoader(false)}
    isVisible={loader}
 />
+<TickModal
+ text={msg}
+ onPress={() => setInternet(false)}
+        isVisible={internet}
+        onBackdropPress={() => setInternet(false)}
+        />
     </View>
     </>
   );

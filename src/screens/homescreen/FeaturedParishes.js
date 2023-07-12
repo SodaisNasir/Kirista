@@ -87,9 +87,9 @@ const FeaturedParishes = () => {
             }}>
             {parishData.length > 0 ? (
               <>
-                {parishData?.map(item => {
+                {parishData?.map((item,index) => {
                   return (
-                    <DetailsCard
+                   (index < 21 && <DetailsCard
                       key={item.id}
                       data={item}
                       onPress={() => {
@@ -107,7 +107,7 @@ const FeaturedParishes = () => {
                       MainBoxRestyle={{
                         marginTop: verticalScale(10),
                       }}
-                    />
+                    />)
                   );
                 })}
               </>

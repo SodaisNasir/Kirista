@@ -13,13 +13,12 @@ const h = Dimensions.get('window').height;
 const ParishFinderSearch = ({data}) => {
   const navigation = useNavigation()
   const Theme = useSelector(state => state.mode)
-  const newData = data != null ? [data] : data
 
- 
+  const getData = data?.filter((item) => item.type == 'parish')
     return(
         <SafeAreaView style={{flex: 1, paddingHorizontal: moderateScale(20)}}>
         <FlatList
-          data={newData}
+          data={getData}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => {
             return(
@@ -27,6 +26,7 @@ const ParishFinderSearch = ({data}) => {
               onPress={() => {
                 navigation.navigate('ViewParish', {
                   id: item.id,
+                  item: item
                 });
               }}
               source={item?.image}

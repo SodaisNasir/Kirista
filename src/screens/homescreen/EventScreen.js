@@ -33,6 +33,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import BannerLoader from '../../components/Loader/BannerLoader';
 import DoubleText from '../../components/Loader/DoubleText';
+import TickModal from '../../components/Modals/TickModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -51,6 +52,9 @@ const EventScreen = ({route, navigation}) => {
   const user_details = useSelector(state => state.user_details)
   const [isChecked, setIsChecked] = useState(false);
   const [ setData] = useState(item);
+  const [check, setCheck] = useState(false)
+  const [msg, setMsg] = useState('')
+
 
   useFocusEffect(
     useCallback(() => {
@@ -117,14 +121,18 @@ const EventScreen = ({route, navigation}) => {
       setIsChecked(false)
       console.log('laraib =========>')
       markData(type,item.id,user_details)
-      ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
+      // ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
+      setMsg(applanguage.RemoveEvent)
+      setCheck(true)
     } else {
       markData(type,item.id,user_details)
       dispatch({type: EVENTBOOKMARK, payload: [...eventbookmark, item]})
       console.log('laraib =========> Object not found in the array');
       setIsChecked(true);
       await AsyncStorage.setItem('eventbookmark', JSON.stringify([...eventbookmark, item]));
-      ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
+      // ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
+      setMsg(applanguage.SaveEvent)
+      setCheck(true)
     }
   }
   return (
@@ -367,6 +375,12 @@ const EventScreen = ({route, navigation}) => {
           uri={item.image}
         />
       </ScrollView>
+      <TickModal
+          text={msg}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
     </View>
     </>
   );

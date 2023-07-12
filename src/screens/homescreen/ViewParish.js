@@ -28,6 +28,7 @@ import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PARISHBOOKMARK } from '../../redux/reducer';
 import DoubleText from '../../components/Loader/DoubleText';
+import TickModal from '../../components/Modals/TickModal';
 
 
 const w = Dimensions.get('window').width;
@@ -46,10 +47,10 @@ const ViewParish = ({route}) => {
   const user_details = useSelector(state => state.user_details)
   const [isChecked, setIsChecked] = useState(false);
   const [location, setLocation] = useState([])
-
+  const [check, setCheck] = useState(false)
+  const [msg, setMsg] = useState('')
   const [cordinates, setCordinates] = useState(null);
 
-  console.log('cordinates',cordinates);
 
 
   // const mapProperty = () => {
@@ -99,14 +100,18 @@ const ViewParish = ({route}) => {
       setIsChecked(false)
       markData(type,item.id,user_details,ToastAndroid)
       console.log('laraib =========>')
-      ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
+      setMsg(applanguage.RemoveParish)
+      setCheck(true)
+      // ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
     } else {
       markData(type,item.id,user_details,ToastAndroid)
       dispatch({type: PARISHBOOKMARK, payload: [...parishbookmark, item]})
       console.log('laraib =========> Object not found in the array');
       setIsChecked(true);
       await AsyncStorage.setItem('parishbookmark', JSON.stringify([...parishbookmark, item]));
-      ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
+      // ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
+      setMsg(applanguage.SaveParish)
+      setCheck(true)
     }
   }
   return  (
@@ -510,6 +515,12 @@ const ViewParish = ({route}) => {
             </View>
           </View>
         </ScrollView>
+        <TickModal
+          text={msg}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
       </View>
     </>
   );

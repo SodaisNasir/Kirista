@@ -22,6 +22,21 @@
   "EditProfile": "Edit Profile",
   "ChangeImage": "Change Image",
   "Save": "Save",
+  "Guest": "Guest",
+
+  "ContctSub": "Contact Form Submitted",
+  "ThanksFB": "Feedback Submitted",
+  "Uploaded": "Screenshot Uploaded",
+  "ChangeLan": "Language Changed",
+
+  "SaveBook": "Book saved successfully",
+  "RemoveBook": "Book Removed",
+
+  "SaveParish": "Parish Saved Successfully",
+  "RemoveParish": "Parish Removed",
+
+  "SaveEvent": "Event Saved Successfully",
+  "RemoveEvent": "Event Removed",
 
 
   "Version": "Version",

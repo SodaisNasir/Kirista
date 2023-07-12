@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   useColorScheme,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Font} from '../utils/font';
@@ -57,9 +58,14 @@ const AttachButton = props => {
             width: '80%',
             color: Theme === 'dark' ? Color.DarkThemeInputText : '#C6CAD1',
           }}>
-          {applanguage.ScreenShotUpload}
+          {/* {applanguage.ScreenShotUpload} */}
+          {props.sstext}
         </Text>
-
+            {
+              props.img ?
+              <Image source={{uri: props.img}} style={{height: verticalScale(20),width: scale(25)}} />
+              : null
+            }
         {/* }}>
         <TextInput
           placeholder={props.placeholder}

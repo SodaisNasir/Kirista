@@ -77,27 +77,33 @@ const Searchbar = () => {
 
   
   const showData = (item) => {
-   
-    if(item.type == 'parish'){
-      setParishes(item)
-      setShow(true);
-      setIsSearchBarVisible(true);
-      setBook(null)
-      setEvent(null)
-    }else if(item.type == 'event'){
-      setEvent(item)
-      setShow(true);
-      setIsSearchBarVisible(true);
-      setBook(null)
-      setParishes(null)
-    }else{
-      setBook(item)
-      setShow(true);
-      setIsSearchBarVisible(true);
-      setEvent(null)
-      setParishes(null)
-    }
+    setEvent([item])
+    setParishes([item])
+    setBook([item])
+    setShow(true);
+    setIsSearchBarVisible(true);
+    // if(item.type == 'parish'){
+    //   setParishes([item])
+    //   setShow(true);
+    //   setIsSearchBarVisible(true);
+    //   setBook(null)
+    //   setEvent(null)
+    // }else if(item.type == 'event'){
+    //   setEvent([item])
+    //   setShow(true);
+    //   setIsSearchBarVisible(true);
+    //   setBook(null)
+    //   setParishes(null)
+    // }else{
+    //   setBook([item])
+    //   setShow(true);
+    //   setIsSearchBarVisible(true);
+    //   setEvent(null)
+    //   setParishes(null)
+    // }
   };
+
+
 
   const resetStatus = () => {
     setShow(false);
@@ -160,6 +166,26 @@ const renderScene = SceneMap({
       />
     </View>
   );
+  const newSubmit = (item) => {
+    console.log('item', item)
+    setParishes(item)
+    setEvent(item)
+    setBook(item)
+    setShow(true);
+      setIsSearchBarVisible(true);
+      // setEvent(null)
+      // setParishes(null)
+      // setParishes(item)
+      // setEvent(item)
+      // setBook(item)
+  }
+
+  const newData = () => {
+    setShow(false)
+    setParishes(null)
+    setEvent(null)
+    setBook(null)
+  }
   return (
     <>
       <SafeAreaView
@@ -256,10 +282,13 @@ const renderScene = SceneMap({
                 // top: fourInchPotrait ?  verticalScale(1.3) : 0, //fourInchPotrait ? verticalScale(20) :0,
                 left: iosTab ? scale(2) : 0,
               }}
+              
               placeholder={applanguage.Search}
               placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
               onChangeText={text => handleSearch2(text)}
               value={searchQuery2}
+              returnKeyType='search'
+              onSubmitEditing={() => newSubmit(filteredData2)}
             />
             {searchQuery2.length >= 1 && isSearchBarVisible ? (
               <View
@@ -571,7 +600,7 @@ const renderScene = SceneMap({
               }
             />
             <TextInput
-              onFocus={() => setShow(false)}
+              onFocus={() => newData()}
               style={{
                 height:
                   w >= 768 && h >= 1024
@@ -599,6 +628,8 @@ const renderScene = SceneMap({
               placeholderTextColor={Theme === 'dark' ? '#555E68' : '#CDD1D7'}
               onChangeText={text => handleSearch2(text)}
               value={searchQuery2}
+              returnKeyType='search'
+              onSubmitEditing={() => newSubmit(filteredData2)}
             />
             {searchQuery2.length >= 1 && isSearchBarVisible ? (
               <View

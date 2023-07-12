@@ -89,7 +89,7 @@ const PopularBooks = ({navigation}) => {
               myData.length > 0 ?
               <FlatList 
               showsHorizontalScrollIndicator={false}
-              data={myData}
+              data={myData?.slice(0, 20)}
               renderItem={({item}) => {
                 return(
                   <TouchableOpacity  

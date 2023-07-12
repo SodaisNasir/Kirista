@@ -36,13 +36,15 @@ const RccgStructure = ({navigation}) => {
   const [loader, setLoader] = useState(false);
   const type = 'RCCG Structure';
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
+  const [title, setTitle] = useState();
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     }, []),
   );
   useEffect(() => {
-    getRCCData(setData,type,language,setLoader)
+    getRCCData(setData,type,language,setLoader,setTitle)
   },[show])
 
 
@@ -69,7 +71,7 @@ const RccgStructure = ({navigation}) => {
         },
       ]}>
         <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
-      <Header text={'RCCG Structure'}
+      <Header text={title}
        AuthHeaderStyle={{
         height:
           Platform.OS == 'android'

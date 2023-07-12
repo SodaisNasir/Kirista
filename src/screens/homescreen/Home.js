@@ -170,6 +170,7 @@ const Home = () => {
       <StatusBar
         backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}
         barStyle={Theme === 'dark' ? 'light-content' : 'dark-content'}
+        translucent={true}
       />
 
       <HomeHeader laraPress={() => handleScrollToTop()} />

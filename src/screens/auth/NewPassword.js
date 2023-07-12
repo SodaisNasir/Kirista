@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form';
 import { change_password } from '../../redux/actions/AuthAction';
 import { useSelector } from 'react-redux';
 import TickModal from '../../components/Modals/TickModal';
+import Loader from '../../components/Modals/Loader';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -79,11 +80,12 @@ const NewPassword = ({navigation,route}) => {
   const confirmPasswordRef = useRef()
   const [isVisible, setVisible] = useState(true);
   const [isVisible2, setVisible2] = useState(true);
+  const [loader, setLoader] = useState(false);
 
 
   const onSubmit = (data) => {
     if(data.password == data.confirm_password){
-      change_password(data,id,navigation,setCheck)
+      change_password(data,id,navigation,setCheck,setLoader)
       // setCheck(true)
     }else{
       console.log('incorrect')
@@ -230,6 +232,10 @@ const NewPassword = ({navigation,route}) => {
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
         />
+        <Loader
+   onBackdropPress={() => setLoader(false)}
+   isVisible={loader}
+/> 
     </SafeAreaView>
   );
 };

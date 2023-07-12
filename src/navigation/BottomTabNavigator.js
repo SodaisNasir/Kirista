@@ -60,7 +60,6 @@ const BottomTabNavigator = () => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
-      
       }}>
       <Tab.Screen
         name="Home"
@@ -93,7 +92,7 @@ function AllHome() {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Advertisement">
+      initialRouteName="HomeScreen">
          <Stack.Screen
         name="HomeScreenMain"
         component={HomeScreen}

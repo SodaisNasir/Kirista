@@ -41,6 +41,7 @@ const RccgContinent = ({navigation}) => {
   const [loader, setLoader] = useState(false);
   const type = 'RCCG Continent 2';
   const systemFonts = [...defaultSystemFonts, 'Poppins-Medium'];
+  const [title, setTitle] = useState();
 
 
   useFocusEffect(
@@ -50,7 +51,7 @@ const RccgContinent = ({navigation}) => {
   );
 
   useEffect(() => {
-    getRCCData(setData,type,language,setLoader)
+    getRCCData(setData,type,language,setLoader,setTitle)
   },[show])
 
 
@@ -80,7 +81,7 @@ const RccgContinent = ({navigation}) => {
       ]}>
         <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
 
-      <Header text={'RCCG Continent 2'} 
+      <Header text={title} 
        AuthHeaderStyle={{
         height:
           Platform.OS == 'android'

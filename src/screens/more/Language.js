@@ -24,18 +24,22 @@ import ReadNavigator from '../../components/ReadNavigator';
 import { useDispatch, useSelector } from 'react-redux';
 import { GETLANGUAGE, LANGUAGE } from '../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TickModal from '../../components/Modals/TickModal';
 
 const Language = ({navigation,route}) => {
   const {type,setSelectedLanguage,} = route.params
   const Provence = type == 'Provence';
   const Region = type == 'Region'
   const dispatch = useDispatch()
+  const applanguage = useSelector(state => state.applanguage)
 
+  
   const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const language = useSelector(state => state.language)
   const [selected, setSelected] = useState(language);
+  const [check, setCheck] = useState(false)
 
 
 
@@ -94,12 +98,16 @@ const Language = ({navigation,route}) => {
   ];
 
   const handleLanguageSelect = async (language) => {
+    setCheck(true)
     setSelected(language.title)
     dispatch({type: GETLANGUAGE, payload: language.select})
     dispatch({type: LANGUAGE, payload: language.title})
     await AsyncStorage.setItem('language', JSON.stringify(language.select))
     await AsyncStorage.setItem('languagetitle', JSON.stringify(language.title))
-    navigation.goBack();
+    setTimeout(() => {
+      setCheck(false)
+      navigation.goBack();
+    }, 3000);
     setSelectedLanguage(language.select)
   }
 
@@ -198,6 +206,7 @@ const Language = ({navigation,route}) => {
           styles.BorderBottom,
         ]}
       />
+
     </TouchableOpacity>
   );
   return (
@@ -214,7 +223,12 @@ const Language = ({navigation,route}) => {
         },
         styles.Container,
       ]}>
-     
+         <TickModal
+          text={applanguage.ChangeLan}
+          onPress={() => setCheck(false)}
+          onBackdropPress={() => setCheck(false)}
+          isVisible={check}
+        />
       <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'}  />
        {/* AuthHeaderStyle={{
             

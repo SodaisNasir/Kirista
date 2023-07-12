@@ -325,16 +325,16 @@ const LibraryHome = ({navigation}) => {
             <FlatList
               data={data2}
               renderItem={({item}) => (
-                <View style={{}}>
+               
                   <TouchableOpacity
-                    style={{marginBottom: verticalScale(10)}}
+                    style={{
+                      flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems:'center',
+                          paddingVertical:moderateVerticalScale(10),
+                    }}
                     onPress={() => setSelected(item.label)}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <View style={{}}>
+                   
                         <Text
                           style={[
                             styles.SmallTextStyle,
@@ -346,7 +346,6 @@ const LibraryHome = ({navigation}) => {
                           ]}>
                           {item.label}
                         </Text>
-                      </View>
 
                       <View
                         style={{
@@ -366,7 +365,7 @@ const LibraryHome = ({navigation}) => {
                             borderRadius: scale(50),
                             borderColor: Color.Black,
                             borderWidth: scale(1.5),
-                            marginBottom: verticalScale(15),
+                            // marginBottom: verticalScale(15),
                           }}>
                           {item.label == selected ? (
                             <View
@@ -394,9 +393,8 @@ const LibraryHome = ({navigation}) => {
                           ) : null}
                         </View>
                       </View>
-                    </View>
                   </TouchableOpacity>
-                </View>
+               
               )}
             />
 
@@ -441,13 +439,10 @@ const styles = StyleSheet.create({
     color: Color.DarkTextColor,
     fontFamily: Font.Poppins500,
     fontSize: w >= 768 && h >= 1024 ? scale(12) : scale(16),
-    textAlign: 'left',
-    top: scale(20),
   },
   SmallTextStyle: {
     color: Color.DarkTextColor,
     fontFamily: Font.Poppins400,
     fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(16),
-    textAlign: 'left',
   },
 });

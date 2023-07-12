@@ -30,6 +30,7 @@ const Rccg = ({navigation}) => {
   const h = useWindowDimensions().height;
   const language = useSelector(state => state.language);
   const [data, setData] = useState([]);
+  const [title, setTitle] = useState();
   const [show, setShow] = useState(false);
   const [loader, setLoader] = useState(false);
   const type = 'RCCG';
@@ -40,7 +41,7 @@ const Rccg = ({navigation}) => {
     }, []),
   );
   useEffect(() => {
-    getRCCData(setData,type,language,setLoader)
+    getRCCData(setData,type,language,setLoader,setTitle)
   },[show])
 
 
@@ -74,7 +75,7 @@ const Rccg = ({navigation}) => {
         <StatusBar backgroundColor={ Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}/>
 
         <Header
-          text={'RCCG'}
+          text={title}
           AuthHeaderStyle={{
             height:
               Platform.OS == 'android'

@@ -26,6 +26,7 @@ export const LOADER = 'LOADER'
 export const  ADVERTISMENT = 'ADVERTISMENT'
 export const  ID = 'ID'
 export const  GETLIBRARYDATA = 'GETLIBRARYDATA'
+export const  ADVMODAL = 'ADVMODAL'
 
 
 const initialState = {
@@ -55,6 +56,7 @@ const initialState = {
   Advertisement: null,
   id: null,
   getlibrarydata: [],
+  advmodal: false,
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -188,6 +190,11 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         getlibrarydata: action.payload,
+      };
+    case ADVMODAL:
+      return {
+        ...state,
+        advmodal: action.payload,
       };
 
     default:

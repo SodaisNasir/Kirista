@@ -12,19 +12,21 @@ const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
 const BookResult = ({data}) => {
+  // console.log('data', data)
     const navigation = useNavigation()
     const Theme = useSelector(state => state.mode)
 
-    const newData = data != null ? [data] : data
-
-    console.log('newData', data)
+    // const newData = data != null ? data : data
+    // console.log('newData', newData)
+const getData = data?.filter((item) => item.type == 'books')
   return (
     <SafeAreaView style={{flex: 1, paddingHorizontal: moderateScale(20)}}>
     <FlatList
-      data={newData}
+      data={getData}
       showsVerticalScrollIndicator={false}
-      renderItem={({item}) => (
-        <DetailsCard
+      renderItem={({item}) => {
+        return(
+      item.type == 'books' && (  <DetailsCard
         onPress={() => navigation.navigate('ViewManual',{
           item:item
         })}
@@ -49,8 +51,8 @@ const BookResult = ({data}) => {
             : Color.BorderColor,
           borderBottomWidth: 1,
         }}
-      />
-      )}
+      />)
+      )}}
     //   keyExtractor={item => item.id.toString()}
       ListEmptyComponent={() => (
       <View  style={{

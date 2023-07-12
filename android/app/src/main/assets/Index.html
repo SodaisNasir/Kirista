@@ -25,7 +25,10 @@ if (localStorage.hasOwnProperty(bookid)) {
          new Promise(function() {
              dataArray.forEach(row => {
              console.log(row.id)
-             i++;   
+             i++;
+             if(i==1){
+                document.getElementById('chapter').innerHTML = row.title
+             }   
              document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 
              })
@@ -42,6 +45,9 @@ if (localStorage.hasOwnProperty(bookid)) {
           new Promise(function() {
              dataArray.forEach(row => {
              i++;    
+             if(i==1){
+                document.getElementById('chapter').innerHTML = row.title
+             }  
              console.log(row.id)
              document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 

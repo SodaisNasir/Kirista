@@ -72,13 +72,11 @@ const Readtwo = ({route}) => {
   const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
   const [loader, setLoader] = useState(true)
-  const [chapNo, setChapNo] = useState()
   const [bottomModal, setBottomModal] = useState(false);
   const applanguage = useSelector(state => state.applanguage)
   const [markModal, setMarkModal] = useState(false)
   const [tapShow, setTapShow] = useState(false)
   const [email, setEmail] = useState(null);
-  const [numbers, setNumbers] = useState('');
   const webViewRef = useRef(null);
   useFocusEffect(
     useCallback(() => {
@@ -113,14 +111,12 @@ const Readtwo = ({route}) => {
   //   changeTheme(Theme)
   //   changeFontColor(Theme)
   // }, [])
-
+  console.log('id', id)
   const changeTheme = (color) => {
-    console.log('changeTheme',color)
     const functionName = 'changeTheme';
     const functionArguments = [color != 'dark' && color !=  'light' ? color : color === 'dark' ? Color.DarkTheme
     : Color.White]; // Optional function arguments
 
-          console.log('functionArguments', functionArguments)
 
     const injectedJavaScript = `
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
@@ -175,7 +171,11 @@ const Readtwo = ({route}) => {
       changeFontColor('light');
       changeHeaderFontColor('#797B7F')
       changeHeaderBackground(Color.White)
+      setBackgroundColor('')
+      setShow(true)
     } else {
+      setBackgroundColor('')
+      setShow(true)
       setTempMode('dark');
       setShowSvg(!showSvg);
       changeTheme('dark');
@@ -363,6 +363,9 @@ const Readtwo = ({route}) => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     
+    console.log('===========>')
+    console.log('===========>',type)
+    console.log('===========>')
 
     if(type == 'loader'){
       setTimeout(() => {
@@ -549,7 +552,7 @@ const Readtwo = ({route}) => {
             style={{ 
               flex: 1,
             // marginBottom: 50,
-            backgroundColor:   backgroundColor != '' && show
+            backgroundColor: backgroundColor != '' && show
             ? backgroundColor
             : Theme === 'dark'
             ? Color.DarkTheme

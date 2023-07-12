@@ -28,6 +28,7 @@ import { useState } from 'react';
 import { base_Url } from '../../utils/Url';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/Modals/Loader';
+import TickModal from '../../components/Modals/TickModal';
 
 const Contact = () => {
   const {
@@ -45,6 +46,8 @@ const Contact = () => {
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const [text, onChangeText] = useState('');
+  const [internet, setInternet] = useState(false);
+  const [msg, setMsg] = useState('')
 
   const [country, setCountry] = useState({
     country_name:  userData != "guest" ? userData?.data.country : '',
@@ -78,12 +81,19 @@ const Contact = () => {
         method: 'post',
         body: myData,
       });
-console.log("response ===>",response);
+
       const responseData = await response.json();
-      console.log("responseData ===>",responseData);
-      if(responseData.success.status === 200){
-        alert('Successfully Submited')
-        console.log('responseData', responseData.success.data)
+
+      // if(responseData?.error?.message == 'Your previously Contact already in Pending'){
+      //   alert(responseData?.error?.message)
+      //   setLoader(false);
+      // }else{
+      //   console.log('first')
+      // }
+   
+      if(responseData?.success?.status === 200){
+        setMsg(applanguage.ContctSub)
+        setInternet(true)
         setTimeout(() => {
           navigation.goBack()
         }, 2000);
@@ -394,6 +404,12 @@ console.log("response ===>",response);
    onBackdropPress={() => setLoader(false)}
    isVisible={loader}
 />
+<TickModal
+ text={msg}
+ onPress={() => setInternet(false)}
+        isVisible={internet}
+        onBackdropPress={() => setInternet(false)}
+        />
       </View>
     </>
   );

@@ -53,7 +53,7 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader,langu
       myData.append('password', data.password);
       myData.append('password_confirmation', data.confirm_password);
       myData.append('phone_number', data.phonenumber);
-      myData.append('device', device);
+      myData.append('device', device == 'android' ? 'Android' : 'IOS');
       myData.append('country', country.country_name);
       myData.append('device_token', notification_token);
       myData.append('language', language);
@@ -64,6 +64,7 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader,langu
       });
 
       const responseData = await response.json();
+      console.log('responseData', responseData)
 
       if(responseData?.error?.email){
         setEmail(responseData?.error.email[0])
@@ -88,8 +89,9 @@ export const register =  (data, device,setEmail,setCheck,country,setLoader,langu
     }
   };
 };
-export const verify_Email_before_password =  (data,navigation,type,setTime,applanguage) => {
+export const verify_Email_before_password =  (data,navigation,type,setTime,applanguage,setLoader) => {
   return async (dispatch) => {
+    setLoader(true)
     try {
       let base_url = `${base_Url}verifyemail`;
       let myData = new FormData();
@@ -108,11 +110,14 @@ export const verify_Email_before_password =  (data,navigation,type,setTime,appla
 
       if(responseData?.error?.message === 'Email Not Exit'){
         setTime(applanguage.EmailNotExt)
+        setLoader(false)
       }else{
+        
         console.log('first')
       }
 
       if (responseData?.success?.status === 200) {
+        setLoader(false)
         dispatch({type: OTP_SEND, payload: responseData.success.Reset_code});
         if (type == 'forgot') {
           navigation.navigate('OTP', {
@@ -126,14 +131,17 @@ export const verify_Email_before_password =  (data,navigation,type,setTime,appla
         }
       } else {
         console.log('else error');
+        setLoader(false)
       }
     } catch (error) {
       console.log('catch error in verify email', error);
+      setLoader(false)
     }
   };
 };
-export const change_password = async (data,id,navigation,setCheck) => {
+export const change_password = async (data,id,navigation,setCheck,setLoader) => {
   try {
+    setLoader(true)
     let base_url = `${base_Url}resetpassword/${id}`;
     let myData = new FormData();
 
@@ -146,9 +154,10 @@ export const change_password = async (data,id,navigation,setCheck) => {
     });
     const responseData = await response.json();
 
-    console.log('responseData', responseData)
+
 
     if (responseData.success.status === 200) {
+      setLoader(false)
       setCheck(true)
       console.log('responseData', responseData);
       setTimeout(() => {
@@ -157,8 +166,10 @@ export const change_password = async (data,id,navigation,setCheck) => {
       }, 1500);
     } else {
       console.log('else error');
+      setLoader(false)
     }
   } catch (error) {
+    setLoader(false)
     console.log('catch error', error);
   }
 };
@@ -185,6 +196,8 @@ export const OTPMethod = (id) => {
 }}
 export const skipGuest = (device) => {
   return async (dispatch) => {
+    dispatch({type: IS_GUEST, payload: true});
+    dispatch({type: USER_DETAILS, payload: 'guest'});
    try {
     const notification_token = await AsyncStorage.getItem('onesignaltoken')
     let baseUrl = `${base_Url}skip`
@@ -263,7 +276,6 @@ export const get_rccgData = (language) => {
       });
       
       const responseData = await response.json();
-      console.log('responseData ===>', responseData)
   
       if (responseData?.success?.status === 200) {
         await AsyncStorage.setItem('rccgData', JSON.stringify(responseData.success.data));

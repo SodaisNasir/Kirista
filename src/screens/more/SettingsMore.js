@@ -103,7 +103,7 @@ const SettingsMore = () => {
             },
           ]}>
           <View style={styles.WelcomeView}>
-            {is_guest ? (
+            {is_guest  ? (
               <Text
                 style={[
                   styles.WelcomeText,
@@ -111,7 +111,8 @@ const SettingsMore = () => {
                     color: Theme === 'dark' ? Color.White : Color.Black,
                   },
                 ]}>
-              {applanguage.Hello},  {applanguage.Brethen}
+              {/* Guest, {applanguage.Brethen} */}
+              {applanguage.Guest}, {applanguage.Brethen}
               </Text>
             ) : (
               <Text
@@ -122,7 +123,7 @@ const SettingsMore = () => {
                   },
                 ]}>
                 {/* Hello, Brethren. */}
-                {applanguage.Hello},  {applanguage.Brethen}.
+                {applanguage.Hello}, {applanguage.Brethen}.
               </Text>
             )}
           </View>
@@ -354,6 +355,9 @@ const SettingsMore = () => {
                 />
               </View>
             </TouchableOpacity>
+            {
+              is_guest ?
+              null :
             <TouchableOpacity
               style={[
                 styles.AllItems,
@@ -382,9 +386,10 @@ const SettingsMore = () => {
                   {applanguage.Notifications}
                 </Text>
               </View>
-
               <CustomSwitch />
             </TouchableOpacity>
+                  }
+
             <TouchableOpacity
               onPress={() => navigation.navigate('DarkMode')}
               style={[

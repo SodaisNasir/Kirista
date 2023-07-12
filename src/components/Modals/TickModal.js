@@ -32,7 +32,8 @@ const TickModal = (props) => {
           style={{
             flex: 3,
             justifyContent: 'center',
-            alignItems: 'center',
+            // alignItems: 'center',
+            paddingLeft: scale(20)
           }}>
           <Text
             style={{
