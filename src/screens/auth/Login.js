@@ -24,6 +24,7 @@ import {useForm} from 'react-hook-form';
 import { sign_in } from '../../redux/actions/AuthAction';
 import IncorrectModal from '../../components/Modals/IncorrectModal';
 import Loader from '../../components/Modals/Loader';
+import BlockedAccModal from '../../components/Modals/BlockedAccModal';
 
 
 
@@ -57,6 +58,7 @@ const Login = ({navigation}) => {
   const [check, setCheck] = useState(false)
   const [isVisible, setVisible] = useState(true);
   const [loader, setLoader] = useState(false);
+  const [blocked, setBlocked] = useState(false);
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -64,7 +66,7 @@ const Login = ({navigation}) => {
   );
 
   const onSubmit = data => {
-    dispatch(sign_in(data,setCheck,setLoader));
+    dispatch(sign_in(data,setCheck,setLoader,setBlocked));
   };
   return (
     <SafeAreaView
@@ -266,6 +268,14 @@ const Login = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+
+      <BlockedAccModal
+      onBackdropPress={() => setBlocked(false)}
+      isVisible={blocked}
+      text={applanguage.CheckAcc}
+      text2={applanguage.ContctSup}
+      />
+
 
       <IncorrectModal
           text={applanguage.Invalid}

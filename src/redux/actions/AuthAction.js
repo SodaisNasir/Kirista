@@ -3,7 +3,7 @@ import {base_Url, token} from '../../utils/Url';
 import {IS_GUEST, RCCG_DATA, USER_DETAILS} from '../reducer';
 import {OTP_SEND} from '../reducer';
 
-export const sign_in = (data,setCheck,setLoader) => {
+export const sign_in = (data,setCheck,setLoader,setBlocked) => {
   return async (dispatch) => {
     try {
       setLoader(true);
@@ -23,6 +23,11 @@ export const sign_in = (data,setCheck,setLoader) => {
       });
 
       const responseData = await response.json();
+      console.log('responseData', responseData)
+      if(responseData?.error == "Account Blocked"){
+        setLoader(false)
+        setBlocked(true)
+      }
 
       if (responseData?.success?.status === 200) {
         dispatch({type: USER_DETAILS, payload: responseData.success});
@@ -31,12 +36,12 @@ export const sign_in = (data,setCheck,setLoader) => {
         setLoader(false);
       } else {
         console.log('else error');
-        setCheck(true)
+        // setCheck(true)
         setLoader(false);
       }
     } catch (error) {
       console.log('catch error', error);
-      
+      setLoader(false);
     }
   };
 };
