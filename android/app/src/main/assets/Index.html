@@ -31,6 +31,10 @@ if (localStorage.hasOwnProperty(bookid)) {
              }   
              document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 
+             if(i == dataArray.length){
+                var n = i+1;
+                document.getElementById('book').innerHTML += '<h2 style="with:0px"  id=tittle'+n+'></h2>'
+             }
              })
          }).then(
             window.ReactNativeWebView.postMessage('loader,'+0)
@@ -51,6 +55,10 @@ if (localStorage.hasOwnProperty(bookid)) {
              console.log(row.id)
              document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 
+             if(i == dataArray.length){
+                var n = i+1;
+                document.getElementById('book').innerHTML += '<h2 style="with:0px"  id=tittle'+n+'></h2>'
+             }
              })
          }).then(
              window.ReactNativeWebView.postMessage('loader,'+0)
@@ -65,70 +73,69 @@ if (localStorage.hasOwnProperty(bookid)) {
 var eleemtnnumber = 1;
 var backagain = 0;
 function Chapping(type){
-        console.log(type)
-        if(type == 'down'){
-            const lengthElement = document.getElementsByClassName('chap_description').length
-            const currentScrollPosition = window.pageYOffset;
-            t = document.getElementById(eleemtnnumber).offsetTop;
-            if(eleemtnnumber < lengthElement ){
-                 var j = eleemtnnumber+1;
-                 var t2 = document.getElementById(j).offsetTop;
-                
-                 if(currentScrollPosition >=t && currentScrollPosition <= t2){
-                    console.log(t+" > "+currentScrollPosition+" > "+t2)
-                    eleemtnnumber++
-                    backagain =0;
-                    var valu = eleemtnnumber -1
-                    var v = 'tittle'+(valu)
-                    console.log(document.getElementById(v).innerText)
-                    // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
-                    document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
-                        
-               
-                
-                }
-            }
-           
-    }else if(type == 'up'){
-        
-            const lengthElement = document.getElementsByClassName('chap_description').length
-            let currentScrollPosition = window.pageYOffset;
-            const l = lengthElement -1;
+       
+       if(type == 'down'){
+           const lengthElement = document.getElementsByClassName('chap_description').length+1
+           const currentScrollPosition = window.pageYOffset;
+           t = document.getElementById("tittle"+eleemtnnumber).offsetTop;
           
-            const postitionbefore1 = document.getElementById(l).offsetTop;
-           
-            if(currentScrollPosition < postitionbefore1){
-                
-                t = document.getElementById(eleemtnnumber).offsetTop;
-                var j = eleemtnnumber-1;
-                if(eleemtnnumber > 1){
-                var t2 = 0;
-                t2 = document.getElementById(j).offsetTop;
-                currentScrollPosition = currentScrollPosition +20
-                
-                    if(currentScrollPosition > t2 && currentScrollPosition < t){
-                     
-                        eleemtnnumber--
+           if(eleemtnnumber < lengthElement ){
+                var j = eleemtnnumber+1;
+                var t2 = document.getElementById("tittle"+j).offsetTop;
+                console.log(eleemtnnumber+">"+j)
+                if(currentScrollPosition >=t && currentScrollPosition <= t2){
+                   
+                   eleemtnnumber++
+                   backagain =0;
+                   var valu = eleemtnnumber -1
+                   var v = 'tittle'+(valu)
+                   console.log(document.getElementById(v).innerText)
+                   // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
+                   document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
                        
-                        var v = 'tittle'+(eleemtnnumber+1)
-                        console.log( "cccc"+v)
-                         // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
+              
+               
+               }
+           }
+          
+   }else if(type == 'up'){
+       
+           const lengthElement = document.getElementsByClassName('chap_description').length+1
+           let currentScrollPosition = window.pageYOffset;
+           const l = lengthElement -1;
+         
+           const postitionbefore1 = document.getElementById("tittle"+l).offsetTop;
+          
+           if(currentScrollPosition < postitionbefore1){
+               
+               t = document.getElementById("tittle"+eleemtnnumber).offsetTop;
+               var j = eleemtnnumber-1;
+               if(eleemtnnumber > 1){
+               var t2 = 0;
+               t2 = document.getElementById("tittle"+j).offsetTop;
+               currentScrollPosition = currentScrollPosition +20
+               
+                   if(currentScrollPosition > t2 && currentScrollPosition < t){
+                    
+                       eleemtnnumber--
+                      
+                       var v = 'tittle'+(eleemtnnumber+1)
+                      document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
+                       
+                   }
+                }else if (eleemtnnumber == 1){
+                   if(currentScrollPosition < t  && backagain ==0){
+                       
+                       backagain = 1;
+                       var v = 'tittle'+eleemtnnumber
+                       console.log( "cccc"+document.getElementById(v).innerText)
                        document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
-                        
-                    }
-                 }else if (eleemtnnumber == 1){
-                    if(currentScrollPosition < t  && backagain ==0){
-                        console.log(eleemtnnumber)
-                        backagain = 1;
-                        var v = 'tittle'+eleemtnnumber
-                         // window.ReactNativeWebView.postMessage('chapter,'+document.getElementById(v).innerText);
-                        document.getElementById('chapter').innerHTML = document.getElementById(v).innerText
-                        
-                    }
-                 }
-            }
-            
-    }
+                       
+                   }
+                }
+           }
+           
+   }
 }
 
 

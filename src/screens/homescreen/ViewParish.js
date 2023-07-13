@@ -69,7 +69,7 @@ const ViewParish = ({route}) => {
   const shareBook = () => {
     let shareImageBase64 = {
       title: item.title,
-      url: `d`,
+      url: item.share,
       subject: 'Share Book Link', //  for email
     }
     Share.open(shareImageBase64).catch((error) => console.log(error))

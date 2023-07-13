@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   Boxes:{
     justifyContent:'center',
     alignItems:'center',
-    padding:18
+    padding: fourInch ? 0 : 18
   },
   Name:{
     fontFamily: Font.Poppins600,

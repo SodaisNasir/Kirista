@@ -55,7 +55,7 @@ const LibraryHome = ({navigation}) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
+console.log('data', data)
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
   const [selected, setSelected] = useState('');
@@ -97,11 +97,12 @@ const LibraryHome = ({navigation}) => {
       setModalVisible(false);
       // Use the sortedData as needed
     } else if (selected === applanguage.RecentActivity) {
-      const sortedData = [...data].sort((a, b) => {
+      const sortedData = [...libraryData].sort((a, b) => {
         const dateA = new Date(a.updated_at);
         const dateB = new Date(b.updated_at);
         return dateB - dateA;
       });
+      console.log('sortedData', sortedData)
       setData(sortedData);
       setModalVisible(false);
       // Use the sortedData as needed

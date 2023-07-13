@@ -74,7 +74,7 @@ const HomeScreen = ({scrollViewRef}) => {
   const [seconds, setSeconds] = useState(3);
 
   const IOS = Platform.OS == 'ios';
-
+  const deviceData = Platform.OS
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
@@ -136,9 +136,9 @@ const HomeScreen = ({scrollViewRef}) => {
     if (isConnected) {
       setRefreshing(true);
       dispatch(show_all_banner());
-      dispatch(parish());
-      dispatch(active_event());
-      dispatch(getBooks());
+      dispatch(parish(deviceData));
+      dispatch(active_event(deviceData));
+      dispatch(getBooks(deviceData));
       dispatch(get_rccgData(language));
       dispatch(getSearchData());
       setTimeout(() => {

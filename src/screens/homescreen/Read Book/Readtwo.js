@@ -35,7 +35,7 @@ import WebView from 'react-native-webview';
 import moment from 'moment';
 import BookMarkModal from '../../../components/Modals/BookMarkModal';
 import DoubleText from '../../../components/Loader/DoubleText';
-
+import Toast from 'react-native-simple-toast'
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
@@ -77,6 +77,7 @@ const Readtwo = ({route}) => {
   const [markModal, setMarkModal] = useState(false)
   const [tapShow, setTapShow] = useState(false)
   const [email, setEmail] = useState(null);
+  const [positions, setPosition] = useState(false);
   const webViewRef = useRef(null);
   useFocusEffect(
     useCallback(() => {
@@ -205,6 +206,7 @@ const Readtwo = ({route}) => {
     setFontData(item)
     ChangefontFamily(item.name)
    }
+    
   const doubleTapRef = useRef(null)
   const doubleTapDelay = 200; // Adjust the delay between taps (in milliseconds)
   const handleDoubleTap = () => {
@@ -219,11 +221,12 @@ const Readtwo = ({route}) => {
     setisSelect(false)
   };
   const handleSingleTap = () => {
-    if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
-      handleDoubleTap();
-    } else {
-      doubleTapRef.current = new Date().getTime();
-    }
+
+      if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
+        handleDoubleTap();
+      } else {
+        doubleTapRef.current = new Date().getTime();
+      }
   };
   const handleSingleTap2 = () => {
     // if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
@@ -363,9 +366,6 @@ const Readtwo = ({route}) => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     
-    console.log('===========>')
-    console.log('===========>',type)
-    console.log('===========>')
 
     if(type == 'loader'){
       setTimeout(() => {
@@ -381,7 +381,7 @@ const Readtwo = ({route}) => {
           await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
           setisSelect(false);
           setMarkModal(false)
-          ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
+          Toast.show('Bookmark removed', ToastAndroid.LONG)
         } else {
           dispatch({type: BOOKMARK, payload: [...bookmark, {'scroll_id':newData,'books_id':id,'created_at':moment(formattedDate).format('MMM Do, YYYY.'),'mark_name': email}]});
           console.log('Object not found in the array');
@@ -391,7 +391,7 @@ const Readtwo = ({route}) => {
             JSON.stringify([...bookmark, {'scroll_id':newData,'books_id':id,'created_at':moment(formattedDate).format('MMM Do, YYYY.'),'mark_name': email}]),
           );
           setMarkModal(false)
-          ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
+          Toast.show('Bookmark added successfully', ToastAndroid.LONG)
         }
       
   }else{
@@ -470,7 +470,6 @@ const Readtwo = ({route}) => {
         </View>
               :
               null
-         
             }
         <IncorrectModal
           text={applanguage.Guestpromt}
@@ -502,7 +501,7 @@ const Readtwo = ({route}) => {
               : verticalScale(40),}} />
              : null}
           <View
-          onTouchStart={() => handleSingleTap()}
+         
             style={{
               height: '100%',
               width: '100%',
@@ -569,6 +568,10 @@ const Readtwo = ({route}) => {
             onMessage={onMessage}
             scalesPageToFit={false}
           mixedContentMode="compatibility"
+          onScroll={() => setPosition(false)} 
+          onTouchStart={() => setPosition(true)}
+          onTouchEnd={() => handleSingleTap()}
+          
             />
          
           {/* <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} /> */}

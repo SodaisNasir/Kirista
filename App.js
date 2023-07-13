@@ -45,7 +45,6 @@ const App = () => {
     unsubscribe();
   };
 }, []);
-  const [data,setData] = useState('')
   const deviceData = Platform.OS
   const setLanguage = async () => {
     const getLang = await AsyncStorage.getItem('language')
@@ -214,7 +213,7 @@ const App = () => {
     }else if(cnvrtMode === 'device setting'){
       dispatch({type: MODE, payload: Theme})
     }else{
-      dispatch({type: MODE, payload: ofMode})
+      dispatch({type: MODE, payload: 'device setting'})
     }
   }
   const getbannerData = async () => {
@@ -232,7 +231,7 @@ const App = () => {
     if(cnvrtbookData != null){
       dispatch({type: ACTIVE_BOOKS, payload: cnvrtbookData})
     }else{
-      dispatch(getBooks());
+      dispatch(getBooks(deviceData));
     }
   }
   const getparishData = async () => {
@@ -241,7 +240,7 @@ const App = () => {
     if(cnvrtparishData != null){
       dispatch({type: PARISH_DATA, payload: cnvrtparishData})
     }else{
-      dispatch(parish());
+      dispatch(parish(deviceData));
     }
   }
   const geteventData = async () => {
@@ -250,7 +249,7 @@ const App = () => {
     if(cnvrteventData != null){
       dispatch({type: ACTIVE_EVENT, payload: cnvrteventData})
     }else{
-      dispatch(active_event());
+      dispatch(active_event(deviceData));
     }
   }
   const getrccgData = async () => {

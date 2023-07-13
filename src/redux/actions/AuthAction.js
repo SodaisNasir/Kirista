@@ -25,8 +25,13 @@ export const sign_in = (data,setCheck,setLoader,setBlocked) => {
       const responseData = await response.json();
       console.log('responseData', responseData)
       if(responseData?.error == "Account Blocked"){
+        setCheck(false)
         setLoader(false)
         setBlocked(true)
+      }else {
+        console.log('else error');
+        setLoader(false);
+        setCheck(true)
       }
 
       if (responseData?.success?.status === 200) {

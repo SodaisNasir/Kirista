@@ -1,6 +1,6 @@
 import {Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions} from 'react-native'
 import React from 'react'
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters'
+import {moderateScale, moderateVerticalScale, scale, verticalScale} from 'react-native-size-matters'
 import Modal from 'react-native-modal'
 import LottieView from 'lottie-react-native'
 import { useSelector } from 'react-redux'
@@ -47,9 +47,9 @@ const BookMarkModal = (props) => {
     <View style={[styles.ModalMain,{
       backgroundColor: Theme === 'dark'
       ? Color.DarkTheme
-      : Color.White
+      : Color.White,
     }]}>
-      <ScrollView style={{flex:1}} contentContainerStyle={{flex:1}}>
+      <ScrollView>
         <Text style={{
             alignSelf: 'center',
             fontSize: w >= 768 && h >= 1024 ? scale(10) : scale(18),
@@ -119,14 +119,10 @@ const BookMarkModal = (props) => {
 }
 const styles = StyleSheet.create({
     ModalMain: {
-      height:
-            w >= 768 && h >= 1024 ? verticalScale(200) : w <= 450 && h <= 750 ? verticalScale(170) :verticalScale(250),
-      // backgroundColor: '#435CA8',
       backgroundColor: '#fff',
       borderRadius: 10,
       marginTop: '45%',
-    //   flexDirection: 'row',
-    paddingTop: scale(20),
+    paddingVertical: moderateVerticalScale(20),
     },
   })
 export default BookMarkModal

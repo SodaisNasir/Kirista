@@ -44,7 +44,7 @@ const DarkMode = () => {
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode');
     const cnvrtMode = JSON.parse(getMode);
-    const uplodadData = cnvrtMode != null ? cnvrtMode : 'off'
+    const uplodadData = cnvrtMode != null ? cnvrtMode : 'device setting'
     setSelected(uplodadData);
   };
 

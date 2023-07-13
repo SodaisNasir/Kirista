@@ -63,16 +63,20 @@ export const show_popup =  (Device) =>{
   }
  
 } 
-export const parish =  () => {
+export const parish =  (deviceData) => {
   return async (dispatch) => {
     console.log('first')
     dispatch({type: LOADER, payload: true})
     try {
       let base_url = `${base_Url}parish-active`;
-  
-      const response = await fetch(base_url, {
-        method: 'GET',
-      });
+      let myData = new FormData()
+
+      myData.append('device_name',deviceData)
+      
+    const response = await fetch(base_url, {
+      method: 'post',
+      body: myData
+    });
     const responseData = await response.json();
 
     if (responseData.success.status === 200) {
@@ -110,15 +114,20 @@ export const parish_by_id = async (setData, id,setLoading,setmap,item) => {
     
   }
 }
-export const active_event =  () => {
+export const active_event =  (deviceData) => {
   return async (dispatch) => {
     dispatch({type: LOADER, payload: true})
     try {
       let base_url = `${base_Url}event-active`;
-    
-      const response = await fetch(base_url, {
-        method: 'GET',
-      });
+      let myData = new FormData()
+
+      myData.append('device_name',deviceData)
+      
+    const response = await fetch(base_url, {
+      method: 'post',
+      body: myData
+    });
+
       const responseData = await response.json();
   
       if (responseData.success.status === 200) {
@@ -232,14 +241,18 @@ export const updateProfile = (data,userData,saveimage,text,navigation,country,se
     }
   }
 }
-export const getBooks =  () => {
+export const getBooks =  (deviceData) => {
   return async (dispatch) => {
     dispatch({type: LOADER, payload: true})
     try {
       let base_url = `${base_Url}book-active`;
+      let myData = new FormData()
+
+      myData.append('device_name',deviceData)
       
     const response = await fetch(base_url, {
-      method: 'GET',
+      method: 'post',
+      body: myData
     });
     const responseData = await response.json();
 

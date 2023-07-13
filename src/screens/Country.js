@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     MainBox: {
+      flex:1,
       paddingHorizontal: moderateScale(20),
     },
     title: {

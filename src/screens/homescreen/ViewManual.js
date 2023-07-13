@@ -47,7 +47,7 @@ const ViewManual = ({navigation, route}) => {
   const user_details = useSelector(state => state.user_details);
   const allbookmark = useSelector(state => state.allbookmark);
   const [data, setData] = useState();
-
+console.log('item', item)
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -145,8 +145,8 @@ const ViewManual = ({navigation, route}) => {
 
   const shareBook = () => {
     let shareImageBase64 = {
-      title: 'Book',
-      url: `Monkey D. Luffy`,
+      title: item?.title,
+      url: item.share,
       subject: 'Share Book Link', //  for email
     };
     Share.open(shareImageBase64).catch(error => console.log(error));

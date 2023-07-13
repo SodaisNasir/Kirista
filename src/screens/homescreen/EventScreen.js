@@ -73,7 +73,7 @@ const EventScreen = ({route, navigation}) => {
   const shareBook = (data) => {
     let shareImageBase64 = {
       title: data.title,
-      url: `Monkey D. Luffy`,
+      url: item.share,
       subject: 'Share Book Link', //  for email
     }
     Share.open(shareImageBase64).catch((error) => console.log(error))

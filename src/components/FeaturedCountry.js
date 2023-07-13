@@ -68,52 +68,6 @@ const FeaturedCountry = ({navigation,route}) => {
                 {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
                 styles.MainBox,
               ]}>
-              {/* <FlatList
-                scrollEnabled={true}
-                data={data}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: moderateVerticalScale(100)}}
-                renderItem={({item}) => (
-                  <View
-                    style={[
-                      {
-                        marginTop: verticalScale(5),
-                        borderBottomColor: Theme === 'dark'
-                          ? Color.DarkBorderColor
-                          : Color.BorderColor,
-                      },
-                    ]}>
-                    <View
-                      style={{
-                        marginTop: verticalScale(10),
-                        borderBottomColor: Theme === 'dark'
-                          ? Color.DarkBorderColor
-                          : Color.BorderColor,
-                        borderBottomWidth: 1,
-                        height:
-                          w >= 768 && h >= 1024
-                            ? verticalScale(25)
-                            : verticalScale(40),
-                      }}>
-                      <Text
-                        style={[
-                          styles.title,
-    
-                          {
-                            color: Theme === 'dark'
-                              ? Color.DarkThemText2
-                              : Color.DarkTextColor,
-                          },
-                        ]}>
-                        {item.continent}
-                      </Text>
-                    </View>
-    
-                   
-                  </View>
-                )}
-                keyExtractor={item => item.continent}
-              /> */}
               {
                 data?.length > 0
                 ?
@@ -213,6 +167,7 @@ const FeaturedCountry = ({navigation,route}) => {
                      <View style={{height: 0,marginVertical: verticalScale(5)}} />
                      </>
               }
+              <View style={{height: verticalScale(10)}} />
             </View>
         </View>
         </>
@@ -224,6 +179,7 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     MainBox: {
+      flex:1,
       paddingHorizontal: moderateScale(20),
     },
     title: {
