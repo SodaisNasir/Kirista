@@ -29,11 +29,11 @@ if (localStorage.hasOwnProperty(bookid)) {
              if(i==1){
                 document.getElementById('chapter').innerHTML = row.title
              }   
-             document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
+             document.getElementById('book').innerHTML += '<h2 class="tittle" id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 
              if(i == dataArray.length){
                 var n = i+1;
-                document.getElementById('book').innerHTML += '<h2 style="with:0px"  id=tittle'+n+'></h2>'
+                document.getElementById('book').innerHTML += '<h2 class="tittle" style="with:0px"  id=tittle'+n+'></h2>'
              }
              })
          }).then(
@@ -53,11 +53,11 @@ if (localStorage.hasOwnProperty(bookid)) {
                 document.getElementById('chapter').innerHTML = row.title
              }  
              console.log(row.id)
-             document.getElementById('book').innerHTML += '<h2 id=tittle'+i+'>'+row.title+'</h2>'
+             document.getElementById('book').innerHTML += '<h2 class="tittle" id=tittle'+i+'>'+row.title+'</h2>'
              document.getElementById('book').innerHTML += row.description 
              if(i == dataArray.length){
                 var n = i+1;
-                document.getElementById('book').innerHTML += '<h2 style="with:0px"  id=tittle'+n+'></h2>'
+                document.getElementById('book').innerHTML += '<h2 class="tittle" style="with:0px"  id=tittle'+n+'></h2>'
              }
              })
          }).then(
@@ -75,7 +75,7 @@ var backagain = 0;
 function Chapping(type){
        
        if(type == 'down'){
-           const lengthElement = document.getElementsByClassName('chap_description').length+1
+           const lengthElement = document.getElementsByClassName('tittle').length+1
            const currentScrollPosition = window.pageYOffset;
            t = document.getElementById("tittle"+eleemtnnumber).offsetTop;
           
@@ -100,16 +100,17 @@ function Chapping(type){
           
    }else if(type == 'up'){
        
-           const lengthElement = document.getElementsByClassName('chap_description').length+1
+           const lengthElement = document.getElementsByClassName('tittle').length+1
            let currentScrollPosition = window.pageYOffset;
            const l = lengthElement -1;
-         
+          console.log(eleemtnnumber+">"+l)
            const postitionbefore1 = document.getElementById("tittle"+l).offsetTop;
           
            if(currentScrollPosition < postitionbefore1){
                
                t = document.getElementById("tittle"+eleemtnnumber).offsetTop;
                var j = eleemtnnumber-1;
+               
                if(eleemtnnumber > 1){
                var t2 = 0;
                t2 = document.getElementById("tittle"+j).offsetTop;
