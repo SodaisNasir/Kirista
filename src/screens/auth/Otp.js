@@ -57,7 +57,7 @@ const OTP = ({navigation, route}) => {
     const timer = time > 0 && setInterval(() => setTime(time - 1), 1000);
     return () => clearInterval(timer);
   }, [time]);
-
+console.log('otp',otp);
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -180,15 +180,17 @@ const OTP = ({navigation, route}) => {
             renderCell={({index, symbol, isFocused}) => (
               <View
                 style={{
-                  backgroundColor: Theme === 'dark'
-                    ? Color.DarkThemeInputBox
-                    : Color.OtpBoxColor,
+                  // backgroundColor: Theme === 'dark'
+                  //   ? Color.DarkThemeInputBox
+                  //   : Color.OtpBoxColor,
+                    backgroundColor:'pink',
                   borderRadius: scale(16),
                 }}>
                 <Text
                   key={index}
                   style={[
-                    {color: Theme === 'dark' ? Color.White : Color.Black},
+                    // {color: Theme === 'dark' ? Color.White : Color.Black},
+                    {color: 'red',},
                     styles.cell,
                     isFocused && styles.focusCell,
                     Platform.OS == 'ios'

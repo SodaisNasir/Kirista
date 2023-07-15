@@ -159,19 +159,19 @@ const EventScreen = ({route, navigation}) => {
               Platform.OS == 'android'
                 ? w >= 768 && h >= 1024
                   ? verticalScale(80)
-                  : verticalScale(60)
+                  : verticalScale(70)
                 : w >= 768 && h >= 1024
                 ? verticalScale(70)
                 : w <= 450 && h <= 750
-                ? verticalScale(60)
-                : verticalScale(40),
+                ? verticalScale(50)
+                : verticalScale(50),
             justifyContent: 'center',
             paddingTop:
               Platform.OS == 'android'
                 ? moderateVerticalScale(20)
                 : w >= 768 && h >= 1024
-                ? moderateVerticalScale(25)
-                : moderateVerticalScale(25),
+                // ? moderateVerticalScale(25)
+                // : moderateVerticalScale(25),
           }}
         />
       <ScrollView showsVerticalScrollIndicator={false}>

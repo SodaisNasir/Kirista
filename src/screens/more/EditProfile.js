@@ -208,8 +208,8 @@ defaultValues:{
               width={w >= 768 && h >= 1024 ? scale(65) : scale(140)}
             /> */}
             <View style={{
-              height: verticalScale(45),
-              width: w >= 768 && h >= 1024 ? scale(65) : scale(140),
+              height: Platform.OS == 'ios' ? verticalScale(40) : verticalScale(45),
+              width: w >= 768 && h >= 1024 ? scale(65) :  scale(140),
               backgroundColor: Color.Main,
               borderRadius:10,
               justifyContent: 'center',

@@ -92,7 +92,7 @@ const RccgContinent = ({navigation}) => {
             ? verticalScale(70)
             : w <= 450 && h <= 750
             ? verticalScale(60)
-            : verticalScale(40),
+            : verticalScale(60),
         justifyContent: 'center',
         paddingTop:
           Platform.OS == 'android'

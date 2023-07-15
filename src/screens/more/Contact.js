@@ -381,9 +381,9 @@ const Contact = () => {
                   fontFamily: Font.Inter500,
                   alignItems: 'center',
                   justifyContent: 'center',
-              
                   flex: 1,
                   paddingHorizontal: verticalScale(15),
+                  paddingTop: Platform.OS ? scale(10) : 0
                 }}
                 placeholder= {applanguage.Typehere}
                 multiline={true}

@@ -509,7 +509,7 @@ const HomeScreen = ({scrollViewRef}) => {
                            width: '100%',
                            position: 'absolute',
                          }}
-                         source={item.image2}
+                         source={{uri: item.image}}
                        /> 
                       ) : (
                         <FastImage
@@ -612,7 +612,7 @@ const HomeScreen = ({scrollViewRef}) => {
                                   textShadowOffset: {width: -1, height: 1},
                                   textShadowRadius: 10,
                                 }}>
-                                {item.text}
+                                {/* {item.text} */}
                               </Text>
                               <Text
                                 style={{

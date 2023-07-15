@@ -73,7 +73,7 @@ const PopularBooks = ({navigation}) => {
                 ? moderateVerticalScale(20)
                 : w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
-                : moderateVerticalScale(25),
+                : moderateVerticalScale(0),
           }}
         />
         <View

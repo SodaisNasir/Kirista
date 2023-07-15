@@ -54,7 +54,7 @@ const DetailsCard = props => {
               height: '100%',
               width: '100%',
             }}
-            source={props.source}
+            source={{uri :props.source}}
           /> 
           ) : (
             <FastImage
@@ -89,6 +89,10 @@ const DetailsCard = props => {
             ]}>
             {props.title}
           </Text>
+          {
+            props.manual
+            ?
+
           <Text
             style={[
               {
@@ -102,6 +106,8 @@ const DetailsCard = props => {
             ]}>
             {props.manual}
           </Text>
+          : null
+          }
         </View>
         <View
           style={{

@@ -15,7 +15,7 @@ import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import DetailsCard from '../../../components/Card/DetailsCard';
 import {active_event} from '../../../redux/actions/UserAction';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import SkeletonLoader from '../../../components/Loader/SkeletonLoader';
 
 const w = Dimensions.get('window').width;
@@ -26,11 +26,8 @@ const Events = () => {
 
   const navigation = useNavigation();
 
-  useFocusEffect(
-    useCallback(() => {
-    }, []),
-  );
-  const Theme = useSelector(state => state.mode)
+  useFocusEffect(useCallback(() => {}, []));
+  const Theme = useSelector(state => state.mode);
 
   return (
     <View
@@ -51,43 +48,41 @@ const Events = () => {
             <>
               {event?.map((item, index) => {
                 return (
-                    <DetailsCard
-                      key={item.id}
-                      data={item}
-                      onPress={() => {
-                        navigation.navigate('EventScreen', {id: item.id,item: item});
-                      }}
-                      title={item.title}
-                      manual={item.country}
-                      source={item.image}
-                      resize={'contain'}
-                      TimeTrue={true}
-                      date={moment(item.start_date).format('MMM Do, YYYY.')}
-                      time={item.start_time}
-                      MainBoxRestyle={{
-                        marginTop: verticalScale(12),
-                      }}
-                    />
-                  
+                  <DetailsCard
+                    key={item.id}
+                    data={item}
+                    onPress={() => {
+                      navigation.navigate('EventScreen', {
+                        id: item.id,
+                        item: item,
+                      });
+                    }}
+                    title={item.title}
+                    manual={item.country}
+                    source={item.image}
+                    TimeTrue={true}
+                    date={moment(item.start_date).format('MMM Do, YYYY.')}
+                    time={item.start_time}
+                    MainBoxRestyle={{
+                      marginTop: verticalScale(12),
+                    }}
+                  />
                 );
               })}
             </>
           ) : (
-            <View style={{
-              // flexDirection: ''
-            }}>
-            <SkeletonLoader />
-            <View style={{height: 0,marginVertical:5}} />
-            <SkeletonLoader />
-            <View style={{height: 0,marginVertical:5}} />
-            <SkeletonLoader />
-            <View style={{height: 0,marginVertical:5}} />
-            <SkeletonLoader />
-            <View style={{height: 0,marginVertical:5}} />
-            <SkeletonLoader />
-              </View>
+            <View>
+              <SkeletonLoader />
+              <View style={{height: 0, marginVertical: 5}} />
+              <SkeletonLoader />
+              <View style={{height: 0, marginVertical: 5}} />
+              <SkeletonLoader />
+              <View style={{height: 0, marginVertical: 5}} />
+              <SkeletonLoader />
+              <View style={{height: 0, marginVertical: 5}} />
+              <SkeletonLoader />
+            </View>
           )}
-         
         </View>
         <View style={{height: verticalScale(10)}} />
       </ScrollView>

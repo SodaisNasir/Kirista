@@ -26,53 +26,7 @@ const ParishesResult = ({navigation,route}) => {
   const applanguage = useSelector(state => state.applanguage)
   const {data} = route.params;
 
-  const data2 = [
-    {
-      id: 1,
-      title: 'RCCG',
-      manual: 'Central Parish',
-      image: require('../../../src/assets/images/parishsmall_1.png'),
-      country: 'Abuja',
-    },
 
-    {
-      id: 2,
-      title: 'RCCG',
-      manual: 'Precious Ambassadors',
-      image: require('../../../src/assets/images/parishsmall_2.png'),
-      country: 'Ghana',
-    },
-
-    {
-      id: 3,
-      title: 'RCCG',
-      manual: 'Salvation Centre',
-      image: require('../../../src/assets/images/parishsmall_3.png'),
-      country: 'Togo',
-    },
-
-    {
-      id: 4,
-      title: 'RCCG',
-      manual: 'Salvation Centre',
-      image: require('../../../src/assets/images/parishsmall_3.png'),
-      country: 'Togo',
-    },
-    {
-      id: 5,
-      title: 'RCCG',
-      manual: 'Precious Ambassadors',
-      image: require('../../../src/assets/images/parishsmall_2.png'),
-      country: 'Ghana',
-    },
-    {
-      id: 6,
-      title: 'RCCG',
-      manual: 'Salvation Centre',
-      image: require('../../../src/assets/images/parishsmall_3.png'),
-      country: 'Togo',
-    },
-  ];
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -108,7 +62,7 @@ const ParishesResult = ({navigation,route}) => {
 
                 : w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
-                : moderateVerticalScale(25),
+                : moderateVerticalScale(0),
           }}
       />
       <FlatList

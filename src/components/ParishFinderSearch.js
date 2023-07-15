@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { FlatList,View,useColorScheme,StyleSheet, Dimensions, SafeAreaView } from "react-native";
 import DetailsCard from './Card/DetailsCard';
-import { moderateScale, verticalScale } from "react-native-size-matters";
+import { moderateScale, verticalScale ,scale} from "react-native-size-matters";
 import { Color } from "../utils/Colors";
 import { useSelector } from "react-redux";
 import NoResult from "./NoResult";
@@ -16,7 +16,7 @@ const ParishFinderSearch = ({data}) => {
 
   const getData = data?.filter((item) => item.type == 'parish')
     return(
-        <SafeAreaView style={{flex: 1, paddingHorizontal: moderateScale(20)}}>
+        <SafeAreaView style={{flex: 1, paddingHorizontal: scale(40)}}>
         <FlatList
           data={getData}
           showsVerticalScrollIndicator={false}
@@ -49,6 +49,7 @@ const ParishFinderSearch = ({data}) => {
                 ? Color.DarkBorder
                 : Color.BorderColor,
               borderBottomWidth: 1,
+              paddingLeft: scale(20)
               }}
             /> 
             )

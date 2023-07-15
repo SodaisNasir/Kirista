@@ -47,7 +47,6 @@ const ViewManual = ({navigation, route}) => {
   const user_details = useSelector(state => state.user_details);
   const allbookmark = useSelector(state => state.allbookmark);
   const [data, setData] = useState();
-console.log('item', item)
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -181,7 +180,6 @@ console.log('item', item)
       setCheck(true);
     } else {
       markData(type, item.id, user_details);
-      console.log('laraib =========> Object not found in the array');
       dispatch({type: ALLBOOKMARK, payload: [...allbookmark, item]});
       await AsyncStorage.setItem(
         'allbookmark',

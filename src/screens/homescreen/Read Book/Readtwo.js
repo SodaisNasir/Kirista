@@ -31,11 +31,13 @@ import { BOOKMARK, CHAPTERS } from '../../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
 import IncorrectModal from '../../../components/Modals/IncorrectModal';
-import WebView from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import moment from 'moment';
 import BookMarkModal from '../../../components/Modals/BookMarkModal';
 import DoubleText from '../../../components/Loader/DoubleText';
 import Toast from 'react-native-simple-toast'
+import HTML_FILE from '../../../../ios/resources/Index.html'
+
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
@@ -79,40 +81,38 @@ const Readtwo = ({route}) => {
   const [email, setEmail] = useState(null);
   const [positions, setPosition] = useState(false);
   const webViewRef = useRef(null);
+  const [webViewLoaded, setWebViewLoaded] = useState(false);
+
+
+
   useFocusEffect(
     useCallback(() => {
       dispatch(getChapters(setData,id,chapters))
       sendReadBok(id)
       setTimeout(() => {
+        loadXMLDoc()
       // setLoader(false)
-      loadXMLDoc()
       }, 1500);
     }, []),
   );
   useEffect(() => {
+    console.log('Theme', Theme)
     if(!loader){
-      callWebViewFunction()
-      // loadXMLDoc()
-      console.log('Theme', Theme)
-      SaveBookID()
-      changeTheme(Theme)
-      changeFontColor(Theme)
-      changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
-      changeHeaderBackground(Theme === 'dark'
-      ? Color.DarkTheme
-      : Color.HeaderColor)
+      
+      // callWebViewFunction()
+      // SaveBookID()
+      // changeTheme(Theme)
+      // changeFontColor(Theme)
+      // changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
+      // changeHeaderBackground(Theme === 'dark'
+      // ? Color.DarkTheme
+      // : Color.HeaderColor)
     }else{
       console.log('loader false effecdt')
     }
   }, [loader])
-  // useEffect(() => {
-  //   getChaptersByID(setChapterData, select);
-  // }, [select]);
-  // useEffect(() => {
-  //   changeTheme(Theme)
-  //   changeFontColor(Theme)
-  // }, [])
-  console.log('id', id)
+
+
   const changeTheme = (color) => {
     const functionName = 'changeTheme';
     const functionArguments = [color != 'dark' && color !=  'light' ? color : color === 'dark' ? Color.DarkTheme
@@ -120,19 +120,25 @@ const Readtwo = ({route}) => {
 
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
+
   const changeFontColor = (color) => {
     const functionName = 'changeFontColor';
     const functionArguments = [color != 'dark' && color !=  'light' ? color : color === 'dark' ? Color.White
     : Color.Black]; // Optional function arguments
 
-          console.log('functionArguments', functionArguments)
 
     const injectedJavaScript = `
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    (function() {
+    window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    return true;
+  })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
@@ -242,32 +248,46 @@ const Readtwo = ({route}) => {
     //   doubleTapRef.current = new Date().getTime();
     // }
   };
-  const callWebViewFunction = () => {
-    const functionName = 'loadXMLDoc';
-    const functionArguments = []; // Optional function arguments
+  // const callWebViewFunction = () => {
+  //   const functionName = 'loadXMLDoc';
+  //   const functionArguments = []; // Optional function arguments
 
-    const injectedJavaScript = `
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
-    `;
-    webViewRef?.current.injectJavaScript(injectedJavaScript);
-  };
+  //   const injectedJavaScript = `
+  //   (function() {
+  //     window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+  //     return true;
+  //   })();
+  //   `;
+  //   webViewRef?.current.injectJavaScript(injectedJavaScript);
+  // };
+
+
+
   const loadXMLDoc = () => {
     const functionName = 'loadXMLDoc';
     const functionArguments = [id]; // Optional function arguments
-
-
+  
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return "true";
+    })();
     `;
+  
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
+  
+  
   const changeFontSize = () => {
     const functionName = 'changeFontSize';
     const functionArguments = [count]; // Optional function arguments
 
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
 
@@ -279,7 +299,10 @@ const Readtwo = ({route}) => {
 
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
@@ -290,7 +313,10 @@ const Readtwo = ({route}) => {
     console.log('functionArguments', functionArguments)
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
@@ -300,7 +326,10 @@ const Readtwo = ({route}) => {
     const functionArguments = []; // Optional function arguments
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
     setisSelect(true);
@@ -310,7 +339,10 @@ const Readtwo = ({route}) => {
     const functionArguments = [id]; // Optional function arguments
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
@@ -319,7 +351,10 @@ const Readtwo = ({route}) => {
     const functionArguments = [id]; // Optional function arguments
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
     setModalThreeVisible(false)
@@ -330,7 +365,10 @@ const Readtwo = ({route}) => {
     const functionArguments = [color]; // Optional function arguments
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
     setModalThreeVisible(false)
@@ -341,7 +379,10 @@ const Readtwo = ({route}) => {
     const functionArguments = [color]; // Optional function arguments
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
     setModalThreeVisible(false)
@@ -352,12 +393,18 @@ const Readtwo = ({route}) => {
     const functionArguments = [type]; // Optional function arguments
 
     const injectedJavaScript = `
+    (function() {
       window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      return true;
+    })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
     setModalThreeVisible(false)
   };
-  const  onMessage = async (item) =>{
+  const onMessage = async (item) =>{
+    console.log('======>');
+    console.log('======> type',item);
+    console.log('======>');
     const newData = item.nativeEvent.data.split(',')[1]
     const type = item.nativeEvent.data.split(',')[0]
     const currentDate = new Date();
@@ -366,6 +413,7 @@ const Readtwo = ({route}) => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     
+
 
     if(type == 'loader'){
       setTimeout(() => {
@@ -402,7 +450,9 @@ const Readtwo = ({route}) => {
     navigation.goBack()
     // navigation.goBack()
   }
-
+  const INJECTED_JAVASCRIPT = `(function() {
+    window.ReactNativeWebView.postMessage('laraib');
+  })();`;
   return (
     <>
       <SafeAreaView
@@ -545,6 +595,43 @@ const Readtwo = ({route}) => {
           
 
             
+           {Platform.OS == 'ios'?
+            <WebView 
+            ref={webViewRef}
+            onLoad={console.log('loading')}
+            style={{ 
+              flex: 1,
+            // marginBottom: 50,
+            backgroundColor: backgroundColor != '' && show
+            ? backgroundColor
+            : Theme === 'dark'
+            ? Color.DarkTheme
+            : Color.White
+            }}
+            javaScriptEnabled={true}
+            source={HTML_FILE}
+            // source={{ uri: 'https://google.com' }}
+            originWhitelist={['*']}
+            onLoadEnd={() => setWebViewLoaded(true)}
+            // injectedJavaScript={INJECTED_JAVASCRIPT}
+            onMessage={onMessage}
+            
+          
+            // injectedJavaScriptBeforeContentLoadedForMainFrameOnly={false}
+            // injectedJavaScriptForMainFrameOnly={false}
+            // injectedJavaScript={injectedJavaScript}
+            // contentInsetAdjustmentBehavior={() => loadXMLDoc()}
+            // source={require('../../../../ios/resources/Index.html')}
+            onError={(event) => console.error('Received message erre:',event.nativeEvent)}
+            domStorageEnabled={true}
+          //   // injectedJavaScript={injectedJavaScript}
+            // onMessage={onMessage}
+            scalesPageToFit={false}
+          mixedContentMode="compatibility"
+          onScroll={() => setPosition(false)} 
+          onTouchStart={() => setPosition(true)}
+          onTouchEnd={() => handleSingleTap()}
+            /> :
             <WebView 
             ref={webViewRef}
             onLoad={console.log('loading')}
@@ -564,15 +651,14 @@ const Readtwo = ({route}) => {
             onError={(event) => console.error('Received message erre:',event.nativeEvent)}
             javaScriptEnabled={true}
             domStorageEnabled={true}
-            // injectedJavaScript={injectedJavaScript}
             onMessage={onMessage}
             scalesPageToFit={false}
           mixedContentMode="compatibility"
           onScroll={() => setPosition(false)} 
           onTouchStart={() => setPosition(true)}
           onTouchEnd={() => handleSingleTap()}
-          
             />
+            }
          
           {/* <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} /> */}
           </View>
