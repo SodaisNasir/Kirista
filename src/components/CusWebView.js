@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, SafeAreaView, StatusBar, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar, View, ActivityIndicator,Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { scale, verticalScale } from 'react-native-size-matters';
@@ -40,9 +40,10 @@ const webviewRef = useRef(null);
   };
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar translucent={false} />
+      <StatusBar translucent={false} backgroundColor={Color.DarkTheme} />
       <View style={styles.row}>
         <AntDesign name='arrowleft' size={scale(18)} color='#fff' onPress={() => navigation.goBack()} />
+        <Image resizeMode='contain' style={{width:100,height:100}} source={require('../assets/images/krista_main_dark.png')}/>
       </View>
       <WebView
         source={{ uri: link }}
@@ -87,6 +88,7 @@ const styles = StyleSheet.create({
     height: verticalScale(50),
     backgroundColor: Color.UnderInputColor,
     paddingHorizontal: 20,
+    justifyContent: 'space-between',
   },
   loadingContainer: {
     ...StyleSheet.absoluteFillObject,

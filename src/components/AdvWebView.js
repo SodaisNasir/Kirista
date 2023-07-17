@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, StatusBar,Text, View,use} from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar,Text, View,Image} from 'react-native';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { WebView } from 'react-native-webview';
 import Fontisto from 'react-native-vector-icons/Fontisto'
@@ -9,9 +9,10 @@ const AdvWebView = ({route,navigation}) => {
     const { link } = route.params;
  return(
     <SafeAreaView  style={{ flex: 1 }}>
-      <StatusBar translucent={false}/>
+      <StatusBar translucent={false} backgroundColor={Color.DarkTheme} />
       <View style={styles.Row}>
       <Fontisto name='close-a' size={scale(18)} color='#fff' onPress={() => navigation.goBack()}/>
+      <Image resizeMode='contain' style={{width:100,height:100}} source={require('../assets/images/krista_main_dark.png')}/>
       {/* <Text style={styles.Text}>{link}</Text> */}
       </View>
      <WebView source={{ uri: link }} onLoad={console.log('loading')}/>
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
       height:verticalScale(50),
       backgroundColor:Color.UnderInputColor,
       paddingHorizontal:20,
-      // paddingBottom:moderateScale(10)
+      justifyContent: 'space-between',
    },
    Text:{
       color:'#fff',

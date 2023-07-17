@@ -222,6 +222,7 @@ const HomeScreen = ({scrollViewRef}) => {
   //   // Make sure your navigator is wrapped in a navigation container
   //   navigation.dispatch(resetAction);
   // };
+  console.log('activeBooks?.length',Math.ceil(activeBooks?.length / 2))
   return (
     <View
       style={{
@@ -291,7 +292,7 @@ const HomeScreen = ({scrollViewRef}) => {
           </Swiper>
         </View>
 
-        <View style={{}}>
+        <View>
           <View
             style={{
               justifyContent: 'space-between',
@@ -327,10 +328,133 @@ const HomeScreen = ({scrollViewRef}) => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            directionalLockEnabled={true}
-            alwaysBounceVertical={false}>
-            {activeBooks.length > 0 && !loader ? (
+            // directionalLockEnabled={true}
+            // alwaysBounceVertical={false}
+            >
+                {activeBooks.length > 0 && !loader ? (
+              // <View style={{flexDirection: 'row',flexWrap: 'wrap',backgroundColor: 'red'}}>
+              //    {activeBooks.slice(0, 6).map((item, index) => {
+              //       return (
+              //         <>
+              //         <TouchableOpacity onPress={() => handleClick(item)}>
+              //           <View
+              //             style={{
+              //               height:
+              //                 w >= 768 && h >= 1024
+              //                   ? verticalScale(80)
+              //                   : verticalScale(100),
+              //               flexDirection: 'row',
+              //               overflow: 'hidden',
+              //               width:
+              //                 w >= 768 && h >= 1024 ? scale(200) : scale(250),
+              //               // marginLeft: index == 0 ? scale(10) : 0,
+              //               paddingLeft: 10,
+              //               margin: scale(-1),
+              //             }}>
+              //             <View
+              //               style={{
+              //                 justifyContent: 'center',
+              //                 alignItems: 'flex-start',
+              //               }}>
+              //               <View
+              //                 style={{
+              //                   height:
+              //                     w >= 768 && h >= 1024 ? scale(50) : scale(80),
+              //                   width:
+              //                     w >= 768 && h >= 1024 ? scale(60) : scale(100),
+              //                 }}>
+              //                 {IOS ? (
+              //                   <Image
+              //                     style={{height: '100%', width: '100%'}}
+              //                     source={{
+              //                       uri: item?.cover_image,
+              //                     }}
+              //                     resizeMode="contain"
+              //                   />
+              //                 ) : (
+              //                   <FastImage
+              //                     style={{height: '100%', width: '100%'}}
+              //                     source={{
+              //                       uri: item?.cover_image,
+              //                       priority: FastImage.priority.normal,
+              //                     }}
+              //                     resizeMode={FastImage.resizeMode.contain}
+              //                   />
+              //                 )}
+              //               </View>
+              //             </View>
+              //             <View
+              //               style={{
+              //                 // marginVertical: verticalScale(20),
+              //                 marginTop:
+              //                   w >= 768 && h >= 1024
+              //                     ? verticalScale(10)
+              //                     : verticalScale(13),
+              //                 marginLeft: scale(10),
+              //               }}>
+              //               <View
+              //                 style={{
+              //                   // justifyContent: 'center',
+              //                   flex: 1,
+              //                 }}>
+              //                 <Text
+              //                   numberOfLines={2}
+              //                   style={[
+              //                     {
+              //                       color:
+              //                         Theme === 'dark'
+              //                           ? Color.White
+              //                           : Color.DarkTextColor,
+              //                       paddingTop: fourInchPotrait ? 0 : scale(5),
+              //                     },
+              //                     styles.BooksTitleStyle,
+              //                   ]}>
+              //                   {item?.title}
+              //                   {/* Sunday School Teachers Manual */}
+              //                 </Text>
+              //                 {/* <Text
+              //                   style={[
+              //                     styles.BooksTitleStyle,
+              //                     {
+              //                       color:
+              //                         Theme === 'dark'
+              //                           ? Color.White
+              //                           : Color.DarkTextColor,
+              //                       marginTop:
+              //                         Platform.OS == 'ios'
+              //                           ? 0
+              //                           : verticalScale(-5),
+              //                     },
+              //                   ]}>
+              //                   {item?.category}
+              //                 </Text> */}
+              //               </View>
+              //               <View
+              //                 style={{
+              //                   flex: 0.5,
+              //                   // marginTop: tabPotrait
+              //                   //   ? verticalScale(1)
+              //                   //   : fourInchPotrait
+              //                   //   ? verticalScale(0.5)
+              //                   //   : verticalScale(2),
+              //                 }}>
+              //                 <Text style={styles.YearStyle}>
+              //                   {item?.release_year}
+              //                 </Text>
+              //               </View>
+              //             </View>
+              //           </View>
+              //         </TouchableOpacity>
+              //         </>
+              //       );
+              //     })}
+             
+          
+                
+              //  </View>
               <FlatList
+              key={Math.ceil(activeBooks?.length / 2).toString()}
+              numColumns={activeBooks?.length < 3 ? 1 : activeBooks?.length < 5 ? 2 : 3}
                 showsHorizontalScrollIndicator={false}
                 data={activeBooks?.slice(0, 6)}
                 renderItem={({item, index}) => {
@@ -446,8 +570,7 @@ const HomeScreen = ({scrollViewRef}) => {
                     </TouchableOpacity>
                   );
                 }}
-                key={Math.ceil(activeBooks?.length / 2).toString()}
-                numColumns={Math.ceil(activeBooks?.length / 2)}
+        
               />
             ) : (
               <>
@@ -456,6 +579,7 @@ const HomeScreen = ({scrollViewRef}) => {
               </>
             )}
           </ScrollView>
+          
         </View>
         <View
           style={[
@@ -832,7 +956,7 @@ const HomeScreen = ({scrollViewRef}) => {
               <>
                 {activeEvents?.map((item, index) => {
                   return (
-                    index < 5 &&
+                    index < 6 &&
                     item?.featured === 'YES' && (
                       <DetailsCard
                         key={item.id}

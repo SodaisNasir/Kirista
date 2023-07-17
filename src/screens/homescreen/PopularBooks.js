@@ -73,23 +73,16 @@ const PopularBooks = ({navigation}) => {
                 ? moderateVerticalScale(20)
                 : w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
-                : moderateVerticalScale(0),
+                : 0,
           }}
         />
-        <View
-          // style={{
-          //   paddingHorizontal:
-          //     w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
-          // }}
-          >
-
-           
-
-            {
+        <View>
+          {
               myData.length > 0 ?
               <FlatList 
-              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               data={myData?.slice(0, 20)}
+              contentContainerStyle={{ paddingBottom: moderateVerticalScale(80) }}
               renderItem={({item}) => {
                 return(
                   <TouchableOpacity  
@@ -123,7 +116,7 @@ const PopularBooks = ({navigation}) => {
                   </View>
             }
           
-          
+        
         </View>
       </View>
     </>

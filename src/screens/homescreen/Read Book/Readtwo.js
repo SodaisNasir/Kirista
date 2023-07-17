@@ -100,13 +100,13 @@ const Readtwo = ({route}) => {
     if(!loader){
       
       // callWebViewFunction()
-      // SaveBookID()
-      // changeTheme(Theme)
-      // changeFontColor(Theme)
-      // changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
-      // changeHeaderBackground(Theme === 'dark'
-      // ? Color.DarkTheme
-      // : Color.HeaderColor)
+      SaveBookID()
+      changeTheme(Theme)
+      changeFontColor(Theme)
+      changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
+      changeHeaderBackground(Theme === 'dark'
+      ? Color.DarkTheme
+      : Color.HeaderColor)
     }else{
       console.log('loader false effecdt')
     }

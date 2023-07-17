@@ -361,6 +361,7 @@ const renderScene = SceneMap({
                     onPress={() => {
                       navigation.navigate('ViewParish', {
                         id: item.id,
+                        item:item
                       });
                     }}
                     source={item?.image}
@@ -387,7 +388,7 @@ const renderScene = SceneMap({
                   /> :  item.type === 'event' ? 
                   <DetailsCard
                   onPress={() => {
-                    navigation.navigate('EventScreen', {id: item.id});
+                    navigation.navigate('EventScreen', {id: item.id, item:item});
                   }}
                   source={item?.image}
                   title={item?.title}
