@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,15 +12,15 @@ import {
   Platform,
   Linking,
 } from 'react-native';
-import {Font} from '../../utils/font';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {Color} from '../../utils/Colors';
+import { Font } from '../../utils/font';
+import { scale, verticalScale } from 'react-native-size-matters';
+import { Color } from '../../utils/Colors';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-const SwiperCard = ({source, live, text_subText,lastText}) => {
+const SwiperCard = ({ source, live, text_subText, lastText }) => {
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
   // const Theme = useColorScheme() === 'dark';
@@ -33,7 +33,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
           justifyContent: 'center',
           paddingVertical: verticalScale(10),
           height:
-            w >= 768 && h >= 1024 ? verticalScale(200) : w <= 450 && h <= 750 ? verticalScale(170) :verticalScale(150),
+            w >= 768 && h >= 1024 ? verticalScale(200) : w <= 450 && h <= 750 ? verticalScale(170) : verticalScale(150),
           width: '90%',
           marginRight:
             w >= 768 && h >= 1024 ? verticalScale(8) : verticalScale(0),
@@ -47,28 +47,28 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
           style={{
             width: '100%',
             height: verticalScale(500),
-            
+
           }}>
-            {IOS ? (
-              <Image
-                resizeMode="contain"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  position: 'absolute',
-                }}
-                source={{uri :source}}
-              />
-            ) : (
+          {IOS ? (
+            <Image
+              resizeMode="contain"
+              style={{
+                height: '100%',
+                width: '100%',
+                position: 'absolute',
+              }}
+              source={{ uri: source }}
+            />
+          ) : (
             <FastImage
-                 style={{height: '100%', width: '100%',  position: 'absolute'}}
-                 source={{
-                   uri: source,
-                   priority: FastImage.priority.normal,
-                 }}
-                 resizeMode={FastImage.resizeMode.contain}
-               />
-            )}
+              style={{ height: '100%', width: '100%', position: 'absolute' }}
+              source={{
+                uri: source,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )}
         </View>
         <View
           style={{
@@ -88,9 +88,9 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
               }}>
               <View
                 style={{
-                //   height: '70%',
-                //   width: '0%',
-                  padding:20
+                  //   height: '70%',
+                  //   width: '0%',
+                  padding: 20
                 }}>
               </View>
             </View>

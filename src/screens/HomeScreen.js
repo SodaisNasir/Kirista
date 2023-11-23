@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,9 +13,9 @@ import {
   RefreshControl,
   useWindowDimensions,
 } from 'react-native';
-import {Color} from '../utils/Colors';
-import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
-import {Font} from '../utils/font';
+import { Color } from '../utils/Colors';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { Font } from '../utils/font';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -34,22 +34,22 @@ import {
 } from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SkeletonLoader from '../components/Loader/SkeletonLoader';
 import BannerLoader from '../components/Loader/BannerLoader';
-import {get_rccgData} from '../redux/actions/AuthAction';
+import { get_rccgData } from '../redux/actions/AuthAction';
 import DoubleText from '../components/Loader/DoubleText';
 import FastImage from 'react-native-fast-image';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 import Advertisement from '../components/Advertisement';
-import {ADVMODAL} from '../redux/reducer';
+import { ADVMODAL } from '../redux/reducer';
 import NoInternetModal from '../components/Modals/NoInternetModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const HomeScreen = ({scrollViewRef}) => {
+const HomeScreen = ({ scrollViewRef }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const Theme = useSelector(state => state.mode);
@@ -178,18 +178,18 @@ const HomeScreen = ({scrollViewRef}) => {
   }, [seconds]);
 
   const offmodal = () => {
-    dispatch({type: ADVMODAL, payload: false});
+    dispatch({ type: ADVMODAL, payload: false });
   };
   const onMdlSubmit = () => {
-    if (advertisement?.book_name != null) {
-      navigation.navigate('ViewManual', {
-        item: advertisement?.book,
-      });
-    } else {
-      navigation.navigate('AdvWebView', {
-        link: advertisement?.app_page,
-      });
-    }
+    // if (advertisement?.book_name != null) {
+    //   navigation.navigate('ViewManual', {
+    //     item: advertisement?.book,
+    //   });
+    // } else {
+    //   navigation.navigate('AdvWebView', {
+    //     link: advertisement?.app_page,
+    //   });
+    // }
   };
   // useEffect(() => {
   //   // Add a listener to handle deep linking when the component mounts
@@ -222,7 +222,6 @@ const HomeScreen = ({scrollViewRef}) => {
   //   // Make sure your navigator is wrapped in a navigation container
   //   navigation.dispatch(resetAction);
   // };
-  console.log('activeBooks?.length',Math.ceil(activeBooks?.length / 2))
   return (
     <View
       style={{
@@ -273,7 +272,7 @@ const HomeScreen = ({scrollViewRef}) => {
                       <SwiperCard
                         key={item.id}
                         source={item.image}
-                        // live
+                      // live
                       />
                     </TouchableOpacity>
                   </>
@@ -304,7 +303,7 @@ const HomeScreen = ({scrollViewRef}) => {
             }}>
             <Text
               style={[
-                {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
+                { color: Theme === 'dark' ? Color.White : Color.DarkTextColor },
                 styles.BooksText,
               ]}>
               {applanguage.PopularBooks}
@@ -328,10 +327,10 @@ const HomeScreen = ({scrollViewRef}) => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            // directionalLockEnabled={true}
-            // alwaysBounceVertical={false}
-            >
-                {activeBooks.length > 0 && !loader ? (
+          // directionalLockEnabled={true}
+          // alwaysBounceVertical={false}
+          >
+            {activeBooks.length > 0 && !loader ? (
               // <View style={{flexDirection: 'row',flexWrap: 'wrap',backgroundColor: 'red'}}>
               //    {activeBooks.slice(0, 6).map((item, index) => {
               //       return (
@@ -448,16 +447,16 @@ const HomeScreen = ({scrollViewRef}) => {
               //         </>
               //       );
               //     })}
-             
-          
-                
+
+
+
               //  </View>
               <FlatList
-              key={Math.ceil(activeBooks?.length / 2).toString()}
-              numColumns={activeBooks?.length < 3 ? 1 : activeBooks?.length < 5 ? 2 : 3}
+                key={Math.ceil(activeBooks?.length / 2).toString()}
+                numColumns={activeBooks?.length < 3 ? 1 : activeBooks?.length < 5 ? 2 : 3}
                 showsHorizontalScrollIndicator={false}
                 data={activeBooks?.slice(0, 6)}
-                renderItem={({item, index}) => {
+                renderItem={({ item, index }) => {
                   return (
                     <TouchableOpacity onPress={() => handleClick(item)}>
                       <View
@@ -488,7 +487,7 @@ const HomeScreen = ({scrollViewRef}) => {
                             }}>
                             {IOS ? (
                               <Image
-                                style={{height: '100%', width: '100%'}}
+                                style={{ height: '100%', width: '100%' }}
                                 source={{
                                   uri: item?.cover_image,
                                 }}
@@ -496,7 +495,7 @@ const HomeScreen = ({scrollViewRef}) => {
                               />
                             ) : (
                               <FastImage
-                                style={{height: '100%', width: '100%'}}
+                                style={{ height: '100%', width: '100%' }}
                                 source={{
                                   uri: item?.cover_image,
                                   priority: FastImage.priority.normal,
@@ -570,7 +569,7 @@ const HomeScreen = ({scrollViewRef}) => {
                     </TouchableOpacity>
                   );
                 }}
-        
+
               />
             ) : (
               <>
@@ -579,7 +578,7 @@ const HomeScreen = ({scrollViewRef}) => {
               </>
             )}
           </ScrollView>
-          
+
         </View>
         <View
           style={[
@@ -594,7 +593,7 @@ const HomeScreen = ({scrollViewRef}) => {
               data={rccgData}
               showsHorizontalScrollIndicator={false}
               horizontal
-              renderItem={({item}) => {
+              renderItem={({ item }) => {
                 return (
                   <TouchableOpacity onPress={() => handleSubmit(item.type)}>
                     <View
@@ -626,31 +625,31 @@ const HomeScreen = ({scrollViewRef}) => {
                         source={{uri: item.image}}
                       /> */}
                       {IOS ? (
-                         <Image
-                         resizeMode="cover"
-                         style={{
-                           height: '100%',
-                           width: '100%',
-                           position: 'absolute',
-                         }}
-                         source={{uri: item.image}}
-                       /> 
+                        <Image
+                          resizeMode="cover"
+                          style={{
+                            height: '100%',
+                            width: '100%',
+                            position: 'absolute',
+                          }}
+                          source={{ uri: item.image }}
+                        />
                       ) : (
                         <FastImage
-                        style={{
-                          height: '100%',
-                          width: '100%',
-                          position: 'absolute',
-                          zIndex: 99,
-                        }}
-                        source={{
-                          uri: item.image,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                      />
+                          style={{
+                            height: '100%',
+                            width: '100%',
+                            position: 'absolute',
+                            zIndex: 99,
+                          }}
+                          source={{
+                            uri: item.image,
+                            priority: FastImage.priority.normal,
+                          }}
+                          resizeMode={FastImage.resizeMode.cover}
+                        />
                       )}
-                      
+
                       <View
                         style={{
                           height: '100%',
@@ -720,12 +719,12 @@ const HomeScreen = ({scrollViewRef}) => {
                                   fontSize: iosTab
                                     ? scale(7)
                                     : w >= 768 && h >= 1024
-                                    ? scale(7)
-                                    : w <= 350 && h <= 600
-                                    ? scale(12)
-                                    : w < 450 && h < 750
-                                    ? scale(10)
-                                    : scale(13),
+                                      ? scale(7)
+                                      : w <= 350 && h <= 600
+                                        ? scale(12)
+                                        : w < 450 && h < 750
+                                          ? scale(10)
+                                          : scale(13),
                                   elevation: 5,
                                   marginTop:
                                     w >= 768 && h >= 1024
@@ -733,7 +732,7 @@ const HomeScreen = ({scrollViewRef}) => {
                                       : verticalScale(20),
                                   // fontWeight: '800',
                                   textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                                  textShadowOffset: {width: -1, height: 1},
+                                  textShadowOffset: { width: -1, height: 1 },
                                   textShadowRadius: 10,
                                 }}>
                                 {/* {item.text} */}
@@ -748,16 +747,16 @@ const HomeScreen = ({scrollViewRef}) => {
                                   fontSize: iosTab
                                     ? scale(7)
                                     : w >= 768 && h >= 1024
-                                    ? scale(7)
-                                    : w <= 350 && h <= 600
-                                    ? scale(12)
-                                    : w < 450 && h < 750
-                                    ? scale(10)
-                                    : scale(13),
+                                      ? scale(7)
+                                      : w <= 350 && h <= 600
+                                        ? scale(12)
+                                        : w < 450 && h < 750
+                                          ? scale(10)
+                                          : scale(13),
                                   elevation: 5,
                                   // fontWeight: '800',
                                   textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                                  textShadowOffset: {width: -1, height: 1},
+                                  textShadowOffset: { width: -1, height: 1 },
                                   textShadowRadius: 10,
                                 }}>
                                 {item.text_subText}
@@ -780,10 +779,10 @@ const HomeScreen = ({scrollViewRef}) => {
                                     fontSize: iosTab
                                       ? scale(5)
                                       : w >= 768 && h >= 1024
-                                      ? scale(7)
-                                      : w < 450 && h < 750
-                                      ? scale(10)
-                                      : scale(12),
+                                        ? scale(7)
+                                        : w < 450 && h < 750
+                                          ? scale(10)
+                                          : scale(12),
                                     elevation: 5,
                                   }}>
                                   {item.text2}
@@ -794,11 +793,11 @@ const HomeScreen = ({scrollViewRef}) => {
                                     w >= 768 && h >= 1024
                                       ? scale(12)
                                       : w < 450 && h < 750
-                                      ? scale(15)
-                                      : scale(18)
+                                        ? scale(15)
+                                        : scale(18)
                                   }
                                   color={'white'}
-                                  // style={{bottom: 2, right: 3}}
+                                // style={{bottom: 2, right: 3}}
                                 />
                               </View>
                             </View>
@@ -828,7 +827,7 @@ const HomeScreen = ({scrollViewRef}) => {
                 }
                 nwidth={w >= 768 && h >= 1024 ? scale(115) : scale(190)}
               />
-              <View style={{height: '100%', width: '3%'}} />
+              <View style={{ height: '100%', width: '3%' }} />
               <DoubleText
                 height={
                   w >= 768 && h >= 1024 ? verticalScale(110) : verticalScale(90)
@@ -860,7 +859,7 @@ const HomeScreen = ({scrollViewRef}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
+                  { color: Theme === 'dark' ? Color.White : Color.DarkTextColor },
                   styles.BooksText,
                 ]}>
                 {applanguage.FeaturedParishes}
@@ -880,7 +879,7 @@ const HomeScreen = ({scrollViewRef}) => {
                 name="chevron-small-right"
                 size={w >= 768 && h >= 1024 ? scale(12) : scale(18)}
                 color={Color.Main}
-                // style={{top:verticalScale(1)}}
+              // style={{top:verticalScale(1)}}
               />
             </TouchableOpacity>
           </View>
@@ -913,9 +912,9 @@ const HomeScreen = ({scrollViewRef}) => {
               })}
             </>
           ) : (
-            <View style={{marginBottom: 5}}>
+            <View style={{ marginBottom: 5 }}>
               <SkeletonLoader />
-              <View style={{height: 0, marginVertical: 5}} />
+              <View style={{ height: 0, marginVertical: 5 }} />
               <SkeletonLoader />
             </View>
           )}
@@ -944,7 +943,7 @@ const HomeScreen = ({scrollViewRef}) => {
             <View>
               <Text
                 style={[
-                  {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
+                  { color: Theme === 'dark' ? Color.White : Color.DarkTextColor },
                   styles.UpcomingText,
                 ]}>
                 {applanguage.UpcomingEvents}
@@ -991,13 +990,13 @@ const HomeScreen = ({scrollViewRef}) => {
                   }
                 }>
                 <SkeletonLoader />
-                <View style={{height: 0, marginVertical: 5}} />
+                <View style={{ height: 0, marginVertical: 5 }} />
                 <SkeletonLoader />
               </View>
             )}
           </View>
         </View>
-        <View style={{height: verticalScale(10)}} />
+        <View style={{ height: verticalScale(10) }} />
       </ScrollView>
     </View>
   );
@@ -1050,8 +1049,8 @@ const styles = StyleSheet.create({
       w >= 768 && h >= 1024
         ? verticalScale(200)
         : w <= 450 && h <= 750
-        ? verticalScale(190)
-        : verticalScale(150),
+          ? verticalScale(190)
+          : verticalScale(150),
   },
   SwiperViewTwo: {
     alignItems: 'center',
@@ -1071,8 +1070,8 @@ const styles = StyleSheet.create({
       w >= 768 && h >= 1024
         ? scale(7)
         : w <= 380 && h <= 630
-        ? scale(13)
-        : scale(15),
+          ? scale(13)
+          : scale(15),
     fontFamily: Font.Poppins600,
     maxWidth: '90%',
   },

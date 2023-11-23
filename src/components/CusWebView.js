@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, SafeAreaView, StatusBar, View, ActivityIndicator,Image } from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar, View, ActivityIndicator, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { scale, verticalScale } from 'react-native-size-matters';
@@ -10,9 +10,9 @@ import CustomNavigator from './CustomNavigator';
 const CusWebView = ({ route, navigation }) => {
   const { link } = route.params;
   const [isLoading, setLoading] = useState(true);
-const {data, setData} = useState()
-console.log('link', link)
-const webviewRef = useRef(null);
+  const { data, setData } = useState()
+  console.log('link', link)
+  const webviewRef = useRef(null);
 
   const handleLoadEnd = () => {
     setLoading(false);
@@ -43,7 +43,7 @@ const webviewRef = useRef(null);
       <StatusBar translucent={false} backgroundColor={Color.DarkTheme} />
       <View style={styles.row}>
         <AntDesign name='arrowleft' size={scale(18)} color='#fff' onPress={() => navigation.goBack()} />
-        <Image resizeMode='contain' style={{width:100,height:100}} source={require('../assets/images/krista_main_dark.png')}/>
+        <Image resizeMode='contain' style={{ width: 100, height: 100 }} source={require('../assets/images/krista_main_dark.png')} />
       </View>
       <WebView
         source={{ uri: link }}
@@ -62,18 +62,18 @@ const webviewRef = useRef(null);
           />
         </View>
       )}
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            width: '100%',
-            backgroundColor: Color.White,
-          }}>
-          <CustomNavigator
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          backgroundColor: Color.White,
+        }}>
+        <CustomNavigator
           onPressLeft={goBack}
           onPressFresh={refresh}
-           forwrd={true}/>
-        </View>
+          forwrd={true} />
+      </View>
     </SafeAreaView>
   );
 };

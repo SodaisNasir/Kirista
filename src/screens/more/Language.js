@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,22 +18,22 @@ import {
   verticalScale,
 } from 'react-native-size-matters';
 import Header from '../../components/Header';
-import {Color} from '../../utils/Colors';
-import {Font} from '../../utils/font';
+import { Color } from '../../utils/Colors';
+import { Font } from '../../utils/font';
 import ReadNavigator from '../../components/ReadNavigator';
 import { useDispatch, useSelector } from 'react-redux';
 import { GETLANGUAGE, LANGUAGE } from '../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TickModal from '../../components/Modals/TickModal';
 
-const Language = ({navigation,route}) => {
-  const {type,setSelectedLanguage,} = route.params
+const Language = ({ navigation, route }) => {
+  const { type, setSelectedLanguage, } = route.params
   const Provence = type == 'Provence';
   const Region = type == 'Region'
   const dispatch = useDispatch()
   const applanguage = useSelector(state => state.applanguage)
 
-  
+
   const Theme = useSelector(state => state.mode)
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
@@ -43,7 +43,7 @@ const Language = ({navigation,route}) => {
 
 
 
-  
+
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
@@ -55,53 +55,53 @@ const Language = ({navigation,route}) => {
   let DATA = [
     {
       id: '1',
-      title: Provence ?  'Province 1' : Region ? 'Region 1' : 'English',
+      title: Provence ? 'Province 1' : Region ? 'Region 1' : 'English',
       Short: '(EN)',
-      select : 'EN'
+      select: 'EN'
     },
     {
       id: '2',
-      title: Provence ?  'Province 2' : Region ? 'Region 2' : 'Hausa',
+      title: Provence ? 'Province 2' : Region ? 'Region 2' : 'Hausa',
       Short: '(HA)',
-      select : 'HA'
+      select: 'HA'
     },
     {
       id: '3',
-      title: Provence ?  'Province 3' : Region ? 'Region 3' : 'Français',
+      title: Provence ? 'Province 3' : Region ? 'Region 3' : 'Français',
       Short: '(FR)',
-      select : 'FR'
+      select: 'FR'
     },
     {
       id: '4',
-      title: Provence ?  'Province 4' : Region ? 'Region 4' : 'Português',
-      Short:  '(PO)',
-      select : 'PO'
+      title: Provence ? 'Province 4' : Region ? 'Region 4' : 'Português',
+      Short: '(PO)',
+      select: 'PO'
     },
     {
       id: '5',
-      title: Provence ?  'Province 5' : Region ? 'Region 5' : 'Pidgin',
-      Short:  '(PN)',
-      select : 'PN'
+      title: Provence ? 'Province 5' : Region ? 'Region 5' : 'Pidgin',
+      Short: '(PN)',
+      select: 'PN'
     },
     {
       id: '6',
-      title: Provence ?  'Province 6' : Region ? 'Region 6' : 'Fula',
+      title: Provence ? 'Province 6' : Region ? 'Region 6' : 'Fula',
       Short: '(FU)',
-      select : 'FU'
+      select: 'FU'
     },
     {
       id: '7',
-      title: Provence ?  'Province 7' : Region ? 'Region 7' : 'Español',
+      title: Provence ? 'Province 7' : Region ? 'Region 7' : 'Español',
       Short: '(ES)',
-      select : 'ES'
+      select: 'ES'
     },
   ];
 
   const handleLanguageSelect = async (language) => {
     setCheck(true)
     setSelected(language.title)
-    dispatch({type: GETLANGUAGE, payload: language.select})
-    dispatch({type: LANGUAGE, payload: language.title})
+    dispatch({ type: GETLANGUAGE, payload: language.select })
+    dispatch({ type: LANGUAGE, payload: language.title })
     await AsyncStorage.setItem('language', JSON.stringify(language.select))
     await AsyncStorage.setItem('languagetitle', JSON.stringify(language.title))
     setTimeout(() => {
@@ -111,9 +111,7 @@ const Language = ({navigation,route}) => {
     setSelectedLanguage(language.select)
   }
 
-
-
-  const Item = ({data}) => (
+  const Item = ({ data }) => (
     <TouchableOpacity
       style={[
         {
@@ -139,7 +137,7 @@ const Language = ({navigation,route}) => {
             flexDirection: 'row',
             flex: 1,
           }}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text
               style={[
                 {
@@ -149,7 +147,7 @@ const Language = ({navigation,route}) => {
                 styles.title,
               ]}>
               {data.title}
-             { Region || Provence ?  null : <Text
+              {Region || Provence ? null : <Text
                 style={[
                   {
                     fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
@@ -164,7 +162,7 @@ const Language = ({navigation,route}) => {
           </View>
         </View>
 
-        <View style={{justifyContent: 'center', right: scale(5)}}>
+        <View style={{ justifyContent: 'center', right: scale(5) }}>
           <View
             style={{
               height: w >= 768 && h >= 1024 ? scale(12) : scale(16),
@@ -175,7 +173,7 @@ const Language = ({navigation,route}) => {
               borderWidth: scale(1.5),
               marginBottom: verticalScale(15),
             }}>
-            {selected ===  data.title ? (
+            {selected === data.title ? (
               <View
                 style={{
                   flex: 1,
@@ -211,26 +209,27 @@ const Language = ({navigation,route}) => {
   );
   return (
     <>
-    <SafeAreaView
+      <SafeAreaView
         style={{
           backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
       />
       {/* <StatusBar backgroundColor={Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor }/> */}
-    <View
-      style={[
-        {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
-        },
-        styles.Container,
-      ]}>
-         <TickModal
+      <View
+        style={[
+          {
+            backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
+          },
+          styles.Container,
+        ]}>
+        <TickModal
           text={applanguage.ChangeLan}
           onPress={() => setCheck(false)}
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
         />
-      <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'}  />
-       {/* AuthHeaderStyle={{
+        <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'} />
+        {/* AuthHeaderStyle={{
             
             height:
             Platform.OS == 'android' ? verticalScale(100) :
@@ -240,17 +239,17 @@ const Language = ({navigation,route}) => {
                 ? verticalScale(65)
                 : verticalScale(30),
           }}/> */}
-      <FlatList
-        scrollEnabled={true}
-        showsVerticalScrollIndicator={false}
-        data={DATA}
-        renderItem={({item}) => <Item data={item} />}
-        keyExtractor={item => item.id}
-        style={{marginTop: verticalScale(20)}}
-      />
+        <FlatList
+          scrollEnabled={true}
+          showsVerticalScrollIndicator={false}
+          data={DATA}
+          renderItem={({ item }) => <Item data={item} />}
+          keyExtractor={item => item.id}
+          style={{ marginTop: verticalScale(20) }}
+        />
 
-      <View style={{height: verticalScale(10)}} />
-    </View>
+        <View style={{ height: verticalScale(10) }} />
+      </View>
     </>
   );
 };

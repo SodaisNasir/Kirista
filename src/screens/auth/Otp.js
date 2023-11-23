@@ -57,14 +57,12 @@ const OTP = ({navigation, route}) => {
     const timer = time > 0 && setInterval(() => setTime(time - 1), 1000);
     return () => clearInterval(timer);
   }, [time]);
-console.log('otp',otp);
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   const handleOtp = () => {
     if (otp == value) {
       setLoader(true)
-
       setTimeout(() => {
         setLoader(false)
         navigation.navigate('NewPassword', {

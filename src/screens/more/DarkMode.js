@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,11 +18,11 @@ import {
   verticalScale,
 } from 'react-native-size-matters';
 import Header from '../../components/Header';
-import {Color} from '../../utils/Colors';
-import {Font} from '../../utils/font';
+import { Color } from '../../utils/Colors';
+import { Font } from '../../utils/font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
-import {MODE} from '../../redux/reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { MODE } from '../../redux/reducer';
 import Modal from 'react-native-modal'
 const DarkMode = () => {
   const getTheme = useColorScheme();
@@ -32,15 +32,13 @@ const DarkMode = () => {
   const dispatch = useDispatch();
   const Theme = useSelector(state => state.mode);
   const applanguage = useSelector(state => state.applanguage);
- const [selected, setSelected] = useState('');
- const mode = useSelector(state => state.mode)
+  const [selected, setSelected] = useState('');
+  const mode = useSelector(state => state.mode)
 
- console.log('selected', selected)
+  useEffect(() => {
+    modeCheck()
+  }, [mode, Theme])
 
- useEffect(() => {
-  modeCheck()
-}, [mode,Theme])
- 
   const modeCheck = async () => {
     const getMode = await AsyncStorage.getItem('mode');
     const cnvrtMode = JSON.parse(getMode);
@@ -68,7 +66,7 @@ const DarkMode = () => {
     },
   ];
 
-  const Item = ({data}) => (
+  const Item = ({ data }) => (
     <TouchableOpacity
       style={[
         {
@@ -90,7 +88,7 @@ const DarkMode = () => {
             flexDirection: 'row',
             flex: 1,
           }}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text
               style={[
                 {
@@ -104,7 +102,7 @@ const DarkMode = () => {
           </View>
         </View>
 
-        <View style={{justifyContent: 'center', right: scale(5)}}>
+        <View style={{ justifyContent: 'center', right: scale(5) }}>
           <View
             style={{
               height: w >= 768 && h >= 1024 ? scale(12) : scale(16),
@@ -157,11 +155,11 @@ const DarkMode = () => {
     const ofMode = 'light';
 
     if (data.name === 'on') {
-      dispatch({type: MODE, payload: onMode});
+      dispatch({ type: MODE, payload: onMode });
     } else if (data.name === 'off') {
-      dispatch({type: MODE, payload: ofMode});
+      dispatch({ type: MODE, payload: ofMode });
     } else if (data.name === 'device setting') {
-      dispatch({type: MODE, payload: getTheme});
+      dispatch({ type: MODE, payload: getTheme });
       console.log('first')
     } else {
       console.log('vvvvvvv');
@@ -182,7 +180,7 @@ const DarkMode = () => {
       <SafeAreaView
         style={[
           styles.Container,
-          {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
+          { backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White },
         ]}>
         <StatusBar
           backgroundColor={
@@ -194,11 +192,11 @@ const DarkMode = () => {
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
           data={DATA}
-          renderItem={({item}) => <Item data={item} />}
+          renderItem={({ item }) => <Item data={item} />}
           keyExtractor={item => item.id}
-          style={{marginTop: verticalScale(20)}}
+          style={{ marginTop: verticalScale(20) }}
         />
-        <View style={{height: verticalScale(10)}} />
+        <View style={{ height: verticalScale(10) }} />
       </SafeAreaView>
     </>
   );
