@@ -8,7 +8,7 @@ import {
   Platform,
   ToastAndroid,
 } from 'react-native';
-import React, { useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Color} from '../../../utils/Colors';
 import {
   verticalScale,
@@ -24,30 +24,34 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontModal from '../../../components/Modals/FontModal';
 import ReadNavigator from '../../../components/ReadNavigator';
-import { useCallback } from 'react';
-import { getChapters, getChaptersByID, sendReadBok } from '../../../redux/actions/UserAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { BOOKMARK, CHAPTERS } from '../../../redux/reducer';
+import {useCallback} from 'react';
+import {
+  getChapters,
+  getChaptersByID,
+  sendReadBok,
+} from '../../../redux/actions/UserAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {BOOKMARK, CHAPTERS} from '../../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
 import IncorrectModal from '../../../components/Modals/IncorrectModal';
-import { WebView } from 'react-native-webview';
+import {WebView} from 'react-native-webview';
 import moment from 'moment';
 import BookMarkModal from '../../../components/Modals/BookMarkModal';
 import DoubleText from '../../../components/Loader/DoubleText';
-import Toast from 'react-native-simple-toast'
-import HTML_FILE from '../../../../ios/resources/Index.html'
+// import Toast from 'react-native-simple-toast'
+import HTML_FILE from '../../../../ios/resources/Index.html';
 
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
 const Readtwo = ({route}) => {
-  const dispatch = useDispatch()
-  const {id,bookData,chapterOne,url} = route.params
-  const chapters = useSelector(state => state.chapters)
-  const bookmark = useSelector(state => state.bookmark)
-  const isGuest = useSelector(state => state.is_guest)
-  const [data,setData] = useState([])
+  const dispatch = useDispatch();
+  const {id, bookData, chapterOne, url} = route.params;
+  const chapters = useSelector(state => state.chapters);
+  const bookmark = useSelector(state => state.bookmark);
+  const isGuest = useSelector(state => state.is_guest);
+  const [data, setData] = useState([]);
   const navigation = useNavigation();
   const [tempMode, setTempMode] = useState('');
   const [isSecondModalVisible, setSecondModalVisible] = useState(false);
@@ -56,87 +60,95 @@ const Readtwo = ({route}) => {
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
   const modeCheck = useSelector(state => state.mode);
-  const is_guest = useSelector(state => state.is_guest)
+  const is_guest = useSelector(state => state.is_guest);
   const Theme = tempMode != '' ? tempMode : modeCheck;
   const [backgroundColor, setBackgroundColor] = useState('');
   const [textColor, setTextColor] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
   const [select, setSelect] = useState();
   const [isSelect, setisSelect] = useState(false);
-  const [chapterData, setChapterData] = useState([])
-  const [fontData, setFontData] = useState(  {
+  const [chapterData, setChapterData] = useState([]);
+  const [fontData, setFontData] = useState({
     id: '1',
     label: 'Arial',
     name: 'arial',
     // name: 'Arial',
-  })
-  const [count, setCount] = useState(22)
-  const [show, setShow] = useState(false)
-  const [check, setCheck] = useState(false)
-  const [loader, setLoader] = useState(true)
+  });
+  const [count, setCount] = useState(22);
+  const [show, setShow] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [loader, setLoader] = useState(true);
   const [bottomModal, setBottomModal] = useState(false);
-  const applanguage = useSelector(state => state.applanguage)
-  const [markModal, setMarkModal] = useState(false)
-  const [tapShow, setTapShow] = useState(false)
+  const applanguage = useSelector(state => state.applanguage);
+  const [markModal, setMarkModal] = useState(false);
+  const [tapShow, setTapShow] = useState(false);
   const [email, setEmail] = useState(null);
   const [positions, setPosition] = useState(false);
   const webViewRef = useRef(null);
   const [webViewLoaded, setWebViewLoaded] = useState(false);
 
-
-
   useFocusEffect(
     useCallback(() => {
-      dispatch(getChapters(setData,id,chapters))
-      sendReadBok(id)
+      dispatch(getChapters(setData, id, chapters));
+      sendReadBok(id);
       setTimeout(() => {
-        loadXMLDoc()
-      // setLoader(false)
+        loadXMLDoc();
+        // setLoader(false)
       }, 1500);
     }, []),
   );
   useEffect(() => {
-    console.log('Theme', Theme)
-    if(!loader){
-      
+    console.log('Theme', Theme);
+    if (!loader) {
       // callWebViewFunction()
-      SaveBookID()
-      changeTheme(Theme)
-      changeFontColor(Theme)
-      changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
-      changeHeaderBackground(Theme === 'dark'
-      ? Color.DarkTheme
-      : Color.HeaderColor)
-    }else{
-      console.log('loader false effecdt')
+      SaveBookID();
+      changeTheme(Theme);
+      changeFontColor(Theme);
+      changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F');
+      changeHeaderBackground(
+        Theme === 'dark' ? Color.DarkTheme : Color.HeaderColor,
+      );
+    } else {
+      console.log('loader false effecdt');
     }
-  }, [loader])
+  }, [loader]);
 
-
-  const changeTheme = (color) => {
+  const changeTheme = color => {
     const functionName = 'changeTheme';
-    const functionArguments = [color != 'dark' && color !=  'light' ? color : color === 'dark' ? Color.DarkTheme
-    : Color.White]; // Optional function arguments
-
+    const functionArguments = [
+      color != 'dark' && color != 'light'
+        ? color
+        : color === 'dark'
+        ? Color.DarkTheme
+        : Color.White,
+    ]; // Optional function arguments
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
 
-  const changeFontColor = (color) => {
+  const changeFontColor = color => {
     const functionName = 'changeFontColor';
-    const functionArguments = [color != 'dark' && color !=  'light' ? color : color === 'dark' ? Color.White
-    : Color.Black]; // Optional function arguments
-
+    const functionArguments = [
+      color != 'dark' && color != 'light'
+        ? color
+        : color === 'dark'
+        ? Color.White
+        : Color.Black,
+    ]; // Optional function arguments
 
     const injectedJavaScript = `
     (function() {
-    window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+    window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
     return true;
   })();
     `;
@@ -146,29 +158,32 @@ const Readtwo = ({route}) => {
     setBackgroundColor('#F5F5F5');
     setTextColor(Color.Black);
     setShow(true);
-    changeTheme('#F5F5F5')
-    changeFontColor('black')
+
+    changeTheme('#F5F5F5');
+    changeFontColor('black');
   };
   const handlepresstwo = () => {
     setBackgroundColor('#F5EDD8');
     setTextColor(Color.Black);
     setShow(true);
-    changeTheme('#F5EDD8')
-    changeFontColor('black')
+
+    changeTheme('#F5EDD8');
+    changeFontColor('black');
   };
   const handlepressthree = () => {
     setBackgroundColor('#E5F1FD');
     setTextColor(Color.Black);
     setShow(true);
-    changeTheme('#E5F1FD')
-    changeFontColor('black')
+
+    changeTheme('#E5F1FD');
+    changeFontColor('black');
   };
   const handlepressfour = () => {
     setBackgroundColor('#DBE7E3');
     setTextColor(Color.Black);
     setShow(true);
-    changeTheme('#DBE7E3')
-    changeFontColor('black')
+    changeTheme('#DBE7E3');
+    changeFontColor('black');
   };
   const toggleIcon = () => {
     if (showSvg == true) {
@@ -176,21 +191,20 @@ const Readtwo = ({route}) => {
       setShowSvg(!showSvg);
       changeTheme('light');
       changeFontColor('light');
-      changeHeaderFontColor('#797B7F')
-      changeHeaderBackground(Color.White)
-      setBackgroundColor('')
-      setShow(true)
+      changeHeaderFontColor('#797B7F');
+      changeHeaderBackground(Color.White);
+      setBackgroundColor('');
+      setShow(true);
     } else {
-      setBackgroundColor('')
-      setShow(true)
+      setBackgroundColor('');
+      setShow(true);
       setTempMode('dark');
       setShowSvg(!showSvg);
       changeTheme('dark');
       changeFontColor('dark');
-      changeHeaderFontColor(Color.White)
-      changeHeaderBackground(Color.DarkTheme)
+      changeHeaderFontColor(Color.White);
+      changeHeaderBackground(Color.DarkTheme);
     }
-   
   };
   // const addBookmark = () => {
   //   const extrxtIds = bookmark.find(
@@ -207,43 +221,45 @@ const Readtwo = ({route}) => {
   //   addBookmark();
   // }, [chapterData, bookmark,chapNo]);
 
-  const onFontSubmit = (item) => { 
-    setSecondModalVisible(false)
-    setFontData(item)
-    ChangefontFamily(item.name)
-   }
-    
-  const doubleTapRef = useRef(null)
+  const onFontSubmit = item => {
+    setSecondModalVisible(false);
+    setFontData(item);
+    ChangefontFamily(item.name);
+  };
+
+  const doubleTapRef = useRef(null);
   const doubleTapDelay = 200; // Adjust the delay between taps (in milliseconds)
   const handleDoubleTap = () => {
     clearTimeout(doubleTapRef.current);
-    setTapShow(true)
+    setTapShow(true);
     setBottomModal(!bottomModal);
-    changeHeaderBackground(Theme === 'dark'
-    ? Color.DarkTheme
-    : Color.HeaderColor)
-    Header('none')
-    changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
-    setisSelect(false)
+    changeHeaderBackground(
+      Theme === 'dark' ? Color.DarkTheme : Color.HeaderColor,
+    );
+    Header('none');
+    changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F');
+    setisSelect(false);
   };
   const handleSingleTap = () => {
-
-      if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
-        handleDoubleTap();
-      } else {
-        doubleTapRef.current = new Date().getTime();
-      }
+    if (
+      doubleTapRef.current &&
+      new Date().getTime() - doubleTapRef.current < doubleTapDelay
+    ) {
+      handleDoubleTap();
+    } else {
+      doubleTapRef.current = new Date().getTime();
+    }
   };
   const handleSingleTap2 = () => {
     // if (doubleTapRef.current && new Date().getTime() - doubleTapRef.current < doubleTapDelay) {
-      setBottomModal(!bottomModal)
-      clearTimeout(doubleTapRef.current);
-      setTapShow(false)
-      Header('block')
-      changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F')
-      changeHeaderBackground(Theme === 'dark'
-      ? Color.DarkTheme
-      : Color.HeaderColor)
+    setBottomModal(!bottomModal);
+    clearTimeout(doubleTapRef.current);
+    setTapShow(false);
+    Header('block');
+    changeHeaderFontColor(Theme === 'dark' ? Color.White : '#797B7F');
+    changeHeaderBackground(
+      Theme === 'dark' ? Color.DarkTheme : Color.HeaderColor,
+    );
     // } else {
     //   doubleTapRef.current = new Date().getTime();
     // }
@@ -261,73 +277,76 @@ const Readtwo = ({route}) => {
   //   webViewRef?.current.injectJavaScript(injectedJavaScript);
   // };
 
-
-
   const loadXMLDoc = () => {
     const functionName = 'loadXMLDoc';
+    console.log(id);
     const functionArguments = [id]; // Optional function arguments
-  
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return "true";
     })();
     `;
-  
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
-  
-  
+
   const changeFontSize = () => {
     const functionName = 'changeFontSize';
     const functionArguments = [count]; // Optional function arguments
 
-
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
-
   };
-  const goToLocation = (index) => {
-    console.log('index', index)
+  const goToLocation = index => {
+    console.log('index', index);
     const functionName = 'Goto';
     const functionArguments = [index]; // Optional function arguments
 
-
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
-  const ChangefontFamily = (name) => {
+  const ChangefontFamily = name => {
     const functionName = 'ChangefontFamily';
     const functionArguments = [name]; // Optional function arguments
 
-    console.log('functionArguments', functionArguments)
+    console.log('functionArguments', functionArguments);
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
-  const BookMark = (item) => {
-    setEmail(item.mark)
+  const BookMark = item => {
+    setEmail(item.mark);
     const functionName = 'BookMark';
     const functionArguments = []; // Optional function arguments
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
@@ -340,119 +359,148 @@ const Readtwo = ({route}) => {
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
-  const GotoIndex = (id) => {
+  const GotoIndex = id => {
     const functionName = 'GotoIndex';
     const functionArguments = [id]; // Optional function arguments
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
-    setModalThreeVisible(false)
+    setModalThreeVisible(false);
   };
-  const changeHeaderBackground = (color) => {
-    console.log('back',color)
+  const changeHeaderBackground = color => {
+    console.log('back', color);
     const functionName = 'changeHeaderBackground';
     const functionArguments = [color]; // Optional function arguments
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
-    setModalThreeVisible(false)
+    setModalThreeVisible(false);
   };
-  const changeHeaderFontColor = (color) => {
-    console.log('backFontColor',color)
+  const changeHeaderFontColor = color => {
+    console.log('backFontColor', color);
     const functionName = 'changeHeaderFontColor';
     const functionArguments = [color]; // Optional function arguments
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
-    setModalThreeVisible(false)
+    setModalThreeVisible(false);
   };
-  const Header = (type) => {
-    console.log('type', type)
+  const Header = type => {
+    console.log('type', type);
     const functionName = 'Header';
     const functionArguments = [type]; // Optional function arguments
 
     const injectedJavaScript = `
     (function() {
-      window.${functionName} && window.${functionName}(${JSON.stringify(functionArguments)});
+      window.${functionName} && window.${functionName}(${JSON.stringify(
+      functionArguments,
+    )});
       return true;
     })();
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
-    setModalThreeVisible(false)
+    setModalThreeVisible(false);
   };
-  const onMessage = async (item) =>{
+  const onMessage = async item => {
     console.log('======>');
-    console.log('======> type',item);
+    console.log('======> type', item);
     console.log('======>');
-    const newData = item.nativeEvent.data.split(',')[1]
-    const type = item.nativeEvent.data.split(',')[0]
+    const newData = item.nativeEvent.data.split(',')[1];
+    const type = item.nativeEvent.data.split(',')[0];
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
-    
 
-
-    if(type == 'loader'){
+    if (type == 'loader') {
       setTimeout(() => {
-        setLoader(false)
+        setLoader(false);
       }, 3000);
-    } else if(type == 'bookmark'){
+    } else if (type == 'bookmark') {
       const extractData = bookmark?.filter(item => item.books_id === id);
       const findData = extractData?.find(item => item.scroll_id == newData);
-  
-        if (findData) {
-          const updatedData = bookmark.filter(item => item.scroll_id !== findData.scroll_id);
-          dispatch({type: BOOKMARK, payload: updatedData});
-          await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
-          setisSelect(false);
-          setMarkModal(false)
-          Toast.show('Bookmark removed', ToastAndroid.LONG)
-        } else {
-          dispatch({type: BOOKMARK, payload: [...bookmark, {'scroll_id':newData,'books_id':id,'created_at':moment(formattedDate).format('MMM Do, YYYY.'),'mark_name': email}]});
-          console.log('Object not found in the array');
-          setisSelect(true);
-          await AsyncStorage.setItem(
-            'bookmark',
-            JSON.stringify([...bookmark, {'scroll_id':newData,'books_id':id,'created_at':moment(formattedDate).format('MMM Do, YYYY.'),'mark_name': email}]),
-          );
-          setMarkModal(false)
-          Toast.show('Bookmark added successfully', ToastAndroid.LONG)
-        }
-      
-  }else{
-    console.log('onMessage else')
-  }
-  }
+
+      if (findData) {
+        const updatedData = bookmark.filter(
+          item => item.scroll_id !== findData.scroll_id,
+        );
+        dispatch({type: BOOKMARK, payload: updatedData});
+        await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
+        setisSelect(false);
+        setMarkModal(false);
+        // Toast.show('Bookmark removed', ToastAndroid.LONG)
+      } else {
+        dispatch({
+          type: BOOKMARK,
+          payload: [
+            ...bookmark,
+            {
+              scroll_id: newData,
+              books_id: id,
+              created_at: moment(formattedDate).format('MMM Do, YYYY.'),
+              mark_name: email,
+            },
+          ],
+        });
+        console.log('Object not found in the array');
+        setisSelect(true);
+        await AsyncStorage.setItem(
+          'bookmark',
+          JSON.stringify([
+            ...bookmark,
+            {
+              scroll_id: newData,
+              books_id: id,
+              created_at: moment(formattedDate).format('MMM Do, YYYY.'),
+              mark_name: email,
+            },
+          ]),
+        );
+        setMarkModal(false);
+        // Toast.show('Bookmark added successfully', ToastAndroid.LONG)
+      }
+    } else {
+      console.log('onMessage else');
+    }
+  };
   const doubleBack = () => {
-    navigation.goBack()
+    navigation.goBack();
     // navigation.goBack()
-  }
+  };
   const INJECTED_JAVASCRIPT = `(function() {
     window.ReactNativeWebView.postMessage('laraib');
   })();`;
+
   return (
     <>
       <SafeAreaView
@@ -467,20 +515,19 @@ const Readtwo = ({route}) => {
           styles.MainContainer,
           {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
         ]}>
-          {
-            bottomModal ?
-        <View
-          style={[
-            {
-              backgroundColor:
-                Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
-            },
-            styles.AuthHeaderStyle,
-          ]}>
-              <View
+        {bottomModal ? (
+          <View
+            style={[
+              {
+                backgroundColor:
+                  Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+              },
+              styles.AuthHeaderStyle,
+            ]}>
+            <View
               style={{
                 flexDirection: 'row',
-  
+
                 marginBottom:
                   w >= 768 && h >= 1024 ? verticalScale(12) : verticalScale(15),
                 paddingHorizontal:
@@ -488,180 +535,200 @@ const Readtwo = ({route}) => {
                 justifyContent: 'space-between',
               }}>
               <View style={{justifyContent: 'center'}}>
-                {
-                  bottomModal ?
-  
+                {bottomModal ? (
                   <AntDesign
-                  name="arrowleft"
-                  size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
-                  color={Theme === 'dark' ? Color.White : Color.Black}
-                  onPress={() => doubleBack()}
+                    name="arrowleft"
+                    size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+                    color={Theme === 'dark' ? Color.White : Color.Black}
+                    onPress={() => doubleBack()}
                   />
-                  : null
-                }
+                ) : null}
               </View>
-                {
-                  is_guest ?
-                  null :
-
-              <TouchableOpacity
-              onPress={() => setMarkModal(true)}
-              style={{justifyContent: 'center'}}>
-                <Ionicons
-                  name={isSelect ? 'bookmark' : 'bookmark-outline'}
-                  // name={'bookmark'}
-                  size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
-                  color={Color.Main}
+              {is_guest ? null : (
+                <TouchableOpacity
+                  onPress={() => setMarkModal(true)}
+                  style={{justifyContent: 'center'}}>
+                  <Ionicons
+                    name={isSelect ? 'bookmark' : 'bookmark-outline'}
+                    // name={'bookmark'}
+                    size={w >= 768 && h >= 1024 ? scale(16) : scale(20)}
+                    color={Color.Main}
                   />
-
-              </TouchableOpacity>
-                }
+                </TouchableOpacity>
+              )}
             </View>
-        </View>
-              :
-              null
-            }
+          </View>
+        ) : null}
         <IncorrectModal
           text={applanguage.Guestpromt}
           onPress={() => setCheck(false)}
           onBackdropPress={() => setCheck(false)}
           isVisible={check}
-          />
-      <BookMarkModal 
-       isVisible={markModal}
-        onPress={BookMark} 
-        onBackdropPress={() => setMarkModal(false)}
-      />
+        />
+        <BookMarkModal
+          isVisible={markModal}
+          onPress={BookMark}
+          onBackdropPress={() => setMarkModal(false)}
+        />
 
-          {
-              tapShow ? 
-              <View 
-              onTouchStart={() => handleSingleTap2()}
-               style={{ height: bottomModal ? '73%' : '100%',
-              width: '100%',backgroundColor: 'transparent', position: 'absolute',zIndex: 999,alignSelf: 'center',top:Platform.OS == 'android'
-              ? w >= 768 && h >= 1024
-                ? verticalScale(70)
-                : w <= 450 && h <= 750
-                ? verticalScale(110)
-                : verticalScale(100)
-              : w >= 768 && h >= 1024
-              ? verticalScale(70)
-              : w <= 450 && h <= 750
-              ? verticalScale(60)
-              : verticalScale(40),}} />
-             : null}
+        {tapShow ? (
           <View
-         
+            onTouchStart={() => handleSingleTap2()}
             style={{
-              height: '100%',
+              height: bottomModal ? '73%' : '100%',
               width: '100%',
-              backgroundColor:   backgroundColor != '' && show
-              ? backgroundColor
-              : Theme === 'dark'
-              ? Color.DarkTheme
-              : Color.White,
-            }}>
-
-
-            {
-              loader ?
-             <View style={{flex:1,backgroundColor: Theme === 'dark'
-             ? Color.DarkTheme
-             : Color.White, position: 'absolute',zIndex: 99,alignSelf: 'center'}}>
-              <View style={{
-                marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(15),
+              backgroundColor: 'transparent',
+              position: 'absolute',
+              zIndex: 999,
+              alignSelf: 'center',
+              top:
+                Platform.OS == 'android'
+                  ? w >= 768 && h >= 1024
+                    ? verticalScale(70)
+                    : w <= 450 && h <= 750
+                    ? verticalScale(110)
+                    : verticalScale(100)
+                  : w >= 768 && h >= 1024
+                  ? verticalScale(70)
+                  : w <= 450 && h <= 750
+                  ? verticalScale(60)
+                  : verticalScale(40),
+            }}
+          />
+        ) : null}
+        <View
+          style={{
+            height: '100%',
+            width: '100%',
+            backgroundColor:
+              backgroundColor != '' && show
+                ? backgroundColor
+                : Theme === 'dark'
+                ? Color.DarkTheme
+                : Color.White,
+          }}>
+          {loader ? (
+            <View
+              style={{
+                flex: 1,
+                backgroundColor:
+                  Theme === 'dark' ? Color.DarkTheme : Color.White,
+                position: 'absolute',
+                zIndex: 99,
+                alignSelf: 'center',
               }}>
-              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(100)} />
-           </View>
-              <View style={{
-                marginTop:
-                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
-              }}>
-              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(80) : verticalScale(80)} />
-           </View>
-              <View style={{
-                marginVertical:
-                w >= 768 && h >= 1024 ? verticalScale(5) : verticalScale(10),
-              }}>
-              <DoubleText height={w >= 768 && h >= 1024 ? verticalScale(500) : verticalScale(500)} />
-           </View>
-          
+              <View
+                style={{
+                  marginTop:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(5)
+                      : verticalScale(15),
+                }}>
+                <DoubleText
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(80)
+                      : verticalScale(100)
+                  }
+                />
               </View>
-              :
-                null
-            }
+              <View
+                style={{
+                  marginTop:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(5)
+                      : verticalScale(10),
+                }}>
+                <DoubleText
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(80)
+                      : verticalScale(80)
+                  }
+                />
+              </View>
+              <View
+                style={{
+                  marginVertical:
+                    w >= 768 && h >= 1024
+                      ? verticalScale(5)
+                      : verticalScale(10),
+                }}>
+                <DoubleText
+                  height={
+                    w >= 768 && h >= 1024
+                      ? verticalScale(500)
+                      : verticalScale(500)
+                  }
+                />
+              </View>
+            </View>
+          ) : null}
 
-          
+          {Platform.OS == 'ios' ? (
+            <WebView
+              ref={webViewRef}
+              onLoad={console.log('loading js')}
+              style={{
+                flex: 1,
+                // marginBottom: 50,
+                backgroundColor:
+                  backgroundColor != '' && show
+                    ? backgroundColor
+                    : Theme === 'dark'
+                    ? Color.DarkTheme
+                    : Color.White,
+              }}
+              source={HTML_FILE}
+              // source={{ uri: 'https://sassolution.org/kirista/kirista.html' }}
+              originWhitelist={['*']}
+              onLoadEnd={() => setWebViewLoaded(true)}
+              onMessage={onMessage}
+              onError={event =>
+                console.error('Received message erre:', event.nativeEvent)
+              }
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+              scalesPageToFit={false}
+              // injectedJavaScript={`alert('test')`}
 
-            
-           {Platform.OS == 'ios'?
-            <WebView 
-            ref={webViewRef}
-            onLoad={console.log('loading')}
-            style={{ 
-              flex: 1,
-            // marginBottom: 50,
-            backgroundColor: backgroundColor != '' && show
-            ? backgroundColor
-            : Theme === 'dark'
-            ? Color.DarkTheme
-            : Color.White
-            }}
-            javaScriptEnabled={true}
-            source={HTML_FILE}
-            // source={{ uri: 'https://google.com' }}
-            originWhitelist={['*']}
-            onLoadEnd={() => setWebViewLoaded(true)}
-            // injectedJavaScript={INJECTED_JAVASCRIPT}
-            onMessage={onMessage}
-            
-          
-            // injectedJavaScriptBeforeContentLoadedForMainFrameOnly={false}
-            // injectedJavaScriptForMainFrameOnly={false}
-            // injectedJavaScript={injectedJavaScript}
-            // contentInsetAdjustmentBehavior={() => loadXMLDoc()}
-            // source={require('../../../../ios/resources/Index.html')}
-            onError={(event) => console.error('Received message erre:',event.nativeEvent)}
-            domStorageEnabled={true}
-          //   // injectedJavaScript={injectedJavaScript}
-            // onMessage={onMessage}
-            scalesPageToFit={false}
-          mixedContentMode="compatibility"
-          onScroll={() => setPosition(false)} 
-          onTouchStart={() => setPosition(true)}
-          onTouchEnd={() => handleSingleTap()}
-            /> :
-            <WebView 
-            ref={webViewRef}
-            onLoad={console.log('loading')}
-            style={{ 
-              flex: 1,
-            // marginBottom: 50,
-            backgroundColor: backgroundColor != '' && show
-            ? backgroundColor
-            : Theme === 'dark'
-            ? Color.DarkTheme
-            : Color.White
-          }}
-            originWhitelist={['*']}
-            source={{
-              uri: 'file:///android_asset/Index.html'
-            }}
-            onError={(event) => console.error('Received message erre:',event.nativeEvent)}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            onMessage={onMessage}
-            scalesPageToFit={false}
-          mixedContentMode="compatibility"
-          onScroll={() => setPosition(false)} 
-          onTouchStart={() => setPosition(true)}
-          onTouchEnd={() => handleSingleTap()}
+              mixedContentMode="compatibility"
+              onScroll={() => setPosition(false)}
+              onTouchStart={() => setPosition(true)}
+              onTouchEnd={() => handleSingleTap()}
             />
-            }
-         
-          {/* <View style={{height: verticalScale(75), backgroundColor: backgroundColor != '' && show ?  backgroundColor :  Theme === 'dark' ? Color.ExtraViewDark : Color.White}} /> */}
-          </View>
+          ) : (
+            <WebView
+              ref={webViewRef}
+              onLoad={console.log('loading')}
+              style={{
+                flex: 1,
+                // marginBottom: 50,
+                backgroundColor:
+                  backgroundColor != '' && show
+                    ? backgroundColor
+                    : Theme === 'dark'
+                    ? Color.DarkTheme
+                    : Color.White,
+              }}
+              originWhitelist={['*']}
+              source={{
+                uri: 'file:///android_asset/Index.html',
+              }}
+              onError={event =>
+                console.error('Received message erre:', event.nativeEvent)
+              }
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+              onMessage={onMessage}
+              scalesPageToFit={false}
+              mixedContentMode="compatibility"
+              onScroll={() => setPosition(false)}
+              onTouchStart={() => setPosition(true)}
+              onTouchEnd={() => handleSingleTap()}
+            />
+          )}
+        </View>
 
         <ChapterOptionModal
           isVisible={isModalVisible}
@@ -720,28 +787,26 @@ const Readtwo = ({route}) => {
           bookMarkPress={GotoIndex}
         />
 
-          <View
-            style={{
-              flex: 1,
-              position: 'absolute',
-              bottom: 0,
-              width: '100%',
-            }}>
-            <ReadNavigator
-              onPressTab={() => {
-                setModalThreeVisible(!isModalThreeVisible);
-              }}
-              modalVisible={bottomModal}
-              onPressModal={() => setModalVisible(true)}
-              moonPress={() => (toggleIcon(), setShow(!show))}
-              show={showSvg}
-              newTheme={tempMode}
-              // background={backgroundColor}
-              setShow={show}
-            />
-          </View>
-
-         
+        <View
+          style={{
+            flex: 1,
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+          }}>
+          <ReadNavigator
+            onPressTab={() => {
+              setModalThreeVisible(!isModalThreeVisible);
+            }}
+            modalVisible={bottomModal}
+            onPressModal={() => setModalVisible(true)}
+            moonPress={() => (toggleIcon(), setShow(!show))}
+            show={showSvg}
+            newTheme={tempMode}
+            // background={backgroundColor}
+            setShow={show}
+          />
+        </View>
       </View>
     </>
   );
@@ -773,7 +838,7 @@ const styles = StyleSheet.create({
         ? verticalScale(70)
         : w <= 450 && h <= 750
         ? verticalScale(60)
-        : verticalScale(40),
+        : verticalScale(55),
     // height:verticalScale(140),
 
     justifyContent: 'flex-start',
@@ -787,7 +852,6 @@ const styles = StyleSheet.create({
         : // ? moderateVerticalScale(25)
           moderateVerticalScale(25),
     // paddingTop:moderateVerticalScale(50)
-   
   },
   WelcomeText: {
     fontFamily: Font.Poppins400,

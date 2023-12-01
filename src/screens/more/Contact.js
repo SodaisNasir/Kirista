@@ -8,6 +8,7 @@ import {
   TextInput,
   Text,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useLayoutEffect, useEffect} from 'react';
 import CustomInput from '../../components/CustomInput';
@@ -24,11 +25,12 @@ import {Color} from '../../utils/Colors';
 import {useNavigation} from '@react-navigation/native';
 import {Font} from '../../utils/font';
 import {useForm} from 'react-hook-form';
-import { useState } from 'react';
-import { base_Url } from '../../utils/Url';
-import { useSelector } from 'react-redux';
+import {useState} from 'react';
+import {base_Url} from '../../utils/Url';
+import {useSelector} from 'react-redux';
 import Loader from '../../components/Modals/Loader';
 import TickModal from '../../components/Modals/TickModal';
+import { da } from 'date-fns/locale';
 
 const Contact = () => {
   const {
@@ -36,23 +38,23 @@ const Contact = () => {
     handleSubmit,
     formState: {errors, isValid},
   } = useForm({mode: 'all'});
-  const applanguage = useSelector(state => state.applanguage)
-  const userData = useSelector(state => state.user_details)
+  const applanguage = useSelector(state => state.applanguage);
+  const userData = useSelector(state => state.user_details);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const Theme = useSelector(state => state.mode)
+  const Theme = useSelector(state => state.mode);
   const tabPotrait = w >= 768 && h >= 1024;
   const fourInchLandscape = w <= 600 && h <= 350;
   const iosTab = w >= 820 && h >= 1180;
   const navigation = useNavigation();
   const [text, onChangeText] = useState('');
   const [internet, setInternet] = useState(false);
-  const [msg, setMsg] = useState('')
+  const [msg, setMsg] = useState('');
 
   const [country, setCountry] = useState({
-    country_name:  userData != "guest" ? userData?.data.country : '',
-    country_code: userData != "guest" ? userData?.data.country_code : '+234',
-    flag_code: userData != "guest" ? userData?.data.flag_code : '🇳🇬'
+    country_name: userData != 'guest' ? userData?.data.country : '',
+    country_code: userData != 'guest' ? userData?.data.country_code : '+234',
+    flag_code: userData != 'guest' ? userData?.data.flag_code : '🇳🇬',
   });
 
   const [loader, setLoader] = useState(false);
@@ -65,18 +67,20 @@ const Contact = () => {
     });
   }, []);
 
-  const contactUs = async (data,setLoader) => {
+  const contactUs = async (data, setLoader) => {
+
+    console.log("DATA IN API CONTACT ==>",data);
     try {
       setLoader(true);
       let base_url = `${base_Url}contact`;
       let myData = new FormData();
-  
+
       myData.append('name', data.fullname);
       myData.append('email', data.email);
-      myData.append('phone_number', data.phone_number);
+      myData.append('phone_number', data.phonenumber);
       myData.append('subject', data.subject);
       myData.append('message', text);
-  
+
       const response = await fetch(base_url, {
         method: 'post',
         body: myData,
@@ -90,68 +94,76 @@ const Contact = () => {
       // }else{
       //   console.log('first')
       // }
-   
-      if(responseData?.success?.status === 200){
-        setMsg(applanguage.ContctSub)
-        setInternet(true)
-        setTimeout(() => {
-          navigation.goBack()
-        }, 2000);
+
+      if (responseData?.success?.status === 200) {
+        setMsg(applanguage.ContctSub);
         setLoader(false);
-      }else{
+        setTimeout(() => {
+          setInternet(true)
+          
+        }, 1000);
+       
+      } else {
         alert(responseData.error.message);
         setTimeout(() => {
-          navigation.goBack()
+          navigation.goBack();
         }, 2000);
         setLoader(false);
       }
-
     } catch (error) {
-      console.log('error', error)
+      console.log('error', error);
+      setLoader(false);
     }
-  }
- 
-  const onSubmit = data =>{
-    if(data && text != ''){
-      contactUs(data,setLoader)
+  };
 
-    }else{
-      alert('Please fill the form')
+  const onSubmit = data => {
+    if (data && text != '') {
+      contactUs(data, setLoader);
+    } else {
+      alert('Please fill the form');
     }
-  }
+  };
 
   const handlePhoneNumberButtonPress = () => {
     navigation.navigate('FeaturedCountry', {
-      setCountry:setCountry
+      setCountry: setCountry,
     });
   };
 
   return (
     <>
+      <KeyboardAvoidingView
+      behavior= {Platform.OS == 'ios'? "padding": "height"}
+      style={{flex:1}}
+      >
       <SafeAreaView
         style={{
-          backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+          
+          backgroundColor:
+          Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
-      />
+        />
 
+       
       <View
         style={{
           flex: 1,
           backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White,
         }}>
-        <Header text={applanguage.Contact}
-        AuthHeaderStyle={{
-          height:
-            Platform.OS == 'android'
-              ? verticalScale(80)
-              : w >= 768 && h >= 1024
-              ? verticalScale(70)
-              : w >= 768 && h >= 1024
-              ? verticalScale(65)
-              : w <= 450 && h <= 750
-              ? verticalScale(50)
-              : verticalScale(45),
-        }}
+        <Header
+          text={applanguage.Contact}
+          AuthHeaderStyle={{
+            height:
+              Platform.OS == 'android'
+                ? verticalScale(80)
+                : w >= 768 && h >= 1024
+                ? verticalScale(70)
+                : w >= 768 && h >= 1024
+                ? verticalScale(65)
+                : w <= 450 && h <= 750
+                ? verticalScale(50)
+                : verticalScale(45),
+          }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
@@ -167,12 +179,12 @@ const Contact = () => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
               }}>
               <CustomInput
-               defaultValue={userData != "guest" ? userData.data.name: ''}
-              control={control}
+                defaultValue={userData != 'guest' ? userData.data.name : ''}
+                control={control}
                 name="fullname"
                 rules={{
                   required: applanguage.FullNameReq,
-                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  // value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                   message: applanguage.EnterFullName,
                 }}
                 // onChangeText={txt => {
@@ -183,7 +195,7 @@ const Contact = () => {
                 placeholder={applanguage.FullName}
                 // keyboardType={'email-address'}
               />
-                {errors.fullname && (
+              {errors.fullname && (
                 <Text
                   style={[
                     {
@@ -222,11 +234,11 @@ const Contact = () => {
               }}>
               <CustomInput
                 control={control}
-                defaultValue={userData != "guest" ? userData.data.email: '' }
+                defaultValue={userData != 'guest' ? userData.data.email : ''}
                 name="email"
                 rules={{
                   required: applanguage.RequiredEmail,
-                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  // value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                   message: applanguage.ValidEmail,
                 }}
                 // onChangeText={txt => {
@@ -260,7 +272,7 @@ const Contact = () => {
                   w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(10),
               }}>
               <CustomInput
-              defaultValue={userData?.data?.phone_number}
+                defaultValue={userData?.data?.phone_number.toString()}
                 onPress={handlePhoneNumberButtonPress}
                 control={control}
                 name="phonenumber"
@@ -353,7 +365,10 @@ const Contact = () => {
               <Text
                 style={{
                   fontFamily: Font.Poppins500,
-                  color: Theme === 'dark' ? Color.DarkThemText2 : Color.BoldTextColor,
+                  color:
+                    Theme === 'dark'
+                      ? Color.DarkThemText2
+                      : Color.BoldTextColor,
                   fontSize: tabPotrait
                     ? verticalScale(11)
                     : fourInchLandscape
@@ -374,18 +389,19 @@ const Contact = () => {
                     ? moderateVerticalScale(60)
                     : moderateVerticalScale(100),
                   color: Theme === 'dark' ? Color.White : Color.TextColor,
-                  backgroundColor: Theme === 'dark' 
-                    ? Color.DarkThemeInputBox
-                    : Color.InputBoxColor,
+                  backgroundColor:
+                    Theme === 'dark'
+                      ? Color.DarkThemeInputBox
+                      : Color.InputBoxColor,
                   borderRadius: tabPotrait ? scale(12) : scale(18),
                   fontFamily: Font.Inter500,
                   alignItems: 'center',
                   justifyContent: 'center',
                   flex: 1,
                   paddingHorizontal: verticalScale(15),
-                  paddingTop: Platform.OS ? scale(10) : 0
+                  paddingTop: Platform.OS ? scale(10) : 0,
                 }}
-                placeholder= {applanguage.Typehere}
+                placeholder={applanguage.Typehere}
                 multiline={true}
                 onChangeText={onChangeText}
                 value={text}
@@ -396,21 +412,22 @@ const Contact = () => {
                 marginVertical:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
               }}>
-              <CustomButton text={applanguage.Submit} onPress={handleSubmit(onSubmit)} />
+              <CustomButton
+                text={applanguage.Submit}
+                onPress={handleSubmit(onSubmit)}
+              />
             </View>
           </View>
         </ScrollView>
-        <Loader
-   onBackdropPress={() => setLoader(false)}
-   isVisible={loader}
-/>
-<TickModal
- text={msg}
- onPress={() => setInternet(false)}
-        isVisible={internet}
-        onBackdropPress={() => setInternet(false)}
+        <Loader onBackdropPress={() => setLoader(false)} isVisible={loader} />
+        <TickModal
+          text={msg}
+          onPress={() => navigation.goBack()}
+          isVisible={internet}
+          onBackdropPress={() => navigation.goBack()}
         />
       </View>
+      </KeyboardAvoidingView>
     </>
   );
 };

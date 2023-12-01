@@ -583,7 +583,7 @@ const SettingsGuest = () => {
               alignSelf: 'center',
               height: verticalScale(40),
             }}>
-            <Text style={[styles.VersionText]}>Version 1.0.0</Text>
+            <Text style={[styles.VersionText]}>Version 1.3.1</Text>
           </View>
 
           <View

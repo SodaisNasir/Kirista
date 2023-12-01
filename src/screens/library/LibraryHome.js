@@ -52,6 +52,7 @@ const LibraryHome = ({navigation}) => {
   const savedParishes = useSelector(state => state.parishbookmark);
   const savedEvents = useSelector(state => state.eventbookmark);
   const libraryData = savedBooks.concat(savedEvents, savedParishes);
+  const AppState = useSelector(state => state.appState);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -76,7 +77,7 @@ console.log('data', data)
     useCallback(() => {
       setData(null);
       // dispatch()
-      
+      console.log("APP STATE IN LIBRARY ==>",AppState);
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
       dispatch(getLibraryData(user_details))
     }, []),
@@ -141,7 +142,7 @@ console.log('data', data)
                   w <= 450 && h <= 750 ? 
                    verticalScale(120):
                   verticalScale(100)
-                  ? verticalScale(70)
+                  ? verticalScale(100)
                   : w <= 450 && h <= 750
                   ? verticalScale(110)
                   : verticalScale(100)

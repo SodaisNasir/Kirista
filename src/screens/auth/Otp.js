@@ -180,17 +180,17 @@ console.log('otp',otp);
             renderCell={({index, symbol, isFocused}) => (
               <View
                 style={{
-                  // backgroundColor: Theme === 'dark'
-                  //   ? Color.DarkThemeInputBox
-                  //   : Color.OtpBoxColor,
-                    backgroundColor:'pink',
+                  backgroundColor: Theme === 'dark'
+                    ? Color.DarkThemeInputBox
+                    : Color.OtpBoxColor,
+                    // backgroundColor:'pink',
                   borderRadius: scale(16),
                 }}>
                 <Text
                   key={index}
                   style={[
-                    // {color: Theme === 'dark' ? Color.White : Color.Black},
-                    {color: 'red',},
+                    {color: Theme === 'dark' ? Color.White : Color.Black},
+                    // {color: 'red',},
                     styles.cell,
                     isFocused && styles.focusCell,
                     Platform.OS == 'ios'

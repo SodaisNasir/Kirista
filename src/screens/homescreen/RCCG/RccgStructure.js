@@ -184,7 +184,7 @@ const RccgStructure = ({navigation}) => {
             <CustomButton restyle={{width: '95%'}} text={'Read More'} />
           </View> */}
         </View>
-        <View style={{height: verticalScale(55)}} />
+        <View style={{height: verticalScale(90)}} />
       </ScrollView>
       {/* } */}
       <View

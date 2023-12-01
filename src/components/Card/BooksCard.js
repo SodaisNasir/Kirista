@@ -35,7 +35,7 @@ const BooksCard = (props) => {
       </View>
       <View style={{flex: 1.6,paddingVertical: verticalScale(20)}}>
         <View style={{flex:1,justifyContent: 'center'}}>
-        <Text numberOfLines={2} style={[
+        <Text numberOfLines={1} style={[
               {color: Theme === 'dark' ? Color.White : Color.DarkTextColor},
               styles.TitleStyle,
             ]}>{props.title}</Text>

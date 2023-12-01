@@ -77,30 +77,29 @@ const Searchbar = () => {
 
   
   const showData = (item) => {
-    setEvent([item])
-    setParishes([item])
-    setBook([item])
-    setShow(true);
-    setIsSearchBarVisible(true);
-    // if(item.type == 'parish'){
-    //   setParishes([item])
-    //   setShow(true);
-    //   setIsSearchBarVisible(true);
-    //   setBook(null)
-    //   setEvent(null)
-    // }else if(item.type == 'event'){
-    //   setEvent([item])
-    //   setShow(true);
-    //   setIsSearchBarVisible(true);
-    //   setBook(null)
-    //   setParishes(null)
-    // }else{
-    //   setBook([item])
-    //   setShow(true);
-    //   setIsSearchBarVisible(true);
-    //   setEvent(null)
-    //   setParishes(null)
-    // }
+    // setEvent([item])
+    // setParishes([item])
+    // setBook([item])
+    // setShow(true);
+    // setIsSearchBarVisible(true);
+    if(item.type == 'parish'){
+      // setParishes([item])
+      // setShow(true);
+      // setIsSearchBarVisible(true);
+      // setBook(null)
+      // setEvent(null)
+      navigation.navigate("ViewParish",{item:item,id:item.id})
+    }else if(item.type == 'event'){
+      // setEvent([item])
+      // setShow(true);
+      // setIsSearchBarVisible(true);
+      // setBook(null)
+      // setParishes(null)
+      navigation.navigate("EventScreen",{item:item,id:item.id})
+    }else{
+      navigation.navigate("ViewManual",{item:item,id:item.id})
+
+    }
   };
 
 
@@ -361,7 +360,7 @@ const renderScene = SceneMap({
                     onPress={() => {
                       navigation.navigate('ViewParish', {
                         id: item.id,
-                        item:item
+                        item : item
                       });
                     }}
                     source={item?.image}

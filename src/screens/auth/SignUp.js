@@ -25,6 +25,7 @@ import IncorrectModal from '../../components/Modals/IncorrectModal';
 import { useFocusEffect } from '@react-navigation/native';
 import { getPerishCountry } from '../../redux/actions/UserAction';
 import Loader from '../../components/Modals/Loader';
+import AntDesign from "react-native-vector-icons/AntDesign"
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -106,6 +107,18 @@ const SignUp = ({navigation}) => {
             marginTop:
               w >= 768 && h >= 1024 ? moderateScale(10) : moderateScale(20),
           }}>
+             <View>
+              <View style={{marginTop:Platform.OS == "android" ? 10 :0}}>
+
+          <AntDesign
+            name="arrowleft"
+            size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+            color={Theme === 'dark' ? Color.White : Color.Black}
+            onPress={() => navigation.goBack()}
+            // onPress={props.goPress}
+          />
+              </View>
+        </View>
           <View style={{}}>
             <Kiristalogo />
           </View>
@@ -226,7 +239,7 @@ const SignUp = ({navigation}) => {
                 name="email"
                 rules={{
                   required: applanguage.RequiredEmail,
-                  value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  // value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                   pattern: {
                     value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                     message: applanguage.ValidEmail,

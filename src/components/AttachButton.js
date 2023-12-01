@@ -78,14 +78,14 @@ const AttachButton = props => {
             color: Color.TextColor,
           }}
         /> */}
-        <TouchableOpacity
-          style={{alignItems: 'center', justifyContent: 'center'}}>
+        {/* <TouchableOpacity
+          style={{alignItems: 'center', justifyContent: 'center'}}> */}
           <AttachCircle
             height={
               w >= 768 && h >= 1024 ? verticalScale(20) : verticalScale(30)
             }
           />
-        </TouchableOpacity>
+        {/* </TouchableOpacity> */}
       </View>
     </View>
   );

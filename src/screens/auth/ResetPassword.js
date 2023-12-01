@@ -83,7 +83,7 @@ const ResetPassword = ({navigation}) => {
               name="email"
               rules={{
                 required: applanguage.RequiredEmail,
-                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                // value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                 pattern: {
                   value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                   message: applanguage.ValidEmail,

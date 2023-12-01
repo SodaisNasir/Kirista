@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head></head>
+<head>
+  
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
+  </head>
 <body>
    
    <div id="chapterback" style="width:100%;height:100px;background: #F1F6FD;position: fixed;top: 0;left: 0; color: #797b7f; padding-left: 20px;padding-top: 30px;"><h2 id="chapter" style="margin-top: 50px;">Chapter 1</h2></div>
@@ -12,7 +15,22 @@
 </body>
 
 <script  type="text/javascript">
-
+function scrollFinished() {
+    var v = document.getElementsByClassName('tittle').length
+    var currentScrollPosition = window.pageYOffset;
+    for(var i= 1; i<v; i++){
+        var j = i+1
+        t = document.getElementById("tittle"+i).offsetTop;
+        t2 = document.getElementById("tittle"+j).offsetTop;
+        if(currentScrollPosition < t2 && currentScrollPosition > t){
+            // alert(t+">"+currentScrollPosition+"<"+t2+"="+i)
+            var val = 'tittle'+i
+            eleemtnnumber = i;
+            document.getElementById('chapter').innerHTML = document.getElementById(val).innerText
+        }
+    }
+   
+}
 
 async function loadXMLDoc(bookid) {
 
@@ -65,7 +83,7 @@ if (localStorage.hasOwnProperty(bookid)) {
          ).then(SaveBook(bookid))
          
      }
- xhttp.open("GET", "https://sassolution.org/kirista/api/book-chapter/"+bookid, true);
+ xhttp.open("GET", "https://api.kirista.com/api/book-chapter/"+bookid, true);
  xhttp.send();
 }
 }
@@ -146,6 +164,7 @@ var currentposition = 1
 var lastScrollTop = 0;
 var Height = window.innerHeight;
 
+var scrollTimer = -1;
 showScrollTop = () =>{
     const currentScrollPosition = window.pageYOffset+1;
     t = document.getElementById('book').clientHeight;
@@ -158,6 +177,11 @@ showScrollTop = () =>{
         Chapping('up')
     } // else was horizontal scroll
     lastScrollTop = st <= 0 ? 0 : st;
+
+    if (scrollTimer != -1){
+        clearTimeout(scrollTimer);
+    }
+    scrollTimer = window.setTimeout("scrollFinished()", 100);
 }
 window.addEventListener('scroll', showScrollTop)
 

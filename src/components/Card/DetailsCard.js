@@ -31,6 +31,8 @@ const DetailsCard = props => {
         {
           flexDirection: 'row',
           alignItems: 'center',
+          justifyContent:'center',
+          paddingHorizontal:scale(15)
         },
       ]}>
       <View
@@ -47,7 +49,7 @@ const DetailsCard = props => {
           ]
           //
         }>
-          {IOS ? (
+          {/* {IOS ? (
             <Image
             resizeMode='contain'
             style={{
@@ -68,8 +70,18 @@ const DetailsCard = props => {
          }}
          resizeMode={FastImage.resizeMode.contain}
        />
-          )}
-           
+          )} */}
+           <FastImage
+            style={{
+             height: '100%',
+             width: '100%'
+           }}
+         source={{
+           uri: props.source,
+           priority: FastImage.priority.normal,
+         }}
+         resizeMode={FastImage.resizeMode.contain}
+       />
       </View>
       <View
         style={{

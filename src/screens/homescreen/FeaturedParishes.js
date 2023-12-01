@@ -48,6 +48,8 @@ const FeaturedParishes = () => {
         style={{
           backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
+        edges={["top"]}
+    
       />
       <View
         style={[
@@ -75,7 +77,7 @@ const FeaturedParishes = () => {
                 ? moderateVerticalScale(20)
                 : w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
-                : moderateVerticalScale(0),
+                : 0,
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>

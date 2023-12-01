@@ -45,6 +45,7 @@ const PopularBooks = ({navigation}) => {
   return (
     <>
       <SafeAreaView
+      edges={["top"]}
         style={{
           backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
         }}
@@ -73,16 +74,26 @@ const PopularBooks = ({navigation}) => {
                 ? moderateVerticalScale(20)
                 : w >= 768 && h >= 1024
                 ? moderateVerticalScale(25)
-                : 0,
+                : moderateVerticalScale(0),
           }}
         />
-        <View>
-          {
+        <View
+          // style={{
+          //   paddingHorizontal:
+          //     w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(20),
+          // }}
+          >
+
+           
+
+            {
               myData.length > 0 ?
               <FlatList 
-              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
               data={myData?.slice(0, 20)}
-              contentContainerStyle={{ paddingBottom: moderateVerticalScale(80) }}
+              ListFooterComponent={<View
+              style={{height:verticalScale(50)}}
+              />}
               renderItem={({item}) => {
                 return(
                   <TouchableOpacity  
@@ -116,7 +127,7 @@ const PopularBooks = ({navigation}) => {
                   </View>
             }
           
-        
+          
         </View>
       </View>
     </>

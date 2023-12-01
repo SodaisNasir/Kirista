@@ -8,6 +8,7 @@ import {
   StatusBar,
   Platform,
   ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -33,7 +34,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ALLBOOKMARK, ID} from '../../redux/reducer';
 import {useEffect} from 'react';
 import TickModal from '../../components/Modals/TickModal';
-
+import ImageModal from '../../components/Modals/ImageModal';
+import FastImage from 'react-native-fast-image'
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
@@ -47,6 +49,12 @@ const ViewManual = ({navigation, route}) => {
   const user_details = useSelector(state => state.user_details);
   const allbookmark = useSelector(state => state.allbookmark);
   const [data, setData] = useState();
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -146,7 +154,18 @@ const ViewManual = ({navigation, route}) => {
     let shareImageBase64 = {
       title: item?.title,
       url: item.share,
-      subject: 'Share Book Link', //  for email
+      subject: 'Share Book Link',
+      message:`
+Book Details
+Book: ${item?.title} 
+Author: ${item?.author} 
+Release Date: ${item?.release_year}
+
+Kirista is mobile platform for reading books, finding parishes, learning about events and more.
+Powered by RCCG Continent 2 
+Developed by IDC Platforms 
+
+To learn more about Kirista and to download the app, go to` 
     };
     Share.open(shareImageBase64).catch(error => console.log(error));
   };
@@ -249,13 +268,25 @@ const ViewManual = ({navigation, route}) => {
         />
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.ImageViewStyle}>
-            <Image
+          <TouchableOpacity style={styles.ImageViewStyle}
+          onPress={() => {
+          toggleModal(true)
+          }}
+          >
+            <FastImage
+                              style={{height: '100%', width: '100%'}}
+                              source={{
+                                uri: item?.cover_image,
+                                priority: FastImage.priority.normal,
+                              }}
+                              resizeMode={FastImage.resizeMode.contain}
+                            />
+            {/* <Image
               resizeMode="contain"
               source={{uri: item?.cover_image}}
               style={{height: '100%', width: '100%', borderRadius: scale(10)}}
-            />
-          </View>
+            /> */}
+          </TouchableOpacity>
           <View style={{marginTop: verticalScale(10)}}>
             <Text
               style={[
@@ -459,7 +490,17 @@ const ViewManual = ({navigation, route}) => {
 
           <View style={{height: verticalScale(6)}}></View>
         </ScrollView>
-
+        <ImageModal
+          blurRadius={14}
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
+          swipeDirection="left"
+          onSwipeComplete={() => setModalVisible(false)}
+          onRequestClose={() => setModalVisible(false)}
+          OptionSelect={() => setModalVisible(false)}
+          onPressClose={() => setModalVisible(false)}
+          uri={item?.cover_image}
+        />
         <TickModal
           text={msg}
           onPress={() => setCheck(false)}

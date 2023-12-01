@@ -47,7 +47,7 @@ import Contact from '../../assets/icons/contact.svg';
 import CustomSwitch from '../../components/CustomSwitch';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {LOGIN, USER_DETAILS} from '../../redux/reducer';
+import {IS_GUEST, LOGIN, USER_DETAILS} from '../../redux/reducer';
 import BottomTab from '../../constant/BottomTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LogOut } from '../../redux/actions/AuthAction';
@@ -60,6 +60,7 @@ const SettingsMore = () => {
   const [email, setEmail] = useState(null);
   const userData = useSelector(state => state.user_details)
   const applanguage = useSelector(state => state.applanguage)
+  const guestId = useSelector(state => state.guestId)
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const Theme = useSelector(state => state.mode)
@@ -77,6 +78,10 @@ const SettingsMore = () => {
 
   const is_guest = useSelector(state => state.is_guest);
 
+  const guestLogout = () =>{
+    dispatch({type: IS_GUEST, payload: false});
+    dispatch({type: USER_DETAILS, payload: null});
+  }
   
   return (
     <>
@@ -132,7 +137,7 @@ const SettingsMore = () => {
           <View style={[styles.MainView]}>
             <TouchableOpacity
             activeOpacity={1}
-            onPress={() => is_guest ? dispatch({type: USER_DETAILS, payload: null}) : console.log('asdf')}
+            onPress={() => is_guest ? guestLogout() : console.log('asdf')}
               style={[
                 styles.UserInfo,
                 {
@@ -208,7 +213,7 @@ const SettingsMore = () => {
                           }}>
                           ID:{' '}
                         </Text>
-                        AND00000395
+                        {guestId}
                       </Text>
                       </View>
                   ) : (
@@ -638,7 +643,7 @@ const SettingsMore = () => {
           <View style={styles.SocialBox}>
             <TouchableOpacity
               onPress={() =>
-                Linking.openURL('https://www.facebook.com/idcplatforms')
+                Linking.openURL('https://www.facebook.com/Kiristahq')
               }
               style={[styles.IconBox]}>
               <FontAwesome5
@@ -649,7 +654,7 @@ const SettingsMore = () => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                Linking.openURL('https://www.instagram.com/idcplatforms/')
+                Linking.openURL('https://www.instagram.com/Kiristahq/')
               }
               style={styles.IconBox}>
               <Entypo
@@ -660,7 +665,7 @@ const SettingsMore = () => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                Linking.openURL('https://twitter.com/idcplatforms')
+                Linking.openURL('https://twitter.com/Kiristahq')
               }
               style={styles.IconBox}>
               <Entypo
@@ -675,7 +680,7 @@ const SettingsMore = () => {
               alignSelf: 'center',
               height: verticalScale(40),
             }}>
-            <Text style={[styles.VersionText]}>{applanguage.Version} 1.0.0</Text>
+            <Text style={[styles.VersionText]}>{applanguage.Version} 1.3.1</Text>
           </View>
           {is_guest ? null : (
             <>

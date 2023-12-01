@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  LogBox,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import {Color} from '../../utils/Colors';
@@ -69,10 +70,12 @@ const ParishesResult = ({navigation,route}) => {
         showsVerticalScrollIndicator={false}
         data={data}
         renderItem={({item}) => {
+          console.log("PARISH DATA ==> (EACH)",item);
           return (
             <TouchableOpacity
               onPress={() => navigation.navigate('ViewParish',{
-                id:item.id
+                id:item.id,
+                item:item
               })}
               style={{
                 height:

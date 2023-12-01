@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import LightSplash from './src/screens/auth/LightSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, ALLBOOKMARK, APPLANGUAGE, BANNER_DATA, BOOKMARK, EVENTBOOKMARK, GETLANGUAGE, LANGUAGE, MODE, PARISHBOOKMARK, PARISH_DATA, RCCG_DATA, USER_DETAILS} from './src/redux/reducer';
+import {ACTIVE_BOOKS, ACTIVE_EVENT, ADVERTISMENT, ALLBOOKMARK, APPLANGUAGE, BANNER_DATA, BOOKMARK, CHAPTERS, EVENTBOOKMARK, GETLANGUAGE, LANGUAGE, MODE, PARISHBOOKMARK, PARISH_DATA, RCCG_DATA, USER_DETAILS} from './src/redux/reducer';
 import {
   Platform,
   useColorScheme,
@@ -97,7 +97,9 @@ const App = () => {
     checkStatus();
   
     // setLanguage() 
-    OneSignal.setAppId('54b7926e-9b1f-4ba6-810c-97520670236f')
+    // OneSignal.setAppId('54b7926e-9b1f-4ba6-810c-97520670236f')
+    // OneSignal.setAppId("54b7926e-9b1f-4ba6-810c-97520670236f")
+    OneSignal.setAppId("957964f6-dafc-43d1-8380-2907045264f2")
 
     OneSignal.promptForPushNotificationsWithUserResponse()
 
@@ -120,6 +122,7 @@ const App = () => {
     OneSignal.addSubscriptionObserver(async (event) => {
       if (event.to.isSubscribed) {
         const state = await OneSignal.getDeviceState()
+        console.log("NOTI TOKEN ======>",state.userId);
         await AsyncStorage.setItem('onesignaltoken', state.userId)
       }
     })
@@ -143,13 +146,12 @@ const App = () => {
     manualbookmarkData()
     parishbookmarkData()
     eventbookmarkData()
-    getPopupData()
-    dispatch(show_popup(deviceData));
+    // getPopupData()
+    // dispatch(show_popup(deviceData));
   }, [isConnected])
   const bookmarkData = async () => {
     const bookMark = await AsyncStorage.getItem('bookmark')
     const convertData = JSON.parse(bookMark)
-    console.log("=================>",convertData );
     if(convertData != null){
       dispatch({type: BOOKMARK, payload: convertData})
     }else{
@@ -160,20 +162,20 @@ const App = () => {
     const chapterData = await AsyncStorage.getItem('chapters')
     const convertData = JSON.parse(chapterData)
     if(convertData != null){
-      dispatch({type: BOOKMARK, payload: convertData})
+      dispatch({type: CHAPTERS, payload: convertData})
     }else{
-      console.log('Empty Chapters')
+      console.log('===========Empty Chapters===========')
     }
   }
-  const getPopupData = async () => {
-  const popData  = await AsyncStorage.getItem('adv')
-  const cnvrtData = JSON.parse(popData)
-  if(cnvrtData){
-    dispatch({type:ADVERTISMENT, payload: cnvrtData})
-  }else{
-    console.log('MOnkey D. Luffy')
-  }
-  }
+  // const getPopupData = async () => {
+  // const popData  = await AsyncStorage.getItem('adv')
+  // const cnvrtData = JSON.parse(popData)
+  // if(cnvrtData){
+  //   dispatch({type:ADVERTISMENT, payload: cnvrtData})
+  // }else{
+  //   console.log('MOnkey D. Luffy')
+  // }
+  // }
   const manualbookmarkData = async () => {
     const bookMark = await AsyncStorage.getItem('allbookmark')
     const convertData = JSON.parse(bookMark)
@@ -213,7 +215,7 @@ const App = () => {
     }else if(cnvrtMode === 'device setting'){
       dispatch({type: MODE, payload: Theme})
     }else{
-      dispatch({type: MODE, payload: 'device setting'})
+      dispatch({type: MODE, payload: Theme})
     }
   }
   const getbannerData = async () => {
@@ -222,7 +224,7 @@ const App = () => {
     if(cnvrtbannerData != null){
       dispatch({type: BANNER_DATA, payload: cnvrtbannerData})
     }else{
-      dispatch(show_all_banner());
+      dispatch(show_all_banner(deviceData));
     }
   }
   const getbookData = async () => {

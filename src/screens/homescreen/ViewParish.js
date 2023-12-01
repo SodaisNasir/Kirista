@@ -10,6 +10,7 @@ import {
   Linking,
   ActivityIndicator,
   ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -33,7 +34,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PARISHBOOKMARK} from '../../redux/reducer';
 import DoubleText from '../../components/Loader/DoubleText';
 import TickModal from '../../components/Modals/TickModal';
-
+import ImageModal from '../../components/Modals/ImageModal';
+import NetInfo from '@react-native-community/netinfo';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
@@ -53,7 +55,9 @@ const ViewParish = ({route}) => {
   const [check, setCheck] = useState(false);
   const [msg, setMsg] = useState('');
   const [cordinates, setCordinates] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false);
 
+  const [isConnected, setIsConnected] = useState(false);
   // const mapProperty = () => {
   //   let json = data.length > 0 && typeof data?.map === "string" ? JSON.parse(data?.map) : data?.map;
   //   json = typeof json === "string" ? JSON.parse(json) : json;
@@ -61,9 +65,28 @@ const ViewParish = ({route}) => {
   //   setLocation(json)
   //   return `${json.latitude} - ${json.longitude}`;
   // };
+
+
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected);
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   useFocusEffect(
     useCallback(() => {
-      parish_by_id(setData, id, setLoading, setCordinates, item);
+      if (id && isConnected) {
+        parish_by_id(setData, id, setLoading, setCordinates, item);
+      }
       setCordinates(JSON.parse(item['map']));
     }, []),
   );
@@ -72,6 +95,18 @@ const ViewParish = ({route}) => {
       title: item.title,
       url: item.share,
       subject: 'Share Book Link', //  for email
+      message:`
+Parish Details
+Name: ${item?.title}  
+Province: ${item?.province} 
+Location: ${item?.location}
+
+Kirista is mobile platform for reading books, finding parishes, learning about events and more. 
+
+Powered by RCCG Continent 2 
+Developed by IDC Platforms 
+
+To learn more about Kirista and to download the app, go to`
     };
     Share.open(shareImageBase64).catch(error => console.log(error));
   };
@@ -167,14 +202,18 @@ const ViewParish = ({route}) => {
               paddingHorizontal:
                 w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
             }}>
-            {item?.image ? (
-              <View style={styles.ImageViewStyle}>
+            {!loading ? (
+              <TouchableOpacity style={styles.ImageViewStyle}
+              onPress={() => {
+                toggleModal(true)
+              }}
+              >
                 <Image
                   resizeMode="contain"
                   source={{uri: item?.image}}
                   style={{height: '100%', width: '100%'}}
                 />
-              </View>
+              </TouchableOpacity>
             ) : (
               <View style={styles.ImageViewStyle}>
                 <DoubleText
@@ -187,7 +226,7 @@ const ViewParish = ({route}) => {
               </View>
             )}
 
-            {item.title ? (
+            {!loading ? (
               <View
                 style={{
                   marginVertical:
@@ -224,7 +263,7 @@ const ViewParish = ({route}) => {
               </View>
             )}
 
-            {item.country ? (
+            {!loading ? (
               <View style={styles.DetailsViewStyle}>
                 <Text
                   style={[
@@ -259,7 +298,7 @@ const ViewParish = ({route}) => {
               </View>
             )}
 
-            {item.region ? (
+            {!loading ? (
               <View style={styles.DetailsViewStyle}>
                 <Text
                   style={[
@@ -294,7 +333,7 @@ const ViewParish = ({route}) => {
               </View>
             )}
 
-            {item.province ? (
+            {!loading ? (
               <View style={styles.DetailsViewStyle}>
                 <Text
                   style={[
@@ -329,7 +368,7 @@ const ViewParish = ({route}) => {
               </View>
             )}
 
-            {item.about ? (
+            {!loading ? (
               <View
                 style={{
                   marginBottom: verticalScale(20),
@@ -367,7 +406,7 @@ const ViewParish = ({route}) => {
               height: verticalScale(25),
             }}
           />
-          {item.address ? (
+          {!loading ? (
             <>
               <View
                 style={{
@@ -418,6 +457,7 @@ const ViewParish = ({route}) => {
                         w >= 768 && h >= 1024
                           ? verticalScale(25)
                           : verticalScale(20),
+                          marginBottom: cordinates?.latitude > 1 ? 0 : scale(30)
                     },
                     styles.LocationDetailsText,
                     {color: Theme === 'dark' ? Color.White : Color.TextColor2},
@@ -478,7 +518,7 @@ const ViewParish = ({route}) => {
                 // marginVertical: verticalScale(10),
                 marginTop: verticalScale(15),
               }}>
-              {item.phone_number ? (
+              {!loading ? (
                 <Text
                   style={[
                     {
@@ -519,7 +559,7 @@ const ViewParish = ({route}) => {
                 paddingHorizontal:
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
               }}>
-              {item.phone_number ? (
+              {!loading ? (
                 <Text
                   style={[
                     {color: Theme === 'dark' ? Color.White : Color.TextColor2},
@@ -543,7 +583,7 @@ const ViewParish = ({route}) => {
                   />
                 </View>
               )}
-              {item.email ? (
+              {!loading ? (
                 <Text
                   style={[
                     {color: Theme === 'dark' ? Color.White : Color.TextColor2},
@@ -566,7 +606,7 @@ const ViewParish = ({route}) => {
                   />
                 </View>
               )}
-              {item.website ? (
+              {!loading ? (
                 <Text
                   onPress={() => Linking.openURL(item.website)}
                   style={[
@@ -593,6 +633,17 @@ const ViewParish = ({route}) => {
               )}
             </View>
           </View>
+          <ImageModal
+          blurRadius={14}
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
+          swipeDirection="left"
+          onSwipeComplete={() => setModalVisible(false)}
+          onRequestClose={() => setModalVisible(false)}
+          OptionSelect={() => setModalVisible(false)}
+          onPressClose={() => setModalVisible(false)}
+          uri={item?.image}
+        />
         </ScrollView>
         <TickModal
           text={msg}

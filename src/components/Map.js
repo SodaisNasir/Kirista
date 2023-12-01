@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import {StyleSheet, View, Text, Image, PermissionsAndroid, ActivityIndicator} from 'react-native'
+import {StyleSheet, View, Text, Image, PermissionsAndroid, ActivityIndicator, Linking, Platform} from 'react-native'
 
-import {Marker} from 'react-native-maps'
+import {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import MapView, {PROVIDER_DEFAULT, Callout} from 'react-native-maps'
 import { Color } from '../utils/Colors'
 
@@ -22,7 +22,7 @@ export default function Map({data}) {
     <View style={styles.MainContainer}>
      {/* {data != null ?  */}
      <MapView
-     provider={PROVIDER_DEFAULT}
+     provider={PROVIDER_GOOGLE}
         style={styles.mapStyle}
         showsUserLocation={false}
         zoomEnabled={true}
@@ -32,8 +32,11 @@ export default function Map({data}) {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
+
         <Marker
-          coordinate={{
+      onPress={()=> Platform.OS == "ios" ? Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${data?.latitude},${data?.longitude}&travelmode=driving`): null}
+     
+      coordinate={{
             latitude: parseFloat(data?.latitude) ? parseFloat(data?.latitude) : 37.78825,
             longitude:parseFloat(data?.longitude)? parseFloat(data?.longitude) : -122.4324,
           }}

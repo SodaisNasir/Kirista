@@ -10,7 +10,6 @@ import {
   useColorScheme,
   Platform,
   ActivityIndicator,
-  ToastAndroid,
 } from 'react-native';
 import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -21,7 +20,7 @@ import {Font} from '../../utils/font';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import ImageModal from '../../components/Modals/ImageModal';
 import Map from '../../components/Map';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import Loading from '../../components/Modals/Loading';
 import { event_by_id, markData } from '../../redux/actions/UserAction';
 import moment from 'moment/moment';
@@ -34,11 +33,13 @@ import { useEffect } from 'react';
 import BannerLoader from '../../components/Loader/BannerLoader';
 import DoubleText from '../../components/Loader/DoubleText';
 import TickModal from '../../components/Modals/TickModal';
+import NetInfo from '@react-native-community/netinfo';
+
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-const EventScreen = ({route, navigation}) => {
+const EventScreen = ({route}) => {
   const {id,item} = route.params;
   const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false);
@@ -54,20 +55,33 @@ const EventScreen = ({route, navigation}) => {
   const [ setData] = useState(item);
   const [check, setCheck] = useState(false)
   const [msg, setMsg] = useState('')
+  const [isConnected, setIsConnected] = useState(false);
 
+const navigation = useNavigation()
 
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+      const unsubscribe = NetInfo.addEventListener(state => {
+        setIsConnected(state.isConnected);
+      });
+  
+      // Clean up the subscription when the component unmounts
+      return () => {
+        unsubscribe();
+      };
     }, []),
   );
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  console.log("MAD CORDINATES IN EVENT ==>", item );
   useFocusEffect(
     useCallback(() => {
-      setCordinates(JSON.parse(item["map"]))
-      event_by_id(setData, id, setLoading,setCordinates);
+      if (id && isConnected) {
+        event_by_id(setData, id, setLoading,setCordinates);
+      }
+      setCordinates(JSON.parse(item['map']));
     }, []),
   );
   const shareBook = (data) => {
@@ -75,6 +89,18 @@ const EventScreen = ({route, navigation}) => {
       title: data.title,
       url: item.share,
       subject: 'Share Book Link', //  for email
+      message:`
+Events Details
+Name: ${item?.title} 
+Location: ${item?.location} 
+Date: ${moment(item.start_date).format("MMM Do YY")} -  ${moment(item.end_date).format("MMM Do YY")}
+Time : ${item.start_time} - ${item.end_time}
+
+Kirista is mobile platform for reading books, finding parishes, learning about events and more.
+Powered by RCCG Continent 2 
+Developed by IDC Platforms
+
+To learn more about Kirista and to download the app, go to` 
     }
     Share.open(shareImageBase64).catch((error) => console.log(error))
   }
@@ -90,7 +116,8 @@ const EventScreen = ({route, navigation}) => {
     AddCalendarEvent.presentEventCreatingDialog(eventConfig)
       .then(eventId => {
         console.log('Event created with ID:', eventId);
-        ToastAndroid.show('Event added successfully', ToastAndroid.LONG)
+        setMsg(applanguage.SaveEvent)
+        setCheck(true)
       })
       .catch(error => {
         console.warn('Event creation error:', error);
@@ -121,7 +148,6 @@ const EventScreen = ({route, navigation}) => {
       setIsChecked(false)
       console.log('laraib =========>')
       markData(type,item.id,user_details)
-      // ToastAndroid.show('Bookmark removed', ToastAndroid.LONG)
       setMsg(applanguage.RemoveEvent)
       setCheck(true)
     } else {
@@ -130,14 +156,15 @@ const EventScreen = ({route, navigation}) => {
       console.log('laraib =========> Object not found in the array');
       setIsChecked(true);
       await AsyncStorage.setItem('eventbookmark', JSON.stringify([...eventbookmark, item]));
-      // ToastAndroid.show('Bookmark added successfully', ToastAndroid.LONG)
       setMsg(applanguage.SaveEvent)
       setCheck(true)
     }
   }
   return (
     <>
-    <SafeAreaView style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor}}/>
+    <SafeAreaView 
+    edges={["top"]}
+    style={{backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor ,}}/>
     <View
       style={[
         styles.Container,
@@ -154,6 +181,25 @@ const EventScreen = ({route, navigation}) => {
           BookPress={handleSubmit}
           saveicon={is_guest == true ? false :  true}
           timeicon={true}
+          // AuthHeaderStyle={{
+          //   height:
+          //     Platform.OS == 'android'
+          //       ? w >= 768 && h >= 1024
+          //         ? verticalScale(80)
+          //         : verticalScale(70)
+          //       : w >= 768 && h >= 1024
+          //       ? verticalScale(70)
+          //       : w <= 450 && h <= 750
+          //       ? verticalScale(50)
+          //       : verticalScale(40),
+          //   justifyContent: 'center',
+          //   paddingTop:
+          //     Platform.OS == 'android'
+          //       ? moderateVerticalScale(20)
+          //       : w >= 768 && h >= 1024
+          //       ? moderateVerticalScale(25)
+          //       : moderateVerticalScale(15),
+          // }}
           AuthHeaderStyle={{
             height:
               Platform.OS == 'android'
@@ -163,8 +209,8 @@ const EventScreen = ({route, navigation}) => {
                 : w >= 768 && h >= 1024
                 ? verticalScale(70)
                 : w <= 450 && h <= 750
-                ? verticalScale(50)
-                : verticalScale(50),
+                ? verticalScale(60)
+                : verticalScale(40),
             justifyContent: 'center',
             paddingTop:
               Platform.OS == 'android'
@@ -355,7 +401,7 @@ const EventScreen = ({route, navigation}) => {
               w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
           }}>
               
-              <Map item={cordinates} />
+              <Map data={cordinates} />
         </View>
              : 
               null
@@ -391,7 +437,6 @@ export default EventScreen;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: Color.White,
   },
   ImageViewStyle: {
     height: w >= 768 && h >= 1024 ? verticalScale(140) : verticalScale(200),

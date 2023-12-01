@@ -140,12 +140,12 @@ const Terms = ({navigation}) => {
             systemFonts={systemFonts}
              />
         </View>
-  
+        <View style={{height: verticalScale(50)}} />
           </ScrollView>
         )}
        
 
-
+       
 </View>
      
     </>

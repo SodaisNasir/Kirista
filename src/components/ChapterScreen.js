@@ -28,6 +28,7 @@ const ChapterScreen = (props) => {
   const chapters = useSelector(state => state.chapters)
   const singleArray = chapters.flat();
   const getData = singleArray.filter((item) => item.books_id == id)
+  console.log("GET DATA ===>",singleArray, id);
   // const updatedData = chapters.flatMap(item => item);
   // console.log('updatedData', updatedData)
 // const newvv = chapters.map(item => item.books_id)

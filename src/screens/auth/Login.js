@@ -7,12 +7,12 @@ import {
   Platform,
   StyleSheet,
   StatusBar,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import Kiristalogo from '../../constant/Kiristalogo';
 import {Font} from '../../assets/fonts/PoppinsFont';
-import {scale, verticalScale,moderateScale} from 'react-native-size-matters';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -21,19 +21,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
-import { sign_in } from '../../redux/actions/AuthAction';
+import {sign_in} from '../../redux/actions/AuthAction';
 import IncorrectModal from '../../components/Modals/IncorrectModal';
 import Loader from '../../components/Modals/Loader';
 import BlockedAccModal from '../../components/Modals/BlockedAccModal';
-
+import AntDesign from "react-native-vector-icons/AntDesign"
 
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
-  const Theme = useSelector(state => state.mode)
-  const applanguage = useSelector(state => state.applanguage)
+  const Theme = useSelector(state => state.mode);
+  const applanguage = useSelector(state => state.applanguage);
 
   const {
     control,
@@ -55,10 +55,11 @@ const Login = ({navigation}) => {
   // const fourInchLandscape = w <= 350 && h <= 600;
 
   const [email, setEmail] = useState(null);
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(false);
   const [isVisible, setVisible] = useState(true);
   const [loader, setLoader] = useState(false);
   const [blocked, setBlocked] = useState(false);
+
   useFocusEffect(
     useCallback(() => {
       navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
@@ -66,7 +67,7 @@ const Login = ({navigation}) => {
   );
 
   const onSubmit = data => {
-    dispatch(sign_in(data,setCheck,setLoader,setBlocked));
+    dispatch(sign_in(data, setCheck, setLoader, setBlocked));
   };
   return (
     <SafeAreaView
@@ -76,8 +77,19 @@ const Login = ({navigation}) => {
         paddingHorizontal:
           w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(20),
       }}>
-      <StatusBar backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White} />
+      <StatusBar
+        backgroundColor={Theme === 'dark' ? Color.DarkTheme : Color.White}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          <AntDesign
+            name="arrowleft"
+            size={w >= 768 && h >= 1024 ? scale(16) : scale(24)}
+            color={Theme === 'dark' ? Color.White : Color.Black}
+            onPress={() => navigation.goBack()}
+            // onPress={props.goPress}
+          />
+        </View>
         <View
           style={{
             marginTop: '0%',
@@ -120,13 +132,12 @@ const Login = ({navigation}) => {
               paddingVertical:
                 w >= 768 && h >= 1024 ? moderateScale(15) : moderateScale(15),
             }}>
-               
             <CustomInput
               control={control}
               name="email"
               rules={{
                 required: applanguage.RequiredEmail,
-                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                // value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                 pattern: {
                   value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
                   message: applanguage.ValidEmail,
@@ -135,27 +146,26 @@ const Login = ({navigation}) => {
               onChangeText={txt => {
                 setEmail(txt);
               }}
-             
               text={applanguage.EmailAddress}
               placeholder={applanguage.EmailAddress}
               keyboardType="email-address"
             />
-               {errors.email && (
-            <Text style={[
-                    {
-                      fontSize: tabPotrait
-                        ? verticalScale(11)
-                        : fourInchLandscape
-                        ? scale(12)
-                        : scale(14),
-                    },
-                    styles.error,
-                  ]}>{errors.email.message} </Text>
-          )}
-          
+            {errors.email && (
+              <Text
+                style={[
+                  {
+                    fontSize: tabPotrait
+                      ? verticalScale(11)
+                      : fourInchLandscape
+                      ? scale(12)
+                      : scale(14),
+                  },
+                  styles.error,
+                ]}>
+                {errors.email.message}{' '}
+              </Text>
+            )}
           </View>
-
-       
 
           <View
             style={{
@@ -187,29 +197,30 @@ const Login = ({navigation}) => {
               PIname={isVisible ? 'eye-off-outline' : 'eye-outline'}
               onShowPass={() => setVisible(!isVisible)}
             />
-            
-              {errors.password && (
-            <Text style={[
-                    {
-                      fontSize: tabPotrait
-                        ? verticalScale(11)
-                        : fourInchLandscape
-                        ? scale(12)
-                        : scale(14),
-                    },
-                    styles.error,
-                  ]}>{errors.password.message} </Text>
-          )}
-          </View>
 
-        
+            {errors.password && (
+              <Text
+                style={[
+                  {
+                    fontSize: tabPotrait
+                      ? verticalScale(11)
+                      : fourInchLandscape
+                      ? scale(12)
+                      : scale(14),
+                  },
+                  styles.error,
+                ]}>
+                {errors.password.message}{' '}
+              </Text>
+            )}
+          </View>
         </View>
 
         <View
           style={{
             // marginHorizontal: '5%',
             paddingVertical:
-            w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
+              w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(30),
           }}>
           <CustomButton
             onPress={handleSubmit(onSubmit)}
@@ -234,7 +245,7 @@ const Login = ({navigation}) => {
                 fontSize: w >= 768 && h >= 1024 ? scale(8) : scale(15),
                 color: Theme === 'dark' ? Color.White : Color.TextColor,
               }}>
-             {applanguage.ForgotPassword}
+              {applanguage.ForgotPassword}
             </Text>
           </TouchableOpacity>
           <View
@@ -253,7 +264,7 @@ const Login = ({navigation}) => {
                 fontSize: w >= 768 && h >= 1024 ? scale(9) : scale(13),
                 color: Theme === 'dark' ? Color.White : Color.TextColor,
               }}>
-             {applanguage.LoginText}
+              {applanguage.LoginText}
               <Text
                 onPress={() => navigation.navigate('SignUp')}
                 style={{
@@ -270,23 +281,19 @@ const Login = ({navigation}) => {
       </ScrollView>
 
       <BlockedAccModal
-      onBackdropPress={() => setBlocked(false)}
-      isVisible={blocked}
-      text={applanguage.CheckAcc}
-      text2={applanguage.ContctSup}
+        onBackdropPress={() => setBlocked(false)}
+        isVisible={blocked}
+        text={applanguage.CheckAcc}
+        text2={applanguage.ContctSup}
       />
 
-
       <IncorrectModal
-          text={applanguage.Invalid}
-          onPress={() => setCheck(false)}
-          onBackdropPress={() => setCheck(false)}
-          isVisible={check}
-        />
-        <Loader
-   onBackdropPress={() => setLoader(false)}
-   isVisible={loader}
-/> 
+        text={applanguage.Invalid}
+        onPress={() => setCheck(false)}
+        onBackdropPress={() => setCheck(false)}
+        isVisible={check}
+      />
+      <Loader onBackdropPress={() => setLoader(false)} isVisible={loader} />
     </SafeAreaView>
   );
 };
@@ -299,7 +306,6 @@ const styles = StyleSheet.create({
     // marginLeft: scale(25),
     marginTop: 5,
     paddingHorizontal: verticalScale(10),
-   
   },
 });
 

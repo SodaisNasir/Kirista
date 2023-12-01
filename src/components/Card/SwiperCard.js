@@ -49,7 +49,7 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
             height: verticalScale(500),
             
           }}>
-            {IOS ? (
+            {/* {IOS ? (
               <Image
                 resizeMode="contain"
                 style={{
@@ -68,7 +68,15 @@ const SwiperCard = ({source, live, text_subText,lastText}) => {
                  }}
                  resizeMode={FastImage.resizeMode.contain}
                />
-            )}
+            )} */}
+            <FastImage
+                 style={{height: '100%', width: '100%',  position: 'absolute'}}
+                 source={{
+                   uri: source,
+                   priority: FastImage.priority.normal,
+                 }}
+                 resizeMode={FastImage.resizeMode.contain}
+               />
         </View>
         <View
           style={{

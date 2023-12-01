@@ -60,6 +60,9 @@ const BottomTabNavigator = () => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
+       tabBarStyle:{
+        display: "none"
+       }
       }}>
       <Tab.Screen
         name="Home"
@@ -247,6 +250,7 @@ function AllHome() {
         component={ParishesResult}
         options={{animation: 'fade_from_bottom'}}
       />
+      
     </Stack.Navigator>
   );
 }
@@ -280,10 +284,17 @@ function LibraryStack() {
         component={ViewManual}
         options={{animation: 'fade_from_bottom'}}
       />
-            <Tab.Screen
+      
+        <Tab.Screen
         name="ViewBookTitle"
         component={ViewBookTitle}
       />
+       <Stack.Screen
+        name="Readtwo"
+        component={Readtwo}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      
     </Stack.Navigator>
   );
 }

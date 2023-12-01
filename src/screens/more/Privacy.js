@@ -137,7 +137,8 @@ const type = 'Privacy'
     />
            
           </View>
-          
+          <View style={{height: verticalScale(50)}} />
+
         </ScrollView>
         )}
         {/* <View

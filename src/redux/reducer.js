@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const SPLASH_SCREEN = 'SPLASH_SCREEN';
 export const IS_GUEST = 'IS_GUEST';
+export const GUEST_ID = 'GUEST_ID';
 export const USER_DETAILS = 'USER_DETAILS';
 export const OTP_SEND = 'OTP_SEND';
 export const MODE = 'MODE';
@@ -27,9 +28,10 @@ export const  ADVERTISMENT = 'ADVERTISMENT'
 export const  ID = 'ID'
 export const  GETLIBRARYDATA = 'GETLIBRARYDATA'
 export const  ADVMODAL = 'ADVMODAL'
-
+export const  APPSTATE = 'APPSTATE'
 
 const initialState = {
+  appState:0,
   userEmail: null,
   perishData: [],
   splash_screen: null,
@@ -57,6 +59,7 @@ const initialState = {
   id: null,
   getlibrarydata: [],
   advmodal: false,
+  guestId: null
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -196,6 +199,16 @@ export const Reducer = (state = initialState, action) => {
         ...state,
         advmodal: action.payload,
       };
+      case APPSTATE:
+        return {
+          ...state,
+          appState: action.payload,
+        };
+        case GUEST_ID:
+        return {
+          ...state,
+          guestId: action.payload,
+        };
 
     default:
       return state;

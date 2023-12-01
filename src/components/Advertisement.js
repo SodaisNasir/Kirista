@@ -147,7 +147,7 @@ const seconds = props.seconds
                 alignSelf: 'center',
                 overflow: 'hidden',
               }}>
-                {IOS ? (
+                {/* {IOS ? (
                    <Image
                    style={{height: '100%', width: '100%', borderRadius: scale(20)}}
                    source={{
@@ -164,7 +164,15 @@ const seconds = props.seconds
                 }}
                 resizeMode={FastImage.resizeMode.contain}
               />
-                )}
+                )} */}
+                <FastImage
+                style={{height: '100%', width: '100%', borderRadius: scale(20)}}
+                source={{
+                  uri: Advertisement?.image,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
             </View>
             <View style={{maxWidth: '50%', alignSelf: 'center'}}>
               <Text

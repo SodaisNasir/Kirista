@@ -27,10 +27,12 @@ import DetailsCard from '../components/Card/DetailsCard';
 import Swiper from 'react-native-swiper';
 import {
   active_event,
+  getAppNotification,
   getBooks,
   getSearchData,
   parish,
   show_all_banner,
+  show_popup,
 } from '../redux/actions/UserAction';
 import SwiperCard from '../components/Card/SwiperCard';
 import moment from 'moment';
@@ -43,12 +45,13 @@ import FastImage from 'react-native-fast-image';
 import {useEffect} from 'react';
 import NetInfo from '@react-native-community/netinfo';
 import Advertisement from '../components/Advertisement';
-import {ADVMODAL} from '../redux/reducer';
+import {ADVMODAL, APPSTATE} from '../redux/reducer';
 import NoInternetModal from '../components/Modals/NoInternetModal';
+import TickModal from '../components/Modals/TickModal';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-
+const deviceData = Platform.OS;
 const HomeScreen = ({scrollViewRef}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -59,11 +62,14 @@ const HomeScreen = ({scrollViewRef}) => {
   const parishData = useSelector(state => state.parishData);
   const activeEvents = useSelector(state => state.activeEvents);
   const activeBooks = useSelector(state => state.activeBooks);
+  const AppState = useSelector(state => state.appState);
   const rccgData = useSelector(state => state.rccgData);
   const loader = useSelector(state => state.loader);
   const tabPotrait = w >= 768 && h >= 1024;
   const iosTab = w >= 820 && h >= 1180;
   const fourInchPotrait = w <= 380 && h <= 630;
+  const [swipe, setswipe] = useState(true);
+
   const [isConnected, setIsConnected] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [internet, setInternet] = useState(false);
@@ -71,10 +77,12 @@ const HomeScreen = ({scrollViewRef}) => {
   const advertisement = useSelector(state => state.Advertisement);
   const w = useWindowDimensions().width;
   const h = useWindowDimensions().height;
-  const [seconds, setSeconds] = useState(3);
+  const [seconds, setSeconds] = useState(4);
+  const [banner, setBanner] = useState(false);
 
   const IOS = Platform.OS == 'ios';
-  const deviceData = Platform.OS
+  const deviceData = Platform.OS;
+  console.log('ADD MODAL STSTUS ====>', advmodal);
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
@@ -98,25 +106,34 @@ const HomeScreen = ({scrollViewRef}) => {
   // );
   useFocusEffect(
     useCallback(() => {
-      // dispatch(show_all_banner());
-      // dispatch(parish());
-      // dispatch(active_event());
-      // dispatch(getBooks());
-      // dispatch(get_rccgData(language));
+      getAppNotification()
+      console.log('=======>', AppState);
+      if (isConnected) {
+        if (AppState == 0) {
+          dispatch(show_all_banner(deviceData));
+          dispatch(parish());
+          dispatch(active_event());
+          dispatch(getBooks());
+          dispatch(get_rccgData(language));
+          dispatch(show_popup(deviceData));
+         
+        }
+        dispatch({type: APPSTATE, payload: 1});
+      }
+      setswipe(true);
       dispatch(getSearchData());
     }, [isConnected]),
   );
   const onSubmit = async item => {
     const url = item?.app_page;
-    const supported = await Linking.canOpenURL(url);
-
-    // if (supported) {
-    navigation.navigate('CusWebView', {
-      link: url,
-    });
-    // } else {
-    //   console.log(`Cannot open URL: ${url}`);
-    // }
+    console.log(url);
+    if (url != null) {
+      navigation.navigate('CusWebView', {
+        link: url,
+      });
+    } else {
+      console.log(`Cannot open URL: ${url}`);
+    }
   };
   const handleClick = item => {
     navigation.navigate('ViewManual', {
@@ -135,7 +152,7 @@ const HomeScreen = ({scrollViewRef}) => {
   const handleRefresh = () => {
     if (isConnected) {
       setRefreshing(true);
-      dispatch(show_all_banner());
+      dispatch(show_all_banner(deviceData));
       dispatch(parish(deviceData));
       dispatch(active_event(deviceData));
       dispatch(getBooks(deviceData));
@@ -182,10 +199,12 @@ const HomeScreen = ({scrollViewRef}) => {
   };
   const onMdlSubmit = () => {
     if (advertisement?.book_name != null) {
+      dispatch({type: ADVMODAL, payload: false});
       navigation.navigate('ViewManual', {
         item: advertisement?.book,
       });
     } else {
+      dispatch({type: ADVMODAL, payload: false});
       navigation.navigate('AdvWebView', {
         link: advertisement?.app_page,
       });
@@ -222,7 +241,6 @@ const HomeScreen = ({scrollViewRef}) => {
   //   // Make sure your navigator is wrapped in a navigation container
   //   navigation.dispatch(resetAction);
   // };
-  console.log('activeBooks?.length',Math.ceil(activeBooks?.length / 2))
   return (
     <View
       style={{
@@ -244,6 +262,7 @@ const HomeScreen = ({scrollViewRef}) => {
       />
 
       <ScrollView
+        loop={false}
         showsVerticalScrollIndicator={false}
         ref={scrollViewRef}
         refreshControl={
@@ -259,7 +278,7 @@ const HomeScreen = ({scrollViewRef}) => {
           ]}>
           <Swiper
             key={bannerData?.length}
-            autoplayTimeout={5}
+            autoplayTimeout={3}
             autoplay={true}
             showsButtons={false}
             showsPagination={false}>
@@ -292,7 +311,7 @@ const HomeScreen = ({scrollViewRef}) => {
           </Swiper>
         </View>
 
-        <View>
+        <View style={{}}>
           <View
             style={{
               justifyContent: 'space-between',
@@ -328,133 +347,10 @@ const HomeScreen = ({scrollViewRef}) => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            // directionalLockEnabled={true}
-            // alwaysBounceVertical={false}
-            >
-                {activeBooks.length > 0 && !loader ? (
-              // <View style={{flexDirection: 'row',flexWrap: 'wrap',backgroundColor: 'red'}}>
-              //    {activeBooks.slice(0, 6).map((item, index) => {
-              //       return (
-              //         <>
-              //         <TouchableOpacity onPress={() => handleClick(item)}>
-              //           <View
-              //             style={{
-              //               height:
-              //                 w >= 768 && h >= 1024
-              //                   ? verticalScale(80)
-              //                   : verticalScale(100),
-              //               flexDirection: 'row',
-              //               overflow: 'hidden',
-              //               width:
-              //                 w >= 768 && h >= 1024 ? scale(200) : scale(250),
-              //               // marginLeft: index == 0 ? scale(10) : 0,
-              //               paddingLeft: 10,
-              //               margin: scale(-1),
-              //             }}>
-              //             <View
-              //               style={{
-              //                 justifyContent: 'center',
-              //                 alignItems: 'flex-start',
-              //               }}>
-              //               <View
-              //                 style={{
-              //                   height:
-              //                     w >= 768 && h >= 1024 ? scale(50) : scale(80),
-              //                   width:
-              //                     w >= 768 && h >= 1024 ? scale(60) : scale(100),
-              //                 }}>
-              //                 {IOS ? (
-              //                   <Image
-              //                     style={{height: '100%', width: '100%'}}
-              //                     source={{
-              //                       uri: item?.cover_image,
-              //                     }}
-              //                     resizeMode="contain"
-              //                   />
-              //                 ) : (
-              //                   <FastImage
-              //                     style={{height: '100%', width: '100%'}}
-              //                     source={{
-              //                       uri: item?.cover_image,
-              //                       priority: FastImage.priority.normal,
-              //                     }}
-              //                     resizeMode={FastImage.resizeMode.contain}
-              //                   />
-              //                 )}
-              //               </View>
-              //             </View>
-              //             <View
-              //               style={{
-              //                 // marginVertical: verticalScale(20),
-              //                 marginTop:
-              //                   w >= 768 && h >= 1024
-              //                     ? verticalScale(10)
-              //                     : verticalScale(13),
-              //                 marginLeft: scale(10),
-              //               }}>
-              //               <View
-              //                 style={{
-              //                   // justifyContent: 'center',
-              //                   flex: 1,
-              //                 }}>
-              //                 <Text
-              //                   numberOfLines={2}
-              //                   style={[
-              //                     {
-              //                       color:
-              //                         Theme === 'dark'
-              //                           ? Color.White
-              //                           : Color.DarkTextColor,
-              //                       paddingTop: fourInchPotrait ? 0 : scale(5),
-              //                     },
-              //                     styles.BooksTitleStyle,
-              //                   ]}>
-              //                   {item?.title}
-              //                   {/* Sunday School Teachers Manual */}
-              //                 </Text>
-              //                 {/* <Text
-              //                   style={[
-              //                     styles.BooksTitleStyle,
-              //                     {
-              //                       color:
-              //                         Theme === 'dark'
-              //                           ? Color.White
-              //                           : Color.DarkTextColor,
-              //                       marginTop:
-              //                         Platform.OS == 'ios'
-              //                           ? 0
-              //                           : verticalScale(-5),
-              //                     },
-              //                   ]}>
-              //                   {item?.category}
-              //                 </Text> */}
-              //               </View>
-              //               <View
-              //                 style={{
-              //                   flex: 0.5,
-              //                   // marginTop: tabPotrait
-              //                   //   ? verticalScale(1)
-              //                   //   : fourInchPotrait
-              //                   //   ? verticalScale(0.5)
-              //                   //   : verticalScale(2),
-              //                 }}>
-              //                 <Text style={styles.YearStyle}>
-              //                   {item?.release_year}
-              //                 </Text>
-              //               </View>
-              //             </View>
-              //           </View>
-              //         </TouchableOpacity>
-              //         </>
-              //       );
-              //     })}
-             
-          
-                
-              //  </View>
+            directionalLockEnabled={true}
+            alwaysBounceVertical={false}>
+            {activeBooks.length > 0 && !loader ? (
               <FlatList
-              key={Math.ceil(activeBooks?.length / 2).toString()}
-              numColumns={activeBooks?.length < 3 ? 1 : activeBooks?.length < 5 ? 2 : 3}
                 showsHorizontalScrollIndicator={false}
                 data={activeBooks?.slice(0, 6)}
                 renderItem={({item, index}) => {
@@ -486,7 +382,7 @@ const HomeScreen = ({scrollViewRef}) => {
                               width:
                                 w >= 768 && h >= 1024 ? scale(60) : scale(100),
                             }}>
-                            {IOS ? (
+                            {/* {IOS ? (
                               <Image
                                 style={{height: '100%', width: '100%'}}
                                 source={{
@@ -503,7 +399,15 @@ const HomeScreen = ({scrollViewRef}) => {
                                 }}
                                 resizeMode={FastImage.resizeMode.contain}
                               />
-                            )}
+                            )} */}
+                            <FastImage
+                              style={{height: '100%', width: '100%'}}
+                              source={{
+                                uri: item?.cover_image,
+                                priority: FastImage.priority.normal,
+                              }}
+                              resizeMode={FastImage.resizeMode.contain}
+                            />
                           </View>
                         </View>
                         <View
@@ -513,7 +417,7 @@ const HomeScreen = ({scrollViewRef}) => {
                               w >= 768 && h >= 1024
                                 ? verticalScale(10)
                                 : verticalScale(13),
-                            marginLeft: scale(10),
+                            // marginLeft: scale(0),
                           }}>
                           <View
                             style={{
@@ -570,7 +474,10 @@ const HomeScreen = ({scrollViewRef}) => {
                     </TouchableOpacity>
                   );
                 }}
-        
+                key={Math.ceil(activeBooks?.length / 2).toString()}
+                numColumns={
+                  activeBooks?.length < 3 ? 1 : activeBooks?.length < 5 ? 2 : 3
+                }
               />
             ) : (
               <>
@@ -579,13 +486,12 @@ const HomeScreen = ({scrollViewRef}) => {
               </>
             )}
           </ScrollView>
-          
         </View>
         <View
           style={[
             {
               backgroundColor:
-                Theme === 'dark' ? Color.ExtraViewDark : Color.White,
+                Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
             },
             styles.SwiperViewTwo,
           ]}>
@@ -625,7 +531,7 @@ const HomeScreen = ({scrollViewRef}) => {
                         }}
                         source={{uri: item.image}}
                       /> */}
-                      {IOS ? (
+                      {/* {IOS ? (
                          <Image
                          resizeMode="cover"
                          style={{
@@ -649,8 +555,21 @@ const HomeScreen = ({scrollViewRef}) => {
                         }}
                         resizeMode={FastImage.resizeMode.cover}
                       />
-                      )}
-                      
+                      )} */}
+                      <FastImage
+                        style={{
+                          height: '100%',
+                          width: '100%',
+                          position: 'absolute',
+                          zIndex: 99,
+                        }}
+                        source={{
+                          uri: item.image,
+                          priority: FastImage.priority.normal,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                      />
+
                       <View
                         style={{
                           height: '100%',
@@ -788,18 +707,20 @@ const HomeScreen = ({scrollViewRef}) => {
                                   }}>
                                   {item.text2}
                                 </Text>
-                                <MaterialIcons
-                                  name="keyboard-arrow-right"
-                                  size={
-                                    w >= 768 && h >= 1024
-                                      ? scale(12)
-                                      : w < 450 && h < 750
-                                      ? scale(15)
-                                      : scale(18)
-                                  }
-                                  color={'white'}
-                                  // style={{bottom: 2, right: 3}}
-                                />
+                                {item.text2 && (
+                                  <MaterialIcons
+                                    name="keyboard-arrow-right"
+                                    size={
+                                      w >= 768 && h >= 1024
+                                        ? scale(12)
+                                        : w < 450 && h < 750
+                                        ? scale(15)
+                                        : scale(18)
+                                    }
+                                    color={'white'}
+                                    // style={{bottom: 2, right: 3}}
+                                  />
+                                )}
                               </View>
                             </View>
                           </View>
@@ -956,7 +877,7 @@ const HomeScreen = ({scrollViewRef}) => {
               <>
                 {activeEvents?.map((item, index) => {
                   return (
-                    index < 6 &&
+                    index < 5 &&
                     item?.featured === 'YES' && (
                       <DetailsCard
                         key={item.id}
@@ -1072,9 +993,9 @@ const styles = StyleSheet.create({
         ? scale(7)
         : w <= 380 && h <= 630
         ? scale(13)
-        : scale(15),
+        : scale(12),
     fontFamily: Font.Poppins600,
-    maxWidth: '90%',
+    maxWidth: '80%',
   },
   BigTextStyle: {
     color: Color.DarkTextColor,

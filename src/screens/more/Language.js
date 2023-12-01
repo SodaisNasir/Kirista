@@ -230,16 +230,6 @@ const Language = ({navigation,route}) => {
           isVisible={check}
         />
       <Header text={Provence ? 'Province' : Region ? 'Region' : 'Language'}  />
-       {/* AuthHeaderStyle={{
-            
-            height:
-            Platform.OS == 'android' ? verticalScale(100) :
-              w >= 768 && h >= 1024
-                ? verticalScale(50)
-                : w <= 450 && h <= 750
-                ? verticalScale(65)
-                : verticalScale(30),
-          }}/> */}
       <FlatList
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}

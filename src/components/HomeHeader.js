@@ -6,21 +6,21 @@ import {
   TouchableOpacity,
   Dimensions,
   useColorScheme,
-  Platform
+  Platform,
 } from 'react-native';
 import React from 'react';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Color} from '../utils/Colors';
 import {Font} from '../utils/font';
 import {useNavigation} from '@react-navigation/native';
-
-import SearchNormal from '../assets/icons/search-normal';
-import { useSelector } from 'react-redux';
+import FastImage from 'react-native-fast-image';
+import SearchNormal from '../assets/icons/search-normal.svg';
+import {useSelector} from 'react-redux';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 const HomeHeader = props => {
-  const Theme = useSelector(state => state.mode)
+  const Theme = useSelector(state => state.mode);
 
   const navigation = useNavigation();
   return (
@@ -28,34 +28,45 @@ const HomeHeader = props => {
       style={{
         paddingHorizontal:
           w >= 768 && h >= 1024 ? moderateScale(25) : moderateScale(25),
-        backgroundColor: Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
-        marginTop:Platform.OS == 'ios'?  verticalScale(-20) : 0,
-        paddingTop: Platform.OS == 'ios'? 0 : moderateScale(20)
+        backgroundColor:
+          Theme === 'dark' ? Color.ExtraViewDark : Color.HeaderColor,
+        marginTop: Platform.OS == 'ios' ? verticalScale(-20) : 0,
+        paddingTop: Platform.OS == 'ios' ? 0 : moderateScale(20),
       }}>
       <View style={{}}>
-        <View
-          style={[styles.HeaderBox,props.HeaderBox]}>
-            <TouchableOpacity activeOpacity={0.8} onPress={props.laraPress}>
+        <View style={[styles.HeaderBox, props.HeaderBox]}>
+          <TouchableOpacity activeOpacity={0.8} onPress={props.laraPress}>
+            <View
+              style={{
+                height:
+                  w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(60),
+                width: w >= 766 && h >= 1024 ? scale(80) : scale(130),
+                right: scale(5),
+                marginTop: verticalScale(15),
+              }}>
+              {/* <FastImage
+                style={{height: '100%', width: '100%'}}
+                source={{
+                  uri:
+                    Theme === 'dark'
+                      ? require('../assets/images/krista_main_dark.png')
+                      : require('../assets/images/krista_main.png'),
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              /> */}
 
-          <View
-            style={{
-              height:
-              w >= 768 && h >= 1024 ? verticalScale(35) : verticalScale(60),
-              width: w >= 766 && h >= 1024 ? scale(80) : scale(130),
-              right: scale(5),
-              marginTop: verticalScale(15),
-            }}>
-            <Image
-              source={
-                Theme === 'dark'
-                ? require('../assets/images/krista_main_dark.png')
-                : require('../assets/images/krista_main.png')
-              }
-              resizeMode="contain"
-              style={{height: '100%', width: '100%'}}
+              <Image
+                source={
+                  Theme === 'dark'
+                    ? require('../assets/images/krista_main_dark.png')
+                    : require('../assets/images/krista_main.png')
+                }
+                resizeMode="contain"
+                style={{height: '100%', width: '100%'}}
               />
-          </View>
-              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
           <View
             style={{
               justifyContent: 'center',
@@ -179,12 +190,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  HeaderBox:{
+  HeaderBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop:
-    Platform.OS == 'ios' && w >= 768 && h >= 1024
-      ? verticalScale(20)
-      : 0,
-  }
+      Platform.OS == 'ios' && w >= 768 && h >= 1024 ? verticalScale(20) : 0,
+  },
 });
