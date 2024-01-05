@@ -8,34 +8,34 @@ import {
   Platform,
   ToastAndroid,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
-import {Color} from '../../../utils/Colors';
+import React, { useRef, useState } from 'react';
+import { Color } from '../../../utils/Colors';
 import {
   verticalScale,
   scale,
   moderateVerticalScale,
   moderateScale,
 } from 'react-native-size-matters';
-import {Font} from '../../../utils/font';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import { Font } from '../../../utils/font';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import ChapterOptionModal from '../../../components/Modals/ChapterOptionModal';
 import DrawerScreen from '../../../components/DrawerScreen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontModal from '../../../components/Modals/FontModal';
 import ReadNavigator from '../../../components/ReadNavigator';
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 import {
   getChapters,
   getChaptersByID,
   sendReadBok,
 } from '../../../redux/actions/UserAction';
-import {useDispatch, useSelector} from 'react-redux';
-import {BOOKMARK, CHAPTERS} from '../../../redux/reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { BOOKMARK, CHAPTERS } from '../../../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import IncorrectModal from '../../../components/Modals/IncorrectModal';
-import {WebView} from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import moment from 'moment';
 import BookMarkModal from '../../../components/Modals/BookMarkModal';
 import DoubleText from '../../../components/Loader/DoubleText';
@@ -45,9 +45,10 @@ import HTML_FILE from '../../../../ios/resources/Index.html';
 const h = Dimensions.get('window').height;
 const w = Dimensions.get('window').width;
 
-const Readtwo = ({route}) => {
+const Readtwo = ({ route }) => {
   const dispatch = useDispatch();
-  const {id, bookData, chapterOne, url} = route.params;
+  const { id, bookData, chapterOne, url } = route.params;
+  const webViewRef = useRef(null);
   const chapters = useSelector(state => state.chapters);
   const bookmark = useSelector(state => state.bookmark);
   const isGuest = useSelector(state => state.is_guest);
@@ -84,7 +85,7 @@ const Readtwo = ({route}) => {
   const [tapShow, setTapShow] = useState(false);
   const [email, setEmail] = useState(null);
   const [positions, setPosition] = useState(false);
-  const webViewRef = useRef(null);
+
   const [webViewLoaded, setWebViewLoaded] = useState(false);
 
   useFocusEffect(
@@ -119,8 +120,8 @@ const Readtwo = ({route}) => {
       color != 'dark' && color != 'light'
         ? color
         : color === 'dark'
-        ? Color.DarkTheme
-        : Color.White,
+          ? Color.DarkTheme
+          : Color.White,
     ]; // Optional function arguments
 
     const injectedJavaScript = `
@@ -140,8 +141,8 @@ const Readtwo = ({route}) => {
       color != 'dark' && color != 'light'
         ? color
         : color === 'dark'
-        ? Color.White
-        : Color.Black,
+          ? Color.White
+          : Color.Black,
     ]; // Optional function arguments
 
     const injectedJavaScript = `
@@ -279,7 +280,7 @@ const Readtwo = ({route}) => {
 
   const loadXMLDoc = () => {
     const functionName = 'loadXMLDoc';
-    console.log(id);
+    console.log('laraib ===', id);
     const functionArguments = [id]; // Optional function arguments
     const injectedJavaScript = `
     (function() {
@@ -291,7 +292,6 @@ const Readtwo = ({route}) => {
     `;
     webViewRef?.current.injectJavaScript(injectedJavaScript);
   };
-
   const changeFontSize = () => {
     const functionName = 'changeFontSize';
     const functionArguments = [count]; // Optional function arguments
@@ -441,7 +441,7 @@ const Readtwo = ({route}) => {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
-
+    console.log('type', type)
     if (type == 'loader') {
       setTimeout(() => {
         setLoader(false);
@@ -454,7 +454,7 @@ const Readtwo = ({route}) => {
         const updatedData = bookmark.filter(
           item => item.scroll_id !== findData.scroll_id,
         );
-        dispatch({type: BOOKMARK, payload: updatedData});
+        dispatch({ type: BOOKMARK, payload: updatedData });
         await AsyncStorage.setItem('bookmark', JSON.stringify(updatedData));
         setisSelect(false);
         setMarkModal(false);
@@ -513,7 +513,7 @@ const Readtwo = ({route}) => {
       <View
         style={[
           styles.MainContainer,
-          {backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White},
+          { backgroundColor: Theme === 'dark' ? Color.DarkTheme : Color.White },
         ]}>
         {bottomModal ? (
           <View
@@ -534,7 +534,7 @@ const Readtwo = ({route}) => {
                   w >= 768 && h >= 1024 ? verticalScale(25) : verticalScale(15),
                 justifyContent: 'space-between',
               }}>
-              <View style={{justifyContent: 'center'}}>
+              <View style={{ justifyContent: 'center' }}>
                 {bottomModal ? (
                   <AntDesign
                     name="arrowleft"
@@ -547,7 +547,7 @@ const Readtwo = ({route}) => {
               {is_guest ? null : (
                 <TouchableOpacity
                   onPress={() => setMarkModal(true)}
-                  style={{justifyContent: 'center'}}>
+                  style={{ justifyContent: 'center' }}>
                   <Ionicons
                     name={isSelect ? 'bookmark' : 'bookmark-outline'}
                     // name={'bookmark'}
@@ -586,13 +586,13 @@ const Readtwo = ({route}) => {
                   ? w >= 768 && h >= 1024
                     ? verticalScale(70)
                     : w <= 450 && h <= 750
-                    ? verticalScale(110)
-                    : verticalScale(100)
+                      ? verticalScale(110)
+                      : verticalScale(100)
                   : w >= 768 && h >= 1024
-                  ? verticalScale(70)
-                  : w <= 450 && h <= 750
-                  ? verticalScale(60)
-                  : verticalScale(40),
+                    ? verticalScale(70)
+                    : w <= 450 && h <= 750
+                      ? verticalScale(60)
+                      : verticalScale(40),
             }}
           />
         ) : null}
@@ -604,8 +604,8 @@ const Readtwo = ({route}) => {
               backgroundColor != '' && show
                 ? backgroundColor
                 : Theme === 'dark'
-                ? Color.DarkTheme
-                : Color.White,
+                  ? Color.DarkTheme
+                  : Color.White,
           }}>
           {loader ? (
             <View
@@ -676,8 +676,8 @@ const Readtwo = ({route}) => {
                   backgroundColor != '' && show
                     ? backgroundColor
                     : Theme === 'dark'
-                    ? Color.DarkTheme
-                    : Color.White,
+                      ? Color.DarkTheme
+                      : Color.White,
               }}
               source={HTML_FILE}
               // source={{ uri: 'https://sassolution.org/kirista/kirista.html' }}
@@ -708,8 +708,8 @@ const Readtwo = ({route}) => {
                   backgroundColor != '' && show
                     ? backgroundColor
                     : Theme === 'dark'
-                    ? Color.DarkTheme
-                    : Color.White,
+                      ? Color.DarkTheme
+                      : Color.White,
               }}
               originWhitelist={['*']}
               source={{
@@ -832,13 +832,13 @@ const styles = StyleSheet.create({
         ? w >= 768 && h >= 1024
           ? verticalScale(70)
           : w <= 450 && h <= 750
-          ? verticalScale(110)
-          : verticalScale(100)
+            ? verticalScale(110)
+            : verticalScale(100)
         : w >= 768 && h >= 1024
-        ? verticalScale(70)
-        : w <= 450 && h <= 750
-        ? verticalScale(60)
-        : verticalScale(55),
+          ? verticalScale(70)
+          : w <= 450 && h <= 750
+            ? verticalScale(60)
+            : verticalScale(55),
     // height:verticalScale(140),
 
     justifyContent: 'flex-start',
@@ -847,10 +847,10 @@ const styles = StyleSheet.create({
         ? w >= 768 && h >= 1024
           ? moderateVerticalScale(40)
           : w <= 450 && h <= 750
-          ? moderateVerticalScale(50)
-          : moderateVerticalScale(60)
+            ? moderateVerticalScale(50)
+            : moderateVerticalScale(60)
         : // ? moderateVerticalScale(25)
-          moderateVerticalScale(25),
+        moderateVerticalScale(25),
     // paddingTop:moderateVerticalScale(50)
   },
   WelcomeText: {
